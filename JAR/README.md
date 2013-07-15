@@ -48,7 +48,7 @@ The structure of the template is as follows:
 ==========
 If you want to use this project, download all the files of the "JAR" folder into the same folder. Then just double clicl the .jar file.
 
-For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
+For customizing the metadata of your ontology, edit the prpoject properties of /config/config.properties. 
 
 The character ";" is used for lists (for instance first author; second author; third author)
 	
