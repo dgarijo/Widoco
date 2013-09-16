@@ -1,5 +1,5 @@
 /*
- *  Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ *  Copyright 2012-2013 Ontology Engineering Group, Universidad PolitÃ©cnica de Madrid, Spain
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -163,18 +163,18 @@ public class TextConstants {
 		"</style> "+
                 "</head>\n"+
                 //RDF-a Annotations
-                "<span resource=\"\" typeOf=\"foaf:Document\">"+
-                "<title property=\"dc:title\">"+Configuration.getTitle()+"</title>"+
-                "<span property=\"dc:created\" content=\""+Configuration.getDateOfRelease()+"\"></span>"+
+                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">"+
+                "<title property=\"dc:title schema:name\">"+Configuration.getTitle()+"</title>"+
+                "<span property=\"dc:created schema:dateCreated\" content=\""+Configuration.getDateOfRelease()+"\"></span>"+
                 "<span property=\"dc:isVersionOf\" resource=\""+Configuration.getLatestVersion()+"\"></span>"+
                 "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>"+
-                "<span property=\"dc:contributor prov:wasAttributedTo\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>"+
+                "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>"+
                 "</span>"+            
-                "<body resource=\""+Configuration.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology\">";
+                "<body resource=\""+Configuration.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">";
     public static String getHeadSection(){
         String head = "<div class=\"head\">\n"+
-        "<h1 property=\"dc:title\">"+Configuration.getTitle()+"</h1>\n"+
-        "<span property=\"dc:modified\" content=\""+Configuration.getDateOfRelease()+"\"></span>"+
+        "<h1 property=\"dc:title schema:name\">"+Configuration.getTitle()+"</h1>\n"+
+        "<span property=\"dc:modified schema:dateModified\" content=\""+Configuration.getDateOfRelease()+"\"></span>"+
         "<h2>Release "+Configuration.getDateOfRelease()+"</h2>\n"+
                 "<dl>\n"+
                 "<dt>This version:</dt>\n"+
@@ -184,7 +184,7 @@ public class TextConstants {
                 "</dl><dl>\n"+
                         getPreviousVersion()+
                 "<dt>Revision</dt>\n"+
-                        "<dd>"+Configuration.getRevision()+"</dd>\n"+
+                        "<dd property=\"schema:version\">"+Configuration.getRevision()+"</dd>\n"+
                         getAuthors()+
                         getContributors()+
                         getImports()+
@@ -264,7 +264,7 @@ public class TextConstants {
         //the same amount of names and institutions is assumed.
         try{
             for(int i=0; i<names.length;i++){
-                authors+="<dd><a property=\"dc:creator prov:wasAttributedTo\" resource=\""+urls[i]+"\" href=\""+urls[i]+"\">"+names[i]+"</a>, "+authorInst[i]+"</dd>";
+                authors+="<dd><a property=\"dc:creator schema:author prov:wasAttributedTo\" resource=\""+urls[i]+"\" href=\""+urls[i]+"\">"+names[i]+"</a>, "+authorInst[i]+"</dd>";
             }   
         }catch(Exception e){
             System.out.println("Authors, their urls or the instititions are not consistent");
@@ -280,7 +280,7 @@ public class TextConstants {
             String[] authorInst = Configuration.getContributorsInstitution().split(";");
             //the same amount of names and institutions is assumed.
             for(int i=0; i<names.length;i++){
-                authors+="<dd><a property=\"dc:contributor\" resource=\""+urls[i]+"\" href=\""+urls[i]+"\">"+names[i]+"</a>, "+authorInst[i]+"</dd>";
+                authors+="<dd><a property=\"dc:contributor schema:contributor\" resource=\""+urls[i]+"\" href=\""+urls[i]+"\">"+names[i]+"</a>, "+authorInst[i]+"</dd>";
             }   
         }catch(Exception e){
             System.out.println("No contributors added.");
@@ -295,7 +295,7 @@ public class TextConstants {
         String [] importsURLS = Configuration.getImportsURLs().split(";");
         try{
             for(int i = 0; i< importsNames.length;i++){
-                imports+="<dd><a property=\"owl:imports\" resource=\""+importsURLS[i]+"\" href="+importsURLS[i]+">"+importsNames[i]+"</a></dd>";
+                imports+="<dd><a property=\"owl:imports schema:mentions\" resource=\""+importsURLS[i]+"\" href=\""+importsURLS[i]+"\">"+importsNames[i]+"</a></dd>";
             }
         }catch(Exception e){
             System.out.println("No imports produced (or error processing the imports)!");
@@ -310,7 +310,7 @@ public class TextConstants {
             String [] extendedNames = Configuration.getExtendsNames().split(";");
             String [] extendedURLS = Configuration.getExtendsURLS().split(";");            
             for(int i = 0; i< extendedNames.length;i++){
-                extended+="<dd><a href="+extendedURLS[i]+">"+extendedNames[i]+"</a></dd>";
+                extended+="<dd><a href=\""+extendedURLS[i]+"\" property=\"schema:mentions\">"+extendedNames[i]+"</a></dd>";
             }                        
         }catch(Exception e){
             System.out.println("No extensions produced...");
@@ -323,7 +323,7 @@ public class TextConstants {
         String previousV = Configuration.getPreviousVersion();
         if(previousV!=null &&previousV!=null){
             return "</dl><dl><dt>Previous version:</dt>\n"+
-                      "<dd><a href=\""+Configuration.getPreviousVersion()+"\">"+Configuration.getPreviousVersion()+"</a></dd>\n"+
+                      "<dd><a property=\"schema:significantLink prov:wasRevisionOf\" href=\""+Configuration.getPreviousVersion()+"\">"+Configuration.getPreviousVersion()+"</a></dd>\n"+
                     "</dl><dl>\n";
         }
         else{ return "";}

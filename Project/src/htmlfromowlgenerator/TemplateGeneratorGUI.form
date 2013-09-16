@@ -119,11 +119,8 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldSavePath">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Output file path"/>
+        <Property name="text" type="java.lang.String" value="Select the name of the output file (.html)"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldSavePathActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chekUseURI">
       <Properties>
