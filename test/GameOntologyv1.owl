@@ -33,8 +33,7 @@
         <dc:creator>Janne Parkkila</dc:creator>
         <dc:creator>Maria Poveda</dc:creator>
         <dc:creator>Daniel Garijo</dc:creator>
-        <rdfs:comment xml:lang="en"
-            >An ontology for describing video games and game plays. Created by Janne Parkkila, Filip Radulovic, Daniel Garijo and Mar&#237;a Poveda.</rdfs:comment>
+        <rdfs:comment xml:lang="en">An ontology for describing video games and game plays. Created by Janne Parkkila, Filip Radulovic, Daniel Garijo and Mar&#237;a Poveda.</rdfs:comment>
         <dc:creator>Filip Radulovic</dc:creator>
     </owl:Ontology>
     
