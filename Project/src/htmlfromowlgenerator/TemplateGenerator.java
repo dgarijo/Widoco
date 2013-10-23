@@ -173,8 +173,7 @@ public class TemplateGenerator {
                 outTemplate.write(TextConstants.introductionSection);
                 outTemplate.write(TextConstants.nameSpaceDeclarations);
                 outTemplate.write(TextConstants.overviewSection);
-                outTemplate.write(TextConstants.ontologyDescriptionSection);
-                    if(!"".equals(termList)){
+                if(!"".equals(termList)){
                         outTemplate.write("<h4>Classes</h4>");
                         outTemplate.write(fixIds(termList));
                     }
@@ -187,6 +186,7 @@ public class TemplateGenerator {
                         outTemplate.write(fixIds(dataPropList));
                     }                    
                 outTemplate.write("</div>\n");//ending of the overview section
+                outTemplate.write(TextConstants.ontologyDescriptionSection);                   
 
                 outTemplate.write(TextConstants.crossReferenceSection);
                 if(!"".equals(termList)){
@@ -223,8 +223,9 @@ public class TemplateGenerator {
     private String fixIds(String textToBeFixed){    
         Iterator it = replacements.keySet().iterator();
         while(it.hasNext()){
-            String keyToReplace= (String)it.next();
-            textToBeFixed=textToBeFixed.replace(keyToReplace, replacements.get(keyToReplace));       
+            String keyToReplace = (String)it.next();
+            textToBeFixed = textToBeFixed.replace(keyToReplace, replacements.get(keyToReplace));
+            textToBeFixed = textToBeFixed.replace("<span>:", "<span>"); //if there are empty prefixes, we remove them.
         }
         return textToBeFixed;
     }

@@ -160,21 +160,21 @@ public class TextConstants {
                     "color:green;\n"+
                 "}\n"+
 
-		"</style> "+
+		"</style> \n"+
                 "</head>\n"+
                 //RDF-a Annotations
-                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">"+
-                "<title property=\"dc:title schema:name\">"+Configuration.getTitle()+"</title>"+
-                "<span property=\"dc:created schema:dateCreated\" content=\""+Configuration.getDateOfRelease()+"\"></span>"+
-                "<span property=\"dc:isVersionOf\" resource=\""+Configuration.getLatestVersion()+"\"></span>"+
-                "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>"+
-                "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>"+
-                "</span>"+            
-                "<body resource=\""+Configuration.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">";
+                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n"+
+                "<title property=\"dc:title schema:name\">"+Configuration.getTitle()+"</title>\n"+
+                "<span property=\"dc:created schema:dateCreated\" content=\""+Configuration.getDateOfRelease()+"\"></span>\n"+
+                "<span property=\"dc:isVersionOf\" resource=\""+Configuration.getLatestVersion()+"\"></span>\n"+
+                "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>\n"+
+                "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>\n"+
+                "</span>\n"+            
+                "<body resource=\""+Configuration.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n";
     public static String getHeadSection(){
         String head = "<div class=\"head\">\n"+
         "<h1 property=\"dc:title schema:name\">"+Configuration.getTitle()+"</h1>\n"+
-        "<span property=\"dc:modified schema:dateModified\" content=\""+Configuration.getDateOfRelease()+"\"></span>"+
+        "<span property=\"dc:modified schema:dateModified\" content=\""+Configuration.getDateOfRelease()+"\"></span>\n"+
         "<h2>Release "+Configuration.getDateOfRelease()+"</h2>\n"+
                 "<dl>\n"+
                 "<dt>This version:</dt>\n"+
@@ -185,13 +185,13 @@ public class TextConstants {
                         getPreviousVersion()+
                 "<dt>Revision</dt>\n"+
                         "<dd property=\"schema:version\">"+Configuration.getRevision()+"</dd>\n"+
-                        getAuthors()+
-                        getContributors()+
-                        getImports()+
-                        getExtends()+
+                        getAuthors()+"\n"+
+                        getContributors()+"\n"+
+                        getImports()+"\n"+
+                        getExtends()+"\n"+
                         "<dl>This work is licensed under a <a rel=\"license\" href=\""+Configuration.getLicenseURL()+"\">"+Configuration.getLicense()+"</a>.</dl>\n"+
-                        "<span property=\"dc:license\" resource=\""+Configuration.getLicenseURL()+"\"></span>"+
-                "<hr>"+
+                        "<span property=\"dc:license\" resource=\""+Configuration.getLicenseURL()+"\"></span>\n"+
+                "<hr>\n"+
         "</div>\n";
         return head;
     }
@@ -225,9 +225,11 @@ public class TextConstants {
          "<table>\n"+
                 "<caption> <a href=\"#ns\"> Table 1</a>: Namespaces used in the document </caption>\n"+
                 "<tbody>\n"+
-                "<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>\n"+
-                "<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>\n"+           
                 "<tr><td><b>"+Configuration.getOntologyPrefix()+"</b></td><td>&lt;"+Configuration.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
+                "<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>\n"+
+                "<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>\n"+                           
+                "<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>\n"+                           
+                "<tr><td><b>dcterms</b></td><td>&lt;http://purl.org/dc/terms/#&gt;</td></tr>\n"+
                 "</tbody>\n"+
           "</table>\n"+
           "</div>\n"+
