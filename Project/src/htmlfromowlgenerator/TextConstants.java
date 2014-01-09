@@ -20,9 +20,10 @@ package htmlfromowlgenerator;
  * @author Daniel Garijo
  */
 public class TextConstants {
-    public static final String opening= "<html xmlns=\"http://www.w3.org/1999/xhtml\" prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\"><head>\n";
+    public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\"><head>\n";
     public static final String styles=
-            "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"+		
+                "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"+
+                "<title property=\"dc:title schema:name\">"+Configuration.getTitle()+"</title>\n"+
 		"<style type=\"text/css\">\n"+
 		"/*This template uses the W3C css for working drafts, with small modifications.\n"+
 		   "Original copyright:\n"+
@@ -161,16 +162,15 @@ public class TextConstants {
                 "}\n"+
 
 		"</style> \n"+
-                "</head>\n"+
+                "</head>\n"+                           
+                "<body resource=\""+Configuration.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
                 //RDF-a Annotations
-                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n"+
-                "<title property=\"dc:title schema:name\">"+Configuration.getTitle()+"</title>\n"+
+                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n"+                
                 "<span property=\"dc:created schema:dateCreated\" content=\""+Configuration.getDateOfRelease()+"\"></span>\n"+
                 "<span property=\"dc:isVersionOf\" resource=\""+Configuration.getLatestVersion()+"\"></span>\n"+
                 "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>\n"+
                 "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>\n"+
-                "</span>\n"+            
-                "<body resource=\""+Configuration.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n";
+                "</span>\n";
     public static String getHeadSection(){
         String head = "<div class=\"head\">\n"+
         "<h1 property=\"dc:title schema:name\">"+Configuration.getTitle()+"</h1>\n"+
