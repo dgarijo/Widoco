@@ -32,7 +32,7 @@ public class Configuration {
         config = new Properties();
  
     	try {
-    		config.load(new FileInputStream("config"+File.separator+"config.properties"));
+    		config.load(new InputStreamReader(new FileInputStream("config"+File.separator+"config.properties"), "UTF-8"));
  
     	} catch (Exception ex) {
     		System.err.println("Error while reading configuration properties "+ex.getMessage());
