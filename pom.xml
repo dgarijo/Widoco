@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>es.oeg</groupId>
+  <artifactId>html-from-owl</artifactId>
+  <packaging>jar</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>HtmlFromOwl</name>
+  
+  <repositories>
+  	<repository>
+  		<id>maven-restlet</id>
+  		<name>Restlet Framework repository</name>
+  		<url>http://maven.restlet.org</url>
+  	</repository>
+  </repositories>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>org.restlet.jse</groupId>
+  		<artifactId>org.restlet</artifactId>
+  	</dependency>
+  	
+  	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>1.7.6</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.github.spullara.mustache.java</groupId>
+		<artifactId>compiler</artifactId>
+		<version>0.8.10</version>
+	</dependency>
+            
+  </dependencies>
+  
+  <dependencyManagement>
+  
+  	<dependencies>
+  		<dependency>
+  			<groupId>org.restlet.jse</groupId>
+  			<artifactId>org.restlet</artifactId>
+  			<version>2.2.0</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
+  
+  <build>
+  	<plugins>
+		  <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-jar-plugin</artifactId>
+		  <version>2.4</version>
+		  <configuration>
+			<archive>
+				<manifest>
+					<mainClass>es.oeg.htmlfromowlgenerator.TemplateGeneratorGUI</mainClass>
+				</manifest>
+			</archive>
+		  </configuration>
+		 </plugin>
+	 </plugins>
+ </build>
+  
+</project>
