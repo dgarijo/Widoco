@@ -23,13 +23,8 @@
 	  		<version>2.2.0</version>
 	  	</dependency>
 	  	
-	  <!-- 	<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.6</version>
-		</dependency>
-		-->
-		<dependency>
+	 
+	<dependency>
        <groupId>log4j</groupId>
        <artifactId>log4j</artifactId>
        <version>${ver.log4j}</version>
@@ -60,7 +55,6 @@
 			<version>0.8.10</version>
 		</dependency>
 		
-		<!-- Jena "sources" and "javadocs" deps commented out and moved to bottom of file. See comments there -->
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>apache-jena-libs</artifactId>
@@ -71,10 +65,7 @@
                 dependencies.  "provided" prevents that from happening.
             -->
             <scope>provided</scope>
-            <exclusions>
-                <!-- We want to prevent Jena's bundled dependencies from propagating and interfering with our
-                    other glue.ai OSGi     compliant deps.
-                -->
+            <exclusions>                
                 <exclusion>
                     <artifactId>lucene-core</artifactId>
                     <groupId>org.apache.lucene</groupId>
@@ -111,7 +102,6 @@
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-core</artifactId>
             <version>${jena.version}</version>
-            <!-- <scope>provided</scope> -->
          <exclusions>
           <exclusion>
            <artifactId>log4j</artifactId>
@@ -126,7 +116,6 @@
             <version>${jena-tdb.version}</version>
             <scope>provided</scope>
             <exclusions>
-                <!-- We want the OSGi-friendly version -->
                 <exclusion>
                     <artifactId>httpclient</artifactId>
                     <groupId>org.apache.httpcomponents</groupId>
@@ -168,7 +157,7 @@
   	  
     <plugins>
     
-   	  <plugin>
+   	  <plugin>   	  
 		  <groupId>org.apache.maven.plugins</groupId>
 		  <artifactId>maven-jar-plugin</artifactId>
 		  <version>2.4</version>                   
@@ -188,6 +177,7 @@
 		  </configuration>
 		 </plugin>
 		 
+		 <!-- copy the resources to the generated folder -->
 		 <plugin>
 		 	<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-resources-plugin</artifactId>
@@ -199,13 +189,12 @@
 					 	<goal>copy-resources</goal>
 					 </goals>
 					<configuration>
-						<!-- <outputDirectory>${project.build.directory}</outputDirectory> -->
 						<outputDirectory>jar/</outputDirectory>
 						<resources>
 						  <resource>
 							<directory>src/main/resources</directory>
 							<filtering>true</filtering>
-							<includes>
+							<includes> 
 							  <include>config/config.properties</include>
 							</includes>
 						  </resource>
@@ -228,11 +217,9 @@
 						<goal>copy-dependencies</goal>
 					</goals>
 					<configuration>
-						<!-- <includeGroupIds>org.slf4j,org.restlet.jse,org.apache.jena,log4j</includeGroupIds> -->
 						<outputDirectory>jar/dependency-jars/</outputDirectory>
 						<overWriteReleases>false</overWriteReleases>
               			<overWriteSnapshots>true</overWriteSnapshots>              
-						<!-- <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory> -->
 					</configuration>
 		  		</execution>
 		 	</executions>
