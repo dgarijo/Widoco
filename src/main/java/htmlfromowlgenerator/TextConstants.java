@@ -15,6 +15,13 @@
  */
 package htmlfromowlgenerator;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+
+
 /**
  *
  * @author Daniel Garijo
@@ -197,6 +204,7 @@ public class TextConstants {
     }
     public static final String abstractSection="<h2>Abstract</h2><p>Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
             + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b></p>\n";
+    //FIXME Cambios los UL por OL para que numere solito
     public static final String tableOfContentsSection="<div id=\"toc\">"+
             "<h2>Table of Contents</h2>\n"+
             "<ul><li>\n"+
@@ -329,6 +337,44 @@ public class TextConstants {
                     "</dl><dl>\n";
         }
         else{ return "";}
+    }
+    
+    public static String getNameSpaceDeclaration(){
+    	
+    	String prefixes = "";
+    	
+    	try {
+			Model model = ModelFactory.createDefaultModel();
+			model.read(Configuration.getThisVersion());			
+			for (String key:model.getNsPrefixMap().keySet()){
+				String value = model.getNsPrefixMap().get(key);
+				if (!value.isEmpty() && !key.equals("")){
+					System.out.println(key+":"+value);
+					prefixes = prefixes + "<tr><td><b>"+key+"</b></td><td>&lt;"+value+"&gt;</td></tr>\n";
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			prefixes = "<tr><td><b>"+Configuration.getOntologyPrefix()+"</b></td><td>&lt;"+Configuration.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
+            "<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>\n"+
+            "<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>\n"+                           
+            "<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>\n"+                           
+            "<tr><td><b>dcterms</b></td><td>&lt;http://purl.org/dc/terms/#&gt;</td></tr>\n";
+		}
+		
+		String nameSpaceDeclarations="<div id=\"namespacedeclarations\">\n"+
+        "<h2>1.1. Namespace declarations <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
+        "</p><div id=\"ns\" align=\"center\">\n"+
+         "<table>\n"+
+                "<caption> <a href=\"#ns\"> Table 1</a>: Namespaces used in the document </caption>\n"+
+                "<tbody>\n"+
+                prefixes+
+                "</tbody>\n"+
+          "</table>\n"+
+          "</div>\n"+
+        "</div></div>\n";
+    	return nameSpaceDeclarations;
     }
     
 }
