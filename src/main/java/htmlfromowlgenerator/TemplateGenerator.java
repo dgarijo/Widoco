@@ -117,7 +117,8 @@ public class TemplateGenerator {
             outTemplate.write(TextConstants.abstractSection);
             outTemplate.write(TextConstants.tableOfContentsSection);
             outTemplate.write(TextConstants.introductionSection);
-            outTemplate.write(TextConstants.nameSpaceDeclarations);
+            outTemplate.write(TextConstants.getNameSpaceDeclaration());
+//            outTemplate.write(TextConstants.nameSpaceDeclarations);
             outTemplate.write(TextConstants.overviewSection);
             outTemplate.write(TextConstants.ontologyDescriptionSection);
             outTemplate.write(TextConstants.crossReferenceSection);
@@ -171,7 +172,8 @@ public class TemplateGenerator {
                 outTemplate.write(TextConstants.abstractSection);
                 outTemplate.write(TextConstants.tableOfContentsSection);
                 outTemplate.write(TextConstants.introductionSection);
-                outTemplate.write(TextConstants.nameSpaceDeclarations);
+                outTemplate.write(TextConstants.getNameSpaceDeclaration());
+//                outTemplate.write(TextConstants.nameSpaceDeclarations);
                 outTemplate.write(TextConstants.overviewSection);
                 if(!"".equals(termList)){
                         outTemplate.write("<h4>Classes</h4>");

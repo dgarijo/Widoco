@@ -17,7 +17,7 @@ package htmlfromowlgenerator;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Properties;
 
 /**
@@ -27,13 +27,17 @@ import java.util.Properties;
 public class Configuration {
     private static Configuration conf = null;
     private Properties config = null;
+    final String configPath = "config"+File.separator+"config.properties";
     
     //read each of these parameters from a configuration file in a singleton
     private Configuration(){
         config = new Properties();
  
-    	try {
-    		config.load(new InputStreamReader(new FileInputStream("config"+File.separator+"config.properties"), "UTF-8"));
+    	try { 		
+    		URL root = htmlfromowlgenerator.TemplateGeneratorGUI.class.getProtectionDomain().getCodeSource().getLocation();
+    		String path = (new File(root.toURI())).getParentFile().getPath();
+    		
+			config.load(new FileInputStream(path+File.separator+configPath));
  
     	} catch (Exception ex) {
     		System.err.println("Error while reading configuration properties "+ex.getMessage());
