@@ -1,6 +1,10 @@
 Html Template Generator
 ===================
+Author: Daniel Garijo
 
+Contributors: Almudena Ruiz and Miguel Angel García.
+
+Description
 This project has been created to help you to create a complete documentation of your ontology.
 The purpose of this project is not to cover any of the functionalities created by other tools like LODE 
 (which describe the classes and properties of a given ontology). Instead, this project reuses 
