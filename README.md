@@ -49,14 +49,15 @@ The structure of the template is as follows:
 	
 	* 6. Acknowledgements
 	
+How to use HtmlTemplateGenerator
 ==========
-If you want to use this project, download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
+*Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
 
-For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
+*For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
 
-The character ";" is used for lists (for instance first author; second author; third author)
+*The character ";" is used for lists (for instance first author; second author; third author)
+Encoding issues
 ==========
-Encoding issues: 
-* If you have problems with accents or strange characters, please use the -Dfile.encoding=utf-8 option when running the .jar.
+If you have problems with accents or strange characters, please use the -Dfile.encoding=utf-8 option when running the .jar.
 	
 	
