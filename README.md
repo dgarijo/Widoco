@@ -2,7 +2,7 @@ Html Template Generator
 ===================
 Author: Daniel Garijo
 
-Contributors: Almudena Ruiz and Miguel Angel García.
+Contributors: Almudena Ruiz, Miguel Angel García and Oscar Corcho.
 
 Description
 This project has been created to help you to create a complete documentation of your ontology.
@@ -55,5 +55,8 @@ If you want to use this project, download all the files of the "JAR" folder into
 For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
 
 The character ";" is used for lists (for instance first author; second author; third author)
+==========
+Encoding issues: 
+* If you have problems with accents or strange characters, please use the -Dfile.encoding=utf-8 option when running the .jar.
 	
 	
