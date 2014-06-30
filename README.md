@@ -60,4 +60,5 @@ Encoding issues
 ==========
 If you have problems with accents or strange characters, please use the -Dfile.encoding=utf-8 option when running the .jar.
 	
+Current updates: Make the application a wizard, being able to load separate sections independently, publish the provenance of the vocabulary, possibility of adding a diagram, possibility of checking the ontology with OOPS
 	
