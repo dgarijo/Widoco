@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package htmlfromowlgenerator;
+package widoco;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -30,7 +30,7 @@ public class TextConstants {
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\"><head>\n";
     public static final String styles=
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"+
-                "<title property=\"dc:title schema:name\">"+Configuration.getTitle()+"</title>\n"+
+                "<title property=\"dc:title schema:name\">"+ReadConfigurationFileOld.getTitle()+"</title>\n"+
 		"<style type=\"text/css\">\n"+
 		"/*This template uses the W3C css for working drafts, with small modifications.\n"+
 		   "Original copyright:\n"+
@@ -170,34 +170,35 @@ public class TextConstants {
 
 		"</style> \n"+
                 "</head>\n"+                           
-                "<body resource=\""+Configuration.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
+                "<body resource=\""+ReadConfigurationFileOld.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
                 //RDF-a Annotations
                 "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n"+                
-                "<span property=\"dc:created schema:dateCreated\" content=\""+Configuration.getDateOfRelease()+"\"></span>\n"+
-                "<span property=\"dc:isVersionOf\" resource=\""+Configuration.getLatestVersion()+"\"></span>\n"+
+                "<span property=\"dc:created schema:dateCreated\" content=\""+ReadConfigurationFileOld.getDateOfRelease()+"\"></span>\n"+
+                "<span property=\"dc:isVersionOf\" resource=\""+ReadConfigurationFileOld.getLatestVersion()+"\"></span>\n"+
                 "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>\n"+
                 "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>\n"+
                 "</span>\n";
+    //missing specialization. MIssing alternate.
     public static String getHeadSection(){
         String head = "<div class=\"head\">\n"+
-        "<h1 property=\"dc:title schema:name\">"+Configuration.getTitle()+"</h1>\n"+
-        "<span property=\"dc:modified schema:dateModified\" content=\""+Configuration.getDateOfRelease()+"\"></span>\n"+
-        "<h2>Release "+Configuration.getDateOfRelease()+"</h2>\n"+
+        "<h1 property=\"dc:title schema:name\">"+ReadConfigurationFileOld.getTitle()+"</h1>\n"+
+        "<span property=\"dc:modified schema:dateModified\" content=\""+ReadConfigurationFileOld.getDateOfRelease()+"\"></span>\n"+
+        "<h2>Release "+ReadConfigurationFileOld.getDateOfRelease()+"</h2>\n"+
                 "<dl>\n"+
                 "<dt>This version:</dt>\n"+
-                "<dd><a href=\""+Configuration.getThisVersion()+"\">"+Configuration.getThisVersion()+"</a></dd>\n"+
+                "<dd><a href=\""+ReadConfigurationFileOld.getThisVersion()+"\">"+ReadConfigurationFileOld.getThisVersion()+"</a></dd>\n"+
                 "</dl><dl><dt>Latest version:</dt>\n"+
-                        "<dd><a href=\""+Configuration.getLatestVersion()+"\">"+Configuration.getLatestVersion()+"</a></dd>\n"+
+                        "<dd><a href=\""+ReadConfigurationFileOld.getLatestVersion()+"\">"+ReadConfigurationFileOld.getLatestVersion()+"</a></dd>\n"+
                 "</dl><dl>\n"+
                         getPreviousVersion()+
                 "<dt>Revision</dt>\n"+
-                        "<dd property=\"schema:version\">"+Configuration.getRevision()+"</dd>\n"+
+                        "<dd property=\"schema:version\">"+ReadConfigurationFileOld.getRevision()+"</dd>\n"+
                         getAuthors()+"\n"+
                         getContributors()+"\n"+
                         getImports()+"\n"+
                         getExtends()+"\n"+
-                        "<dl>This work is licensed under a <a rel=\"license\" href=\""+Configuration.getLicenseURL()+"\">"+Configuration.getLicense()+"</a>.</dl>\n"+
-                        "<span property=\"dc:license\" resource=\""+Configuration.getLicenseURL()+"\"></span>\n"+
+                        "<dl>This work is licensed under a <a rel=\"license\" href=\""+ReadConfigurationFileOld.getLicenseURL()+"\">"+ReadConfigurationFileOld.getLicense()+"</a>.</dl>\n"+
+                        "<span property=\"dc:license\" resource=\""+ReadConfigurationFileOld.getLicenseURL()+"\"></span>\n"+
                 "<hr>\n"+
         "</div>\n";
         return head;
@@ -210,9 +211,9 @@ public class TextConstants {
             "<ul><li>\n"+
             "<a href=\"#introduction\">1. Introduction</a></li>\n"+
                     "<ul><li><a href=\"#namespacedeclarations\">1.1 Namespace declarations</a></li></ul>\n"+
-            "<a href=\"#ontOverview\">2. "+Configuration.getOntologyName()+" Overview</a></li><li>\n"+
-            "<a href=\"#ontDescription\">3. "+Configuration.getOntologyName()+" Description</a></li>\n"+	
-            "<li><a href=\"#crossReference\">4. Cross reference for "+Configuration.getOntologyName()+" classes, properties and dataproperties</a></li>\n"+
+            "<a href=\"#ontOverview\">2. "+ReadConfigurationFileOld.getOntologyName()+" Overview</a></li><li>\n"+
+            "<a href=\"#ontDescription\">3. "+ReadConfigurationFileOld.getOntologyName()+" Description</a></li>\n"+	
+            "<li><a href=\"#crossReference\">4. Cross reference for "+ReadConfigurationFileOld.getOntologyName()+" classes, properties and dataproperties</a></li>\n"+
             "<ul>\n"+
             "        <li><a href=\"#classes\">4.1 Classes</a></li>\n"+
             "        <li><a href=\"#objectproperties\">4.2 Object Properties</a></li>\n"+
@@ -233,7 +234,7 @@ public class TextConstants {
          "<table>\n"+
                 "<caption> <a href=\"#ns\"> Table 1</a>: Namespaces used in the document </caption>\n"+
                 "<tbody>\n"+
-                "<tr><td><b>"+Configuration.getOntologyPrefix()+"</b></td><td>&lt;"+Configuration.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
+                "<tr><td><b>"+ReadConfigurationFileOld.getOntologyPrefix()+"</b></td><td>&lt;"+ReadConfigurationFileOld.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
                 "<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>\n"+
                 "<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>\n"+                           
                 "<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>\n"+                           
@@ -243,14 +244,14 @@ public class TextConstants {
           "</div>\n"+
         "</div></div>\n";
     public static final String overviewSection="<div id=\"ontOverview\">\n"+
-	"<h2>2. "+Configuration.getOntologyName()+" Overview <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
+	"<h2>2. "+ReadConfigurationFileOld.getOntologyName()+" Overview <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>Overview of the ontology goes here: a few sentences explaining the main concepts of the ontology</p>\n";
     public static final String ontologyDescriptionSection ="<div id=\"ontDescription\">\n"+
-	"<h2>3. "+Configuration.getOntologyName()+" Description <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
+	"<h2>3. "+ReadConfigurationFileOld.getOntologyName()+" Description <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>Complete description of the ontology: a diagram explaining how the classes are related, examples of usage, etc.</p></div>\n";
     public static final String crossReferenceSection="<div id=\"crossReference\">\n"+
-            "<h2>4. Cross reference for "+Configuration.getOntologyName()+" classes and properties</h2>\n"+
-            "This section provides details for each class and property defined by "+Configuration.getOntologyName()+".\n";
+            "<h2>4. Cross reference for "+ReadConfigurationFileOld.getOntologyName()+" classes and properties</h2>\n"+
+            "This section provides details for each class and property defined by "+ReadConfigurationFileOld.getOntologyName()+".\n";
     public static final String referencesSection="<div id=\"references\">\n"+
                     "<h2>5. References <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>Add your references here in a list. It is recommended to have them as a list.</p></div>\n";
@@ -268,9 +269,9 @@ public class TextConstants {
 
     private static String getAuthors() {
         String authors="</dl><dl><dt>Authors:</dt>\n";
-        String[] names = Configuration.getAuthors().split(";");
-        String[] urls = Configuration.getAuthorsURL().split(";");
-        String[] authorInst = Configuration.getAuthorInstitution().split(";");
+        String[] names = ReadConfigurationFileOld.getAuthors().split(";");
+        String[] urls = ReadConfigurationFileOld.getAuthorsURL().split(";");
+        String[] authorInst = ReadConfigurationFileOld.getAuthorInstitution().split(";");
         //the same amount of names and institutions is assumed.
         try{
             for(int i=0; i<names.length;i++){
@@ -285,9 +286,9 @@ public class TextConstants {
     private static String getContributors() {
         String authors="</dl><dl><dt>Contributors:</dt>\n";
         try{
-            String[] names = Configuration.getContributors().split(";");
-            String[] urls = Configuration.getContributorsURL().split(";");
-            String[] authorInst = Configuration.getContributorsInstitution().split(";");
+            String[] names = ReadConfigurationFileOld.getContributors().split(";");
+            String[] urls = ReadConfigurationFileOld.getContributorsURL().split(";");
+            String[] authorInst = ReadConfigurationFileOld.getContributorsInstitution().split(";");
             //the same amount of names and institutions is assumed.
             for(int i=0; i<names.length;i++){
                 authors+="<dd><a property=\"dc:contributor schema:contributor\" resource=\""+urls[i]+"\" href=\""+urls[i]+"\">"+names[i]+"</a>, "+authorInst[i]+"</dd>";
@@ -301,8 +302,8 @@ public class TextConstants {
 
     private static String getImports() {
         String imports= "<dl><dt>Imported Ontologies:</dt>\n";
-        String [] importsNames = Configuration.getImportsNames().split(";");
-        String [] importsURLS = Configuration.getImportsURLs().split(";");
+        String [] importsNames = ReadConfigurationFileOld.getImportsNames().split(";");
+        String [] importsURLS = ReadConfigurationFileOld.getImportsURLs().split(";");
         try{
             for(int i = 0; i< importsNames.length;i++){
                 imports+="<dd><a property=\"owl:imports schema:mentions\" resource=\""+importsURLS[i]+"\" href=\""+importsURLS[i]+"\">"+importsNames[i]+"</a></dd>";
@@ -317,8 +318,8 @@ public class TextConstants {
     private static String getExtends() {
         String extended= "<dl><dt>Extended Ontologies:</dt>\n";        
         try{
-            String [] extendedNames = Configuration.getExtendsNames().split(";");
-            String [] extendedURLS = Configuration.getExtendsURLS().split(";");            
+            String [] extendedNames = ReadConfigurationFileOld.getExtendsNames().split(";");
+            String [] extendedURLS = ReadConfigurationFileOld.getExtendsURLS().split(";");            
             for(int i = 0; i< extendedNames.length;i++){
                 extended+="<dd><a href=\""+extendedURLS[i]+"\" property=\"schema:mentions\">"+extendedNames[i]+"</a></dd>";
             }                        
@@ -330,10 +331,10 @@ public class TextConstants {
     }
 
     private static String getPreviousVersion() {
-        String previousV = Configuration.getPreviousVersion();
+        String previousV = ReadConfigurationFileOld.getPreviousVersion();
         if(previousV!=null &&previousV!=null){
             return "</dl><dl><dt>Previous version:</dt>\n"+
-                      "<dd><a property=\"schema:significantLink prov:wasRevisionOf\" href=\""+Configuration.getPreviousVersion()+"\">"+Configuration.getPreviousVersion()+"</a></dd>\n"+
+                      "<dd><a property=\"schema:significantLink prov:wasRevisionOf\" href=\""+ReadConfigurationFileOld.getPreviousVersion()+"\">"+ReadConfigurationFileOld.getPreviousVersion()+"</a></dd>\n"+
                     "</dl><dl>\n";
         }
         else{ return "";}
@@ -345,7 +346,7 @@ public class TextConstants {
     	
     	try {
 			Model model = ModelFactory.createDefaultModel();
-			model.read(Configuration.getThisVersion());			
+			model.read(ReadConfigurationFileOld.getThisVersion());			
 			for (String key:model.getNsPrefixMap().keySet()){
 				String value = model.getNsPrefixMap().get(key);
 				if (!value.isEmpty() && !key.equals("")){
@@ -356,7 +357,7 @@ public class TextConstants {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			prefixes = "<tr><td><b>"+Configuration.getOntologyPrefix()+"</b></td><td>&lt;"+Configuration.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
+			prefixes = "<tr><td><b>"+ReadConfigurationFileOld.getOntologyPrefix()+"</b></td><td>&lt;"+ReadConfigurationFileOld.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
             "<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>\n"+
             "<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>\n"+                           
             "<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>\n"+                           

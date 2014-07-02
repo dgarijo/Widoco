@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package htmlfromowlgenerator;
+package widoco;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,29 +24,29 @@ import java.util.Properties;
  * General class for reading the properties to generate the HTML
  * @author Daniel Garijo
  */
-public class Configuration {
-    private static Configuration conf = null;
+public class ReadConfigurationFileOld {
+    private static ReadConfigurationFileOld conf = null;
     private Properties config = null;
     final String configPath = "config"+File.separator+"config.properties";
     
     //read each of these parameters from a configuration file in a singleton
-    private Configuration(){
+    private ReadConfigurationFileOld(){
         config = new Properties();
  
     	try { 		
-    		URL root = htmlfromowlgenerator.TemplateGeneratorGUI.class.getProtectionDomain().getCodeSource().getLocation();
+    		URL root = TemplateGeneratorOLD.class.getProtectionDomain().getCodeSource().getLocation();
     		String path = (new File(root.toURI())).getParentFile().getPath();
     		
-			config.load(new FileInputStream(path+File.separator+configPath));
+		config.load(new FileInputStream(path+File.separator+configPath));
  
     	} catch (Exception ex) {
     		System.err.println("Error while reading configuration properties "+ex.getMessage());
         }
     }
     
-    private static Configuration getConfigurationFile(){
+    private static ReadConfigurationFileOld getConfigurationFile(){
         if (conf == null){
-            conf = new Configuration();
+            conf = new ReadConfigurationFileOld();
         }
         return conf;
     }

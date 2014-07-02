@@ -1,5 +1,5 @@
 /*
- *  Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ *  Copyright 2012-2013 Ontology Engineering Group, Universidad Politecnica de Madrid, Spain
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -19,17 +19,18 @@
  *
  * Created on 11-jul-2013, 12:08:00
  */
-package htmlfromowlgenerator;
+package widoco.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFileChooser;
+import widoco.TemplateGeneratorOLD;
 
 /**
  *
  * @author Daniel Garijo
  */
-public class TemplateGeneratorGUI extends javax.swing.JFrame {
+public class WidocoGUI extends javax.swing.JFrame {
     /**
 	 * 
 	 */
@@ -37,7 +38,7 @@ public class TemplateGeneratorGUI extends javax.swing.JFrame {
 	boolean savePathEnabled;
 
     /** Creates new form TemplateGeneratorGUI */
-    public TemplateGeneratorGUI() {
+    public WidocoGUI() {
         savePathEnabled = false;
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -92,11 +93,6 @@ public class TemplateGeneratorGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(logTextArea);
 
         textFieldOntologyURI.setText("Insert the URI of the ontology to document");
-        textFieldOntologyURI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldOntologyURIActionPerformed(evt);
-            }
-        });
 
         textFieldSavePath.setText("Select the name of the output file (.html)");
 
@@ -162,10 +158,6 @@ public class TemplateGeneratorGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldOntologyURIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldOntologyURIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldOntologyURIActionPerformed
-
     private void chekUseURIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekUseURIActionPerformed
         if(chekUseURI.isSelected()){
             textFieldOntologyURI.setEnabled(true);
@@ -186,7 +178,7 @@ public class TemplateGeneratorGUI extends javax.swing.JFrame {
 
     private void buttonGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGenerateActionPerformed
         if(savePathEnabled){
-            TemplateGenerator a = new TemplateGenerator();
+         TemplateGeneratorOLD a = new TemplateGeneratorOLD();
             try{
                 if(this.chekUseURI.isSelected()){
                     if(!textFieldOntologyURI.getText().equals("")&&!textFieldOntologyURI.getText().contains("Insert the URI")){
@@ -228,13 +220,13 @@ public class TemplateGeneratorGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TemplateGeneratorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WidocoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TemplateGeneratorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WidocoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TemplateGeneratorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WidocoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TemplateGeneratorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(WidocoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -242,7 +234,7 @@ public class TemplateGeneratorGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new TemplateGeneratorGUI().setVisible(true);
+                new WidocoGUI().setVisible(true);
             }
         });
     }

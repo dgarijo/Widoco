@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package htmlfromowlgenerator;
+package widoco;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.StringWriter;
@@ -36,10 +36,10 @@ import org.w3c.dom.NodeList;
  *
  * @author Daniel Garijo
  */
-public class TemplateGenerator {
+public class TemplateGeneratorOLD {
     private HashMap<String,String> replacements;
 
-    public TemplateGenerator() {
+    public TemplateGeneratorOLD() {
         replacements = new HashMap<String, String>();
     }
     
@@ -68,7 +68,7 @@ public class TemplateGenerator {
             return(returnValue);
         }
         catch (Exception ex) {
-            System.out.println("Error while writting to xml "+ex.getMessage());
+            System.out.println("Error while writing to xml "+ex.getMessage());
             //ex.printStackTrace();
             return null;
         }
@@ -87,7 +87,7 @@ public class TemplateGenerator {
                     Node firstAnchor = currentNode.getFirstChild();
                     Node secondAnchor = firstAnchor.getNextSibling();
                     String newID = firstAnchor.getAttributes().getNamedItem("name").getNodeValue();
-                    newID = newID.replace(Configuration.getOntologyNamespaceURI(), "");
+                    newID = newID.replace(ReadConfigurationFileOld.getOntologyNamespaceURI(), "");
                     if(secondAnchor.getNodeName().equals("a")){
                         currentNode.removeChild(secondAnchor);
                     }
@@ -234,7 +234,7 @@ public class TemplateGenerator {
 
     public static void main(String [] args){
     //    System.out.println(TextConstants.styles);
-        TemplateGenerator a = new TemplateGenerator();
+        TemplateGeneratorOLD a = new TemplateGeneratorOLD();
 //        a.generateTemplateWithLODE("http://purl.org/net/p-plan", "TEST.html");
         a.generateTemplateWithOutLODE("Test1.html");
     }

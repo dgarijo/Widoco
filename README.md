@@ -1,4 +1,4 @@
-Html Template Generator
+WIzard for DOcumenting Ontologies (Widoco)
 ===================
 Author: Daniel Garijo
 
@@ -49,7 +49,7 @@ The structure of the template is as follows:
 	
 	* 6. Acknowledgements
 	
-How to use HtmlTemplateGenerator
+How to use Widoco
 ==========
 Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
 
