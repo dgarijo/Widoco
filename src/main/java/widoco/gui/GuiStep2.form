@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Step 2: Load the metadata"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -227,7 +228,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="loadMetadataButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Load metadata file..."/>
+        <Property name="text" type="java.lang.String" value="Load from config file..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadMetadataButtonActionPerformed"/>
@@ -235,7 +236,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="saveMetadataButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Save as metadata file..."/>
+        <Property name="text" type="java.lang.String" value="Save as config file..."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>

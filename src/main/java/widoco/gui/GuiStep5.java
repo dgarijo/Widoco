@@ -24,6 +24,11 @@ package widoco.gui;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 
 /**
@@ -33,8 +38,10 @@ import javax.swing.ButtonGroup;
 public class GuiStep5 extends javax.swing.JFrame {
     GuiController g;
     /** Creates new form WidocoGui2
-     * @param g */
-    public GuiStep5(GuiController g) {
+     * @param g
+     * @param isSkeleton 
+     */
+    public GuiStep5(GuiController g, boolean isSkeleton) {
         initComponents();
         this.g = g;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -47,6 +54,10 @@ public class GuiStep5 extends javax.swing.JFrame {
 
         // Move the window
         this.setLocation(x, y);
+        if(isSkeleton){
+            labelOops.setEnabled(false);
+            labelViewDoc.setEnabled(false);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -72,6 +83,7 @@ public class GuiStep5 extends javax.swing.JFrame {
         labelOops = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Finish documentation");
         setResizable(false);
 
         nextButton.setText("Finish");
@@ -108,6 +120,12 @@ public class GuiStep5 extends javax.swing.JFrame {
         labelViewDoc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelViewDocMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelViewDocMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelViewDocMouseExited(evt);
             }
         });
 
@@ -202,12 +220,23 @@ public class GuiStep5 extends javax.swing.JFrame {
     private void labelOopsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOopsMouseClicked
         String url = g.getConfig().getOntologyURI();
         if(url!=null &&!"".equals(url)) {
-            g.openBrowser("http://www.oeg-upm.net/oops/response.jsp?uri="+url);
+            try {
+                g.openBrowser(new URI("http://www.oeg-upm.net/oops/response.jsp?uri="+url));
+            } catch (URISyntaxException ex) {
+                System.err.println("malformed URI!!!"+ ex.getMessage());
+            }
         }
     }//GEN-LAST:event_labelOopsMouseClicked
 
     private void labelViewDocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelViewDocMouseClicked
-        // TODO add your handling code here:
+        String url = g.getConfig().getDocumentationURI();
+        if(url!=null &&!"".equals(url)) {
+            //
+            File f = new File(url+File.separator+"index.html");
+            if(f.exists()){
+                g.openBrowser(f.toURI());
+            }
+        }
     }//GEN-LAST:event_labelViewDocMouseClicked
 
     private void labelOopsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOopsMouseEntered
@@ -217,6 +246,14 @@ public class GuiStep5 extends javax.swing.JFrame {
     private void labelOopsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOopsMouseExited
         setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_labelOopsMouseExited
+
+    private void labelViewDocMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelViewDocMouseEntered
+        setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_labelViewDocMouseEntered
+
+    private void labelViewDocMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelViewDocMouseExited
+        setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_labelViewDocMouseExited
 
     /**
      * @param args the command line arguments

@@ -96,9 +96,11 @@ public class GuiStep3 extends javax.swing.JFrame {
         referencesSectionButton = new javax.swing.JButton();
         checkBoxDiagram = new javax.swing.JCheckBox();
         checkBoxProv = new javax.swing.JCheckBox();
+        referencesSectionButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Step 3: Load the sections");
         setResizable(false);
 
         nextButton.setText("Next >");
@@ -189,6 +191,13 @@ public class GuiStep3 extends javax.swing.JFrame {
         checkBoxProv.setSelected(true);
         checkBoxProv.setText("Publish the provenance of the vocabulary");
 
+        referencesSectionButton1.setText("Load All...");
+        referencesSectionButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                referencesSectionButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -198,30 +207,25 @@ public class GuiStep3 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxDiagram)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(checkBoxAbstract)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                                .addComponent(abstractSectionButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(checkBoxIntro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                .addComponent(introductionSectionButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(checkBoxOverview)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                                .addComponent(overviewSectionButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBoxRefs)
-                                    .addComponent(checkBoxDescription))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(descriptionSectionButton)
-                                    .addComponent(referencesSectionButton))))
-                        .addGap(4, 4, 4))
+                            .addComponent(checkBoxRefs)
+                            .addComponent(checkBoxDescription)
+                            .addComponent(checkBoxOverview)
+                            .addComponent(checkBoxIntro)
+                            .addComponent(checkBoxAbstract))
+                        .addGap(82, 82, 82)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(abstractSectionButton)
+                            .addComponent(introductionSectionButton)
+                            .addComponent(overviewSectionButton)
+                            .addComponent(referencesSectionButton)
+                            .addComponent(descriptionSectionButton))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkBoxDiagram)
+                            .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(referencesSectionButton1)
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -246,14 +250,20 @@ public class GuiStep3 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(referencesSectionButton)
                     .addComponent(checkBoxRefs))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(checkBoxDiagram)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxProv)
-                .addGap(49, 49, 49))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkBoxDiagram)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBoxProv)
+                        .addGap(49, 49, 49))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(referencesSectionButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jLabel1.setText("<html>Select the sections you want your document to have.<br/> If you have a section you want to load, click on the \"Load\" button.<br/>The diagram of the ontology will be created on the \"images\" folder of the documentation.</html>");
+        jLabel1.setText("<html>Select the sections you want your document to have.<br/> If you have a section you want to load, click on the \"Load\" button.<br/> If you want to load all sections from a folder, press the Load All button.<br/>The diagram of the ontology will be created on the \"images\" folder of the documentation.</html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -303,11 +313,11 @@ public class GuiStep3 extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(labelSteps)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addGap(17, 17, 17))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -372,6 +382,10 @@ public class GuiStep3 extends javax.swing.JFrame {
     private void referencesSectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_referencesSectionButtonActionPerformed
         referencesPath = loadSection();
     }//GEN-LAST:event_referencesSectionButtonActionPerformed
+
+    private void referencesSectionButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_referencesSectionButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_referencesSectionButton1ActionPerformed
 
     private String loadSection(){
         JFileChooser chooser = new JFileChooser();
@@ -440,6 +454,7 @@ public class GuiStep3 extends javax.swing.JFrame {
     private javax.swing.JButton nextButton;
     private javax.swing.JButton overviewSectionButton;
     private javax.swing.JButton referencesSectionButton;
+    private javax.swing.JButton referencesSectionButton1;
     private javax.swing.JTextPane textPaneSteps;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,9 +54,7 @@ public class GuiStep2 extends javax.swing.JFrame {
 
         // Move the window
         this.setLocation(x, y);
-        /**
-         * TO DO: LOAD THE METADATA FROM THE CONFIG HERE
-         */
+        
         properties = g.getEditableProperties();
         refreshTable();
     }
@@ -140,6 +138,7 @@ public class GuiStep2 extends javax.swing.JFrame {
         removePropButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Step 2: Load the metadata");
         setResizable(false);
 
         nextButton.setText("Next >");
@@ -207,14 +206,14 @@ public class GuiStep2 extends javax.swing.JFrame {
             }
         });
 
-        loadMetadataButton.setText("Load metadata file...");
+        loadMetadataButton.setText("Load from config file...");
         loadMetadataButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadMetadataButtonActionPerformed(evt);
             }
         });
 
-        saveMetadataButton.setText("Save as metadata file...");
+        saveMetadataButton.setText("Save as config file...");
         saveMetadataButton.setEnabled(false);
 
         addPropButton.setText("Add/Edit property");

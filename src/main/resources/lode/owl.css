@@ -110,6 +110,16 @@ table.fss td:first-child {
     padding-right: 20px;
     width: 60%;
 }
+table{
+    background-color: #f4ffff;
+    border: 1px solid navy;
+    margin: 20px;
+    vertical-align: middle;
+}
+table td {
+    padding: 5px 15px;
+    text-align: left;
+}
 
 /* Styling the parts in the RDF syntax. */
 

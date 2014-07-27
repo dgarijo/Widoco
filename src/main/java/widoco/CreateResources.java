@@ -21,7 +21,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
 import lode.LODEGeneration;
+import widoco.entities.Agent;
+import widoco.entities.License;
+import widoco.entities.Ontology;
 
 /**
  * Class that given a path, it creates all the associated resources needed to
@@ -31,22 +39,38 @@ import lode.LODEGeneration;
 public class CreateResources {
     
     //to do: analyze if this is the right name for the class. Maybe "generate" is better
-    public static void generateDocumentation(String folder, Configuration c){
+    public static void generateDocumentation(String folderOut, Configuration c, boolean fromURI){
         try{
-            //create a folder with all the appropriate substructure on the selected folder.
-            createFolderStructure(c.getDocumentationURI(),c.isIncludeDiagram(),c.isPublishProvenance());
             //invoke LODE
-            String lodeContent = LODEGeneration.getLODEhtml(c.getOntologyPath(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage());
-            //TO DO, hay que hacer muchos ajustes y hay que llamar a la clase template generator simplificada.
-            //copiar aqui los metodos que se usan para extraer clases, propiedades y props de datos.
-            //deberia hacer metodo para hacer cross reference section (que es LODE) arreglando los ids.
-            //create all the sections. If a section has to be loaded from somewhere, then do it and copy it.
-
-            //create the main page (aggregation of the different sections)
-
+            String lodeContent;
+            if(fromURI) {
+                lodeContent = LODEGeneration.getLODEhtmlFromURL(c.getOntologyPath(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage());
+            }else{
+                lodeContent = LODEGeneration.getLODEhtmlFromFile(c.getOntologyPath(),c.getOntologyURI(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage());
+            }
+            LODEParser lode = new LODEParser(lodeContent,c);
+            //create a folder with all the appropriate substructure on the selected folder.
+            createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance());
+            //we create the resources, in case the user wants to add them later.
+            //abstract section and file
+            createAbstractSection(folderOut+File.separator+"sections");
+            //introduction section and file
+            createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c);
+            //overview section and file
+            createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList());
+            //description section and file
+            createDescriptionSection(folderOut+File.separator+"sections",c);
+            //cross reference section and  file
+            createCrossReferenceSection(folderOut+File.separator+"sections",lode, c);
+            //references section and file
+            createReferencesSection(folderOut+File.separator+"sections");
+                
             //create the image (if selected)
 
             //create provenance
+            
+            //create the main page (aggregation of the different sections)
+            createIndexDocument(folderOut,c);
         }catch(IOException e){
             System.err.println("Error while creating the documentation: "+e.getMessage());    
         }
@@ -55,57 +79,133 @@ public class CreateResources {
     /**
      * Sections of the document. Each section will be a separate html file
      */
-    private static void createAbstractSection(){
-        
+    private static void createAbstractSection(String path){
+        saveDocument(path+File.separator+"abstract.html", TextConstants.abstractSection);
     }
     
-    private static void createIntroductionSection(){
-        
+    private static void createIntroductionSection(String path, HashMap<String,String> nsDecl, Configuration c){
+        String introSectionText = TextConstants.introductionSection;
+        if(nsDecl!=null && !nsDecl.isEmpty()){
+            introSectionText += TextConstants.getNameSpaceDeclaration(nsDecl);
+            //small fix: use prefix selected by user.
+            if(c.getMainOntology().getNamespacePrefix()!=null && !"".equals(c.getMainOntology().getNamespacePrefix()))
+                introSectionText = introSectionText.replace("default namespace", c.getMainOntology().getNamespacePrefix());
+        }
+        //introSection += TextConstants.getNamespaceDeclarations(c, lodeInput);
+        saveDocument(path+File.separator+"introduction.html", introSectionText);
     }
     
-    private static void createOverviewSection(){
-        
+    //the lists passed onto this method are the fixed lists
+    private static void createOverviewSection(String path, Configuration c, String classesList, String propList, String dataPropList){
+        String overViewSection = TextConstants.getOverviewSection(c);
+        if(!"".equals(classesList) && classesList!=null){
+            overViewSection+=("<h4>Classes</h4>\n");
+            overViewSection+=(classesList);
+        }
+        if(!"".equals(propList) && propList!=null){
+            overViewSection+=("<h4>Properties</h4>");
+            overViewSection+=(propList);
+        }
+        if(!"".equals(dataPropList) && dataPropList!=null){
+            overViewSection+=("<h4>Data Properties</h4>");
+            overViewSection+=(dataPropList);
+        }
+        saveDocument(path+File.separator+"overview.html", overViewSection);
     }
     
-    private static void createDescriptionSection(){
-        
+    private static void createDescriptionSection(String path, Configuration c){
+        saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c) );
     }
     
-    private static void createCrossReferenceSection(){
-        
+    private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c){
+        String crossRef = TextConstants.getCrossReferenceSection(c);
+        String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList();
+        if(classesList!=null && !"".equals(classesList)){
+            crossRef += lodeParser.getClasses();
+        }
+        if(propList!=null && !"".equals(propList)){
+            crossRef += lodeParser.getProperties();
+        }
+        if(dataPropList!=null && !"".equals(dataPropList)){
+            crossRef += lodeParser.getDataProp();
+        }
+        saveDocument(path+File.separator+"crossref.html", crossRef);
     }
     
-    private static void createReferencesSection(){
+    private static void createReferencesSection(String path){
+        saveDocument(path+File.separator+"references.html", TextConstants.referencesSection);
+    }
+    
+    /**
+     * Method for creating the index section on the url provided. The index will
+     * include the pointers to all of the other sections.
+     */
+    private static void createIndexDocument(String path, Configuration c){
+        //the boolean valuas come from the configuration.
+        String textToWrite = TextConstants.getIndexDocument("resources",c);
+        saveDocument(path+File.separator+"index.html", textToWrite);
+    }
+    
+    //This method should be separated in another utils file.
+    private static void saveDocument(String path, String textToWrite){
+        File f = new File(path);
+        try{
+            if(f.exists()){
+                //here I should warn that the file is going to overwrite something
+                JOptionPane.showMessageDialog(null, "You have overwritten the previous file. This message should be better prepared.");
+            }
+            else{f.createNewFile();}
+            //write the file.
+            PrintWriter out = new PrintWriter(f);
+            out.write(textToWrite);
+            out.close();
+        }catch(IOException e){
+            System.err.println("Error while creating the file "+e.getMessage()+"\n"+f.getAbsolutePath());
+        }
         
     }
     
     private static void createFolderStructure(String s, boolean includeDiagram, boolean includeProv){
-        File f = new File(s);
-        File sections = new File(s+File.separator+"sections");
-        File img = new File(s+File.separator+"img");
-        File provenance = new File(s+File.separator+"provenance");
-        File resources = new File(s+File.separator+"resources");
-        if(!f.exists()){
-            f.mkdir();
-        }else{
-            if(f.isDirectory()){
-                System.err.println("The selected file is not a directory.");
-                //throw appropriate exceptions here
-            }            
+        try{
+            File f = new File(s);
+            File sections = new File(s+File.separator+"sections");
+            File img = new File(s+File.separator+"img");
+            File provenance = new File(s+File.separator+"provenance");
+            File resources = new File(s+File.separator+"resources");
+            if(!f.exists()){
+                f.mkdir();
+            }else{
+                if(f.isDirectory()){
+                    System.err.println("The selected file is not a directory.");
+                    //throw appropriate exceptions here
+                }            
+            }
+            sections.mkdir();
+            if(includeDiagram)img.mkdir();
+            if(includeProv){
+                provenance.mkdir();
+                //do all provenance related stuff here
+            }
+            resources.mkdir();
+            //copy jquery
+            copyResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
+            //copy css
+            copyResource("/lode/primer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
+            copyResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
+            copyResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
+            copyResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
+        }catch(IOException e){
+            System.err.println("Error while creating the resources "+e.getMessage());
         }
-        sections.mkdir();
-        if(includeDiagram)img.mkdir();
-        if(includeProv)provenance.mkdir();
-        resources.mkdir();
     }
 
     
     private void copyResourceFolder(String[] resources, String savePath) throws IOException{
-        for(int i=0; i<resources.length;i++){
-            String aux = resources[i].substring(resources[i].lastIndexOf("/")+1,resources[i].length());
+        for (String resource : resources) {
+            String aux = resource.substring(resource.lastIndexOf("/") + 1, resource.length());
             File b = new File(savePath+File.separator+aux);
-            b.createNewFile();                
-            copyResource(resources[i], b);
+            b.createNewFile();
+            copyResource(resource, b);
         }
     }
     
@@ -115,7 +215,7 @@ public class CreateResources {
      * @param dest
      * @throws IOException 
      */
-    private void copyResource(String resourceName, File dest) throws IOException {
+    private static void copyResource(String resourceName, File dest) throws IOException {
         InputStream is = null;
         OutputStream os = null;
         try {
@@ -128,11 +228,40 @@ public class CreateResources {
             }
         }
         finally {
-            is.close();
-            os.close();
+            if(is!=null)is.close();
+            if(os!=null)os.close();
         }
     }
-//    public static void main(String[] args){
-//        createFolderStructure("C:\\Users\\Dani\\Desktop\\myDoc");
-//    }
+    public static void main(String[] args){
+        //these methods have to be private!!
+//        createFolderStructure("C:\\Users\\Monen\\Desktop\\myDoc", false, false);
+        Configuration c = new Configuration();
+//        c.setIncludeOverview(false);
+//        c.setIncludeCrossReferenceSection(false);
+        c.setMainOntology(new Ontology("The Wf-Motif Ontology", "Wf-motif", "http://purl.org/net/wf-motifs#"));//<-cuidado con el hash y el slash del final...
+        c.setTitle("The Wf-Motif Ontology"); //redindant??
+        c.setRevision("5.0");
+        c.setReleaseDate("1-1-2011");
+        c.setThisVersion("thisversion.org");
+        c.setPreviousVersion("lastVersion.link");
+        c.setOntologyURI("http://purl.org/net/example#");//check why do I need ont path and ont uri... and ontology namespace.
+        //c.setOntologyPath("http://purl.org/net/wf-motifs#");
+        //local copy test
+        c.setOntologyPath("C:\\Users\\Dani\\Desktop\\RO-opt.owl");
+        Agent a = new Agent();
+        a.setName("Dani");a.setURL("http://dani.org");a.setInstitutionName("OEG Corp");
+        Agent a2 = new Agent("A", "http://bananen.org", "monen group", "hdhw");
+        ArrayList<Agent> aux = new ArrayList<Agent>();
+        aux.add(a);aux.add(a2);        
+        c.setCreators(aux);
+        c.setContributors(aux);
+        Ontology test = new Ontology("a", "b", "cbc");
+        ArrayList<Ontology> t = new ArrayList<Ontology>();
+        t.add(test);
+        c.setImportedOntolgies(t);
+        License l = new License("http://licenseUri", "LicenseName", "http://i.creativecommons.org/l/by-nc-sa/2.0/88x31.png");
+        c.setLicense(l);
+//        generateDocumentation("C:\\Users\\Monen\\Desktop\\myDoc", c);
+        generateDocumentation("C:\\Users\\Dani\\Desktop\\myDoc", c, false);
+    }
 }

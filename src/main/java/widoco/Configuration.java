@@ -59,6 +59,7 @@ public class Configuration {
     private boolean includeOverview;
     private boolean includeDescription;
     private boolean includeReferences;
+    private boolean includeCrossReferenceSection;//needed for skeleton
     private String abstractPath;
     private String introductionPath;
     private String overviewPath;
@@ -115,6 +116,7 @@ public class Configuration {
             includeOverview = true;
             includeDescription = true;
             includeReferences = true;
+            includeCrossReferenceSection = true;
             propertyFile.load(new FileInputStream(path));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
             this.title = propertyFile.getProperty("title","Title goes here");
@@ -177,6 +179,7 @@ public class Configuration {
             }
             license.setName(propertyFile.getProperty("license"));
             license.setUrl(propertyFile.getProperty("licenseURL"));
+            //to do: add the license icon!
     	} catch (IOException ex) {
             System.err.println("Error while reading configuration properties "+ex.getMessage());
         }
@@ -374,6 +377,10 @@ public class Configuration {
         return includeReferences;
     }
 
+    public boolean isIncludeCrossReferenceSection() {
+        return includeCrossReferenceSection;
+    }
+
     public void setAbstractPath(String abstractPath) {
         this.abstractPath = abstractPath;
     }
@@ -408,6 +415,10 @@ public class Configuration {
 
     public void setIncludeReferences(boolean includeReferences) {
         this.includeReferences = includeReferences;
+    }
+
+    public void setIncludeCrossReferenceSection(boolean includeCrossReferenceSection) {
+        this.includeCrossReferenceSection = includeCrossReferenceSection;
     }
 
     public void setIntroductionPath(String introductionPath) {

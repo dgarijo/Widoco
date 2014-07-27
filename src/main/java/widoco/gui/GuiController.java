@@ -26,6 +26,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import widoco.Configuration;
+import widoco.CreateResources;
 import widoco.entities.Agent;
 import widoco.entities.License;
 import widoco.entities.Ontology;
@@ -163,6 +164,9 @@ public class GuiController {
         if(config.getLicense()!=null){
             props.put("License Name", config.getLicense().getName());
             props.put("License URI", config.getLicense().getUrl());
+            if(config.getLicense().getIcon()!=null){
+                props.put("License icon URL", config.getLicense().getIcon());
+            }
         }
         return props;
     }
@@ -193,6 +197,7 @@ public class GuiController {
         config.setRevision((String)properties.get("Ontology Revision"));
         config.getLicense().setName((String)properties.get("License Name"));
         config.getLicense().setUrl((String)properties.get("License URI"));        
+        config.getLicense().setIcon((String)properties.get("License icon URL"));  
         
         if(properties.containsKey("Author")){
             String authorValue = (String)properties.get("Author");
@@ -371,9 +376,20 @@ public class GuiController {
         
     }
     
-    public void generateDoc() {
+    public void generateSkeleton() {
         //if state is initial, then it is a skeleton
-        //else use the configuration
+        
+    }
+    
+    public void generateDoc() {
+        //use the configuration
+        //el false/true es por el path de la doc o la uri. Aclararse..
+        if (config.isFromFile()){
+            CreateResources.generateDocumentation(config.getDocumentationURI(), config, false);
+        }else{
+            CreateResources.generateDocumentation(config.getDocumentationURI(), config, true);
+        }
+
     }
     
     private void exit(){
@@ -386,8 +402,8 @@ public class GuiController {
             case initial:
                 if(input.equals("skeleton")){
                     state = State.generate;
-                    this.generateDoc();
-                    gui = new GuiStep5(this);
+                    this.generateSkeleton();
+                    gui = new GuiStep5(this, true);
                     gui.setVisible(true);
                 }
                 else {//next
@@ -432,7 +448,8 @@ public class GuiController {
                 }else{//next
                     state = State.generate;
                     this.gui.dispose();
-                    gui = new GuiStep5(this);
+                    this.generateDoc();
+                    gui = new GuiStep5(this,false);
                     gui.setVisible(true);
                 }
                 break;
@@ -449,22 +466,20 @@ public class GuiController {
         }
     }
     
-    public void openBrowser (String url){
+    public void openBrowser (URI uri){
         if(Desktop.isDesktopSupported())
         {
             try {
-                Desktop.getDesktop().browse(new URI(url));
-            } catch (URISyntaxException ex) {
-                System.err.println("Could not open the browser: "+ex.getMessage());
+                Desktop.getDesktop().browse(uri);
             } catch (IOException ex) {
                 System.err.println("Could not open browser: "+ex.getMessage());
             }
         }
     }
     
-    public void generateDoc(boolean considerImportedOntologies, boolean considerImportedClosure, boolean useReasoner){
-        //this method will invoke the LODE transformation to get the html and then get the resultant html for our needs.
-    }
+//    public void generateDoc(boolean considerImportedOntologies, boolean considerImportedClosure, boolean useReasoner){
+//        //this method will invoke the LODE transformation to get the html and then get the resultant html for our needs.
+//    }
     
     public static void main(String[] args){
         new GuiController();

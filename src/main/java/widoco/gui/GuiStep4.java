@@ -91,6 +91,7 @@ public class GuiStep4 extends javax.swing.JFrame {
         barStatus = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Step 4: Configure LODE");
         setResizable(false);
 
         nextButton.setText("Generate! >");
@@ -126,13 +127,16 @@ public class GuiStep4 extends javax.swing.JFrame {
         labelSteps.setText("Steps");
 
         useReasonerCheckBox.setText("Use reasoner (derive additional assertions in the ontology)");
+        useReasonerCheckBox.setEnabled(false);
 
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("None");
 
-        owlAPIRadioButton.setSelected(true);
-        owlAPIRadioButton.setText("OWL API (recommended)");
+        owlAPIRadioButton.setText("OWL API ");
+        owlAPIRadioButton.setEnabled(false);
 
         importedRadioButton.setText("OWL API + include imported ontologies");
+        importedRadioButton.setEnabled(false);
 
         languageTextField.setText("en");
 
@@ -174,7 +178,7 @@ public class GuiStep4 extends javax.swing.JFrame {
 
         jLabel2.setText("<html>If there are labels in multiple languages, the\"language\" field will allow selecting those to be shown on the document</html");
 
-        labelLode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lode/resources/LODELogo.png"))); // NOI18N
+        labelLode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lode/LODELogo.png"))); // NOI18N
         labelLode.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelLodeMouseClicked(evt);
@@ -212,8 +216,8 @@ public class GuiStep4 extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelLode)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(labelLode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(labelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,13 +274,15 @@ public class GuiStep4 extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        this.saveConfig();
-        g.generateDoc();// in fact this operation should be done in another process.
+        this.saveConfig();        
         g.switchState("next");
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void labelLodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLodeMouseClicked
-        g.openBrowser("https://github.com/essepuntato/LODE");
+        try {
+            g.openBrowser(new URI("https://github.com/essepuntato/LODE"));
+        } catch (URISyntaxException ex) {
+        }
     }//GEN-LAST:event_labelLodeMouseClicked
 
     private void labelLodeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLodeMouseEntered

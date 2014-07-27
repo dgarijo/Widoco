@@ -113,15 +113,15 @@ public class TemplateGeneratorOLD {
             BufferedWriter outTemplate = new BufferedWriter(fstreamTemplate);
             outTemplate.write(TextConstants.opening);
             outTemplate.write(TextConstants.styles);
-            outTemplate.write(TextConstants.getHeadSection());
+//            outTemplate.write(TextConstants.getHeadSection());
             outTemplate.write(TextConstants.abstractSection);
-            outTemplate.write(TextConstants.tableOfContentsSection);
+//            outTemplate.write(TextConstants.tableOfContentsSection);
             outTemplate.write(TextConstants.introductionSection);
-            outTemplate.write(TextConstants.getNameSpaceDeclaration());
+//            outTemplate.write(TextConstants.getNameSpaceDeclaration());
 //            outTemplate.write(TextConstants.nameSpaceDeclarations);
-            outTemplate.write(TextConstants.overviewSection);
-            outTemplate.write(TextConstants.ontologyDescriptionSection);
-            outTemplate.write(TextConstants.crossReferenceSection);
+//            outTemplate.write(TextConstants.overviewSection);
+//            outTemplate.write(TextConstants.ontologyDescriptionSection);
+//            outTemplate.write(TextConstants.crossReferenceSection);
                
             outTemplate.write("</div>\n");
             outTemplate.write(TextConstants.referencesSection);
@@ -168,13 +168,13 @@ public class TemplateGeneratorOLD {
                 }
                 outTemplate.write(TextConstants.opening);
                 outTemplate.write(TextConstants.styles);
-                outTemplate.write(TextConstants.getHeadSection());
+//                outTemplate.write(TextConstants.getHeadSection());
                 outTemplate.write(TextConstants.abstractSection);
-                outTemplate.write(TextConstants.tableOfContentsSection);
+//                outTemplate.write(TextConstants.tableOfContentsSection);
                 outTemplate.write(TextConstants.introductionSection);
-                outTemplate.write(TextConstants.getNameSpaceDeclaration());
+//                outTemplate.write(TextConstants.getNameSpaceDeclaration());
 //                outTemplate.write(TextConstants.nameSpaceDeclarations);
-                outTemplate.write(TextConstants.overviewSection);
+//                outTemplate.write(TextConstants.overviewSection);
                 if(!"".equals(termList)){
                         outTemplate.write("<h4>Classes</h4>");
                         outTemplate.write(fixIds(termList));
@@ -188,9 +188,9 @@ public class TemplateGeneratorOLD {
                         outTemplate.write(fixIds(dataPropList));
                     }                    
                 outTemplate.write("</div>\n");//ending of the overview section
-                outTemplate.write(TextConstants.ontologyDescriptionSection);                   
+//                outTemplate.write(TextConstants.ontologyDescriptionSection);                   
 
-                outTemplate.write(TextConstants.crossReferenceSection);
+//                outTemplate.write(TextConstants.crossReferenceSection);
                 if(!"".equals(termList)){
                     outTemplate.write(fixIds(classes));
                 }

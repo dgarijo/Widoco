@@ -109,6 +109,7 @@ public class GuiStep1 extends javax.swing.JFrame {
         browseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Step 1: Select a template");
         setResizable(false);
 
         nextButton.setText("Next >");
