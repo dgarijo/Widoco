@@ -24,6 +24,7 @@ package widoco.gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -102,6 +103,11 @@ public class GuiStep3 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 3: Load the sections");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         nextButton.setText("Next >");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
@@ -188,10 +194,15 @@ public class GuiStep3 extends javax.swing.JFrame {
         checkBoxDiagram.setText("Create a diagram file of the ontology");
         checkBoxDiagram.setEnabled(false);
 
-        checkBoxProv.setSelected(true);
         checkBoxProv.setText("Publish the provenance of the vocabulary");
+        checkBoxProv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxProvActionPerformed(evt);
+            }
+        });
 
         referencesSectionButton1.setText("Load All...");
+        referencesSectionButton1.setEnabled(false);
         referencesSectionButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 referencesSectionButton1ActionPerformed(evt);
@@ -386,6 +397,35 @@ public class GuiStep3 extends javax.swing.JFrame {
     private void referencesSectionButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_referencesSectionButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_referencesSectionButton1ActionPerformed
+
+    private void checkBoxProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxProvActionPerformed
+        if(checkBoxProv.isSelected()){
+            String currentProvURI = g.getConfig().getProvenanceURI();
+            if(currentProvURI == null || "".equals(currentProvURI)){
+                currentProvURI = "http://exampleURI.org";
+            }
+            String s = (String)JOptionPane.showInputDialog(
+                        this,
+                        "Insert the URL where the vocabulary will be hosted:\n"
+                        + "(you can leave it with the sample one and replace it later)",
+                        "Publish provenance",
+                        JOptionPane.INFORMATION_MESSAGE,
+                        null,
+                        null,
+                        currentProvURI);
+            //If a string was returned, say so.
+            if ((s != null) && (s.length() > 0)) {
+                //System.out.println(s);
+                this.g.getConfig().setProvenanceURI(s);
+            }else{
+                checkBoxProv.setSelected(false);
+            }
+        }
+    }//GEN-LAST:event_checkBoxProvActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.g.switchState("cancel");
+    }//GEN-LAST:event_formWindowClosing
 
     private String loadSection(){
         JFileChooser chooser = new JFileChooser();

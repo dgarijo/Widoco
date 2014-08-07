@@ -17,16 +17,23 @@
 package widoco.gui;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import widoco.Configuration;
+import widoco.CreateDocInThread;
 import widoco.CreateResources;
+import widoco.TextConstants;
 import widoco.entities.Agent;
 import widoco.entities.License;
 import widoco.entities.Ontology;
@@ -40,50 +47,33 @@ import widoco.entities.Ontology;
 public class GuiController {
 
     
-    public enum State{initial, metadata, sections, configLODE, generate, exit};
+    public enum State{initial, metadata, sections, configLODE, loading, generated, exit};
     private State state;
     private JFrame gui;
     private Configuration config;
+    private File tmpFile;
 
     public GuiController() {
         this.state = State.initial;  
         config = new Configuration();
         gui = new GuiStep1(this);
         gui.setVisible(true);
-        //test
+        try {
+            //create a temporal folder with all LODE resources
+            tmpFile = new File("tmp"+new Date().getTime());
+            tmpFile.mkdir();
+            CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
+        } catch (IOException ex) {
+            System.err.println("Error while creating the temporal file");
+        }
+        
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
         
     }
-    
-//    public void saveOntologyPath(String path){
-//        config.setOntologyPath(path);
-//        config.setFromFile(true);
-//    }
-//    
-//    public void saveDocumentationPath(String path){
-//        config.setDocumentationURI(path);
-//        config.setFromFile(false);
-//    }
-//    
-//    public void saveOntologyURL(String url){
-//        config.setOntologyURI(url);
-//    }
-//    
-//    public String getOntologyPath(){
-//        return config.getOntologyPath();
-//    }
-//    
-//    public String getOntologyURL(){
-//        return config.getOntologyURI();
-//    }
-//    
-//    public String getDocumentationPath(){
-//        return config.getDocumentationURI();
-//    }
 
     public Configuration getConfig() {
         return config;
@@ -311,98 +301,47 @@ public class GuiController {
         }
     }
     
-//    public void saveAbstract(boolean abs, String path){
-//        config.setAbstractPath(path);
-//        config.setIncludeAbstract(abs);
-//    }
-//    
-//    public void saveOverview(boolean abs, String path){
-//        config.setOverviewPath(path);
-//        config.setIncludeOverview(abs);
-//    }
-//    
-//    public void saveDescription(boolean abs, String path){
-//        config.setDescriptionPath(path);
-//        config.setIncludeDescription(abs);
-//    }
-//    
-//    public void saveReferences(boolean abs, String path){
-//        config.setReferencesPath(path);
-//        config.setIncludeReferences(abs);
-//    }
-//    
-//    public void saveIntroduction(boolean abs, String path){
-//        config.setIntroductionPath(path);
-//        config.setIncludeIntroduction(abs);
-//    }
-//    
-//    public void saveDiagram(boolean abs){
-//        config.setIncludeDiagram(abs);
-//    }
-//    
-//    public void saveProvenance(boolean abs){
-//        config.setPublishProvenance(abs);
-//    }
-//    
-//    public boolean isAbstract(){
-//        return config.isIncludeAbstract();
-//    }
-//    
-//    public boolean isOverview(){
-//        return config.isIncludeOverview();
-//    }
-//    
-//    public boolean isDescription(){
-//        return config.isIncludeDescription();
-//    }
-//    
-//    public boolean isReferences(){
-//        return config.isIncludeReferences();
-//    }
-//    
-//    public boolean isIntroduction(){
-//        return config.isIncludeIntroduction();
-//    }
-//    
-//    public boolean isDiagram(){
-//        return config.isIncludeDiagram();
-//    }
-//    
-//    public boolean isProvenance(){
-//        return config.isPublishProvenance();
-//    }
-    
     public void saveLODEConfig(){
         
     }
     
     public void generateSkeleton() {
         //if state is initial, then it is a skeleton
-        
+        //call a method in createResources called createSkeleton, and done.
     }
     
-    public void generateDoc() {
-        //use the configuration
-        //el false/true es por el path de la doc o la uri. Aclararse..
-        if (config.isFromFile()){
-            CreateResources.generateDocumentation(config.getDocumentationURI(), config, false);
-        }else{
-            CreateResources.generateDocumentation(config.getDocumentationURI(), config, true);
-        }
-
+    public void startGeneratingDoc() {
+        Runnable r = new CreateDocInThread(this.config, this, this.tmpFile);
+        new Thread(r).start();
+    }
+    
+    //The other method could call directly switch state, but htis way the flow is more clear.
+    public void docGenerated(String status){
+        this.switchState(status);
     }
     
     private void exit(){
         this.gui.dispose();
+        //delete tmp folder here!
+        String[]entries = tmpFile.list();
+        for(String s: entries){
+            File currentFile = new File(tmpFile.getPath(),s);
+            currentFile.delete();
+        }
+        tmpFile.delete();
     }
     
     public void switchState(String input){
-        if(input.equals("cancel"))state = State.exit; exit();
+        if(input.equals("cancel")){
+            state = State.exit;
+            exit();
+        }
         switch(this.state){
             case initial:
                 if(input.equals("skeleton")){
-                    state = State.generate;
-                    this.generateSkeleton();
+                    state = State.generated;
+                    this.generateSkeleton();//TO DO
+                    this.gui.dispose();
                     gui = new GuiStep5(this, true);
                     gui.setVisible(true);
                 }
@@ -446,15 +385,22 @@ public class GuiController {
                     gui = new GuiStep3(this);
                     gui.setVisible(true);
                 }else{//next
-                    state = State.generate;
-                    this.gui.dispose();
-                    this.generateDoc();
-                    gui = new GuiStep5(this,false);
-                    gui.setVisible(true);
+                    state = State.loading;
+                    this.startGeneratingDoc();
                 }
                 break;
-            case generate:
+            case loading:
+                state = State.generated;
+                this.gui.dispose();
+                gui = new GuiStep5(this,false);
+                gui.setVisible(true);
+                if(input.equals("error")){
+                    JOptionPane.showMessageDialog(gui,"error while generating the documentation! refine this error.");
+                }
+                break;                
+            case generated:
                 if(input.equals("restart")){
+                    this.gui.dispose();
                     state = State.initial;
                     gui = new GuiStep1(this);
                     gui.setVisible(true);

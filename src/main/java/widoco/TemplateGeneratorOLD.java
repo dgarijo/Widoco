@@ -112,7 +112,7 @@ public class TemplateGeneratorOLD {
             FileWriter fstreamTemplate = new FileWriter(saveAsFileName);
             BufferedWriter outTemplate = new BufferedWriter(fstreamTemplate);
             outTemplate.write(TextConstants.opening);
-            outTemplate.write(TextConstants.styles);
+//            outTemplate.write(TextConstants.styles);
 //            outTemplate.write(TextConstants.getHeadSection());
             outTemplate.write(TextConstants.abstractSection);
 //            outTemplate.write(TextConstants.tableOfContentsSection);
@@ -167,7 +167,7 @@ public class TemplateGeneratorOLD {
                     }
                 }
                 outTemplate.write(TextConstants.opening);
-                outTemplate.write(TextConstants.styles);
+//                outTemplate.write(TextConstants.styles);
 //                outTemplate.write(TextConstants.getHeadSection());
                 outTemplate.write(TextConstants.abstractSection);
 //                outTemplate.write(TextConstants.tableOfContentsSection);

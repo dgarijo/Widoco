@@ -102,7 +102,7 @@ import org.xml.sax.SAXException;
  */
 public class LODEGeneration {
     
-    public static String getLODEhtmlFromURL(String stringURL, boolean useOWLAPI, boolean considerImportedOntologies, boolean considerImportedClosure, boolean useReasoner, String language)throws IOException {
+    public static String getLODEhtmlFromURL(String stringURL, boolean useOWLAPI, boolean considerImportedOntologies, boolean considerImportedClosure, boolean useReasoner, String language, File lodeResources)throws IOException {
 				
             SourceExtractor extractor = new SourceExtractor();
             extractor.addMimeTypes(MimeType.mimeTypes);
@@ -129,7 +129,7 @@ public class LODEGeneration {
                             content = extractor.exec(ontologyURL);
                     }
 
-                    content = applyXSLTTransformation(content, stringURL, lang);
+                    content = applyXSLTTransformation(content, stringURL, lang, lodeResources);
 
                     return(content);
             } catch (IOException e) {
@@ -149,7 +149,7 @@ public class LODEGeneration {
         return null;
 	}
     
-    public static String getLODEhtmlFromFile(String ontologyPath, String ontologyExpectedURL, boolean useOWLAPI, boolean considerImportedOntologies, boolean considerImportedClosure, boolean useReasoner, String language)throws IOException {
+    public static String getLODEhtmlFromFile(String ontologyPath, String ontologyExpectedURL, boolean useOWLAPI, boolean considerImportedOntologies, boolean considerImportedClosure, boolean useReasoner, String language, File lodeResources)throws IOException {
         try {
 
             String content = "";
@@ -184,7 +184,7 @@ public class LODEGeneration {
                 }
             }
 
-            content = applyXSLTTransformation(content, ontologyExpectedURL, lang);
+            content = applyXSLTTransformation(content, ontologyExpectedURL, lang, lodeResources);
 
             return(content);
         }
@@ -449,15 +449,16 @@ public class LODEGeneration {
 	}
 	
 	
-    private static String applyXSLTTransformation(String source, String ontologyUrl, String lang) 
+    private static String applyXSLTTransformation(String source, String ontologyUrl, String lang, File resourcesFile) 
 	throws TransformerException {	
 		TransformerFactory tfactory = new net.sf.saxon.TransformerFactoryImpl();
 		
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		URL xsltURL = ClassLoader.getSystemResource("lode/extraction.xsl");
+//		URL xsltURL = Thread.currentThread().getContextClassLoader().getResource("lode/extraction.xsl");
 		Transformer transformer =
 			tfactory.newTransformer(
-                                        new StreamSource(xsltURL.getPath()));
+//                                        new StreamSource(ClassLoader.getSystemResourceAsStream("lode/extraction.xsl")));
+                                        new StreamSource(resourcesFile.getPath()+"/extraction.xsl"));
 //                                        new StreamSource(ClassLoader.getSystemResourceAsStream("lode/resources/extraction.xsl")));
 		
                 //this will be modified later on, so it is not important right now

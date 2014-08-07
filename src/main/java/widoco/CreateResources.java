@@ -16,12 +16,15 @@
 
 package widoco;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,14 +42,14 @@ import widoco.entities.Ontology;
 public class CreateResources {
     
     //to do: analyze if this is the right name for the class. Maybe "generate" is better
-    public static void generateDocumentation(String folderOut, Configuration c, boolean fromURI){
+    public static void generateDocumentation(String folderOut, Configuration c, boolean fromURI, File lodeResources){
         try{
             //invoke LODE
             String lodeContent;
             if(fromURI) {
-                lodeContent = LODEGeneration.getLODEhtmlFromURL(c.getOntologyPath(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage());
+                lodeContent = LODEGeneration.getLODEhtmlFromURL(c.getOntologyPath(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage(), lodeResources);
             }else{
-                lodeContent = LODEGeneration.getLODEhtmlFromFile(c.getOntologyPath(),c.getOntologyURI(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage());
+                lodeContent = LODEGeneration.getLODEhtmlFromFile(c.getOntologyPath(),c.getOntologyURI(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage(), lodeResources);
             }
             LODEParser lode = new LODEParser(lodeContent,c);
             //create a folder with all the appropriate substructure on the selected folder.
@@ -67,13 +70,23 @@ public class CreateResources {
                 
             //create the image (if selected)
 
-            //create provenance
+            if(c.isPublishProvenance()){
+                createProvenancePage(folderOut+File.separator+"provenance", c);
+            }
             
             //create the main page (aggregation of the different sections)
             createIndexDocument(folderOut,c);
         }catch(IOException e){
             System.err.println("Error while creating the documentation: "+e.getMessage());    
         }
+    }
+    
+    /**
+     * Provenance page
+     */
+    private static void createProvenancePage(String path, Configuration c){
+        saveDocument(path+File.separator+"provenance.html", TextConstants.getProvenanceHtml(c));
+        saveDocument(path+File.separator+"provenance.ttl", TextConstants.getProvenanceRDF(c));
     }
     
     /**
@@ -149,6 +162,7 @@ public class CreateResources {
     //This method should be separated in another utils file.
     private static void saveDocument(String path, String textToWrite){
         File f = new File(path);
+        Writer out = null;
         try{
             if(f.exists()){
                 //here I should warn that the file is going to overwrite something
@@ -156,12 +170,15 @@ public class CreateResources {
             }
             else{f.createNewFile();}
             //write the file.
-            PrintWriter out = new PrintWriter(f);
+//            PrintWriter out = new PrintWriter(f);
+//            out.write(textToWrite);
+//            out.close();
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"));
             out.write(textToWrite);
             out.close();
         }catch(IOException e){
             System.err.println("Error while creating the file "+e.getMessage()+"\n"+f.getAbsolutePath());
-        }
+        }        
         
     }
     
@@ -200,7 +217,7 @@ public class CreateResources {
     }
 
     
-    private void copyResourceFolder(String[] resources, String savePath) throws IOException{
+    public static void copyResourceFolder(String[] resources, String savePath) throws IOException{
         for (String resource : resources) {
             String aux = resource.substring(resource.lastIndexOf("/") + 1, resource.length());
             File b = new File(savePath+File.separator+aux);
@@ -232,36 +249,36 @@ public class CreateResources {
             if(os!=null)os.close();
         }
     }
-    public static void main(String[] args){
-        //these methods have to be private!!
-//        createFolderStructure("C:\\Users\\Monen\\Desktop\\myDoc", false, false);
-        Configuration c = new Configuration();
-//        c.setIncludeOverview(false);
-//        c.setIncludeCrossReferenceSection(false);
-        c.setMainOntology(new Ontology("The Wf-Motif Ontology", "Wf-motif", "http://purl.org/net/wf-motifs#"));//<-cuidado con el hash y el slash del final...
-        c.setTitle("The Wf-Motif Ontology"); //redindant??
-        c.setRevision("5.0");
-        c.setReleaseDate("1-1-2011");
-        c.setThisVersion("thisversion.org");
-        c.setPreviousVersion("lastVersion.link");
-        c.setOntologyURI("http://purl.org/net/example#");//check why do I need ont path and ont uri... and ontology namespace.
-        //c.setOntologyPath("http://purl.org/net/wf-motifs#");
-        //local copy test
-        c.setOntologyPath("C:\\Users\\Dani\\Desktop\\RO-opt.owl");
-        Agent a = new Agent();
-        a.setName("Dani");a.setURL("http://dani.org");a.setInstitutionName("OEG Corp");
-        Agent a2 = new Agent("A", "http://bananen.org", "monen group", "hdhw");
-        ArrayList<Agent> aux = new ArrayList<Agent>();
-        aux.add(a);aux.add(a2);        
-        c.setCreators(aux);
-        c.setContributors(aux);
-        Ontology test = new Ontology("a", "b", "cbc");
-        ArrayList<Ontology> t = new ArrayList<Ontology>();
-        t.add(test);
-        c.setImportedOntolgies(t);
-        License l = new License("http://licenseUri", "LicenseName", "http://i.creativecommons.org/l/by-nc-sa/2.0/88x31.png");
-        c.setLicense(l);
-//        generateDocumentation("C:\\Users\\Monen\\Desktop\\myDoc", c);
-        generateDocumentation("C:\\Users\\Dani\\Desktop\\myDoc", c, false);
-    }
+//    public static void main(String[] args){
+//        //these methods have to be private!!
+////        createFolderStructure("C:\\Users\\Monen\\Desktop\\myDoc", false, false);
+//        Configuration c = new Configuration();
+////        c.setIncludeOverview(false);
+////        c.setIncludeCrossReferenceSection(false);
+//        c.setMainOntology(new Ontology("The Wf-Motif Ontology", "Wf-motif", "http://purl.org/net/wf-motifs#"));//<-cuidado con el hash y el slash del final...
+//        c.setTitle("The Wf-Motif Ontology"); //redindant??
+//        c.setRevision("5.0");
+//        c.setReleaseDate("1-1-2011");
+//        c.setThisVersion("thisversion.org");
+//        c.setPreviousVersion("lastVersion.link");
+//        c.setOntologyURI("http://purl.org/net/example#");//check why do I need ont path and ont uri... and ontology namespace.
+//        //c.setOntologyPath("http://purl.org/net/wf-motifs#");
+//        //local copy test
+//        c.setOntologyPath("C:\\Users\\Dani\\Desktop\\RO-opt.owl");
+//        Agent a = new Agent();
+//        a.setName("Dani");a.setURL("http://dani.org");a.setInstitutionName("OEG Corp");
+//        Agent a2 = new Agent("A", "http://bananen.org", "monen group", "hdhw");
+//        ArrayList<Agent> aux = new ArrayList<Agent>();
+//        aux.add(a);aux.add(a2);        
+//        c.setCreators(aux);
+//        c.setContributors(aux);
+//        Ontology test = new Ontology("a", "b", "cbc");
+//        ArrayList<Ontology> t = new ArrayList<Ontology>();
+//        t.add(test);
+//        c.setImportedOntolgies(t);
+//        License l = new License("http://licenseUri", "LicenseName", "http://i.creativecommons.org/l/by-nc-sa/2.0/88x31.png");
+//        c.setLicense(l);
+////        generateDocumentation("C:\\Users\\Monen\\Desktop\\myDoc", c);
+//        generateDocumentation("C:\\Users\\Dani\\Desktop\\myDoc", c, false);
+//    }
 }

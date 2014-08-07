@@ -35,155 +35,155 @@ public class TextConstants {
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
-    public static final String styles=
-                "<title property=\"dc:title schema:name\">"+ReadConfigurationFileOld.getTitle()+"</title>\n"+
-		"<style type=\"text/css\">\n"+
-		"/*This template uses the W3C css for working drafts, with small modifications.\n"+
-		   "Original copyright:\n"+
-		   "Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.\n"+
-		   "The following software licensing rules apply:\n"+
-		   "http://www.w3.org/Consortium/Legal/copyright-software */\n"+
-
-		"body {\n"+
-		  "padding: 2em 1em 2em 70px;\n"+
-		  "margin: 0;\n"+
-		  "font-family: sans-serif;\n"+
-		  "color: black;\n"+
-		  "background: white;\n"+
-		  "background-position: top left;\n"+
-		  "background-attachment: fixed;\n"+
-		  "background-repeat: no-repeat;\n"+
-		"}\n"+
-		":link { color: #00C; background: transparent }\n"+
-		":visited { color: #609; background: transparent }\n"+
-		"a:active { color: #C00; background: transparent }\n"+
-
-		"a:link img, a:visited img { border-style: none } /* no border on img links */\n"+
-
-		"a img { color: white; }        /* trick to hide the border in Netscape 4 */\n"+
-		"@media all {                   /* hide the next rule from Netscape 4 */\n"+
-		  "a img { color: inherit; }    /* undo the color change above */\n"+
-		"}\n"+
-
-		"th, td { /* ns 4 */\n"+
-		  "font-family: sans-serif;\n"+
-		"}\n"+
-
-		"h1, h2, h3, h4, h5, h6 { text-align: left }\n"+
-		"/* background should be transparent, but WebTV has a bug */\n"+
-		"h1, h2, h3 { color: #005A9C; background: white }\n"+
-		"h1 { font: 170% sans-serif }\n"+
-		"h2 { font: 140% sans-serif }\n"+
-		"h3 { font: 120% sans-serif }\n"+
-		"h3 {\n"+
-			"border-bottom: 1px solid navy;\n"+
-			"margin-top: 3px;\n"+
-			"padding-bottom: 5px;\n"+
-		"}\n"+
-		"h4 { font: bold 100% sans-serif }\n"+
-		"h5 { font: italic 100% sans-serif }\n"+
-		"h6 { font: small-caps 100% sans-serif }\n"+
-		".hide { display: none }\n"+
-		"div.head { margin-bottom: 1em }\n"+
-		"div.head h1 { margin-top: 2em; clear: both }\n"+
-		"div.head table { margin-left: 2em; margin-top: 2em }\n"+
-		"p.copyright { font-size: small }\n"+
-		"p.copyright small { font-size: small }\n"+
-		"@media screen {  /* hide from IE3 */\n"+
-		"a[href]:hover { background: #ffa }\n"+
-		"}\n"+
-		"pre { margin-left: 2em }\n"+		
-		"p {\n"+
-		  "margin-top: 0.6em;\n"+
-		  "margin-bottom: 0.6em;		  \n"+
-		  "text-align: justify;\n"+
-		"}\n"+		
-		"dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */\n"+
-		"dt { font-weight: bold }\n"+
-		"ul.toc, ol.toc {\n"+
-		  "list-style: disc;		/* Mac NS has problem with 'none' */\n"+
-		  "list-style: none;\n"+
-		"}\n"+
-		"@media aural {  \n"+
-		  "h1, h2, h3 { stress: 20; richness: 90 }\n"+
-		  ".hide { speak: none }\n"+
-		  "p.copyright { volume: x-soft; speech-rate: x-fast }\n"+
-		  "dt { pause-before: 20% }\n"+
-		  "pre { speak-punctuation: code } \n"+
-		"}\n"+		
-		"/*Additional css*/\n"+
-		".hlist {\n"+
-			"background-color: #F4FFFF;\n"+
-			"border: 1px solid navy;\n"+
-			"padding: 5px;\n"+
-		"}\n"+
-		".hlist li {\n"+
-			"display: inline-table;\n"+
-			"list-style-type: none;\n"+
-			"padding-right: 20px;\n"+
-		"}\n"+
-		".backlink {\n"+
-			"background-color: #F4FFFF;\n"+
-			"border: 1px dotted navy;\n"+
-			"color: black;\n"+
-			"float: right;\n"+
-			"font-size: 10pt;\n"+
-			"padding: 2px;\n"+
-			"text-align: right;\n"+
-		"}\n"+
-		".entity {\n"+
-			"border: 1px solid navy;\n"+
-			"margin: 5px 0;\n"+
-			"padding: 5px;\n"+
-		"}\n"+
-		"table {\n"+
-			"background-color: #F4FFFF;\n"+
-			"border: 1px solid navy;\n"+
-			"margin: 20px;\n"+
-		"}\n"+
-		"table {\n"+
-			"text-align: center;\n"+
-			"vertical-align: middle;\n"+
-		"}\n"+
-		"table td {\n"+
-			"padding: 5px 15px;\n"+
-			"text-align: left;\n"+
-		"}\n"+
-		"table th {\n"+
-			"background-color: LightGoldenRodYellow;\n"+
-		"}\n"+
-		"pre {\n"+
-			"background-color: #F9F9F9;\n"+
-			"border: 1px dashed #2F6FAB;\n"+
-			"color: black;\n"+
-			"line-height: 1.1em;\n"+
-			"padding: 1em;\n"+
-		"}\n"+
-                ".type-c {\n"+
-                    "cursor:help;\n"+
-                    "color:orange;\n"+
-                "}\n"+
-
-                ".type-op {\n"+
-                    "cursor:help;\n"+
-                    "color:navy;   \n" +
-                "}\n"+
-
-                ".type-dp {\n"+
-                    "cursor:help;\n"+
-                    "color:green;\n"+
-                "}\n"+
-
-		"</style> \n"+
-                "</head>\n"+                           
-                "<body resource=\""+ReadConfigurationFileOld.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
-                //RDF-a Annotations
-                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n"+                
-                "<span property=\"dc:created schema:dateCreated\" content=\""+ReadConfigurationFileOld.getDateOfRelease()+"\"></span>\n"+
-                "<span property=\"dc:isVersionOf\" resource=\""+ReadConfigurationFileOld.getLatestVersion()+"\"></span>\n"+
-                "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>\n"+
-                "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>\n"+
-                "</span>\n";
+//    public static final String styles=
+//                "<title property=\"dc:title schema:name\">"+ReadConfigurationFileOld.getTitle()+"</title>\n"+
+//		"<style type=\"text/css\">\n"+
+//		"/*This template uses the W3C css for working drafts, with small modifications.\n"+
+//		   "Original copyright:\n"+
+//		   "Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.\n"+
+//		   "The following software licensing rules apply:\n"+
+//		   "http://www.w3.org/Consortium/Legal/copyright-software */\n"+
+//
+//		"body {\n"+
+//		  "padding: 2em 1em 2em 70px;\n"+
+//		  "margin: 0;\n"+
+//		  "font-family: sans-serif;\n"+
+//		  "color: black;\n"+
+//		  "background: white;\n"+
+//		  "background-position: top left;\n"+
+//		  "background-attachment: fixed;\n"+
+//		  "background-repeat: no-repeat;\n"+
+//		"}\n"+
+//		":link { color: #00C; background: transparent }\n"+
+//		":visited { color: #609; background: transparent }\n"+
+//		"a:active { color: #C00; background: transparent }\n"+
+//
+//		"a:link img, a:visited img { border-style: none } /* no border on img links */\n"+
+//
+//		"a img { color: white; }        /* trick to hide the border in Netscape 4 */\n"+
+//		"@media all {                   /* hide the next rule from Netscape 4 */\n"+
+//		  "a img { color: inherit; }    /* undo the color change above */\n"+
+//		"}\n"+
+//
+//		"th, td { /* ns 4 */\n"+
+//		  "font-family: sans-serif;\n"+
+//		"}\n"+
+//
+//		"h1, h2, h3, h4, h5, h6 { text-align: left }\n"+
+//		"/* background should be transparent, but WebTV has a bug */\n"+
+//		"h1, h2, h3 { color: #005A9C; background: white }\n"+
+//		"h1 { font: 170% sans-serif }\n"+
+//		"h2 { font: 140% sans-serif }\n"+
+//		"h3 { font: 120% sans-serif }\n"+
+//		"h3 {\n"+
+//			"border-bottom: 1px solid navy;\n"+
+//			"margin-top: 3px;\n"+
+//			"padding-bottom: 5px;\n"+
+//		"}\n"+
+//		"h4 { font: bold 100% sans-serif }\n"+
+//		"h5 { font: italic 100% sans-serif }\n"+
+//		"h6 { font: small-caps 100% sans-serif }\n"+
+//		".hide { display: none }\n"+
+//		"div.head { margin-bottom: 1em }\n"+
+//		"div.head h1 { margin-top: 2em; clear: both }\n"+
+//		"div.head table { margin-left: 2em; margin-top: 2em }\n"+
+//		"p.copyright { font-size: small }\n"+
+//		"p.copyright small { font-size: small }\n"+
+//		"@media screen {  /* hide from IE3 */\n"+
+//		"a[href]:hover { background: #ffa }\n"+
+//		"}\n"+
+//		"pre { margin-left: 2em }\n"+		
+//		"p {\n"+
+//		  "margin-top: 0.6em;\n"+
+//		  "margin-bottom: 0.6em;		  \n"+
+//		  "text-align: justify;\n"+
+//		"}\n"+		
+//		"dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */\n"+
+//		"dt { font-weight: bold }\n"+
+//		"ul.toc, ol.toc {\n"+
+//		  "list-style: disc;		/* Mac NS has problem with 'none' */\n"+
+//		  "list-style: none;\n"+
+//		"}\n"+
+//		"@media aural {  \n"+
+//		  "h1, h2, h3 { stress: 20; richness: 90 }\n"+
+//		  ".hide { speak: none }\n"+
+//		  "p.copyright { volume: x-soft; speech-rate: x-fast }\n"+
+//		  "dt { pause-before: 20% }\n"+
+//		  "pre { speak-punctuation: code } \n"+
+//		"}\n"+		
+//		"/*Additional css*/\n"+
+//		".hlist {\n"+
+//			"background-color: #F4FFFF;\n"+
+//			"border: 1px solid navy;\n"+
+//			"padding: 5px;\n"+
+//		"}\n"+
+//		".hlist li {\n"+
+//			"display: inline-table;\n"+
+//			"list-style-type: none;\n"+
+//			"padding-right: 20px;\n"+
+//		"}\n"+
+//		".backlink {\n"+
+//			"background-color: #F4FFFF;\n"+
+//			"border: 1px dotted navy;\n"+
+//			"color: black;\n"+
+//			"float: right;\n"+
+//			"font-size: 10pt;\n"+
+//			"padding: 2px;\n"+
+//			"text-align: right;\n"+
+//		"}\n"+
+//		".entity {\n"+
+//			"border: 1px solid navy;\n"+
+//			"margin: 5px 0;\n"+
+//			"padding: 5px;\n"+
+//		"}\n"+
+//		"table {\n"+
+//			"background-color: #F4FFFF;\n"+
+//			"border: 1px solid navy;\n"+
+//			"margin: 20px;\n"+
+//		"}\n"+
+//		"table {\n"+
+//			"text-align: center;\n"+
+//			"vertical-align: middle;\n"+
+//		"}\n"+
+//		"table td {\n"+
+//			"padding: 5px 15px;\n"+
+//			"text-align: left;\n"+
+//		"}\n"+
+//		"table th {\n"+
+//			"background-color: LightGoldenRodYellow;\n"+
+//		"}\n"+
+//		"pre {\n"+
+//			"background-color: #F9F9F9;\n"+
+//			"border: 1px dashed #2F6FAB;\n"+
+//			"color: black;\n"+
+//			"line-height: 1.1em;\n"+
+//			"padding: 1em;\n"+
+//		"}\n"+
+//                ".type-c {\n"+
+//                    "cursor:help;\n"+
+//                    "color:orange;\n"+
+//                "}\n"+
+//
+//                ".type-op {\n"+
+//                    "cursor:help;\n"+
+//                    "color:navy;   \n" +
+//                "}\n"+
+//
+//                ".type-dp {\n"+
+//                    "cursor:help;\n"+
+//                    "color:green;\n"+
+//                "}\n"+
+//
+//		"</style> \n"+
+//                "</head>\n"+                           
+//                "<body resource=\""+ReadConfigurationFileOld.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
+//                //RDF-a Annotations
+//                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n"+                
+//                "<span property=\"dc:created schema:dateCreated\" content=\""+ReadConfigurationFileOld.getDateOfRelease()+"\"></span>\n"+
+//                "<span property=\"dc:isVersionOf\" resource=\""+ReadConfigurationFileOld.getLatestVersion()+"\"></span>\n"+
+//                "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>\n"+
+//                "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>\n"+
+//                "</span>\n";
     //missing specialization. Missing alterante
     public static final String abstractSection="<h2>Abstract</h2><p>Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
             + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b></p>\n";
@@ -278,13 +278,13 @@ public class TextConstants {
         String authors="<dl><dt>Authors:</dt>\n";
         //the same amount of names and institutions is assumed.
         authors+=getAgents(auth);
-        authors = authors.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix of annotations
         return authors +"</dl>\n";                   
     }
     
     private static String getContributors(ArrayList<Agent> contrib) {
         String contributors="<dl><dt>Contributors:</dt>\n";
         contributors+=getAgents(contrib);
+        contributors = contributors.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix of annotations
         return contributors +"</dl>\n";                   
     }
 
@@ -400,13 +400,26 @@ public class TextConstants {
         if(c.isIncludeDescription()) document += "      $(\"#description\").load(\"sections/description.html\"); \n";
         if(c.isIncludeCrossReferenceSection()) document += "      $(\"#crossref\").load(\"sections/crossref.html\"); \n";
         if(c.isIncludeReferences()) document += "      $(\"#references\").load(\"sections/references.html\"); \n";
-               document+="    });\n" +
-                        "    </script> \n" +
-                        "  </head> \n" +
-                        "\n" +
-                        "  <body> \n" +
-                        "	 \n" ;
-                        //"	 <h1>This is a test combining the different sections</h1>\n";
+            document+="    });\n" +
+                     "    </script> \n" +
+                     "  </head> \n" +
+                     "\n" +
+                    //missing specialization. Missing alterante
+                    //I assume the namespace prefix of the ontology is provided
+                    "<body resource=\""+c.getMainOntology().getNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
+//                //RDF-a Annotations
+                     "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n";
+        if(c.getReleaseDate()!=null && !"".equals(c.getReleaseDate())){
+            document+="<span property=\"dc:created schema:dateCreated\" content=\""+c.getReleaseDate()+"\"></span>\n";
+         }
+        if(c.getLatestVersion()!=null && !"".equals(c.getLatestVersion())){
+            document+="<span property=\"dc:isVersionOf prov:specializationOf\" resource=\""+c.getLatestVersion()+"\"></span>\n";
+        }
+        if(c.getPreviousVersion()!=null && !"".equals(c.getPreviousVersion())){
+            document+="<span property=\"prov:alternateOf prov:revisionOf\" resource=\""+c.getPreviousVersion()+"\"></span>\n";
+        }
+            document+="<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://purl.org/net/dgarijo\"></span>\n"+
+                        "</span>\n";
         document += getHeadSection(c);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
         document += getTableOfContentsSection(c);
@@ -461,7 +474,7 @@ public class TextConstants {
                 && !"".equals(c.getLicense().getUrl()) &&!"".equals(c.getLicense().getName())){
             if(c.getLicense().getIcon()!=null && !"".equals(c.getLicense().getIcon())){
                 head+="<a property=\"dc:rights\" href=\""+c.getLicense().getUrl()+"\" rel=\"license\">\n" +
-                "<img src=\""+c.getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\">\n" +
+                "<img src=\""+c.getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
                 "</a>\n<br/>";
             }
             head+="<dl>This work is licensed under a <a rel=\"license\" href=\""+c.getLicense().getUrl()+"\">"+c.getLicense().getName()+"</a>.</dl>\n"+
@@ -523,5 +536,105 @@ public class TextConstants {
         return "<h2>4. Cross reference for "+c.getMainOntology().getName()+" classes and properties</h2>"+"\n" +
                "This section provides details for each class and property defined by "+c.getMainOntology().getName()+".\n";
     }
+    
+    public static String getProvenanceHtml(Configuration c){
+        String provhtml = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n" +
+                " \n" +
+                "  </head> \n" +
+                "\n" +
+                "<body>\n" +
+                "<div class=\"head\">\n";
+                if(c.getTitle()!=null &&!"".equals(c.getTitle())){
+                    provhtml+="<h1>Provenance for"+c.getTitle()+" Documentation ("+c.getProvenanceURI()+")</h1>\n";
+                }
+                provhtml+="<ul>\n";
+                if(!c.getCreators().isEmpty()){
+                    provhtml+="	<li>Ontology created by :\n";
+                    Iterator<Agent> creators = c.getCreators().iterator();
+                    while(creators.hasNext()){
+                        Agent currCreator = creators.next();
+                        provhtml+= " "+currCreator.getName()+"("+currCreator.getInstitutionName()+"),";
+                    }
+                    provhtml+="</li>";
+                }
+                if(!c.getContributors().isEmpty()){
+                    provhtml+="	<li>Ontology contributed to by :\n";
+                    Iterator<Agent> contrib = c.getContributors().iterator();
+                    while(contrib.hasNext()){
+                        Agent currContrib = contrib.next();
+                        provhtml+= " "+currContrib.getName()+"("+currContrib.getInstitutionName()+"),";
+                    }
+                    provhtml+="</li>\n";
+                }
+                if(c.getLatestVersion()!=null &&!"".equals(c.getLatestVersion())){
+                    provhtml+="<li>"+c.getProvenanceURI()+ "is a specialization of the generic URI "+ c.getLatestVersion()+"</li>\n";
+                }
+                if(c.getPreviousVersion()!=null &&!"".equals(c.getPreviousVersion())){
+                    provhtml+="<li>"+c.getProvenanceURI()+ "is a revision of the generic URI "+ c.getPreviousVersion()+"</li>\n";
+                }                    
+                provhtml+="<li>The ontology documentation was the result of using the <a href=\"https://github.com/dgarijo/Widoco\">Widoco tool</a> (which itself uses <a href=\"http://www.essepuntato.it/lode/\">LODE</a> for generating the crossreference section).</li>\n";
+                if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
+                    provhtml+="<li>The documentation was generated at</li>\n" +c.getReleaseDate();
+                }
+                provhtml+="</ul>\n" +
+                "</div>\n" +
+                "</body> \n" +
+                "</html>";
+        return provhtml;
+    }
+    
+    //for content negotiation, if desired. This has been done a bit quickly. Ideally it would change serializations according to what is needed.
+    public static String getProvenanceRDF(Configuration c){
+        String provrdf = "@prefix prov: <http://www.w3.org/ns/prov#> .\n"
+                + "@prefix dc: <http://purl.org/dc/terms/> .\n"
+                + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
+                provrdf+="<"+c.getProvenanceURI()+"> a prov:Entity;\n";
+                if(c.getTitle()!=null &&!"".equals(c.getTitle())){
+                    provrdf+= "\t dc:title \""+c.getTitle()+"\";\n";
+                }
+                if(!c.getCreators().isEmpty()){
+                    Iterator<Agent> creators = c.getCreators().iterator();
+                    while(creators.hasNext()){
+                        //me quedo aqui. Hay que cambiar todo. Quizas la responsabilidad puedo pasar, o asumir que todos los agentes itenen uris. Si no es un rollo
+                        Agent currCreator = creators.next();
+                        if(currCreator.getURL()!=null && !"".equals(currCreator.getURL())){
+                            provrdf+= "\t prov:wasAttributedTo <"+currCreator.getURL()+">;\n";
+                            provrdf+= "\t dc:creator <"+currCreator.getURL()+">;\n";
+                        }else{
+                            provrdf+= "\t prov:wasAttributedTo [ a prov:Agent; foaf:name \""+currCreator.getName()+"\".];\n";
+                        }
+                    }
+                }
+                if(!c.getContributors().isEmpty()){
+                    Iterator<Agent> contrib = c.getContributors().iterator();
+                    while(contrib.hasNext()){
+                        Agent currContrib = contrib.next();
+                        if(currContrib.getURL()!=null && !"".equals(currContrib.getURL())){
+                            provrdf+= "\t prov:wasAttributedTo <"+currContrib.getURL()+">;\n";
+                            provrdf+= "\t dc:contributor <"+currContrib.getURL()+">;\n";
+                        }else{
+                            provrdf+= "\t prov:wasAttributedTo [ a prov:Agent; foaf:name \""+currContrib.getName()+"\".];\n";
+                        }
+                    }
+                }
+                provrdf+= "\t prov:wasAttributedTo <https://github.com/dgarijo/Widoco/>,<http://www.essepuntato.it/lode/>;\n";
+                if(c.getLatestVersion()!=null &&!"".equals(c.getLatestVersion())){
+                    provrdf+="\t prov:specializationOf <"+c.getLatestVersion()+">;\n";
+                }
+                if(c.getPreviousVersion()!=null &&!"".equals(c.getPreviousVersion())){
+                    provrdf+="\t prov:wasRevisionOf <"+c.getPreviousVersion()+">;\n";
+                }                    
+                if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
+                    provrdf+="\t prov:wasGeneratedAt \""+c.getReleaseDate()+"\".\n";
+                }
+        return provrdf;
+    }
+    
+    //resources to copy to the temporal folder.
+    public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/common-functions.xsl", 
+        "/lode/pellet.properties", "/lode/structural-reasoner.xsl", "/lode/swrl-module.xsl", "/lode/en.xml"};
     
 }

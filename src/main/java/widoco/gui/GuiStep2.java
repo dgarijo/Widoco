@@ -140,6 +140,11 @@ public class GuiStep2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 2: Load the metadata");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         nextButton.setText("Next >");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
@@ -354,6 +359,10 @@ public class GuiStep2 extends javax.swing.JFrame {
            this.refreshTable();
         }
     }//GEN-LAST:event_loadMetadataButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.g.switchState("cancel");
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

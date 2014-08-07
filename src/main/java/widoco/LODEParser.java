@@ -51,7 +51,7 @@ public class LODEParser {
     private String propertyList;
     private String dataProp;
     private String dataPropList;
-    private HashMap <String,String> namespaceDeclarations;
+    private final HashMap <String,String> namespaceDeclarations;
     Configuration c;
 
 //    public LODEParser() {
@@ -184,8 +184,9 @@ public class LODEParser {
             StreamResult result = new StreamResult(sw);
             DOMSource source = new DOMSource(fixAnchor(n));
             trans.transform(source, result);
-            String returnValue= sw.toString().replace("\n", "");          
-            return(returnValue);
+            return sw.toString();
+//            String returnValue= sw.toString().replace("\n", "");          
+//            return(returnValue);
         }
         catch (IllegalArgumentException ex) {
             System.err.println("Error while writing to xml "+ex.getMessage());

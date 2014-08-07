@@ -18,6 +18,8 @@ package widoco;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class Configuration {
     private boolean fromFile;//if this is true, the onto will be from a file. otherwise it's a URI
     
     private boolean publishProvenance;
+    private String provenanceURI; //this will be used as the subject for describing provenance (url of the doc)
     
     private boolean includeAbstract;
     private boolean includeIntroduction;
@@ -117,7 +120,9 @@ public class Configuration {
             includeDescription = true;
             includeReferences = true;
             includeCrossReferenceSection = true;
-            propertyFile.load(new FileInputStream(path));
+//            propertyFile.load(new FileInputStream(path));
+            //this forces the property file to be in UTF 8 instead of the ISO
+            propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
             this.title = propertyFile.getProperty("title","Title goes here");
             this.releaseDate = propertyFile.getProperty("dateOfRelease", "Date of release");
@@ -179,6 +184,7 @@ public class Configuration {
             }
             license.setName(propertyFile.getProperty("license"));
             license.setUrl(propertyFile.getProperty("licenseURL"));
+            license.setIcon(propertyFile.getProperty("licenseIconURL"));
             //to do: add the license icon!
     	} catch (IOException ex) {
             System.err.println("Error while reading configuration properties "+ex.getMessage());
@@ -256,8 +262,16 @@ public class Configuration {
     public boolean isPublishProvenance() {
         return publishProvenance;
     }
+
+    public String getProvenanceURI() {
+        return provenanceURI;
+    }
+
     
     
+    public void setProvenanceURI(String provenanceURI) {
+        this.provenanceURI = provenanceURI;
+    }
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
@@ -448,7 +462,6 @@ public class Configuration {
     /**
      * Lode configuration parameters
      */
-    
     
     public String getLanguage() {
         return language;

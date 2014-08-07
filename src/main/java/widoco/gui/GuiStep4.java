@@ -93,6 +93,11 @@ public class GuiStep4 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 4: Configure LODE");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         nextButton.setText("Generate! >");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +279,11 @@ public class GuiStep4 extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        this.saveConfig();        
+        this.saveConfig();
+        this.barStatus.setVisible(true);
+        this.barStatus.setIndeterminate(true);
+        this.labelStatus.setVisible(true);
+        this.nextButton.setEnabled(false);
         g.switchState("next");
     }//GEN-LAST:event_nextButtonActionPerformed
 
@@ -293,6 +302,10 @@ public class GuiStep4 extends javax.swing.JFrame {
     private void labelLodeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLodeMouseExited
         setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_labelLodeMouseExited
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.g.switchState("cancel");
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

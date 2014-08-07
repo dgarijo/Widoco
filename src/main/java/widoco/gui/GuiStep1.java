@@ -111,6 +111,11 @@ public class GuiStep1 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 1: Select a template");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         nextButton.setText("Next >");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
@@ -162,16 +167,17 @@ public class GuiStep1 extends javax.swing.JFrame {
         });
 
         option3.setText("Create empty skeleton");
+        option3.setEnabled(false);
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelTitle.setText("Step 1: Select a template. Choose the type of template you want to create");
+        labelTitle.setText("Step 1: Select a template. Choose the type of template you want to create and where to save it");
 
         labelSteps.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelSteps.setText("Steps");
 
-        jLabel1.setText("Document name");
+        jLabel1.setText("Project name");
 
-        jLabel2.setText("Document export location");
+        jLabel2.setText("Project export location");
 
         textDocName.setText("myDocumentation");
         textDocName.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -202,10 +208,11 @@ public class GuiStep1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
@@ -238,14 +245,9 @@ public class GuiStep1 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(browseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50))))
+                                    .addComponent(browseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator1))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,6 +380,10 @@ public class GuiStep1 extends javax.swing.JFrame {
             this.textFieldURL.setEditable(true);
         }
     }//GEN-LAST:event_option2MouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.g.switchState("cancel");
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

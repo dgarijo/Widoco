@@ -27,9 +27,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -85,6 +83,11 @@ public class GuiStep5 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Finish documentation");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         nextButton.setText("Finish");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +228,8 @@ public class GuiStep5 extends javax.swing.JFrame {
             } catch (URISyntaxException ex) {
                 System.err.println("malformed URI!!!"+ ex.getMessage());
             }
+        }else{
+            JOptionPane.showMessageDialog(this, "This option is currently supported when the ontology is online.");
         }
     }//GEN-LAST:event_labelOopsMouseClicked
 
@@ -254,6 +259,10 @@ public class GuiStep5 extends javax.swing.JFrame {
     private void labelViewDocMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelViewDocMouseExited
         setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_labelViewDocMouseExited
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.g.switchState("cancel");
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
