@@ -15,6 +15,7 @@
  */
 package widoco;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import javax.imageio.ImageIO;
 import widoco.entities.Agent;
 import widoco.entities.License;
 import widoco.entities.Ontology;
@@ -79,6 +81,9 @@ public class Configuration {
     private boolean useImported;
     private boolean useReasoner;
     private String language;
+    
+    private Image logo;
+    private Image logoMini;
     
 //    to do. Load from configuration file. Setters and getters to do it from the interface.
     //model everything as a singleton object. No need: only the controller accesses this file.
@@ -493,6 +498,30 @@ public class Configuration {
 
     public void setUseReasoner(boolean useReasoner) {
         this.useReasoner = useReasoner;
+    }
+    
+    public Image getLogo(){
+        if(logo == null){
+            loadLogos();
+        }
+        return this.logo;
+    }
+    
+    public Image getLogoMini(){
+        if(logoMini == null){
+            loadLogos();
+        }
+        return this.logoMini;
+    }
+    
+    private void loadLogos(){
+        try {
+            //logo
+            this.logo = ImageIO.read(ClassLoader.getSystemResource("logo/logo2.png"));
+            this.logoMini = ImageIO.read(ClassLoader.getSystemResource("logo/logomini2.png"));
+        } catch (IOException e) {
+            System.err.println("Error loading the logo :( "+e.getMessage());
+        }
     }
 
     

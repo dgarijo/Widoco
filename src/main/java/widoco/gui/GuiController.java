@@ -17,6 +17,7 @@
 package widoco.gui;
 
 import java.awt.Desktop;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -56,6 +58,7 @@ public class GuiController {
     public GuiController() {
         this.state = State.initial;  
         config = new Configuration();
+        //read logo
         gui = new GuiStep1(this);
         gui.setVisible(true);
         try {

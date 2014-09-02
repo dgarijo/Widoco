@@ -22,13 +22,15 @@
 package widoco.gui;
 
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -44,11 +46,16 @@ public class GuiStep1 extends javax.swing.JFrame {
     public GuiStep1(GuiController g) {
         this.g = g;
         initComponents();
+        //loading logo
+        Image l = g.getConfig().getLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
+        widocoLogo.setIcon(new ImageIcon(l));
+        this.setIconImage(g.getConfig().getLogoMini());//
+        
         ButtonGroup buttonGroup  = new ButtonGroup();
         buttonGroup.add(option1);
         buttonGroup.add(option2);
         buttonGroup.add(option3);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
         // Determine the new location of the window
         int w = this.getSize().width;
@@ -56,7 +63,7 @@ public class GuiStep1 extends javax.swing.JFrame {
         int x = (dim.width-w)/2;
         int y = (dim.height-h)/2;
 
-        // Move the window
+        //Move the window
         this.setLocation(x, y);
         
         if(g.getConfig().getDocumentationURI()==null){
@@ -107,6 +114,8 @@ public class GuiStep1 extends javax.swing.JFrame {
         textDocName = new javax.swing.JTextField();
         textDocPath = new javax.swing.JTextField();
         browseButton = new javax.swing.JButton();
+        widocoLogo = new javax.swing.JLabel();
+        labelTitle1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 1: Select a template");
@@ -170,7 +179,7 @@ public class GuiStep1 extends javax.swing.JFrame {
         option3.setEnabled(false);
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelTitle.setText("Step 1: Select a template. Choose the type of template you want to create and where to save it");
+        labelTitle.setText("Step 1: Select a template. ");
 
         labelSteps.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelSteps.setText("Steps");
@@ -201,6 +210,11 @@ public class GuiStep1 extends javax.swing.JFrame {
             }
         });
 
+        widocoLogo.setText("LOGO");
+
+        labelTitle1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTitle1.setText("Choose the type of template you want to create and where to save it");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,7 +222,6 @@ public class GuiStep1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2)
@@ -238,25 +251,41 @@ public class GuiStep1 extends javax.swing.JFrame {
                                                             .addComponent(option3)
                                                             .addComponent(option2)
                                                             .addComponent(option1))
-                                                        .addGap(0, 76, Short.MAX_VALUE))))
+                                                        .addGap(0, 91, Short.MAX_VALUE))))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(39, 39, 39)
                                                 .addComponent(textFieldPath)))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(browseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator1))
-                        .addContainerGap())))
+                                    .addComponent(browseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(widocoLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelTitle1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(labelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelTitle)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelTitle1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(widocoLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(option1)
                     .addComponent(labelSteps))
@@ -270,7 +299,7 @@ public class GuiStep1 extends javax.swing.JFrame {
                         .addComponent(textFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(option3)
-                        .addGap(0, 5, Short.MAX_VALUE))
+                        .addGap(0, 16, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,6 +459,7 @@ public class GuiStep1 extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;
+    private javax.swing.JLabel labelTitle1;
     private javax.swing.JButton nextButton;
     private javax.swing.JRadioButton option1;
     private javax.swing.JRadioButton option2;
@@ -439,5 +469,6 @@ public class GuiStep1 extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldPath;
     private javax.swing.JTextField textFieldURL;
     private javax.swing.JTextPane textPaneSteps;
+    private javax.swing.JLabel widocoLogo;
     // End of variables declaration//GEN-END:variables
 }
