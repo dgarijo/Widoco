@@ -1,8 +1,8 @@
-WIzard for DOcumenting Ontologies (Widoco)
+WIzard for DOCumenting Ontologies (Widoco)
 ===================
 Author: Daniel Garijo
 
-Contributors: Almudena Ruiz, Miguel Angel García and Oscar Corcho.
+Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García and Oscar Corcho.
 
 Description
 This project has been created to help you to create a complete documentation of your ontology.
@@ -56,6 +56,11 @@ Download all the files of the "JAR" folder into the same folder. Then just doubl
 For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
 
 The character ";" is used for lists (for instance first author; second author; third author)
+
+Browser problems
+==========
+The result of executing Widoco is an html file. If you test the file locally, it will NOT work on Chrome (but will work on Firefox and Internet Explorer). However if you place the file on a server, it will work correctly for all the browsers (this is because Chrome doesn't allow doesn't allow XMLHttpRequest without HTTP).
+
 Encoding issues
 ==========
 If you have problems with accents or strange characters, please use the -Dfile.encoding=utf-8 option when running the .jar.
