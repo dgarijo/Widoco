@@ -458,7 +458,7 @@ public class LODEGeneration {
 		Transformer transformer =
 			tfactory.newTransformer(
 //                                        new StreamSource(ClassLoader.getSystemResourceAsStream("lode/extraction.xsl")));
-                                        new StreamSource(resourcesFile.getPath()+"/extraction.xsl"));
+                                        new StreamSource(resourcesFile.getPath()+File.separator+"extraction.xsl"));
 //                                        new StreamSource(ClassLoader.getSystemResourceAsStream("lode/resources/extraction.xsl")));
 		
                 //this will be modified later on, so it is not important right now

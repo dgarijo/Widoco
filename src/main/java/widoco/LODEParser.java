@@ -18,7 +18,6 @@ package widoco;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,7 +100,7 @@ public class LODEParser {
         try {            
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();                    
-            Document doc = db.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
+            Document doc = db.parse(new ByteArrayInputStream(content.getBytes("UTF-8")));//StandardCharsets.UTF_8
 
             NodeList html = doc.getElementsByTagName("div");
 //            String cList = "", pList= "", dPList= "", c= "", p= "", dp="";

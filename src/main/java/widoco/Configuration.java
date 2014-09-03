@@ -518,7 +518,7 @@ public class Configuration {
         try {
             //logo
             this.logo = ImageIO.read(ClassLoader.getSystemResource("logo/logo2.png"));
-            this.logoMini = ImageIO.read(ClassLoader.getSystemResource("logo/logomini2.png"));
+            this.logoMini = ImageIO.read(ClassLoader.getSystemResource("logo/logomini100.png"));
         } catch (IOException e) {
             System.err.println("Error loading the logo :( "+e.getMessage());
         }

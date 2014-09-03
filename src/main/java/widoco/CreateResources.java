@@ -227,7 +227,7 @@ public class CreateResources {
     }
     
     /**
-     * Method used to copy all the RO related files: styles, images, etc.
+     * Method used to copy all the related files: styles, images, etc.
      * @param source
      * @param dest
      * @throws IOException 
@@ -243,6 +243,9 @@ public class CreateResources {
             while ((length = is.read(buffer)) > 0) {
                 os.write(buffer, 0, length);
             }
+        }
+        catch(Exception e){
+            System.err.println("Exception while copying the resource"+resourceName+". "+e.getMessage());
         }
         finally {
             if(is!=null)is.close();
