@@ -31,6 +31,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *
@@ -379,10 +380,7 @@ public class GuiStep1 extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(this, "The selected folder does not exist! Please select a foler");
                return;
            }
-//           if(!f.isDirectory()){
-//               JOptionPane.showConfirmDialog(this, "The selected file is not a folder!. Please select a foler");
-//               return;
-//           }
+           //no need to check if the file is a foder, as we ensure this with the "directories_only" property
            this.textDocPath.setText(folderPath+File.separator+this.textDocName.getText());
         }
     }//GEN-LAST:event_browseButtonActionPerformed
@@ -403,9 +401,24 @@ public class GuiStep1 extends javax.swing.JFrame {
     private void option1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option1MouseClicked
         if(option1.isSelected()){
             JFileChooser chooser = new JFileChooser();
-            
             chooser.setName("Select OWL File");
-            //chooser.setFileFilter(new FileFilter);
+            //no need to create an additional class, as we will use this filter only here.
+            chooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    if (f.isDirectory()) {
+                        return true;
+                    }
+                    return f.getName().endsWith(".owl")||
+                            f.getName().endsWith(".rdf")||
+                            f.getName().endsWith(".ttl");
+                }
+
+                @Override
+                public String getDescription() {
+                    return null;
+                }
+            });
             //chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int returnVal = chooser.showOpenDialog(this);
             if(returnVal == JFileChooser.APPROVE_OPTION) {

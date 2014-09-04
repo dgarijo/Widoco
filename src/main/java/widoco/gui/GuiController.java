@@ -196,27 +196,27 @@ public class GuiController {
             String authorValue = (String)properties.get("Author");
             if(!"".equals(authorValue)){
                 String[] authors = authorValue.split(";");
-                String[] authorURI = null;
-                String[] authorInsti = null;
+                String[] authorURIs = null;
+                String[] authorInstis = null;
                 ArrayList<Agent> newAuthors = new ArrayList<Agent>();
-                if(properties.containsKey("Author URI")){
-                    if(!"".equals(properties.get("Author URI"))){
-                        authorURI = ((String)properties.get("Author URI")).split(";");
+                if(properties.containsKey("Author URL")){
+                    if(!"".equals(properties.get("Author URL"))){
+                        authorURIs = ((String)properties.get("Author URL")).split(";");
                     }
                 }
                 if(properties.containsKey("Author Institution")){
                     if(!"".equals(properties.get("Author Institution"))){
-                        authorInsti = ((String)properties.get("Author Institution")).split(";");
+                        authorInstis = ((String)properties.get("Author Institution")).split(";");
                     }
                 }
                 for(int i=0; i< authors.length;i++){
                     Agent author = new Agent();
                     author.setName(authors[i]);
-                    if (authorURI!=null && authors.length == authorURI.length ){
-                        author.setURL(authorURI[i]);
+                    if (authorURIs!=null && authors.length == authorURIs.length ){
+                        author.setURL(authorURIs[i]);
                     }
-                    if (authorInsti!=null && authors.length == authorInsti.length ){
-                        author.setInstitutionName(authorInsti[i]);
+                    if (authorInstis!=null && authors.length == authorInstis.length ){
+                        author.setInstitutionName(authorInstis[i]);
                     }
                     newAuthors.add(author);
                 }
@@ -231,9 +231,9 @@ public class GuiController {
                 String[] contribURI = null;
                 String[] contribInsti = null;
                 ArrayList<Agent> newContrib = new ArrayList<Agent>();
-                if(properties.containsKey("Contributor URI")){
-                    if(!"".equals(properties.get("Contributor URI"))){
-                        contribURI = ((String)properties.get("Contributor URI")).split(";");
+                if(properties.containsKey("Contributor URL")){
+                    if(!"".equals(properties.get("Contributor URL"))){
+                        contribURI = ((String)properties.get("Contributor URL")).split(";");
                     }
                 }
                 if(properties.containsKey("Contributor Institution")){
