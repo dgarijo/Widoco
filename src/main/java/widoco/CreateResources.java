@@ -18,6 +18,7 @@ package widoco;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,19 +57,32 @@ public class CreateResources {
             createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance());
             //we create the resources, in case the user wants to add them later.
             //abstract section and file
-            createAbstractSection(folderOut+File.separator+"sections");
+            if(c.isIncludeAbstract()){
+                createAbstractSection(folderOut+File.separator+"sections",c);
+            }
             //introduction section and file
-            createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c);
+            if(c.isIncludeIntroduction()){
+                createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c);
+            }
             //overview section and file
-            createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList());
+            if(c.isIncludeOverview()){
+                createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList());
+            }
             //description section and file
-            createDescriptionSection(folderOut+File.separator+"sections",c);
+            if(c.isIncludeDescription()){
+                createDescriptionSection(folderOut+File.separator+"sections",c);
+            }
             //cross reference section and  file
-            createCrossReferenceSection(folderOut+File.separator+"sections",lode, c);
+            if(c.isIncludeCrossReferenceSection()){
+                createCrossReferenceSection(folderOut+File.separator+"sections",lode, c);
+            }
             //references section and file
-            createReferencesSection(folderOut+File.separator+"sections");
+            if(c.isIncludeReferences()){
+                createReferencesSection(folderOut+File.separator+"sections",c);
+            }
                 
             //create the image (if selected)
+            //TO DO
 
             if(c.isPublishProvenance()){
                 createProvenancePage(folderOut+File.separator+"provenance", c);
@@ -92,45 +106,63 @@ public class CreateResources {
     /**
      * Sections of the document. Each section will be a separate html file
      */
-    private static void createAbstractSection(String path){
-        saveDocument(path+File.separator+"abstract.html", TextConstants.abstractSection);
+    private static void createAbstractSection(String path, Configuration c){
+        if((c.getAbstractPath()!=null) && (!"".equals(c.getAbstractPath()))){
+            copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract.html"));
+        }else{
+            saveDocument(path+File.separator+"abstract.html", TextConstants.abstractSection);
+        }
+        
     }
     
     private static void createIntroductionSection(String path, HashMap<String,String> nsDecl, Configuration c){
-        String introSectionText = TextConstants.introductionSection;
-        if(nsDecl!=null && !nsDecl.isEmpty()){
-            introSectionText += TextConstants.getNameSpaceDeclaration(nsDecl);
-            //small fix: use prefix selected by user.
-            if(c.getMainOntology().getNamespacePrefix()!=null && !"".equals(c.getMainOntology().getNamespacePrefix()))
-                introSectionText = introSectionText.replace("default namespace", c.getMainOntology().getNamespacePrefix());
+        if((c.getIntroductionPath()!=null) && (!"".equals(c.getIntroductionPath()))){
+            copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction.html"));
+        }else{
+            String introSectionText = TextConstants.introductionSection;
+            if(nsDecl!=null && !nsDecl.isEmpty()){
+                introSectionText += TextConstants.getNameSpaceDeclaration(nsDecl);
+                //small fix: use prefix selected by user.
+                if(c.getMainOntology().getNamespacePrefix()!=null && !"".equals(c.getMainOntology().getNamespacePrefix()))
+                    introSectionText = introSectionText.replace("default namespace", c.getMainOntology().getNamespacePrefix());
+            }
+            //introSection += TextConstants.getNamespaceDeclarations(c, lodeInput);
+            saveDocument(path+File.separator+"introduction.html", introSectionText);
         }
-        //introSection += TextConstants.getNamespaceDeclarations(c, lodeInput);
-        saveDocument(path+File.separator+"introduction.html", introSectionText);
     }
     
     //the lists passed onto this method are the fixed lists
     private static void createOverviewSection(String path, Configuration c, String classesList, String propList, String dataPropList){
-        String overViewSection = TextConstants.getOverviewSection(c);
-        if(!"".equals(classesList) && classesList!=null){
-            overViewSection+=("<h4>Classes</h4>\n");
-            overViewSection+=(classesList);
+        if((c.getOverviewPath()!=null) && (!"".equals(c.getOverviewPath()))){
+            copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview.html"));
+        }else{
+            String overViewSection = TextConstants.getOverviewSection(c);
+            if(!"".equals(classesList) && classesList!=null){
+                overViewSection+=("<h4>Classes</h4>\n");
+                overViewSection+=(classesList);
+            }
+            if(!"".equals(propList) && propList!=null){
+                overViewSection+=("<h4>Properties</h4>");
+                overViewSection+=(propList);
+            }
+            if(!"".equals(dataPropList) && dataPropList!=null){
+                overViewSection+=("<h4>Data Properties</h4>");
+                overViewSection+=(dataPropList);
+            }
+            saveDocument(path+File.separator+"overview.html", overViewSection);
         }
-        if(!"".equals(propList) && propList!=null){
-            overViewSection+=("<h4>Properties</h4>");
-            overViewSection+=(propList);
-        }
-        if(!"".equals(dataPropList) && dataPropList!=null){
-            overViewSection+=("<h4>Data Properties</h4>");
-            overViewSection+=(dataPropList);
-        }
-        saveDocument(path+File.separator+"overview.html", overViewSection);
     }
     
     private static void createDescriptionSection(String path, Configuration c){
-        saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c) );
+        if((c.getDescriptionPath()!=null) && (!"".equals(c.getDescriptionPath()))){
+            copyExternalResource(c.getDescriptionPath(), new File(path+File.separator+"description.html"));
+        }else{
+            saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c) );
+        }
     }
     
     private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c){
+        //cross reference section has to be included always.
         String crossRef = TextConstants.getCrossReferenceSection(c);
         String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList();
         if(classesList!=null && !"".equals(classesList)){
@@ -145,8 +177,12 @@ public class CreateResources {
         saveDocument(path+File.separator+"crossref.html", crossRef);
     }
     
-    private static void createReferencesSection(String path){
-        saveDocument(path+File.separator+"references.html", TextConstants.referencesSection);
+    private static void createReferencesSection(String path, Configuration c){
+        if((c.getReferencesPath()!=null) && (!"".equals(c.getReferencesPath()))){
+            copyExternalResource(c.getReferencesPath(), new File(path+File.separator+"overview.html"));
+        }else{
+            saveDocument(path+File.separator+"references.html", TextConstants.referencesSection);
+        }
     }
     
     /**
@@ -183,37 +219,34 @@ public class CreateResources {
     }
     
     private static void createFolderStructure(String s, boolean includeDiagram, boolean includeProv){
-        try{
-            File f = new File(s);
-            File sections = new File(s+File.separator+"sections");
-            File img = new File(s+File.separator+"img");
-            File provenance = new File(s+File.separator+"provenance");
-            File resources = new File(s+File.separator+"resources");
-            if(!f.exists()){
-                f.mkdir();
-            }else{
-                if(f.isDirectory()){
-                    System.err.println("The selected file is not a directory.");
-                    //throw appropriate exceptions here
-                }            
-            }
-            sections.mkdir();
-            if(includeDiagram)img.mkdir();
-            if(includeProv){
-                provenance.mkdir();
-                //do all provenance related stuff here
-            }
-            resources.mkdir();
-            //copy jquery
-            copyResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
-            //copy css
-            copyResource("/lode/primer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
-            copyResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
-            copyResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
-            copyResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
-        }catch(IOException e){
-            System.err.println("Error while creating the resources "+e.getMessage());
+        File f = new File(s);
+        File sections = new File(s+File.separator+"sections");
+        File img = new File(s+File.separator+"img");
+        File provenance = new File(s+File.separator+"provenance");
+        File resources = new File(s+File.separator+"resources");
+        if(!f.exists()){
+            f.mkdir();
+        }else{
+            if(f.isDirectory()){
+                System.err.println("The selected file is not a directory.");
+                //throw appropriate exceptions here
+            }            
         }
+        sections.mkdir();
+        if(includeDiagram)img.mkdir();
+        if(includeProv){
+            provenance.mkdir();
+            //do all provenance related stuff here
+        }
+        resources.mkdir();
+        //copy jquery
+        copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
+        //copy css
+        copyLocalResource("/lode/primer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
+        copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
+        copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
+        copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
+        
     }
 
     
@@ -222,21 +255,36 @@ public class CreateResources {
             String aux = resource.substring(resource.lastIndexOf("/") + 1, resource.length());
             File b = new File(savePath+File.separator+aux);
             b.createNewFile();
-            copyResource(resource, b);
+            copyLocalResource(resource, b);
         }
     }
     
     /**
-     * Method used to copy all the related files: styles, images, etc.
-     * @param source
-     * @param dest
+     * Method used to copy all the local files: styles, images, etc.
+     * @param resourceName Name of the resource
+     * @param dest file where we should copy it.
      * @throws IOException 
      */
-    private static void copyResource(String resourceName, File dest) throws IOException {
-        InputStream is = null;
+    private static void copyLocalResource(String resourceName, File dest)  {
+        try{
+            copy(CreateResources.class.getResourceAsStream(resourceName), dest);
+        }catch(Exception e){
+            System.err.println("Exception while copying "+resourceName+e.getMessage());
+        }
+    }
+    
+    private static void copyExternalResource(String path, File dest) {
+        try{
+            InputStream is = new FileInputStream(path);
+            copy(is, dest);
+        }catch(Exception e){
+            System.err.println("Exception while copying "+path+e.getMessage());
+        }
+    }
+    
+    private static void copy(InputStream is, File dest)throws Exception{
         OutputStream os = null;
         try {
-            is = CreateResources.class.getResourceAsStream(resourceName);//new FileInputStream(source);
             os = new FileOutputStream(dest);
             byte[] buffer = new byte[1024];
             int length;
@@ -245,7 +293,8 @@ public class CreateResources {
             }
         }
         catch(Exception e){
-            System.err.println("Exception while copying the resource"+resourceName+". "+e.getMessage());
+            System.err.println("Exception while copying resource. "+e.getMessage());
+            throw e;
         }
         finally {
             if(is!=null)is.close();

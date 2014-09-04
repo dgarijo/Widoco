@@ -372,7 +372,17 @@ public class GuiStep1 extends javax.swing.JFrame {
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int returnVal = chooser.showSaveDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            this.folderPath = chooser.getSelectedFile().getAbsolutePath();
+           this.folderPath = chooser.getSelectedFile().getAbsolutePath();
+           //test if the selected file actually exist
+           File f = new File(folderPath);
+           if (!f.exists()){
+               JOptionPane.showMessageDialog(this, "The selected folder does not exist! Please select a foler");
+               return;
+           }
+//           if(!f.isDirectory()){
+//               JOptionPane.showConfirmDialog(this, "The selected file is not a folder!. Please select a foler");
+//               return;
+//           }
            this.textDocPath.setText(folderPath+File.separator+this.textDocName.getText());
         }
     }//GEN-LAST:event_browseButtonActionPerformed
@@ -395,8 +405,9 @@ public class GuiStep1 extends javax.swing.JFrame {
             JFileChooser chooser = new JFileChooser();
             
             chooser.setName("Select OWL File");
+            //chooser.setFileFilter(new FileFilter);
             //chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            int returnVal = chooser.showSaveDialog(this);
+            int returnVal = chooser.showOpenDialog(this);
             if(returnVal == JFileChooser.APPROVE_OPTION) {
                System.out.println("You chose to save this file: " + chooser.getSelectedFile().getName());
                this.textFieldPath.setText(chooser.getSelectedFile().getAbsolutePath());
