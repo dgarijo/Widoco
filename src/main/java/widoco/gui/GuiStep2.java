@@ -24,17 +24,22 @@ package widoco.gui;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import widoco.TextConstants;
 
 /**
  *
@@ -145,6 +150,7 @@ public class GuiStep2 extends javax.swing.JFrame {
         addPropButton = new javax.swing.JButton();
         removePropButton = new javax.swing.JButton();
         widocoLogo = new javax.swing.JLabel();
+        loadMetadataFromDefaultConfigFile = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 2: Load the metadata");
@@ -212,8 +218,7 @@ public class GuiStep2 extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableProperties);
 
-        loadMetadataFromOnto.setText("Load metadata from the ontology URI /file");
-        loadMetadataFromOnto.setEnabled(false);
+        loadMetadataFromOnto.setText("Load metadata from the ontology URI or file");
         loadMetadataFromOnto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadMetadataFromOntoActionPerformed(evt);
@@ -228,7 +233,11 @@ public class GuiStep2 extends javax.swing.JFrame {
         });
 
         saveMetadataButton.setText("Save as config file...");
-        saveMetadataButton.setEnabled(false);
+        saveMetadataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMetadataButtonActionPerformed(evt);
+            }
+        });
 
         addPropButton.setText("Add/Edit property");
         addPropButton.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +254,14 @@ public class GuiStep2 extends javax.swing.JFrame {
         });
 
         widocoLogo.setText("LOGO");
+
+        loadMetadataFromDefaultConfigFile.setSelected(true);
+        loadMetadataFromDefaultConfigFile.setText("Load metadata from default config file");
+        loadMetadataFromDefaultConfigFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadMetadataFromDefaultConfigFileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -283,11 +300,11 @@ public class GuiStep2 extends javax.swing.JFrame {
                                                 .addComponent(addPropButton)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(removePropButton))
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(50, 50, 50))))))
         );
@@ -312,16 +329,15 @@ public class GuiStep2 extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(saveMetadataButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(addPropButton)
-                                .addComponent(removePropButton))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(33, 33, 33)
-                            .addComponent(loadMetadataFromOnto))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addPropButton)
+                            .addComponent(removePropButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(loadMetadataFromOnto))
+                    .addComponent(saveMetadataButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loadMetadataFromDefaultConfigFile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -367,6 +383,10 @@ public class GuiStep2 extends javax.swing.JFrame {
 
     private void loadMetadataFromOntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataFromOntoActionPerformed
         //TO DO: read ontology and extract basic metadata: author, contributor, title, license.
+        if(loadMetadataFromDefaultConfigFile.isSelected() && loadMetadataFromOnto.isSelected()){
+            loadMetadataFromDefaultConfigFile.setSelected(false);
+        }
+        JOptionPane.showMessageDialog(null, "TO DO!!");
     }//GEN-LAST:event_loadMetadataFromOntoActionPerformed
 
     private void loadMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataButtonActionPerformed
@@ -383,6 +403,168 @@ public class GuiStep2 extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.g.switchState("cancel");
     }//GEN-LAST:event_formWindowClosing
+
+    private void loadMetadataFromDefaultConfigFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataFromDefaultConfigFileActionPerformed
+        // TODO add your handling code here:
+        if(loadMetadataFromDefaultConfigFile.isSelected() && loadMetadataFromOnto.isSelected()){
+            loadMetadataFromOnto.setSelected(false);
+        }
+        if(loadMetadataFromDefaultConfigFile.isSelected()){
+            //load metadata from the default property file.
+            //taken from config
+            try{
+                URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
+                String path = (new File(root.toURI())).getParentFile().getPath();
+                g.reloadConfiguration(path+File.separator+TextConstants.configPath);
+                properties = g.getEditableProperties();
+                this.refreshTable();
+            }catch(URISyntaxException e){
+                System.err.println("Error while reading the default config file");
+                JOptionPane.showMessageDialog(null, "Error while reading the default .properties file");
+            }
+        }
+        
+    }//GEN-LAST:event_loadMetadataFromDefaultConfigFileActionPerformed
+
+    private void saveMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMetadataButtonActionPerformed
+        //JOptionPane.showMessageDialog(null, "TO DO!!");
+        //se up the out file to be saved: chooser, path, creation.
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        //Note: this is not very good. Ideally I should have a method for this,
+        //and use it to translate one into the other...
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+            //create a file (if not exists already
+            String path = chooser.getSelectedFile().getAbsolutePath();
+            //save the properties in a string
+            String textProperties = "\n";//the first line I leave an intro because there have been problems.
+            if(properties.get("Ontology Title")!=null){
+                textProperties+="title="+properties.get("Ontology Title")+"\n";
+            }else{
+                textProperties+="title=\n";
+            }
+            if(properties.get("Ontology Prefix")!=null){
+                textProperties+="ontologyPrefix="+properties.get("Ontology Prefix")+"\n";
+            }else{
+                textProperties+="ontologyPrefix=\n";
+            }
+            if(properties.get("Ontology Namespace URI")!=null){
+                textProperties+="ontologyNamespaceURI="+properties.get("Ontology Namespace URI")+"\n";
+            }else{
+                textProperties+="ontologyNamespaceURI=\n";
+            }
+            if(properties.get("This Version")!=null){
+                textProperties+="thisVersion="+properties.get("This Version")+"\n";
+            }else{
+                textProperties+="thisVersion=\n";
+            }
+            if(properties.get("Latest Version")!=null){
+                textProperties+="latestVersion="+properties.get("Latest Version")+"\n";
+            }else{
+                textProperties+="latestVersion=\n";
+            }
+            if(properties.get("License URI")!=null){
+                textProperties+="licenseURL="+properties.get("License URI")+"\n";
+            }else{
+                textProperties+="licenseURL=\n";
+            }
+            if(properties.get("Previous Version")!=null){
+                textProperties+="previousVersion="+properties.get("Previous Version")+"\n";
+            }else{
+                textProperties+="previousVersion=\n";
+            }            
+            if(properties.get("Date of Release")!=null){
+                textProperties+="dateOfRelease="+properties.get("Date of Release")+"\n";
+            }else{
+                textProperties+="dateOfRelease=\n";
+            }
+            if(properties.get("Ontology Revision")!=null){
+                textProperties+="revision="+properties.get("Ontology Revision")+"\n";
+            }else{
+                textProperties+="revision=\n";
+            }
+            if(properties.get("License Name")!=null){
+                textProperties+="license="+properties.get("License Name")+"\n";
+            }else{
+                textProperties+="license=\n";
+            }
+            if(properties.get("Ontology Name")!=null){
+                textProperties+="name="+properties.get("Ontology Name")+"\n";
+            }else{
+                textProperties+="name=\n";
+            }
+            if(properties.get("Author")!=null){
+                textProperties+="authors="+properties.get("Author")+"\n";
+            }else{
+                textProperties+="authors=\n";
+            }
+            if(properties.get("Author URL")!=null){
+                textProperties+="authorURL="+properties.get("Author URL")+"\n";
+            }else{
+                textProperties+="authorURL=\n";
+            }
+            if(properties.get("Author Institution")!=null){
+                textProperties+="authorInstitution="+properties.get("Author Institution")+"\n";
+            }else{
+                textProperties+="authorInstitution=\n";
+            }
+            if(properties.get("Contributor")!=null){
+                textProperties+="contributors="+properties.get("Contributor")+"\n";
+            }else{
+                textProperties+="contributors=\n";
+            }
+            if(properties.get("Contributor URL")!=null){
+                textProperties+="contributorsURL="+properties.get("Contributor URL")+"\n";
+            }else{
+                textProperties+="contributorsURL=\n";
+            }
+            if(properties.get("Contributor Institution")!=null){
+                textProperties+="contributorsInstitution="+properties.get("Contributor Institution")+"\n";
+            }else{
+                textProperties+="contributorsInstitution=\n";
+            }
+            if(properties.get("Imported Ontologies Names")!=null){
+                textProperties+="importsNames="+properties.get("Imported Ontologies Names")+"\n";
+            }else{
+                textProperties+="importsNames=\n";
+            }
+            if(properties.get("Imported Ontologies URIs")!=null){
+                textProperties+="importsURLs="+properties.get("Imported Ontologies URIs")+"\n";
+            }else{
+                textProperties+="importsURLs=\n";
+            }
+            if(properties.get("Extended Ontologies Names")!=null){
+                textProperties+="extendsNames="+properties.get("Extended Ontologies Names")+"\n";
+            }else{
+                textProperties+="extendsNames=\n";
+            }
+            if(properties.get("Extended Ontology URLS")!=null){
+                textProperties+="extendsURLS="+properties.get("Extended Ontology URLS")+"\n";
+            }else{
+                textProperties+="extendsURLS=\n";
+            }
+            if(properties.get("License icon URL")!=null){
+                textProperties+="licenseIconURL="+properties.get("License icon URL")+"\n";
+            }else{
+                textProperties+="licenseIconURL=";
+            }
+            //copy the result into the file
+            Writer writer = null;
+            try {
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), "utf-8"));
+                writer.write(textProperties);
+            } catch (IOException ex) {
+              System.err.println("Error while saving the property file "+ex.getMessage());
+            } finally {
+               try {
+                   writer.close();
+               } catch (IOException ex) {}
+            }
+
+        }
+        
+        
+    }//GEN-LAST:event_saveMetadataButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -430,6 +612,7 @@ public class GuiStep2 extends javax.swing.JFrame {
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JButton loadMetadataButton;
+    private javax.swing.JCheckBox loadMetadataFromDefaultConfigFile;
     private javax.swing.JCheckBox loadMetadataFromOnto;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton removePropButton;

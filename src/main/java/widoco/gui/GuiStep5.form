@@ -52,19 +52,25 @@
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="labelTitle1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="labelOops" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="labelViewDoc" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
                                   <Component id="labelTitle" alignment="1" pref="352" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelIsOntologyDocClicked" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelViewDoc" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelIsOOPSClicked" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelOops" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -87,8 +93,12 @@
                       <Component id="labelTitle1" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="labelViewDoc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelIsOntologyDocClicked" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="labelOops" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelIsOOPSClicked" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -205,6 +215,16 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="widocoLogo">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelIsOntologyDocClicked">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Opening... it might take a while!"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelIsOOPSClicked">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Loading... it might take a while!"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

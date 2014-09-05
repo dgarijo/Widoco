@@ -112,8 +112,8 @@
             <StringItem index="16" value="Imported Ontologies URIs"/>
             <StringItem index="17" value="Extended Ontologies Names"/>
             <StringItem index="18" value="Extended Ontology URLS"/>
-            <StringItem index="19" value="Ontology License Name"/>
-            <StringItem index="20" value="Ontology License URL"/>
+            <StringItem index="19" value="License Name"/>
+            <StringItem index="20" value="License URL"/>
             <StringItem index="21" value="License icon URL"/>
           </StringArray>
         </Property>

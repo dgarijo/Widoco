@@ -201,14 +201,13 @@ public class CreateResources {
         Writer out = null;
         try{
             if(f.exists()){
-                //here I should warn that the file is going to overwrite something
-                JOptionPane.showMessageDialog(null, "You have overwritten the previous file. This message should be better prepared.");
+                //JOptionPane.showMessageDialog(null, "You have overwritten the previous file. This message should be better prepared.");
+                int response = JOptionPane.showConfirmDialog(null, "The file "+f.getName()+" already exists. Do you want to overwrite it?", "Existing File!", JOptionPane.YES_NO_OPTION);
+                if(response == JOptionPane.NO_OPTION)return; //else we continue rewriting the file.
             }
-            else{f.createNewFile();}
-            //write the file.
-//            PrintWriter out = new PrintWriter(f);
-//            out.write(textToWrite);
-//            out.close();
+            else{
+                f.createNewFile();
+            }
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"));
             out.write(textToWrite);
             out.close();

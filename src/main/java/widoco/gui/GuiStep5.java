@@ -61,6 +61,8 @@ public class GuiStep5 extends javax.swing.JFrame {
             labelOops.setEnabled(false);
             labelViewDoc.setEnabled(false);
         }
+        labelIsOntologyDocClicked.setVisible(false);
+        labelIsOOPSClicked.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -85,6 +87,8 @@ public class GuiStep5 extends javax.swing.JFrame {
         labelViewDoc = new javax.swing.JLabel();
         labelOops = new javax.swing.JLabel();
         widocoLogo = new javax.swing.JLabel();
+        labelIsOntologyDocClicked = new javax.swing.JLabel();
+        labelIsOOPSClicked = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Finish documentation");
@@ -153,6 +157,10 @@ public class GuiStep5 extends javax.swing.JFrame {
             }
         });
 
+        labelIsOntologyDocClicked.setText("Opening... it might take a while!");
+
+        labelIsOOPSClicked.setText("Loading... it might take a while!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,17 +182,21 @@ public class GuiStep5 extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(labelTitle1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(labelOops))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(labelViewDoc))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(labelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))))))
+                                    .addComponent(labelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelIsOntologyDocClicked)
+                                    .addComponent(labelViewDoc)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelIsOOPSClicked)
+                                    .addComponent(labelOops))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -200,8 +212,12 @@ public class GuiStep5 extends javax.swing.JFrame {
                         .addComponent(labelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(labelViewDoc)
-                        .addGap(26, 26, 26)
-                        .addComponent(labelOops))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelIsOntologyDocClicked)
+                        .addGap(25, 25, 25)
+                        .addComponent(labelOops)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelIsOOPSClicked))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(widocoLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,12 +249,14 @@ public class GuiStep5 extends javax.swing.JFrame {
         String url = g.getConfig().getOntologyURI();
         if(url!=null &&!"".equals(url)) {
             try {
+                this.labelIsOOPSClicked.setVisible(true);
                 g.openBrowser(new URI("http://www.oeg-upm.net/oops/response.jsp?uri="+url));
             } catch (URISyntaxException ex) {
                 System.err.println("malformed URI!!!"+ ex.getMessage());
             }
         }else{
             JOptionPane.showMessageDialog(this, "This option is currently supported when the ontology is online.");
+            //we can do a request to oops web service, but we have to parse the results!
         }
     }//GEN-LAST:event_labelOopsMouseClicked
 
@@ -248,7 +266,10 @@ public class GuiStep5 extends javax.swing.JFrame {
             //
             File f = new File(url+File.separator+"index.html");
             if(f.exists()){
+                this.labelIsOntologyDocClicked.setVisible(true);
                 g.openBrowser(f.toURI());
+            }else{
+                JOptionPane.showMessageDialog(this,"There were errors creating the documentation. I cannot open it.");
             }
         }
     }//GEN-LAST:event_labelViewDocMouseClicked
@@ -314,6 +335,8 @@ public class GuiStep5 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel labelIsOOPSClicked;
+    private javax.swing.JLabel labelIsOntologyDocClicked;
     private javax.swing.JLabel labelOops;
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;

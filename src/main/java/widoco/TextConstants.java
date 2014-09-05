@@ -637,4 +637,6 @@ public class TextConstants {
     public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/common-functions.xsl", 
         "/lode/pellet.properties", "/lode/structural-reasoner.xsl", "/lode/swrl-module.xsl", "/lode/en.xml"};
     
+    public static final String configPath = "config"+File.separator+"config.properties";
+    
 }

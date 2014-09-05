@@ -30,6 +30,7 @@ import javax.imageio.ImageIO;
 import widoco.entities.Agent;
 import widoco.entities.License;
 import widoco.entities.Ontology;
+import widoco.gui.GuiController;
 
 /**
  * class for storing all the details to generate the ontology.
@@ -74,7 +75,7 @@ public class Configuration {
     private boolean includeDiagram;
     
     private Properties propertyFile = null;
-    private final String configPath = "config"+File.separator+"config.properties";
+    
     
     //Lode configuration parameters
     private boolean useOwlAPI;
@@ -92,9 +93,9 @@ public class Configuration {
         //just in case, we initialize the objects:
         
         try{
-            URL root = TemplateGeneratorOLD.class.getProtectionDomain().getCodeSource().getLocation();
+            URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
             String path = (new File(root.toURI())).getParentFile().getPath();
-            loadPropertyFile(path+File.separator+configPath);
+            loadPropertyFile(path+File.separator+TextConstants.configPath);
         }catch(URISyntaxException e){
             System.err. println("Error while loading the default property file" +e.getMessage());
         }
@@ -346,10 +347,6 @@ public class Configuration {
 
     public String getAbstractPath() {
         return abstractPath;
-    }
-
-    public String getConfigPath() {
-        return configPath;
     }
 
     public String getDescriptionPath() {
