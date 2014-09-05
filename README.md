@@ -59,7 +59,17 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Browser problems
 ==========
-The result of executing Widoco is an html file. If you test the file locally, it will NOT work on Chrome (but will work on Firefox and Internet Explorer). However if you place the file on a server, it will work correctly for all the browsers (this is because Chrome doesn't allow doesn't allow XMLHttpRequest without HTTP).
+The result of executing Widoco is an html file. We have tested it in Mozilla, IE and Chrome, and when the page is stored in a server all the browsers work correctly. If you view the file locally, we recommend you to use Mozilla Firefox (or Internet Explorer, if you must). Google Chrome will not show the contents correctly, as it doesn't allow  XMLHttpRequest without HTTP. If you want to view the page locally with Google Chrome you have two possibilities:
+
+a) Place the file in a server and access it via its URL (for example, put it in dropbox and access through its public url).
+
+b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Carrera):
+
+(WIN) chrome.exe --allow-file-access-from-files,
+
+(OSX) open /Applications/Google\ Chrome.app/ --args --allow-file-access-from-files
+
+(UNX) /usr/bin/google-chrome --allow-file-access-from-files
 
 Encoding issues
 ==========
