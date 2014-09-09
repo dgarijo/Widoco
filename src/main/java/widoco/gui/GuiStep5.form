@@ -45,7 +45,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="labelSteps" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                          <Component id="widocoLogo" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="widocoLogo" min="-2" pref="140" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -59,18 +59,23 @@
                                   <Component id="labelTitle" alignment="1" pref="352" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelIsOntologyDocClicked" min="-2" max="-2" attributes="0"/>
                                   <Component id="labelViewDoc" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelIsOOPSClicked" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelOops" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="barStatus" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="labelStatusOOPS" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="labelIsOntologyDocClicked" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelOops" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="OOPSLogo" min="-2" pref="140" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -93,12 +98,21 @@
                       <Component id="labelTitle1" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="labelViewDoc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelIsOntologyDocClicked" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="labelOops" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelIsOOPSClicked" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="labelIsOntologyDocClicked" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="labelOops" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <Component id="barStatus" min="-2" pref="23" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="OOPSLogo" min="-2" pref="67" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="labelStatusOOPS" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -214,17 +228,32 @@
         <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelOopsMouseExited"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="widocoLogo">
+    <Component class="javax.swing.JLabel" name="OOPSLogo">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/oops/logoMini.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Click to go to the OOPS! Web Page"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="OOPSLogoMouseClicked"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="OOPSLogoMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="OOPSLogoMouseExited"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelIsOntologyDocClicked">
       <Properties>
         <Property name="text" type="java.lang.String" value="Opening... it might take a while!"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelIsOOPSClicked">
+    <Component class="javax.swing.JLabel" name="labelStatusOOPS">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Loading... it might take a while!"/>
+        <Property name="text" type="java.lang.String" value="Loading... it might take a few seconds"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JProgressBar" name="barStatus">
+    </Component>
+    <Component class="javax.swing.JLabel" name="widocoLogo">
     </Component>
   </SubComponents>
 </Form>

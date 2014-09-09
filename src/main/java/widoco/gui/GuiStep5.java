@@ -30,6 +30,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import oops.OOPSevaluation;
 
 /**
  *
@@ -62,9 +63,20 @@ public class GuiStep5 extends javax.swing.JFrame {
             labelViewDoc.setEnabled(false);
         }
         labelIsOntologyDocClicked.setVisible(false);
-        labelIsOOPSClicked.setVisible(false);
+        labelStatusOOPS.setVisible(false);
+        this.barStatus.setVisible(false);
+        this.barStatus.setIndeterminate(false);
     }
 
+    public void stopLoadingSign(){
+        this.barStatus.setVisible(false);
+        this.barStatus.setIndeterminate(false);
+        this.labelStatusOOPS.setVisible(false);
+    }
+    
+    public void updateMessage(String s){
+        this.labelStatusOOPS.setText(s);
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -86,9 +98,11 @@ public class GuiStep5 extends javax.swing.JFrame {
         labelTitle1 = new javax.swing.JLabel();
         labelViewDoc = new javax.swing.JLabel();
         labelOops = new javax.swing.JLabel();
-        widocoLogo = new javax.swing.JLabel();
+        OOPSLogo = new javax.swing.JLabel();
         labelIsOntologyDocClicked = new javax.swing.JLabel();
-        labelIsOOPSClicked = new javax.swing.JLabel();
+        labelStatusOOPS = new javax.swing.JLabel();
+        barStatus = new javax.swing.JProgressBar();
+        widocoLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Finish documentation");
@@ -157,9 +171,23 @@ public class GuiStep5 extends javax.swing.JFrame {
             }
         });
 
+        OOPSLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oops/logoMini.png"))); // NOI18N
+        OOPSLogo.setToolTipText("Click to go to the OOPS! Web Page");
+        OOPSLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OOPSLogoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                OOPSLogoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                OOPSLogoMouseExited(evt);
+            }
+        });
+
         labelIsOntologyDocClicked.setText("Opening... it might take a while!");
 
-        labelIsOOPSClicked.setText("Loading... it might take a while!");
+        labelStatusOOPS.setText("Loading... it might take a few seconds");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,7 +205,7 @@ public class GuiStep5 extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelSteps, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(widocoLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(widocoLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -190,13 +218,17 @@ public class GuiStep5 extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelIsOntologyDocClicked)
-                                    .addComponent(labelViewDoc)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelIsOOPSClicked)
-                                    .addComponent(labelOops))))))
+                                    .addComponent(labelViewDoc)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(labelStatusOOPS))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelIsOntologyDocClicked)
+                                            .addComponent(labelOops))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(OOPSLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -212,12 +244,18 @@ public class GuiStep5 extends javax.swing.JFrame {
                         .addComponent(labelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(labelViewDoc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelIsOntologyDocClicked)
-                        .addGap(25, 25, 25)
-                        .addComponent(labelOops)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelIsOOPSClicked))
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelIsOntologyDocClicked)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelOops)
+                                .addGap(13, 13, 13)
+                                .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(OOPSLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelStatusOOPS))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(widocoLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,18 +284,28 @@ public class GuiStep5 extends javax.swing.JFrame {
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void labelOopsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOopsMouseClicked
-        String url = g.getConfig().getOntologyURI();
-        if(url!=null &&!"".equals(url)) {
-            try {
-                this.labelIsOOPSClicked.setVisible(true);
-                g.openBrowser(new URI("http://www.oeg-upm.net/oops/response.jsp?uri="+url));
-            } catch (URISyntaxException ex) {
-                System.err.println("malformed URI!!!"+ ex.getMessage());
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "This option is currently supported when the ontology is online.");
+//        String url = g.getConfig().getOntologyURI();
+        this.barStatus.setVisible(true);
+        this.barStatus.setIndeterminate(true);
+        this.g.switchState("evaluate");
+        this.labelStatusOOPS.setVisible(true);
+//        if(url!=null &&!"".equals(url)) {
+//            try {
+//                this.labelIsOOPSClicked.setVisible(true);
+//                g.openBrowser(new URI("http://www.oeg-upm.net/oops/response.jsp?uri="+url));
+//            } catch (URISyntaxException ex) {
+//                System.err.println("malformed URI!!!"+ ex.getMessage());
+//            }
+//        }else{
+//            JOptionPane.showMessageDialog(this, "This option is currently supported when the ontology is online.");
             //we can do a request to oops web service, but we have to parse the results!
-        }
+//            try{
+//                OOPSevaluation eval = new OOPSevaluation("http://purl.org/net/p-plan#");
+//                System.out.println(eval.printEvaluation());
+//            }catch(Exception e){
+//                System.err.println("Error while saving OOPS evaluation: "+e.getMessage());
+//            }
+//        }
     }//GEN-LAST:event_labelOopsMouseClicked
 
     private void labelViewDocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelViewDocMouseClicked
@@ -293,6 +341,21 @@ public class GuiStep5 extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.g.switchState("cancel");
     }//GEN-LAST:event_formWindowClosing
+
+    private void OOPSLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OOPSLogoMouseClicked
+        try {
+            g.openBrowser(new URI("http://www.oeg-upm.net/oops/"));
+        } catch (URISyntaxException ex) {
+        }
+    }//GEN-LAST:event_OOPSLogoMouseClicked
+
+    private void OOPSLogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OOPSLogoMouseEntered
+        setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_OOPSLogoMouseEntered
+
+    private void OOPSLogoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OOPSLogoMouseExited
+        setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_OOPSLogoMouseExited
 
     /**
      * @param args the command line arguments
@@ -330,14 +393,16 @@ public class GuiStep5 extends javax.swing.JFrame {
 //        });
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel OOPSLogo;
     private javax.swing.JButton backButton;
+    private javax.swing.JProgressBar barStatus;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel labelIsOOPSClicked;
     private javax.swing.JLabel labelIsOntologyDocClicked;
     private javax.swing.JLabel labelOops;
+    private javax.swing.JLabel labelStatusOOPS;
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JLabel labelTitle1;

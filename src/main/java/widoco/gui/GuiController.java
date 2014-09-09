@@ -34,6 +34,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import widoco.Configuration;
 import widoco.CreateDocInThread;
+import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
 import widoco.TextConstants;
 import widoco.entities.Agent;
@@ -49,7 +50,7 @@ import widoco.entities.Ontology;
 public class GuiController {
 
     
-    public enum State{initial, metadata, sections, configLODE, loading, generated, exit};
+    public enum State{initial, metadata, sections, configLODE, loading, generated, evaluating, exit};
     private State state;
     private JFrame gui;
     private Configuration config;
@@ -318,6 +319,11 @@ public class GuiController {
         new Thread(r).start();
     }
     
+    public void startEvaluation(){
+        Runnable r = new CreateOOPSEvalInThread(this.config, this, this.tmpFile);
+        new Thread(r).start();
+    }
+    
     //The other method could call directly switch state, but htis way the flow is more clear.
     public void docGenerated(String status){
         this.switchState(status);
@@ -326,12 +332,21 @@ public class GuiController {
     private void exit(){
         this.gui.dispose();
         //delete tmp folder here!
-        String[]entries = tmpFile.list();
+        deleteAllTempFiles(tmpFile);
+    }
+    
+    private void deleteAllTempFiles(File folder){
+        String[]entries = folder.list();
         for(String s: entries){
-            File currentFile = new File(tmpFile.getPath(),s);
-            currentFile.delete();
+            File currentFile = new File(folder.getPath(),s);
+            if(currentFile.isDirectory()){
+                deleteAllTempFiles(currentFile);
+            }
+            else{
+                currentFile.delete();
+            }
         }
-        tmpFile.delete();
+        folder.delete();
     }
     
     public void switchState(String input){
@@ -393,13 +408,13 @@ public class GuiController {
                 }
                 break;
             case loading:
+                if(input.equals("error")){
+                    JOptionPane.showMessageDialog(gui,"error while generating the documentation! refine this error.");
+                }
                 state = State.generated;
                 this.gui.dispose();
                 gui = new GuiStep5(this,false);
                 gui.setVisible(true);
-                if(input.equals("error")){
-                    JOptionPane.showMessageDialog(gui,"error while generating the documentation! refine this error.");
-                }
                 break;                
             case generated:
                 if(input.equals("restart")){
@@ -407,9 +422,27 @@ public class GuiController {
                     state = State.initial;
                     gui = new GuiStep1(this);
                     gui.setVisible(true);
-                    //probably will have to associate a restart action
+                }
+                if(input.equals("evaluate")){
+                    state = State.evaluating;
+                    this.startEvaluation();
                 }
                 break;
+            case evaluating:
+                if(input.equals("sendingRequest")){
+                    ((GuiStep5)gui).updateMessage("Sending request to OOPS...");
+                }
+                if(input.equals("savingResponse")){
+                    ((GuiStep5)gui).updateMessage("Saving response...");
+                }
+                if(input.equals("error")){
+                    JOptionPane.showMessageDialog(gui, "Error while evaluating the ontology with OOPS. Internet connection is required.");
+                }
+                if(input.equals("finishedEvaluation")){
+                    state = State.generated;
+                    //make the gif stop. Nothing else necessary.
+                    ((GuiStep5)gui).stopLoadingSign();
+                }
             case exit: //exit is an abstract state. Nothing should happen here
                 break;
         }

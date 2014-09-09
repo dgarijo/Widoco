@@ -15,11 +15,7 @@
  */
 package widoco;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,205 +31,14 @@ public class TextConstants {
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
-//    public static final String styles=
-//                "<title property=\"dc:title schema:name\">"+ReadConfigurationFileOld.getTitle()+"</title>\n"+
-//		"<style type=\"text/css\">\n"+
-//		"/*This template uses the W3C css for working drafts, with small modifications.\n"+
-//		   "Original copyright:\n"+
-//		   "Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.\n"+
-//		   "The following software licensing rules apply:\n"+
-//		   "http://www.w3.org/Consortium/Legal/copyright-software */\n"+
-//
-//		"body {\n"+
-//		  "padding: 2em 1em 2em 70px;\n"+
-//		  "margin: 0;\n"+
-//		  "font-family: sans-serif;\n"+
-//		  "color: black;\n"+
-//		  "background: white;\n"+
-//		  "background-position: top left;\n"+
-//		  "background-attachment: fixed;\n"+
-//		  "background-repeat: no-repeat;\n"+
-//		"}\n"+
-//		":link { color: #00C; background: transparent }\n"+
-//		":visited { color: #609; background: transparent }\n"+
-//		"a:active { color: #C00; background: transparent }\n"+
-//
-//		"a:link img, a:visited img { border-style: none } /* no border on img links */\n"+
-//
-//		"a img { color: white; }        /* trick to hide the border in Netscape 4 */\n"+
-//		"@media all {                   /* hide the next rule from Netscape 4 */\n"+
-//		  "a img { color: inherit; }    /* undo the color change above */\n"+
-//		"}\n"+
-//
-//		"th, td { /* ns 4 */\n"+
-//		  "font-family: sans-serif;\n"+
-//		"}\n"+
-//
-//		"h1, h2, h3, h4, h5, h6 { text-align: left }\n"+
-//		"/* background should be transparent, but WebTV has a bug */\n"+
-//		"h1, h2, h3 { color: #005A9C; background: white }\n"+
-//		"h1 { font: 170% sans-serif }\n"+
-//		"h2 { font: 140% sans-serif }\n"+
-//		"h3 { font: 120% sans-serif }\n"+
-//		"h3 {\n"+
-//			"border-bottom: 1px solid navy;\n"+
-//			"margin-top: 3px;\n"+
-//			"padding-bottom: 5px;\n"+
-//		"}\n"+
-//		"h4 { font: bold 100% sans-serif }\n"+
-//		"h5 { font: italic 100% sans-serif }\n"+
-//		"h6 { font: small-caps 100% sans-serif }\n"+
-//		".hide { display: none }\n"+
-//		"div.head { margin-bottom: 1em }\n"+
-//		"div.head h1 { margin-top: 2em; clear: both }\n"+
-//		"div.head table { margin-left: 2em; margin-top: 2em }\n"+
-//		"p.copyright { font-size: small }\n"+
-//		"p.copyright small { font-size: small }\n"+
-//		"@media screen {  /* hide from IE3 */\n"+
-//		"a[href]:hover { background: #ffa }\n"+
-//		"}\n"+
-//		"pre { margin-left: 2em }\n"+		
-//		"p {\n"+
-//		  "margin-top: 0.6em;\n"+
-//		  "margin-bottom: 0.6em;		  \n"+
-//		  "text-align: justify;\n"+
-//		"}\n"+		
-//		"dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */\n"+
-//		"dt { font-weight: bold }\n"+
-//		"ul.toc, ol.toc {\n"+
-//		  "list-style: disc;		/* Mac NS has problem with 'none' */\n"+
-//		  "list-style: none;\n"+
-//		"}\n"+
-//		"@media aural {  \n"+
-//		  "h1, h2, h3 { stress: 20; richness: 90 }\n"+
-//		  ".hide { speak: none }\n"+
-//		  "p.copyright { volume: x-soft; speech-rate: x-fast }\n"+
-//		  "dt { pause-before: 20% }\n"+
-//		  "pre { speak-punctuation: code } \n"+
-//		"}\n"+		
-//		"/*Additional css*/\n"+
-//		".hlist {\n"+
-//			"background-color: #F4FFFF;\n"+
-//			"border: 1px solid navy;\n"+
-//			"padding: 5px;\n"+
-//		"}\n"+
-//		".hlist li {\n"+
-//			"display: inline-table;\n"+
-//			"list-style-type: none;\n"+
-//			"padding-right: 20px;\n"+
-//		"}\n"+
-//		".backlink {\n"+
-//			"background-color: #F4FFFF;\n"+
-//			"border: 1px dotted navy;\n"+
-//			"color: black;\n"+
-//			"float: right;\n"+
-//			"font-size: 10pt;\n"+
-//			"padding: 2px;\n"+
-//			"text-align: right;\n"+
-//		"}\n"+
-//		".entity {\n"+
-//			"border: 1px solid navy;\n"+
-//			"margin: 5px 0;\n"+
-//			"padding: 5px;\n"+
-//		"}\n"+
-//		"table {\n"+
-//			"background-color: #F4FFFF;\n"+
-//			"border: 1px solid navy;\n"+
-//			"margin: 20px;\n"+
-//		"}\n"+
-//		"table {\n"+
-//			"text-align: center;\n"+
-//			"vertical-align: middle;\n"+
-//		"}\n"+
-//		"table td {\n"+
-//			"padding: 5px 15px;\n"+
-//			"text-align: left;\n"+
-//		"}\n"+
-//		"table th {\n"+
-//			"background-color: LightGoldenRodYellow;\n"+
-//		"}\n"+
-//		"pre {\n"+
-//			"background-color: #F9F9F9;\n"+
-//			"border: 1px dashed #2F6FAB;\n"+
-//			"color: black;\n"+
-//			"line-height: 1.1em;\n"+
-//			"padding: 1em;\n"+
-//		"}\n"+
-//                ".type-c {\n"+
-//                    "cursor:help;\n"+
-//                    "color:orange;\n"+
-//                "}\n"+
-//
-//                ".type-op {\n"+
-//                    "cursor:help;\n"+
-//                    "color:navy;   \n" +
-//                "}\n"+
-//
-//                ".type-dp {\n"+
-//                    "cursor:help;\n"+
-//                    "color:green;\n"+
-//                "}\n"+
-//
-//		"</style> \n"+
-//                "</head>\n"+                           
-//                "<body resource=\""+ReadConfigurationFileOld.getOntologyNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
-//                //RDF-a Annotations
-//                "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n"+                
-//                "<span property=\"dc:created schema:dateCreated\" content=\""+ReadConfigurationFileOld.getDateOfRelease()+"\"></span>\n"+
-//                "<span property=\"dc:isVersionOf\" resource=\""+ReadConfigurationFileOld.getLatestVersion()+"\"></span>\n"+
-//                "<span property=\"prov:wasDerivedFrom\" resource=\"http://www.opmw.org/model/p-plan/#\"></span>\n"+
-//                "<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://delicias.dia.fi.upm.es/members/DGarijo/#me\"></span>\n"+
-//                "</span>\n";
     //missing specialization. Missing alterante
     public static final String abstractSection="<h2>Abstract</h2><p>Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
             + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b></p>\n";
-    
-//    public static final String tableOfContentsSection="<div id=\"toc\">"+
-//            "<h2>Table of Contents</h2>\n"+
-//            "<ul><li>\n"+
-//            "<a href=\"#introduction\">1. Introduction</a></li>\n"+
-//                    "<ul><li><a href=\"#namespacedeclarations\">1.1 Namespace declarations</a></li></ul>\n"+
-//            "<a href=\"#ontOverview\">2. "+ReadConfigurationFileOld.getOntologyName()+" Overview</a></li><li>\n"+
-//            "<a href=\"#ontDescription\">3. "+ReadConfigurationFileOld.getOntologyName()+" Description</a></li>\n"+	
-//            "<li><a href=\"#crossReference\">4. Cross reference for "+ReadConfigurationFileOld.getOntologyName()+" classes, properties and dataproperties</a></li>\n"+
-//            "<ul>\n"+
-//            "        <li><a href=\"#classes\">4.1 Classes</a></li>\n"+
-//            "        <li><a href=\"#objectproperties\">4.2 Object Properties</a></li>\n"+
-//            "        <li><a href=\"#dataproperties\">4.3 Data Properties</a></li>\n"+
-//            "</ul\n>"+
-//            "<li>\n"+
-//            "<a href=\"#references\">5. References</a></li><li>\n"+
-//            "<a href=\"#acknowledgements\">6. Acknowledgements</a></li>\n"+
-//            "</ul>\n"+
-//            "</div>\n";
+
             
     public static final String introductionSection="<h2>1. Introduction <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
         "<p>This should talk a bit about your ontology, its motivation, soa and goals</p>\n";
     
-    //delete this
-    public static final String nameSpaceDeclarations="<div id=\"namespacedeclarations\">\n"+
-        "<h2>1.1. Namespace declarations <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
-        "</p><div id=\"ns\" align=\"center\">\n"+
-         "<table>\n"+
-                "<caption> <a href=\"#ns\"> Table 1</a>: Namespaces used in the document </caption>\n"+
-                "<tbody>\n"+
-                "<tr><td><b>"+ReadConfigurationFileOld.getOntologyPrefix()+"</b></td><td>&lt;"+ReadConfigurationFileOld.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
-                "<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>\n"+
-                "<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>\n"+                           
-                "<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>\n"+                           
-                "<tr><td><b>dcterms</b></td><td>&lt;http://purl.org/dc/terms/#&gt;</td></tr>\n"+
-                "</tbody>\n"+
-          "</table>\n"+
-          "</div>\n"+
-        "</div></div>\n";
-//    public static final String overviewSection="<div id=\"ontOverview\">\n"+
-//	"<h2>2. "+ReadConfigurationFileOld.getOntologyName()+" Overview <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-//            + "<p>Overview of the ontology goes here: a few sentences explaining the main concepts of the ontology</p>\n";
-//    public static final String ontologyDescriptionSection ="<div id=\"ontDescription\">\n"+
-//	"<h2>3. "+ReadConfigurationFileOld.getOntologyName()+" Description <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-//            + "<p>Complete description of the ontology: a diagram explaining how the classes are related, examples of usage, etc.</p></div>\n";
-//    public static final String crossReferenceSection="<h2>4. Cross reference for "+ReadConfigurationFileOld.getOntologyName()+" classes and properties</h2>\n"+
-//            "This section provides details for each class and property defined by "+ReadConfigurationFileOld.getOntologyName()+".\n";
     public static final String referencesSection="<h2>5. References <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>Add your references here in a list. It is recommended to have them as a list.</p>\n";
     public static final String acknowledgementsSection="<div id=\"acknowledgements\">\n"+
@@ -347,43 +152,7 @@ public class TextConstants {
           "</div>\n"+
         "</div>\n";
     	return ns;
-//    	String prefixes = "";
-//    	
-//    	try {
-//			Model model = ModelFactory.createDefaultModel();
-//			model.read(ReadConfigurationFileOld.getThisVersion());			
-//			for (String key:model.getNsPrefixMap().keySet()){
-//				String value = model.getNsPrefixMap().get(key);
-//				if (!value.isEmpty() && !key.equals("")){
-//					System.out.println(key+":"+value);
-//					prefixes = prefixes + "<tr><td><b>"+key+"</b></td><td>&lt;"+value+"&gt;</td></tr>\n";
-//				}
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			prefixes = "<tr><td><b>"+ReadConfigurationFileOld.getOntologyPrefix()+"</b></td><td>&lt;"+ReadConfigurationFileOld.getOntologyNamespaceURI()+"&gt;</td></tr>\n"+
-//            "<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>\n"+
-//            "<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>\n"+                           
-//            "<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>\n"+                           
-//            "<tr><td><b>dcterms</b></td><td>&lt;http://purl.org/dc/terms/#&gt;</td></tr>\n";
-//		}
-//		
-//		String nameSpaceDeclarations="<div id=\"namespacedeclarations\">\n"+
-//        "<h2>1.1. Namespace declarations <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
-//        "</p><div id=\"ns\" align=\"center\">\n"+
-//         "<table>\n"+
-//                "<caption> <a href=\"#ns\"> Table 1</a>: Namespaces used in the document </caption>\n"+
-//                "<tbody>\n"+
-//                prefixes+
-//                "</tbody>\n"+
-//          "</table>\n"+
-//          "</div>\n"+
-//        "</div></div>\n";
-//    	return nameSpaceDeclarations;
     }
-    
-    //NEW METHODS START FROM HERE
     
     public static String getIndexDocument(String resourcesFolderName,Configuration c){
         String document=opening +
@@ -637,6 +406,91 @@ public class TextConstants {
     public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/common-functions.xsl", 
         "/lode/pellet.properties", "/lode/structural-reasoner.xsl", "/lode/swrl-module.xsl", "/lode/en.xml"};
     
+    public static final String[] oopsResources = {"/oops/js/jquery-1.11.0.js","/oops/js/bootstrap.min.js", 
+        "/oops/themes/blue/style.css", "/oops/js/jquery.tablesorter.min.js", "/oops/css/bootstrap.css"};
+    
     public static final String configPath = "config"+File.separator+"config.properties";
+    
+    public static String getEvaluationText(String evaluationContent, Configuration c){
+        String eval = "<!DOCTYPE html>\n" +
+        "<html lang=\"en\">\n" +
+        "  <head>\n" +
+        "    <meta charset=\"UTF-8\">\n" +
+        "    <title>"+c.getTitle()+"</title>\n" +
+        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+        "    <meta name=\"description\" content=\"Evaluation of the ontology with the OOPS tool.\">\n" +
+        "    <meta name=\"Languaje\" content=\"English\">\n" +
+        "    <meta name=\"Keywords\" content=\"ontology, smart city, energy efficiency\">\n" +
+        "    \n" +
+        "    <script src=\"evaluation/jquery-1.11.0.js\"></script>\n" +
+        "    <script src=\"evaluation/bootstrap.min.js\"></script>\n" +
+        "    <link rel=\"stylesheet\" href=\"evaluation/style.css\" type=\"text/css\" media=\"print, projection, screen\" />\n" +
+        "    <script type=\"text/javascript\" src=\"evaluation/jquery.tablesorter.min.js\"></script>\n" +
+        "    <script type=\"text/javascript\" id=\"js\">\n" +
+        "	    $(document).ready(function() \n" +
+        "		    { \n" +
+        "		    	$(\"#tablesorter-demo\").tablesorter(); \n" +
+        "		    	$('.collapse').collapse({ \n" +
+        "		    	toggle: false\n" +
+        "		    	});\n" +
+        "		    } \n" +
+        "	    ); \n" +
+        "    </script>\n" +
+        "\n" +
+        "    <link href=\"evaluation/bootstrap.css\" rel=\"stylesheet\">\n" +
+        "    <style type=\"text/css\">\n" +
+        "      body {\n" +
+        //"        padding-top: 60px;\n" +
+        "        padding-bottom: 40px;\n" +
+        "      }\n" +
+        "    </style>\n" +
+        "    <link href=\"evaluation/bootstrap-responsive.css\" rel=\"stylesheet\">\n" +
+        "    \n" +
+        "    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->\n" +
+        "    <!--[if lt IE 9]>\n" +
+        "      <script src=\"/dist/js/html5shiv.js\"></script>\n" +
+        "    <![endif]-->\n" +
+        "\n" +
+        //"    <!-- Fav and touch icons -->\n" +
+        //"    <link rel=\"apple-touch-icon-precomposed\" sizes=\"144x144\" href=\"../dist/ico/apple-touch-icon-144-precomposed.png\">\n" +
+        //"    <link rel=\"apple-touch-icon-precomposed\" sizes=\"114x114\" href=\"../dist/ico/apple-touch-icon-114-precomposed.png\">\n" +
+        //"    <link rel=\"apple-touch-icon-precomposed\" sizes=\"72x72\" href=\"../dist/ico/apple-touch-icon-72pcomposed.png\">\n" +
+        //"    <link rel=\"apple-touch-icon-precomposed\" href=\"dist/ico/apple-touch-icon-57-precomposed.png\">\n" +
+        //"    <link rel=\"shortcut icon\" href=\"../dist/ico/favicon.png\">\n" +
+        "  </head>\n"
+        + "<div class=\"container\">\n" +
+            "<h1> <a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getTitle()+"</a></h1>\n" +
+            "<br>\n" +
+            "<dl class=\"dl-horizontal\">\n" +
+            "<dt>Title</dt>\n" +
+            "<dd><a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getTitle()+"</a></dd>\n" +
+            "<dt>URI</dt>\n" +
+            "<dd><a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getOntologyURI()+"</a></dd>\n" +
+            "<dt>Version</dt>\n" +
+            "<dd>"+c.getRevision()+"</dd>\n" +
+            "</dl>"+
+             evaluationContent+
+             //copy footer here
+            "<footer>\n" +
+            "            <div class=\"row\">\n" +
+            "    	<div class=\"col-md-7\">\n" +
+            "    		Developed by 	        <a href = \"http://delicias.dia.fi.upm.es/members/mpoveda/\" target=\"_blank\">Mar&iacutea Poveda</a>\n" +
+            "	        <br>\n" +
+            "    	Built with <a target=\"_blank\" href=\"http://getbootstrap.com/\">Bootstrap</a>\n" +
+            "	        <br>\n" +
+            "           Integration with Widoco by Daniel Garijo"+
+            "	        <br>\n" +
+            "        </div>\n" +
+            "    	<div class=\"col-md-5\">\n" +
+            "		<p class=\"text-right\"> Developed with: </p>\n" +
+            "		<p class=\"text-right\">\n" +
+            "     		<a href=\"http://www.oeg-upm.net/oops/\" target=\"_blank\"><img src=\"http://oeg-lia3.dia.fi.upm.es/oops/images/logoWhite65.png\" alt=\"OOPS! logo\" class=\"img-rounded\" class=\"img-responsive\" /></a>\n" +
+            "    	</p>\n" +
+            "    	</div>\n" +
+            "      </div>\n" +
+            "      </footer>\n" +
+            "    </div> <!-- /container -->\n";
+        return eval;
+    }
     
 }

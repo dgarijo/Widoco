@@ -196,7 +196,7 @@ public class CreateResources {
     }
     
     //This method should be separated in another utils file.
-    private static void saveDocument(String path, String textToWrite){
+    public static void saveDocument(String path, String textToWrite){
         File f = new File(path);
         Writer out = null;
         try{
@@ -259,7 +259,7 @@ public class CreateResources {
     }
     
     /**
-     * Method used to copy all the local files: styles, images, etc.
+     * Method used to copy the local files: styles, images, etc.
      * @param resourceName Name of the resource
      * @param dest file where we should copy it.
      * @throws IOException 
@@ -272,6 +272,11 @@ public class CreateResources {
         }
     }
     
+    /**
+     * Copy a file from outside the project into the desired file.
+     * @param path
+     * @param dest 
+     */
     private static void copyExternalResource(String path, File dest) {
         try{
             InputStream is = new FileInputStream(path);
