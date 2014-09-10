@@ -219,6 +219,7 @@ public class GuiStep2 extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tableProperties);
 
         loadMetadataFromOnto.setText("Load metadata from the ontology URI or file");
+        loadMetadataFromOnto.setEnabled(false);
         loadMetadataFromOnto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadMetadataFromOntoActionPerformed(evt);
