@@ -15,16 +15,25 @@
  */
 package widoco;
 
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntResource;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.util.FileManager;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 import widoco.entities.Agent;
@@ -194,6 +203,100 @@ public class Configuration {
             //to do: add the license icon!
     	} catch (IOException ex) {
             System.err.println("Error while reading configuration properties "+ex.getMessage());
+        }
+    }
+    
+    public void loadPropertiesFromOntology(OntModel m){
+        if(m == null){
+            System.err.println("The ontology could not be read...");
+            return;
+        }
+        //we assume only one ontology per file.
+        OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
+        Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
+        String propertyName, value;
+        while(it.hasNext()){
+            Statement s = (Statement) it.next();
+            propertyName = s.getPredicate().getLocalName();
+            try{
+                value = s.getObject().asLiteral().getString();
+            }catch(Exception e){
+                value = s.getObject().asResource().getURI();
+            }
+//            System.out.println(propertyName + " " + value);
+            // fill in the properties here.
+            if(propertyName.equals("abstract")){
+                // to do: create a field named abstract in the config class
+            }else
+            if(propertyName.equals("title")){
+                this.title = value;
+            }else
+            if(propertyName.equals("replaces")||propertyName.equals("wasRevisionOf")){
+                this.previousVersion = value;
+            }else
+            if(propertyName.equals("versionInfo")){
+                this.revision = value;
+            }else
+            if(propertyName.equals("preferredNamespacePrefix")){
+                this.mainOntology.setNamespacePrefix(value);
+            }else
+            if(propertyName.equals("preferredNamespaceUri")){
+                this.mainOntology.setNamespaceURI(value);                
+            }else
+            if(propertyName.equals("license")){
+                this.license = new License();
+                if(isURL(value)){
+                    this.license.setUrl(value);
+                }else{
+                    license.setName(value);
+                }
+            }else
+            if(propertyName.equals("creator")||propertyName.equals("contributor")){
+                Agent g = new Agent();
+                if(isURL(value)){
+                    g.setURL(value);
+                    g.setName("name goes here");
+                }else{
+                    g.setName(value);
+                }
+                if(propertyName.equals("creator")){
+                    this.creators.add(g);
+                }else{
+                    this.contributors.add(g);
+                }
+            }else
+            if(propertyName.equals("created")){
+                if(releaseDate==null || "".equals(releaseDate)){
+                    this.releaseDate = value;
+                }
+            }else
+            if(propertyName.equals("modified")){
+                releaseDate = value;
+            }else
+            if(propertyName.equals("imports")){
+                Ontology o = new Ontology();
+                if(isURL(value)){
+                    o.setNamespaceURI(value);
+                    o.setName("imported ontology name goes here");
+                }else{
+                    o.setName(value);
+                }
+                this.importedOntologies.add(o);
+            }
+            //to do: if property is comment and abstract is null, then complete abstract.
+        }
+//        System.out.println("File loaded into the model template");
+    }
+    
+    private boolean isURL(String s){
+        try{
+            URL url = new URL(s);
+            url.toURI();
+            return true;
+        }catch(MalformedURLException e){
+            return false;
+        } catch (URISyntaxException e) {
+            return false;
         }
     }
 
@@ -521,5 +624,15 @@ public class Configuration {
         }
     }
 
+    
+    //for testing ontology readings.
+//    public static void main(String[] args){
+//      Configuration c = new Configuration();
+//      c.loadPropertiesFromOntology(null);
+//      Iterator it = c.getContributors().iterator();
+//      while(it.hasNext()){
+//        System.out.println(((Agent)it.next()).getURL());
+//      }
+//    }
     
 }

@@ -48,6 +48,7 @@ import widoco.TextConstants;
 public class GuiStep2 extends javax.swing.JFrame {
     GuiController g;
     HashMap<String,String> properties;
+    
     /** Creates new form WidocoGui2
      * @param g */
     public GuiStep2(GuiController g) {
@@ -67,9 +68,22 @@ public class GuiStep2 extends javax.swing.JFrame {
 
         // Move the window
         this.setLocation(x, y);
-        
+        this.labelStatusReading.setVisible(false);
+        this.barStatus.setVisible(false);
         properties = g.getEditableProperties();
         refreshTable();
+    }
+    
+    public void refreshPropertyTable(){
+        properties = g.getEditableProperties();
+        refreshTable();
+    }
+    
+    public void stopLoadingAnimation(){
+        this.barStatus.setVisible(false);
+        this.barStatus.setIndeterminate(false);
+        this.backButton.setEnabled(true);
+        this.nextButton.setEnabled(true);
     }
     
     private void refreshTable(){
@@ -84,7 +98,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, true
             };
             @Override
             public Class getColumnClass(int columnIndex) {
@@ -151,6 +165,8 @@ public class GuiStep2 extends javax.swing.JFrame {
         removePropButton = new javax.swing.JButton();
         widocoLogo = new javax.swing.JLabel();
         loadMetadataFromDefaultConfigFile = new javax.swing.JCheckBox();
+        barStatus = new javax.swing.JProgressBar();
+        labelStatusReading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 2: Load the metadata");
@@ -219,7 +235,6 @@ public class GuiStep2 extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tableProperties);
 
         loadMetadataFromOnto.setText("Load metadata from the ontology URI or file");
-        loadMetadataFromOnto.setEnabled(false);
         loadMetadataFromOnto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadMetadataFromOntoActionPerformed(evt);
@@ -264,6 +279,8 @@ public class GuiStep2 extends javax.swing.JFrame {
             }
         });
 
+        labelStatusReading.setText("status");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,16 +311,22 @@ public class GuiStep2 extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(addPropButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(removePropButton))
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(labelStatusReading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(addPropButton)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(removePropButton))
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(0, 0, Short.MAX_VALUE))))
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,22 +353,28 @@ public class GuiStep2 extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addPropButton)
-                            .addComponent(removePropButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(loadMetadataFromOnto))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(addPropButton)
+                        .addComponent(removePropButton))
                     .addComponent(saveMetadataButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loadMetadataFromDefaultConfigFile)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nextButton)
-                    .addComponent(backButton)
-                    .addComponent(cancelButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loadMetadataFromOnto)
+                            .addComponent(labelStatusReading, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(loadMetadataFromDefaultConfigFile)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nextButton)
+                            .addComponent(backButton)
+                            .addComponent(cancelButton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -387,7 +416,14 @@ public class GuiStep2 extends javax.swing.JFrame {
         if(loadMetadataFromDefaultConfigFile.isSelected() && loadMetadataFromOnto.isSelected()){
             loadMetadataFromDefaultConfigFile.setSelected(false);
         }
-        JOptionPane.showMessageDialog(null, "TO DO!!");
+        if(loadMetadataFromOnto.isSelected()){
+//            JOptionPane.showMessageDialog(null, "TO DO!!");
+            this.barStatus.setVisible(true);
+            this.barStatus.setIndeterminate(true);
+            g.switchState("loadOntologyProperties");
+            this.backButton.setEnabled(false);
+            this.nextButton.setEnabled(false);
+        }
     }//GEN-LAST:event_loadMetadataFromOntoActionPerformed
 
     private void loadMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataButtonActionPerformed
@@ -396,8 +432,7 @@ public class GuiStep2 extends javax.swing.JFrame {
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
            g.reloadConfiguration(chooser.getSelectedFile().getAbsolutePath());
-           properties = g.getEditableProperties();
-           this.refreshTable();
+           this.refreshPropertyTable();
         }
     }//GEN-LAST:event_loadMetadataButtonActionPerformed
 
@@ -417,8 +452,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                 URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
                 String path = (new File(root.toURI())).getParentFile().getPath();
                 g.reloadConfiguration(path+File.separator+TextConstants.configPath);
-                properties = g.getEditableProperties();
-                this.refreshTable();
+                this.refreshPropertyTable();
             }catch(URISyntaxException e){
                 System.err.println("Error while reading the default config file");
                 JOptionPane.showMessageDialog(null, "Error while reading the default .properties file");
@@ -605,11 +639,13 @@ public class GuiStep2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPropButton;
     private javax.swing.JButton backButton;
+    private javax.swing.JProgressBar barStatus;
     private javax.swing.JButton cancelButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel labelStatusReading;
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JButton loadMetadataButton;

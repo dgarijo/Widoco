@@ -102,7 +102,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         referencesSectionButton = new javax.swing.JButton();
         checkBoxDiagram = new javax.swing.JCheckBox();
         checkBoxProv = new javax.swing.JCheckBox();
-        referencesSectionButton1 = new javax.swing.JButton();
+        loadAllFromButton = new javax.swing.JButton();
         labelDescription = new javax.swing.JLabel();
         widocoLogo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -148,6 +148,9 @@ public class GuiStep3 extends javax.swing.JFrame {
 
         labelSteps.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelSteps.setText("Steps");
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(360, 205));
+        jPanel1.setRequestFocusEnabled(false);
 
         checkBoxAbstract.setSelected(true);
         checkBoxAbstract.setText("Include Abstract Section");
@@ -209,11 +212,11 @@ public class GuiStep3 extends javax.swing.JFrame {
             }
         });
 
-        referencesSectionButton1.setText("Load All...");
-        referencesSectionButton1.setEnabled(false);
-        referencesSectionButton1.addActionListener(new java.awt.event.ActionListener() {
+        loadAllFromButton.setText("Load All...");
+        loadAllFromButton.setEnabled(false);
+        loadAllFromButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                referencesSectionButton1ActionPerformed(evt);
+                loadAllFromButtonActionPerformed(evt);
             }
         });
 
@@ -231,21 +234,22 @@ public class GuiStep3 extends javax.swing.JFrame {
                             .addComponent(checkBoxOverview)
                             .addComponent(checkBoxIntro)
                             .addComponent(checkBoxAbstract))
-                        .addGap(82, 82, 82)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(abstractSectionButton)
-                            .addComponent(introductionSectionButton)
-                            .addComponent(overviewSectionButton)
-                            .addComponent(referencesSectionButton)
-                            .addComponent(descriptionSectionButton))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(82, 82, 82))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxDiagram)
-                            .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(referencesSectionButton1)
-                        .addContainerGap())))
+                            .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(checkBoxDiagram)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(abstractSectionButton)
+                    .addComponent(introductionSectionButton)
+                    .addComponent(overviewSectionButton)
+                    .addComponent(referencesSectionButton)
+                    .addComponent(descriptionSectionButton)
+                    .addComponent(loadAllFromButton))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,14 +275,14 @@ public class GuiStep3 extends javax.swing.JFrame {
                     .addComponent(checkBoxRefs))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(checkBoxDiagram)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(checkBoxProv)
-                        .addGap(49, 49, 49))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(referencesSectionButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(loadAllFromButton)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -338,24 +342,22 @@ public class GuiStep3 extends javax.swing.JFrame {
                     .addComponent(widocoLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(labelSteps)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelSteps)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(labelDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -417,9 +419,9 @@ public class GuiStep3 extends javax.swing.JFrame {
         referencesPath = loadSection();
     }//GEN-LAST:event_referencesSectionButtonActionPerformed
 
-    private void referencesSectionButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_referencesSectionButton1ActionPerformed
+    private void loadAllFromButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadAllFromButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_referencesSectionButton1ActionPerformed
+    }//GEN-LAST:event_loadAllFromButtonActionPerformed
 
     private void checkBoxProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxProvActionPerformed
         if(checkBoxProv.isSelected()){
@@ -516,10 +518,10 @@ public class GuiStep3 extends javax.swing.JFrame {
     private javax.swing.JLabel labelDescription;
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;
+    private javax.swing.JButton loadAllFromButton;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton overviewSectionButton;
     private javax.swing.JButton referencesSectionButton;
-    private javax.swing.JButton referencesSectionButton1;
     private javax.swing.JTextPane textPaneSteps;
     private javax.swing.JLabel widocoLogo;
     // End of variables declaration//GEN-END:variables

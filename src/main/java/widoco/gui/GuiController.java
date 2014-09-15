@@ -36,6 +36,7 @@ import widoco.Configuration;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
+import widoco.LoadOntologyPropertiesInThread;
 import widoco.TextConstants;
 import widoco.entities.Agent;
 import widoco.entities.License;
@@ -50,7 +51,7 @@ import widoco.entities.Ontology;
 public class GuiController {
 
     
-    public enum State{initial, metadata, sections, configLODE, loading, generated, evaluating, exit};
+    public enum State{initial, metadata, loadingConfig, sections, configLODE, loading, generated, evaluating, exit};
     private State state;
     private JFrame gui;
     private Configuration config;
@@ -305,22 +306,23 @@ public class GuiController {
         }
     }
     
-    public void saveLODEConfig(){
-        
-    }
-    
     public void generateSkeleton() {
         //if state is initial, then it is a skeleton
         //call a method in createResources called createSkeleton, and done.
     }
     
-    public void startGeneratingDoc() {
+    private void startGeneratingDoc() {
         Runnable r = new CreateDocInThread(this.config, this, this.tmpFile);
         new Thread(r).start();
     }
     
-    public void startEvaluation(){
+    private void startEvaluation(){
         Runnable r = new CreateOOPSEvalInThread(this.config, this, this.tmpFile);
+        new Thread(r).start();
+    }
+    
+    private void startLoadingPropertiesFromOntology(){
+        Runnable r = new LoadOntologyPropertiesInThread(this.config, this);
         new Thread(r).start();
     }
     
@@ -376,13 +378,25 @@ public class GuiController {
                     this.gui.dispose();
                     gui = new GuiStep1(this);
                     gui.setVisible(true);
+                }else{
+                if(input.equals("loadOntologyProperties")){    
+                    state = State.loadingConfig;
+                    this.startLoadingPropertiesFromOntology();                    
                 }else{//next
                     state = State.sections;
                     this.gui.dispose();
                     gui = new GuiStep3(this);
                     gui.setVisible(true);
                 }
+                }
                 break;
+            case loadingConfig:
+                if(input.equals("finishedLoading")){
+                    state = State.metadata;
+                    ((GuiStep2)gui).refreshPropertyTable();
+                    ((GuiStep2)gui).stopLoadingAnimation();
+                }
+            break;
             case sections:
                 if(input.equals("back")){
                     state = State.metadata;
