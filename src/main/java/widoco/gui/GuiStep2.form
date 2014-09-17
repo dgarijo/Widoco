@@ -73,11 +73,11 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="removePropButton" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jScrollPane2" min="-2" pref="478" max="-2" attributes="1"/>
                                           <Component id="loadMetadataFromDefaultConfigFile" alignment="0" min="-2" pref="454" max="-2" attributes="1"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="103" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="jScrollPane2" alignment="0" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>

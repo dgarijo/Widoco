@@ -110,31 +110,39 @@ public class Configuration {
         }
     }
     
+    private void cleanConfig(){
+        //initialization of variables (in case something fails
+        title ="";
+        releaseDate = "";
+        previousVersion ="";
+        thisVersion ="";
+        latestVersion ="";
+        revision = "";
+        creators = new ArrayList<Agent>();
+        contributors = new ArrayList<Agent>();
+        importedOntologies = new ArrayList<Ontology>();
+        extendedOntologies = new ArrayList<Ontology>();
+        //this has to be checked because we might delete the uri of the onto from a previous step.
+        if(mainOntology==null){
+                mainOntology = new Ontology();
+                mainOntology.setName("");
+                mainOntology.setNamespacePrefix("");
+                mainOntology.setNamespaceURI("");
+        }
+        license = new License();
+        publishProvenance = true;    
+        includeAbstract = true;
+        includeIntroduction = true;
+        includeOverview = true;
+        includeDescription = true;
+        includeReferences = true;
+        includeCrossReferenceSection = true;
+    }
+    
     private void loadPropertyFile(String path){
         try {
-            //initialization of variables (in case something fails
-            title ="";
-            releaseDate = "";
-            previousVersion ="";
-            thisVersion ="";
-            latestVersion ="";
-            mainOntology = new Ontology();
-            mainOntology.setName("");
-            mainOntology.setNamespacePrefix("");
-            mainOntology.setNamespaceURI("");
-            revision = "";
-            creators = new ArrayList<Agent>();
-            contributors = new ArrayList<Agent>();
-            importedOntologies = new ArrayList<Ontology>();
-            extendedOntologies = new ArrayList<Ontology>();
-            license = new License();
-            publishProvenance = true;    
-            includeAbstract = true;
-            includeIntroduction = true;
-            includeOverview = true;
-            includeDescription = true;
-            includeReferences = true;
-            includeCrossReferenceSection = true;
+            cleanConfig();
+            
 //            propertyFile.load(new FileInputStream(path));
             //this forces the property file to be in UTF 8 instead of the ISO
             propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
@@ -211,6 +219,7 @@ public class Configuration {
             System.err.println("The ontology could not be read...");
             return;
         }
+        cleanConfig();
         //we assume only one ontology per file.
         OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
         Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
@@ -258,6 +267,7 @@ public class Configuration {
                     g.setName("name goes here");
                 }else{
                     g.setName(value);
+                    g.setURL("url oges here");
                 }
                 if(propertyName.equals("creator")){
                     this.creators.add(g);
@@ -280,12 +290,13 @@ public class Configuration {
                     o.setName("imported ontology name goes here");
                 }else{
                     o.setName(value);
+                    o.setNamespaceURI("namespace URI goes here");
                 }
                 this.importedOntologies.add(o);
             }
             //to do: if property is comment and abstract is null, then complete abstract.
         }
-//        System.out.println("File loaded into the model template");
+        System.out.println("Loaded properties from ontology");
     }
     
     private boolean isURL(String s){

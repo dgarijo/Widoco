@@ -311,22 +311,21 @@ public class GuiStep2 extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(labelStatusReading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(addPropButton)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(removePropButton))
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(labelStatusReading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(addPropButton)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(removePropButton))
+                                            .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 103, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2))
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,6 +390,13 @@ public class GuiStep2 extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        //refresh the properties with what it is in the table.
+        DefaultTableModel dtm = (DefaultTableModel) tableProperties.getModel();
+        this.properties = new HashMap<String, String>();
+        int nRow = dtm.getRowCount();
+        for (int i = 0 ; i < nRow ; i++){
+            this.properties.put((String)dtm.getValueAt(i, 0),(String)dtm.getValueAt(i, 1));
+        }
         this.g.saveEditableProperties(this.properties);
         this.g.switchState("next");
     }//GEN-LAST:event_nextButtonActionPerformed
@@ -558,22 +564,22 @@ public class GuiStep2 extends javax.swing.JFrame {
             }else{
                 textProperties+="contributorsInstitution=\n";
             }
-            if(properties.get("Imported Ontologies Names")!=null){
+            if(properties.get("Imported Ontology Names")!=null){
                 textProperties+="importsNames="+properties.get("Imported Ontologies Names")+"\n";
             }else{
                 textProperties+="importsNames=\n";
             }
-            if(properties.get("Imported Ontologies URIs")!=null){
+            if(properties.get("Imported Ontology URIs")!=null){
                 textProperties+="importsURLs="+properties.get("Imported Ontologies URIs")+"\n";
             }else{
                 textProperties+="importsURLs=\n";
             }
-            if(properties.get("Extended Ontologies Names")!=null){
+            if(properties.get("Extended Ontology Names")!=null){
                 textProperties+="extendsNames="+properties.get("Extended Ontologies Names")+"\n";
             }else{
                 textProperties+="extendsNames=\n";
             }
-            if(properties.get("Extended Ontology URLS")!=null){
+            if(properties.get("Extended Ontology URIs")!=null){
                 textProperties+="extendsURLS="+properties.get("Extended Ontology URLS")+"\n";
             }else{
                 textProperties+="extendsURLS=\n";

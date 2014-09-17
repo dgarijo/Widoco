@@ -103,17 +103,17 @@
             <StringItem index="7" value="Previous Version"/>
             <StringItem index="8" value="Ontology Revision"/>
             <StringItem index="9" value="Author"/>
-            <StringItem index="10" value="Author URL"/>
+            <StringItem index="10" value="Author URI"/>
             <StringItem index="11" value="Author Institution"/>
             <StringItem index="12" value="Contributor"/>
-            <StringItem index="13" value="Contributor URL"/>
+            <StringItem index="13" value="Contributor URI"/>
             <StringItem index="14" value="Contributor Institution"/>
-            <StringItem index="15" value="Imported Ontologies Names"/>
-            <StringItem index="16" value="Imported Ontologies URIs"/>
-            <StringItem index="17" value="Extended Ontologies Names"/>
-            <StringItem index="18" value="Extended Ontology URLS"/>
+            <StringItem index="15" value="Imported Ontology Names"/>
+            <StringItem index="16" value="Imported Ontology URIs"/>
+            <StringItem index="17" value="Extended Ontology Names"/>
+            <StringItem index="18" value="Extended Ontology URIs"/>
             <StringItem index="19" value="License Name"/>
-            <StringItem index="20" value="License URL"/>
+            <StringItem index="20" value="License URI"/>
             <StringItem index="21" value="License icon URL"/>
           </StringArray>
         </Property>

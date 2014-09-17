@@ -24,16 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
-import widoco.entities.Agent;
-import widoco.entities.License;
-import widoco.entities.Ontology;
 
 /**
  * Class that given a path, it creates all the associated resources needed to

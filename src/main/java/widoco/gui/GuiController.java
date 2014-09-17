@@ -138,8 +138,8 @@ public class GuiController {
                 importedName +=a.getName()+";";
                 importedUri+=a.getNamespaceURI()+";";
             }
-            if(!"".equals(importedName))props.put("Imported Ontologies Names", importedName.substring(0,importedName.length()-1));
-            if(!"".equals(importedUri))props.put("Imported Ontologies URIs", importedUri.substring(0,importedUri.length()-1));
+            if(!"".equals(importedName))props.put("Imported Ontology Names", importedName.substring(0,importedName.length()-1));
+            if(!"".equals(importedUri))props.put("Imported Ontology URIs", importedUri.substring(0,importedUri.length()-1));
         }
         
         if(config.getExtendedOntologies()!=null){
@@ -152,8 +152,8 @@ public class GuiController {
                 extendedName +=a.getName()+";";
                 extendedUri+=a.getNamespaceURI()+";";
             }
-            if(!"".equals(extendedName))props.put("Extended Ontologies Names", extendedName.substring(0,extendedName.length()-1));
-            if(!"".equals(extendedUri))props.put("Extended Ontology URLS", extendedUri.substring(0,extendedUri.length()-1));
+            if(!"".equals(extendedName))props.put("Extended Ontology Names", extendedName.substring(0,extendedName.length()-1));
+            if(!"".equals(extendedUri))props.put("Extended Ontology URIs", extendedUri.substring(0,extendedUri.length()-1));
         }
         //license
         if(config.getLicense()!=null){
@@ -171,7 +171,6 @@ public class GuiController {
     }
     
     public void saveEditableProperties(HashMap properties){
-        //config.set
         //we don't check wether it exists because the property mght have been deleted.
     
         config.setTitle((String)properties.get("Ontology Title"));
@@ -201,9 +200,9 @@ public class GuiController {
                 String[] authorURIs = null;
                 String[] authorInstis = null;
                 ArrayList<Agent> newAuthors = new ArrayList<Agent>();
-                if(properties.containsKey("Author URL")){
-                    if(!"".equals(properties.get("Author URL"))){
-                        authorURIs = ((String)properties.get("Author URL")).split(";");
+                if(properties.containsKey("Author URI")){
+                    if(!"".equals(properties.get("Author URI"))){
+                        authorURIs = ((String)properties.get("Author URI")).split(";");
                     }
                 }
                 if(properties.containsKey("Author Institution")){
@@ -233,9 +232,9 @@ public class GuiController {
                 String[] contribURI = null;
                 String[] contribInsti = null;
                 ArrayList<Agent> newContrib = new ArrayList<Agent>();
-                if(properties.containsKey("Contributor URL")){
-                    if(!"".equals(properties.get("Contributor URL"))){
-                        contribURI = ((String)properties.get("Contributor URL")).split(";");
+                if(properties.containsKey("Contributor URI")){
+                    if(!"".equals(properties.get("Contributor URI"))){
+                        contribURI = ((String)properties.get("Contributor URI")).split(";");
                     }
                 }
                 if(properties.containsKey("Contributor Institution")){
@@ -259,15 +258,15 @@ public class GuiController {
             }
         }
         
-        if(properties.containsKey("Extended Ontologies Names")){
-            String extended = (String)properties.get("Extended Ontologies Names");
+        if(properties.containsKey("Extended Ontology Names")){
+            String extended = (String)properties.get("Extended Ontology Names");
             if(!"".equals(extended)){
                 String[] extendedOntoNames = extended.split(";");
                 String[] extendedURIs = null;
                 ArrayList<Ontology> newExtended = new ArrayList<Ontology>();
-                if(properties.containsKey("Extended Ontology URLS")){
-                    if(!"".equals(properties.get("Extended Ontology URLS"))){
-                        extendedURIs = ((String)properties.get("Extended Ontology URLS")).split(";");
+                if(properties.containsKey("Extended Ontology URIs")){
+                    if(!"".equals(properties.get("Extended Ontology URIs"))){
+                        extendedURIs = ((String)properties.get("Extended Ontology URIs")).split(";");
                     }
                 }
                 for(int i=0; i< extendedOntoNames.length;i++){
@@ -282,15 +281,15 @@ public class GuiController {
             }
         }
         
-        if(properties.containsKey("Imported Ontologies Names")){
-        String imported = (String)properties.get("Imported Ontologies Names");
+        if(properties.containsKey("Imported Ontology Names")){
+        String imported = (String)properties.get("Imported Ontology Names");
             if(!"".equals(imported)){
                 String[] importedOntoNames = imported.split(";");
                 String[] importedURIs = null;
                 ArrayList<Ontology> newExtended = new ArrayList<Ontology>();
-                if(properties.containsKey("Imported Ontology URLS")){
-                    if(!"".equals(properties.get("Imported Ontology URLS"))){
-                        importedURIs = ((String)properties.get("Imported Ontology URLS")).split(";");
+                if(properties.containsKey("Imported Ontology URIs")){
+                    if(!"".equals(properties.get("Imported Ontology URIs"))){
+                        importedURIs = ((String)properties.get("Imported Ontology URIs")).split(";");
                     }
                 }
                 for(int i=0; i< importedOntoNames.length;i++){
