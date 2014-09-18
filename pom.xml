@@ -175,8 +175,8 @@
   	  
     <plugins>
     
-   	  <plugin>   	  
-		  <groupId>org.apache.maven.plugins</groupId>
+<!--   	  <plugin>   	  
+ 		  <groupId>org.apache.maven.plugins</groupId>
 		  <artifactId>maven-jar-plugin</artifactId>
 		  <version>2.4</version>                   
 		  <configuration>
@@ -194,9 +194,9 @@
 			
 		  </configuration>
 		 </plugin>
-		 
+	 -->	 
 		 <!-- copy the resources to the generated folder -->
-             <plugin>
+  <!--            <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.4</version>
@@ -221,9 +221,9 @@
                             </execution>
                     </executions>
             </plugin>
+ -->
 
-
-             <plugin>
+ <!--             <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>2.5.1</version>
@@ -242,6 +242,36 @@
                             </execution>
                     </executions>
             </plugin>
+  -->           
+            <!-- maven assembly plugin: generar jar with dependencies  -->
+            <plugin>
+        <!-- NOTE: We don't need a groupId specification because the group is
+             org.apache.maven.plugins ...which is assumed by default.
+         -->
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>widoco.gui.GuiController</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        </plugin>
+        
+        
      </plugins>
 	 
   	<pluginManagement>
