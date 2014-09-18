@@ -31,46 +31,44 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <Component id="jSeparator2" pref="1" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jSeparator2" pref="1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="labelStatus" min="-2" pref="94" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="barStatus" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="backButton" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nextButton" min="-2" max="-2" attributes="1"/>
+                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                              <Component id="cancelButton" min="-2" pref="85" max="-2" attributes="1"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="widocoLogo" max="32767" attributes="0"/>
+                                  <Component id="labelSteps" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="widocoLogo" max="32767" attributes="0"/>
-                                          <Component id="labelSteps" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane1" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="labelTitle" alignment="0" min="-2" pref="326" max="-2" attributes="0"/>
-                                          <Component id="jPanel1" min="-2" pref="473" max="-2" attributes="1"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelDescription" min="-2" pref="548" max="-2" attributes="1"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelTitle" alignment="0" min="-2" pref="326" max="-2" attributes="0"/>
+                                  <Component id="jPanel1" min="-2" pref="473" max="-2" attributes="1"/>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelDescription" min="-2" pref="548" max="-2" attributes="1"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="backButton" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nextButton" min="-2" pref="89" max="-2" attributes="1"/>
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                      <Component id="cancelButton" min="-2" pref="85" max="-2" attributes="1"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,10 +108,16 @@
                   <Component id="labelDescription" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="backButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nextButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="backButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nextButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="barStatus" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="labelStatus" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -123,7 +127,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="nextButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Next &gt;"/>
+        <Property name="text" type="java.lang.String" value="Generate! &gt;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextButtonActionPerformed"/>
@@ -158,7 +162,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="contentType" type="java.lang.String" value="text/html" noResource="true"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xd;&#xa;  &lt;head&gt;&#xd;&#xa;&#xd;&#xa;  &lt;/head&gt;&#xd;&#xa;  &lt;body&gt;&#xd; &#xa;1. Select template&lt;br/&gt;       &#xa;2. Load Metadata&lt;br/&gt;&#xa;&lt;b&gt;3. Load Sections&lt;/b&gt;&lt;br/&gt;&#xa;4. Configure LODE&lt;br/&gt;&#xa;5. Generate!&#xa;  &lt;/body&gt;&#xd;&#xa;&lt;/html&gt;&#xd;&#xa;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xd;&#xa;  &lt;head&gt;&#xd;&#xa;&#xd;&#xa;  &lt;/head&gt;&#xd;&#xa;  &lt;body&gt;&#xd; &#xa;1. Select template&lt;br/&gt;       &#xa;2. Load Metadata&lt;br/&gt;&#xa;&lt;b&gt;3. Load Sections&lt;/b&gt;&lt;br/&gt;&#xa;4. Finish&#xa;  &lt;/body&gt;&#xd;&#xa;&lt;/html&gt;&#xd;&#xa;"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -446,6 +450,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator3">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelStatus">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Generating ...."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JProgressBar" name="barStatus">
     </Component>
   </SubComponents>
 </Form>

@@ -38,55 +38,32 @@ public class CreateResources {
     
     //to do: analyze if this is the right name for the class. Maybe "generate" is better
     public static void generateDocumentation(String folderOut, Configuration c, boolean fromURI, File lodeResources){
-        try{
-            //invoke LODE
-            String lodeContent;
-            if(fromURI) {
-                lodeContent = LODEGeneration.getLODEhtmlFromURL(c.getOntologyPath(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage(), lodeResources);
-            }else{
-                lodeContent = LODEGeneration.getLODEhtmlFromFile(c.getOntologyPath(),c.getOntologyURI(),c.isUseOwlAPI(),c.isUseImported(), false, c.isUseReasoner(), c.getLanguage(), lodeResources);
-            }
-            LODEParser lode = new LODEParser(lodeContent,c);
-            //create a folder with all the appropriate substructure on the selected folder.
-            createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance());
-            //we create the resources, in case the user wants to add them later.
-            //abstract section and file
-            if(c.isIncludeAbstract()){
-                createAbstractSection(folderOut+File.separator+"sections",c);
-            }
-            //introduction section and file
-            if(c.isIncludeIntroduction()){
-                createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c);
-            }
-            //overview section and file
-            if(c.isIncludeOverview()){
-                createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList());
-            }
-            //description section and file
-            if(c.isIncludeDescription()){
-                createDescriptionSection(folderOut+File.separator+"sections",c);
-            }
-            //cross reference section and  file
-            if(c.isIncludeCrossReferenceSection()){
-                createCrossReferenceSection(folderOut+File.separator+"sections",lode, c);
-            }
-            //references section and file
-            if(c.isIncludeReferences()){
-                createReferencesSection(folderOut+File.separator+"sections",c);
-            }
-                
-            //create the image (if selected)
-            //TO DO
-
-            if(c.isPublishProvenance()){
-                createProvenancePage(folderOut+File.separator+"provenance", c);
-            }
-            
-            //create the main page (aggregation of the different sections)
-            createIndexDocument(folderOut,c);
-        }catch(IOException e){
-            System.err.println("Error while creating the documentation: "+e.getMessage());    
+        String lodeContent;
+        lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
+        LODEParser lode = new LODEParser(lodeContent,c);
+        createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance());
+        if(c.isIncludeAbstract()){
+            createAbstractSection(folderOut+File.separator+"sections",c);
         }
+        if(c.isIncludeIntroduction()){
+            createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c);
+        }
+        if(c.isIncludeOverview()){
+            createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList());
+        }
+        if(c.isIncludeDescription()){
+            createDescriptionSection(folderOut+File.separator+"sections",c);
+        }
+        if(c.isIncludeCrossReferenceSection()){
+            createCrossReferenceSection(folderOut+File.separator+"sections",lode, c);
+        }
+        if(c.isIncludeReferences()){
+            createReferencesSection(folderOut+File.separator+"sections",c);
+        }
+        if(c.isPublishProvenance()){
+            createProvenancePage(folderOut+File.separator+"provenance", c);
+        }
+        createIndexDocument(folderOut,c);
     }
     
     /**

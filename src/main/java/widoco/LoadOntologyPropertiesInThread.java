@@ -16,14 +16,10 @@
 
 package widoco;
 
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.util.FileManager;
-import java.io.InputStream;
 import widoco.gui.GuiController;
 
 /**
- *
+ * Class designed to load all properties from an ontology in a separate thread.
  * @author Daniel Garijo
  */
 public class LoadOntologyPropertiesInThread implements Runnable{
@@ -37,48 +33,12 @@ public class LoadOntologyPropertiesInThread implements Runnable{
     }
 
     public void run() {
-        //load the file either from local path or from URI.
-        OntModel model = ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();
-        if(c.isFromFile()){
-            readModel(model, c.getOntologyPath(), null);
-        }else{
-            readModel(model, null, c.getOntologyURI());
-        }
         //once it is loaded, load the properties in the config
-        c.loadPropertiesFromOntology(model);
+        c.loadPropertiesFromOntology(WidocoUtils.loadModel(c));
         //notify the main thread to refresh the properties table.
         pointerToMain.switchState("finishedLoading");
     }
     
-    private void readModel(OntModel model,String ontoPath, String ontoURL){
-        if(ontoPath!=null){
-            InputStream in = null;
-            try{
-                in = FileManager.get().open(ontoPath);
-                if (in == null) {
-                    System.err.println("Error: Ontology file not found");
-                    return;
-                }
-                model.read(in, null, "RDF/XML");
-            }catch(Exception e){
-                System.err.println("Could not load the ontology in rdf/xml. Attempting to read it in turtle...");
-                try{
-                    if(in!=null){
-                        in.close();
-                    }
-                    in = FileManager.get().open(ontoPath);
-                    model.read(in, null, "TURTLE");
-                }catch(Exception e1){
-                    System.err.println("Could not load ontology in turtle.");
-                }
-            }
-        }else{
-            try{
-                model.read(ontoURL, null, "RDF/XML");
-            }catch(Exception e){
-                model.read(ontoURL, null, "TURTLE");
-            }
-        }
-    }
+    
 
 }

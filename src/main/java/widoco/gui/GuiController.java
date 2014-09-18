@@ -51,7 +51,7 @@ import widoco.entities.Ontology;
 public class GuiController {
 
     
-    public enum State{initial, metadata, loadingConfig, sections, configLODE, loading, generated, evaluating, exit};
+    public enum State{initial, metadata, loadingConfig, sections, loading, generated, evaluating, exit};
     private State state;
     private JFrame gui;
     private Configuration config;
@@ -403,23 +403,22 @@ public class GuiController {
                     gui = new GuiStep2(this);
                     gui.setVisible(true);
                 }else{//next
-                    state = State.configLODE;
-                    this.gui.dispose();
-                    gui = new GuiStep4(this);
-                    gui.setVisible(true);
-                }
-                break;
-            case configLODE:
-                if(input.equals("back")){
-                    state = State.sections;
-                    this.gui.dispose();
-                    gui = new GuiStep3(this);
-                    gui.setVisible(true);
-                }else{//next
                     state = State.loading;
                     this.startGeneratingDoc();
                 }
                 break;
+              //i decided to remove this step, as it is not needed.  
+//            case configLODE:
+//                if(input.equals("back")){
+//                    state = State.sections;
+//                    this.gui.dispose();
+//                    gui = new GuiStep3(this);
+//                    gui.setVisible(true);
+//                }else{//next
+//                    state = State.loading;
+//                    this.startGeneratingDoc();
+//                }
+//                break;
             case loading:
                 if(input.equals("error")){
                     JOptionPane.showMessageDialog(gui,"error while generating the documentation! refine this error.");

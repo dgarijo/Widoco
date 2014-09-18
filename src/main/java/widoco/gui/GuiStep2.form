@@ -188,7 +188,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="contentType" type="java.lang.String" value="text/html" noResource="true"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xd;&#xa;  &lt;head&gt;&#xd;&#xa;&#xd;&#xa;  &lt;/head&gt;&#xd;&#xa;  &lt;body&gt;&#xd; &#xa;1. Select template&lt;br/&gt;       &#xa;&lt;b&gt;2. Load Metadata&lt;/b&gt;&lt;br/&gt;&#xa;3. Load Sections&lt;br/&gt;&#xa;3. Configure LODE&lt;br/&gt;&#xa;5. Generate!&#xa;  &lt;/body&gt;&#xd;&#xa;&lt;/html&gt;&#xd;&#xa;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xd;&#xa;  &lt;head&gt;&#xd;&#xa;&#xd;&#xa;  &lt;/head&gt;&#xd;&#xa;  &lt;body&gt;&#xd; &#xa;1. Select template&lt;br/&gt;       &#xa;&lt;b&gt;2. Load Metadata&lt;/b&gt;&lt;br/&gt;&#xa;3. Load Sections&lt;br/&gt;&#xa;4. Finish&#xa;  &lt;/body&gt;&#xd;&#xa;&lt;/html&gt;&#xd;&#xa;"/>
           </Properties>
         </Component>
       </SubComponents>

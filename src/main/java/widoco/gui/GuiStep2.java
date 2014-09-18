@@ -200,7 +200,7 @@ public class GuiStep2 extends javax.swing.JFrame {
 
         textPaneSteps.setEditable(false);
         textPaneSteps.setContentType("text/html"); // NOI18N
-        textPaneSteps.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r \n1. Select template<br/>       \n<b>2. Load Metadata</b><br/>\n3. Load Sections<br/>\n3. Configure LODE<br/>\n5. Generate!\n  </body>\r\n</html>\r\n");
+        textPaneSteps.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r \n1. Select template<br/>       \n<b>2. Load Metadata</b><br/>\n3. Load Sections<br/>\n4. Finish\n  </body>\r\n</html>\r\n");
         jScrollPane1.setViewportView(textPaneSteps);
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
