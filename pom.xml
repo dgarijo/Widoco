@@ -17,6 +17,7 @@
     </properties>
   
   <dependencies>
+
 	  	<dependency>
 	  		<groupId>org.restlet.jse</groupId>
 	  		<artifactId>org.restlet</artifactId>
@@ -49,12 +50,7 @@
       </exclusions> 
      </dependency>
 		
-		<dependency>
-			<groupId>com.github.spullara.mustache.java</groupId>
-			<artifactId>compiler</artifactId>
-			<version>0.8.10</version>
-		</dependency>
-		
+
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>apache-jena-libs</artifactId>
@@ -167,88 +163,51 @@
   <build>
   	  
     <plugins>
-    
-   	  <plugin>   	  
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-jar-plugin</artifactId>
-		  <version>2.4</version>                   
-		  <configuration>
-		  	<excludes>
-		  		<exclude>/src/main/resources/**</exclude>
-		  	</excludes>
-			<archive>
-				<manifest>
-					<addClasspath>true</addClasspath>
-					<mainClass>widoco.gui.GuiController</mainClass>
-					<classpathPrefix>dependency-jars/</classpathPrefix>
-				</manifest>
-			</archive>
-			<outputDirectory>jar/</outputDirectory>
-			
-		  </configuration>
-		 </plugin>
-		 
-		 <!-- copy the resources to the generated folder -->
-             <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.4</version>
-                    <executions>
-                            <execution>
-                                    <phase>package</phase>
-                                     <goals>
-                                            <goal>copy-resources</goal>
-                                     </goals>
-                                    <configuration>
-                                            <outputDirectory>jar/</outputDirectory>
-                                            <resources>
-                                              <resource>
-                                                    <directory>src/main/resources</directory>
-                                                    <filtering>true</filtering>
-                                                    <includes> 
-                                                      <include>config/config.properties</include>
-                                                    </includes>
-                                              </resource>
-                                            </resources>
-                                    </configuration>
-                            </execution>
-                    </executions>
-            </plugin>
-
-
-             <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.5.1</version>
-                    <executions>
-                            <execution>
-                                    <id>copy-dependencies</id>
-                                    <phase>package</phase>
-                                    <goals>
-                                            <goal>copy-dependencies</goal>
-                                    </goals>
-                                    <configuration>
-                                            <outputDirectory>jar/dependency-jars/</outputDirectory>
-                                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>              
-                                    </configuration>
-                            </execution>
-                    </executions>
-            </plugin>
+          
+            <!-- maven assembly plugin: generar jar with dependencies  -->
+            <plugin>
+        <!-- NOTE: We don't need a groupId specification because the group is
+             org.apache.maven.plugins ...which is assumed by default.
+         -->
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>widoco.gui.GuiController</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        </plugin>
+        
+        
      </plugins>
 	 
+ <!--  Ahora no hace falta copiar las dependencias, se empaquetan en el jar
   	<pluginManagement>
-		<plugins>
+		<plugins> -->
     		<!-- Ignore/Execute plugin execution -->
-    		<plugin>
+    		<!--  <plugin>
         		<groupId>org.eclipse.m2e</groupId>
         		<artifactId>lifecycle-mapping</artifactId>
         		<version>1.0.0</version>
         		<configuration>
             		<lifecycleMappingMetadata>
-                		<pluginExecutions>
+                		<pluginExecutions> -->
                     		<!-- copy-dependency plugin -->
-                    		<pluginExecution>
+                 <!--    		<pluginExecution>
                         		<pluginExecutionFilter>
                             		<groupId>org.apache.maven.plugins</groupId>
                             		<artifactId>maven-dependency-plugin</artifactId>
@@ -268,6 +227,7 @@
    		</plugins>
    	</pluginManagement>
    
+  	-->
   	
  </build>
  
