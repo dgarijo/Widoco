@@ -195,7 +195,8 @@
         
      </plugins>
 	 
- <!--   	<pluginManagement>
+ <!--  Ahora no hace falta copiar las dependencias, se empaquetan en el jar
+  	<pluginManagement>
 		<plugins> -->
     		<!-- Ignore/Execute plugin execution -->
     		<!--  <plugin>
