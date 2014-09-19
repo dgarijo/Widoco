@@ -17,6 +17,7 @@
     </properties>
   
   <dependencies>
+
 	  	<dependency>
 	  		<groupId>org.restlet.jse</groupId>
 	  		<artifactId>org.restlet</artifactId>
@@ -194,18 +195,18 @@
         
      </plugins>
 	 
-  	<pluginManagement>
-		<plugins>
+ <!--   	<pluginManagement>
+		<plugins> -->
     		<!-- Ignore/Execute plugin execution -->
-    		<plugin>
+    		<!--  <plugin>
         		<groupId>org.eclipse.m2e</groupId>
         		<artifactId>lifecycle-mapping</artifactId>
         		<version>1.0.0</version>
         		<configuration>
             		<lifecycleMappingMetadata>
-                		<pluginExecutions>
+                		<pluginExecutions> -->
                     		<!-- copy-dependency plugin -->
-                    		<pluginExecution>
+                 <!--    		<pluginExecution>
                         		<pluginExecutionFilter>
                             		<groupId>org.apache.maven.plugins</groupId>
                             		<artifactId>maven-dependency-plugin</artifactId>
@@ -225,6 +226,7 @@
    		</plugins>
    	</pluginManagement>
    
+  	-->
   	
  </build>
  
