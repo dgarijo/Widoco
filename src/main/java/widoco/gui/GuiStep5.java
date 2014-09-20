@@ -71,7 +71,8 @@ public class GuiStep5 extends javax.swing.JFrame {
     public void stopLoadingSign(){
         this.barStatus.setVisible(false);
         this.barStatus.setIndeterminate(false);
-        this.labelStatusOOPS.setVisible(false);
+        this.labelStatusOOPS.setText("Evaluation saved in the documentation folder");
+//        this.labelStatusOOPS.setVisible(false);
     }
     
     public void updateMessage(String s){

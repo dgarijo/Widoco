@@ -239,15 +239,19 @@ public class TextConstants {
             head += getImports(c.getImportedOntolgies())+"\n";
         if(!c.getExtendedOntologies().isEmpty())
             head += getExtends(c.getExtendedOntologies())+"\n";
-        if(c.getLicense()!=null && c.getLicense().getUrl()!=null && c.getLicense().getName()!=null 
-                && !"".equals(c.getLicense().getUrl()) &&!"".equals(c.getLicense().getName())){
+        
+        if(c.getLicense()!=null){
+            String licenseName = c.getLicense().getName();//"license name goes here";
+            String licenseURL = c.getLicense().getUrl();//"http://insertlicenseURIhere.org";
+            if(licenseURL == null || "".equals(licenseURL))licenseURL = "http://insertlicenseURIhere.org";
+            if(licenseName == null || "".equals(licenseName)) licenseName = "license name goes here";
             if(c.getLicense().getIcon()!=null && !"".equals(c.getLicense().getIcon())){
-                head+="<a property=\"dc:rights\" href=\""+c.getLicense().getUrl()+"\" rel=\"license\">\n" +
+                head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\">\n" +
                 "<img src=\""+c.getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
                 "</a>\n<br/>";
             }
-            head+="<dl>This work is licensed under a <a rel=\"license\" href=\""+c.getLicense().getUrl()+"\">"+c.getLicense().getName()+"</a>.</dl>\n"+
-                    "<span property=\"dc:license\" resource=\""+c.getLicense().getUrl()+"\"></span>\n";
+            head+="<dl>This work is licensed under a <a rel=\"license\" href=\""+licenseURL+"\">"+licenseName+"</a>.</dl>\n"+
+                    "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
         }
         head+= "<hr/>\n"+
                 "</div>\n";

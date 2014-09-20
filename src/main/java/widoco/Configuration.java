@@ -95,6 +95,9 @@ public class Configuration {
     private Image logo;
     private Image logoMini;
     
+    //for overwriting
+    private boolean overwriteAll = false;
+    
 //    to do. Load from configuration file. Setters and getters to do it from the interface.
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
@@ -311,6 +314,13 @@ public class Configuration {
         }
     }
 
+    public void setOverwriteAll(boolean s){
+        this.overwriteAll = s;
+    }
+    
+    public boolean getOverWriteAll(){
+        return overwriteAll;
+    }
     public boolean isFromFile() {
         return fromFile;
     }

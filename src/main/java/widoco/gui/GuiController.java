@@ -316,7 +316,7 @@ public class GuiController {
     }
     
     private void startEvaluation(){
-        Runnable r = new CreateOOPSEvalInThread(this.config, this, this.tmpFile);
+        Runnable r = new CreateOOPSEvalInThread(this.config, this);
         new Thread(r).start();
     }
     
