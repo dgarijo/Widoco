@@ -479,115 +479,115 @@ public class GuiStep2 extends javax.swing.JFrame {
             String path = chooser.getSelectedFile().getAbsolutePath();
             //save the properties in a string
             String textProperties = "\n";//the first line I leave an intro because there have been problems.
-            if(properties.get("Ontology Title")!=null){
-                textProperties+="title="+properties.get("Ontology Title")+"\n";
+            if(properties.get(TextConstants.ontTitle)!=null){
+                textProperties+=TextConstants.ontTitle+"="+properties.get(TextConstants.ontTitle)+"\n";
             }else{
-                textProperties+="title=\n";
+                textProperties+=TextConstants.ontTitle+"=\n";
             }
-            if(properties.get("Ontology Prefix")!=null){
-                textProperties+="ontologyPrefix="+properties.get("Ontology Prefix")+"\n";
+            if(properties.get(TextConstants.ontPrefix)!=null){
+                textProperties+=TextConstants.ontPrefix+"="+properties.get(TextConstants.ontPrefix)+"\n";
             }else{
-                textProperties+="ontologyPrefix=\n";
+                textProperties+=TextConstants.ontPrefix+"=\n";
             }
-            if(properties.get("Ontology Namespace URI")!=null){
-                textProperties+="ontologyNamespaceURI="+properties.get("Ontology Namespace URI")+"\n";
+            if(properties.get(TextConstants.ontNamespaceURI)!=null){
+                textProperties+=TextConstants.ontNamespaceURI+"="+properties.get(TextConstants.ontNamespaceURI)+"\n";
             }else{
-                textProperties+="ontologyNamespaceURI=\n";
+                textProperties+=TextConstants.ontNamespaceURI+"=\n";
             }
-            if(properties.get("This Version")!=null){
-                textProperties+="thisVersion="+properties.get("This Version")+"\n";
+            if(properties.get(TextConstants.thisVersionURI)!=null){
+                textProperties+=TextConstants.thisVersionURI+"="+properties.get(TextConstants.thisVersionURI)+"\n";
             }else{
-                textProperties+="thisVersion=\n";
+                textProperties+=TextConstants.thisVersionURI+"=\n";
             }
-            if(properties.get("Latest Version")!=null){
-                textProperties+="latestVersion="+properties.get("Latest Version")+"\n";
+            if(properties.get(TextConstants.latestVersionURI)!=null){
+                textProperties+=TextConstants.latestVersionURI+"="+properties.get(TextConstants.latestVersionURI)+"\n";
             }else{
-                textProperties+="latestVersion=\n";
+                textProperties+=TextConstants.latestVersionURI+"=\n";
             }
-            if(properties.get("License URI")!=null){
-                textProperties+="licenseURL="+properties.get("License URI")+"\n";
+            if(properties.get(TextConstants.licenseURI)!=null){
+                textProperties+=TextConstants.licenseURI+"="+properties.get(TextConstants.licenseURI)+"\n";
             }else{
-                textProperties+="licenseURL=\n";
+                textProperties+=TextConstants.licenseURI+"=\n";
             }
-            if(properties.get("Previous Version")!=null){
-                textProperties+="previousVersion="+properties.get("Previous Version")+"\n";
+            if(properties.get(TextConstants.previousVersionURI)!=null){
+                textProperties+=TextConstants.previousVersionURI+"="+properties.get(TextConstants.previousVersionURI)+"\n";
             }else{
-                textProperties+="previousVersion=\n";
+                textProperties+=TextConstants.previousVersionURI+"=\n";
             }            
-            if(properties.get("Date of Release")!=null){
-                textProperties+="dateOfRelease="+properties.get("Date of Release")+"\n";
+            if(properties.get(TextConstants.dateOfRelease)!=null){
+                textProperties+=TextConstants.dateOfRelease+"="+properties.get(TextConstants.dateOfRelease)+"\n";
             }else{
-                textProperties+="dateOfRelease=\n";
+                textProperties+=TextConstants.dateOfRelease+"=\n";
             }
-            if(properties.get("Ontology Revision")!=null){
-                textProperties+="revision="+properties.get("Ontology Revision")+"\n";
+            if(properties.get(TextConstants.ontologyRevision)!=null){
+                textProperties+=TextConstants.ontologyRevision+"="+properties.get(TextConstants.ontologyRevision)+"\n";
             }else{
-                textProperties+="revision=\n";
+                textProperties+=TextConstants.ontologyRevision+"=\n";
             }
-            if(properties.get("License Name")!=null){
-                textProperties+="license="+properties.get("License Name")+"\n";
+            if(properties.get(TextConstants.licenseName)!=null){
+                textProperties+=TextConstants.licenseName+"="+properties.get(TextConstants.licenseName)+"\n";
             }else{
-                textProperties+="license=\n";
+                textProperties+=TextConstants.licenseName+"=\n";
             }
-            if(properties.get("Ontology Name")!=null){
-                textProperties+="name="+properties.get("Ontology Name")+"\n";
+            if(properties.get(TextConstants.ontName)!=null){
+                textProperties+=TextConstants.ontName+"="+properties.get(TextConstants.ontName)+"\n";
             }else{
-                textProperties+="name=\n";
+                textProperties+=TextConstants.ontName+"=\n";
             }
-            if(properties.get("Author")!=null){
-                textProperties+="authors="+properties.get("Author")+"\n";
+            if(properties.get(TextConstants.authors)!=null){
+                textProperties+=TextConstants.authors+"="+properties.get(TextConstants.authors)+"\n";
             }else{
-                textProperties+="authors=\n";
+                textProperties+=TextConstants.authors+"=\n";
             }
-            if(properties.get("Author URL")!=null){
-                textProperties+="authorURL="+properties.get("Author URL")+"\n";
+            if(properties.get(TextConstants.authorsURI)!=null){
+                textProperties+=TextConstants.authorsURI+"="+properties.get(TextConstants.authorsURI)+"\n";
             }else{
-                textProperties+="authorURL=\n";
+                textProperties+=TextConstants.authorsURI+"=\n";
             }
-            if(properties.get("Author Institution")!=null){
-                textProperties+="authorInstitution="+properties.get("Author Institution")+"\n";
+            if(properties.get(TextConstants.authorsInstitution)!=null){
+                textProperties+=TextConstants.authorsInstitution+"="+properties.get(TextConstants.authorsInstitution)+"\n";
             }else{
-                textProperties+="authorInstitution=\n";
+                textProperties+=TextConstants.authorsInstitution+"=\n";
             }
-            if(properties.get("Contributor")!=null){
-                textProperties+="contributors="+properties.get("Contributor")+"\n";
+            if(properties.get(TextConstants.contributors)!=null){
+                textProperties+=TextConstants.contributors+"="+properties.get(TextConstants.contributors)+"\n";
             }else{
-                textProperties+="contributors=\n";
+                textProperties+=TextConstants.contributors+"=\n";
             }
-            if(properties.get("Contributor URL")!=null){
-                textProperties+="contributorsURL="+properties.get("Contributor URL")+"\n";
+            if(properties.get(TextConstants.contributorsURI)!=null){
+                textProperties+=TextConstants.contributorsURI+"="+properties.get(TextConstants.contributorsURI)+"\n";
             }else{
-                textProperties+="contributorsURL=\n";
+                textProperties+=TextConstants.contributorsURI+"=\n";
             }
-            if(properties.get("Contributor Institution")!=null){
-                textProperties+="contributorsInstitution="+properties.get("Contributor Institution")+"\n";
+            if(properties.get(TextConstants.contributorsInstitution)!=null){
+                textProperties+=TextConstants.contributorsInstitution+"="+properties.get(TextConstants.contributorsInstitution)+"\n";
             }else{
-                textProperties+="contributorsInstitution=\n";
+                textProperties+=TextConstants.contributorsInstitution+"=\n";
             }
-            if(properties.get("Imported Ontology Names")!=null){
-                textProperties+="importsNames="+properties.get("Imported Ontologies Names")+"\n";
+            if(properties.get(TextConstants.importedOntologyNames)!=null){
+                textProperties+=TextConstants.importedOntologyNames+"="+properties.get(TextConstants.importedOntologyNames)+"\n";
             }else{
-                textProperties+="importsNames=\n";
+                textProperties+=TextConstants.importedOntologyNames+"=\n";
             }
-            if(properties.get("Imported Ontology URIs")!=null){
-                textProperties+="importsURLs="+properties.get("Imported Ontologies URIs")+"\n";
+            if(properties.get(TextConstants.importedOntologyURIs)!=null){
+                textProperties+=TextConstants.importedOntologyURIs+"="+properties.get(TextConstants.importedOntologyURIs)+"\n";
             }else{
-                textProperties+="importsURLs=\n";
+                textProperties+=TextConstants.importedOntologyURIs+"=\n";
             }
-            if(properties.get("Extended Ontology Names")!=null){
-                textProperties+="extendsNames="+properties.get("Extended Ontologies Names")+"\n";
+            if(properties.get(TextConstants.extendedOntologyNames)!=null){
+                textProperties+=TextConstants.extendedOntologyNames+"="+properties.get(TextConstants.extendedOntologyNames)+"\n";
             }else{
-                textProperties+="extendsNames=\n";
+                textProperties+=TextConstants.extendedOntologyNames+"=\n";
             }
-            if(properties.get("Extended Ontology URIs")!=null){
-                textProperties+="extendsURLS="+properties.get("Extended Ontology URLS")+"\n";
+            if(properties.get(TextConstants.extendedOntologyURIs)!=null){
+                textProperties+=TextConstants.extendedOntologyURIs+"="+properties.get(TextConstants.extendedOntologyURIs)+"\n";
             }else{
-                textProperties+="extendsURLS=\n";
+                textProperties+=TextConstants.extendedOntologyURIs+"=\n";
             }
-            if(properties.get("License icon URL")!=null){
-                textProperties+="licenseIconURL="+properties.get("License icon URL")+"\n";
+            if(properties.get(TextConstants.licenseIconURL)!=null){
+                textProperties+=TextConstants.licenseIconURL+"="+properties.get(TextConstants.licenseIconURL)+"\n";
             }else{
-                textProperties+="licenseIconURL=";
+                textProperties+=TextConstants.licenseIconURL+"=";
             }
             //copy the result into the file
             Writer writer = null;

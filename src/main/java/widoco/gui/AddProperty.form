@@ -93,28 +93,28 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="22">
-            <StringItem index="0" value="Ontology Title"/>
-            <StringItem index="1" value="Ontology Name"/>
-            <StringItem index="2" value="Ontology Prefix"/>
-            <StringItem index="3" value="Ontology Namespace URI"/>
-            <StringItem index="4" value="Date of Release"/>
-            <StringItem index="5" value="This Version"/>
-            <StringItem index="6" value="Latest Version"/>
-            <StringItem index="7" value="Previous Version"/>
-            <StringItem index="8" value="Ontology Revision"/>
-            <StringItem index="9" value="Author"/>
-            <StringItem index="10" value="Author URI"/>
-            <StringItem index="11" value="Author Institution"/>
-            <StringItem index="12" value="Contributor"/>
-            <StringItem index="13" value="Contributor URI"/>
-            <StringItem index="14" value="Contributor Institution"/>
-            <StringItem index="15" value="Imported Ontology Names"/>
-            <StringItem index="16" value="Imported Ontology URIs"/>
-            <StringItem index="17" value="Extended Ontology Names"/>
-            <StringItem index="18" value="Extended Ontology URIs"/>
-            <StringItem index="19" value="License Name"/>
-            <StringItem index="20" value="License URI"/>
-            <StringItem index="21" value="License icon URL"/>
+            <StringItem index="0" value="ontologyTitle"/>
+            <StringItem index="1" value="ontologyName"/>
+            <StringItem index="2" value="ontologyPrefix"/>
+            <StringItem index="3" value="ontologyNamespaceURI"/>
+            <StringItem index="4" value="dateOfRelease"/>
+            <StringItem index="5" value="thisVersionURI"/>
+            <StringItem index="6" value="latestVersionURI"/>
+            <StringItem index="7" value="previousVersionURI"/>
+            <StringItem index="8" value="ontologyRevisionNumber"/>
+            <StringItem index="9" value="authors"/>
+            <StringItem index="10" value="authorsURI"/>
+            <StringItem index="11" value="authorsInstitution"/>
+            <StringItem index="12" value="contributors"/>
+            <StringItem index="13" value="contributorsURI"/>
+            <StringItem index="14" value="contributorsInstitution"/>
+            <StringItem index="15" value="importedOntologyNames"/>
+            <StringItem index="16" value="importedOntologyURIs"/>
+            <StringItem index="17" value="extendedOntologyNames"/>
+            <StringItem index="18" value="extendedOntologyURIs"/>
+            <StringItem index="19" value="licenseName"/>
+            <StringItem index="20" value="licenseURI"/>
+            <StringItem index="21" value="licenseIconURL"/>
           </StringArray>
         </Property>
       </Properties>

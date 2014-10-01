@@ -70,8 +70,8 @@ public class CreateResources {
      * Provenance page
      */
     private static void createProvenancePage(String path, Configuration c){
-        saveDocument(path+File.separator+"provenance.html", TextConstants.getProvenanceHtml(c));
-        saveDocument(path+File.separator+"provenance.ttl", TextConstants.getProvenanceRDF(c));
+        saveDocument(path+File.separator+"provenance.html", TextConstants.getProvenanceHtml(c),c);
+        saveDocument(path+File.separator+"provenance.ttl", TextConstants.getProvenanceRDF(c),c);
     }
     
     /**
@@ -81,7 +81,7 @@ public class CreateResources {
         if((c.getAbstractPath()!=null) && (!"".equals(c.getAbstractPath()))){
             copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract.html"));
         }else{
-            saveDocument(path+File.separator+"abstract.html", TextConstants.abstractSection);
+            saveDocument(path+File.separator+"abstract.html", TextConstants.abstractSection,c);
         }
         
     }
@@ -98,7 +98,7 @@ public class CreateResources {
                     introSectionText = introSectionText.replace("default namespace", c.getMainOntology().getNamespacePrefix());
             }
             //introSection += TextConstants.getNamespaceDeclarations(c, lodeInput);
-            saveDocument(path+File.separator+"introduction.html", introSectionText);
+            saveDocument(path+File.separator+"introduction.html", introSectionText,c);
         }
     }
     
@@ -120,7 +120,7 @@ public class CreateResources {
                 overViewSection+=("<h4>Data Properties</h4>");
                 overViewSection+=(dataPropList);
             }
-            saveDocument(path+File.separator+"overview.html", overViewSection);
+            saveDocument(path+File.separator+"overview.html", overViewSection,c);
         }
     }
     
@@ -128,7 +128,7 @@ public class CreateResources {
         if((c.getDescriptionPath()!=null) && (!"".equals(c.getDescriptionPath()))){
             copyExternalResource(c.getDescriptionPath(), new File(path+File.separator+"description.html"));
         }else{
-            saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c) );
+            saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c),c );
         }
     }
     
@@ -145,14 +145,14 @@ public class CreateResources {
         if(dataPropList!=null && !"".equals(dataPropList)){
             crossRef += lodeParser.getDataProp();
         }
-        saveDocument(path+File.separator+"crossref.html", crossRef);
+        saveDocument(path+File.separator+"crossref.html", crossRef,c);
     }
     
     private static void createReferencesSection(String path, Configuration c){
         if((c.getReferencesPath()!=null) && (!"".equals(c.getReferencesPath()))){
             copyExternalResource(c.getReferencesPath(), new File(path+File.separator+"overview.html"));
         }else{
-            saveDocument(path+File.separator+"references.html", TextConstants.referencesSection);
+            saveDocument(path+File.separator+"references.html", TextConstants.referencesSection,c);
         }
     }
     
@@ -163,18 +163,23 @@ public class CreateResources {
     private static void createIndexDocument(String path, Configuration c){
         //the boolean valuas come from the configuration.
         String textToWrite = TextConstants.getIndexDocument("resources",c);
-        saveDocument(path+File.separator+"index.html", textToWrite);
+        saveDocument(path+File.separator+"index.html", textToWrite,c);
     }
     
     //This method should be separated in another utils file.
-    public static void saveDocument(String path, String textToWrite){
+    public static void saveDocument(String path, String textToWrite, Configuration c){
         File f = new File(path);
         Writer out = null;
         try{
             if(f.exists()){
                 //JOptionPane.showMessageDialog(null, "You have overwritten the previous file. This message should be better prepared.");
-                int response = JOptionPane.showConfirmDialog(null, "The file "+f.getName()+" already exists. Do you want to overwrite it?", "Existing File!", JOptionPane.YES_NO_OPTION);
-                if(response == JOptionPane.NO_OPTION)return; //else we continue rewriting the file.
+                if(!c.getOverWriteAll()){
+                    String[] options = new String[] {"Rewrite all", "Yes", "No"};
+                    int response = JOptionPane.showOptionDialog(null, "The file "+f.getName()+" already exists. Do you want to overwrite it?", "Existing File!",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,null, options, options[0]);
+                    //0 -> yes to all. 1 -> Yes. 2-> No
+                    if(response == 0)c.setOverwriteAll(true); 
+                    if(response == 2)return; //else we continue rewriting the file.
+                }
             }
             else{
                 f.createNewFile();

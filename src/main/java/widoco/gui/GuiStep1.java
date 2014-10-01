@@ -377,7 +377,7 @@ public class GuiStep1 extends javax.swing.JFrame {
            //test if the selected file actually exist
            File f = new File(folderPath);
            if (!f.exists()){
-               JOptionPane.showMessageDialog(this, "The selected folder does not exist! Please select a foler");
+               JOptionPane.showMessageDialog(this, "The selected folder does not exist! Please select a folder");
                return;
            }
            //no need to check if the file is a foder, as we ensure this with the "directories_only" property

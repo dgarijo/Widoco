@@ -95,6 +95,9 @@ public class Configuration {
     private Image logo;
     private Image logoMini;
     
+    //for overwriting
+    private boolean overwriteAll = false;
+    
 //    to do. Load from configuration file. Setters and getters to do it from the interface.
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
@@ -147,19 +150,19 @@ public class Configuration {
             //this forces the property file to be in UTF 8 instead of the ISO
             propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
-            this.title = propertyFile.getProperty("title","Title goes here");
-            this.releaseDate = propertyFile.getProperty("dateOfRelease", "Date of release");
-            this.previousVersion =propertyFile.getProperty("previousVersion");
-            thisVersion =propertyFile.getProperty("thisVersion");
-            latestVersion =propertyFile.getProperty("latestVersion");
-            mainOntology.setName(propertyFile.getProperty("name"));
-            mainOntology.setNamespacePrefix(propertyFile.getProperty("ontologyPrefix"));
-            mainOntology.setNamespaceURI(propertyFile.getProperty("ontologyNamespaceURI"));
-            revision = propertyFile.getProperty("revision");
+            this.title = propertyFile.getProperty(TextConstants.ontTitle,"Title goes here");
+            this.releaseDate = propertyFile.getProperty(TextConstants.dateOfRelease, "Date of release");
+            this.previousVersion =propertyFile.getProperty(TextConstants.previousVersionURI);
+            thisVersion =propertyFile.getProperty(TextConstants.thisVersionURI);
+            latestVersion =propertyFile.getProperty(TextConstants.thisVersionURI);
+            mainOntology.setName(propertyFile.getProperty(TextConstants.ontName));
+            mainOntology.setNamespacePrefix(propertyFile.getProperty(TextConstants.ontPrefix));
+            mainOntology.setNamespaceURI(propertyFile.getProperty(TextConstants.ontNamespaceURI));
+            revision = propertyFile.getProperty(TextConstants.ontologyRevision);
             //to do: check that the authors is not empty before doing the split.
-            String[] names = propertyFile.getProperty("authors").split(";");
-            String[] urls = propertyFile.getProperty("authorURL").split(";");
-            String[] authorInst = propertyFile.getProperty("authorInstitution").split(";");
+            String[] names = propertyFile.getProperty(TextConstants.authors).split(";");
+            String[] urls = propertyFile.getProperty(TextConstants.authorsURI).split(";");
+            String[] authorInst = propertyFile.getProperty(TextConstants.authorsInstitution).split(";");
             for(int i =0; i< names.length; i++){
                 Agent a = new Agent();
                 a.setName(names[i]);
@@ -171,9 +174,9 @@ public class Configuration {
                 }
                 creators.add(a);
             }
-            names = propertyFile.getProperty("contributors").split(";");
-            urls = propertyFile.getProperty("contributorsURL").split(";");
-            authorInst = propertyFile.getProperty("contributorsInstitution").split(";");
+            names = propertyFile.getProperty(TextConstants.contributors).split(";");
+            urls = propertyFile.getProperty(TextConstants.contributorsURI).split(";");
+            authorInst = propertyFile.getProperty(TextConstants.contributorsInstitution).split(";");
             for(int i =0; i< names.length; i++){
                 Agent a = new Agent();
                 a.setName(names[i]);
@@ -185,8 +188,8 @@ public class Configuration {
                 }
                 contributors.add(a);
             }
-            names = propertyFile.getProperty("importsNames").split(";");
-            urls = propertyFile.getProperty("importsURLs").split(";");
+            names = propertyFile.getProperty(TextConstants.importedOntologyNames).split(";");
+            urls = propertyFile.getProperty(TextConstants.importedOntologyURIs).split(";");
             for(int i =0; i< names.length; i++){
                 Ontology o = new Ontology();
                 o.setName(names[i]);
@@ -195,8 +198,8 @@ public class Configuration {
                 }
                 importedOntologies.add(o);
             }
-            names = propertyFile.getProperty("extendsNames").split(";");
-            urls = propertyFile.getProperty("extendsURLS").split(";");
+            names = propertyFile.getProperty(TextConstants.extendedOntologyNames).split(";");
+            urls = propertyFile.getProperty(TextConstants.extendedOntologyURIs).split(";");
             for(int i =0; i< names.length; i++){
                 Ontology o = new Ontology();
                 o.setName(names[i]);
@@ -205,11 +208,10 @@ public class Configuration {
                 }
                 extendedOntologies.add(o);
             }
-            license.setName(propertyFile.getProperty("license"));
-            license.setUrl(propertyFile.getProperty("licenseURL"));
-            license.setIcon(propertyFile.getProperty("licenseIconURL"));
-            //to do: add the license icon!
-    	} catch (IOException ex) {
+            license.setName(propertyFile.getProperty(TextConstants.licenseName));
+            license.setUrl(propertyFile.getProperty(TextConstants.licenseURI));
+            license.setIcon(propertyFile.getProperty(TextConstants.licenseIconURL));
+    	} catch (Exception ex) {
             System.err.println("Error while reading configuration properties "+ex.getMessage());
         }
     }
@@ -311,6 +313,13 @@ public class Configuration {
         }
     }
 
+    public void setOverwriteAll(boolean s){
+        this.overwriteAll = s;
+    }
+    
+    public boolean getOverWriteAll(){
+        return overwriteAll;
+    }
     public boolean isFromFile() {
         return fromFile;
     }

@@ -28,6 +28,33 @@ import widoco.entities.Ontology;
  * @author Daniel Garijo
  */
 public class TextConstants {
+    /**
+     * Constants for the  Step 2 (table)
+     */
+    
+    public static final String ontTitle="ontologyTitle";
+    public static final String ontName="ontologyName";
+    public static final String ontPrefix="ontologyPrefix";
+    public static final String ontNamespaceURI="ontologyNamespaceURI";
+    public static final String dateOfRelease="dateOfRelease";
+    public static final String thisVersionURI="thisVersionURI";
+    public static final String latestVersionURI="latestVersionURI";
+    public static final String previousVersionURI="previousVersionURI";
+    public static final String ontologyRevision="ontologyRevisionNumber";
+    public static final String authors="authors";
+    public static final String authorsURI="authorsURI";
+    public static final String authorsInstitution="authorsInstitution";
+    public static final String contributors="contributors";
+    public static final String contributorsURI="contributorsURI";
+    public static final String contributorsInstitution="contributorsInstitution";
+    public static final String importedOntologyNames="importedOntologyNames";
+    public static final String importedOntologyURIs="importedOntologyURIs";
+    public static final String extendedOntologyNames="extendedOntologyNames";
+    public static final String extendedOntologyURIs="extendedOntologyURIs";
+    public static final String licenseName="licenseName";
+    public static final String licenseURI="licenseURI";
+    public static final String licenseIconURL="licenseIconURL";
+    
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
@@ -239,15 +266,19 @@ public class TextConstants {
             head += getImports(c.getImportedOntolgies())+"\n";
         if(!c.getExtendedOntologies().isEmpty())
             head += getExtends(c.getExtendedOntologies())+"\n";
-        if(c.getLicense()!=null && c.getLicense().getUrl()!=null && c.getLicense().getName()!=null 
-                && !"".equals(c.getLicense().getUrl()) &&!"".equals(c.getLicense().getName())){
+        
+        if(c.getLicense()!=null){
+            String licenseName = c.getLicense().getName();//"license name goes here";
+            String licenseURL = c.getLicense().getUrl();//"http://insertlicenseURIhere.org";
+            if(licenseURL == null || "".equals(licenseURL))licenseURL = "http://insertlicenseURIhere.org";
+            if(licenseName == null || "".equals(licenseName)) licenseName = "license name goes here";
             if(c.getLicense().getIcon()!=null && !"".equals(c.getLicense().getIcon())){
-                head+="<a property=\"dc:rights\" href=\""+c.getLicense().getUrl()+"\" rel=\"license\">\n" +
+                head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\">\n" +
                 "<img src=\""+c.getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
                 "</a>\n<br/>";
             }
-            head+="<dl>This work is licensed under a <a rel=\"license\" href=\""+c.getLicense().getUrl()+"\">"+c.getLicense().getName()+"</a>.</dl>\n"+
-                    "<span property=\"dc:license\" resource=\""+c.getLicense().getUrl()+"\"></span>\n";
+            head+="<dl>This work is licensed under a <a rel=\"license\" href=\""+licenseURL+"\">"+licenseName+"</a>.</dl>\n"+
+                    "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
         }
         head+= "<hr/>\n"+
                 "</div>\n";

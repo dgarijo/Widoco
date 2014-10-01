@@ -29,23 +29,21 @@ import widoco.gui.GuiController;
 public class CreateOOPSEvalInThread implements Runnable{
     private final Configuration c;
     private final GuiController pointerToMain;
-    private final File tmpFile;
     
-    public CreateOOPSEvalInThread(Configuration c, GuiController g, File tmpResources){
+    public CreateOOPSEvalInThread(Configuration c, GuiController g){
         this.c = c;
         this.pointerToMain = g;
-        this.tmpFile = tmpResources;
     }
 
     public void run() {
-        //copy all necessary resources in the tmp file
-        //TO DO
         //new folder in tmp, called Evaluation
         this.pointerToMain.switchState("sendingRequest");
-        File evalFolder = new File(tmpFile.getPath()+File.separator+"evaluation");
+        File evalFolder = new File(c.getDocumentationURI()+File.separator+"OOPSevaluation");
+        File evalResourcesFolder = new File(evalFolder.getAbsolutePath()+File.separator+"evaluation");//for the css etc.
         try{
             if(!evalFolder.exists())evalFolder.mkdir();
-            CreateResources.copyResourceFolder(TextConstants.oopsResources, evalFolder.getAbsolutePath());
+            evalResourcesFolder.mkdir();
+            CreateResources.copyResourceFolder(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
             //do POST petition with evaluation.
             String evaluation;
             OOPSevaluation eval;
@@ -73,8 +71,8 @@ public class CreateOOPSEvalInThread implements Runnable{
             evaluation = eval.printEvaluation();
             //SAVE File
             this.pointerToMain.switchState("savingResponse");
-            CreateResources.saveDocument(tmpFile+File.separator+"oopsEval.html", TextConstants.getEvaluationText(evaluation, c));
-            pointerToMain.openBrowser(new File(tmpFile+File.separator+"oopsEval.html").toURI());
+            CreateResources.saveDocument(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html", TextConstants.getEvaluationText(evaluation, c),c);
+            pointerToMain.openBrowser(new File(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html").toURI());
         }catch(Exception e){
             System.err.println("Error while saving OOPS evaluation: "+e.getMessage());
             this.pointerToMain.switchState("error");

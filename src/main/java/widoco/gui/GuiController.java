@@ -17,18 +17,13 @@
 package widoco.gui;
 
 import java.awt.Desktop;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -39,7 +34,6 @@ import widoco.CreateResources;
 import widoco.LoadOntologyPropertiesInThread;
 import widoco.TextConstants;
 import widoco.entities.Agent;
-import widoco.entities.License;
 import widoco.entities.Ontology;
 
 
@@ -88,17 +82,17 @@ public class GuiController {
     
     public HashMap<String,String> getEditableProperties(){
         HashMap<String,String> props = new HashMap<String,String>();
-        if(config.getTitle()!=null)props.put("Ontology Title", config.getTitle());
+        if(config.getTitle()!=null)props.put(TextConstants.ontTitle, config.getTitle());
         if(config.getMainOntology()!=null){
-            props.put("Ontology Name", config.getMainOntology().getName());
-            props.put("Ontology Prefix", config.getMainOntology().getNamespacePrefix());
-            props.put("Ontology Namespace URI", config.getMainOntology().getNamespaceURI());
+            props.put(TextConstants.ontName, config.getMainOntology().getName());
+            props.put(TextConstants.ontPrefix, config.getMainOntology().getNamespacePrefix());
+            props.put(TextConstants.ontNamespaceURI, config.getMainOntology().getNamespaceURI());
         }
-        if(config.getReleaseDate()!=null)props.put("Date of Release", config.getReleaseDate());
-        if(config.getThisVersion()!=null)props.put("This Version", config.getThisVersion());
-        if(config.getLatestVersion()!=null)props.put("Latest Version", config.getLatestVersion());
-        if(config.getPreviousVersion()!=null)props.put("Previous Version", config.getPreviousVersion());
-        if(config.getRevision()!=null)props.put("Ontology Revision", config.getRevision());
+        if(config.getReleaseDate()!=null)props.put(TextConstants.dateOfRelease, config.getReleaseDate());
+        if(config.getThisVersion()!=null)props.put(TextConstants.thisVersionURI, config.getThisVersion());
+        if(config.getLatestVersion()!=null)props.put(TextConstants.latestVersionURI, config.getLatestVersion());
+        if(config.getPreviousVersion()!=null)props.put(TextConstants.previousVersionURI, config.getPreviousVersion());
+        if(config.getRevision()!=null)props.put(TextConstants.ontologyRevision, config.getRevision());
         //authors go here in a loop
         if(config.getCreators()!=null){
             ArrayList<Agent> creators = config.getCreators();
@@ -110,9 +104,9 @@ public class GuiController {
                 if(a.getURL()!=null)authorUri+=a.getURL()+";";
                 if(a.getInstitutionName()!=null)authorInsti += a.getInstitutionName()+";";
             }
-            if(!"".equals(author)) props.put("Author", author.substring(0, author.length()-1));
-            if(!"".equals(authorUri)) props.put("Author URI", authorUri.substring(0,authorUri.length()-1));
-            if(!"".equals(authorInsti)) props.put("Author Institution", authorInsti.substring(0, authorInsti.length()-1));
+            if(!"".equals(author)) props.put(TextConstants.authors, author.substring(0, author.length()-1));
+            if(!"".equals(authorUri)) props.put(TextConstants.authorsURI, authorUri.substring(0,authorUri.length()-1));
+            if(!"".equals(authorInsti)) props.put(TextConstants.authorsInstitution, authorInsti.substring(0, authorInsti.length()-1));
         }
         if(config.getContributors()!=null){
             //contributors go here in a loop
@@ -125,9 +119,9 @@ public class GuiController {
                 if(a.getURL()!=null)contributorUri+=a.getURL()+";";
                 if(a.getInstitutionName()!=null)contributorInsti += a.getInstitutionName()+";";
             }
-            if(!"".equals(contributor))props.put("Contributor", contributor.substring(0,contributor.length()-1));
-            if(!"".equals(contributorUri))props.put("Contributor URI", contributorUri.substring(0,contributorUri.length()-1));
-            if(!"".equals(contributorInsti))props.put("Contributor Institution", contributorInsti.substring(0,contributorInsti.length()-1));
+            if(!"".equals(contributor))props.put(TextConstants.contributors, contributor.substring(0,contributor.length()-1));
+            if(!"".equals(contributorUri))props.put(TextConstants.contributorsURI, contributorUri.substring(0,contributorUri.length()-1));
+            if(!"".equals(contributorInsti))props.put(TextConstants.contributorsInstitution, contributorInsti.substring(0,contributorInsti.length()-1));
         }
         if(config.getImportedOntolgies()!=null){
             ArrayList<Ontology> imported = config.getImportedOntolgies();
@@ -138,8 +132,8 @@ public class GuiController {
                 importedName +=a.getName()+";";
                 importedUri+=a.getNamespaceURI()+";";
             }
-            if(!"".equals(importedName))props.put("Imported Ontology Names", importedName.substring(0,importedName.length()-1));
-            if(!"".equals(importedUri))props.put("Imported Ontology URIs", importedUri.substring(0,importedUri.length()-1));
+            if(!"".equals(importedName))props.put(TextConstants.importedOntologyNames, importedName.substring(0,importedName.length()-1));
+            if(!"".equals(importedUri))props.put(TextConstants.importedOntologyURIs, importedUri.substring(0,importedUri.length()-1));
         }
         
         if(config.getExtendedOntologies()!=null){
@@ -152,15 +146,15 @@ public class GuiController {
                 extendedName +=a.getName()+";";
                 extendedUri+=a.getNamespaceURI()+";";
             }
-            if(!"".equals(extendedName))props.put("Extended Ontology Names", extendedName.substring(0,extendedName.length()-1));
-            if(!"".equals(extendedUri))props.put("Extended Ontology URIs", extendedUri.substring(0,extendedUri.length()-1));
+            if(!"".equals(extendedName))props.put(TextConstants.extendedOntologyNames, extendedName.substring(0,extendedName.length()-1));
+            if(!"".equals(extendedUri))props.put(TextConstants.extendedOntologyURIs, extendedUri.substring(0,extendedUri.length()-1));
         }
         //license
         if(config.getLicense()!=null){
-            props.put("License Name", config.getLicense().getName());
-            props.put("License URI", config.getLicense().getUrl());
+            props.put(TextConstants.licenseName, config.getLicense().getName());
+            props.put(TextConstants.licenseURI, config.getLicense().getUrl());
             if(config.getLicense().getIcon()!=null){
-                props.put("License icon URL", config.getLicense().getIcon());
+                props.put(TextConstants.licenseIconURL, config.getLicense().getIcon());
             }
         }
         return props;
@@ -173,41 +167,41 @@ public class GuiController {
     public void saveEditableProperties(HashMap properties){
         //we don't check wether it exists because the property mght have been deleted.
     
-        config.setTitle((String)properties.get("Ontology Title"));
+        config.setTitle((String)properties.get(TextConstants.ontTitle));
         //mandatory
-        if(properties.containsKey("Ontology Name")){
-            config.getMainOntology().setName((String)properties.get("Ontology Name"));
+        if(properties.containsKey(TextConstants.ontName)){
+            config.getMainOntology().setName((String)properties.get(TextConstants.ontName));
         }
-        if(properties.containsKey("Ontology Prefix")){
-            config.getMainOntology().setNamespacePrefix((String)properties.get("Ontology Prefix"));
+        if(properties.containsKey(TextConstants.ontPrefix)){
+            config.getMainOntology().setNamespacePrefix((String)properties.get(TextConstants.ontPrefix));
         }
-        if(properties.containsKey("Ontology Namespace URI")){
-            config.setOntologyURI((String)properties.get("Ontology Namespace URI"));
+        if(properties.containsKey(TextConstants.ontNamespaceURI)){
+            config.setOntologyURI((String)properties.get(TextConstants.ontNamespaceURI));
         }
-        config.setReleaseDate((String)properties.get("Date of Release"));
-        config.setThisVersion((String)properties.get("This Version"));
-        config.setLatestVersion((String)properties.get("Latest Version"));
-        config.setPreviousVersion((String)properties.get("Previous Version"));
-        config.setRevision((String)properties.get("Ontology Revision"));
-        config.getLicense().setName((String)properties.get("License Name"));
-        config.getLicense().setUrl((String)properties.get("License URI"));        
-        config.getLicense().setIcon((String)properties.get("License icon URL"));  
+        config.setReleaseDate((String)properties.get(TextConstants.dateOfRelease));
+        config.setThisVersion((String)properties.get(TextConstants.thisVersionURI));
+        config.setLatestVersion((String)properties.get(TextConstants.latestVersionURI));
+        config.setPreviousVersion((String)properties.get(TextConstants.previousVersionURI));
+        config.setRevision((String)properties.get(TextConstants.ontologyRevision));
+        config.getLicense().setName((String)properties.get(TextConstants.licenseName));
+        config.getLicense().setUrl((String)properties.get(TextConstants.licenseURI));        
+        config.getLicense().setIcon((String)properties.get(TextConstants.licenseIconURL));  
         
-        if(properties.containsKey("Author")){
-            String authorValue = (String)properties.get("Author");
+        if(properties.containsKey(TextConstants.authors)){
+            String authorValue = (String)properties.get(TextConstants.authors);
             if(!"".equals(authorValue)){
                 String[] authors = authorValue.split(";");
                 String[] authorURIs = null;
                 String[] authorInstis = null;
                 ArrayList<Agent> newAuthors = new ArrayList<Agent>();
-                if(properties.containsKey("Author URI")){
-                    if(!"".equals(properties.get("Author URI"))){
-                        authorURIs = ((String)properties.get("Author URI")).split(";");
+                if(properties.containsKey(TextConstants.authorsURI)){
+                    if(!"".equals(properties.get(TextConstants.authorsURI))){
+                        authorURIs = ((String)properties.get(TextConstants.authorsURI)).split(";");
                     }
                 }
-                if(properties.containsKey("Author Institution")){
-                    if(!"".equals(properties.get("Author Institution"))){
-                        authorInstis = ((String)properties.get("Author Institution")).split(";");
+                if(properties.containsKey(TextConstants.authorsInstitution)){
+                    if(!"".equals(properties.get(TextConstants.authorsInstitution))){
+                        authorInstis = ((String)properties.get(TextConstants.authorsInstitution)).split(";");
                     }
                 }
                 for(int i=0; i< authors.length;i++){
@@ -225,21 +219,21 @@ public class GuiController {
             }
         }
         
-        if(properties.containsKey("Contributor")){
-            String contribValue = (String)properties.get("Contributor");
+        if(properties.containsKey(TextConstants.contributors)){
+            String contribValue = (String)properties.get(TextConstants.contributors);
             if(!"".equals(contribValue)){
                 String[] contrib = contribValue.split(";");
                 String[] contribURI = null;
                 String[] contribInsti = null;
                 ArrayList<Agent> newContrib = new ArrayList<Agent>();
-                if(properties.containsKey("Contributor URI")){
-                    if(!"".equals(properties.get("Contributor URI"))){
-                        contribURI = ((String)properties.get("Contributor URI")).split(";");
+                if(properties.containsKey(TextConstants.contributorsURI)){
+                    if(!"".equals(properties.get(TextConstants.contributorsURI))){
+                        contribURI = ((String)properties.get(TextConstants.contributorsURI)).split(";");
                     }
                 }
-                if(properties.containsKey("Contributor Institution")){
-                    if(!"".equals(properties.get("Contributor Institution"))){
-                        contribInsti = ((String)properties.get("Contributor Institution")).split(";");
+                if(properties.containsKey(TextConstants.contributorsInstitution)){
+                    if(!"".equals(properties.get(TextConstants.contributorsInstitution))){
+                        contribInsti = ((String)properties.get(TextConstants.contributorsInstitution)).split(";");
                     }
                 }
                 
@@ -258,15 +252,15 @@ public class GuiController {
             }
         }
         
-        if(properties.containsKey("Extended Ontology Names")){
-            String extended = (String)properties.get("Extended Ontology Names");
+        if(properties.containsKey(TextConstants.extendedOntologyNames)){
+            String extended = (String)properties.get(TextConstants.extendedOntologyNames);
             if(!"".equals(extended)){
                 String[] extendedOntoNames = extended.split(";");
                 String[] extendedURIs = null;
                 ArrayList<Ontology> newExtended = new ArrayList<Ontology>();
-                if(properties.containsKey("Extended Ontology URIs")){
-                    if(!"".equals(properties.get("Extended Ontology URIs"))){
-                        extendedURIs = ((String)properties.get("Extended Ontology URIs")).split(";");
+                if(properties.containsKey(TextConstants.extendedOntologyURIs)){
+                    if(!"".equals(properties.get(TextConstants.extendedOntologyURIs))){
+                        extendedURIs = ((String)properties.get(TextConstants.extendedOntologyURIs)).split(";");
                     }
                 }
                 for(int i=0; i< extendedOntoNames.length;i++){
@@ -281,15 +275,15 @@ public class GuiController {
             }
         }
         
-        if(properties.containsKey("Imported Ontology Names")){
-        String imported = (String)properties.get("Imported Ontology Names");
+        if(properties.containsKey(TextConstants.importedOntologyNames)){
+        String imported = (String)properties.get(TextConstants.importedOntologyNames);
             if(!"".equals(imported)){
                 String[] importedOntoNames = imported.split(";");
                 String[] importedURIs = null;
                 ArrayList<Ontology> newExtended = new ArrayList<Ontology>();
-                if(properties.containsKey("Imported Ontology URIs")){
-                    if(!"".equals(properties.get("Imported Ontology URIs"))){
-                        importedURIs = ((String)properties.get("Imported Ontology URIs")).split(";");
+                if(properties.containsKey(TextConstants.importedOntologyURIs)){
+                    if(!"".equals(properties.get(TextConstants.importedOntologyURIs))){
+                        importedURIs = ((String)properties.get(TextConstants.importedOntologyURIs)).split(";");
                     }
                 }
                 for(int i=0; i< importedOntoNames.length;i++){
@@ -316,7 +310,7 @@ public class GuiController {
     }
     
     private void startEvaluation(){
-        Runnable r = new CreateOOPSEvalInThread(this.config, this, this.tmpFile);
+        Runnable r = new CreateOOPSEvalInThread(this.config, this);
         new Thread(r).start();
     }
     
