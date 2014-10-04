@@ -57,7 +57,7 @@ public class AddProperty extends javax.swing.JFrame {
 
         jLabel2.setText("Value");
 
-        properties.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ontologyTitle", "ontologyName", "ontologyPrefix", "ontologyNamespaceURI", "dateOfRelease", "thisVersionURI", "latestVersionURI", "previousVersionURI", "ontologyRevisionNumber", "authors", "authorsURI", "authorsInstitution", "contributors", "contributorsURI", "contributorsInstitution", "importedOntologyNames", "importedOntologyURIs", "extendedOntologyNames", "extendedOntologyURIs", "licenseName", "licenseURI", "licenseIconURL" }));
+        properties.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "abstract", "ontologyTitle", "ontologyName", "ontologyPrefix", "ontologyNamespaceURI", "dateOfRelease", "thisVersionURI", "latestVersionURI", "previousVersionURI", "ontologyRevisionNumber", "authors", "authorsURI", "authorsInstitution", "contributors", "contributorsURI", "contributorsInstitution", "importedOntologyNames", "importedOntologyURIs", "extendedOntologyNames", "extendedOntologyURIs", "licenseName", "licenseURI", "licenseIconURL" }));
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {

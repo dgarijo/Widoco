@@ -32,6 +32,7 @@ public class TextConstants {
      * Constants for the  Step 2 (table)
      */
     
+    public static final String abstractSectionContent="abstract";
     public static final String ontTitle="ontologyTitle";
     public static final String ontName="ontologyName";
     public static final String ontPrefix="ontologyPrefix";
@@ -59,9 +60,21 @@ public class TextConstants {
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
     //missing specialization. Missing alterante
-    public static final String abstractSection="<h2>Abstract</h2><p>Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
-            + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b></p>\n";
-
+//    public static final String abstractSection="<h2>Abstract</h2><p>Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
+//            + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b></p>\n";
+    
+    public static String  getAbstractSection(String abstractContent){
+        String abstractSection = "<h2>Abstract</h2><p>";
+        if(abstractContent!=null && !"".equals(abstractContent)){
+            abstractSection+=abstractContent;
+        }
+        else{
+            abstractSection+="Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
+            + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b>";
+        }
+        abstractSection+="</p>\n";
+        return abstractSection;
+    }
             
     public static final String introductionSection="<h2>1. Introduction <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
         "<p>This should talk a bit about your ontology, its motivation, soa and goals</p>\n";
@@ -107,17 +120,17 @@ public class TextConstants {
         return agents;
     }
     private static String getAuthors(ArrayList<Agent> auth) {
-        String authors="<dl><dt>Authors:</dt>\n";
+        String a="<dl><dt>Authors:</dt>\n";
         //the same amount of names and institutions is assumed.
-        authors+=getAgents(auth);
-        return authors +"</dl>\n";                   
+        a+=getAgents(auth);
+        return a +"</dl>\n";                   
     }
     
     private static String getContributors(ArrayList<Agent> contrib) {
-        String contributors="<dl><dt>Contributors:</dt>\n";
-        contributors+=getAgents(contrib);
-        contributors = contributors.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix of annotations
-        return contributors +"</dl>\n";                   
+        String c="<dl><dt>Contributors:</dt>\n";
+        c+=getAgents(contrib);
+        c = c.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix of annotations
+        return c +"</dl>\n";                   
     }
 
     //method for extracting the ontologies from an arraylist.

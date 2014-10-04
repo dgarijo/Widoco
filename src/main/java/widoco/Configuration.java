@@ -98,6 +98,9 @@ public class Configuration {
     //for overwriting
     private boolean overwriteAll = false;
     
+    //just in case there is an abstract included
+    private String abstractSection;
+    
 //    to do. Load from configuration file. Setters and getters to do it from the interface.
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
@@ -114,8 +117,9 @@ public class Configuration {
     }
     
     private void cleanConfig(){
-        //initialization of variables (in case something fails
-        title ="";
+        //initialization of variables (in case something fails)
+        abstractSection = "";
+        title = "";
         releaseDate = "";
         previousVersion ="";
         thisVersion ="";
@@ -145,11 +149,10 @@ public class Configuration {
     private void loadPropertyFile(String path){
         try {
             cleanConfig();
-            
-//            propertyFile.load(new FileInputStream(path));
             //this forces the property file to be in UTF 8 instead of the ISO
             propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
+            this.abstractSection = propertyFile.getProperty(TextConstants.abstractSectionContent);
             this.title = propertyFile.getProperty(TextConstants.ontTitle,"Title goes here");
             this.releaseDate = propertyFile.getProperty(TextConstants.dateOfRelease, "Date of release");
             this.previousVersion =propertyFile.getProperty(TextConstants.previousVersionURI);
@@ -217,6 +220,7 @@ public class Configuration {
     }
     
     public void loadPropertiesFromOntology(OntModel m){
+        //maybe there are some properties regarding the version of the uri that I am missing...
         if(m == null){
             System.err.println("The ontology could not be read...");
             return;
@@ -237,7 +241,7 @@ public class Configuration {
 //            System.out.println(propertyName + " " + value);
             // fill in the properties here.
             if(propertyName.equals("abstract")){
-                // to do: create a field named abstract in the config class
+                this.abstractSection = value;
             }else
             if(propertyName.equals("title")){
                 this.title = value;
@@ -644,15 +648,13 @@ public class Configuration {
         }
     }
 
+    public String getAbstractSection() {
+        return abstractSection;
+    }
+
+    public void setAbstractSection(String abstractSection) {
+        this.abstractSection = abstractSection;
+    }
     
-    //for testing ontology readings.
-//    public static void main(String[] args){
-//      Configuration c = new Configuration();
-//      c.loadPropertiesFromOntology(null);
-//      Iterator it = c.getContributors().iterator();
-//      while(it.hasNext()){
-//        System.out.println(((Agent)it.next()).getURL());
-//      }
-//    }
     
 }

@@ -82,6 +82,7 @@ public class GuiController {
     
     public HashMap<String,String> getEditableProperties(){
         HashMap<String,String> props = new HashMap<String,String>();
+        if(config.getAbstractSection()!=null)props.put(TextConstants.abstractSectionContent, config.getAbstractSection());
         if(config.getTitle()!=null)props.put(TextConstants.ontTitle, config.getTitle());
         if(config.getMainOntology()!=null){
             props.put(TextConstants.ontName, config.getMainOntology().getName());
@@ -166,7 +167,7 @@ public class GuiController {
     
     public void saveEditableProperties(HashMap properties){
         //we don't check wether it exists because the property mght have been deleted.
-    
+        config.setAbstractSection((String)properties.get(TextConstants.abstractSectionContent));
         config.setTitle((String)properties.get(TextConstants.ontTitle));
         //mandatory
         if(properties.containsKey(TextConstants.ontName)){
@@ -424,6 +425,8 @@ public class GuiController {
                 break;                
             case generated:
                 if(input.equals("restart")){
+                    //clean properties
+                    this.config = new Configuration();
                     this.gui.dispose();
                     state = State.initial;
                     gui = new GuiStep1(this);

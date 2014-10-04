@@ -423,15 +423,23 @@ public class GuiStep2 extends javax.swing.JFrame {
             loadMetadataFromDefaultConfigFile.setSelected(false);
         }
         if(loadMetadataFromOnto.isSelected()){
-//            JOptionPane.showMessageDialog(null, "TO DO!!");
-            this.barStatus.setVisible(true);
-            this.barStatus.setIndeterminate(true);
-            g.switchState("loadOntologyProperties");
-            this.backButton.setEnabled(false);
-            this.nextButton.setEnabled(false);
+            if(showWarning()==JOptionPane.OK_OPTION){
+    //            JOptionPane.showMessageDialog(null, "TO DO!!");
+                this.barStatus.setVisible(true);
+                this.barStatus.setIndeterminate(true);
+                g.switchState("loadOntologyProperties");
+                this.backButton.setEnabled(false);
+                this.nextButton.setEnabled(false);
+            }else{
+                loadMetadataFromOnto.setSelected(false);
+            }
         }
     }//GEN-LAST:event_loadMetadataFromOntoActionPerformed
 
+    private int showWarning(){
+        return JOptionPane.showConfirmDialog(this, "Reloading the properties will erase the values you have already introduced. Are you sure?", "Warning", JOptionPane.YES_NO_OPTION);
+    }
+    
     private void loadMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataButtonActionPerformed
         //To do: reload the config file from another .properties file.
         JFileChooser chooser = new JFileChooser();
@@ -452,16 +460,20 @@ public class GuiStep2 extends javax.swing.JFrame {
             loadMetadataFromOnto.setSelected(false);
         }
         if(loadMetadataFromDefaultConfigFile.isSelected()){
-            //load metadata from the default property file.
-            //taken from config
-            try{
-                URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
-                String path = (new File(root.toURI())).getParentFile().getPath();
-                g.reloadConfiguration(path+File.separator+TextConstants.configPath);
-                this.refreshPropertyTable();
-            }catch(URISyntaxException e){
-                System.err.println("Error while reading the default config file");
-                JOptionPane.showMessageDialog(null, "Error while reading the default .properties file");
+            if(showWarning()==JOptionPane.OK_OPTION){
+                //load metadata from the default property file.
+                //taken from config
+                try{
+                    URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
+                    String path = (new File(root.toURI())).getParentFile().getPath();
+                    g.reloadConfiguration(path+File.separator+TextConstants.configPath);
+                    this.refreshPropertyTable();
+                }catch(URISyntaxException e){
+                    System.err.println("Error while reading the default config file");
+                    JOptionPane.showMessageDialog(null, "Error while reading the default .properties file");
+                }
+            }else{
+                loadMetadataFromDefaultConfigFile.setSelected(false);
             }
         }
         
@@ -479,6 +491,11 @@ public class GuiStep2 extends javax.swing.JFrame {
             String path = chooser.getSelectedFile().getAbsolutePath();
             //save the properties in a string
             String textProperties = "\n";//the first line I leave an intro because there have been problems.
+            if(properties.get(TextConstants.abstractSectionContent)!=null){
+                textProperties+=TextConstants.abstractSectionContent+"="+properties.get(TextConstants.abstractSectionContent)+"\n";
+            }else{
+                textProperties+=TextConstants.abstractSectionContent+"=\n";
+            }
             if(properties.get(TextConstants.ontTitle)!=null){
                 textProperties+=TextConstants.ontTitle+"="+properties.get(TextConstants.ontTitle)+"\n";
             }else{
@@ -594,6 +611,7 @@ public class GuiStep2 extends javax.swing.JFrame {
             try {
                 writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), "utf-8"));
                 writer.write(textProperties);
+                JOptionPane.showMessageDialog(this, "Property file saved successfully");
             } catch (IOException ex) {
               System.err.println("Error while saving the property file "+ex.getMessage());
             } finally {

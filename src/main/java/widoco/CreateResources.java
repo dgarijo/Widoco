@@ -81,7 +81,7 @@ public class CreateResources {
         if((c.getAbstractPath()!=null) && (!"".equals(c.getAbstractPath()))){
             copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract.html"));
         }else{
-            saveDocument(path+File.separator+"abstract.html", TextConstants.abstractSection,c);
+            saveDocument(path+File.separator+"abstract.html", TextConstants.getAbstractSection(c.getAbstractSection()),c);
         }
         
     }
