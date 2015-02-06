@@ -1,5 +1,5 @@
 /*
- *  Copyright 2012-2013 Ontology Engineering Group, Universidad PolitÃ©cnica de Madrid, Spain
+ *  Copyright 2012-2013 Ontology Engineering Group, Universidad PolitÃƒÂ©cnica de Madrid, Spain
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -83,13 +83,13 @@ public class TextConstants {
             + "<p>Add your references here in a list. It is recommended to have them as a list.</p>\n";
     public static final String acknowledgementsSection="<div id=\"acknowledgements\">\n"+
                     "<h2>6. Acknowledgements <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-            + "<p>The authors would like to thanks <a href=\"http://palindrom.es/phd/whoami/\">Silvio Peroni</a> for developing <a href=\"http://www.essepuntato.it/lode\">LODE</a>, "
-            + "a Live OWL Documentation Environment used for representing the Corss Referencing Section of this document and <a href=\"http://delicias.dia.fi.upm.es/members/dgarijo/\">"
+            + "<p>The authors would like to thank <a href=\"http://palindrom.es/phd/whoami/\">Silvio Peroni</a> for developing <a href=\"http://www.essepuntato.it/lode\">LODE</a>, "
+            + "a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href=\"http://delicias.dia.fi.upm.es/members/dgarijo/\">"
             + "Daniel Garijo</a> for developing the "
-            + "script used to create the template of this document.</p>\n</div>\n";
+            + "script used to create the document template.</p>\n</div>\n";
     public static final String changeLogSection="<div id=\"changelog\">"+
                     "<h2>Changes since last release <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>"
-            + "<p>This is a changelog. Thi ssection is optional but recommended</p></div>";
+            + "<p>This is a changelog. This section is optional but recommended</p></div>";
     public static final String ending="</body></html>";
     
     //given a list of agents, this method gets it as a String
@@ -534,19 +534,19 @@ public class TextConstants {
             "<p>References:</p>\n"+
             "    <ul>\n"+
             "    <li>\n"+
-            "    [1] Gómez-Pérez, A. Ontology Evaluation. Handbook on Ontologies. S. Staab and R. Studer Editors. Springer. International Handbooks on Information Systems. Pp: 251-274. 2004.\n"+
+            "    [1] GÃ³mez-PÃ©rez, A. Ontology Evaluation. Handbook on Ontologies. S. Staab and R. Studer Editors. Springer. International Handbooks on Information Systems. Pp: 251-274. 2004.\n"+
             "    </li> \n"+
             "    <li>\n"+
             "    [2] Noy, N.F., McGuinness. D. L. Ontology development 101: A guide to creating your first ontology. Technical Report SMI-2001-0880, Standford Medical Informatics. 2001.\n"+
             "    </li> \n"+
             "    <li>\n"+
-            "    [3] Rector, A., Drummond, N., Horridge, M., Rogers, J., Knublauch, H., Stevens, R.,; Wang, H., Wroe, C. ''Owl pizzas: Practical experience of teaching owl-dl: Common errors and common patterns''. In Proc. of EKAW 2004, pp: 63–81. Springer. 2004.\n"+
+            "    [3] Rector, A., Drummond, N., Horridge, M., Rogers, J., Knublauch, H., Stevens, R.,; Wang, H., Wroe, C. ''Owl pizzas: Practical experience of teaching owl-dl: Common errors and common patterns''. In Proc. of EKAW 2004, pp: 63Â–81. Springer. 2004.\n"+
             "    </li>\n"+
             "    <li>\n"+
             "    [4] Hogan, A., Harth, A., Passant, A., Decker, S., Polleres, A. Weaving the Pedantic Web. Linked Data on the Web Workshop LDOW2010 at WWW2010 (2010).\n"+
             "    </li>\n"+
             "     <li>\n"+
-            "    [5] Archer, P., Goedertier, S., and Loutas, N. D7.1.3 – Study on persistent URIs, with identification of best practices and recommendations on the topic for the MSs and the EC. Deliverable. December 17, 2012.\n"+
+            "    [5] Archer, P., Goedertier, S., and Loutas, N. D7.1.3 Â– Study on persistent URIs, with identification of best practices and recommendations on the topic for the MSs and the EC. Deliverable. December 17, 2012.\n"+
             "    </li>\n"+
             "    <li>\n"+
             "    [6] Heath, T., Bizer, C.: Linked data: Evolving the Web into a global data space (1st edition). Morgan &amp; Claypool (2011).\n"+
