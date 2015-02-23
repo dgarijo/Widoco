@@ -346,9 +346,6 @@ public class Configuration {
         return revision;
     }
 
-    public ArrayList<Ontology> getImportedOntolgies() {
-        return importedOntologies;
-    }
 
     public String getLatestVersion() {
         return latestVersion;

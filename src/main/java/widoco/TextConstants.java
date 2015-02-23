@@ -275,8 +275,8 @@ public class TextConstants {
             head += getAuthors(c.getCreators())+"\n";
         if(!c.getContributors().isEmpty())
             head += getContributors(c.getContributors())+"\n";
-        if(!c.getImportedOntolgies().isEmpty())
-            head += getImports(c.getImportedOntolgies())+"\n";
+        if(!c.getImportedOntologies().isEmpty())
+            head += getImports(c.getImportedOntologies())+"\n";
         if(!c.getExtendedOntologies().isEmpty())
             head += getExtends(c.getExtendedOntologies())+"\n";
         

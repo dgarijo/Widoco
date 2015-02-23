@@ -144,7 +144,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                 contributors+=a.getName();
             }
         }
-        for(Ontology a: conf.getImportedOntolgies()){
+        for(Ontology a: conf.getImportedOntologies()){
             if(a.getName()==null || a.getName().equals("")){
                 imported+="importedOnto; ";
             }
@@ -176,7 +176,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                 {"contributors", contributors},
                 {"imported ontologies", imported},
                 {"extended ontologies", extended},
-                {"license URI", conf.getLicense().getName()}
+                {"license URI", conf.getLicense().getUrl()}
             },
             new String [] {
                 "Property", "Value"
@@ -520,7 +520,7 @@ public class GuiStep2 extends javax.swing.JFrame {
     
     private void loadMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataButtonActionPerformed
         //To do: reload the config file from another .properties file.
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
            g.reloadConfiguration(chooser.getSelectedFile().getAbsolutePath());
@@ -558,132 +558,101 @@ public class GuiStep2 extends javax.swing.JFrame {
     }//GEN-LAST:event_loadMetadataFromDefaultConfigFileActionPerformed
 
     private void saveMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMetadataButtonActionPerformed
-        //JOptionPane.showMessageDialog(null, "TO DO!!");
-        //se up the out file to be saved: chooser, path, creation.
+        //ideally the serialization of config woule have to be done in another class.
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showSaveDialog(this);
-        //Note: this is not very good. Ideally I should have a method for this,
-        //and use it to translate one into the other...
         if(returnVal == JFileChooser.APPROVE_OPTION){
-            //create a file (if not exists already
+            //create a file (if not exists already)
             String path = chooser.getSelectedFile().getAbsolutePath();
-            //save the properties in a string
             String textProperties = "\n";//the first line I leave an intro because there have been problems.
-//            if(properties.get(TextConstants.abstractSectionContent)!=null){
-//                textProperties+=TextConstants.abstractSectionContent+"="+properties.get(TextConstants.abstractSectionContent)+"\n";
-//            }else{
-//                textProperties+=TextConstants.abstractSectionContent+"=\n";
-//            }
-//            if(properties.get(TextConstants.ontTitle)!=null){
-//                textProperties+=TextConstants.ontTitle+"="+properties.get(TextConstants.ontTitle)+"\n";
-//            }else{
-//                textProperties+=TextConstants.ontTitle+"=\n";
-//            }
-//            if(properties.get(TextConstants.ontPrefix)!=null){
-//                textProperties+=TextConstants.ontPrefix+"="+properties.get(TextConstants.ontPrefix)+"\n";
-//            }else{
-//                textProperties+=TextConstants.ontPrefix+"=\n";
-//            }
-//            if(properties.get(TextConstants.ontNamespaceURI)!=null){
-//                textProperties+=TextConstants.ontNamespaceURI+"="+properties.get(TextConstants.ontNamespaceURI)+"\n";
-//            }else{
-//                textProperties+=TextConstants.ontNamespaceURI+"=\n";
-//            }
-//            if(properties.get(TextConstants.thisVersionURI)!=null){
-//                textProperties+=TextConstants.thisVersionURI+"="+properties.get(TextConstants.thisVersionURI)+"\n";
-//            }else{
-//                textProperties+=TextConstants.thisVersionURI+"=\n";
-//            }
-//            if(properties.get(TextConstants.latestVersionURI)!=null){
-//                textProperties+=TextConstants.latestVersionURI+"="+properties.get(TextConstants.latestVersionURI)+"\n";
-//            }else{
-//                textProperties+=TextConstants.latestVersionURI+"=\n";
-//            }
-//            if(properties.get(TextConstants.licenseURI)!=null){
-//                textProperties+=TextConstants.licenseURI+"="+properties.get(TextConstants.licenseURI)+"\n";
-//            }else{
-//                textProperties+=TextConstants.licenseURI+"=\n";
-//            }
-//            if(properties.get(TextConstants.previousVersionURI)!=null){
-//                textProperties+=TextConstants.previousVersionURI+"="+properties.get(TextConstants.previousVersionURI)+"\n";
-//            }else{
-//                textProperties+=TextConstants.previousVersionURI+"=\n";
-//            }            
-//            if(properties.get(TextConstants.dateOfRelease)!=null){
-//                textProperties+=TextConstants.dateOfRelease+"="+properties.get(TextConstants.dateOfRelease)+"\n";
-//            }else{
-//                textProperties+=TextConstants.dateOfRelease+"=\n";
-//            }
-//            if(properties.get(TextConstants.ontologyRevision)!=null){
-//                textProperties+=TextConstants.ontologyRevision+"="+properties.get(TextConstants.ontologyRevision)+"\n";
-//            }else{
-//                textProperties+=TextConstants.ontologyRevision+"=\n";
-//            }
-//            if(properties.get(TextConstants.licenseName)!=null){
-//                textProperties+=TextConstants.licenseName+"="+properties.get(TextConstants.licenseName)+"\n";
-//            }else{
-//                textProperties+=TextConstants.licenseName+"=\n";
-//            }
-//            if(properties.get(TextConstants.ontName)!=null){
-//                textProperties+=TextConstants.ontName+"="+properties.get(TextConstants.ontName)+"\n";
-//            }else{
-//                textProperties+=TextConstants.ontName+"=\n";
-//            }
-//            if(properties.get(TextConstants.authors)!=null){
-//                textProperties+=TextConstants.authors+"="+properties.get(TextConstants.authors)+"\n";
-//            }else{
-//                textProperties+=TextConstants.authors+"=\n";
-//            }
-//            if(properties.get(TextConstants.authorsURI)!=null){
-//                textProperties+=TextConstants.authorsURI+"="+properties.get(TextConstants.authorsURI)+"\n";
-//            }else{
-//                textProperties+=TextConstants.authorsURI+"=\n";
-//            }
-//            if(properties.get(TextConstants.authorsInstitution)!=null){
-//                textProperties+=TextConstants.authorsInstitution+"="+properties.get(TextConstants.authorsInstitution)+"\n";
-//            }else{
-//                textProperties+=TextConstants.authorsInstitution+"=\n";
-//            }
-//            if(properties.get(TextConstants.contributors)!=null){
-//                textProperties+=TextConstants.contributors+"="+properties.get(TextConstants.contributors)+"\n";
-//            }else{
-//                textProperties+=TextConstants.contributors+"=\n";
-//            }
-//            if(properties.get(TextConstants.contributorsURI)!=null){
-//                textProperties+=TextConstants.contributorsURI+"="+properties.get(TextConstants.contributorsURI)+"\n";
-//            }else{
-//                textProperties+=TextConstants.contributorsURI+"=\n";
-//            }
-//            if(properties.get(TextConstants.contributorsInstitution)!=null){
-//                textProperties+=TextConstants.contributorsInstitution+"="+properties.get(TextConstants.contributorsInstitution)+"\n";
-//            }else{
-//                textProperties+=TextConstants.contributorsInstitution+"=\n";
-//            }
-//            if(properties.get(TextConstants.importedOntologyNames)!=null){
-//                textProperties+=TextConstants.importedOntologyNames+"="+properties.get(TextConstants.importedOntologyNames)+"\n";
-//            }else{
-//                textProperties+=TextConstants.importedOntologyNames+"=\n";
-//            }
-//            if(properties.get(TextConstants.importedOntologyURIs)!=null){
-//                textProperties+=TextConstants.importedOntologyURIs+"="+properties.get(TextConstants.importedOntologyURIs)+"\n";
-//            }else{
-//                textProperties+=TextConstants.importedOntologyURIs+"=\n";
-//            }
-//            if(properties.get(TextConstants.extendedOntologyNames)!=null){
-//                textProperties+=TextConstants.extendedOntologyNames+"="+properties.get(TextConstants.extendedOntologyNames)+"\n";
-//            }else{
-//                textProperties+=TextConstants.extendedOntologyNames+"=\n";
-//            }
-//            if(properties.get(TextConstants.extendedOntologyURIs)!=null){
-//                textProperties+=TextConstants.extendedOntologyURIs+"="+properties.get(TextConstants.extendedOntologyURIs)+"\n";
-//            }else{
-//                textProperties+=TextConstants.extendedOntologyURIs+"=\n";
-//            }
-//            if(properties.get(TextConstants.licenseIconURL)!=null){
-//                textProperties+=TextConstants.licenseIconURL+"="+properties.get(TextConstants.licenseIconURL)+"\n";
-//            }else{
-//                textProperties+=TextConstants.licenseIconURL+"=";
-//            }
+            textProperties+=TextConstants.abstractSectionContent+"="+conf.getAbstractSection()+"\n";
+            textProperties+=TextConstants.ontTitle+"="+conf.getTitle()+"\n";
+            textProperties+=TextConstants.ontPrefix+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
+            textProperties+=TextConstants.ontNamespaceURI+"="+conf.getMainOntology().getNamespaceURI()+"\n";
+            textProperties+=TextConstants.ontName+"="+conf.getMainOntology().getName()+"\n";
+            textProperties+=TextConstants.thisVersionURI+"="+conf.getThisVersion()+"\n";
+            textProperties+=TextConstants.latestVersionURI+"="+conf.getLatestVersion()+"\n";
+            textProperties+=TextConstants.previousVersionURI+"="+conf.getPreviousVersion()+"\n";
+            textProperties+=TextConstants.dateOfRelease+"="+conf.getReleaseDate()+"\n";
+            textProperties+=TextConstants.ontologyRevision+"="+conf.getRevision()+"\n";
+            textProperties+=TextConstants.licenseURI+"="+conf.getLicense().getUrl()+"\n";
+            textProperties+=TextConstants.licenseName+"="+conf.getLicense().getName()+"\n";
+            textProperties+=TextConstants.licenseIconURL+"="+conf.getLicense().getIcon()+"\n";
+            String authors="", authorURLs="", authorInstitutions="";
+            ArrayList<Agent> ag = conf.getCreators();
+            if(!ag.isEmpty()){
+                for(int i=0; i<ag.size()-1;i++){
+                    Agent a = ag.get(i);
+                    if(a.getName()!=null)authors+=a.getName();
+                    authors+=";";
+                    if(a.getURL()!=null)authorURLs+=a.getURL();
+                    authorURLs+=";";
+                    if(a.getInstitutionName()!=null)authorInstitutions+=a.getInstitutionName();
+                    authorInstitutions+=";";
+                }
+                //last agent: no ";"
+                if(ag.get(ag.size()-1).getName()!=null) authors+=ag.get(ag.size()-1).getName();
+                if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
+                if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
+            }
+            textProperties+=TextConstants.authors+"="+authors+"\n";
+            textProperties+=TextConstants.authorsURI+"="+authorURLs+"\n";
+            textProperties+=TextConstants.authorsInstitution+"="+authorInstitutions+"\n";
+            
+            ag = conf.getContributors();
+            authors=""; 
+            authorURLs="";
+            authorInstitutions="";
+            if(!ag.isEmpty()){
+                for(int i=0; i<ag.size()-1;i++){
+                    Agent a = ag.get(i);
+                    if(a.getName()!=null)authors+=a.getName();
+                    authors+=";";
+                    if(a.getURL()!=null)authorURLs+=a.getURL();
+                    authorURLs+=";";
+                    if(a.getInstitutionName()!=null)authorInstitutions+=a.getInstitutionName();
+                    authorInstitutions+=";";
+                }
+                if(ag.get(ag.size()-1).getName()!=null) authors+=ag.get(ag.size()-1).getName();
+                if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
+                if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
+            }
+            textProperties+=TextConstants.contributors+"="+authors+"\n";
+            textProperties+=TextConstants.contributorsURI+"="+authorURLs+"\n";
+            textProperties+=TextConstants.contributorsInstitution+"="+authorInstitutions+"\n";
+            String importedNames="", importedURIs="";
+            ArrayList<Ontology> imported = conf.getImportedOntologies();
+            if(!imported.isEmpty()){
+                for(int i=0; i<imported.size()-1;i++){
+                    Ontology o = imported.get(i);
+                    if(o.getName()!=null)importedNames+=o.getName();
+                    importedNames+=";";
+                    if(o.getNamespaceURI()!=null)importedURIs+=o.getNamespaceURI();
+                    importedURIs+=";";
+                }
+                //last agent: no ";"
+                if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
+                if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
+            }
+            textProperties+=TextConstants.importedOntologyNames+"="+importedNames+"\n";
+            textProperties+=TextConstants.importedOntologyURIs+"="+importedURIs+"\n";
+            imported = conf.getExtendedOntologies();
+            importedNames = "";
+            importedURIs = "";
+            if(!imported.isEmpty()){
+                for(int i=0; i<imported.size()-1;i++){
+                    Ontology o = imported.get(i);
+                    if(o.getName()!=null)importedNames+=o.getName();
+                    importedNames+=";";
+                    if(o.getNamespaceURI()!=null)importedURIs+=o.getNamespaceURI();
+                    importedURIs+=";";
+                }
+                //last agent: no ";"
+                if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
+                if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
+            }
+            textProperties+=TextConstants.extendedOntologyNames+"="+importedNames+"\n";
+            textProperties+=TextConstants.extendedOntologyURIs+"="+importedURIs+"\n";
             //copy the result into the file
             Writer writer = null;
             try {

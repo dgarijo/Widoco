@@ -66,7 +66,7 @@ public class EditProperty extends javax.swing.JFrame {
             case imported: 
                 this.setTitle("Editing Imported Ontologies");
                 createTable(new String[]{"Extended Ontology Name","Extended Ontology URI"});
-                loadOntologies(c.getImportedOntolgies());
+                loadOntologies(c.getImportedOntologies());
                 break;
         }
     }
