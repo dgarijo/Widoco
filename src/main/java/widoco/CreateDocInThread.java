@@ -37,7 +37,7 @@ public class CreateDocInThread implements Runnable{
         //el false/true es por el path de la doc o la uri. Aclararse..
         //use config to create doc. If null, return error.
         try{
-            System.out.println("printing in thread. Has it finished? "+ c.getMainOntology().getNamespaceURI());
+            System.out.println("Generating doc. "+ c.getMainOntology().getNamespaceURI());
             if (c.isFromFile()){
                 CreateResources.generateDocumentation(c.getDocumentationURI(), c, false, tmpFile);
             }else{

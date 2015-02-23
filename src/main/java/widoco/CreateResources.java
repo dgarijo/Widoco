@@ -66,6 +66,16 @@ public class CreateResources {
         createIndexDocument(folderOut,c);
     }
     
+    public static void generateSkeleton(String folderOut, Configuration c){
+        c.setTitle("Skeleton title");
+        createFolderStructure(folderOut,false,false);
+        createAbstractSection(folderOut+File.separator+"sections",c);
+        createIntroductionSection(folderOut+File.separator+"sections",null,c);
+        createDescriptionSection(folderOut+File.separator+"sections",c);
+        createReferencesSection(folderOut+File.separator+"sections",c);
+        createIndexDocument(folderOut,c);
+    }
+    
     /**
      * Provenance page
      */

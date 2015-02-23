@@ -501,9 +501,10 @@ public class GuiStep2 extends javax.swing.JFrame {
             loadMetadataFromDefaultConfigFile.setSelected(false);
         }
         if(loadMetadataFromOnto.isSelected()){
-            if(showWarning()==JOptionPane.OK_OPTION){
+            if(showReloadWarning()==JOptionPane.OK_OPTION){
                 this.barStatus.setVisible(true);
                 this.barStatus.setIndeterminate(true);
+                this.saveMetadata();//we save the metadata before checking: the URI could have changed.
                 g.switchState("loadOntologyProperties");
                 this.backButton.setEnabled(false);
                 this.nextButton.setEnabled(false);
@@ -513,7 +514,7 @@ public class GuiStep2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadMetadataFromOntoActionPerformed
 
-    private int showWarning(){
+    private int showReloadWarning(){
         return JOptionPane.showConfirmDialog(this, "Reloading the properties will erase the values you have already introduced. Are you sure?", "Warning", JOptionPane.YES_NO_OPTION);
     }
     
@@ -537,7 +538,7 @@ public class GuiStep2 extends javax.swing.JFrame {
             loadMetadataFromOnto.setSelected(false);
         }
         if(loadMetadataFromDefaultConfigFile.isSelected()){
-            if(showWarning()==JOptionPane.OK_OPTION){
+            if(showReloadWarning()==JOptionPane.OK_OPTION){
                 //load metadata from the default property file.
                 //taken from config
                 try{

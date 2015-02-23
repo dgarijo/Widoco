@@ -177,7 +177,6 @@ public class GuiStep1 extends javax.swing.JFrame {
         });
 
         option3.setText("Create empty skeleton");
-        option3.setEnabled(false);
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelTitle.setText("Step 1: Select a template. ");

@@ -30,7 +30,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import oops.OOPSevaluation;
 
 /**
  *
@@ -60,7 +59,8 @@ public class GuiStep5 extends javax.swing.JFrame {
         this.setLocation(x, y);
         if(isSkeleton){
             labelOops.setEnabled(false);
-            labelViewDoc.setEnabled(false);
+            labelOops.setVisible(false);
+            OOPSLogo.setVisible(false);
         }
         labelIsOntologyDocClicked.setVisible(false);
         labelStatusOOPS.setVisible(false);

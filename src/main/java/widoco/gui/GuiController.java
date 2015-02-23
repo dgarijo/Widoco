@@ -84,8 +84,7 @@ public class GuiController {
     
     
     public void generateSkeleton() {
-        //if state is initial, then it is a skeleton
-        //call a method in createResources called createSkeleton, and done.
+        CreateResources.generateSkeleton(this.config.getDocumentationURI(), config);
     }
     
     private void startGeneratingDoc() {
@@ -137,7 +136,7 @@ public class GuiController {
             case initial:
                 if(input.equals("skeleton")){
                     state = State.generated;
-                    this.generateSkeleton();//TO DO
+                    this.generateSkeleton();
                     this.gui.dispose();
                     gui = new GuiStep5(this, true);
                     gui.setVisible(true);
