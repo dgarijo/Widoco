@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <ontology>Ontologia</ontology>
+    <ontologysource>Sorgente dell'ontologia</ontologysource>
+    <visualisation>Altre visualizzazioni</visualisation>
+    <visualiseitwith>Visualizzala con</visualiseitwith>
+    <date>Data</date>
+    <currentversion>Versione corrente</currentversion>
+    <previousversion>Versione precedente</previousversion>
+    <disjointclasses>Classi Disgiunte</disjointclasses>
+    <backwardcompatiblewith>Retro-compatibile con</backwardcompatiblewith>
+    <incompatibleWith>Incompatibile con</incompatibleWith>
+    <subclassdefinition>Definizione Generale di Sottoclasse</subclassdefinition>
+    <equivalentdefinition>Definizione Generale di Classe Equivalente</equivalentdefinition>
+    <issubclassof>è sottoclasse di</issubclassof>
+    <isequivalentto>è equivalente a</isequivalentto>
+    <functional>funzionale</functional>
+    <inversefunctional>funzionale inversa</inversefunctional>
+    <reflexive>riflessiva</reflexive>
+    <irreflexive>irriflessiva</irreflexive>
+    <symmetric>simmetrica</symmetric>
+    <asymmetric>asimmetrica</asymmetric>
+    <transitive>transitiva</transitive>
+    <isdefinedby>è definito da</isdefinedby>
+    <belongsto>appartiene a</belongsto>
+    <issameas>è lo stesso di</issameas>
+    <isalsodefinedas>è definita anche come</isalsodefinedas>
+    <isdisjointwith>è disgiuta da</isdisjointwith>
+    <haskeys>ha come chiavi</haskeys>
+    <hassuperclasses>ha come super-classi</hassuperclasses>
+    <hassubclasses>ha come sotto-classi</hassubclasses>
+    <isindomainof>è nel dominio di</isindomainof>
+    <isinrangeof>è nel codominio di</isinrangeof>
+    <hasmembers>ha come membri</hasmembers>
+    <isinverseof>è l'inversa di</isinverseof>
+    <hassubpropertychains>ha come catene di sotto-proprietà</hassubpropertychains>
+    <hasequivalentproperties>ha come proprietà equivalenti</hasequivalentproperties>
+    <hassuperproperties>ha come super-propietà</hassuperproperties>
+    <hassubproperties>ha come sotto-proprietà</hassubproperties>
+    <hasdomain>ha come dominio</hasdomain>
+    <hasrange>ha come codominio</hasrange>
+    <importedontologies>Ontologie importate</importedontologies>
+    <individualassertions>ha come fatti</individualassertions>
+    <authors>Autori</authors>
+    <contributors>Col contributo di</contributors>
+    <publisher>Editore</publisher>
+    <abstract>Sommario</abstract>
+    <introduction>Introduzione</introduction>
+    <toc>Indice</toc>
+    <tocabbr>indice</tocabbr>
+    <backto>torna all'</backto>
+    <class>classe</class>
+    <classes>Classi</classes>
+    <objectproperty>object property</objectproperty>
+    <objectproperties>Object Property</objectproperties>
+    <dataproperty>data property</dataproperty>
+    <dataproperties>Data Property</dataproperties>
+    <annotationproperty>annotation property</annotationproperty>
+    <annotationproperties>Annotation Property</annotationproperties>
+    <namedindividual>individuo</namedindividual>
+    <namedindividuals>Individui</namedindividuals>
+    <datarange>data range</datarange>
+    <dataranges>Data Range</dataranges>
+    <generalaxioms>Assiomi Generali</generalaxioms>
+    <rule>regola</rule>
+    <rules>Regole SWRL</rules>
+    <namespace>namespace di default</namespace>
+    <namespaces>Dichiarazioni di Namespace</namespaces>
+    <endnote>Questo documento HTML è stato ottenuto, a partire dal codice sorgente dell'ontologia, attraverso</endnote>
+    <developedBy>sviluppato da</developedBy>
+    <or>oppure</or>
+    <classtoc>indice delle Classi</classtoc>
+    <objectpropertytoc>indice delle Object Property</objectpropertytoc>
+    <datapropertytoc>indice delle Data PropertyC</datapropertytoc>
+    <annotationpropertytoc>indice delle Annotation Property</annotationpropertytoc>
+    <namedindividualtoc>indice degli Individui</namedindividualtoc>
+    <hascharacteristics>è di tipo</hascharacteristics>
+</labels>

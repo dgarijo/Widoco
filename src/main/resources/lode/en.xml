@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <ontology>Ontology</ontology>
+    <ontologysource>Ontology source</ontologysource>
+    <visualisation>Other visualisation</visualisation>
+    <visualiseitwith>visualise it with</visualiseitwith>
+    <date>Date</date>
+    <currentversion>Current version</currentversion>
+    <previousversion>Previous version</previousversion>
+    <backwardcompatiblewith>Backward compatible with</backwardcompatiblewith>
+    <incompatibleWith>Incompatible with</incompatibleWith>
+    <abstract>Abstract</abstract>
+    <introduction>Introduction</introduction>
+    <disjointclasses>All Disjoint Classes</disjointclasses>
+    <subclassdefinition>General Subclass Definition</subclassdefinition>
+    <equivalentdefinition>General Equivalent Definition</equivalentdefinition>
+    <issubclassof>is subclass of</issubclassof>
+    <isequivalentto>is equivalent to</isequivalentto>
+    <functional>functional</functional>
+    <inversefunctional>inverse functional</inversefunctional>
+    <reflexive>reflexive</reflexive>
+    <irreflexive>irreflexive</irreflexive>
+    <symmetric>symmetric</symmetric>
+    <asymmetric>asymmetric</asymmetric>
+    <transitive>transitive</transitive>
+    <isdefinedby>is defined by</isdefinedby>
+    <belongsto>belongs to</belongsto>
+    <issameas>is same as</issameas>
+    <isalsodefinedas>is also defined as</isalsodefinedas>
+    <isdisjointwith>is disjoint with</isdisjointwith>
+    <haskeys>has keys</haskeys>
+    <hassuperclasses>has super-classes</hassuperclasses>
+    <hassubclasses>has sub-classes</hassubclasses>
+    <isindomainof>is in domain of</isindomainof>
+    <isinrangeof>is in range of</isinrangeof>
+    <hasmembers>has members</hasmembers>
+    <isinverseof>is inverse of</isinverseof>
+    <hassubpropertychains>has sub-property chains</hassubpropertychains>
+    <hasequivalentproperties>has equivalent properties</hasequivalentproperties>
+    <hassuperproperties>has super-properties</hassuperproperties>
+    <hassubproperties>has sub-properties</hassubproperties>
+    <hasdomain>has domain</hasdomain>
+    <hasrange>has range</hasrange>
+    <importedontologies>Imported Ontologies</importedontologies>
+    <individualassertions>has facts</individualassertions>
+    <authors>Authors</authors>
+    <contributors>Contributors</contributors>
+    <publisher>Publisher</publisher>
+    <toc>Table of Content</toc>
+    <tocabbr>ToC</tocabbr>
+    <backto>back to</backto>
+    <class>class</class>
+    <classes>Classes</classes>
+    <objectproperty>object property</objectproperty>
+    <objectproperties>Object Properties</objectproperties>
+    <dataproperty>data property</dataproperty>
+    <dataproperties>Data Properties</dataproperties>
+    <namedindividual>named individual</namedindividual>
+    <namedindividuals>Named Individuals</namedindividuals>
+    <annotationproperty>annotation property</annotationproperty>
+    <annotationproperties>Annotation Properties</annotationproperties>
+    <datarange>data range</datarange>
+    <dataranges>Data Ranges</dataranges>
+    <generalaxioms>General Axioms</generalaxioms>
+    <rule>rule</rule>
+    <rules>SWRL Rules</rules>
+    <namespace>default namespace</namespace>
+    <namespaces>Namespace Declarations</namespaces>
+    <endnote>This HTML document was obtained by processing the OWL ontology source code through</endnote>
+    <developedby>developed by</developedby>
+    <or>or</or>
+    <classtoc>Class ToC</classtoc>
+    <objectpropertytoc>Object Property ToC</objectpropertytoc>
+    <datapropertytoc>Data Property ToC</datapropertytoc>
+    <annotationpropertytoc>Annotation Property ToC</annotationpropertytoc>
+    <namedindividualtoc>Named Individual ToC</namedindividualtoc>
+    <hascharacteristics>has characteristics</hascharacteristics>
+</labels>
