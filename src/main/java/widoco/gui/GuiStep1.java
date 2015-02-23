@@ -399,7 +399,7 @@ public class GuiStep1 extends javax.swing.JFrame {
 
     private void option1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option1MouseClicked
         if(option1.isSelected()){
-            JFileChooser chooser = new JFileChooser();
+            JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
             chooser.setName("Select OWL File");
             //no need to create an additional class, as we will use this filter only here.
             chooser.setFileFilter(new FileFilter() {
