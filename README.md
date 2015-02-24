@@ -14,39 +14,24 @@ The structure of the template is as follows:
 	* Basic Metadata: 
 	
 		* Title and release
-		
 		* Current version of the ontology  
-		
 		* Latest version of the ontology
-		
 		* Previous version of the ontology
-		
 		* Revision number
-		
 		* Authors
-		
 		* Contributors
-		
 		* Imported Ontologies
-		
 		* Extended Ontologies
+		* License
 		
 	* Abstract
-	
 	* Table of Contents
-	
 	* 1. Introduction
-	
 		* 1.1 Namespace declarations
-		
 	* 2. Ontology overview
-	
 	* 3. Ontology description
-	
 	* 4. Cross reference section (Using LODE)
-	
 	* 5. References
-	
 	* 6. Acknowledgements
 	
 How to use Widoco
@@ -55,7 +40,10 @@ Download all the files of the "JAR" folder into the same folder. Then just doubl
 
 For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
 
-The character ";" is used for lists (for instance first author; second author; third author)
+The character ";" is used for lists (for instance first author; second author; third author).
+
+Now you can execute Widoco through the console. Usage:
+java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile]
 
 Browser problems
 ==========
