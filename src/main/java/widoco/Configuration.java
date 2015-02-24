@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 import javax.imageio.ImageIO;
+import licensius.GetLicense;
 import widoco.entities.Agent;
 import widoco.entities.License;
 import widoco.entities.Ontology;
@@ -252,6 +253,8 @@ public class Configuration {
             if(propertyName.equals("preferredNamespaceUri")){
                 this.mainOntology.setNamespaceURI(value);                
             }else
+            //we deal with the license by invoking the licensius service
+            //(only if we cannot find it)
             if(propertyName.equals("license")){
                 this.license = new License();
                 if(isURL(value)){
@@ -296,6 +299,18 @@ public class Configuration {
             }
             //to do: if property is comment and abstract is null, then complete abstract.
         }
+        //refine license from licensius
+        if(mainOntology.getNamespaceURI()!=null && !mainOntology.getNamespaceURI().equals("")){
+            String lic = GetLicense.getLicense(mainOntology.getNamespaceURI());
+            String licName = GetLicense.getLicenseTitle(mainOntology.getNamespaceURI());
+            if(lic!=null){
+                this.license.setUrl(lic);
+            }
+            if(licName!=null){
+                this.license.setName(licName);
+            }
+        }
+        
         System.out.println("Loaded properties from ontology");
     }
     

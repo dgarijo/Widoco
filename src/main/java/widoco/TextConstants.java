@@ -28,6 +28,10 @@ import widoco.entities.Ontology;
  * @author Daniel Garijo
  */
 public class TextConstants {
+    //constants for the Licensius service
+    public static final String licensiusURIServiceLicense = "http://licensius.appspot.com/getLicense?content=";
+    public static final String licensiusURIServiceLicenseTitle = "http://licensius.appspot.com/getLicenseTitle?content=";
+    
     /**
      * Constants for the  Step 2 (table)
      */
