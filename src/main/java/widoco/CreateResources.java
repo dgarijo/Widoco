@@ -227,7 +227,7 @@ public class CreateResources {
         //copy jquery
         copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
         //copy css
-        copyLocalResource("/lode/primer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
+        copyLocalResource("/lode/lodeprimer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
         copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
         copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
         copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
@@ -254,7 +254,7 @@ public class CreateResources {
         try{
             copy(CreateResources.class.getResourceAsStream(resourceName), dest);
         }catch(Exception e){
-            System.err.println("Exception while copying "+resourceName+e.getMessage());
+            System.out.println("Exception while copying "+resourceName+" - "+e.getMessage());
         }
     }
     

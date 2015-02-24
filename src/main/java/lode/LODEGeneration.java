@@ -63,7 +63,7 @@ public class LODEGeneration {
             return(content);
         }
         catch (Exception e) {
-            System.err.println("Error while applyin LODE. Error while applying the XLS file: "+e.getMessage());
+            System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
             
         } 
         return null;

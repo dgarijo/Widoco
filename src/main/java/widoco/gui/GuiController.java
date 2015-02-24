@@ -20,10 +20,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -33,8 +30,6 @@ import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
 import widoco.LoadOntologyPropertiesInThread;
 import widoco.TextConstants;
-import widoco.entities.Agent;
-import widoco.entities.Ontology;
 
 
 
@@ -42,7 +37,7 @@ import widoco.entities.Ontology;
  *
  * @author Daniel Garijo
  */
-public class GuiController {
+public final class GuiController {
 
     
     public enum State{initial, metadata, loadingConfig, sections, loading, generated, evaluating, exit};
@@ -65,13 +60,74 @@ public class GuiController {
         } catch (IOException ex) {
             System.err.println("Error while creating the temporal file");
         }
-        
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            
         }
-        
+    }
+    
+    public GuiController(String[] args){
+        System.out.println("\n\n--WIzard for DOCumenting Ontologies-- Powered by LODE.\n");
+//        System.out.println("Usage: java -jar [-ontFile file] or [-ontURI uri] -outFolder folderName [-confFile propertiesFile] \n");
+        config = new Configuration();
+        //get the arguments
+        String outFolder="myDocumentation"+(new Date().getTime()), ontology="";
+        boolean  isFromFile=false;//rewriteAll=true,
+        int i=0;
+        while(i< args.length){
+            String s = args[i];
+            if(s.equals("-confFile")){
+                try{
+                    reloadConfiguration(args[i+1]);
+                }catch(Exception e){
+                    System.out.println("Configuration file could not be loaded: "+e.getMessage());
+                    return;
+                }
+            }
+            else if(s.equals("-outFolder")){
+                outFolder = args[i+1];
+            }
+//            else if(s.equals("-rewriteAll")){
+//                rewriteAll = args[i+1].toLowerCase().startsWith("y");
+//            }
+            else if(s.equals("-ontFile")){
+                ontology = args[i+1];
+                isFromFile = true;
+            }
+            else if(s.equals("-ontURI")){
+                ontology = args[i+1];
+            }else{
+                System.out.println("Command"+s+" not recognized.");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] \n");
+                return;
+            }
+            i+=2;
+        }
+        try {
+            //create a temporal folder with all LODE resources
+            tmpFile = new File("tmp"+new Date().getTime());
+            tmpFile.mkdir();
+            CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
+        } catch (IOException ex) {
+            System.err.println("Error while creating the temporal files");
+        }
+        this.config.setFromFile(isFromFile);
+        this.config.setDocumentationURI(outFolder);
+        this.config.setOntologyPath(ontology);
+        if(!isFromFile)this.config.setOntologyURI(ontology);
+        try{
+            System.out.println("Generating documentation for "+ontology);
+            if (isFromFile){
+                CreateResources.generateDocumentation(outFolder, config, false, tmpFile);
+            }else{
+                CreateResources.generateDocumentation(outFolder, config, true, tmpFile);
+            }
+        }catch(Exception e){
+            System.err.println("Error while generating the documentation " +e.getMessage());
+//            e.printStackTrace();
+        }   
+        //delete temp files
+        deleteAllTempFiles(tmpFile);
     }
 
     public Configuration getConfig() {
@@ -258,7 +314,13 @@ public class GuiController {
 //    }
     
     public static void main(String[] args){
-        new GuiController();
+        GuiController guiController;
+        if(args.length>0){
+            guiController = new GuiController(args);
+        }
+        else{
+         guiController = new GuiController();
+        }
     }
     
     
