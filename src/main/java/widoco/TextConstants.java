@@ -566,7 +566,7 @@ public class TextConstants {
             "    	<div class=\"col-md-5\">\n" +
             "		<p class=\"text-right\"> Developed with: </p>\n" +
             "		<p class=\"text-right\">\n" +
-            "     		<a href=\"http://oops.linkeddata.es\" target=\"_blank\"><img src=\"http://oeg-lia3.dia.fi.upm.es/oops/images/logoWhite65.png\" alt=\"OOPS! logo\" class=\"img-rounded\" class=\"img-responsive\" /></a>\n" +
+            "     		<a href=\"http://oops.linkeddata.es\" target=\"_blank\"><img src=\"http://vocab.linkeddata.es/ontologies/oops/logomini.png\" alt=\"OOPS! logo\" class=\"img-rounded\" class=\"img-responsive\" /></a>\n" +
             "    	</p>\n" +
             "    	</div>\n" +
             "      </div>\n" +
