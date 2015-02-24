@@ -300,15 +300,13 @@ public class Configuration {
             //to do: if property is comment and abstract is null, then complete abstract.
         }
         //refine license from licensius
-        if(mainOntology.getNamespaceURI()!=null && !mainOntology.getNamespaceURI().equals("")){
-            String lic = GetLicense.getLicense(mainOntology.getNamespaceURI());
-            String licName = GetLicense.getLicenseTitle(mainOntology.getNamespaceURI());
-            if(lic!=null){
-                this.license.setUrl(lic);
-            }
-            if(licName!=null){
-                this.license.setName(licName);
-            }
+        String lic = GetLicense.getLicense(mainOntology.getNamespaceURI());
+        String licName = GetLicense.getLicenseTitle(mainOntology.getNamespaceURI());
+        if(lic!=null){
+            this.license.setUrl(lic);
+        }
+        if(licName!=null){
+            this.license.setName(licName);
         }
         
         System.out.println("Loaded properties from ontology");
