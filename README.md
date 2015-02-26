@@ -5,14 +5,20 @@ Author: Daniel Garijo
 Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García and Oscar Corcho.
 
 Description
-This project has been created to help you to create a complete documentation of your ontology.
-The purpose of this project is not to cover any of the functionalities created by other tools like LODE 
-(which describe the classes and properties of a given ontology). Instead, this project reuses 
-LODE (if the user wants to) to create a template that will later be filled with all the details of the ontology.
+==========
+Widoco helps you to create a complete documentation of your ontology, by following a series of steps in a wizard. We reuse the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used.
+
+The purpose of Widoco is to reuse and integrate existing tools for documentation, plus the set of features listed below:
+* Separation of the sections of your html page so you can write them independently and replace only those needed.
+* Automatic annotation in RDF-a of the html produced.
+* Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).
+* Metadata extraction from the ontology plus the means to complete it on the fly when generating your ontology.
+* Guidelines on the main sections that your document should have and how to complete them.
+* Integration with diagram creators (ongoing).
+
 The structure of the template is as follows:
 
 	* Basic Metadata: 
-	
 		* Title and release
 		* Current version of the ontology  
 		* Latest version of the ontology
@@ -23,7 +29,6 @@ The structure of the template is as follows:
 		* Imported Ontologies
 		* Extended Ontologies
 		* License
-		
 	* Abstract
 	* Table of Contents
 	* 1. Introduction
@@ -61,7 +66,16 @@ b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Car
 
 Encoding issues
 ==========
-If you have problems with accents or strange characters, please use the -Dfile.encoding=utf-8 option when running the .jar.
+If you have problems with accents or strange characters,  use the -Dfile.encoding=utf-8 option when running the .jar.
+
+If you encounter any errors, please open an issue!
 	
-Current updates: Make the application a wizard, being able to load separate sections independently, publish the provenance of the vocabulary, possibility of adding a diagram, possibility of checking the ontology with OOPS
-	
+Current improvements
+==========
+We are working on the following features:
+* Integration with diagram creators to include a diagram of your ontology when generating the documentation
+* Possibility of generating the documentation is several languages.
+* Means to add examples to your ontology terms.
+* Previsualization of the terms that will be generated.
+
+For a complete list, check the project open issues.
