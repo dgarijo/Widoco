@@ -50,6 +50,10 @@ public class LODEParser {
     private String propertyList;
     private String dataProp;
     private String dataPropList;
+    private String annotationProp;
+    private String annotationPropList;
+    private String namedIndividuals;
+    private String namedIndividualList;
     private final HashMap <String,String> namespaceDeclarations;
     Configuration c;
 
@@ -60,6 +64,7 @@ public class LODEParser {
      * Constructor for the lode parser. The reason for creating this class is that
      * I don't want to edit LODE's xls file, and I only want to reuse certain parts.
      * @param lodeContent text obtained as a response from LODE.
+     * @param c configuration object
      */
     public LODEParser(String lodeContent, Configuration c) {
         replacements = new HashMap<String, String>();
@@ -95,6 +100,23 @@ public class LODEParser {
     public HashMap<String, String> getNamespaceDeclarations() {
         return namespaceDeclarations;
     }
+
+    public String getAnnotationProp() {
+        return annotationProp;
+    }
+
+    public String getAnnotationPropList() {
+        return annotationPropList;
+    }
+
+    public String getNamedIndividuals() {
+        return namedIndividuals;
+    }
+
+    public String getNamedIndividualList() {
+        return namedIndividualList;
+    }
+    
     
     private void parse(String content){
         try {            
@@ -118,6 +140,14 @@ public class LODEParser {
                     dataPropList = (getTermList(html.item(i)));
                     dataProp = (nodeToString(html.item(i)));
                 }
+                else if(attrID.equals("annotationproperties")){
+                    annotationPropList = (getTermList(html.item(i)));
+                    annotationProp = (nodeToString(html.item(i)));
+                }
+                else if(attrID.equals("namedindividuals")){
+                    namedIndividualList = (getTermList(html.item(i)));
+                    namedIndividuals = (nodeToString(html.item(i)));
+                }
                 else if(attrID.equals("namespacedeclarations")){
                     Node namespace = html.item(i);
                     //<dt> prefix </dt> <dd>namespace</dd>
@@ -129,7 +159,10 @@ public class LODEParser {
                             if(dl.item(j).getNodeName().equals("dt")){
                                 String value = dl.item(j+1).getTextContent();
                                 //System.out.println(key+","+value);
-                                namespaceDeclarations.put(key,value);
+                                //there might be duplicate ns. Don't add them
+                                if(!namespaceDeclarations.containsValue(value)){
+                                    namespaceDeclarations.put(key,value);
+                                }
                             }
                             j++;
                         }
@@ -152,6 +185,14 @@ public class LODEParser {
                 dataPropList = fixIds(dataPropList);
                 dataProp = fixIds(dataProp);
             }                                       
+            if(!"".equals(annotationPropList)&& annotationPropList!=null){
+                annotationPropList = fixIds(annotationPropList);
+                annotationProp = fixIds(annotationProp);
+            }  
+            if(!"".equals(namedIndividualList)&& namedIndividualList!=null){
+                namedIndividualList = fixIds(namedIndividualList);
+                namedIndividuals = fixIds(namedIndividuals);
+            }  
             System.out.println("Parsing Complete!");
         } catch (ParserConfigurationException ex) {
             System.out.println("Exception interpreting the resource: "+ ex.getMessage());

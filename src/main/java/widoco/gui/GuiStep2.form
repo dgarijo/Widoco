@@ -215,7 +215,7 @@
         <Component class="javax.swing.JTable" name="tableProperties">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="15">
+              <Table columnCount="2" rowCount="16">
                 <Column editable="false" title="Property" type="java.lang.String">
                   <Data value="abstract"/>
                   <Data value="ontology title"/>
@@ -232,9 +232,11 @@
                   <Data value="imported ontologies"/>
                   <Data value="extended ontologies"/>
                   <Data value="license"/>
+                  <Data value="cite as"/>
                 </Column>
                 <Column editable="false" title="Value" type="java.lang.Object">
                   <Data value=""/>
+                  <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>

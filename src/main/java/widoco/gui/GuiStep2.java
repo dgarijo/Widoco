@@ -33,13 +33,9 @@ import java.io.Writer;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import widoco.Configuration;
 import widoco.TextConstants;
@@ -48,7 +44,7 @@ import widoco.entities.Ontology;
 
 /**
  *
- * @author Dani
+ * @author Daniel Garijo
  */
 public class GuiStep2 extends javax.swing.JFrame {
     private final GuiController g;
@@ -98,10 +94,10 @@ public class GuiStep2 extends javax.swing.JFrame {
                         else if(prop.equals("contributors")){
                             form = new EditProperty(gAux, conf, EditProperty.PropertyType.contributors);
                         }
-                        else if(prop.equals("extended")){
+                        else if(prop.equals("extended ontologies")){
                             form = new EditProperty(gAux, conf, EditProperty.PropertyType.extended);
                         }
-                        else if(prop.contains("imported")){
+                        else if(prop.equals("imported ontologies")){
                             form = new EditProperty(gAux, conf, EditProperty.PropertyType.imported);
                         }
                         if (form!=null){
@@ -176,7 +172,8 @@ public class GuiStep2 extends javax.swing.JFrame {
                 {"contributors", contributors},
                 {"imported ontologies", imported},
                 {"extended ontologies", extended},
-                {"license URI", conf.getLicense().getUrl()}
+                {"license URI", conf.getLicense().getUrl()},
+                {"cite As", conf.getCiteAs()}
             },
             new String [] {
                 "Property", "Value"
@@ -231,7 +228,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                 }else if(prop.equals("date of release")){
                     conf.setReleaseDate(value);
                 }else if(prop.equals("this version URI")){
-                    conf.setThisVersion(prop);
+                    conf.setThisVersion(value);
                 }else if(prop.equals("latest version URI")){
                     conf.setLatestVersion(value);
                 }else if(prop.equals("previous version URI")){
@@ -240,6 +237,8 @@ public class GuiStep2 extends javax.swing.JFrame {
                     conf.setRevision(value);
                 }else if(prop.equals("license URI")){
                     conf.getLicense().setUrl(value);
+                }else if(prop.equals("cite as")){
+                    conf.setCiteAs(value);
                 }
             }
         }
@@ -330,7 +329,8 @@ public class GuiStep2 extends javax.swing.JFrame {
                 {"contributors", null},
                 {"imported ontologies", null},
                 {"extended ontologies", null},
-                {"license", null}
+                {"license", null},
+                {"cite as", null}
             },
             new String [] {
                 "Property", "Value"
@@ -523,7 +523,8 @@ public class GuiStep2 extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-           g.reloadConfiguration(chooser.getSelectedFile().getAbsolutePath());
+//           g.reloadConfiguration(chooser.getSelectedFile().getAbsolutePath());
+           conf.reloadPropertyFile(chooser.getSelectedFile().getAbsolutePath());
            this.refreshPropertyTable();
         }
     }//GEN-LAST:event_loadMetadataButtonActionPerformed
@@ -533,7 +534,6 @@ public class GuiStep2 extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void loadMetadataFromDefaultConfigFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataFromDefaultConfigFileActionPerformed
-        // TODO add your handling code here:
         if(loadMetadataFromDefaultConfigFile.isSelected() && loadMetadataFromOnto.isSelected()){
             loadMetadataFromOnto.setSelected(false);
         }
@@ -544,7 +544,8 @@ public class GuiStep2 extends javax.swing.JFrame {
                 try{
                     URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
                     String path = (new File(root.toURI())).getParentFile().getPath();
-                    g.reloadConfiguration(path+File.separator+TextConstants.configPath);
+                    conf.reloadPropertyFile(path+File.separator+TextConstants.configPath);
+                    //g.reloadConfiguration(path+File.separator+TextConstants.configPath);
                     this.refreshPropertyTable();
                 }catch(URISyntaxException e){
                     System.err.println("Error while reading the default config file");
@@ -578,6 +579,7 @@ public class GuiStep2 extends javax.swing.JFrame {
             textProperties+=TextConstants.licenseURI+"="+conf.getLicense().getUrl()+"\n";
             textProperties+=TextConstants.licenseName+"="+conf.getLicense().getName()+"\n";
             textProperties+=TextConstants.licenseIconURL+"="+conf.getLicense().getIcon()+"\n";
+            textProperties+=TextConstants.citeAs+"="+conf.getCiteAs()+"\n";
             String authors="", authorURLs="", authorInstitutions="";
             ArrayList<Agent> ag = conf.getCreators();
             if(!ag.isEmpty()){

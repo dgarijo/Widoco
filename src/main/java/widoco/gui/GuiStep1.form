@@ -218,8 +218,7 @@
         <Property name="text" type="java.lang.String" value="Create template documentation from file"/>
       </Properties>
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="option1FocusGained"/>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="option1MouseClicked"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="option1ItemStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="option2">
@@ -227,7 +226,7 @@
         <Property name="text" type="java.lang.String" value="Create template documentation from URI"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="option2MouseClicked"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="option2ItemStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="option3">

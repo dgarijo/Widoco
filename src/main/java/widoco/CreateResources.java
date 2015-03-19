@@ -49,7 +49,7 @@ public class CreateResources {
             createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c);
         }
         if(c.isIncludeOverview()){
-            createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList());
+            createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList(), lode.getAnnotationPropList(),lode.getNamedIndividualList());
         }
         if(c.isIncludeDescription()){
             createDescriptionSection(folderOut+File.separator+"sections",c);
@@ -63,7 +63,7 @@ public class CreateResources {
         if(c.isPublishProvenance()){
             createProvenancePage(folderOut+File.separator+"provenance", c);
         }
-        createIndexDocument(folderOut,c);
+        createIndexDocument(folderOut,c, lode);
     }
     
     public static void generateSkeleton(String folderOut, Configuration c){
@@ -73,7 +73,7 @@ public class CreateResources {
         createIntroductionSection(folderOut+File.separator+"sections",null,c);
         createDescriptionSection(folderOut+File.separator+"sections",c);
         createReferencesSection(folderOut+File.separator+"sections",c);
-        createIndexDocument(folderOut,c);
+        createIndexDocument(folderOut,c,null);
     }
     
     /**
@@ -91,7 +91,7 @@ public class CreateResources {
         if((c.getAbstractPath()!=null) && (!"".equals(c.getAbstractPath()))){
             copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract.html"));
         }else{
-            saveDocument(path+File.separator+"abstract.html", TextConstants.getAbstractSection(c.getAbstractSection()),c);
+            saveDocument(path+File.separator+"abstract.html", TextConstants.getAbstractSection(c.getAbstractSection(),c),c);
         }
         
     }
@@ -113,7 +113,7 @@ public class CreateResources {
     }
     
     //the lists passed onto this method are the fixed lists
-    private static void createOverviewSection(String path, Configuration c, String classesList, String propList, String dataPropList){
+    private static void createOverviewSection(String path, Configuration c, String classesList, String propList, String dataPropList, String annotationProps, String namedIndividuals){
         if((c.getOverviewPath()!=null) && (!"".equals(c.getOverviewPath()))){
             copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview.html"));
         }else{
@@ -130,6 +130,14 @@ public class CreateResources {
                 overViewSection+=("<h4>Data Properties</h4>");
                 overViewSection+=(dataPropList);
             }
+            if(!"".equals(annotationProps) && annotationProps!=null){
+                overViewSection+=("<h4>Annotation Properties</h4>");
+                overViewSection+=(annotationProps);
+            }
+            if(!"".equals(namedIndividuals) && namedIndividuals!=null){
+                overViewSection+=("<h4>Named Individuals</h4>");
+                overViewSection+=(namedIndividuals);
+            }
             saveDocument(path+File.separator+"overview.html", overViewSection,c);
         }
     }
@@ -145,7 +153,8 @@ public class CreateResources {
     private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c){
         //cross reference section has to be included always.
         String crossRef = TextConstants.getCrossReferenceSection(c);
-        String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList();
+        String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList(),
+                annotationPropList = lodeParser.getAnnotationPropList(), namedIndividualList = lodeParser.getNamedIndividualList();
         if(classesList!=null && !"".equals(classesList)){
             crossRef += lodeParser.getClasses();
         }
@@ -154,6 +163,12 @@ public class CreateResources {
         }
         if(dataPropList!=null && !"".equals(dataPropList)){
             crossRef += lodeParser.getDataProp();
+        }
+        if(c.isIncludeAnnotationProperties() && annotationPropList!=null && !"".equals(annotationPropList)){
+            crossRef += lodeParser.getAnnotationProp();
+        }
+        if(c.isIncludeNamedIndividuals() && namedIndividualList!=null && !"".equals(namedIndividualList)){
+            crossRef += lodeParser.getNamedIndividuals();
         }
         saveDocument(path+File.separator+"crossref.html", crossRef,c);
     }
@@ -170,9 +185,9 @@ public class CreateResources {
      * Method for creating the index section on the url provided. The index will
      * include the pointers to all of the other sections.
      */
-    private static void createIndexDocument(String path, Configuration c){
+    private static void createIndexDocument(String path, Configuration c, LODEParser l){
         //the boolean valuas come from the configuration.
-        String textToWrite = TextConstants.getIndexDocument("resources",c);
+        String textToWrite = TextConstants.getIndexDocument("resources",c, l);
         saveDocument(path+File.separator+"index.html", textToWrite,c);
     }
     

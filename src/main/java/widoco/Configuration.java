@@ -62,7 +62,7 @@ public class Configuration {
     private boolean fromFile;//if this is true, the onto will be from a file. otherwise it's a URI
     
     private boolean publishProvenance;
-    private String provenanceURI; //this will be used as the subject for describing provenance (url of the doc)
+//    private String provenanceURI; //this will be used as the subject for describing provenance (url of the doc)
     
     private boolean includeAbstract;
     private boolean includeIntroduction;
@@ -70,6 +70,8 @@ public class Configuration {
     private boolean includeDescription;
     private boolean includeReferences;
     private boolean includeCrossReferenceSection;//needed for skeleton
+    private boolean includeAnnotationProperties;
+    private boolean includeNamedIndividuals;
     private String abstractPath;
     private String introductionPath;
     private String overviewPath;
@@ -95,6 +97,9 @@ public class Configuration {
     
     //just in case there is an abstract included
     private String abstractSection;
+    
+    //citation (if included)
+    private String citeAs;
     
 //    to do. Load from configuration file. Setters and getters to do it from the interface.
     //model everything as a singleton object. No need: only the controller accesses this file.
@@ -132,6 +137,7 @@ public class Configuration {
                 mainOntology.setNamespaceURI("");
         }
         license = new License();
+        citeAs = "";
         publishProvenance = true;    
         includeAbstract = true;
         includeIntroduction = true;
@@ -139,6 +145,8 @@ public class Configuration {
         includeDescription = true;
         includeReferences = true;
         includeCrossReferenceSection = true;
+        includeAnnotationProperties = false;
+        includeNamedIndividuals = true;
     }
     
     private void loadPropertyFile(String path){
@@ -147,20 +155,22 @@ public class Configuration {
             //this forces the property file to be in UTF 8 instead of the ISO
             propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
-            this.abstractSection = propertyFile.getProperty(TextConstants.abstractSectionContent);
-            this.title = propertyFile.getProperty(TextConstants.ontTitle,"Title goes here");
-            this.releaseDate = propertyFile.getProperty(TextConstants.dateOfRelease, "Date of release");
-            this.previousVersion =propertyFile.getProperty(TextConstants.previousVersionURI);
+            abstractSection = propertyFile.getProperty(TextConstants.abstractSectionContent);
+            title = propertyFile.getProperty(TextConstants.ontTitle,"Title goes here");
+            releaseDate = propertyFile.getProperty(TextConstants.dateOfRelease, "Date of release");
+            previousVersion =propertyFile.getProperty(TextConstants.previousVersionURI);
             thisVersion =propertyFile.getProperty(TextConstants.thisVersionURI);
-            latestVersion =propertyFile.getProperty(TextConstants.thisVersionURI);
+            latestVersion =propertyFile.getProperty(TextConstants.latestVersionURI);
             mainOntology.setName(propertyFile.getProperty(TextConstants.ontName));
             mainOntology.setNamespacePrefix(propertyFile.getProperty(TextConstants.ontPrefix));
             mainOntology.setNamespaceURI(propertyFile.getProperty(TextConstants.ontNamespaceURI));
             revision = propertyFile.getProperty(TextConstants.ontologyRevision);
-            //to do: check that the authors is not empty before doing the split.
-            String[] names = propertyFile.getProperty(TextConstants.authors).split(";");
-            String[] urls = propertyFile.getProperty(TextConstants.authorsURI).split(";");
-            String[] authorInst = propertyFile.getProperty(TextConstants.authorsInstitution).split(";");
+            String aux = propertyFile.getProperty(TextConstants.authors,"");
+            String[] names = aux.split(";");
+            aux = propertyFile.getProperty(TextConstants.authorsURI,"");
+            String[] urls = aux.split(";");
+            aux = propertyFile.getProperty(TextConstants.authorsInstitution,"");
+            String[] authorInst = aux.split(";");
             for(int i =0; i< names.length; i++){
                 Agent a = new Agent();
                 a.setName(names[i]);
@@ -172,9 +182,12 @@ public class Configuration {
                 }
                 creators.add(a);
             }
-            names = propertyFile.getProperty(TextConstants.contributors).split(";");
-            urls = propertyFile.getProperty(TextConstants.contributorsURI).split(";");
-            authorInst = propertyFile.getProperty(TextConstants.contributorsInstitution).split(";");
+            aux = propertyFile.getProperty(TextConstants.contributors,"");
+            names = aux.split(";");
+            aux = propertyFile.getProperty(TextConstants.contributorsURI,"");
+            urls = aux.split(";");
+            aux = propertyFile.getProperty(TextConstants.contributorsInstitution,"");
+            authorInst = aux.split(";");
             for(int i =0; i< names.length; i++){
                 Agent a = new Agent();
                 a.setName(names[i]);
@@ -186,29 +199,38 @@ public class Configuration {
                 }
                 contributors.add(a);
             }
-            names = propertyFile.getProperty(TextConstants.importedOntologyNames).split(";");
-            urls = propertyFile.getProperty(TextConstants.importedOntologyURIs).split(";");
+            aux = propertyFile.getProperty(TextConstants.importedOntologyNames,"");
+            names = aux.split(";");
+            aux = propertyFile.getProperty(TextConstants.importedOntologyURIs,"");
+            urls = aux.split(";");
             for(int i =0; i< names.length; i++){
-                Ontology o = new Ontology();
-                o.setName(names[i]);
-                if(urls.length == names.length){
-                    o.setNamespaceURI(urls[i]);
+                if(!"".equals(names[i])){
+                    Ontology o = new Ontology();
+                    o.setName(names[i]);
+                    if(urls.length == names.length){
+                        o.setNamespaceURI(urls[i]);
+                    }
+                    importedOntologies.add(o);
                 }
-                importedOntologies.add(o);
             }
-            names = propertyFile.getProperty(TextConstants.extendedOntologyNames).split(";");
-            urls = propertyFile.getProperty(TextConstants.extendedOntologyURIs).split(";");
+            aux = propertyFile.getProperty(TextConstants.extendedOntologyNames,"");
+            names = aux.split(";");
+            aux = propertyFile.getProperty(TextConstants.extendedOntologyURIs,"");
+            urls = aux.split(";");
             for(int i =0; i< names.length; i++){
-                Ontology o = new Ontology();
-                o.setName(names[i]);
-                if(urls.length == names.length){
-                    o.setNamespaceURI(urls[i]);
+                if(!"".equals(names[i])){
+                    Ontology o = new Ontology();
+                    o.setName(names[i]);
+                    if(urls.length == names.length){
+                        o.setNamespaceURI(urls[i]);
+                    }
+                    extendedOntologies.add(o);
                 }
-                extendedOntologies.add(o);
             }
-            license.setName(propertyFile.getProperty(TextConstants.licenseName));
-            license.setUrl(propertyFile.getProperty(TextConstants.licenseURI));
-            license.setIcon(propertyFile.getProperty(TextConstants.licenseIconURL));
+            license.setName(propertyFile.getProperty(TextConstants.licenseName,""));
+            license.setUrl(propertyFile.getProperty(TextConstants.licenseURI,""));
+            license.setIcon(propertyFile.getProperty(TextConstants.licenseIconURL,""));
+            citeAs = propertyFile.getProperty(TextConstants.citeAs, "");
     	} catch (Exception ex) {
             System.err.println("Error while reading configuration properties "+ex.getMessage());
         }
@@ -311,6 +333,11 @@ public class Configuration {
         
         System.out.println("Loaded properties from ontology");
     }
+
+    public String getCiteAs() {
+        return citeAs;
+    }
+
     
     private boolean isURL(String s){
         try{
@@ -400,15 +427,15 @@ public class Configuration {
         return publishProvenance;
     }
 
-    public String getProvenanceURI() {
-        return provenanceURI;
-    }
+//    public String getProvenanceURI() {
+//        return provenanceURI;
+//    }
 
     
     
-    public void setProvenanceURI(String provenanceURI) {
-        this.provenanceURI = provenanceURI;
-    }
+//    public void setProvenanceURI(String provenanceURI) {
+//        this.provenanceURI = provenanceURI;
+//    }
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
@@ -590,6 +617,7 @@ public class Configuration {
     
     /**
      * Lode configuration parameters
+     * 
      */
     
     public String getLanguage() {
@@ -655,6 +683,28 @@ public class Configuration {
     public void setAbstractSection(String abstractSection) {
         this.abstractSection = abstractSection;
     }
+    
+    public void setCiteAs(String citeAs) {
+        this.citeAs = citeAs;
+    }
+
+    public boolean isIncludeAnnotationProperties() {
+        return includeAnnotationProperties;
+    }
+    
+    public void setIncludeAnnotationProperties(boolean includeAnnotationProperties) {
+        this.includeAnnotationProperties = includeAnnotationProperties;
+    }
+
+    public boolean isIncludeNamedIndividuals() {
+        return includeNamedIndividuals;
+    }
+
+    public void setIncludeNamedIndividuals(boolean includeNamedIndividuals) {
+        this.includeNamedIndividuals = includeNamedIndividuals;
+    }
+    
+    
     
     
 }

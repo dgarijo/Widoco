@@ -158,21 +158,16 @@ public class GuiStep1 extends javax.swing.JFrame {
         });
 
         option1.setText("Create template documentation from file");
-        option1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                option1FocusGained(evt);
-            }
-        });
-        option1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                option1MouseClicked(evt);
+        option1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                option1ItemStateChanged(evt);
             }
         });
 
         option2.setText("Create template documentation from URI");
-        option2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                option2MouseClicked(evt);
+        option2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                option2ItemStateChanged(evt);
             }
         });
 
@@ -392,12 +387,27 @@ public class GuiStep1 extends javax.swing.JFrame {
         this.textDocPath.setText(folderPath+File.separator+textDocName.getText()+evt.getKeyChar());
     }//GEN-LAST:event_textDocNameKeyTyped
 
-    private void option1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_option1FocusGained
-        //System.out.println("focus gained");
-        
-    }//GEN-LAST:event_option1FocusGained
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.g.switchState("cancel");
+    }//GEN-LAST:event_formWindowClosing
 
-    private void option1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option1MouseClicked
+    private void option2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_option2ItemStateChanged
+        if (option2.isSelected()){
+            this.textFieldURL.setEditable(true);
+            //if the text is the default one, delete it.
+            if (textFieldURL.getText().equals("Insert here the URL of the vocabulary")){
+                textFieldURL.setText("");
+            }
+        }else{
+            this.textFieldURL.setEditable(false);
+            //if the text is the default one, delete it.
+            if (textFieldURL.getText().equals("")){
+                textFieldURL.setText("Insert here the URL of the vocabulary");
+            }
+        }
+    }//GEN-LAST:event_option2ItemStateChanged
+
+    private void option1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_option1ItemStateChanged
         if(option1.isSelected()){
             JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
             chooser.setName("Select OWL File");
@@ -425,57 +435,8 @@ public class GuiStep1 extends javax.swing.JFrame {
                this.textFieldPath.setText(chooser.getSelectedFile().getAbsolutePath());
             }
         }
-    }//GEN-LAST:event_option1MouseClicked
+    }//GEN-LAST:event_option1ItemStateChanged
 
-    private void option2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option2MouseClicked
-        if (option2.isSelected()){
-            this.textFieldURL.setEditable(true);
-            //if the text is the default one, delete it.
-            if (textFieldURL.getText().equals("Insert here the URL of the vocabulary")){
-                textFieldURL.setText("");
-            }
-        }
-    }//GEN-LAST:event_option2MouseClicked
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.g.switchState("cancel");
-    }//GEN-LAST:event_formWindowClosing
-
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GuiStep1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GuiStep1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GuiStep1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GuiStep1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//
-//            public void run() {
-//                new GuiStep1().setVisible(true);
-//            }
-//        });
-//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseButton;
     private javax.swing.JButton cancelButton;

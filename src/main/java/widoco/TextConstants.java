@@ -59,6 +59,7 @@ public class TextConstants {
     public static final String licenseName="licenseName";
     public static final String licenseURI="licenseURI";
     public static final String licenseIconURL="licenseIconURL";
+    public static final String citeAs="citeAs";
     
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
@@ -67,7 +68,7 @@ public class TextConstants {
 //    public static final String abstractSection="<h2>Abstract</h2><p>Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
 //            + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b></p>\n";
     
-    public static String  getAbstractSection(String abstractContent){
+    public static String  getAbstractSection(String abstractContent, Configuration c){
         String abstractSection = "<h2>Abstract</h2><p>";
         if(abstractContent!=null && !"".equals(abstractContent)){
             abstractSection+=abstractContent;
@@ -77,6 +78,10 @@ public class TextConstants {
             + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b>";
         }
         abstractSection+="</p>\n";
+        //citation info
+        if(!"".equals(c.getCiteAs()) && c.getCiteAs()!=null){
+            abstractSection+="<p><strong>Cite as:</strong></br>\n"+c.getCiteAs()+"\n</p>";
+        }
         return abstractSection;
     }
             
@@ -198,7 +203,7 @@ public class TextConstants {
     	return ns;
     }
     
-    public static String getIndexDocument(String resourcesFolderName,Configuration c){
+    public static String getIndexDocument(String resourcesFolderName,Configuration c, LODEParser l){
         String document=opening +
                         " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/primer.css\" media=\"screen\" />   " +
                         " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/rec.css\" media=\"screen\" />   " +
@@ -235,7 +240,7 @@ public class TextConstants {
                         "</span>\n";
         document += getHeadSection(c);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
-        document += getTableOfContentsSection(c);
+        document += getTableOfContentsSection(c,l);
         if(c.isIncludeIntroduction()) document += "     <div id=\"introduction\"></div>\n";
         //else document += "<div id=\"namespacedeclaration\"></div>\n";
         if(c.isIncludeOverview()) document += "     <div id=\"overview\"></div>\n";
@@ -302,7 +307,7 @@ public class TextConstants {
         return head;
     }
     
-    public static String getTableOfContentsSection(Configuration c){
+    public static String getTableOfContentsSection(Configuration c, LODEParser l){
         int i=1;
         String table ="<div id=\"toc\">"+
             "<h2>Table of Contents</h2>\n"+
@@ -321,13 +326,36 @@ public class TextConstants {
                 i++;
             }	
             if(c.isIncludeCrossReferenceSection()){
-                table+="<li><a href=\"#crossref\">"+i+". Cross reference for "+c.getMainOntology().getName()+" classes, properties and dataproperties</a></li>\n"+
-                    "<ul>\n"+
-                    "        <li><a href=\"#classes\">"+i+".1 Classes</a></li>\n"+
-                    "        <li><a href=\"#objectproperties\">"+i+".2 Object Properties</a></li>\n"+
-                    "        <li><a href=\"#dataproperties\">"+i+".3 Data Properties</a></li>\n"+
-                    "</ul>\n";
-                i++;
+                int j=1;
+                if(l!=null){
+                    table+="<li><a href=\"#crossref\">"+i+". Cross reference for "+c.getMainOntology().getName()+" classes, properties and dataproperties</a></li>\n"+
+                        "<ul>\n";
+    //                    "        <li><a href=\"#classes\">"+i+".1 Classes</a></li>\n"+
+    //                    "        <li><a href=\"#objectproperties\">"+i+".2 Object Properties</a></li>\n"+
+    //                    "        <li><a href=\"#dataproperties\">"+i+".3 Data Properties</a></li>\n";
+                    if(l.getClassList()!=null && !"".equals(l.getClassList())){
+                        table+="<li><a href=\"#classes\">"+i+"."+j+" Classes</a></li>\n";
+                        j++;
+                    }
+                    if(l.getPropertyList()!=null && !"".equals(l.getPropertyList())){
+                        table+="<li><a href=\"#objectproperties\">"+i+"."+j+" Object Properties</a></li>\n";
+                        j++;
+                    }
+                    if(l.getDataPropList()!=null && !"".equals(l.getDataPropList())){
+                        table+="        <li><a href=\"#dataproperties\">"+i+"."+j+" Data Properties</a></li>\n";
+                        j++;
+                    }
+                    if(c.isIncludeAnnotationProperties() && l.getAnnotationPropList()!=null && !"".equals(l.getAnnotationPropList())){
+                        table+="        <li><a href=\"#annotationproperties\">"+i+"."+j+" Annotation properties</a></li>\n";
+                        j++;
+                    }
+                    if(c.isIncludeNamedIndividuals() && l.getNamedIndividualList()!=null && !"".equals(l.getNamedIndividualList())){
+                        table+="        <li><a href=\"#namedindividuals\">"+i+"."+j+" Named Individuals</a></li>\n";
+                        j++;
+                    }
+                    table+="</ul>\n";
+                    i++;
+                }
             }
             if(c.isIncludeReferences()){
                 table+="<li><a href=\"#references\">"+i+". References</a></li>\n";
@@ -364,51 +392,59 @@ public class TextConstants {
                 "\n" +
                 "<body>\n" +
                 "<div class=\"head\">\n";
-                if(c.getTitle()!=null &&!"".equals(c.getTitle())){
-                    provhtml+="<h1>Provenance for"+c.getTitle()+" Documentation ("+c.getProvenanceURI()+")</h1>\n";
-                }
-                provhtml+="<ul>\n";
-                if(!c.getCreators().isEmpty()){
-                    provhtml+="	<li>Ontology created by :\n";
-                    Iterator<Agent> creators = c.getCreators().iterator();
-                    while(creators.hasNext()){
-                        Agent currCreator = creators.next();
-                        provhtml+= " "+currCreator.getName()+"("+currCreator.getInstitutionName()+"),";
-                    }
-                    provhtml+="</li>";
-                }
-                if(!c.getContributors().isEmpty()){
-                    provhtml+="	<li>Ontology contributed to by :\n";
-                    Iterator<Agent> contrib = c.getContributors().iterator();
-                    while(contrib.hasNext()){
-                        Agent currContrib = contrib.next();
-                        provhtml+= " "+currContrib.getName()+"("+currContrib.getInstitutionName()+"),";
-                    }
-                    provhtml+="</li>\n";
-                }
-                if(c.getLatestVersion()!=null &&!"".equals(c.getLatestVersion())){
-                    provhtml+="<li>"+c.getProvenanceURI()+ "is a specialization of the generic URI "+ c.getLatestVersion()+"</li>\n";
-                }
-                if(c.getPreviousVersion()!=null &&!"".equals(c.getPreviousVersion())){
-                    provhtml+="<li>"+c.getProvenanceURI()+ "is a revision of the generic URI "+ c.getPreviousVersion()+"</li>\n";
-                }                    
-                provhtml+="<li>The ontology documentation was the result of using the <a href=\"https://github.com/dgarijo/Widoco\">Widoco tool</a> (which itself uses <a href=\"http://www.essepuntato.it/lode/\">LODE</a> for generating the crossreference section).</li>\n";
-                if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
-                    provhtml+="<li>The documentation was generated at</li>\n" +c.getReleaseDate();
-                }
-                provhtml+="</ul>\n" +
-                "</div>\n" +
-                "</body> \n" +
-                "</html>";
+        String provURI = c.getThisVersion();
+        if(provURI==null || provURI.equals("")){
+            provURI = "..\\index.html";
+        }
+        if(c.getTitle()!=null &&!"".equals(c.getTitle())){
+            provhtml+="<h1>Provenance for"+c.getTitle()+" Documentation ("+provURI+")</h1>\n";
+        }
+        provhtml+="<ul>\n";
+        if(!c.getCreators().isEmpty()){
+            provhtml+="	<li>Ontology created by :\n";
+            Iterator<Agent> creators = c.getCreators().iterator();
+            while(creators.hasNext()){
+                Agent currCreator = creators.next();
+                provhtml+= " "+currCreator.getName()+" ("+currCreator.getInstitutionName()+"),";
+            }
+            provhtml+="</li>";
+        }
+        if(!c.getContributors().isEmpty()){
+            provhtml+="	<li>Ontology contributed to by :\n";
+            Iterator<Agent> contrib = c.getContributors().iterator();
+            while(contrib.hasNext()){
+                Agent currContrib = contrib.next();
+                provhtml+= " "+currContrib.getName()+" ("+currContrib.getInstitutionName()+"),";
+            }
+            provhtml+="</li>\n";
+        }
+        if(c.getLatestVersion()!=null &&!"".equals(c.getLatestVersion())){
+            provhtml+="<li>"+provURI+ " is a specialization of the generic URI "+ c.getLatestVersion()+"</li>\n";
+        }
+        if(c.getPreviousVersion()!=null &&!"".equals(c.getPreviousVersion())){
+            provhtml+="<li>"+provURI+ " is a revision of the previous version "+ c.getPreviousVersion()+"</li>\n";
+        }                    
+        provhtml+="<li>The ontology documentation was the result of using the <a href=\"https://github.com/dgarijo/Widoco\">Widoco tool</a> (which itself uses <a href=\"http://www.essepuntato.it/lode/\">LODE</a> for generating the crossreference section).</li>\n";
+        if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
+            provhtml+="<li>The documentation was generated at</li>\n" +c.getReleaseDate();
+        }
+        provhtml+="</ul>\n" +
+        "</div>\n" +
+        "</body> \n" +
+        "</html>";
         return provhtml;
     }
     
     //for content negotiation, if desired. This has been done a bit quickly. Ideally it would change serializations according to what is needed.
     public static String getProvenanceRDF(Configuration c){
+        String provURI = c.getThisVersion();
+        if(provURI==null || provURI.equals("")){
+            provURI = "..\\index.html";
+        }
         String provrdf = "@prefix prov: <http://www.w3.org/ns/prov#> .\n"
                 + "@prefix dc: <http://purl.org/dc/terms/> .\n"
                 + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
-                provrdf+="<"+c.getProvenanceURI()+"> a prov:Entity;\n";
+                provrdf+="<"+provURI+"> a prov:Entity;\n";
                 if(c.getTitle()!=null &&!"".equals(c.getTitle())){
                     provrdf+= "\t dc:title \""+c.getTitle()+"\";\n";
                 }

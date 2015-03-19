@@ -78,7 +78,8 @@ public final class GuiController {
             String s = args[i];
             if(s.equals("-confFile")){
                 try{
-                    reloadConfiguration(args[i+1]);
+                    //reloadConfiguration(args[i+1]);
+                    this.config.reloadPropertyFile(args[i+1]);
                 }catch(Exception e){
                     System.out.println("Configuration file could not be loaded: "+e.getMessage());
                     return;
@@ -134,9 +135,9 @@ public final class GuiController {
         return config;
     }
     
-    public void reloadConfiguration(String path){
-        this.config.reloadPropertyFile(path);
-    }
+//    public void reloadConfiguration(String path){
+//        this.config.reloadPropertyFile(path);
+//    }
     
     
     public void generateSkeleton() {
