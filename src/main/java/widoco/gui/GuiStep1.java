@@ -430,6 +430,10 @@ public class GuiStep1 extends javax.swing.JFrame {
     private void option2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option2MouseClicked
         if (option2.isSelected()){
             this.textFieldURL.setEditable(true);
+            //if the text is the default one, delete it.
+            if (textFieldURL.getText().equals("Insert here the URL of the vocabulary")){
+                textFieldURL.setText("");
+            }
         }
     }//GEN-LAST:event_option2MouseClicked
 
