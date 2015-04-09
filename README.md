@@ -48,6 +48,7 @@ For customizing the metadata of your ontology, edit the project properties of /c
 The character ";" is used for lists (for instance first author; second author; third author).
 
 Now you can execute Widoco through the console. Usage:
+
 	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops][-rewriteAll]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
