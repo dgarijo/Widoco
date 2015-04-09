@@ -29,15 +29,20 @@ import widoco.gui.GuiController;
 public class CreateOOPSEvalInThread implements Runnable{
     private final Configuration c;
     private final GuiController pointerToMain;
+    private final boolean showGui; //flag to know whether to show the gui or not
     
-    public CreateOOPSEvalInThread(Configuration c, GuiController g){
+    public CreateOOPSEvalInThread(Configuration c, GuiController g, boolean showGUi){
         this.c = c;
         this.pointerToMain = g;
+        this.showGui = showGUi;
     }
 
     public void run() {
         //new folder in tmp, called Evaluation
-        this.pointerToMain.switchState("sendingRequest");
+        if(showGui){
+            this.pointerToMain.switchState("sendingRequest");
+        }
+        System.out.println("Sending request to OOPS server...");
         File evalFolder = new File(c.getDocumentationURI()+File.separator+"OOPSevaluation");
         File evalResourcesFolder = new File(evalFolder.getAbsolutePath()+File.separator+"evaluation");//for the css etc.
         try{
@@ -70,15 +75,25 @@ public class CreateOOPSEvalInThread implements Runnable{
             }            
             evaluation = eval.printEvaluation();
             //SAVE File
-            this.pointerToMain.switchState("savingResponse");
+            if(showGui){
+                this.pointerToMain.switchState("savingResponse");
+            }
+            System.out.println("Saving response...");
             CreateResources.saveDocument(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html", TextConstants.getEvaluationText(evaluation, c),c);
-            pointerToMain.openBrowser(new File(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html").toURI());
+            if(showGui){
+                pointerToMain.openBrowser(new File(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html").toURI());
+            }
         }catch(Exception e){
             System.err.println("Error while saving OOPS evaluation: "+e.getMessage());
-            this.pointerToMain.switchState("error");
+            if(showGui){
+                this.pointerToMain.switchState("error");
+            }
         }
         //go to the next step in the interface
-        this.pointerToMain.switchState("finishedEvaluation");
+        if(showGui){
+            this.pointerToMain.switchState("finishedEvaluation");
+        }
+        System.out.println("Done");
     }
 
 }

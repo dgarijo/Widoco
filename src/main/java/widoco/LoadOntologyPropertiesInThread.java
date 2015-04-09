@@ -25,20 +25,27 @@ import widoco.gui.GuiController;
 public class LoadOntologyPropertiesInThread implements Runnable{
     private final Configuration c;
     private final GuiController pointerToMain;
+    private final boolean showGui;
     
-    public LoadOntologyPropertiesInThread(Configuration c, GuiController g){
+    public LoadOntologyPropertiesInThread(Configuration c, GuiController g, boolean showgui){
         this.c = c;
         this.pointerToMain = g;
-        
+        this.showGui = showgui;
     }
 
     public void run() {
         //once it is loaded, load the properties in the config
         try{
             c.loadPropertiesFromOntology(WidocoUtils.loadModel(c));
-            pointerToMain.switchState("finishedLoading");
+            if(showGui){
+                pointerToMain.switchState("finishedLoading");
+            }
+            System.out.println("Properties loaded successfully from the ontology");
         }catch(Exception e){
-            pointerToMain.switchState("error");
+            if(showGui){
+                pointerToMain.switchState("error");
+            }
+            System.out.println("Error while loading properties: "+e.getMessage());
         }
     }
     

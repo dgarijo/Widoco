@@ -487,7 +487,7 @@ public class TextConstants {
     }
     
     //resources to copy to the temporal folder.
-    public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/common-functions.xsl", 
+    public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/custom-annotations.xsl","/lode/common-functions.xsl", 
         "/lode/pellet.properties", "/lode/structural-reasoner.xsl", "/lode/swrl-module.xsl", "/lode/en.xml"};
     
     public static final String[] oopsResources = {"/oops/js/jquery-1.11.0.js","/oops/js/bootstrap.min.js", 

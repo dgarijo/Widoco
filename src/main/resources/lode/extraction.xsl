@@ -32,6 +32,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:include href="swrl-module.xsl" />
     <xsl:include href="common-functions.xsl"/>
     <xsl:include href="structural-reasoner.xsl"/>
+    <xsl:include href="custom-annotations.xsl"/>
     
     <xsl:output encoding="UTF-8" indent="no" method="xhtml" />
     
@@ -1175,6 +1176,16 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                     <xsl:call-template name="get.entity.punning" />
                 </dl>
             </div>
+
+            <!--
+            <br />
+            <dt>Property annotation:</dt>
+            <div class="description">
+                <dl>
+                    <xsl:call-template name="get.custom.annotations" />
+                </dl>
+	    </div>-->
+            <xsl:call-template name="get.custom.annotations" />
         </xsl:if>
     </xsl:template>
     

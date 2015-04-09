@@ -130,11 +130,11 @@ public class CreateResources {
                 overViewSection+=("<h4>Data Properties</h4>");
                 overViewSection+=(dataPropList);
             }
-            if(!"".equals(annotationProps) && annotationProps!=null){
+            if(!"".equals(annotationProps) && annotationProps!=null && c.isIncludeAnnotationProperties()){
                 overViewSection+=("<h4>Annotation Properties</h4>");
                 overViewSection+=(annotationProps);
             }
-            if(!"".equals(namedIndividuals) && namedIndividuals!=null){
+            if(!"".equals(namedIndividuals) && namedIndividuals!=null && c.isIncludeNamedIndividuals()){
                 overViewSection+=("<h4>Named Individuals</h4>");
                 overViewSection+=(namedIndividuals);
             }
@@ -227,7 +227,7 @@ public class CreateResources {
         if(!f.exists()){
             f.mkdir();
         }else{
-            if(f.isDirectory()){
+            if(!f.isDirectory()){
                 System.err.println("The selected file is not a directory.");
                 //throw appropriate exceptions here
             }            

@@ -66,13 +66,17 @@ public final class GuiController {
         }
     }
     
+    /**
+     * Method for running the application via console.
+     * @param args 
+     */
     public GuiController(String[] args){
         System.out.println("\n\n--WIzard for DOCumenting Ontologies-- Powered by LODE.\n");
 //        System.out.println("Usage: java -jar [-ontFile file] or [-ontURI uri] -outFolder folderName [-confFile propertiesFile] \n");
         config = new Configuration();
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="";
-        boolean  isFromFile=false;//rewriteAll=true,
+        boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false;
         int i=0;
         while(i< args.length){
             String s = args[i];
@@ -80,6 +84,7 @@ public final class GuiController {
                 try{
                     //reloadConfiguration(args[i+1]);
                     this.config.reloadPropertyFile(args[i+1]);
+                    i++;
                 }catch(Exception e){
                     System.out.println("Configuration file could not be loaded: "+e.getMessage());
                     return;
@@ -87,23 +92,33 @@ public final class GuiController {
             }
             else if(s.equals("-outFolder")){
                 outFolder = args[i+1];
+                i++;
             }
-//            else if(s.equals("-rewriteAll")){
-//                rewriteAll = args[i+1].toLowerCase().startsWith("y");
-//            }
             else if(s.equals("-ontFile")){
                 ontology = args[i+1];
                 isFromFile = true;
+                i++;
             }
             else if(s.equals("-ontURI")){
                 ontology = args[i+1];
-            }else{
+                i++;
+            }
+            else  if(s.equals("-oops")){
+                oops=true;
+            }
+            else if(s.equals("-rewriteAll")){
+                rewriteAll = true;
+            }
+            else if(s.equals("-getOntologyMetadata")){
+                getOntoMetadata = true;
+            }
+            else{
                 System.out.println("Command"+s+" not recognized.");
                 System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] \n");
                 return;
             }
-            i+=2;
-        }
+            i++;
+        }        
         try {
             //create a temporal folder with all LODE resources
             tmpFile = new File("tmp"+new Date().getTime());
@@ -115,6 +130,10 @@ public final class GuiController {
         this.config.setFromFile(isFromFile);
         this.config.setDocumentationURI(outFolder);
         this.config.setOntologyPath(ontology);
+        this.config.setOverwriteAll(rewriteAll);
+        if(getOntoMetadata){
+            this.startLoadingPropertiesFromOntology(false);
+        }
         if(!isFromFile)this.config.setOntologyURI(ontology);
         try{
             System.out.println("Generating documentation for "+ontology);
@@ -126,7 +145,14 @@ public final class GuiController {
         }catch(Exception e){
             System.err.println("Error while generating the documentation " +e.getMessage());
 //            e.printStackTrace();
-        }   
+        }
+        System.out.println("Documentation generated successfully");
+        if(oops){
+            System.out.println("Generating the OOPS evaluation of the ontology...");
+            startEvaluation(false);
+            //since this requires more time, it is created on a thread. 
+            //Since it is a user thread it will remian alive even after the main thread dies.
+        }
         //delete temp files
         deleteAllTempFiles(tmpFile);
     }
@@ -134,11 +160,6 @@ public final class GuiController {
     public Configuration getConfig() {
         return config;
     }
-    
-//    public void reloadConfiguration(String path){
-//        this.config.reloadPropertyFile(path);
-//    }
-    
     
     public void generateSkeleton() {
         CreateResources.generateSkeleton(this.config.getDocumentationURI(), config);
@@ -149,13 +170,13 @@ public final class GuiController {
         new Thread(r).start();
     }
     
-    private void startEvaluation(){
-        Runnable r = new CreateOOPSEvalInThread(this.config, this);
+    private void startEvaluation(boolean showGui){
+        Runnable r = new CreateOOPSEvalInThread(this.config, this, showGui);
         new Thread(r).start();
     }
     
-    private void startLoadingPropertiesFromOntology(){
-        Runnable r = new LoadOntologyPropertiesInThread(this.config, this);
+    private void startLoadingPropertiesFromOntology(boolean showGui){
+        Runnable r = new LoadOntologyPropertiesInThread(this.config, this, showGui);
         new Thread(r).start();
     }
     
@@ -214,7 +235,7 @@ public final class GuiController {
                 }else{
                     if(input.equals("loadOntologyProperties")){    
                         state = State.loadingConfig;
-                        this.startLoadingPropertiesFromOntology();                    
+                        this.startLoadingPropertiesFromOntology(true);                    
                     }else{//next
                         state = State.sections;
                         this.gui.dispose();
@@ -276,7 +297,7 @@ public final class GuiController {
                 }
                 if(input.equals("evaluate")){
                     state = State.evaluating;
-                    this.startEvaluation();
+                    this.startEvaluation(true);
                 }
                 break;
             case evaluating:
