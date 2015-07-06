@@ -75,7 +75,7 @@ public final class GuiController {
 //        System.out.println("Usage: java -jar [-ontFile file] or [-ontURI uri] -outFolder folderName [-confFile propertiesFile] \n");
         config = new Configuration();
         //get the arguments
-        String outFolder="myDocumentation"+(new Date().getTime()), ontology="";
+        String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false;
         int i=0;
         while(i< args.length){
@@ -112,9 +112,13 @@ public final class GuiController {
             else if(s.equals("-getOntologyMetadata")){
                 getOntoMetadata = true;
             }
+            else if(s.equals("-saveConfig")){
+                configOutFile = args[i+1];
+                i++;
+            }
             else{
                 System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] \n");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile]\n");
                 return;
             }
             i++;
@@ -152,6 +156,13 @@ public final class GuiController {
             startEvaluation(false);
             //since this requires more time, it is created on a thread. 
             //Since it is a user thread it will remian alive even after the main thread dies.
+        }
+        if(configOutFile!=null){
+            try{
+                CreateResources.saveConfigFile(configOutFile, config);
+            }catch(IOException e){
+                System.err.println("Error while saving the configuraiton file: "+e.getMessage());
+            }
         }
         //delete temp files
         deleteAllTempFiles(tmpFile);

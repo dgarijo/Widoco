@@ -64,7 +64,7 @@
                                                           <Component id="option2" min="-2" max="-2" attributes="0"/>
                                                           <Component id="option1" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <EmptySpace min="0" pref="91" max="32767" attributes="0"/>
+                                                      <EmptySpace min="0" pref="39" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -215,7 +215,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="option1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Create template documentation from file"/>
+        <Property name="text" type="java.lang.String" value="Create template documentation from ontology file"/>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="option1ItemStateChanged"/>
@@ -223,7 +223,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="option2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Create template documentation from URI"/>
+        <Property name="text" type="java.lang.String" value="Create template documentation from ontology URI"/>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="option2ItemStateChanged"/>

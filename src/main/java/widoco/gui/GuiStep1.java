@@ -157,14 +157,14 @@ public class GuiStep1 extends javax.swing.JFrame {
             }
         });
 
-        option1.setText("Create template documentation from file");
+        option1.setText("Create template documentation from ontology file");
         option1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 option1ItemStateChanged(evt);
             }
         });
 
-        option2.setText("Create template documentation from URI");
+        option2.setText("Create template documentation from ontology URI");
         option2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 option2ItemStateChanged(evt);
@@ -246,7 +246,7 @@ public class GuiStep1 extends javax.swing.JFrame {
                                                             .addComponent(option3)
                                                             .addComponent(option2)
                                                             .addComponent(option1))
-                                                        .addGap(0, 91, Short.MAX_VALUE))))
+                                                        .addGap(0, 39, Short.MAX_VALUE))))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(39, 39, 39)
                                                 .addComponent(textFieldPath)))))

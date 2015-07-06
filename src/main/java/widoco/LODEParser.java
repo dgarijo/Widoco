@@ -123,7 +123,7 @@ public class LODEParser {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();                    
             Document doc = db.parse(new ByteArrayInputStream(content.getBytes("UTF-8")));//StandardCharsets.UTF_8
-
+            
             NodeList html = doc.getElementsByTagName("div");
 //            String cList = "", pList= "", dPList= "", c= "", p= "", dp="";
             for(int i = 0; i<html.getLength();i++){

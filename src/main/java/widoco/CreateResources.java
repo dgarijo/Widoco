@@ -25,9 +25,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
+import widoco.entities.Agent;
+import widoco.entities.Ontology;
 
 /**
  * Class that given a path, it creates all the associated resources needed to
@@ -305,6 +308,113 @@ public class CreateResources {
             if(is!=null)is.close();
             if(os!=null)os.close();
         }
+    }
+    
+    public static void saveConfigFile(String path, Configuration conf)throws IOException{
+        String textProperties = "\n";//the first line I leave an intro because there have been problems.
+            textProperties+=TextConstants.abstractSectionContent+"="+conf.getAbstractSection()+"\n";
+            textProperties+=TextConstants.ontTitle+"="+conf.getTitle()+"\n";
+            textProperties+=TextConstants.ontPrefix+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
+            textProperties+=TextConstants.ontNamespaceURI+"="+conf.getMainOntology().getNamespaceURI()+"\n";
+            textProperties+=TextConstants.ontName+"="+conf.getMainOntology().getName()+"\n";
+            textProperties+=TextConstants.thisVersionURI+"="+conf.getThisVersion()+"\n";
+            textProperties+=TextConstants.latestVersionURI+"="+conf.getLatestVersion()+"\n";
+            textProperties+=TextConstants.previousVersionURI+"="+conf.getPreviousVersion()+"\n";
+            textProperties+=TextConstants.dateOfRelease+"="+conf.getReleaseDate()+"\n";
+            textProperties+=TextConstants.ontologyRevision+"="+conf.getRevision()+"\n";
+            textProperties+=TextConstants.licenseURI+"="+conf.getLicense().getUrl()+"\n";
+            textProperties+=TextConstants.licenseName+"="+conf.getLicense().getName()+"\n";
+            textProperties+=TextConstants.licenseIconURL+"="+conf.getLicense().getIcon()+"\n";
+            textProperties+=TextConstants.citeAs+"="+conf.getCiteAs()+"\n";
+            String authors="", authorURLs="", authorInstitutions="";
+            ArrayList<Agent> ag = conf.getCreators();
+            if(!ag.isEmpty()){
+                for(int i=0; i<ag.size()-1;i++){
+                    Agent a = ag.get(i);
+                    if(a.getName()!=null)authors+=a.getName();
+                    authors+=";";
+                    if(a.getURL()!=null)authorURLs+=a.getURL();
+                    authorURLs+=";";
+                    if(a.getInstitutionName()!=null)authorInstitutions+=a.getInstitutionName();
+                    authorInstitutions+=";";
+                }
+                //last agent: no ";"
+                if(ag.get(ag.size()-1).getName()!=null) authors+=ag.get(ag.size()-1).getName();
+                if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
+                if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
+            }
+            textProperties+=TextConstants.authors+"="+authors+"\n";
+            textProperties+=TextConstants.authorsURI+"="+authorURLs+"\n";
+            textProperties+=TextConstants.authorsInstitution+"="+authorInstitutions+"\n";
+            
+            ag = conf.getContributors();
+            authors=""; 
+            authorURLs="";
+            authorInstitutions="";
+            if(!ag.isEmpty()){
+                for(int i=0; i<ag.size()-1;i++){
+                    Agent a = ag.get(i);
+                    if(a.getName()!=null)authors+=a.getName();
+                    authors+=";";
+                    if(a.getURL()!=null)authorURLs+=a.getURL();
+                    authorURLs+=";";
+                    if(a.getInstitutionName()!=null)authorInstitutions+=a.getInstitutionName();
+                    authorInstitutions+=";";
+                }
+                if(ag.get(ag.size()-1).getName()!=null) authors+=ag.get(ag.size()-1).getName();
+                if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
+                if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
+            }
+            textProperties+=TextConstants.contributors+"="+authors+"\n";
+            textProperties+=TextConstants.contributorsURI+"="+authorURLs+"\n";
+            textProperties+=TextConstants.contributorsInstitution+"="+authorInstitutions+"\n";
+            String importedNames="", importedURIs="";
+            ArrayList<Ontology> imported = conf.getImportedOntologies();
+            if(!imported.isEmpty()){
+                for(int i=0; i<imported.size()-1;i++){
+                    Ontology o = imported.get(i);
+                    if(o.getName()!=null)importedNames+=o.getName();
+                    importedNames+=";";
+                    if(o.getNamespaceURI()!=null)importedURIs+=o.getNamespaceURI();
+                    importedURIs+=";";
+                }
+                //last agent: no ";"
+                if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
+                if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
+            }
+            textProperties+=TextConstants.importedOntologyNames+"="+importedNames+"\n";
+            textProperties+=TextConstants.importedOntologyURIs+"="+importedURIs+"\n";
+            imported = conf.getExtendedOntologies();
+            importedNames = "";
+            importedURIs = "";
+            if(!imported.isEmpty()){
+                for(int i=0; i<imported.size()-1;i++){
+                    Ontology o = imported.get(i);
+                    if(o.getName()!=null)importedNames+=o.getName();
+                    importedNames+=";";
+                    if(o.getNamespaceURI()!=null)importedURIs+=o.getNamespaceURI();
+                    importedURIs+=";";
+                }
+                //last agent: no ";"
+                if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
+                if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
+            }
+            textProperties+=TextConstants.extendedOntologyNames+"="+importedNames+"\n";
+            textProperties+=TextConstants.extendedOntologyURIs+"="+importedURIs+"\n";
+            //copy the result into the file
+            Writer writer = null;
+            try {
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), "utf-8"));
+                writer.write(textProperties);
+                //JOptionPane.showMessageDialog(this, "Property file saved successfully");
+            } catch (IOException ex) {
+              System.err.println("Error while saving the property file "+ex.getMessage());
+              throw ex;
+            } finally {
+               try {
+                   if(writer!=null)writer.close();
+               } catch (IOException ex) {}
+            }
     }
 //    public static void main(String[] args){
 //        //these methods have to be private!!

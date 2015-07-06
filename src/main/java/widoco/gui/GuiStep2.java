@@ -38,6 +38,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import widoco.Configuration;
+import widoco.CreateResources;
 import widoco.TextConstants;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
@@ -565,7 +566,13 @@ public class GuiStep2 extends javax.swing.JFrame {
         if(returnVal == JFileChooser.APPROVE_OPTION){
             //create a file (if not exists already)
             String path = chooser.getSelectedFile().getAbsolutePath();
-            String textProperties = "\n";//the first line I leave an intro because there have been problems.
+            try{
+                CreateResources.saveConfigFile(path, conf);
+                JOptionPane.showMessageDialog(this, "Property file saved successfully");
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(this, "Error while saving the property file ");
+            }
+            /*String textProperties = "\n";//the first line I leave an intro because there have been problems.
             textProperties+=TextConstants.abstractSectionContent+"="+conf.getAbstractSection()+"\n";
             textProperties+=TextConstants.ontTitle+"="+conf.getTitle()+"\n";
             textProperties+=TextConstants.ontPrefix+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
@@ -667,7 +674,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                try {
                    if(writer!=null)writer.close();
                } catch (IOException ex) {}
-            }
+            }*/
 
         }
         

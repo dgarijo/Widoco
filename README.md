@@ -49,7 +49,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops][-rewriteAll]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -59,7 +59,9 @@ The -confFile allows you to choose your own configuration file for the ontology 
 
 The -oops flag creates an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
 
-The - rewriteAll option will tell Widoco to rewrite files if the new generate files are replacing existing files. Otherwise the tool will promt a window asking the user.
+The -rewriteAll option will tell Widoco to rewrite files if the new generate files are replacing existing files. Otherwise the tool will promt a window asking the user.
+
+The -saveConfig option allows you to save a configuration file on the "configOutFile" route with the properties of a given ontology.
 
 Browser problems
 ==========

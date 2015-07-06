@@ -211,12 +211,18 @@ public class TextConstants {
                         " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/owl.css\" media=\"screen\" />   " +
                         "<script src=\""+resourcesFolderName+"/jquery.js\"></script> \n" +
                         "    <script> \n" +
+                        "function loadHash() {\n" +
+                        "	var hash = location.hash;\n" +
+                        "	if($(hash).offset()!=null){\n" +
+                        "		$('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" +
+                        "	}\n" +
+                        "}"+
                         "    $(function(){\n";
         if(c.isIncludeAbstract()) document += "      $(\"#abstract\").load(\"sections/abstract.html\"); \n";
         if(c.isIncludeIntroduction()) document += "      $(\"#introduction\").load(\"sections/introduction.html\"); \n";
         if(c.isIncludeOverview()) document += "      $(\"#overview\").load(\"sections/overview.html\"); \n";
         if(c.isIncludeDescription()) document += "      $(\"#description\").load(\"sections/description.html\"); \n";
-        if(c.isIncludeCrossReferenceSection()) document += "      $(\"#crossref\").load(\"sections/crossref.html\"); \n";
+        if(c.isIncludeCrossReferenceSection()) document += "      $(\"#crossref\").load(\"sections/crossref.html\", null, loadHash); \n";
         if(c.isIncludeReferences()) document += "      $(\"#references\").load(\"sections/references.html\"); \n";
             document+="    });\n" +
                      "    </script> \n" +
