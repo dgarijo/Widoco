@@ -243,6 +243,9 @@ public class Configuration {
             return;
         }
         cleanConfig();
+        this.mainOntology.setName("[Ontology Name]");
+        this.mainOntology.setNamespacePrefix("[Ontology NS Prefix]");
+        this.mainOntology.setNamespaceURI("[Ontology URI]");
         //we assume only one ontology per file.
         OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
         Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
@@ -289,10 +292,10 @@ public class Configuration {
                 Agent g = new Agent();
                 if(isURL(value)){
                     g.setURL(value);
-                    g.setName("name");
+                    g.setName(value);
                 }else{
                     g.setName(value);
-                    g.setURL("url");
+                    g.setURL("");
                 }
                 if(propertyName.equals("creator")){
                     this.creators.add(g);
@@ -312,10 +315,10 @@ public class Configuration {
                 Ontology o = new Ontology();
                 if(isURL(value)){
                     o.setNamespaceURI(value);
-                    o.setName("imported ontology name");
+                    o.setName(value);
                 }else{
                     o.setName(value);
-                    o.setNamespaceURI("namespace URI");
+                    o.setNamespaceURI("");
                 }
                 this.importedOntologies.add(o);
             }

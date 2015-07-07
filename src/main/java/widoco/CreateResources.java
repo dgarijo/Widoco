@@ -249,7 +249,8 @@ public class CreateResources {
         copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
         copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
         copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
-        
+        //copy widoco readme
+        copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
     }
 
     

@@ -65,8 +65,6 @@ public class TextConstants {
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
     //missing specialization. Missing alterante
-//    public static final String abstractSection="<h2>Abstract</h2><p>Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
-//            + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b></p>\n";
     
     public static String  getAbstractSection(String abstractContent, Configuration c){
         String abstractSection = "<h2>Abstract</h2><p>";
@@ -74,7 +72,7 @@ public class TextConstants {
             abstractSection+=abstractContent;
         }
         else{
-            abstractSection+="Here goes the abstract. A couple of sentences sumamrizing the ontology and its prupose.</p>\n"
+            abstractSection+="Here goes the abstract. A couple of sentences summarizing the ontology and its prupose.</p>\n"
             + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b>";
         }
         abstractSection+="</p>\n";

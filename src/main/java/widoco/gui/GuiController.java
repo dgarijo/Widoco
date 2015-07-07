@@ -30,6 +30,7 @@ import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
 import widoco.LoadOntologyPropertiesInThread;
 import widoco.TextConstants;
+import widoco.WidocoUtils;
 
 
 
@@ -136,7 +137,7 @@ public final class GuiController {
         this.config.setOntologyPath(ontology);
         this.config.setOverwriteAll(rewriteAll);
         if(getOntoMetadata){
-            this.startLoadingPropertiesFromOntology(false);
+            config.loadPropertiesFromOntology(WidocoUtils.loadModel(config));
         }
         if(!isFromFile)this.config.setOntologyURI(ontology);
         try{
