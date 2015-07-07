@@ -245,84 +245,88 @@ public class Configuration {
         cleanConfig();
         this.mainOntology.setName("[Ontology Name]");
         this.mainOntology.setNamespacePrefix("[Ontology NS Prefix]");
-        this.mainOntology.setNamespaceURI("[Ontology URI]");
+        //this.mainOntology.setNamespaceURI("[Ontology URI]");
         //we assume only one ontology per file.
-        OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
-        Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
-        String propertyName, value;
-        while(it.hasNext()){
-            Statement s = (Statement) it.next();
-            propertyName = s.getPredicate().getLocalName();
-            try{
-                value = s.getObject().asLiteral().getString();
-            }catch(Exception e){
-                value = s.getObject().asResource().getURI();
+        try{
+            OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
+            Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
+            String propertyName, value;
+            while(it.hasNext()){
+                Statement s = (Statement) it.next();
+                propertyName = s.getPredicate().getLocalName();
+                try{
+                    value = s.getObject().asLiteral().getString();
+                }catch(Exception e){
+                    value = s.getObject().asResource().getURI();
+                }
+    //            System.out.println(propertyName + " " + value);
+                // fill in the properties here.
+                if(propertyName.equals("abstract")){
+                    this.abstractSection = value;
+                }else
+                if(propertyName.equals("title")){
+                    this.title = value;
+                }else
+                if(propertyName.equals("replaces")||propertyName.equals("wasRevisionOf")){
+                    this.previousVersion = value;
+                }else
+                if(propertyName.equals("versionInfo")){
+                    this.revision = value;
+                }else
+                if(propertyName.equals("preferredNamespacePrefix")){
+                    this.mainOntology.setNamespacePrefix(value);
+                }else
+                if(propertyName.equals("preferredNamespaceUri")){
+                    this.mainOntology.setNamespaceURI(value);                
+                }else
+                //we deal with the license by invoking the licensius service
+                //(only if we cannot find it)
+                if(propertyName.equals("license")){
+                    this.license = new License();
+                    if(isURL(value)){
+                        this.license.setUrl(value);
+                    }else{
+                        license.setName(value);
+                    }
+                }else
+                if(propertyName.equals("creator")||propertyName.equals("contributor")){
+                    Agent g = new Agent();
+                    if(isURL(value)){
+                        g.setURL(value);
+                        g.setName(value);
+                    }else{
+                        g.setName(value);
+                        g.setURL("");
+                    }
+                    if(propertyName.equals("creator")){
+                        this.creators.add(g);
+                    }else{
+                        this.contributors.add(g);
+                    }
+                }else
+                if(propertyName.equals("created")){
+                    if(releaseDate==null || "".equals(releaseDate)){
+                        this.releaseDate = value;
+                    }
+                }else
+                if(propertyName.equals("modified")){
+                    releaseDate = value;
+                }else
+                if(propertyName.equals("imports")){
+                    Ontology o = new Ontology();
+                    if(isURL(value)){
+                        o.setNamespaceURI(value);
+                        o.setName(value);
+                    }else{
+                        o.setName(value);
+                        o.setNamespaceURI("");
+                    }
+                    this.importedOntologies.add(o);
+                }
+                //to do: if property is comment and abstract is null, then complete abstract.
             }
-//            System.out.println(propertyName + " " + value);
-            // fill in the properties here.
-            if(propertyName.equals("abstract")){
-                this.abstractSection = value;
-            }else
-            if(propertyName.equals("title")){
-                this.title = value;
-            }else
-            if(propertyName.equals("replaces")||propertyName.equals("wasRevisionOf")){
-                this.previousVersion = value;
-            }else
-            if(propertyName.equals("versionInfo")){
-                this.revision = value;
-            }else
-            if(propertyName.equals("preferredNamespacePrefix")){
-                this.mainOntology.setNamespacePrefix(value);
-            }else
-            if(propertyName.equals("preferredNamespaceUri")){
-                this.mainOntology.setNamespaceURI(value);                
-            }else
-            //we deal with the license by invoking the licensius service
-            //(only if we cannot find it)
-            if(propertyName.equals("license")){
-                this.license = new License();
-                if(isURL(value)){
-                    this.license.setUrl(value);
-                }else{
-                    license.setName(value);
-                }
-            }else
-            if(propertyName.equals("creator")||propertyName.equals("contributor")){
-                Agent g = new Agent();
-                if(isURL(value)){
-                    g.setURL(value);
-                    g.setName(value);
-                }else{
-                    g.setName(value);
-                    g.setURL("");
-                }
-                if(propertyName.equals("creator")){
-                    this.creators.add(g);
-                }else{
-                    this.contributors.add(g);
-                }
-            }else
-            if(propertyName.equals("created")){
-                if(releaseDate==null || "".equals(releaseDate)){
-                    this.releaseDate = value;
-                }
-            }else
-            if(propertyName.equals("modified")){
-                releaseDate = value;
-            }else
-            if(propertyName.equals("imports")){
-                Ontology o = new Ontology();
-                if(isURL(value)){
-                    o.setNamespaceURI(value);
-                    o.setName(value);
-                }else{
-                    o.setName(value);
-                    o.setNamespaceURI("");
-                }
-                this.importedOntologies.add(o);
-            }
-            //to do: if property is comment and abstract is null, then complete abstract.
+        }catch(Exception e){
+            System.err.println("No ontology declared. Ignoring properties");
         }
         //refine license from licensius
         String lic = GetLicense.getLicense(mainOntology.getNamespaceURI());
