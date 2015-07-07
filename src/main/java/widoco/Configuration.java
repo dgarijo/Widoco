@@ -245,7 +245,7 @@ public class Configuration {
         cleanConfig();
         this.mainOntology.setName("[Ontology Name]");
         this.mainOntology.setNamespacePrefix("[Ontology NS Prefix]");
-        //this.mainOntology.setNamespaceURI("[Ontology URI]");
+        this.mainOntology.setNamespaceURI("[Ontology URI]");
         //we assume only one ontology per file.
         try{
             OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
