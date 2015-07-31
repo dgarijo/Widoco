@@ -31,6 +31,7 @@ public class WidocoUtils {
         if(c.isFromFile()){
             readModel(model, c.getOntologyPath(), null);
         }else{
+            //System.out.println("Ont URI: "+c.getOntologyURI());
             readModel(model, null, c.getOntologyURI());
         }
         return model;

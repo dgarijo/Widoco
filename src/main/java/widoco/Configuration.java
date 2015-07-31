@@ -331,10 +331,10 @@ public class Configuration {
         //refine license from licensius
         String lic = GetLicense.getLicense(mainOntology.getNamespaceURI());
         String licName = GetLicense.getLicenseTitle(mainOntology.getNamespaceURI());
-        if((lic!=null)&&(!lic.contains("error"))){
+        if((lic!=null)&&(!lic.contains("error"))&&(!lic.contains("not OK"))){
             this.license.setUrl(lic);
         }
-        if((licName!=null)&&(!licName.contains("unknown"))){
+        if((licName!=null)&&(!licName.contains("unknown"))&&(!lic.contains("not OK"))){
             this.license.setName(licName);
         }
         

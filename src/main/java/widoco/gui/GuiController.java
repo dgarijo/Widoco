@@ -136,10 +136,10 @@ public final class GuiController {
         this.config.setDocumentationURI(outFolder);
         this.config.setOntologyPath(ontology);
         this.config.setOverwriteAll(rewriteAll);
+        if(!isFromFile)this.config.setOntologyURI(ontology);
         if(getOntoMetadata){
             config.loadPropertiesFromOntology(WidocoUtils.loadModel(config));
         }
-        if(!isFromFile)this.config.setOntologyURI(ontology);
         try{
             System.out.println("Generating documentation for "+ontology);
             if (isFromFile){
