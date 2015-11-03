@@ -166,38 +166,51 @@ public class Configuration {
             mainOntology.setNamespaceURI(propertyFile.getProperty(TextConstants.ontNamespaceURI));
             revision = propertyFile.getProperty(TextConstants.ontologyRevision);
             String aux = propertyFile.getProperty(TextConstants.authors,"");
-            String[] names = aux.split(";");
-            aux = propertyFile.getProperty(TextConstants.authorsURI,"");
-            String[] urls = aux.split(";");
-            aux = propertyFile.getProperty(TextConstants.authorsInstitution,"");
-            String[] authorInst = aux.split(";");
-            for(int i =0; i< names.length; i++){
-                Agent a = new Agent();
-                a.setName(names[i]);
-                if(urls.length == names.length){
-                    a.setURL(urls[i]);
+            String[]names,urls,authorInst;
+            if(!aux.equals("")){
+                names = aux.split(";");
+                aux = propertyFile.getProperty(TextConstants.authorsURI,"");
+                urls = aux.split(";");
+                aux = propertyFile.getProperty(TextConstants.authorsInstitution,"");
+                authorInst = aux.split(";");
+                for(int i =0; i< names.length; i++){
+                    Agent a = new Agent();
+                    a.setName(names[i]);
+                    try{
+                        a.setURL(urls[i]);
+                    }catch(Exception e){
+                        a.setURL("");
+                    }
+                    try{
+                        a.setInstitutionName(authorInst[i]);
+                    }catch(Exception e){
+                        a.setInstitutionName("");
+                    }
+                    creators.add(a);
                 }
-                if(authorInst.length == names.length){
-                    a.setInstitutionName(authorInst[i]);
-                }
-                creators.add(a);
             }
             aux = propertyFile.getProperty(TextConstants.contributors,"");
-            names = aux.split(";");
-            aux = propertyFile.getProperty(TextConstants.contributorsURI,"");
-            urls = aux.split(";");
-            aux = propertyFile.getProperty(TextConstants.contributorsInstitution,"");
-            authorInst = aux.split(";");
-            for(int i =0; i< names.length; i++){
-                Agent a = new Agent();
-                a.setName(names[i]);
-                if(urls.length == names.length){
-                    a.setURL(urls[i]);
+            if(!aux.equals("")){
+                names = aux.split(";");
+                aux = propertyFile.getProperty(TextConstants.contributorsURI,"");
+                urls = aux.split(";");
+                aux = propertyFile.getProperty(TextConstants.contributorsInstitution,"");
+                authorInst = aux.split(";");
+                for(int i =0; i< names.length; i++){
+                    Agent a = new Agent();
+                    a.setName(names[i]);
+                    try{
+                        a.setURL(urls[i]);
+                    }catch(Exception e){
+                        a.setURL("");
+                    }
+                    try{
+                        a.setInstitutionName(authorInst[i]);
+                    }catch(Exception e){
+                        a.setInstitutionName("");
+                    }
+                    contributors.add(a);
                 }
-                if(authorInst.length == names.length){
-                    a.setInstitutionName(authorInst[i]);
-                }
-                contributors.add(a);
             }
             aux = propertyFile.getProperty(TextConstants.importedOntologyNames,"");
             names = aux.split(";");
@@ -207,8 +220,10 @@ public class Configuration {
                 if(!"".equals(names[i])){
                     Ontology o = new Ontology();
                     o.setName(names[i]);
-                    if(urls.length == names.length){
+                    try{
                         o.setNamespaceURI(urls[i]);
+                    }catch(Exception e){
+                        o.setNamespaceURI("");
                     }
                     importedOntologies.add(o);
                 }
@@ -221,8 +236,10 @@ public class Configuration {
                 if(!"".equals(names[i])){
                     Ontology o = new Ontology();
                     o.setName(names[i]);
-                    if(urls.length == names.length){
+                    try{
                         o.setNamespaceURI(urls[i]);
+                    }catch(Exception e){
+                        o.setNamespaceURI("");
                     }
                     extendedOntologies.add(o);
                 }
