@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import widoco.Configuration;
 import widoco.entities.Agent;
+import widoco.entities.License;
 import widoco.entities.Ontology;
 
 /**
@@ -22,7 +23,7 @@ import widoco.entities.Ontology;
  */
 public class EditProperty extends javax.swing.JFrame {
 
-    public enum PropertyType{authors, contributors, extended, imported};
+    public enum PropertyType{authors, contributors, extended, imported, license};
     private final GuiStep2 step2Gui;
     private final Configuration c;
     private final PropertyType type;
@@ -68,6 +69,11 @@ public class EditProperty extends javax.swing.JFrame {
                 createTable(new String[]{"Extended Ontology Name","Extended Ontology URI"});
                 loadOntologies(c.getImportedOntologies());
                 break;
+            case license:
+                this.setTitle("Editing License");
+                createTable(new String[]{"License Name","License URI", "License Logo URL"});
+                loadLicense(c.getLicense());
+                break;
         }
     }
 
@@ -95,6 +101,13 @@ public class EditProperty extends javax.swing.JFrame {
             Object[] row = new Object[]{currentOnt.getName(),currentOnt.getNamespaceURI()};
             ((DefaultTableModel)tableProperties.getModel()).addRow(row);
         }
+    }
+    
+    private void loadLicense (License l){
+        Object[] row = new Object[]{l.getName(),l.getUrl(), l.getIcon()};
+        ((DefaultTableModel)tableProperties.getModel()).addRow(row);
+        this.addRowButton.setEnabled(false);
+        this.deleteRowButton.setEnabled(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -218,6 +231,7 @@ public class EditProperty extends javax.swing.JFrame {
                 break;
             case imported:this.c.setImportedOntologies(getOntologiesFromTable());
                 break;
+            case license:this.c.setLicense(getLicenseFromTable());
         }
         this.step2Gui.refreshPropertyTable();
         this.dispose();
@@ -255,6 +269,14 @@ public class EditProperty extends javax.swing.JFrame {
         }
         return ontos;
     }
+    
+    private License getLicenseFromTable() {
+        String licName = (String)tableProperties.getValueAt(0, 0);
+        String licURI = (String)tableProperties.getValueAt(0,1);
+        String licLogo = (String)tableProperties.getValueAt(0,2);
+        return new License(licURI, licName, licLogo);
+    }
+    
     private void deleteRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRowButtonActionPerformed
         if(tableProperties.getSelectedRow()!=-1){
             if(JOptionPane.showConfirmDialog(this, 

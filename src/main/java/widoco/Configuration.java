@@ -346,12 +346,14 @@ public class Configuration {
             System.err.println("No ontology declared. Ignoring properties");
         }
         //refine license from licensius
-        String lic = GetLicense.getLicense(mainOntology.getNamespaceURI());
-        String licName = GetLicense.getLicenseTitle(mainOntology.getNamespaceURI());
-        if((lic!=null)&&(!lic.contains("error"))&&(!lic.contains("not OK"))){
-            this.license.setUrl(lic);
+        String licName = null;
+        String lic = GetLicense.getFirstLicenseFound(mainOntology.getNamespaceURI());
+        if (!lic.isEmpty())
+        {
+            licName = GetLicense.getTitle(lic);
         }
-        if((licName!=null)&&(!licName.contains("unknown"))&&(!lic.contains("not OK"))){
+        if(!lic.contains("unknown")){
+            this.license.setUrl(lic);
             this.license.setName(licName);
         }
         
