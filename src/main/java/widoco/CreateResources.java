@@ -103,7 +103,7 @@ public class CreateResources {
         if((c.getIntroductionPath()!=null) && (!"".equals(c.getIntroductionPath()))){
             copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction.html"));
         }else{
-            String introSectionText = TextConstants.introductionSection;
+            String introSectionText = TextConstants.getIntroductionSection(c);
             if(nsDecl!=null && !nsDecl.isEmpty()){
                 introSectionText += TextConstants.getNameSpaceDeclaration(nsDecl);
                 //small fix: use prefix selected by user.
@@ -180,7 +180,7 @@ public class CreateResources {
         if((c.getReferencesPath()!=null) && (!"".equals(c.getReferencesPath()))){
             copyExternalResource(c.getReferencesPath(), new File(path+File.separator+"overview.html"));
         }else{
-            saveDocument(path+File.separator+"references.html", TextConstants.referencesSection,c);
+            saveDocument(path+File.separator+"references.html", TextConstants.getReferencesSection(c),c);
         }
     }
     

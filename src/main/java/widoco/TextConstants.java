@@ -82,18 +82,52 @@ public class TextConstants {
         }
         return abstractSection;
     }
-            
-    public static final String introductionSection="<h2>1. Introduction <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
-        "<p>This should talk a bit about your ontology, its motivation, soa and goals</p>\n";
     
-    public static final String referencesSection="<h2>5. References <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
+    public static int numSection(String section, Configuration c){
+        int n = 0;
+        if(section.equals("Introduction")){
+            if(c.isIncludeIntroduction()) return 1;
+            return n;
+        }
+        if(section.equals("Overview")){
+            if(c.isIncludeOverview()) n++;
+            return numSection("Introduction", c)+n;
+        }
+        if(section.equals("Description")){
+            if(c.isIncludeDescription()) n++;
+            return numSection("Overview", c)+n;
+        }
+        if(section.equals("Cross")){
+            if(c.isIncludeCrossReferenceSection()) n++;
+            return numSection("Description", c)+n;
+        }
+        if(section.equals("References")){
+            if(c.isIncludeReferences()) n++;
+            return numSection("Cross", c)+n;
+        }
+        return n;
+    }
+            
+    public static String getIntroductionSection(Configuration c){
+        String s = "<h2>"+numSection("Introduction", c)+". Introduction <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
+        "<p>This should talk a bit about your ontology, its motivation, soa and goals</p>\n";
+        return s;
+    }
+    
+    public static String getReferencesSection(Configuration c){
+        String s ="<h2>"+numSection("References",c)+". References <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>Add your references here in a list. It is recommended to have them as a list.</p>\n";
-    public static final String acknowledgementsSection="<div id=\"acknowledgements\">\n"+
-                    "<h2>6. Acknowledgements <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
+        return s;
+    }
+    public static String getAcknowledgementsSection(Configuration c){
+        String s = "<div id=\"acknowledgements\">\n"+
+                    "<h2>"+(numSection("References", c)+1)+". Acknowledgements <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>The authors would like to thank <a href=\"http://palindrom.es/phd/whoami/\">Silvio Peroni</a> for developing <a href=\"http://www.essepuntato.it/lode\">LODE</a>, "
             + "a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href=\"http://delicias.dia.fi.upm.es/members/dgarijo/\">"
             + "Daniel Garijo</a> for developing the "
             + "script used to create the document template.</p>\n</div>\n";
+        return s;
+    }
     public static final String changeLogSection="<div id=\"changelog\">"+
                     "<h2>Changes since last release <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>"
             + "<p>This is a changelog. This section is optional but recommended</p></div>";
@@ -251,7 +285,7 @@ public class TextConstants {
         if(c.isIncludeDescription()) document += "     <div id=\"description\"></div>\n";
         if(c.isIncludeCrossReferenceSection()) document +=                 "     <div id=\"crossref\"></div>\n";
         if(c.isIncludeReferences()) document += "     <div id=\"references\"></div>\n";
-              document+= acknowledgementsSection+"</body> \n" +
+              document+= getAcknowledgementsSection(c)+"</body> \n" +
                         "</html>";
         //to do: fix table of contents
         //add the remaining sections (head, anotation, etc)
@@ -372,17 +406,17 @@ public class TextConstants {
     }
     
     public static String getOverviewSection(Configuration c){
-        return "<h2>2. "+c.getMainOntology().getName()+" Overview <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
+        return "<h2>"+numSection("Overview", c)+". "+c.getMainOntology().getName()+" Overview <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>Overview of the ontology goes here: a few sentences explaining the main concepts of the ontology</p>\n";
     }
     
     public static String getDescriptionSection(Configuration c){
-        return "<h2>3. "+c.getMainOntology().getName()+" Description <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
+        return "<h2>"+numSection("Description", c)+". "+c.getMainOntology().getName()+" Description <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
             + "<p>Complete description of the ontology: a diagram explaining how the classes are related, examples of usage, etc.</p>\n";
     }
     
     public static String getCrossReferenceSection(Configuration c){
-        return "<h2>4. Cross reference for "+c.getMainOntology().getName()+" classes and properties</h2>"+"\n" +
+        return "<h2>"+numSection("Cross", c)+". Cross reference for "+c.getMainOntology().getName()+" classes and properties</h2>"+"\n" +
                "This section provides details for each class and property defined by "+c.getMainOntology().getName()+".\n";
     }
     
