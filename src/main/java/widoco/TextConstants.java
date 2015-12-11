@@ -122,10 +122,9 @@ public class TextConstants {
     public static String getAcknowledgementsSection(Configuration c){
         String s = "<div id=\"acknowledgements\">\n"+
                     "<h2>"+(numSection("References", c)+1)+". Acknowledgements <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-            + "<p>The authors would like to thank <a href=\"http://palindrom.es/phd/whoami/\">Silvio Peroni</a> for developing <a href=\"http://www.essepuntato.it/lode\">LODE</a>, "
-            + "a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href=\"http://delicias.dia.fi.upm.es/members/dgarijo/\">"
-            + "Daniel Garijo</a> for developing the "
-            + "script used to create the document template.</p>\n</div>\n";
+            + "<p>The authors would like to thank <a href=\"http://www.essepuntato.it/\">Silvio Peroni</a> for developing <a href=\"http://www.essepuntato.it/lode\">LODE</a>, "
+            + "a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href=\"http://purl.org/net/dgarijo/\">"
+            + "Daniel Garijo</a> for developing <a href=\"https://github.com/dgarijo/Widoco\">Widoco</a>, the program used to create the document template used in this documentation.</p>\n</div>\n";
         return s;
     }
     public static final String changeLogSection="<div id=\"changelog\">"+
