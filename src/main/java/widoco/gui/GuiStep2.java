@@ -85,7 +85,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                     int row = tableProperties.rowAtPoint(evt.getPoint());
                     int col = tableProperties.columnAtPoint(evt.getPoint());
                     if (row >= 0 && col >= 0) {
-                        System.out.println("clicked on "+tableProperties.getModel().getValueAt(row, 0));
+//                        System.out.println("clicked on "+tableProperties.getModel().getValueAt(row, 0));
                         //here I should verify that the edit property form is not already editing the current property.
                         String prop = (String) tableProperties.getModel().getValueAt(row, 0);
                         EditProperty form = null;

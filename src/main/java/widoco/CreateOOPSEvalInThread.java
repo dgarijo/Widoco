@@ -48,7 +48,8 @@ public class CreateOOPSEvalInThread implements Runnable{
         try{
             if(!evalFolder.exists())evalFolder.mkdir();
             evalResourcesFolder.mkdir();
-            CreateResources.copyResourceFolder(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
+            //CreateResources.copyResourceFolder(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
+            WidocoUtils.unZipIt(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
             //do POST petition with evaluation.
             String evaluation;
             OOPSevaluation eval;

@@ -27,6 +27,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import widoco.TextConstants;
 
 /**
  *
@@ -35,13 +36,11 @@ import org.json.simple.parser.ParseException;
  */
 public class GetLicense {
     
-   public static final String licensiusURIServiceLicense = "http://www.licensius.com/api/license/findlicenseinrdf?uri=";//"http://licensius.appspot.com/getLicense?content=";
-   public static final String licensiusURIServiceLicenseInfo = "http://www.licensius.com/api/license/getlicenseinfo?uri=";//"http://licensius.appspot.com/getLicenseTitle?content=";
-     
+       
    public static String getTitle(String uriToScan) {
     String output="unknown";
     try {
-        String uri=licensiusURIServiceLicenseInfo;
+        String uri=TextConstants.licensiusURIServiceLicenseInfo;
         String encodedData = URLEncoder.encode(uriToScan);
         uri+=encodedData;
 //        System.out.println(uri);
@@ -77,10 +76,10 @@ public class GetLicense {
 public static String getFirstLicenseFound(String uriToScan) {
     String output="unknown";
     try {
-        String uri=licensiusURIServiceLicense;
+        String uri=TextConstants.licensiusURIServiceLicense;
         String encodedData = URLEncoder.encode(uriToScan);
         uri+=encodedData;
-//        System.out.println(uri);
+        System.out.println(uri);
         URL url = new URL(uri);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);

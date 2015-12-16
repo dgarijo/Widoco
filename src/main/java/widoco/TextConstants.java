@@ -29,9 +29,9 @@ import widoco.entities.Ontology;
  */
 public class TextConstants {
     //constants for the Licensius service
-    public static final String licensiusURIServiceLicense = "http://licensius.appspot.com/getLicense?content=";
-    public static final String licensiusURIServiceLicenseTitle = "http://licensius.appspot.com/getLicenseTitle?content=";
-    
+    public static final String licensiusURIServiceLicense = "http://www.licensius.com/api/license/findlicenseinrdf?uri=";//"http://licensius.appspot.com/getLicense?content=";
+    public static final String licensiusURIServiceLicenseInfo = "http://www.licensius.com/api/license/getlicenseinfo?uri=";//"http://licensius.appspot.com/getLicenseTitle?content=";
+
     /**
      * Constants for the  Step 2 (table)
      */
@@ -524,11 +524,14 @@ public class TextConstants {
     }
     
     //resources to copy to the temporal folder.
-    public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/custom-annotations.xsl","/lode/common-functions.xsl", 
-        "/lode/pellet.properties", "/lode/structural-reasoner.xsl", "/lode/swrl-module.xsl", "/lode/en.xml"};
+//    public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/custom-annotations.xsl","/lode/common-functions.xsl", 
+//        "/lode/pellet.properties", "/lode/structural-reasoner.xsl", "/lode/swrl-module.xsl", "/lode/en.xml"};
+//    
+//    public static final String[] oopsResources = {"/oops/js/jquery-1.11.0.js","/oops/js/bootstrap.min.js", 
+//        "/oops/themes/blue/style.css", "/oops/js/jquery.tablesorter.min.js", "/oops/css/bootstrap.css"};
     
-    public static final String[] oopsResources = {"/oops/js/jquery-1.11.0.js","/oops/js/bootstrap.min.js", 
-        "/oops/themes/blue/style.css", "/oops/js/jquery.tablesorter.min.js", "/oops/css/bootstrap.css"};
+    public static final String lodeResources= "/lode.zip";
+    public static final String oopsResources = "/oops.zip";
     
     public static final String configPath = "config"+File.separator+"config.properties";
     

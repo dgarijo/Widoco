@@ -57,8 +57,9 @@ public final class GuiController {
             //create a temporal folder with all LODE resources
             tmpFile = new File("tmp"+new Date().getTime());
             tmpFile.mkdir();
-            CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
-        } catch (IOException ex) {
+//            CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
+            WidocoUtils.unZipIt(TextConstants.lodeResources, tmpFile.getName());
+        } catch (Exception ex) {
             System.err.println("Error while creating the temporal file");
         }
         try { 
@@ -128,8 +129,9 @@ public final class GuiController {
             //create a temporal folder with all LODE resources
             tmpFile = new File("tmp"+new Date().getTime());
             tmpFile.mkdir();
-            CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
-        } catch (IOException ex) {
+            //CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
+            WidocoUtils.unZipIt(TextConstants.lodeResources, tmpFile.getName());
+        } catch (Exception ex) {
             System.err.println("Error while creating the temporal files");
         }
         this.config.setFromFile(isFromFile);

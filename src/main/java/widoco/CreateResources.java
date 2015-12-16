@@ -27,6 +27,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
 import widoco.entities.Agent;
@@ -92,7 +94,7 @@ public class CreateResources {
      */
     private static void createAbstractSection(String path, Configuration c){
         if((c.getAbstractPath()!=null) && (!"".equals(c.getAbstractPath()))){
-            copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract.html"));
+            WidocoUtils.copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract.html"));
         }else{
             saveDocument(path+File.separator+"abstract.html", TextConstants.getAbstractSection(c.getAbstractSection(),c),c);
         }
@@ -101,7 +103,7 @@ public class CreateResources {
     
     private static void createIntroductionSection(String path, HashMap<String,String> nsDecl, Configuration c){
         if((c.getIntroductionPath()!=null) && (!"".equals(c.getIntroductionPath()))){
-            copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction.html"));
+            WidocoUtils.copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction.html"));
         }else{
             String introSectionText = TextConstants.getIntroductionSection(c);
             if(nsDecl!=null && !nsDecl.isEmpty()){
@@ -118,7 +120,7 @@ public class CreateResources {
     //the lists passed onto this method are the fixed lists
     private static void createOverviewSection(String path, Configuration c, String classesList, String propList, String dataPropList, String annotationProps, String namedIndividuals){
         if((c.getOverviewPath()!=null) && (!"".equals(c.getOverviewPath()))){
-            copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview.html"));
+            WidocoUtils.copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview.html"));
         }else{
             String overViewSection = TextConstants.getOverviewSection(c);
             if(!"".equals(classesList) && classesList!=null){
@@ -147,7 +149,7 @@ public class CreateResources {
     
     private static void createDescriptionSection(String path, Configuration c){
         if((c.getDescriptionPath()!=null) && (!"".equals(c.getDescriptionPath()))){
-            copyExternalResource(c.getDescriptionPath(), new File(path+File.separator+"description.html"));
+            WidocoUtils.copyExternalResource(c.getDescriptionPath(), new File(path+File.separator+"description.html"));
         }else{
             saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c),c );
         }
@@ -178,7 +180,7 @@ public class CreateResources {
     
     private static void createReferencesSection(String path, Configuration c){
         if((c.getReferencesPath()!=null) && (!"".equals(c.getReferencesPath()))){
-            copyExternalResource(c.getReferencesPath(), new File(path+File.separator+"overview.html"));
+            WidocoUtils.copyExternalResource(c.getReferencesPath(), new File(path+File.separator+"overview.html"));
         }else{
             saveDocument(path+File.separator+"references.html", TextConstants.getReferencesSection(c),c);
         }
@@ -243,73 +245,16 @@ public class CreateResources {
         }
         resources.mkdir();
         //copy jquery
-        copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
+        WidocoUtils.copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
         //copy css
-        copyLocalResource("/lode/lodeprimer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
-        copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
-        copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
-        copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
+        WidocoUtils.copyLocalResource("/lode/lodeprimer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
+        WidocoUtils.copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
+        WidocoUtils.copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
+        WidocoUtils.copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
         //copy widoco readme
-        copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
+        WidocoUtils.copyLocalResource("/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
     }
 
-    
-    public static void copyResourceFolder(String[] resources, String savePath) throws IOException{
-        for (String resource : resources) {
-            String aux = resource.substring(resource.lastIndexOf("/") + 1, resource.length());
-            File b = new File(savePath+File.separator+aux);
-            b.createNewFile();
-            copyLocalResource(resource, b);
-        }
-    }
-    
-    /**
-     * Method used to copy the local files: styles, images, etc.
-     * @param resourceName Name of the resource
-     * @param dest file where we should copy it.
-     * @throws IOException 
-     */
-    private static void copyLocalResource(String resourceName, File dest)  {
-        try{
-            copy(CreateResources.class.getResourceAsStream(resourceName), dest);
-        }catch(Exception e){
-            System.out.println("Exception while copying "+resourceName+" - "+e.getMessage());
-        }
-    }
-    
-    /**
-     * Copy a file from outside the project into the desired file.
-     * @param path
-     * @param dest 
-     */
-    private static void copyExternalResource(String path, File dest) {
-        try{
-            InputStream is = new FileInputStream(path);
-            copy(is, dest);
-        }catch(Exception e){
-            System.err.println("Exception while copying "+path+e.getMessage());
-        }
-    }
-    
-    private static void copy(InputStream is, File dest)throws Exception{
-        OutputStream os = null;
-        try {
-            os = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
-            }
-        }
-        catch(Exception e){
-            System.err.println("Exception while copying resource. "+e.getMessage());
-            throw e;
-        }
-        finally {
-            if(is!=null)is.close();
-            if(os!=null)os.close();
-        }
-    }
     
     public static void saveConfigFile(String path, Configuration conf)throws IOException{
         String textProperties = "\n";//the first line I leave an intro because there have been problems.
