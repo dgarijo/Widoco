@@ -1,0 +1,23 @@
+
+title=This version:
+name=Latest version:
+ontologyPrefix=Previous version:
+ontologyNamespaceURI=Revision:
+dateOfRelease= Authors:
+thisVersion=Contributors:
+latestVersion=Extended Ontologies:
+previousVersion=Imported Ontologies:
+revision=1.0
+authors=First Author;Second Author
+authorURL=http://example.org/author1;http://example.org/author2
+authorInstitution=First author institution;Second author institution
+contributors=First contributor;Second contributor
+contributorsURL=http://example.org/contributor1;http://example.org/contributor2
+contributorsInstitution=First contributor institution;Second contributor institution
+importsNames=Imported Ontology 1; Imported Ontology 2
+importsURLs=http://example.org/test11; http://example.org/test22
+extendsNames=test1; test2
+extendsURLS=http://example.org/test1; http://example.org/test2
+license=License name. E.g.: Creative Commons Attribution-NonCommercial-ShareAlike 2.0 Generic License
+licenseURL=http://creativecommons.org/licenses/by-nc-sa/2.0/
+licenseIconURL=http://i.creativecommons.org/l/by-nc-sa/2.0/88x31.png

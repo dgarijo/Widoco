@@ -110,7 +110,7 @@ public class Configuration {
         try{
             URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
             String path = (new File(root.toURI())).getParentFile().getPath();
-            loadPropertyFile(path+File.separator+TextConstants.configPath);
+            loadConfigPropertyFile(path+File.separator+TextConstants.configPath);
         }catch(URISyntaxException e){
             System.err. println("Error while loading the default property file" +e.getMessage());
         }
@@ -149,7 +149,7 @@ public class Configuration {
         includeNamedIndividuals = true;
     }
     
-    private void loadPropertyFile(String path){
+    private void loadConfigPropertyFile(String path){
         try {
             cleanConfig();
             //this forces the property file to be in UTF 8 instead of the ISO
@@ -387,7 +387,7 @@ public class Configuration {
     }
     
     public void reloadPropertyFile(String path){
-        this.loadPropertyFile(path);
+        this.loadConfigPropertyFile(path);
     }
 
     public ArrayList<Agent> getContributors() {

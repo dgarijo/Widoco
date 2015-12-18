@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -64,21 +65,20 @@ public class TextConstants {
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
-    //missing specialization. Missing alterante
+    //missing specialization. Missing alterate
     
-    public static String  getAbstractSection(String abstractContent, Configuration c){
-        String abstractSection = "<h2>Abstract</h2><p>";
+    public static String  getAbstractSection(String abstractContent, Configuration c, Properties langFile){
+        String abstractSection = "<h2>"+langFile.getProperty("abstract")+"</h2><p>";
         if(abstractContent!=null && !"".equals(abstractContent)){
             abstractSection+=abstractContent;
         }
         else{
-            abstractSection+="Here goes the abstract. A couple of sentences summarizing the ontology and its prupose.</p>\n"
-            + "<p style=\"text-align: center;\"> <b> Here you should point to the owl encoding of your ontology</b>";
+            abstractSection+=langFile.getProperty("abstractPlaceHolder");
         }
         abstractSection+="</p>\n";
         //citation info
         if(!"".equals(c.getCiteAs()) && c.getCiteAs()!=null){
-            abstractSection+="<p><strong>Cite as:</strong></br>\n"+c.getCiteAs()+"\n</p>";
+            abstractSection+="<p><strong>"+langFile.getProperty("citeAs")+"</strong></br>\n"+c.getCiteAs()+"\n</p>";
         }
         return abstractSection;
     }
@@ -108,28 +108,23 @@ public class TextConstants {
         return n;
     }
             
-    public static String getIntroductionSection(Configuration c){
-        String s = "<h2>"+numSection("Introduction", c)+". Introduction <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
-        "<p>This should talk a bit about your ontology, its motivation, soa and goals</p>\n";
+    public static String getIntroductionSection(Configuration c, Properties lang){
+        String s = "<h2>"+numSection("Introduction", c)+lang.getProperty("introPlaceHolder");
         return s;
     }
     
-    public static String getReferencesSection(Configuration c){
-        String s ="<h2>"+numSection("References",c)+". References <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-            + "<p>Add your references here in a list. It is recommended to have them as a list.</p>\n";
+    public static String getReferencesSection(Configuration c, Properties lang){
+        String s ="<h2>"+numSection("References",c)+lang.getProperty("referencesPlaceHolder");
         return s;
     }
-    public static String getAcknowledgementsSection(Configuration c){
+    public static String getAcknowledgementsSection(Configuration c, Properties lang){
         String s = "<div id=\"acknowledgements\">\n"+
-                    "<h2>"+(numSection("References", c)+1)+". Acknowledgements <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-            + "<p>The authors would like to thank <a href=\"http://www.essepuntato.it/\">Silvio Peroni</a> for developing <a href=\"http://www.essepuntato.it/lode\">LODE</a>, "
-            + "a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href=\"http://purl.org/net/dgarijo/\">"
-            + "Daniel Garijo</a> for developing <a href=\"https://github.com/dgarijo/Widoco\">Widoco</a>, the program used to create the document template used in this documentation.</p>\n</div>\n";
+                    "<h2>"+(numSection("References", c)+1)+lang.getProperty("ackText");
         return s;
     }
-    public static final String changeLogSection="<div id=\"changelog\">"+
-                    "<h2>Changes since last release <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>"
-            + "<p>This is a changelog. This section is optional but recommended</p></div>";
+    public static String getChangeLogSection(Properties lang){
+        return lang.getProperty("changeLog");
+    }
     public static final String ending="</body></html>";
     
     //given a list of agents, this method gets it as a String
@@ -159,15 +154,15 @@ public class TextConstants {
         }
         return agents;
     }
-    private static String getAuthors(ArrayList<Agent> auth) {
-        String a="<dl><dt>Authors:</dt>\n";
+    private static String getAuthors(ArrayList<Agent> auth, Properties l) {
+        String a="<dl><dt>"+l.getProperty("authors")+"</dt>\n";
         //the same amount of names and institutions is assumed.
         a+=getAgents(auth);
         return a +"</dl>\n";                   
     }
     
-    private static String getContributors(ArrayList<Agent> contrib) {
-        String c="<dl><dt>Contributors:</dt>\n";
+    private static String getContributors(ArrayList<Agent> contrib, Properties l) {
+        String c="<dl><dt>"+l.getProperty("contributors")+"</dt>\n";
         c+=getAgents(contrib);
         c = c.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix of annotations
         return c +"</dl>\n";                   
@@ -194,14 +189,14 @@ public class TextConstants {
         }
         return ontologies;
     }
-    private static String getImports(ArrayList<Ontology> ontos) {
-        String imports= "<dl><dt>Imported Ontologies:</dt>\n";
+    private static String getImports(ArrayList<Ontology> ontos, Properties l) {
+        String imports= "<dl><dt>"+l.getProperty("imported")+"</dt>\n";
         imports+= getOntologies(ontos);
         return imports+"</dl>\n";
     }
 
-    private static String getExtends(ArrayList<Ontology> ontos) {
-        String extended= "<dl><dt>Extended Ontologies:</dt>\n";   
+    private static String getExtends(ArrayList<Ontology> ontos, Properties l) {
+        String extended= "<dl><dt>"+l.getProperty("extended")+"</dt>\n";   
         extended += getOntologies(ontos);
         extended = extended.replace("owl:imports",""); //to remove the import annotation
         return extended+"</dl>\n";
@@ -215,13 +210,9 @@ public class TextConstants {
 //        else{ return "";}
 //    }
     
-    public static String getNameSpaceDeclaration(HashMap<String,String> namesp){
+    public static String getNameSpaceDeclaration(HashMap<String,String> namesp, Properties lang){
     	String ns="<div id=\"namespacedeclarations\">\n"+
-        "<h2>1.1. Namespace declarations <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"+
-        "</p><div id=\"ns\" align=\"center\">\n"+
-         "<table>\n"+
-                "<caption> <a href=\"#ns\"> Table 1</a>: Namespaces used in the document </caption>\n"+
-                "<tbody>\n";
+        "<h2>1.1. "+lang.getProperty("ns")+lang.getProperty("nsText") ;
         Iterator<String> keys = namesp.keySet().iterator();
         while(keys.hasNext()){
             String current = keys.next();
@@ -234,7 +225,7 @@ public class TextConstants {
     	return ns;
     }
     
-    public static String getIndexDocument(String resourcesFolderName,Configuration c, LODEParser l){
+    public static String getIndexDocument(String resourcesFolderName,Configuration c, LODEParser l, Properties lang){
         String document=opening +
                         " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/primer.css\" media=\"screen\" />   " +
                         " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/rec.css\" media=\"screen\" />   " +
@@ -275,68 +266,64 @@ public class TextConstants {
         }
             document+="<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://purl.org/net/dgarijo\"></span>\n"+
                         "</span>\n";
-        document += getHeadSection(c);
+        document += getHeadSection(c, lang);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
-        document += getTableOfContentsSection(c,l);
+        document += getTableOfContentsSection(c,l,lang);
         if(c.isIncludeIntroduction()) document += "     <div id=\"introduction\"></div>\n";
         //else document += "<div id=\"namespacedeclaration\"></div>\n";
         if(c.isIncludeOverview()) document += "     <div id=\"overview\"></div>\n";
         if(c.isIncludeDescription()) document += "     <div id=\"description\"></div>\n";
         if(c.isIncludeCrossReferenceSection()) document +=                 "     <div id=\"crossref\"></div>\n";
         if(c.isIncludeReferences()) document += "     <div id=\"references\"></div>\n";
-              document+= getAcknowledgementsSection(c)+"</body> \n" +
+              document+= getAcknowledgementsSection(c, lang)+"</body> \n" +
                         "</html>";
-        //to do: fix table of contents
-        //add the remaining sections (head, anotation, etc)
-        //add rdf-a annotations
         return document;
     }
     
-    public static String getHeadSection(Configuration c){
-//        me quedo aqui. Falta poner opcionales
+    public static String getHeadSection(Configuration c, Properties l){
         String head = "<div class=\"head\">\n";
         if(c.getTitle()!=null &&!"".equals(c.getTitle()))
             head+="<h1 property=\"dc:title schema:name\">"+c.getTitle()+"</h1>\n";
         if(c.getReleaseDate()!=null && !"".equals(c.getReleaseDate()))
             head+="<span property=\"dc:modified schema:dateModified\" content=\""+c.getReleaseDate()+"\"></span>\n"+
-                    "<h2>Release "+c.getReleaseDate()+"</h2>\n";
+                    "<h2>"+l.getProperty("date")+" "+c.getReleaseDate()+"</h2>\n";
         if(c.getThisVersion()!=null && !"".equals(c.getThisVersion()))
             head+="<dl>\n"+
-                    "<dt>This version:</dt>\n"+
+                    "<dt>"+l.getProperty("thisVersion")+"</dt>\n"+
                     "<dd><a href=\""+c.getThisVersion()+"\">"+c.getThisVersion()+"</a></dd>\n"+
                     "</dl>";
         if(c.getLatestVersion()!=null && !"".equals(c.getLatestVersion()))
-            head+="<dl><dt>Latest version:</dt>\n"+
+            head+="<dl><dt>"+l.getProperty("latestVersion")+"</dt>\n"+
                     "<dd><a href=\""+c.getLatestVersion()+"\">"+c.getLatestVersion()+"</a></dd>\n"+
                     "</dl>";
         if(c.getPreviousVersion()!=null && !"".equals(c.getPreviousVersion()))
             head+= "<dl>\n"+
-                    "<dt>Previous version:</dt>\n"+
+                    "<dt>"+l.getProperty("previousVersion")+"</dt>\n"+
                     "<dd><a property=\"schema:significantLink prov:wasRevisionOf\" href=\""+c.getPreviousVersion()+"\">"+c.getPreviousVersion()+"</a></dd>\n"+
                     "</dl>\n";
         if(c.getRevision()!=null && !"".equals(c.getRevision()))
-            head +="<dt>Revision</dt>\n"+
+            head +="<dt>"+l.getProperty("revision")+"</dt>\n"+
                     "<dd property=\"schema:version\">"+c.getRevision()+"</dd>\n";
         if(!c.getCreators().isEmpty())
-            head += getAuthors(c.getCreators())+"\n";
+            head += getAuthors(c.getCreators(),l)+"\n";
         if(!c.getContributors().isEmpty())
-            head += getContributors(c.getContributors())+"\n";
+            head += getContributors(c.getContributors(),l)+"\n";
         if(!c.getImportedOntologies().isEmpty())
-            head += getImports(c.getImportedOntologies())+"\n";
+            head += getImports(c.getImportedOntologies(),l)+"\n";
         if(!c.getExtendedOntologies().isEmpty())
-            head += getExtends(c.getExtendedOntologies())+"\n";
+            head += getExtends(c.getExtendedOntologies(),l)+"\n";
         
         if(c.getLicense()!=null){
-            String licenseName = c.getLicense().getName();//"license name goes here";
+            String lname = c.getLicense().getName();//"license name goes here";
             String licenseURL = c.getLicense().getUrl();//"http://insertlicenseURIhere.org";
-            if(licenseURL == null || "".equals(licenseURL))licenseURL = "http://insertlicenseURIhere.org";
-            if(licenseName == null || "".equals(licenseName)) licenseName = "license name goes here";
+            if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty("licenseURLIfNull");
+            if(lname == null || "".equals(lname)) lname = l.getProperty("licenseIfNull");
             if(c.getLicense().getIcon()!=null && !"".equals(c.getLicense().getIcon())){
                 head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\">\n" +
                 "<img src=\""+c.getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
                 "</a>\n<br/>";
             }
-            head+="<dl>This work is licensed under a <a rel=\"license\" href=\""+licenseURL+"\">"+licenseName+"</a>.</dl>\n"+
+            head+="<dl>"+l.getProperty("license")+"<a rel=\"license\" href=\""+licenseURL+"\">"+lname+"</a>.</dl>\n"+
                     "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
         }
         head+= "<hr/>\n"+
@@ -344,50 +331,47 @@ public class TextConstants {
         return head;
     }
     
-    public static String getTableOfContentsSection(Configuration c, LODEParser l){
+    public static String getTableOfContentsSection(Configuration c, LODEParser l, Properties lang){
         int i=1;
         String table ="<div id=\"toc\">"+
-            "<h2>Table of Contents</h2>\n"+
+            "<h2>"+lang.getProperty("toc")+"</h2>\n"+
             "<ul>\n";
             if(c.isIncludeIntroduction()){
-                table+="<li><a href=\"#introduction\">"+i+". Introduction</a></li>\n"+
-                    "<ul><li><a href=\"#namespacedeclarations\">"+i+".1 Namespace declarations</a></li></ul>\n";
+                table+="<li><a href=\"#introduction\">"+i+". "+lang.getProperty("introTitle")+"</a></li>\n"+
+                    "<ul><li><a href=\"#namespacedeclarations\">"+i+".1 "+lang.getProperty("namespace")+"</a></li></ul>\n";
                 i++;
             }
             if(c.isIncludeOverview()) {
-                table+="<li><a href=\"#overview\">"+i+". "+c.getMainOntology().getName()+" Overview</a></li>\n";
+                table+="<li><a href=\"#overview\">"+i+". "+c.getMainOntology().getName()+": "+lang.getProperty("overviewTitle")+"</a></li>\n";
                 i++;
             }
             if(c.isIncludeDescription()){
-                table+="<li><a href=\"#description\">"+i+". "+c.getMainOntology().getName()+" Description</a></li>\n";
+                table+="<li><a href=\"#description\">"+i+". "+c.getMainOntology().getName()+": "+lang.getProperty("descriptionTitle")+"</a></li>\n";
                 i++;
             }	
             if(c.isIncludeCrossReferenceSection()){
                 int j=1;
                 if(l!=null){
-                    table+="<li><a href=\"#crossref\">"+i+". Cross reference for "+c.getMainOntology().getName()+" classes, properties and dataproperties</a></li>\n"+
+                    table+="<li><a href=\"#crossref\">"+i+". "+lang.getProperty("crossRefTitle")+" "+c.getMainOntology().getName()+" "+lang.getProperty("crossRefTitle2")+"</a></li>\n"+
                         "<ul>\n";
-    //                    "        <li><a href=\"#classes\">"+i+".1 Classes</a></li>\n"+
-    //                    "        <li><a href=\"#objectproperties\">"+i+".2 Object Properties</a></li>\n"+
-    //                    "        <li><a href=\"#dataproperties\">"+i+".3 Data Properties</a></li>\n";
                     if(l.getClassList()!=null && !"".equals(l.getClassList())){
-                        table+="<li><a href=\"#classes\">"+i+"."+j+" Classes</a></li>\n";
+                        table+="<li><a href=\"#classes\">"+i+"."+j+" "+lang.getProperty("classes")+"</a></li>\n";
                         j++;
                     }
                     if(l.getPropertyList()!=null && !"".equals(l.getPropertyList())){
-                        table+="<li><a href=\"#objectproperties\">"+i+"."+j+" Object Properties</a></li>\n";
+                        table+="<li><a href=\"#objectproperties\">"+i+"."+j+" "+lang.getProperty("objProp")+"</a></li>\n";
                         j++;
                     }
                     if(l.getDataPropList()!=null && !"".equals(l.getDataPropList())){
-                        table+="        <li><a href=\"#dataproperties\">"+i+"."+j+" Data Properties</a></li>\n";
+                        table+="        <li><a href=\"#dataproperties\">"+i+"."+j+" "+lang.getProperty("dataProp")+"</a></li>\n";
                         j++;
                     }
                     if(c.isIncludeAnnotationProperties() && l.getAnnotationPropList()!=null && !"".equals(l.getAnnotationPropList())){
-                        table+="        <li><a href=\"#annotationproperties\">"+i+"."+j+" Annotation properties</a></li>\n";
+                        table+="        <li><a href=\"#annotationproperties\">"+i+"."+j+" "+lang.getProperty("annProp")+"</a></li>\n";
                         j++;
                     }
                     if(c.isIncludeNamedIndividuals() && l.getNamedIndividualList()!=null && !"".equals(l.getNamedIndividualList())){
-                        table+="        <li><a href=\"#namedindividuals\">"+i+"."+j+" Named Individuals</a></li>\n";
+                        table+="        <li><a href=\"#namedindividuals\">"+i+"."+j+" "+lang.getProperty("namedIndiv")+"</a></li>\n";
                         j++;
                     }
                     table+="</ul>\n";
@@ -395,31 +379,29 @@ public class TextConstants {
                 }
             }
             if(c.isIncludeReferences()){
-                table+="<li><a href=\"#references\">"+i+". References</a></li>\n";
+                table+="<li><a href=\"#references\">"+i+". "+lang.getProperty("referencesTitle")+"</a></li>\n";
                 i++;
             }
-            table+="<li><a href=\"#acknowledgements\">"+i+". Acknowledgements</a></li>\n"+
+            table+="<li><a href=\"#acknowledgements\">"+i+". "+lang.getProperty("ackTitle")+"</a></li>\n"+
             "</ul>\n"+
             "</div>\n";
         return table;
     }
     
-    public static String getOverviewSection(Configuration c){
-        return "<h2>"+numSection("Overview", c)+". "+c.getMainOntology().getName()+" Overview <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-            + "<p>Overview of the ontology goes here: a few sentences explaining the main concepts of the ontology</p>\n";
+    public static String getOverviewSection(Configuration c, Properties lang){
+        return "<h2>"+numSection("Overview", c)+". "+c.getMainOntology().getName()+": "+lang.getProperty("overviewPlaceHolder");
     }
     
-    public static String getDescriptionSection(Configuration c){
-        return "<h2>"+numSection("Description", c)+". "+c.getMainOntology().getName()+" Description <span class=\"backlink\"> back to <a href=\"#toc\">ToC</a></span></h2>\n"
-            + "<p>Complete description of the ontology: a diagram explaining how the classes are related, examples of usage, etc.</p>\n";
+    public static String getDescriptionSection(Configuration c, Properties lang){
+        return "<h2>"+numSection("Description", c)+". "+c.getMainOntology().getName()+": "+lang.getProperty("descriptionPlaceHolder");
     }
     
-    public static String getCrossReferenceSection(Configuration c){
-        return "<h2>"+numSection("Cross", c)+". Cross reference for "+c.getMainOntology().getName()+" classes and properties</h2>"+"\n" +
-               "This section provides details for each class and property defined by "+c.getMainOntology().getName()+".\n";
+    public static String getCrossReferenceSection(Configuration c, Properties lang){
+        return "<h2>"+numSection("Cross", c)+". "+lang.getProperty("crossRefTitle")+" "+c.getMainOntology().getName()+" "+lang.getProperty("crossRefTitle2")+"</h2>"+"\n" +
+               lang.getProperty("crossRefPlaceHolder")+c.getMainOntology().getName()+".\n";
     }
     
-    public static String getProvenanceHtml(Configuration c){
+    public static String getProvenanceHtml(Configuration c, Properties lang){
         String provhtml = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +
@@ -431,14 +413,14 @@ public class TextConstants {
                 "<div class=\"head\">\n";
         String provURI = c.getThisVersion();
         if(provURI==null || provURI.equals("")){
-            provURI = "..\\index.html";
+            provURI = c.getDocumentationURI();
         }
         if(c.getTitle()!=null &&!"".equals(c.getTitle())){
-            provhtml+="<h1>Provenance for"+c.getTitle()+" Documentation ("+provURI+")</h1>\n";
+            provhtml+="<h1>"+lang.getProperty("prov1")+""+c.getTitle()+" "+lang.getProperty("prov2")+" ("+provURI+")</h1>\n";
         }
         provhtml+="<ul>\n";
         if(!c.getCreators().isEmpty()){
-            provhtml+="	<li>Ontology created by :\n";
+            provhtml+="	<li>"+lang.getProperty("createdBy")+" :\n";
             Iterator<Agent> creators = c.getCreators().iterator();
             while(creators.hasNext()){
                 Agent currCreator = creators.next();
@@ -447,7 +429,7 @@ public class TextConstants {
             provhtml+="</li>";
         }
         if(!c.getContributors().isEmpty()){
-            provhtml+="	<li>Ontology contributed to by :\n";
+            provhtml+="	<li>"+lang.getProperty("contribBy")+":\n";
             Iterator<Agent> contrib = c.getContributors().iterator();
             while(contrib.hasNext()){
                 Agent currContrib = contrib.next();
@@ -456,23 +438,22 @@ public class TextConstants {
             provhtml+="</li>\n";
         }
         if(c.getLatestVersion()!=null &&!"".equals(c.getLatestVersion())){
-            provhtml+="<li>"+provURI+ " is a specialization of the generic URI "+ c.getLatestVersion()+"</li>\n";
+            provhtml+="<li>"+provURI+ " "+lang.getProperty("spec")+" "+ c.getLatestVersion()+"</li>\n";
         }
         if(c.getPreviousVersion()!=null &&!"".equals(c.getPreviousVersion())){
-            provhtml+="<li>"+provURI+ " is a revision of the previous version "+ c.getPreviousVersion()+"</li>\n";
+            provhtml+="<li>"+provURI+ " "+lang.getProperty("rev")+" "+ c.getPreviousVersion()+"</li>\n";
         }                    
-        provhtml+="<li>The ontology documentation was the result of using the <a href=\"https://github.com/dgarijo/Widoco\">Widoco tool</a> (which itself uses <a href=\"http://www.essepuntato.it/lode/\">LODE</a> for generating the crossreference section).</li>\n";
+        provhtml+="<li>"+lang.getProperty("result");
         if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
-            provhtml+="<li>The documentation was generated at</li>\n" +c.getReleaseDate();
+            provhtml+="<li>"+lang.getProperty("generated") +" "+c.getReleaseDate();
         }
         provhtml+="</ul>\n" +
-        "</div>\n" +
+        "</div>\n<p>"+lang.getProperty("back")+"<a href=\"..\\index.html\">"+lang.getProperty("back1")+"</a></p>" +
         "</body> \n" +
         "</html>";
         return provhtml;
     }
     
-    //for content negotiation, if desired. This has been done a bit quickly. Ideally it would change serializations according to what is needed.
     public static String getProvenanceRDF(Configuration c){
         String provURI = c.getThisVersion();
         if(provURI==null || provURI.equals("")){
@@ -522,14 +503,7 @@ public class TextConstants {
                 }
         return provrdf;
     }
-    
-    //resources to copy to the temporal folder.
-//    public static final String[] lodeResources = {"/lode/extraction.xsl","/lode/custom-annotations.xsl","/lode/common-functions.xsl", 
-//        "/lode/pellet.properties", "/lode/structural-reasoner.xsl", "/lode/swrl-module.xsl", "/lode/en.xml"};
-//    
-//    public static final String[] oopsResources = {"/oops/js/jquery-1.11.0.js","/oops/js/bootstrap.min.js", 
-//        "/oops/themes/blue/style.css", "/oops/js/jquery.tablesorter.min.js", "/oops/css/bootstrap.css"};
-    
+     
     public static final String lodeResources= "/lode.zip";
     public static final String oopsResources = "/oops.zip";
     
@@ -544,7 +518,6 @@ public class TextConstants {
         "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
         "    <meta name=\"description\" content=\"Evaluation of the ontology with the OOPS tool.\">\n" +
         "    <meta name=\"Languaje\" content=\"English\">\n" +
-        "    <meta name=\"Keywords\" content=\"ontology, smart city, energy efficiency\">\n" +
         "    \n" +
         "    <script src=\"evaluation/jquery-1.11.0.js\"></script>\n" +
         "    <script src=\"evaluation/bootstrap.min.js\"></script>\n" +

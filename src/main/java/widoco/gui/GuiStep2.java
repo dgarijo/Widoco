@@ -242,7 +242,7 @@ public class GuiStep2 extends javax.swing.JFrame {
                     conf.setRevision(value);
                 }else if(prop.equals("license URI")){
                     conf.getLicense().setUrl(value);
-                }else if(prop.equals("cite as")){
+                }else if(prop.equals("cite As")){
                     conf.setCiteAs(value);
                 }
             }

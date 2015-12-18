@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Date;
+import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -176,7 +177,15 @@ public final class GuiController {
     }
     
     public void generateSkeleton() {
-        CreateResources.generateSkeleton(this.config.getDocumentationURI(), config);
+        //default language
+        String resource = "/widoco/en.properties";
+        try{
+            Properties languageFile =  new Properties();
+            languageFile.load(GuiController.class.getResourceAsStream(resource));
+            CreateResources.generateSkeleton(this.config.getDocumentationURI(), config,languageFile);
+        }catch(Exception e){
+            System.out.println("Error while reading the language file: "+e.getMessage());
+        }        
     }
     
     private void startGeneratingDoc() {

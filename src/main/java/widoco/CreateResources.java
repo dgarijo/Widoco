@@ -18,17 +18,13 @@ package widoco;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
 import widoco.entities.Agent;
@@ -46,68 +42,82 @@ public class CreateResources {
         String lodeContent;
         lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
         LODEParser lode = new LODEParser(lodeContent,c);
+        //Aqui leer el fichero de properties dependiendo del idioma. Si no se carga, coger el de por defecto
+        Properties languageFile = new Properties();
+        try{
+            String resource = "/widoco/"+c.getLanguage()+".properties";
+            languageFile.load(CreateResources.class.getResourceAsStream(resource));
+        }catch (Exception e){
+            String resource = "/widoco/en.properties";
+            try{
+                System.out.println("Language file not found for "+c.getLanguage()+"!! Loading english by default");
+                languageFile.load(CreateResources.class.getResourceAsStream(resource));
+            }catch(Exception e1){
+                System.out.println("Error while reading the language file: "+e1.getMessage());
+            }
+        }
         createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance());
         if(c.isIncludeAbstract()){
-            createAbstractSection(folderOut+File.separator+"sections",c);
+            createAbstractSection(folderOut+File.separator+"sections",c, languageFile);
         }
         if(c.isIncludeIntroduction()){
-            createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c);
+            createIntroductionSection(folderOut+File.separator+"sections",lode.getNamespaceDeclarations(),c, languageFile);
         }
         if(c.isIncludeOverview()){
-            createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList(), lode.getAnnotationPropList(),lode.getNamedIndividualList());
+            createOverviewSection(folderOut+File.separator+"sections",c, lode.getClassList(),lode.getPropertyList(),lode.getDataPropList(), lode.getAnnotationPropList(),lode.getNamedIndividualList(), languageFile);
         }
         if(c.isIncludeDescription()){
-            createDescriptionSection(folderOut+File.separator+"sections",c);
+            createDescriptionSection(folderOut+File.separator+"sections",c, languageFile);
         }
         if(c.isIncludeCrossReferenceSection()){
-            createCrossReferenceSection(folderOut+File.separator+"sections",lode, c);
+            createCrossReferenceSection(folderOut+File.separator+"sections",lode, c, languageFile);
         }
         if(c.isIncludeReferences()){
-            createReferencesSection(folderOut+File.separator+"sections",c);
+            createReferencesSection(folderOut+File.separator+"sections",c, languageFile);
         }
         if(c.isPublishProvenance()){
-            createProvenancePage(folderOut+File.separator+"provenance", c);
+            createProvenancePage(folderOut+File.separator+"provenance", c, languageFile);
         }
-        createIndexDocument(folderOut,c, lode);
+        createIndexDocument(folderOut,c, lode, languageFile);
     }
     
-    public static void generateSkeleton(String folderOut, Configuration c){
+    public static void generateSkeleton(String folderOut, Configuration c, Properties l){
         c.setTitle("Skeleton title");
         createFolderStructure(folderOut,false,false);
-        createAbstractSection(folderOut+File.separator+"sections",c);
-        createIntroductionSection(folderOut+File.separator+"sections",null,c);
-        createDescriptionSection(folderOut+File.separator+"sections",c);
-        createReferencesSection(folderOut+File.separator+"sections",c);
-        createIndexDocument(folderOut,c,null);
+        createAbstractSection(folderOut+File.separator+"sections",c, l);
+        createIntroductionSection(folderOut+File.separator+"sections",null,c,l);
+        createDescriptionSection(folderOut+File.separator+"sections",c,l);
+        createReferencesSection(folderOut+File.separator+"sections",c,l);
+        createIndexDocument(folderOut,c,null, l);
     }
     
     /**
      * Provenance page
      */
-    private static void createProvenancePage(String path, Configuration c){
-        saveDocument(path+File.separator+"provenance.html", TextConstants.getProvenanceHtml(c),c);
+    private static void createProvenancePage(String path, Configuration c, Properties lang){
+        saveDocument(path+File.separator+"provenance.html", TextConstants.getProvenanceHtml(c, lang),c);
         saveDocument(path+File.separator+"provenance.ttl", TextConstants.getProvenanceRDF(c),c);
     }
     
     /**
      * Sections of the document. Each section will be a separate html file
      */
-    private static void createAbstractSection(String path, Configuration c){
+    private static void createAbstractSection(String path, Configuration c, Properties languageFile){
         if((c.getAbstractPath()!=null) && (!"".equals(c.getAbstractPath()))){
             WidocoUtils.copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract.html"));
         }else{
-            saveDocument(path+File.separator+"abstract.html", TextConstants.getAbstractSection(c.getAbstractSection(),c),c);
+            saveDocument(path+File.separator+"abstract.html", TextConstants.getAbstractSection(c.getAbstractSection(),c, languageFile),c);
         }
         
     }
     
-    private static void createIntroductionSection(String path, HashMap<String,String> nsDecl, Configuration c){
+    private static void createIntroductionSection(String path, HashMap<String,String> nsDecl, Configuration c, Properties lang){
         if((c.getIntroductionPath()!=null) && (!"".equals(c.getIntroductionPath()))){
             WidocoUtils.copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction.html"));
         }else{
-            String introSectionText = TextConstants.getIntroductionSection(c);
+            String introSectionText = TextConstants.getIntroductionSection(c, lang);
             if(nsDecl!=null && !nsDecl.isEmpty()){
-                introSectionText += TextConstants.getNameSpaceDeclaration(nsDecl);
+                introSectionText += TextConstants.getNameSpaceDeclaration(nsDecl, lang);
                 //small fix: use prefix selected by user.
                 if(c.getMainOntology().getNamespacePrefix()!=null && !"".equals(c.getMainOntology().getNamespacePrefix()))
                     introSectionText = introSectionText.replace("default namespace", c.getMainOntology().getNamespacePrefix());
@@ -118,46 +128,46 @@ public class CreateResources {
     }
     
     //the lists passed onto this method are the fixed lists
-    private static void createOverviewSection(String path, Configuration c, String classesList, String propList, String dataPropList, String annotationProps, String namedIndividuals){
+    private static void createOverviewSection(String path, Configuration c, String classesList, String propList, String dataPropList, String annotationProps, String namedIndividuals, Properties lang){
         if((c.getOverviewPath()!=null) && (!"".equals(c.getOverviewPath()))){
             WidocoUtils.copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview.html"));
         }else{
-            String overViewSection = TextConstants.getOverviewSection(c);
+            String overViewSection = TextConstants.getOverviewSection(c, lang);
             if(!"".equals(classesList) && classesList!=null){
-                overViewSection+=("<h4>Classes</h4>\n");
+                overViewSection+=("<h4>"+lang.getProperty("classes")+"</h4>\n");
                 overViewSection+=(classesList);
             }
             if(!"".equals(propList) && propList!=null){
-                overViewSection+=("<h4>Properties</h4>");
+                overViewSection+=("<h4>"+lang.getProperty("objProp")+"</h4>");
                 overViewSection+=(propList);
             }
             if(!"".equals(dataPropList) && dataPropList!=null){
-                overViewSection+=("<h4>Data Properties</h4>");
+                overViewSection+=("<h4>"+lang.getProperty("dataProp")+"</h4>");
                 overViewSection+=(dataPropList);
             }
             if(!"".equals(annotationProps) && annotationProps!=null && c.isIncludeAnnotationProperties()){
-                overViewSection+=("<h4>Annotation Properties</h4>");
+                overViewSection+=("<h4>"+lang.getProperty("annProp")+"</h4>");
                 overViewSection+=(annotationProps);
             }
             if(!"".equals(namedIndividuals) && namedIndividuals!=null && c.isIncludeNamedIndividuals()){
-                overViewSection+=("<h4>Named Individuals</h4>");
+                overViewSection+=("<h4>"+lang.getProperty("namedIndiv")+"</h4>");
                 overViewSection+=(namedIndividuals);
             }
             saveDocument(path+File.separator+"overview.html", overViewSection,c);
         }
     }
     
-    private static void createDescriptionSection(String path, Configuration c){
+    private static void createDescriptionSection(String path, Configuration c, Properties lang){
         if((c.getDescriptionPath()!=null) && (!"".equals(c.getDescriptionPath()))){
             WidocoUtils.copyExternalResource(c.getDescriptionPath(), new File(path+File.separator+"description.html"));
         }else{
-            saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c),c );
+            saveDocument(path+File.separator+"description.html",TextConstants.getDescriptionSection(c,lang),c);
         }
     }
     
-    private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c){
+    private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c, Properties lang){
         //cross reference section has to be included always.
-        String crossRef = TextConstants.getCrossReferenceSection(c);
+        String crossRef = TextConstants.getCrossReferenceSection(c, lang);
         String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList(),
                 annotationPropList = lodeParser.getAnnotationPropList(), namedIndividualList = lodeParser.getNamedIndividualList();
         if(classesList!=null && !"".equals(classesList)){
@@ -178,11 +188,11 @@ public class CreateResources {
         saveDocument(path+File.separator+"crossref.html", crossRef,c);
     }
     
-    private static void createReferencesSection(String path, Configuration c){
+    private static void createReferencesSection(String path, Configuration c, Properties lang){
         if((c.getReferencesPath()!=null) && (!"".equals(c.getReferencesPath()))){
             WidocoUtils.copyExternalResource(c.getReferencesPath(), new File(path+File.separator+"overview.html"));
         }else{
-            saveDocument(path+File.separator+"references.html", TextConstants.getReferencesSection(c),c);
+            saveDocument(path+File.separator+"references.html", TextConstants.getReferencesSection(c, lang),c);
         }
     }
     
@@ -190,9 +200,9 @@ public class CreateResources {
      * Method for creating the index section on the url provided. The index will
      * include the pointers to all of the other sections.
      */
-    private static void createIndexDocument(String path, Configuration c, LODEParser l){
+    private static void createIndexDocument(String path, Configuration c, LODEParser l, Properties lang){
         //the boolean valuas come from the configuration.
-        String textToWrite = TextConstants.getIndexDocument("resources",c, l);
+        String textToWrite = TextConstants.getIndexDocument("resources",c, l, lang);
         saveDocument(path+File.separator+"index.html", textToWrite,c);
     }
     
@@ -252,7 +262,7 @@ public class CreateResources {
         WidocoUtils.copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
         WidocoUtils.copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
         //copy widoco readme
-        WidocoUtils.copyLocalResource("/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
+        WidocoUtils.copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
     }
 
     
