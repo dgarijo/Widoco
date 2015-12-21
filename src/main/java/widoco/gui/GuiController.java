@@ -288,18 +288,6 @@ public final class GuiController {
                     this.startGeneratingDoc();
                 }
                 break;
-              //i decided to remove this step, as it is not needed.  
-//            case configLODE:
-//                if(input.equals("back")){
-//                    state = State.sections;
-//                    this.gui.dispose();
-//                    gui = new GuiStep3(this);
-//                    gui.setVisible(true);
-//                }else{//next
-//                    state = State.loading;
-//                    this.startGeneratingDoc();
-//                }
-//                break;
             case loading:
                 if(input.equals("error")){
                     JOptionPane.showMessageDialog(gui,"error while generating the documentation! refine this error.");

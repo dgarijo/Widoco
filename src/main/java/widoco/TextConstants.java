@@ -226,20 +226,26 @@ public class TextConstants {
     }
     
     public static String getIndexDocument(String resourcesFolderName,Configuration c, LODEParser l, Properties lang){
-        String document=opening +
-                        " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/primer.css\" media=\"screen\" />   " +
-                        " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/rec.css\" media=\"screen\" />   " +
-                        " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/extra.css\" media=\"screen\" />   " +
-                        " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/owl.css\" media=\"screen\" />   " +
-                        "<script src=\""+resourcesFolderName+"/jquery.js\"></script> \n" +
-                        "    <script> \n" +
-                        "function loadHash() {\n" +
-                        "	var hash = location.hash;\n" +
-                        "	if($(hash).offset()!=null){\n" +
-                        "		$('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" +
-                        "	}\n" +
-                        "}"+
-                        "    $(function(){\n";
+        String document=opening;
+        if(c.isUseW3CStyle()){
+            document+= " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/primer.css\" media=\"screen\" />   " +
+                     " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/rec.css\" media=\"screen\" />   " +
+                     " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/extra.css\" media=\"screen\" />   " +
+                     " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/owl.css\" media=\"screen\" />   ";
+                     
+        }else{
+            document+= " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/yeti.css\" media=\"screen\" />   " +
+                     " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/site.css\" media=\"screen\" />";
+        }
+        document += "<script src=\""+resourcesFolderName+"/jquery.js\"></script> \n" +
+                     "    <script> \n" +
+                     "function loadHash() {\n" +
+                     "	var hash = location.hash;\n" +
+                     "	if($(hash).offset()!=null){\n" +
+                     "		$('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" +
+                     "	}\n" +
+                     "}"+
+                     "    $(function(){\n";
         if(c.isIncludeAbstract()) document += "      $(\"#abstract\").load(\"sections/abstract-"+c.getCurrentLanguage()+".html\"); \n";
         if(c.isIncludeIntroduction()) document += "      $(\"#introduction\").load(\"sections/introduction-"+c.getCurrentLanguage()+".html\"); \n";
         if(c.isIncludeOverview()) document += "      $(\"#overview\").load(\"sections/overview-"+c.getCurrentLanguage()+".html\"); \n";
@@ -281,14 +287,15 @@ public class TextConstants {
     }
     
     public static String getHeadSection(Configuration c, Properties l){
-        String head = "<div class=\"head\">\n";
+        String head = "<div class=\"container\">"
+                + "<div class=\"head\">\n";
         head+="<div style=\"float:right\">language ";
         Iterator <String> lang = c.getLanguagesToGenerateDoc().iterator();
         while(lang.hasNext()){
             String nextLang = lang.next();
             head +="<a href=\"index-"+nextLang+".html\"><b>"+nextLang+"</b></a> ";
         }
-        head+="</div>";
+        head+="</div>\n";
         if(c.getTitle()!=null &&!"".equals(c.getTitle()))
             head+="<h1 property=\"dc:title schema:name\">"+c.getTitle()+"</h1>\n";
         if(c.getReleaseDate()!=null && !"".equals(c.getReleaseDate()))
@@ -456,7 +463,7 @@ public class TextConstants {
         }
         provhtml+="</ul>\n" +
         "</div>\n<p>"+lang.getProperty("back")+"<a href=\"..\\index-"+c.getCurrentLanguage()+".html\">"+lang.getProperty("back1")+"</a></p>" +
-        "</body> \n" +
+        "</div>\n</body> \n" +
         "</html>";
         return provhtml;
     }
@@ -555,12 +562,6 @@ public class TextConstants {
         "      <script src=\"/dist/js/html5shiv.js\"></script>\n" +
         "    <![endif]-->\n" +
         "\n" +
-        //"    <!-- Fav and touch icons -->\n" +
-        //"    <link rel=\"apple-touch-icon-precomposed\" sizes=\"144x144\" href=\"../dist/ico/apple-touch-icon-144-precomposed.png\">\n" +
-        //"    <link rel=\"apple-touch-icon-precomposed\" sizes=\"114x114\" href=\"../dist/ico/apple-touch-icon-114-precomposed.png\">\n" +
-        //"    <link rel=\"apple-touch-icon-precomposed\" sizes=\"72x72\" href=\"../dist/ico/apple-touch-icon-72pcomposed.png\">\n" +
-        //"    <link rel=\"apple-touch-icon-precomposed\" href=\"dist/ico/apple-touch-icon-57-precomposed.png\">\n" +
-        //"    <link rel=\"shortcut icon\" href=\"../dist/ico/favicon.png\">\n" +
         "  </head>\n"
         + "<div class=\"container\">\n" +
             "<h1> <a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getTitle()+"</a></h1>\n" +

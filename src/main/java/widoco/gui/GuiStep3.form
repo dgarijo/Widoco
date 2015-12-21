@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Step 3: Load the sections"/>
@@ -92,13 +96,12 @@
                       <Component id="labelSteps" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jSeparator1" min="-2" pref="17" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" pref="292" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jPanel1" min="-2" pref="273" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
@@ -109,15 +112,15 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="backButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="nextButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="barStatus" alignment="1" max="32767" attributes="0"/>
-                  <Component id="labelStatus" alignment="1" max="32767" attributes="0"/>
+                  <Component id="labelStatus" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -194,21 +197,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="includeAnnProps" min="-2" max="-2" attributes="0"/>
-                              <Component id="includeIndividuals" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="checkBoxProv" pref="361" max="32767" attributes="1"/>
+                                      <Component id="checkBoxProv" pref="370" max="32767" attributes="1"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="checkBoxDiagram" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -225,7 +221,7 @@
                                       <Component id="checkBoxIntro" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="checkBoxAbstract" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="130" max="32767" attributes="0"/>
+                                  <EmptySpace pref="132" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="abstractSectionButton" min="-2" max="-2" attributes="0"/>
@@ -243,10 +239,24 @@
                                           <Component id="labelLode" min="-2" pref="73" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="includeAnnProps" min="-2" max="-2" attributes="0"/>
+                              <Component id="includeIndividuals" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="w3C" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="customRadioButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -301,7 +311,13 @@
                           <Component id="loadAllFromButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="w3C" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="customRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -428,11 +444,36 @@
             <Property name="text" type="java.lang.String" value="Include Annotation Properties in the document"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Style:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="w3C">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="W3C"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="customRadioButton">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Custom"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="labelDescription">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select the sections you want your document to have.&lt;br/&gt; If you have a section you want to load, click on the &quot;Load&quot; button.&lt;br/&gt; If you want to load all sections from a folder, press the Load All button.&lt;br/&gt;The diagram of the ontology will be created on the &quot;images&quot; folder of the documentation.&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Select the sections you want your document to have.&lt;br/&gt; If you have a section you want to load, click on the &quot;Load&quot; button.&lt;br/&gt; The diagram of the ontology will be created on the &quot;images&quot; folder of the documentation.&lt;/html&gt;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="widocoLogo">

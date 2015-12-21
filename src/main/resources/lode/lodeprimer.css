@@ -8,6 +8,13 @@ div.syntaxmenu {
   margin: 1em; 
 }
 
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 @media print {
    div.syntaxmenu { display:none; }
 }

@@ -66,10 +66,8 @@ public class LODEGeneration {
         }
         catch (Exception e) {
             System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
-            
         } 
         return null;
-	
     }
 	
 	private static String parseWithOWLAPI(

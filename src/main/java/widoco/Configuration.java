@@ -103,6 +103,8 @@ public class Configuration {
     //citation (if included)
     private String citeAs;
     
+    private boolean useW3CStyle;
+    
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
         propertyFile = new Properties();
@@ -153,6 +155,7 @@ public class Configuration {
             languages = new HashMap<String, Boolean>();
             languages.put("en", false);
         }
+        useW3CStyle = true;//by default
     }
     
     private void loadConfigPropertyFile(String path){
@@ -792,5 +795,13 @@ public class Configuration {
         System.out.println("Doc successfully generated for lang "+ currentLanguage);
         currentLanguage = getNextLanguageToGenerateDoc();
 //        System.out.println("Next lang "+ currentLanguage);
+    }
+    
+      public boolean isUseW3CStyle() {
+        return useW3CStyle;
+    }
+
+    public void setUseW3CStyle(boolean useW3CStyle) {
+        this.useW3CStyle = useW3CStyle;
     }
 }

@@ -56,7 +56,7 @@ public class CreateResources {
                 System.out.println("Error while reading the language file: "+e1.getMessage());
             }
         }
-        createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance());
+        createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance(), c.isUseW3CStyle());
         if(c.isIncludeAbstract()){
             createAbstractSection(folderOut+File.separator+"sections",c, languageFile);
         }
@@ -83,7 +83,7 @@ public class CreateResources {
     
     public static void generateSkeleton(String folderOut, Configuration c, Properties l){
         c.setTitle("Skeleton title");
-        createFolderStructure(folderOut,false,false);
+        createFolderStructure(folderOut,false,false, true);
         createAbstractSection(folderOut+File.separator+"sections",c, l);
         createIntroductionSection(folderOut+File.separator+"sections",null,c,l);
         createDescriptionSection(folderOut+File.separator+"sections",c,l);
@@ -233,7 +233,7 @@ public class CreateResources {
         
     }
     
-    private static void createFolderStructure(String s, boolean includeDiagram, boolean includeProv){
+    private static void createFolderStructure(String s, boolean includeDiagram, boolean includeProv, boolean styleW3C){
         File f = new File(s);
         File sections = new File(s+File.separator+"sections");
         File img = new File(s+File.separator+"img");
@@ -257,10 +257,15 @@ public class CreateResources {
         //copy jquery
         WidocoUtils.copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
         //copy css
-        WidocoUtils.copyLocalResource("/lode/lodeprimer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
-        WidocoUtils.copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
-        WidocoUtils.copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
-        WidocoUtils.copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
+        if(styleW3C){
+            WidocoUtils.copyLocalResource("/lode/lodeprimer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
+            WidocoUtils.copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
+            WidocoUtils.copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
+            WidocoUtils.copyLocalResource("/lode/owl.css", new File(resources.getAbsolutePath()+File.separator+"owl.css"));
+        }else{
+            WidocoUtils.copyLocalResource("/lode/bootstrap-yeti.css", new File(resources.getAbsolutePath()+File.separator+"yeti.css"));
+            WidocoUtils.copyLocalResource("/lode/site.css", new File(resources.getAbsolutePath()+File.separator+"site.css"));
+        }
         //copy widoco readme
         WidocoUtils.copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
     }
