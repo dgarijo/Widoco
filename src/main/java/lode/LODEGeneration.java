@@ -1,5 +1,6 @@
 /*
- * This code was adapted from the LODE framework by Silvio Peroni.
+ * This code was adapted by Daniel Garijo from the LODE framework by 
+ * Silvio Peroni.
  * https://github.com/essepuntato/LODE
  * Copyright (c) 2010-2013, Silvio Peroni <essepuntato@gmail.com>
  * 
@@ -26,6 +27,7 @@ package lode;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -69,13 +71,6 @@ public class LODEGeneration {
         return null;
 	
     }
-	
-//	private void resolvePaths(HttpServletRequest request) {
-//		xsltURL = getServletContext().getRealPath("extraction.xsl");
-//		String requestURL = request.getRequestURL().toString();
-//		int index = requestURL.lastIndexOf("/");
-//		cssLocation = requestURL.substring(0, index) + File.separator;
-//	}
 	
 	private static String parseWithOWLAPI(
 			String ontologyURL,
@@ -307,18 +302,14 @@ public class LODEGeneration {
 	
 	
     private static String applyXSLTTransformation(String source, String ontologyUrl, String lang, File resourcesFile) 
-	throws TransformerException {	
+	throws TransformerException, UnsupportedEncodingException {	
 		TransformerFactory tfactory = new net.sf.saxon.TransformerFactoryImpl();
 		
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
-//		URL xsltURL = Thread.currentThread().getContextClassLoader().getResource("lode/extraction.xsl");
 		Transformer transformer =
 			tfactory.newTransformer(
-//                                        new StreamSource(ClassLoader.getSystemResourceAsStream("lode/extraction.xsl")));
                                         new StreamSource(resourcesFile.getPath()+File.separator+"extraction.xsl"));
-//                                        new StreamSource(ClassLoader.getSystemResourceAsStream("lode/resources/extraction.xsl")));
 		
-                //this will be modified later on, so it is not important right now
 //		transformer.setParameter("css-location", "");
 		transformer.setParameter("lang", lang);
 		transformer.setParameter("ontology-url", ontologyUrl);
@@ -330,7 +321,7 @@ public class LODEGeneration {
 				inputSource, 
 				new StreamResult(output));
 		
-		return output.toString();
+		return output.toString("UTF-8");
 	}
         
 }

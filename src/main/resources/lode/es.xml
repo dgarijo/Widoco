@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labels>
-    <ontology>Ontologia</ontology>
+    <ontology>Ontología</ontology>
     <ontologysource>Fuente</ontologysource>
-    <visualisation>Otra visualizacion</visualisation>
+    <visualisation>Otra visualización</visualisation>
     <visualiseitwith>visualizar con</visualiseitwith>
     <date>Fecha</date>
-    <currentversion>Version actual</currentversion>
-    <previousversion>Version previa</previousversion>
+    <currentversion>Versión actual</currentversion>
+    <previousversion>Versión previa</previousversion>
     <backwardcompatiblewith>Compatible con</backwardcompatiblewith>
     <incompatibleWith>No compatible con</incompatibleWith>
     <abstract>Síntesis</abstract>
-    <introduction>Introduccion</introduction>
+    <introduction>Introducción</introduction>
     <disjointclasses>Clases disjuntas</disjointclasses>
     <subclassdefinition>Definición general de subclase</subclassdefinition>
-    <equivalentdefinition>Definicion general de equivalencia</equivalentdefinition>
+    <equivalentdefinition>Definición general de equivalencia</equivalentdefinition>
     <issubclassof>subclase de</issubclassof>
     <isequivalentto>equivalente a</isequivalentto>
     <functional>funcional</functional>
@@ -46,8 +46,8 @@
     <authors>Autores</authors>
     <contributors>Colaboradores</contributors>
     <publisher>Editor</publisher>
-    <toc>Indice</toc>
-    <tocabbr>indice</tocabbr>
+    <toc>Índice</toc>
+    <tocabbr>índice</tocabbr>
     <backto>Volver a</backto>
     <class>clase</class>
     <classes>Clases</classes>
@@ -69,10 +69,10 @@
     <endnote>Este HTML ha sido obtenido mediante el procesado de la ontología con</endnote>
     <developedby>desarrollado por</developedby>
     <or>o</or>
-    <classtoc>Indice de clases</classtoc>
-    <objectpropertytoc>Indice de propiedades de objetos</objectpropertytoc>
-    <datapropertytoc>Indice de propiedades de datos</datapropertytoc>
+    <classtoc>Índice de clases</classtoc>
+    <objectpropertytoc>Índice de propiedades de objetos</objectpropertytoc>
+    <datapropertytoc>Índice de propiedades de datos</datapropertytoc>
     <annotationpropertytoc>Índice de propiedades de anotación</annotationpropertytoc>
-    <namedindividualtoc>Indice de individuos</namedindividualtoc>
+    <namedindividualtoc>Índice de individuos</namedindividualtoc>
     <hascharacteristics>tiene características</hascharacteristics>
 </labels>
