@@ -39,7 +39,7 @@ public class GuiStep5 extends javax.swing.JFrame {
     GuiController g;
     /** Creates new form WidocoGui2
      * @param g
-     * @param isSkeleton 
+     * @param isSkeleton
      */
     public GuiStep5(GuiController g, boolean isSkeleton) {
         initComponents();
@@ -130,7 +130,7 @@ public class GuiStep5 extends javax.swing.JFrame {
 
         textPaneSteps.setEditable(false);
         textPaneSteps.setContentType("text/html"); // NOI18N
-        textPaneSteps.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r \n1. Select template<br/>       \n2. Load Metadata<br/>\n3. Load Sections<br/>\n<b>4. Finish</b>\n  </body>\r\n</html>\r\n");
+        textPaneSteps.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r \n1. Select template<br/>       \n2. Load metadata<br/>\n3. Load sections<br/>\n<b>4. Finish</b>\n  </body>\r\n</html>\r\n");
         jScrollPane1.setViewportView(textPaneSteps);
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -285,35 +285,16 @@ public class GuiStep5 extends javax.swing.JFrame {
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void labelOopsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOopsMouseClicked
-//        String url = g.getConfig().getOntologyURI();
         this.barStatus.setVisible(true);
         this.barStatus.setIndeterminate(true);
         this.g.switchState("evaluate");
         this.labelStatusOOPS.setVisible(true);
-//        if(url!=null &&!"".equals(url)) {
-//            try {
-//                this.labelIsOOPSClicked.setVisible(true);
-//                g.openBrowser(new URI("http://www.oeg-upm.net/oops/response.jsp?uri="+url));
-//            } catch (URISyntaxException ex) {
-//                System.err.println("malformed URI!!!"+ ex.getMessage());
-//            }
-//        }else{
-//            JOptionPane.showMessageDialog(this, "This option is currently supported when the ontology is online.");
-            //we can do a request to oops web service, but we have to parse the results!
-//            try{
-//                OOPSevaluation eval = new OOPSevaluation("http://purl.org/net/p-plan#");
-//                System.out.println(eval.printEvaluation());
-//            }catch(Exception e){
-//                System.err.println("Error while saving OOPS evaluation: "+e.getMessage());
-//            }
-//        }
     }//GEN-LAST:event_labelOopsMouseClicked
 
     private void labelViewDocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelViewDocMouseClicked
         String url = g.getConfig().getDocumentationURI();
         if(url!=null &&!"".equals(url)) {
-            //
-            File f = new File(url+File.separator+"index.html");
+            File f = new File(url+File.separator+"index-"+g.getConfig().getLanguagesToGenerateDoc().get(0)+".html");
             if(f.exists()){
                 this.labelIsOntologyDocClicked.setVisible(true);
                 g.openBrowser(f.toURI());
@@ -358,11 +339,6 @@ public class GuiStep5 extends javax.swing.JFrame {
         setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_OOPSLogoMouseExited
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
 //         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -384,15 +360,7 @@ public class GuiStep5 extends javax.swing.JFrame {
 //            java.util.logging.Logger.getLogger(GuiStep5.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//
-//            public void run() {
-//                new GuiStep5().setVisible(true);
-//            }
-//        });
-//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel OOPSLogo;
     private javax.swing.JButton backButton;

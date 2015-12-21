@@ -240,12 +240,12 @@ public class TextConstants {
                         "	}\n" +
                         "}"+
                         "    $(function(){\n";
-        if(c.isIncludeAbstract()) document += "      $(\"#abstract\").load(\"sections/abstract.html\"); \n";
-        if(c.isIncludeIntroduction()) document += "      $(\"#introduction\").load(\"sections/introduction.html\"); \n";
-        if(c.isIncludeOverview()) document += "      $(\"#overview\").load(\"sections/overview.html\"); \n";
-        if(c.isIncludeDescription()) document += "      $(\"#description\").load(\"sections/description.html\"); \n";
-        if(c.isIncludeCrossReferenceSection()) document += "      $(\"#crossref\").load(\"sections/crossref.html\", null, loadHash); \n";
-        if(c.isIncludeReferences()) document += "      $(\"#references\").load(\"sections/references.html\"); \n";
+        if(c.isIncludeAbstract()) document += "      $(\"#abstract\").load(\"sections/abstract-"+c.getCurrentLanguage()+".html\"); \n";
+        if(c.isIncludeIntroduction()) document += "      $(\"#introduction\").load(\"sections/introduction-"+c.getCurrentLanguage()+".html\"); \n";
+        if(c.isIncludeOverview()) document += "      $(\"#overview\").load(\"sections/overview-"+c.getCurrentLanguage()+".html\"); \n";
+        if(c.isIncludeDescription()) document += "      $(\"#description\").load(\"sections/description-"+c.getCurrentLanguage()+".html\"); \n";
+        if(c.isIncludeCrossReferenceSection()) document += "      $(\"#crossref\").load(\"sections/crossref-"+c.getCurrentLanguage()+".html\", null, loadHash); \n";
+        if(c.isIncludeReferences()) document += "      $(\"#references\").load(\"sections/references-"+c.getCurrentLanguage()+".html\"); \n";
             document+="    });\n" +
                      "    </script> \n" +
                      "  </head> \n" +
@@ -282,6 +282,13 @@ public class TextConstants {
     
     public static String getHeadSection(Configuration c, Properties l){
         String head = "<div class=\"head\">\n";
+        head+="<div style=\"float:right\">language ";
+        Iterator <String> lang = c.getLanguagesToGenerateDoc().iterator();
+        while(lang.hasNext()){
+            String nextLang = lang.next();
+            head +="<a href=\"index-"+nextLang+".html\"><b>"+nextLang+"</b></a> ";
+        }
+        head+="</div>";
         if(c.getTitle()!=null &&!"".equals(c.getTitle()))
             head+="<h1 property=\"dc:title schema:name\">"+c.getTitle()+"</h1>\n";
         if(c.getReleaseDate()!=null && !"".equals(c.getReleaseDate()))
@@ -448,7 +455,7 @@ public class TextConstants {
             provhtml+="<li>"+lang.getProperty("generated") +" "+c.getReleaseDate();
         }
         provhtml+="</ul>\n" +
-        "</div>\n<p>"+lang.getProperty("back")+"<a href=\"..\\index.html\">"+lang.getProperty("back1")+"</a></p>" +
+        "</div>\n<p>"+lang.getProperty("back")+"<a href=\"..\\index-"+c.getCurrentLanguage()+".html\">"+lang.getProperty("back1")+"</a></p>" +
         "</body> \n" +
         "</html>";
         return provhtml;
@@ -457,7 +464,7 @@ public class TextConstants {
     public static String getProvenanceRDF(Configuration c){
         String provURI = c.getThisVersion();
         if(provURI==null || provURI.equals("")){
-            provURI = "..\\index.html";
+            provURI = "..\\index-"+c.getCurrentLanguage()+".html";
         }
         String provrdf = "@prefix prov: <http://www.w3.org/ns/prov#> .\n"
                 + "@prefix dc: <http://purl.org/dc/terms/> .\n"

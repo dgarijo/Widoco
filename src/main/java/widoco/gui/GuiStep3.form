@@ -160,7 +160,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="contentType" type="java.lang.String" value="text/html" noResource="true"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xd;&#xa;  &lt;head&gt;&#xd;&#xa;&#xd;&#xa;  &lt;/head&gt;&#xd;&#xa;  &lt;body&gt;&#xd; &#xa;1. Select template&lt;br/&gt;       &#xa;2. Load Metadata&lt;br/&gt;&#xa;&lt;b&gt;3. Load Sections&lt;/b&gt;&lt;br/&gt;&#xa;4. Finish&#xa;  &lt;/body&gt;&#xd;&#xa;&lt;/html&gt;&#xd;&#xa;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xd;&#xa;  &lt;head&gt;&#xd;&#xa;&#xd;&#xa;  &lt;/head&gt;&#xd;&#xa;  &lt;body&gt;&#xd; &#xa;1. Select template&lt;br/&gt;       &#xa;2. Load metadata&lt;br/&gt;&#xa;&lt;b&gt;3. Load sections&lt;/b&gt;&lt;br/&gt;&#xa;4. Finish&#xa;  &lt;/body&gt;&#xd;&#xa;&lt;/html&gt;&#xd;&#xa;"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -208,26 +208,14 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="checkBoxProv" pref="361" max="32767" attributes="1"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="checkBoxDiagram" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="checkBoxProv" pref="361" max="32767" attributes="1"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                          <Component id="labelTitle2" min="-2" pref="217" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="checkBoxDiagram" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="textFielLang" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="loadAllFromButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="loadAllFromButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -307,17 +295,13 @@
                           <Component id="checkBoxDiagram" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="checkBoxProv" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelTitle2" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="textFielLang" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace pref="9" max="-2" attributes="0"/>
                           <Component id="loadAllFromButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -432,16 +416,6 @@
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelLodeMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelLodeMouseExited"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelTitle2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Preferred language (&quot;en&quot; by default)"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="textFielLang">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="en"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="includeIndividuals">
           <Properties>

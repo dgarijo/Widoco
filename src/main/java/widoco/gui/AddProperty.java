@@ -14,9 +14,10 @@ import java.awt.Toolkit;
  * @author Daniel Garijo
  */
 public class AddProperty extends javax.swing.JFrame {
-    private GuiStep2 g;//pointer to go back to the previous form. I could do it via the controller, but this is simpler.
+    private final GuiStep2 g;//pointer to go back to the previous form. I could do it via the controller, but this is simpler.
     /**
      * Creates new form AddProperty
+     * @param g
      */
     public AddProperty(GuiStep2 g) {
         initComponents();

@@ -143,7 +143,7 @@ public class GuiStep1 extends javax.swing.JFrame {
 
         textPaneSteps.setEditable(false);
         textPaneSteps.setContentType("text/html"); // NOI18N
-        textPaneSteps.setText("<html>\r\n\r<b>1. Select template</b><br/>       \n2. Load Metadata<br/>\n3. Load Sections<br/>\n4. Finish\n</html>\r\n");
+        textPaneSteps.setText("<html>\r\n\r<b>1. Select template</b><br/>       \n2. Load metadata<br/>\n3. Load sections<br/>\n4. Finish\n</html>\r\n");
         jScrollPane1.setViewportView(textPaneSteps);
 
         textFieldPath.setEditable(false);

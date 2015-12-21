@@ -29,7 +29,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -110,8 +109,6 @@ public class GuiStep3 extends javax.swing.JFrame {
         loadAllFromButton = new javax.swing.JButton();
         labelTitle1 = new javax.swing.JLabel();
         labelLode = new javax.swing.JLabel();
-        labelTitle2 = new javax.swing.JLabel();
-        textFielLang = new javax.swing.JTextField();
         includeIndividuals = new javax.swing.JCheckBox();
         includeAnnProps = new javax.swing.JCheckBox();
         labelDescription = new javax.swing.JLabel();
@@ -153,7 +150,7 @@ public class GuiStep3 extends javax.swing.JFrame {
 
         textPaneSteps.setEditable(false);
         textPaneSteps.setContentType("text/html"); // NOI18N
-        textPaneSteps.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r \n1. Select template<br/>       \n2. Load Metadata<br/>\n<b>3. Load Sections</b><br/>\n4. Finish\n  </body>\r\n</html>\r\n");
+        textPaneSteps.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r \n1. Select template<br/>       \n2. Load metadata<br/>\n<b>3. Load sections</b><br/>\n4. Finish\n  </body>\r\n</html>\r\n");
         jScrollPane1.setViewportView(textPaneSteps);
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -244,10 +241,6 @@ public class GuiStep3 extends javax.swing.JFrame {
             }
         });
 
-        labelTitle2.setText("Preferred language (\"en\" by default)");
-
-        textFielLang.setText("en");
-
         includeIndividuals.setSelected(true);
         includeIndividuals.setText("Include Named Individuals in the document");
 
@@ -269,20 +262,12 @@ public class GuiStep3 extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(checkBoxDiagram)
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addComponent(labelTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(textFielLang, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(loadAllFromButton, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addComponent(checkBoxDiagram)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(loadAllFromButton))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkBoxRefs)
@@ -342,14 +327,11 @@ public class GuiStep3 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(checkBoxDiagram)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkBoxProv)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFielLang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(checkBoxProv))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(loadAllFromButton))))
+                        .addComponent(loadAllFromButton)))
+                .addGap(31, 31, 31))
         );
 
         labelDescription.setText("<html>Select the sections you want your document to have.<br/> If you have a section you want to load, click on the \"Load\" button.<br/> If you want to load all sections from a folder, press the Load All button.<br/>The diagram of the ontology will be created on the \"images\" folder of the documentation.</html>");
@@ -470,7 +452,6 @@ public class GuiStep3 extends javax.swing.JFrame {
         g.getConfig().setPublishProvenance(checkBoxProv.isSelected());
         g.getConfig().setIncludeReferences(checkBoxRefs.isSelected());
         g.getConfig().setReferencesPath(referencesPath);
-        g.getConfig().setLanguage(this.textFielLang.getText());
         g.getConfig().setIncludeNamedIndividuals(includeIndividuals.isSelected());
         g.getConfig().setIncludeAnnotationProperties(includeAnnProps.isSelected());
         //g.saveDiagram(rootPaneCheckingEnabled);
@@ -592,12 +573,10 @@ public class GuiStep3 extends javax.swing.JFrame {
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JLabel labelTitle1;
-    private javax.swing.JLabel labelTitle2;
     private javax.swing.JButton loadAllFromButton;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton overviewSectionButton;
     private javax.swing.JButton referencesSectionButton;
-    private javax.swing.JTextField textFielLang;
     private javax.swing.JTextPane textPaneSteps;
     private javax.swing.JLabel widocoLogo;
     // End of variables declaration//GEN-END:variables

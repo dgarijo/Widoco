@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import javax.imageio.ImageIO;
@@ -87,7 +88,8 @@ public class Configuration {
     private boolean useOwlAPI;
     private boolean useImported;
     private boolean useReasoner;
-    private String language;
+    private String currentLanguage;
+    private HashMap<String,Boolean> languages; //<language,the doc been generated for that lang or not>
     
     private Image logo;
     private Image logoMini;
@@ -101,7 +103,6 @@ public class Configuration {
     //citation (if included)
     private String citeAs;
     
-//    to do. Load from configuration file. Setters and getters to do it from the interface.
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
         propertyFile = new Properties();
@@ -147,6 +148,11 @@ public class Configuration {
         includeCrossReferenceSection = true;
         includeAnnotationProperties = false;
         includeNamedIndividuals = true;
+        if(languages==null){
+            currentLanguage = "en";
+            languages = new HashMap<String, Boolean>();
+            languages.put("en", false);
+        }
     }
     
     private void loadConfigPropertyFile(String path){
@@ -639,13 +645,8 @@ public class Configuration {
         this.fromFile = fromFile;
     }
     
-    /**
-     * Lode configuration parameters
-     * 
-     */
-    
-    public String getLanguage() {
-        return language;
+    public String getCurrentLanguage() {
+        return currentLanguage;
     }
 
     public boolean isUseImported() {
@@ -660,8 +661,8 @@ public class Configuration {
         return useReasoner;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setCurrentLanguage(String language) {
+        this.currentLanguage = language;
     }
 
     public void setUseOwlAPI(boolean useOwlAPI) {
@@ -728,7 +729,68 @@ public class Configuration {
         this.includeNamedIndividuals = includeNamedIndividuals;
     }
     
+    public void addLanguageToGenerate(String lang){
+        if(!this.languages.containsKey(lang)){
+            this.languages.put(lang, false);
+            if(currentLanguage.equals("")){
+                currentLanguage = lang;
+            }
+        }   
+    }
     
+    public void removeLanguageToGenerate(String lang){
+        if(this.languages.containsKey(lang) && !languages.get(lang)){
+            this.languages.remove(lang);
+            if(currentLanguage.equals(lang)){
+                ArrayList<String> aux = getRemainingToGenerateDoc();
+                if(!aux.isEmpty()){
+                    currentLanguage = getRemainingToGenerateDoc().get(0);
+                }else{
+                    currentLanguage = "";
+                }
+                
+            }
+        }   
+    }
     
+    public ArrayList<String> getLanguagesToGenerateDoc(){
+        Iterator<String> it = languages.keySet().iterator();
+        ArrayList<String> s = new ArrayList<String>();
+        while (it.hasNext()){
+            s.add(it.next());
+        }
+        return s;
+    }
     
+    public ArrayList<String> getRemainingToGenerateDoc(){
+        Iterator<String> it = languages.keySet().iterator();
+        ArrayList<String> s = new ArrayList<String>();
+        while (it.hasNext()){
+            String nextLang = it.next();
+            if(!languages.get(nextLang)){
+                s.add(nextLang);
+            }
+        }
+        return s;
+    }
+    
+    public String getNextLanguageToGenerateDoc(){
+        if(!"".equals(currentLanguage) && languages.get(currentLanguage)){
+            ArrayList<String> aux = getRemainingToGenerateDoc();
+            if(aux.isEmpty()){
+                return null;
+            }
+            else{
+                currentLanguage = aux.get(0);
+            }
+        }
+        return currentLanguage;
+    }
+    
+    public void vocabularySuccessfullyGenerated(){
+        languages.put(currentLanguage, true);
+        System.out.println("Doc successfully generated for lang "+ currentLanguage);
+        currentLanguage = getNextLanguageToGenerateDoc();
+//        System.out.println("Next lang "+ currentLanguage);
+    }
 }

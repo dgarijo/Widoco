@@ -303,6 +303,17 @@ public final class GuiController {
             case loading:
                 if(input.equals("error")){
                     JOptionPane.showMessageDialog(gui,"error while generating the documentation! refine this error.");
+                }else{
+                    config.vocabularySuccessfullyGenerated();
+                    if(config.getCurrentLanguage()!=null){
+                        JOptionPane.showMessageDialog(gui, "Documentation successfully generated!\n Now you will be requested to add the metadata for the next language: "+config.getCurrentLanguage());
+                        state = State.metadata;
+                        this.gui.dispose();
+                        gui = new GuiStep2(this);
+                        gui.setVisible(true);
+                        break;
+//                        probar si esto itera bien
+                    }
                 }
                 state = State.generated;
                 this.gui.dispose();

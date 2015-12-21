@@ -53,7 +53,7 @@ public class LODEGeneration {
         try {
 
             String content = "";
-            String lang = c.getLanguage();
+            String lang = c.getCurrentLanguage();
             if (lang == null || "".equals(lang)) {
                     lang = "en";
             }
