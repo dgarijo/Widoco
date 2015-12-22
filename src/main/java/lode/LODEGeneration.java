@@ -97,7 +97,6 @@ public class LODEGeneration {
 //                    }
 
             OWLOntologyDocumentTarget parsedOntology = new StringDocumentTarget();
-
             manager.saveOntology(ontology, new RDFXMLOntologyFormat(), parsedOntology);
             result = parsedOntology.toString();
 //		}

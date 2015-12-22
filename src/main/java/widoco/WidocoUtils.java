@@ -17,14 +17,22 @@
 package widoco;
 
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -67,9 +75,35 @@ public class WidocoUtils {
             }
         }else{
             try{
+                System.out.println("Attempting to load ontology in RDF/XML...");
                 model.read(ontoURL, null, "RDF/XML");
             }catch(Exception e){
-                model.read(ontoURL, null, "TURTLE");
+                try{
+                    System.out.println("Attempting to load ontology in turtle...");
+                    model.read(ontoURL, null, "TURTLE");
+                }catch(Exception e1){
+                    System.out.println("Attempting to download and read the ontology directly...");
+                    try{
+                        URL url = new URL(ontoURL);
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.setInstanceFollowRedirects(true);
+                        connection.setRequestProperty("Accept", "application/rdf+xml");
+                        
+                        int status = connection.getResponseCode();
+                        if(status == HttpURLConnection.HTTP_SEE_OTHER ||
+                                status == HttpURLConnection.HTTP_MOVED_TEMP || 
+                                status == HttpURLConnection.HTTP_MOVED_PERM){
+                            String newUrl = connection.getHeaderField("Location");
+                            connection = (HttpURLConnection) new URL(newUrl).openConnection();
+                            connection.setRequestProperty("Accept", "application/rdf+xml");
+                        }
+                    InputStream in = (InputStream) connection.getInputStream();
+                    model.read(in, null, "RDF/XML");    
+                    }catch(Exception e2){
+                        System.out.println("Failed to read the ontology");
+                    }
+                }
             }
         }
     }
