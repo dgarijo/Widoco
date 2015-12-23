@@ -76,18 +76,12 @@ b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Car
 (OSX) open /Applications/Google\ Chrome.app/ --args --allow-file-access-from-files
 
 (UNX) /usr/bin/google-chrome --allow-file-access-from-files
-
-Encoding issues
-==========
-If you have problems with accents or strange characters,  use the -Dfile.encoding=utf-8 option when running the .jar.
-
-If you encounter any errors, please open an issue!
 	
 Current improvements
 ==========
 We are working on the following features:
 * Integration with diagram creators to include a diagram of your ontology when generating the documentation
-* Possibility of generating the documentation is several languages.
+* Possibility of generating the documentation in several languages (now supported: en, es, pt).
 * Means to add examples to your ontology terms.
 * Previsualization of the terms that will be generated.
 

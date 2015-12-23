@@ -32,14 +32,14 @@
                   <Component id="otherText" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="de" min="-2" max="-2" attributes="0"/>
                           <Component id="pt" min="-2" max="-2" attributes="0"/>
                           <Component id="fr" min="-2" max="-2" attributes="0"/>
-                          <Component id="it" min="-2" max="-2" attributes="0"/>
                           <Component id="es" min="-2" max="-2" attributes="0"/>
                           <Component id="en" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="de" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="it" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -58,11 +58,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="es" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="it" min="-2" max="-2" attributes="0"/>
+              <Component id="pt" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="fr" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pt" min="-2" max="-2" attributes="0"/>
+              <Component id="it" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="de" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -121,8 +121,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="pt">
       <Properties>
-        <Property name="text" type="java.lang.String" value="pt (coming soon)"/>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="pt"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="de">

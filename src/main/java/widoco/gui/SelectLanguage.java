@@ -7,7 +7,6 @@ package widoco.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 import java.util.Iterator;
 import widoco.Configuration;
 
@@ -49,6 +48,9 @@ private final String previousLang;//an auxiliar param to knw if the text field i
             } 
             else if(nextL.contains("es")){
                 es.setSelected(true);
+            }
+            else if(nextL.contains("pt")){
+                pt.setSelected(true);
             }else{
                 otherText.setText(nextL);
                 lang = nextL;
@@ -103,8 +105,7 @@ private final String previousLang;//an auxiliar param to knw if the text field i
         fr.setText("fr (coming soon)");
         fr.setEnabled(false);
 
-        pt.setText("pt (coming soon)");
-        pt.setEnabled(false);
+        pt.setText("pt");
 
         de.setText("de (coming soon)");
         de.setEnabled(false);
@@ -120,14 +121,14 @@ private final String previousLang;//an auxiliar param to knw if the text field i
                     .addComponent(otherText)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(de)
                             .addComponent(pt)
                             .addComponent(fr)
-                            .addComponent(it)
                             .addComponent(es)
                             .addComponent(en)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(de)
+                            .addComponent(it))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -141,11 +142,11 @@ private final String previousLang;//an auxiliar param to knw if the text field i
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(es)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(it)
+                .addComponent(pt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fr)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pt)
+                .addComponent(it)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(de)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -171,6 +172,11 @@ private final String previousLang;//an auxiliar param to knw if the text field i
            this.c.addLanguageToGenerate("es");
        }else{
            this.c.removeLanguageToGenerate("es");       
+       }
+       if(pt.isSelected()){
+           this.c.addLanguageToGenerate("pt");
+       }else{
+           this.c.removeLanguageToGenerate("pt");       
        }
        String otherL = otherText.getText();
        if(!"".equals(otherL)){

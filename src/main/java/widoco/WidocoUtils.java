@@ -97,6 +97,17 @@ public class WidocoUtils {
                             String newUrl = connection.getHeaderField("Location");
                             connection = (HttpURLConnection) new URL(newUrl).openConnection();
                             connection.setRequestProperty("Accept", "application/rdf+xml");
+                        }else{//last attempt, ttl
+                            connection = (HttpURLConnection) new URL(ontoURL).openConnection();
+                            connection.setRequestProperty("Accept", "text/turtle");
+                            status = connection.getResponseCode();
+                            if(status == HttpURLConnection.HTTP_SEE_OTHER ||
+                                    status == HttpURLConnection.HTTP_MOVED_TEMP || 
+                                    status == HttpURLConnection.HTTP_MOVED_PERM){
+                                String newUrl = connection.getHeaderField("Location");
+                                connection = (HttpURLConnection) new URL(newUrl).openConnection();
+                                connection.setRequestProperty("Accept", "text/turtle");
+                            }
                         }
                     InputStream in = (InputStream) connection.getInputStream();
                     model.read(in, null, "RDF/XML");    
