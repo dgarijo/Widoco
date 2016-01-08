@@ -24,12 +24,8 @@ package widoco.gui;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -144,7 +140,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 contributors+="contributor; ";
             }
             else{
-                contributors+=a.getName();
+                contributors+=a.getName()+"; ";
             }
         }
         for(Ontology a: conf.getImportedOntologies()){

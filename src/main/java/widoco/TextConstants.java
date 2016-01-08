@@ -462,7 +462,7 @@ public class TextConstants {
             provhtml+="<li>"+lang.getProperty("generated") +" "+c.getReleaseDate();
         }
         provhtml+="</ul>\n" +
-        "</div>\n<p>"+lang.getProperty("back")+"<a href=\"..\\index-"+c.getCurrentLanguage()+".html\">"+lang.getProperty("back1")+"</a></p>" +
+        "</div>\n<p>"+lang.getProperty("back")+" <a href=\"..\\index-"+c.getCurrentLanguage()+".html\">"+lang.getProperty("back1")+"</a></p>" +
         "</div>\n</body> \n" +
         "</html>";
         return provhtml;
