@@ -79,7 +79,8 @@ public final class GuiController {
         config = new Configuration();
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
-        boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false;
+        boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true;
+        String[] languages = null;
         int i=0;
         while(i< args.length){
             String s = args[i];
@@ -119,6 +120,13 @@ public final class GuiController {
                 configOutFile = args[i+1];
                 i++;
             }
+            else if(s.equals("-useCustomStyle")){
+                useW3Cstyle = false;
+            }
+            else if(s.equals("-lang")){
+                languages = args[i+1].replace(" ","").split(";");
+                i++;
+            }
             else{
                 System.out.println("Command"+s+" not recognized.");
                 System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile]\n");
@@ -139,16 +147,26 @@ public final class GuiController {
         this.config.setDocumentationURI(outFolder);
         this.config.setOntologyPath(ontology);
         this.config.setOverwriteAll(rewriteAll);
+        this.config.setUseW3CStyle(useW3Cstyle);
+        if(languages!=null){
+            config.removeLanguageToGenerate("en");//default
+            for (String language : languages) {
+                this.config.addLanguageToGenerate(language);
+            }
+        }
         if(!isFromFile)this.config.setOntologyURI(ontology);
         if(getOntoMetadata){
             config.loadPropertiesFromOntology(WidocoUtils.loadModel(config));
         }
         try{
-            System.out.println("Generating documentation for "+ontology);
-            if (isFromFile){
-                CreateResources.generateDocumentation(outFolder, config, false, tmpFile);
-            }else{
-                CreateResources.generateDocumentation(outFolder, config, true, tmpFile);
+            for (String l : config.getLanguagesToGenerateDoc()) {
+                System.out.println("Generating documentation for "+ontology+ " in lang " +l);
+                if (isFromFile){
+                    CreateResources.generateDocumentation(outFolder, config, false, tmpFile);
+                }else{
+                    CreateResources.generateDocumentation(outFolder, config, true, tmpFile);
+                }
+                config.vocabularySuccessfullyGenerated();
             }
         }catch(Exception e){
             System.err.println("Error while generating the documentation " +e.getMessage());
