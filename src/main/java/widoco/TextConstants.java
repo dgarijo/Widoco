@@ -340,6 +340,9 @@ public class TextConstants {
             head+="<dl>"+l.getProperty("license")+"<a rel=\"license\" href=\""+licenseURL+"\">"+lname+"</a>.</dl>\n"+
                     "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
         }
+        if(c.isPublishProvenance()){
+            head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\">"+l.getProperty("provHead")+"</a> "+l.getProperty("provHead2")+ ".</dl>";
+        }
         head+= "<hr/>\n"+
                 "</div>\n";
         return head;
@@ -430,7 +433,7 @@ public class TextConstants {
             provURI = c.getDocumentationURI();
         }
         if(c.getTitle()!=null &&!"".equals(c.getTitle())){
-            provhtml+="<h1>"+lang.getProperty("prov1")+""+c.getTitle()+" "+lang.getProperty("prov2")+" ("+provURI+")</h1>\n";
+            provhtml+="<h1>"+lang.getProperty("prov1")+" "+c.getTitle()+" "+lang.getProperty("prov2")+" ("+provURI+")</h1>\n";
         }
         provhtml+="<ul>\n";
         if(!c.getCreators().isEmpty()){
@@ -462,7 +465,7 @@ public class TextConstants {
             provhtml+="<li>"+lang.getProperty("generated") +" "+c.getReleaseDate();
         }
         provhtml+="</ul>\n" +
-        "</div>\n<p>"+lang.getProperty("back")+" <a href=\"..\\index-"+c.getCurrentLanguage()+".html\">"+lang.getProperty("back1")+"</a></p>" +
+        "</div>\n<p>"+lang.getProperty("back")+" <a href=\"..\\index-"+c.getCurrentLanguage()+".html\">"+lang.getProperty("back1")+"</a>. <a href=\"provenance-"+c.getCurrentLanguage()+".ttl\">"+lang.getProperty("back2")+"</a></p>" +
         "</div>\n</body> \n" +
         "</html>";
         return provhtml;
