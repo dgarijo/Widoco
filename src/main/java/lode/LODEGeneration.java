@@ -51,7 +51,7 @@ import widoco.Configuration;
  */
 public class LODEGeneration {
     
-    public static String getLODEhtml(Configuration c, File lodeResources) {
+    public static String getLODEhtml(Configuration c, File lodeResources) throws Exception {
         try {
 
             String content = "";
@@ -66,8 +66,9 @@ public class LODEGeneration {
         }
         catch (Exception e) {
             System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
+            throw e;
         } 
-        return null;
+        //return null;
     }
 	
 	private static String parseWithOWLAPI(

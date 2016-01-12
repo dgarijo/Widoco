@@ -308,7 +308,7 @@ public final class GuiController {
                 break;
             case loading:
                 if(input.equals("error")){
-                    JOptionPane.showMessageDialog(gui,"error while generating the documentation! refine this error.");
+                    JOptionPane.showMessageDialog(gui,config.getError());
                 }else{
                     config.vocabularySuccessfullyGenerated();
                     if(config.getCurrentLanguage()!=null){

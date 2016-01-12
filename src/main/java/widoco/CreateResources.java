@@ -38,7 +38,7 @@ import widoco.entities.Ontology;
 public class CreateResources {
     
     //to do: analyze if this is the right name for the class. Maybe "generate" is better
-    public static void generateDocumentation(String folderOut, Configuration c, boolean fromURI, File lodeResources){
+    public static void generateDocumentation(String folderOut, Configuration c, boolean fromURI, File lodeResources) throws Exception{
         String lodeContent;
         lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
         LODEParser lode = new LODEParser(lodeContent,c);

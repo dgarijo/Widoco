@@ -105,6 +105,8 @@ public class Configuration {
     
     private boolean useW3CStyle;
     
+    private String error;//Latest error to show to user via interface.
+    
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
         propertyFile = new Properties();
@@ -156,6 +158,7 @@ public class Configuration {
             languages.put("en", false);
         }
         useW3CStyle = true;//by default
+        error = "";
     }
     
     private void loadConfigPropertyFile(String path){
@@ -804,4 +807,14 @@ public class Configuration {
     public void setUseW3CStyle(boolean useW3CStyle) {
         this.useW3CStyle = useW3CStyle;
     }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
+    
+    
 }

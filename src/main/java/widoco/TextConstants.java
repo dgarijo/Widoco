@@ -516,8 +516,9 @@ public class TextConstants {
                     provrdf+="\t prov:wasRevisionOf <"+c.getPreviousVersion()+">;\n";
                 }                    
                 if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
-                    provrdf+="\t prov:wasGeneratedAt \""+c.getReleaseDate()+"\".\n";
+                    provrdf+="\t prov:wasGeneratedAt \""+c.getReleaseDate()+"\";\n";                    
                 }
+                provrdf +=".\n";
         return provrdf;
     }
      

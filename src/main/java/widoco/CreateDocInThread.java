@@ -45,8 +45,8 @@ public class CreateDocInThread implements Runnable{
             }
             this.pointerToMain.switchState("next");
         }catch(Exception e){
-            System.err.println("Error" +e.getMessage());
-//            e.printStackTrace();
+            System.err.println("Error " +e.getCause().getLocalizedMessage());
+            c.setError("Error: " +e.getCause().getLocalizedMessage());
             this.pointerToMain.switchState("error");
         }        
     }
