@@ -253,6 +253,9 @@ public class LODEParser {
                     Node secondAnchor = firstAnchor.getNextSibling();
                     String newID = firstAnchor.getAttributes().getNamedItem("name").getNodeValue();
                     newID = newID.replace(c.getMainOntology().getNamespaceURI(), "");
+                    if (newID.startsWith("#")){
+                        newID = newID.replace("#", "");
+                    }//fix in case the author insert the NS URI without "#"
                     if(secondAnchor.getNodeName().equals("a")){
                         currentNode.removeChild(secondAnchor);
                     }
