@@ -107,6 +107,9 @@ public class Configuration {
     
     private String error;//Latest error to show to user via interface.
     
+    //add imported ontologies in the doc as well
+    private boolean addImportedOntologies;
+    
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
         propertyFile = new Properties();
@@ -159,6 +162,7 @@ public class Configuration {
         }
         useW3CStyle = true;//by default
         error = "";
+        addImportedOntologies = false;
     }
     
     private void loadConfigPropertyFile(String path){
@@ -815,6 +819,15 @@ public class Configuration {
     public String getError() {
         return error;
     }
+
+    public boolean isAddImportedOntologies() {
+        return addImportedOntologies;
+    }
+
+    public void setAddImportedOntologies(boolean addImportedOntologies) {
+        this.addImportedOntologies = addImportedOntologies;
+    }
+    
     
     
 }

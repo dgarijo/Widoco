@@ -79,7 +79,8 @@ public final class GuiController {
         config = new Configuration();
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
-        boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true;
+        boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
+                includeImportedOntologies = false;
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -123,13 +124,16 @@ public final class GuiController {
             else if(s.equals("-useCustomStyle")){
                 useW3Cstyle = false;
             }
+            else if(s.equals("-includeImportedOntologies")){
+                includeImportedOntologies = true;
+            }
             else if(s.equals("-lang")){
                 languages = args[i+1].replace(" ","").split(";");
                 i++;
             }
             else{
                 System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile]\n");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1;lang2] [-includeImportedOntologies]\n");
                 return;
             }
             i++;
@@ -148,6 +152,7 @@ public final class GuiController {
         this.config.setOntologyPath(ontology);
         this.config.setOverwriteAll(rewriteAll);
         this.config.setUseW3CStyle(useW3Cstyle);
+        this.config.setUseImported(includeImportedOntologies);
         if(languages!=null){
             config.removeLanguageToGenerate("en");//default
             for (String language : languages) {

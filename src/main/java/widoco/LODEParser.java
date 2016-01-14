@@ -18,6 +18,7 @@ package widoco;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -253,6 +254,13 @@ public class LODEParser {
                     Node secondAnchor = firstAnchor.getNextSibling();
                     String newID = firstAnchor.getAttributes().getNamedItem("name").getNodeValue();
                     newID = newID.replace(c.getMainOntology().getNamespaceURI(), "");
+                    
+                    try{
+                        //if the URI contains special characters, we must decode them for referencing them properly.
+                        newID = URLDecoder.decode(newID, "UTF-8");
+                    }catch(Exception e){
+                        System.err.println("Error when encoding node.");
+                    }                        
                     if (newID.startsWith("#")){
                         newID = newID.replace("#", "");
                     }//fix in case the author insert the NS URI without "#"
@@ -261,9 +269,10 @@ public class LODEParser {
                     }
                     //we save the the id for derreferencing properly the resource. Note that
                     //if a property has the same name as a Class this could lead to problems                
-                    replacements.put(currentNode.getAttributes().getNamedItem("id").getNodeValue(), newID);
+                    replacements.put(currentNode.getAttributes().getNamedItem("id").getNodeValue()+"\"", newID+"\"");
+                    //I include the comma at the end so smaller ids don't replace larger ids. (quick fix)
 
-                    //we remove the anchor, which make an error in the visualization
+                    //we remove the anchor, which makes an error in the visualization
                     currentNode.removeChild(firstAnchor);
                 }
             }

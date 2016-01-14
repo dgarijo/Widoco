@@ -49,7 +49,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -66,6 +66,8 @@ The -saveConfig option allows you to save a configuration file on the "configOut
 The -useCustomStyle option allows exporting the documentation using alternate css files (thanks to Daniel Vila).
 
 The -lang option allows showing the languages in which the documentation will be published (separated by ";"). Note that if the language is not supported, the system will load the labels in english. For example: en;pt;es
+
+The -includeImportedOntologies flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
 
 Browser problems
 ==========

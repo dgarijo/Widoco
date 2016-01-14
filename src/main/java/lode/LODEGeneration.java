@@ -29,6 +29,8 @@ import java.io.File;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -60,7 +62,7 @@ public class LODEGeneration {
                     lang = "en";
             }
             //load with jena in rdf xml
-            content = parseWithOWLAPI(c.getOntologyPath(), c.isFromFile());
+            content = parseWithOWLAPI(c.getOntologyPath(), c.isFromFile(), c.isUseImported());
             content = applyXSLTTransformation(content, c.getOntologyURI(), lang, lodeResources);
             return(content);
         }
@@ -73,7 +75,8 @@ public class LODEGeneration {
 	
 	private static String parseWithOWLAPI(
 			String ontologyURL,
-                        boolean loadFromFile) 
+                        boolean loadFromFile, 
+                        boolean considerImportedOntologies) 
 	throws OWLOntologyCreationException, OWLOntologyStorageException, URISyntaxException {
             String result = "";
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();			
@@ -84,18 +87,17 @@ public class LODEGeneration {
             else{
                 ontology = manager.loadOntology(IRI.create(ontologyURL));
             }
-            //this adds extra complexity that I don't want to include yet in the tool
-//                    if (considerImportedClosure || considerImportedOntologies) {
-//                            Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();
-//                            if (considerImportedOntologies) {
-//                                    setOfImportedOntologies.addAll(ontology.getDirectImports());
-//                            } else {
-//                                    setOfImportedOntologies.addAll(ontology.getImportsClosure());
-//                            }
-//                            for (OWLOntology importedOntology : setOfImportedOntologies) {
-//                                    manager.addAxioms(ontology, importedOntology.getAxioms());
-//                            }
-//                    }
+            if (considerImportedOntologies) {
+                //considerImportedClosure || //<- removed for the moment
+                Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();
+                setOfImportedOntologies.addAll(ontology.getDirectImports());
+//                else {
+//                        setOfImportedOntologies.addAll(ontology.getImportsClosure());
+//                }
+                for (OWLOntology importedOntology : setOfImportedOntologies) {
+                        manager.addAxioms(ontology, importedOntology.getAxioms());
+                }
+            }
 
             OWLOntologyDocumentTarget parsedOntology = new StringDocumentTarget();
             manager.saveOntology(ontology, new RDFXMLOntologyFormat(), parsedOntology);

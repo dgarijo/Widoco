@@ -105,9 +105,8 @@ public class GuiStep3 extends javax.swing.JFrame {
         overviewSectionButton = new javax.swing.JButton();
         descriptionSectionButton = new javax.swing.JButton();
         referencesSectionButton = new javax.swing.JButton();
-        checkBoxDiagram = new javax.swing.JCheckBox();
+        addImportedOntologiesCheckBox = new javax.swing.JCheckBox();
         checkBoxProv = new javax.swing.JCheckBox();
-        loadAllFromButton = new javax.swing.JButton();
         labelTitle1 = new javax.swing.JLabel();
         labelLode = new javax.swing.JLabel();
         includeIndividuals = new javax.swing.JCheckBox();
@@ -216,18 +215,9 @@ public class GuiStep3 extends javax.swing.JFrame {
             }
         });
 
-        checkBoxDiagram.setText("Create a diagram file of the ontology");
-        checkBoxDiagram.setEnabled(false);
+        addImportedOntologiesCheckBox.setText("Include documentation for imported ontologies");
 
         checkBoxProv.setText("Publish the provenance of the vocabulary");
-
-        loadAllFromButton.setText("Load All...");
-        loadAllFromButton.setEnabled(false);
-        loadAllFromButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadAllFromButtonActionPerformed(evt);
-            }
-        });
 
         labelTitle1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelTitle1.setText("Powered by");
@@ -267,39 +257,36 @@ public class GuiStep3 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(checkBoxDiagram)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(loadAllFromButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBoxRefs)
-                                    .addComponent(checkBoxDescription)
-                                    .addComponent(checkBoxOverview)
-                                    .addComponent(checkBoxIntro)
-                                    .addComponent(checkBoxAbstract))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(abstractSectionButton)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(labelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(introductionSectionButton)
-                                            .addComponent(overviewSectionButton)
-                                            .addComponent(referencesSectionButton)
-                                            .addComponent(descriptionSectionButton))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(labelLode, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(addImportedOntologiesCheckBox)
+                                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGap(104, 104, 104))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(checkBoxRefs)
+                                .addComponent(checkBoxDescription)
+                                .addComponent(checkBoxOverview)
+                                .addComponent(checkBoxIntro)
+                                .addComponent(checkBoxAbstract))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(abstractSectionButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(labelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(introductionSectionButton)
+                                        .addComponent(overviewSectionButton)
+                                        .addComponent(referencesSectionButton)
+                                        .addComponent(descriptionSectionButton))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(labelLode, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(includeAnnProps)
@@ -343,20 +330,15 @@ public class GuiStep3 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(includeIndividuals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(checkBoxDiagram)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkBoxProv))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(loadAllFromButton)))
+                .addComponent(addImportedOntologiesCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxProv)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(w3C)
                     .addComponent(customRadioButton)
                     .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         labelDescription.setText("<html>Select the sections you want your document to have.<br/> If you have a section you want to load, click on the \"Load\" button.<br/> The diagram of the ontology will be created on the \"images\" folder of the documentation.</html>");
@@ -481,7 +463,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         g.getConfig().setIncludeNamedIndividuals(includeIndividuals.isSelected());
         g.getConfig().setIncludeAnnotationProperties(includeAnnProps.isSelected());
         g.getConfig().setUseW3CStyle(w3C.isSelected());
-        //g.saveDiagram(rootPaneCheckingEnabled);
+        g.getConfig().setUseImported(addImportedOntologiesCheckBox.isSelected());
     }
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -503,10 +485,6 @@ public class GuiStep3 extends javax.swing.JFrame {
         } catch (URISyntaxException ex) {
         }
     }//GEN-LAST:event_labelLodeMouseClicked
-
-    private void loadAllFromButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadAllFromButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_loadAllFromButtonActionPerformed
 
     private void referencesSectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_referencesSectionButtonActionPerformed
         referencesPath = loadSection();
@@ -574,13 +552,13 @@ public class GuiStep3 extends javax.swing.JFrame {
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abstractSectionButton;
+    private javax.swing.JCheckBox addImportedOntologiesCheckBox;
     private javax.swing.JButton backButton;
     private javax.swing.JProgressBar barStatus;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cancelButton;
     private javax.swing.JCheckBox checkBoxAbstract;
     private javax.swing.JCheckBox checkBoxDescription;
-    private javax.swing.JCheckBox checkBoxDiagram;
     private javax.swing.JCheckBox checkBoxIntro;
     private javax.swing.JCheckBox checkBoxOverview;
     private javax.swing.JCheckBox checkBoxProv;
@@ -603,7 +581,6 @@ public class GuiStep3 extends javax.swing.JFrame {
     private javax.swing.JLabel labelSteps;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JLabel labelTitle1;
-    private javax.swing.JButton loadAllFromButton;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton overviewSectionButton;
     private javax.swing.JButton referencesSectionButton;
