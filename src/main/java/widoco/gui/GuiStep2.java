@@ -607,6 +607,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
     }//GEN-LAST:event_loadMetadataFromDefaultConfigFileActionPerformed
 
     private void saveMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMetadataButtonActionPerformed
+        saveMetadata();
         //ideally the serialization of config woule have to be done in another class.
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showSaveDialog(this);
