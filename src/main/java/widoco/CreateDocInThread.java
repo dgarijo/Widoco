@@ -45,8 +45,8 @@ public class CreateDocInThread implements Runnable{
             }
             this.pointerToMain.switchState("next");
         }catch(Exception e){
-            System.err.println("Error " +e.getCause().getLocalizedMessage());
-            c.setError("Error: " +e.getCause().getLocalizedMessage());
+            System.err.println("Error while generating the documentation " +e.getMessage());
+            c.setError("An error occurred while generating the documentation. Please that the ontology opens with Protege and that there are not empty metadata fields");
             this.pointerToMain.switchState("error");
         }        
     }
