@@ -5,7 +5,7 @@ Author: Daniel Garijo
 Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García and Oscar Corcho.
 
 Description
-==========
+===========
 Widoco helps you to create a complete documentation of your ontology, by following a series of steps in a wizard. We reuse the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used.
 
 The purpose of Widoco is to reuse and integrate existing tools for documentation, plus the set of features listed below:
