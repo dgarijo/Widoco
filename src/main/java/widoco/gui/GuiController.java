@@ -46,7 +46,7 @@ public final class GuiController {
     private State state;
     private JFrame gui;
     private Configuration config;
-    private File tmpFile;
+    
 
     public GuiController() {
         this.state = State.initial;  
@@ -54,15 +54,7 @@ public final class GuiController {
         //read logo
         gui = new GuiStep1(this);
         gui.setVisible(true);
-        try {
-            //create a temporal folder with all LODE resources
-            tmpFile = new File("tmp"+new Date().getTime());
-            tmpFile.mkdir();
-//            CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
-            WidocoUtils.unZipIt(TextConstants.lodeResources, tmpFile.getName());
-        } catch (Exception ex) {
-            System.err.println("Error while creating the temporal file");
-        }
+        WidocoUtils.unZipIt(TextConstants.lodeResources, config.getTmpFile().getName());
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -139,11 +131,8 @@ public final class GuiController {
             i++;
         }        
         try {
-            //create a temporal folder with all LODE resources
-            tmpFile = new File("tmp"+new Date().getTime());
-            tmpFile.mkdir();
             //CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
-            WidocoUtils.unZipIt(TextConstants.lodeResources, tmpFile.getName());
+            WidocoUtils.unZipIt(TextConstants.lodeResources, config.getTmpFile().getName());
         } catch (Exception ex) {
             System.err.println("Error while creating the temporal files");
         }
@@ -166,11 +155,7 @@ public final class GuiController {
         try{
             for (String l : config.getLanguagesToGenerateDoc()) {
                 System.out.println("Generating documentation for "+ontology+ " in lang " +l);
-                if (isFromFile){
-                    CreateResources.generateDocumentation(outFolder, config, false, tmpFile);
-                }else{
-                    CreateResources.generateDocumentation(outFolder, config, true, tmpFile);
-                }
+                CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
                 config.vocabularySuccessfullyGenerated();
             }
         }catch(Exception e){
@@ -192,7 +177,7 @@ public final class GuiController {
             }
         }
         //delete temp files
-        deleteAllTempFiles(tmpFile);
+        deleteAllTempFiles(config.getTmpFile());
     }
 
     public Configuration getConfig() {
@@ -212,7 +197,7 @@ public final class GuiController {
     }
     
     private void startGeneratingDoc() {
-        Runnable r = new CreateDocInThread(this.config, this, this.tmpFile);
+        Runnable r = new CreateDocInThread(this.config, this, config.getTmpFile());
         new Thread(r).start();
     }
     
@@ -234,7 +219,7 @@ public final class GuiController {
     private void exit(){
         this.gui.dispose();
         //delete tmp folder here!
-        deleteAllTempFiles(tmpFile);
+        deleteAllTempFiles(config.getTmpFile());
     }
     
     private void deleteAllTempFiles(File folder){
@@ -270,6 +255,7 @@ public final class GuiController {
                     this.gui.dispose();
                     gui = new GuiStep2(this);
                     gui.setVisible(true);
+                    switchState("loadOntologyProperties");
                 }
                 break;
             case metadata:
@@ -334,7 +320,7 @@ public final class GuiController {
             case generated:
                 if(input.equals("restart")){
                     //clean properties
-                    this.config = new Configuration();
+                    this.config.cleanConfig();
                     this.gui.dispose();
                     state = State.initial;
                     gui = new GuiStep1(this);

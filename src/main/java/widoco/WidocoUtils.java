@@ -17,22 +17,19 @@
 package widoco;
 
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -43,80 +40,73 @@ import java.util.zip.ZipInputStream;
 public class WidocoUtils {
     public static OntModel loadModel(Configuration c){
         OntModel model = ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();
-        if(c.isFromFile()){
-            readModel(model, c.getOntologyPath(), null);
-        }else{
-            //System.out.println("Ont URI: "+c.getOntologyURI());
-            readModel(model, null, c.getOntologyURI());
+        if(!c.isFromFile()){
+            //if the vocabulary is from a URI, I download it locally. This is done
+            //because Jena doesn't handle https very well.
+            for(String serialization: TextConstants.vocabPossibleSerializations){
+                System.out.println("Attempting to download vocabulary in "+serialization);
+                try{
+                    URL url = new URL(c.getOntologyURI());
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setInstanceFollowRedirects(true);
+                    connection.setRequestProperty("Accept", serialization);
+                    int status = connection.getResponseCode();
+                    boolean redirect = false;
+                    if(status != HttpURLConnection.HTTP_OK){
+                        if (status == HttpURLConnection.HTTP_MOVED_TEMP
+			|| status == HttpURLConnection.HTTP_MOVED_PERM
+				|| status == HttpURLConnection.HTTP_SEE_OTHER)
+                            redirect = true;                        
+                    }
+                    if(redirect){
+                        String newUrl = connection.getHeaderField("Location");
+                        connection = (HttpURLConnection) new URL(newUrl).openConnection();
+                        connection.setRequestProperty("Accept", serialization);
+                    }
+                    InputStream in = (InputStream) connection.getInputStream();
+                    String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"ontology";
+                    Files.copy(in, Paths.get(newOntologyPath), StandardCopyOption.REPLACE_EXISTING);
+                    in.close();
+                    c.setFromFile(true);
+                    c.setOntologyPath(newOntologyPath);
+                    break; //if the vocabulary is downloaded, then we don't download it for the other serializations
+                }catch(Exception e){
+                    System.err.println("Failed to download vocabulary in "+serialization);
+                }
+            }
+            
         }
+        readModel(model, c);
         return model;
     }
-    private static void readModel(OntModel model,String ontoPath, String ontoURL){
-        if(ontoPath!=null){
-            InputStream in = null;
+    
+    /**
+     * [This method should be improved]
+     * @param model
+     * @param ontoPath
+     * @param ontoURL 
+     */
+    private static void readModel(OntModel model,Configuration c){
+        String[] serializations = {"RDF/XML", "TURTLE", "N3"};
+        String ontoPath = c.getOntologyPath();
+        for(String s:serializations){
+            InputStream in;
             try{
                 in = FileManager.get().open(ontoPath);
                 if (in == null) {
                     System.err.println("Error: Ontology file not found");
                     return;
                 }
-                model.read(in, null, "RDF/XML");
+                model.read(in, null, s);
+                c.setVocabSerialization(s);
+                System.out.println("Vocab loaded in "+s);
+                break;
             }catch(Exception e){
-                System.err.println("Could not load the ontology in rdf/xml. Attempting to read it in turtle...");
-                try{
-                    if(in!=null){
-                        in.close();
-                    }
-                    in = FileManager.get().open(ontoPath);
-                    model.read(in, null, "TURTLE");
-                }catch(Exception e1){
-                    System.err.println("Could not load ontology in turtle.");
-                }
-            }
-        }else{
-            try{
-                System.out.println("Attempting to load ontology in RDF/XML...");
-                model.read(ontoURL, null, "RDF/XML");
-            }catch(Exception e){
-                try{
-                    System.out.println("Attempting to load ontology in turtle...");
-                    model.read(ontoURL, null, "TURTLE");
-                }catch(Exception e1){
-                    System.out.println("Attempting to download and read the ontology directly...");
-                    try{
-                        URL url = new URL(ontoURL);
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setRequestMethod("GET");
-                        connection.setInstanceFollowRedirects(true);
-                        connection.setRequestProperty("Accept", "application/rdf+xml");
-                        
-                        int status = connection.getResponseCode();
-                        if(status == HttpURLConnection.HTTP_SEE_OTHER ||
-                                status == HttpURLConnection.HTTP_MOVED_TEMP || 
-                                status == HttpURLConnection.HTTP_MOVED_PERM){
-                            String newUrl = connection.getHeaderField("Location");
-                            connection = (HttpURLConnection) new URL(newUrl).openConnection();
-                            connection.setRequestProperty("Accept", "application/rdf+xml");
-                        }else{//last attempt, ttl
-                            connection = (HttpURLConnection) new URL(ontoURL).openConnection();
-                            connection.setRequestProperty("Accept", "text/turtle");
-                            status = connection.getResponseCode();
-                            if(status == HttpURLConnection.HTTP_SEE_OTHER ||
-                                    status == HttpURLConnection.HTTP_MOVED_TEMP || 
-                                    status == HttpURLConnection.HTTP_MOVED_PERM){
-                                String newUrl = connection.getHeaderField("Location");
-                                connection = (HttpURLConnection) new URL(newUrl).openConnection();
-                                connection.setRequestProperty("Accept", "text/turtle");
-                            }
-                        }
-                    InputStream in = (InputStream) connection.getInputStream();
-                    model.read(in, null, "RDF/XML");    
-                    }catch(Exception e2){
-                        System.out.println("Failed to read the ontology");
-                    }
-                }
+                System.err.println("Could not open the ontology in "+s);
             }
         }
+        
     }
     
     public static void copyResourceFolder(String[] resources, String savePath) throws IOException{
@@ -131,8 +121,7 @@ public class WidocoUtils {
     /**
      * Method used to copy the local files: styles, images, etc.
      * @param resourceName Name of the resource
-     * @param dest file where we should copy it.
-     * @throws IOException 
+     * @param dest file where we should copy it. 
      */
     public static void copyLocalResource(String resourceName, File dest)  {
         try{

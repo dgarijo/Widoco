@@ -38,11 +38,7 @@ public class CreateDocInThread implements Runnable{
         //use config to create doc. If null, return error.
         try{
             System.out.println("Generating doc. "+ c.getMainOntology().getNamespaceURI());
-            if (c.isFromFile()){
-                CreateResources.generateDocumentation(c.getDocumentationURI(), c, false, tmpFile);
-            }else{
-                CreateResources.generateDocumentation(c.getDocumentationURI(), c, true, tmpFile);
-            }
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, tmpFile);
             this.pointerToMain.switchState("next");
         }catch(Exception e){
             System.err.println("Error while generating the documentation " +e.getMessage());
