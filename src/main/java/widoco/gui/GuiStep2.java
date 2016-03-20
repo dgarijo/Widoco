@@ -69,10 +69,15 @@ public final class GuiStep2 extends javax.swing.JFrame {
 
         // Center the window
         this.setLocation(x, y);
-        this.labelStatusReading.setVisible(false);
-        this.barStatus.setVisible(false);
+        this.barStatus.setVisible(true);
+        this.barStatus.setIndeterminate(true);
+        this.labelStatusReading.setVisible(true);
+        this.backButton.setEnabled(false);
+        this.nextButton.setEnabled(false);
+        this.languageButton.setEnabled(false);
+        this.tableProperties.setEnabled(false);
 //        properties = g.getEditableProperties();
-        refreshTable();
+//        refreshTable();
         final GuiStep2 gAux = this;
         //events for clicking: for agents and ontologies
         tableProperties.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,6 +128,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.backButton.setEnabled(true);
         this.nextButton.setEnabled(true);
         this.languageButton.setEnabled(true);
+        this.labelStatusReading.setVisible(false);
+        this.tableProperties.setEnabled(true);
+        
     }
     
     private void refreshTable(){
@@ -364,6 +372,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
         tableProperties.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableProperties);
 
+        loadMetadataFromOnto.setSelected(true);
         loadMetadataFromOnto.setText("Load metadata from the ontology URI or file");
         loadMetadataFromOnto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,7 +396,6 @@ public final class GuiStep2 extends javax.swing.JFrame {
 
         widocoLogo.setText("LOGO");
 
-        loadMetadataFromDefaultConfigFile.setSelected(true);
         loadMetadataFromDefaultConfigFile.setText("Load metadata from default config file");
         loadMetadataFromDefaultConfigFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,7 +403,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
             }
         });
 
-        labelStatusReading.setText("status");
+        labelStatusReading.setText("Loading ontology ...");
 
         jLabel1.setText("Generating documentation for language:");
 
@@ -442,33 +450,35 @@ public final class GuiStep2 extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(labelCurrentLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(labelCurrentLanguage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGap(36, 36, 36)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(languageButton)
+                                            .addGap(53, 135, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(labelStatusReading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(labelCurrentLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(jLabel2)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(labelCurrentLanguage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addGap(36, 36, 36)))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(languageButton)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(labelStatusReading, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                     .addComponent(labelTitle)
                                     .addComponent(jLabel3))
-                                .addGap(0, 82, Short.MAX_VALUE)))))
+                                .addGap(0, 180, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

@@ -33,6 +33,7 @@ public class TextConstants {
     public static final String licensiusURIServiceLicense = "http://www.licensius.com/api/license/findlicenseinrdf?uri=";//"http://licensius.appspot.com/getLicense?content=";
     public static final String licensiusURIServiceLicenseInfo = "http://www.licensius.com/api/license/getlicenseinfo?uri=";//"http://licensius.appspot.com/getLicenseTitle?content=";
 
+    public static final String[] vocabPossibleSerializations = {"application/rdf+xml","text/turtle","text/n3"};
     /**
      * Constants for the  Step 2 (table)
      */
@@ -61,6 +62,7 @@ public class TextConstants {
     public static final String licenseURI="licenseURI";
     public static final String licenseIconURL="licenseIconURL";
     public static final String citeAs="citeAs";
+    public static final String deafultSerialization="deafultSerialization";
     
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
@@ -327,6 +329,9 @@ public class TextConstants {
         if(!c.getExtendedOntologies().isEmpty())
             head += getExtends(c.getExtendedOntologies(),l)+"\n";
         
+        if(!"".equals(c.getVocabSerialization())){
+            head+="<dl><dt>"+l.getProperty("serialization")+"</dt><dd><a href=\"ontology.owl\">"+c.getVocabSerialization()+"</a></dd></dl>";
+        }
         if(c.getLicense()!=null){
             String lname = c.getLicense().getName();//"license name goes here";
             String licenseURL = c.getLicense().getUrl();//"http://insertlicenseURIhere.org";
@@ -341,7 +346,7 @@ public class TextConstants {
                     "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
         }
         if(c.isPublishProvenance()){
-            head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\">"+l.getProperty("provHead")+"</a> "+l.getProperty("provHead2")+ ".</dl>";
+            head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\">"+l.getProperty("provHead")+"</a></dl>";
         }
         head+= "<hr/>\n"+
                 "</div>\n";

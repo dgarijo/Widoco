@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
@@ -59,6 +60,7 @@ public class Configuration {
     private String documentationURI;
     private String title;
     private String releaseDate;
+    private String vocabSerialization ="";
     
     private boolean fromFile;//if this is true, the onto will be from a file. otherwise it's a URI
     
@@ -109,9 +111,17 @@ public class Configuration {
     
     //add imported ontologies in the doc as well
     private boolean addImportedOntologies;
+    private File tmpFolder; //file where different auxiliary resources might be copied to
     
     //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
+        try {
+            //create a temporal folder with all LODE resources
+            tmpFolder = new File("tmp"+new Date().getTime());
+            tmpFolder.mkdir();
+        } catch (Exception ex) {
+            System.err.println("Error while creating the temporal file");
+        }
         propertyFile = new Properties();
         //just in case, we initialize the objects:
         
@@ -123,8 +133,12 @@ public class Configuration {
             System.err. println("Error while loading the default property file" +e.getMessage());
         }
     }
+
+    public File getTmpFile() {
+        return tmpFolder;
+    }
     
-    private void cleanConfig(){
+    public void cleanConfig(){
         //initialization of variables (in case something fails)
         abstractSection = "";
         title = "";
@@ -264,6 +278,7 @@ public class Configuration {
             license.setUrl(propertyFile.getProperty(TextConstants.licenseURI,""));
             license.setIcon(propertyFile.getProperty(TextConstants.licenseIconURL,""));
             citeAs = propertyFile.getProperty(TextConstants.citeAs, "");
+            vocabSerialization = propertyFile.getProperty(TextConstants.deafultSerialization, "RDF/XML");
     	} catch (Exception ex) {
             System.err.println("Error while reading configuration properties "+ex.getMessage());
         }
@@ -827,6 +842,15 @@ public class Configuration {
     public void setAddImportedOntologies(boolean addImportedOntologies) {
         this.addImportedOntologies = addImportedOntologies;
     }
+
+    public void setVocabSerialization(String vocabSerialization) {
+        this.vocabSerialization = vocabSerialization;
+    }
+
+    public String getVocabSerialization() {
+        return vocabSerialization;
+    }
+    
     
     
     

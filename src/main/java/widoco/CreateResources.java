@@ -38,7 +38,7 @@ import widoco.entities.Ontology;
 public class CreateResources {
     
     //to do: analyze if this is the right name for the class. Maybe "generate" is better
-    public static void generateDocumentation(String folderOut, Configuration c, boolean fromURI, File lodeResources) throws Exception{
+    public static void generateDocumentation(String folderOut, Configuration c, File lodeResources) throws Exception{
         String lodeContent;
         lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
         LODEParser lode = new LODEParser(lodeContent,c);
@@ -78,6 +78,8 @@ public class CreateResources {
         if(c.isPublishProvenance()){
             createProvenancePage(folderOut+File.separator+"provenance", c, languageFile);
         }
+        //here copy the vocabulary to the right folder
+        WidocoUtils.copyExternalResource(c.getOntologyPath(), new File(folderOut+File.separator+"ontology.owl"));
         createIndexDocument(folderOut,c, lode, languageFile);
     }
     
