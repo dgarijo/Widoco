@@ -40,7 +40,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -61,8 +60,8 @@ public class LODEGeneration {
             if (lang == null || "".equals(lang)) {
                     lang = "en";
             }
-            //load with jena in rdf xml
-            content = parseWithOWLAPI(c.getOntologyPath(), c.isFromFile(), c.isUseImported());
+            //we have stored the ontology locally
+            content = parseWithOWLAPI(c.getOntologyPath(), c.isUseImported());
             content = applyXSLTTransformation(content, c.getOntologyURI(), lang, lodeResources);
             return(content);
         }
@@ -70,23 +69,21 @@ public class LODEGeneration {
             System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
             throw e;
         } 
-        //return null;
     }
 	
 	private static String parseWithOWLAPI(
 			String ontologyURL,
-                        boolean loadFromFile, 
                         boolean considerImportedOntologies) 
 	throws OWLOntologyCreationException, OWLOntologyStorageException, URISyntaxException {
             String result = "";
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();			
             OWLOntology ontology;
-            if(loadFromFile){
-                ontology= manager.loadOntologyFromOntologyDocument(new File(ontologyURL));
-            }
-            else{
-                ontology = manager.loadOntology(IRI.create(ontologyURL));
-            }
+//            ontology = manager.loadOntology(IRI.create("https://raw.githubusercontent.com/wf4ever/ro/master/ro.owl"));
+            ontology= manager.loadOntologyFromOntologyDocument(new File(ontologyURL));
+//            
+//            else{
+//                ontology = manager.loadOntology(IRI.create(ontologyURL));
+//            }
             if (considerImportedOntologies) {
                 //considerImportedClosure || //<- removed for the moment
                 Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();

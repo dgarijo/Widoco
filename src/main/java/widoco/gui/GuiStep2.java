@@ -76,6 +76,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.nextButton.setEnabled(false);
         this.languageButton.setEnabled(false);
         this.tableProperties.setEnabled(false);
+        this.loadMetadataFromOnto.setEnabled(false);
+        this.loadMetadataFromDefaultConfigFile.setEnabled(false);
 //        properties = g.getEditableProperties();
 //        refreshTable();
         final GuiStep2 gAux = this;
@@ -130,6 +132,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.languageButton.setEnabled(true);
         this.labelStatusReading.setVisible(false);
         this.tableProperties.setEnabled(true);
+        
+        this.loadMetadataFromOnto.setEnabled(true);
+        this.loadMetadataFromDefaultConfigFile.setEnabled(true);
         
     }
     

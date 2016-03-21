@@ -240,11 +240,13 @@ public class TextConstants {
                      " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/site.css\" media=\"screen\" />";
         }
         document += "<script src=\""+resourcesFolderName+"/jquery.js\"></script> \n" +
+                    "<script src=\""+resourcesFolderName+"/marked.min.js\"></script> \n" +
                      "    <script> \n" +
                      "function loadHash() {\n" +
+                     "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});\n" +
                      "	var hash = location.hash;\n" +
                      "	if($(hash).offset()!=null){\n" +
-                     "		$('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" +
+                     "	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n"+
                      "	}\n" +
                      "}"+
                      "    $(function(){\n";

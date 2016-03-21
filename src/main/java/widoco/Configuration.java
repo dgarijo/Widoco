@@ -297,6 +297,8 @@ public class Configuration {
         //we assume only one ontology per file.
         try{
             OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
+            this.mainOntology.setNamespaceURI(onto.getURI());
+            this.mainOntology.setName(onto.getLocalName());
             Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
             String propertyName, value;
             while(it.hasNext()){
@@ -309,6 +311,9 @@ public class Configuration {
                 }
     //            System.out.println(propertyName + " " + value);
                 // fill in the properties here.
+                if(propertyName.equals("label")){
+                    this.mainOntology.setName(value);
+                }else
                 if(propertyName.equals("abstract")){
                     this.abstractSection = value;
                 }else
@@ -373,6 +378,9 @@ public class Configuration {
                 }
                 //to do: if property is comment and abstract is null, then complete abstract.
             }
+        if(this.mainOntology.getName()==null || this.mainOntology.getName().equals("")){
+            this.mainOntology.setName(this.title);
+        }
         }catch(Exception e){
             System.err.println("No ontology declared. Ignoring properties");
         }

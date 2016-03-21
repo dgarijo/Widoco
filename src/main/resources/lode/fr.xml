@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by Yohann Moreno-->
+<labels>
+    <ontology>Ontologie</ontology>
+    <ontologysource>Source d'ontologie</ontologysource>
+    <visualisation>Autre visualisation</visualisation>
+    <visualiseitwith>Visualiser avec</visualiseitwith>
+    <date>Date</date>
+    <currentversion>Version courante</currentversion>
+    <previousversion>Précédente version</previousversion>
+    <backwardcompatiblewith>Backward compatible with</backwardcompatiblewith>
+    <incompatibleWith>Incompatible avec</incompatibleWith>
+    <abstract>Abstrait</abstract>
+    <introduction>Introduction</introduction>
+    <disjointclasses>Toutes classes disjointes</disjointclasses>
+    <subclassdefinition>General Subclass Definition</subclassdefinition>
+    <equivalentdefinition>General Equivalent Definition</equivalentdefinition>
+    <issubclassof>Est sous classe de</issubclassof>
+    <isequivalentto>Est équivalent à</isequivalentto>
+    <functional>Fonctionnel</functional>
+    <inversefunctional>Inversement fonctionnel</inversefunctional>
+    <reflexive>réflexive</reflexive>
+    <irreflexive>irréflexive</irreflexive>
+    <symmetric>symétrique</symmetric>
+    <asymmetric>asymétrique</asymmetric>
+    <transitive>transitive</transitive>
+    <isdefinedby>est défini par</isdefinedby>
+    <belongsto>appartient à</belongsto>
+    <issameas>est identique à</issameas>
+    <isalsodefinedas>est aussi défini comme</isalsodefinedas>
+    <isdisjointwith>est disjoint avec</isdisjointwith>
+    <haskeys>a pour clefs</haskeys>
+    <hassuperclasses>a pour super-classes</hassuperclasses>
+    <hassubclasses>a pour sous-classes</hassubclasses>
+    <isindomainof>a pour domaine</isindomainof>
+    <isinrangeof>a pour cible</isinrangeof>
+    <hasmembers>a pour membres</hasmembers>
+    <isinverseof>est inverse de</isinverseof>
+    <hassubpropertychains>has sub-property chains</hassubpropertychains>
+    <hasequivalentproperties>a pour propriétés équivalentes</hasequivalentproperties>
+    <hassuperproperties>a pour super-propriétés</hassuperproperties>
+    <hassubproperties>a pour sous-propriétés</hassubproperties>
+    <hasdomain>a pour domaine</hasdomain>
+    <hasrange>a pour cible</hasrange>
+    <importedontologies>Ontologies importées</importedontologies>
+    <individualassertions>a pour assertions</individualassertions>
+    <authors>Auteurs</authors>
+    <contributors>Contributeurs</contributors>
+    <publisher>Publicateur</publisher>
+    <toc>Table des matières</toc>
+    <tocabbr>Table des matières</tocabbr>
+    <backto>Retour à</backto>
+    <class>classe</class>
+    <classes>Classes</classes>
+    <objectproperty>Propriété d'objet</objectproperty>
+    <objectproperties>Propriétés d'objet</objectproperties>
+    <dataproperty>Propriété de donnée</dataproperty>
+    <dataproperties>Propriétés de donnée</dataproperties>
+    <namedindividual>Individu nommé</namedindividual>
+    <namedindividuals>Individus nommés</namedindividuals>
+    <annotationproperty>Annotation de propriété</annotationproperty>
+    <annotationproperties>Annotation de propriétés</annotationproperties>
+    <datarange>Donnée cible</datarange>
+    <dataranges>Données cibles</dataranges>
+    <generalaxioms>Axiome générale</generalaxioms>
+    <rule>Règle</rule>
+    <rules>Règles SWRL</rules>
+    <namespace>Espace de nommage par défaut</namespace>
+    <namespaces>Déclaration d'espace de nommage</namespaces>
+    <endnote>Ce document HTML a été obtenu par traitement du code source d'ontologie via</endnote>
+    <developedby>Développé par</developedby>
+    <or>ou</or>
+    <classtoc>Retour vers les classes</classtoc>
+    <objectpropertytoc>Retour vers les propriétés d'objet</objectpropertytoc>
+    <datapropertytoc>Retour vers les propriétés de données</datapropertytoc>
+    <annotationpropertytoc>Retour vers les annotations de propriétés</annotationpropertytoc>
+    <namedindividualtoc>Retour vers l'individu nommé</namedindividualtoc>
+    <hascharacteristics>a pour caractéristiques</hascharacteristics>
+</labels>
