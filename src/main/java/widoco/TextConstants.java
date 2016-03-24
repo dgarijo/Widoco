@@ -63,6 +63,7 @@ public class TextConstants {
     public static final String licenseIconURL="licenseIconURL";
     public static final String citeAs="citeAs";
     public static final String deafultSerialization="deafultSerialization";
+    public static final String status="status";
     
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
@@ -83,6 +84,21 @@ public class TextConstants {
             abstractSection+="<p><strong>"+langFile.getProperty("citeAs")+"</strong></br>\n"+c.getCiteAs()+"\n</p>";
         }
         return abstractSection;
+    }
+    
+    /**
+     * Text representing the div of the status.
+     * @param c
+     * @return 
+     */
+    public static String getStatus(Configuration c){
+        String html = "";
+        if(c.getStatus()!=null && !c.getStatus().equals("")){
+            html+="<div class=\"status\">\n"
+                    + "<div>\n"
+                    + "<span>"+c.getStatus()+"</span>\n</div>\n</div>";
+        }
+        return html;
     }
     
     public static int numSection(String section, Configuration c){
@@ -277,6 +293,7 @@ public class TextConstants {
             document+="<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://purl.org/net/dgarijo\"></span>\n"+
                         "</span>\n";
         document += getHeadSection(c, lang);
+        document += getStatus(c);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
         document += getTableOfContentsSection(c,l,lang);
         if(c.isIncludeIntroduction()) document += "     <div id=\"introduction\"></div>\n";

@@ -44,9 +44,9 @@ public class GuiStep5 extends javax.swing.JFrame {
     public GuiStep5(GuiController g, boolean isSkeleton) {
         initComponents();
         this.g = g;
-        Image l = g.getConfig().getLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
+        Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
-        this.setIconImage(g.getConfig().getLogoMini());
+        this.setIconImage(g.getConfig().getWidocoLogoMini());
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Determine the new location of the window
