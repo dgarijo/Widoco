@@ -48,9 +48,9 @@ public class GuiStep1 extends javax.swing.JFrame {
         this.g = g;
         initComponents();
         //loading logo
-        Image l = g.getConfig().getLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
+        Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
-        this.setIconImage(g.getConfig().getLogoMini());//
+        this.setIconImage(g.getConfig().getWidocoLogoMini());//
         
         ButtonGroup buttonGroup  = new ButtonGroup();
         buttonGroup.add(option1);

@@ -60,6 +60,7 @@ public class Configuration {
     private String documentationURI;
     private String title;
     private String releaseDate;
+    private String status; //status of the ontology: draft, official release, etc
     private String vocabSerialization ="";
     
     private boolean fromFile;//if this is true, the onto will be from a file. otherwise it's a URI
@@ -137,6 +138,8 @@ public class Configuration {
     public File getTmpFile() {
         return tmpFolder;
     }
+
+    
     
     public void cleanConfig(){
         //initialization of variables (in case something fails)
@@ -177,6 +180,7 @@ public class Configuration {
         useW3CStyle = true;//by default
         error = "";
         addImportedOntologies = false;
+        status = "";
     }
     
     private void loadConfigPropertyFile(String path){
@@ -277,6 +281,7 @@ public class Configuration {
             license.setName(propertyFile.getProperty(TextConstants.licenseName,""));
             license.setUrl(propertyFile.getProperty(TextConstants.licenseURI,""));
             license.setIcon(propertyFile.getProperty(TextConstants.licenseIconURL,""));
+            status = propertyFile.getProperty(TextConstants.status,"Specification Draft");
             citeAs = propertyFile.getProperty(TextConstants.citeAs, "");
             vocabSerialization = propertyFile.getProperty(TextConstants.deafultSerialization, "RDF/XML");
     	} catch (Exception ex) {
@@ -297,6 +302,8 @@ public class Configuration {
         //we assume only one ontology per file.
         try{
             OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
+            this.mainOntology.setNamespaceURI(onto.getURI());
+            this.mainOntology.setName(onto.getLocalName());
             Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
             String propertyName, value;
             while(it.hasNext()){
@@ -309,6 +316,9 @@ public class Configuration {
                 }
     //            System.out.println(propertyName + " " + value);
                 // fill in the properties here.
+                if(propertyName.equals("label")){
+                    this.mainOntology.setName(value);
+                }else
                 if(propertyName.equals("abstract")){
                     this.abstractSection = value;
                 }else
@@ -373,6 +383,12 @@ public class Configuration {
                 }
                 //to do: if property is comment and abstract is null, then complete abstract.
             }
+        if(this.mainOntology.getName()==null || this.mainOntology.getName().equals("")){
+            this.mainOntology.setName(this.title);
+        }
+        if(this.status==null || this.status.equals("")){
+            this.status = "Ontology Specification Draft";
+        }
         }catch(Exception e){
             System.err.println("No ontology declared. Ignoring properties");
         }
@@ -702,21 +718,29 @@ public class Configuration {
         this.useReasoner = useReasoner;
     }
     
-    public Image getLogo(){
+    public Image getWidocoLogo(){
         if(logo == null){
-            loadLogos();
+            loadWidocoLogos();
         }
         return this.logo;
     }
     
-    public Image getLogoMini(){
+    public Image getWidocoLogoMini(){
         if(logoMini == null){
-            loadLogos();
+            loadWidocoLogos();
         }
         return this.logoMini;
     }
     
-    private void loadLogos(){
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    private void loadWidocoLogos(){
         try {
             //logo
             this.logo = ImageIO.read(ClassLoader.getSystemResource("logo/logo2.png"));
@@ -850,8 +874,4 @@ public class Configuration {
     public String getVocabSerialization() {
         return vocabSerialization;
     }
-    
-    
-    
-    
 }

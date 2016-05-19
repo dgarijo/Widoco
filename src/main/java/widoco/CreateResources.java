@@ -258,6 +258,7 @@ public class CreateResources {
         resources.mkdir();
         //copy jquery
         WidocoUtils.copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
+        WidocoUtils.copyLocalResource("/lode/marked.min.js",new File(resources.getAbsolutePath()+File.separator+"marked.min.js"));
         //copy css
         if(styleW3C){
             WidocoUtils.copyLocalResource("/lode/lodeprimer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));

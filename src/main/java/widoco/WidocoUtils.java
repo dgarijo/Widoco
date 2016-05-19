@@ -59,10 +59,17 @@ public class WidocoUtils {
 				|| status == HttpURLConnection.HTTP_SEE_OTHER)
                             redirect = true;                        
                     }
-                    if(redirect){
+                    //there are some vocabularies with multiple redirections:
+                    //301 -> 303 -> owl
+                    while(redirect){
                         String newUrl = connection.getHeaderField("Location");
                         connection = (HttpURLConnection) new URL(newUrl).openConnection();
                         connection.setRequestProperty("Accept", serialization);
+                        status = connection.getResponseCode();
+                        if(status != HttpURLConnection.HTTP_MOVED_TEMP && 
+                                status != HttpURLConnection.HTTP_MOVED_PERM && 
+                                status != HttpURLConnection.HTTP_SEE_OTHER)
+                            redirect=false;
                     }
                     InputStream in = (InputStream) connection.getInputStream();
                     String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"ontology";
@@ -82,7 +89,6 @@ public class WidocoUtils {
     }
     
     /**
-     * [This method should be improved]
      * @param model
      * @param ontoPath
      * @param ontoURL 

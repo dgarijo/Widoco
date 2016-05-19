@@ -46,9 +46,9 @@ public class GuiStep3 extends javax.swing.JFrame {
     public GuiStep3(GuiController g) {
         this.g = g;
         initComponents();
-        Image l = g.getConfig().getLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
+        Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
-        this.setIconImage(g.getConfig().getLogoMini());
+        this.setIconImage(g.getConfig().getWidocoLogoMini());
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Determine the new location of the window
