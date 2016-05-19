@@ -41,7 +41,7 @@ The structure of the template is as follows:
 	
 How to use Widoco
 ==========
-Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
+Download all the JAR and configuraiton samples into the same folder (the JAR is available on the release tab in Github: https://github.com/dgarijo/Widoco/releases). Then just double click the .jar file.
 
 For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
 
