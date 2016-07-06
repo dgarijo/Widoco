@@ -72,7 +72,7 @@ public final class GuiController {
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
-                includeImportedOntologies = false;
+                includeImportedOntologies = false, htAccess = false;
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -119,13 +119,16 @@ public final class GuiController {
             else if(s.equals("-includeImportedOntologies")){
                 includeImportedOntologies = true;
             }
+            else if(s.equals("-htaccess")){
+                htAccess = true;
+            }
             else if(s.equals("-lang")){
                 languages = args[i+1].replace(" ","").split(";");
                 i++;
             }
             else{
                 System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1;lang2] [-includeImportedOntologies]\n");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess]\n");
                 return;
             }
             i++;
@@ -142,6 +145,7 @@ public final class GuiController {
         this.config.setOverwriteAll(rewriteAll);
         this.config.setUseW3CStyle(useW3Cstyle);
         this.config.setUseImported(includeImportedOntologies);
+        this.config.setCreateHTACCESS(htAccess);
         if(languages!=null){
             config.removeLanguageToGenerate("en");//default
             for (String language : languages) {
@@ -149,8 +153,10 @@ public final class GuiController {
             }
         }
         if(!isFromFile)this.config.setOntologyURI(ontology);
+        //we load the model locally so we can use it.
+        WidocoUtils.loadModel(config);
         if(getOntoMetadata){
-            config.loadPropertiesFromOntology(WidocoUtils.loadModel(config));
+            config.loadPropertiesFromOntology(config.getMainModel());
         }
         try{
             for (String l : config.getLanguagesToGenerateDoc()) {

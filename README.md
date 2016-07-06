@@ -41,7 +41,7 @@ The structure of the template is as follows:
 	
 How to use Widoco
 ==========
-Download all the JAR and configuraiton samples into the same folder (the JAR is available on the release tab in Github: https://github.com/dgarijo/Widoco/releases). Then just double click the .jar file.
+Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
 
 For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
 
@@ -49,7 +49,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -68,6 +68,8 @@ The -useCustomStyle option allows exporting the documentation using alternate cs
 The -lang option allows showing the languages in which the documentation will be published (separated by ";"). Note that if the language is not supported, the system will load the labels in english. For example: en;pt;es
 
 The -includeImportedOntologies flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
+
+The -htaccess flag creates a bundle for publication ready to be deployed on your apache server.
 
 Browser problems
 ==========

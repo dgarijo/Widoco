@@ -16,12 +16,16 @@
 
 package widoco;
 
+import com.hp.hpl.jena.ontology.OntModel;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -38,11 +42,11 @@ import widoco.entities.Ontology;
 public class CreateResources {
     
     //to do: analyze if this is the right name for the class. Maybe "generate" is better
-    public static void generateDocumentation(String folderOut, Configuration c, File lodeResources) throws Exception{
+    public static void generateDocumentation(String outFolder, Configuration c, File lodeResources) throws Exception{
         String lodeContent;
         lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
         LODEParser lode = new LODEParser(lodeContent,c);
-        //Aqui leer el fichero de properties dependiendo del idioma. Si no se carga, coger el de por defecto
+        String folderOut = outFolder;
         Properties languageFile = new Properties();
         try{
             String resource = "/widoco/"+c.getCurrentLanguage()+".properties";
@@ -56,7 +60,18 @@ public class CreateResources {
                 System.out.println("Error while reading the language file: "+e1.getMessage());
             }
         }
-        createFolderStructure(folderOut,c.isIncludeDiagram(),c.isPublishProvenance(), c.isUseW3CStyle());
+        if(c.isCreateHTACCESS()){
+            File f = new File (folderOut);
+            if(!f.exists()){
+                f.mkdir();
+            }
+            createHTACCESSFile(folderOut+File.separator+".htaccess",c);
+            //slash ontologies require a special type of redirection
+            if(!c.getMainOntology().isHashOntology()){
+                folderOut+=File.separator+"doc";
+            }
+        }
+        createFolderStructure(folderOut,c);
         if(c.isIncludeAbstract()){
             createAbstractSection(folderOut+File.separator+"sections",c, languageFile);
         }
@@ -78,14 +93,33 @@ public class CreateResources {
         if(c.isPublishProvenance()){
             createProvenancePage(folderOut+File.separator+"provenance", c, languageFile);
         }
+        
         //here copy the vocabulary to the right folder
-        WidocoUtils.copyExternalResource(c.getOntologyPath(), new File(folderOut+File.separator+"ontology.owl"));
+//        WidocoUtils.copyExternalResource(c.getOntologyPath(), new File(folderOut+File.separator+"ontology.owl"));
+        //serialize the model in different serializations.
+        HashMap<String,String> s = c.getMainOntology().getSerializations();
+        for(String serialization:s.keySet()){
+            OutputStream out;
+            String sValue = s.get(serialization);
+            if(sValue.startsWith("ontology")){
+                try {
+                    out = new FileOutputStream(folderOut+File.separator+sValue);
+                    c.getMainModel().write(out,serialization);
+                    out.close();
+                } catch (Exception ex) {
+                    System.out.println("Error while writing the model to file "+ex.getMessage());
+                }
+            }
+        }
         createIndexDocument(folderOut,c, lode, languageFile);
     }
     
     public static void generateSkeleton(String folderOut, Configuration c, Properties l){
-        c.setTitle("Skeleton title");
-        createFolderStructure(folderOut,false,false, true);
+//        c.setTitle("Skeleton title");
+        c.setIncludeDiagram(false);
+        c.setPublishProvenance(false);
+        c.setUseW3CStyle(true);
+        createFolderStructure(folderOut,c);
         createAbstractSection(folderOut+File.separator+"sections",c, l);
         createIntroductionSection(folderOut+File.separator+"sections",null,c,l);
         createDescriptionSection(folderOut+File.separator+"sections",c,l);
@@ -99,6 +133,14 @@ public class CreateResources {
     private static void createProvenancePage(String path, Configuration c, Properties lang){
         saveDocument(path+File.separator+"provenance-"+c.getCurrentLanguage()+".html", TextConstants.getProvenanceHtml(c, lang),c);
         saveDocument(path+File.separator+"provenance-"+c.getCurrentLanguage()+".ttl", TextConstants.getProvenanceRDF(c),c);
+    }
+    
+    private static void createHTACCESSFile(String path, Configuration c){
+        saveDocument(path,TextConstants.getHTACCESS(c), c);
+    }
+    
+    private static void create406Page(String path, Configuration c) {
+        saveDocument(path,TextConstants.get406(c), c);
     }
     
     /**
@@ -235,14 +277,14 @@ public class CreateResources {
         
     }
     
-    private static void createFolderStructure(String s, boolean includeDiagram, boolean includeProv, boolean styleW3C){
+    private static void createFolderStructure(String s, Configuration c){
         File f = new File(s);
         File sections = new File(s+File.separator+"sections");
         File img = new File(s+File.separator+"img");
         File provenance = new File(s+File.separator+"provenance");
         File resources = new File(s+File.separator+"resources");
         if(!f.exists()){
-            f.mkdir();
+            f.mkdirs();
         }else{
             if(!f.isDirectory()){
                 System.err.println("The selected file is not a directory.");
@@ -250,8 +292,8 @@ public class CreateResources {
             }            
         }
         sections.mkdir();
-        if(includeDiagram)img.mkdir();
-        if(includeProv){
+        if(c.isIncludeDiagram())img.mkdir();
+        if(c.isPublishProvenance()){
             provenance.mkdir();
             //do all provenance related stuff here
         }
@@ -260,7 +302,7 @@ public class CreateResources {
         WidocoUtils.copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
         WidocoUtils.copyLocalResource("/lode/marked.min.js",new File(resources.getAbsolutePath()+File.separator+"marked.min.js"));
         //copy css
-        if(styleW3C){
+        if(c.isUseW3CStyle()){
             WidocoUtils.copyLocalResource("/lode/lodeprimer.css", new File(resources.getAbsolutePath()+File.separator+"primer.css"));
             WidocoUtils.copyLocalResource("/lode/rec.css", new File(resources.getAbsolutePath()+File.separator+"rec.css"));
             WidocoUtils.copyLocalResource("/lode/extra.css", new File(resources.getAbsolutePath()+File.separator+"extra.css"));
@@ -271,6 +313,9 @@ public class CreateResources {
         }
         //copy widoco readme
         WidocoUtils.copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
+        if(c.isCreateHTACCESS()){
+            create406Page(s+File.separator+"406.html",c);
+        }
     }
 
     
@@ -286,9 +331,9 @@ public class CreateResources {
             textProperties+=TextConstants.previousVersionURI+"="+conf.getPreviousVersion()+"\n";
             textProperties+=TextConstants.dateOfRelease+"="+conf.getReleaseDate()+"\n";
             textProperties+=TextConstants.ontologyRevision+"="+conf.getRevision()+"\n";
-            textProperties+=TextConstants.licenseURI+"="+conf.getLicense().getUrl()+"\n";
-            textProperties+=TextConstants.licenseName+"="+conf.getLicense().getName()+"\n";
-            textProperties+=TextConstants.licenseIconURL+"="+conf.getLicense().getIcon()+"\n";
+            textProperties+=TextConstants.licenseURI+"="+conf.getMainOntology().getLicense().getUrl()+"\n";
+            textProperties+=TextConstants.licenseName+"="+conf.getMainOntology().getLicense().getName()+"\n";
+            textProperties+=TextConstants.licenseIconURL+"="+conf.getMainOntology().getLicense().getIcon()+"\n";
             textProperties+=TextConstants.citeAs+"="+conf.getCiteAs()+"\n";
             String authors="", authorURLs="", authorInstitutions="";
             ArrayList<Agent> ag = conf.getCreators();
@@ -412,4 +457,6 @@ public class CreateResources {
 ////        generateDocumentation("C:\\Users\\Monen\\Desktop\\myDoc", c);
 //        generateDocumentation("C:\\Users\\Dani\\Desktop\\myDoc", c, false);
 //    }
+
+    
 }

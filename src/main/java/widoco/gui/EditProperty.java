@@ -72,7 +72,7 @@ public class EditProperty extends javax.swing.JFrame {
             case license:
                 this.setTitle("Editing License");
                 createTable(new String[]{"License Name","License URI", "License Logo URL"});
-                loadLicense(c.getLicense());
+                loadLicense(c.getMainOntology().getLicense());
                 break;
         }
     }
@@ -231,7 +231,7 @@ public class EditProperty extends javax.swing.JFrame {
                 break;
             case imported:this.c.setImportedOntologies(getOntologiesFromTable());
                 break;
-            case license:this.c.setLicense(getLicenseFromTable());
+            case license:this.c.getMainOntology().setLicense(getLicenseFromTable());
         }
         this.step2Gui.refreshPropertyTable();
         this.dispose();

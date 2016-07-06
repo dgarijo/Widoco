@@ -20,6 +20,10 @@
  */
 package widoco.entities;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Class for representing the ontology objects
  * @author Daniel Garijo
@@ -28,6 +32,8 @@ public class Ontology {
     private String name;
     private String namespacePrefix;
     private String namespaceURI;
+    private HashMap<String,String> serializations;
+    private License license;
 
     public Ontology() {
     }
@@ -49,6 +55,10 @@ public class Ontology {
     public String getNamespaceURI() {
         return namespaceURI;
     }
+    
+    public HashMap<String, String> getSerializations() {
+        return serializations;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -61,4 +71,33 @@ public class Ontology {
     public void setNamespacePrefix(String namespacePrefix) {
         this.namespacePrefix = namespacePrefix;
     }
+    
+    public boolean isHashOntology(){
+        return !namespaceURI.endsWith("/");
+    }
+   
+    public License getLicense() {
+        return license;
+    }
+    
+    public void setLicense(License license) {
+        this.license = license;
+    }
+    
+    public void setSerializations(HashMap<String, String> serializations) {
+        this.serializations = serializations;
+    }
+    
+    /**
+     * Method that adds a serialization to the supported serialization arraylist of the vocabulary
+     * @param serializationName
+     * @param serializationURI 
+     */
+    public void addSerialization(String serializationName, String serializationURI){
+        serializations.put(serializationName, serializationURI);
+        
+    }   
+    
+
+    
 }
