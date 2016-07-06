@@ -34,7 +34,6 @@ public class CreateDocInThread implements Runnable{
     }
 
     public void run() {
-        //el false/true es por el path de la doc o la uri. Aclararse..
         //use config to create doc. If null, return error.
         try{
             System.out.println("Generating doc. "+ c.getMainOntology().getNamespaceURI());

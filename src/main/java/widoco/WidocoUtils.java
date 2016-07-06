@@ -38,7 +38,7 @@ import java.util.zip.ZipInputStream;
  * @author Daniel Garijo
  */
 public class WidocoUtils {
-    public static OntModel loadModel(Configuration c){
+    public static void loadModel(Configuration c){
         OntModel model = ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();
         if(!c.isFromFile()){
             //if the vocabulary is from a URI, I download it locally. This is done
@@ -72,7 +72,7 @@ public class WidocoUtils {
                             redirect=false;
                     }
                     InputStream in = (InputStream) connection.getInputStream();
-                    String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"ontology";
+                    String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"Ontology";
                     Files.copy(in, Paths.get(newOntologyPath), StandardCopyOption.REPLACE_EXISTING);
                     in.close();
                     c.setFromFile(true);
@@ -85,7 +85,7 @@ public class WidocoUtils {
             
         }
         readModel(model, c);
-        return model;
+        c.setMainModel(model);
     }
     
     /**
@@ -94,8 +94,9 @@ public class WidocoUtils {
      * @param ontoURL 
      */
     private static void readModel(OntModel model,Configuration c){
-        String[] serializations = {"RDF/XML", "TURTLE", "N3"};
+        String[] serializations = {"RDF/XML", "TTL", "N3"};
         String ontoPath = c.getOntologyPath();
+        String ext = "";
         for(String s:serializations){
             InputStream in;
             try{
@@ -105,8 +106,16 @@ public class WidocoUtils {
                     return;
                 }
                 model.read(in, null, s);
-                c.setVocabSerialization(s);
                 System.out.println("Vocab loaded in "+s);
+                if(s.equals("RDF/XML")){
+                    ext="xml";
+                }else if(s.equals("TTL")){
+                    ext="ttl";
+                }else if(s.equals("N3")){
+                    ext="n3";
+                }
+                c.getMainOntology().addSerialization(s, "ontology."+ext);
+                //c.setVocabSerialization(s);
                 break;
             }catch(Exception e){
                 System.err.println("Could not open the ontology in "+s);

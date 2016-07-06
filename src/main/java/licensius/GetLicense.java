@@ -16,17 +16,14 @@
 package licensius;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import widoco.TextConstants;
 
 /**
@@ -35,9 +32,10 @@ import widoco.TextConstants;
  * Integrated by Daniel Garijo
  */
 public class GetLicense {
-    
+//    hay que hacer un post! POST /license/findlicenseinrdf
        
    public static String getTitle(String uriToScan) {
+       
     String output="unknown";
     try {
         String uri=TextConstants.licensiusURIServiceLicenseInfo;

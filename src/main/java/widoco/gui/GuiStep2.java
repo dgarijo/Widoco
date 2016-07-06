@@ -188,7 +188,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"contributors", contributors},
                 {"imported ontologies", imported},
                 {"extended ontologies", extended},
-                {"license", conf.getLicense().getUrl()},
+                {"license", conf.getMainOntology().getLicense().getUrl()},
                 {"cite As", conf.getCiteAs()},
                 {"status", conf.getStatus()}
             },
@@ -254,7 +254,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
             }else if(prop.equals("ontology revision")){
                 conf.setRevision(value);
             }else if(prop.equals("license URI")){
-                conf.getLicense().setUrl(value);
+                conf.getMainOntology().getLicense().setUrl(value);
             }else if(prop.equals("cite As")){
                 conf.setCiteAs(value);
             }else if(prop.equals("status")){
