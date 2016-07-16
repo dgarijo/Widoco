@@ -30,11 +30,14 @@ import widoco.entities.Ontology;
  *
  * @author Daniel Garijo
  */
-public class TextConstants {
+public class Constants {
     //constants for the Licensius service
     public static final String licensiusURIServiceLicense = "http://www.licensius.com/api/license/findlicenseinrdf?uri=";//"http://licensius.appspot.com/getLicense?content=";
     public static final String licensiusURIServiceLicenseInfo = "http://www.licensius.com/api/license/getlicenseinfo?uri=";//"http://licensius.appspot.com/getLicenseTitle?content=";
-
+    public static final int licensiusTimeOut = 10000;
+    
+    public static final int oopsTimeOut = 30000;
+    
     public static final String[] vocabPossibleSerializations = {"application/rdf+xml","text/turtle","text/n3"};
     /**
      * Constants for the  Step 2 (table)
@@ -702,7 +705,7 @@ public class TextConstants {
         "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n" +
         "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" +
         "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
-        "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n\n";
+        "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n";
         //this depends on whether the vocab is hash or slash!
         if(c.getMainOntology().isHashOntology()){
             htAccessFile +="RewriteRule ^$ index-"+c.getCurrentLanguage()+".html [R=303,L]\n";
@@ -738,8 +741,6 @@ public class TextConstants {
             htAccessFile +="RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n" +
                 "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n" +
                 "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n" +
-                "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" +
-                "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
                 "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n" +
                 "RewriteRule ^def/(.+) doc/index-"+c.getCurrentLanguage()+".html#$1 [R=303,NE,L]\n";
             HashMap<String,String> serializations = c.getMainOntology().getSerializations();
@@ -747,16 +748,18 @@ public class TextConstants {
                 htAccessFile +="# Rewrite rule to serve "+serialization+" content from the vocabulary URI if requested\n";
                 String normalSerialization, complexSerialization, condition="";
                 if(serialization.equals("RDF/XML")){
-                    condition = "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
+                    condition = "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
+                            "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
                 }else if(serialization.equals("TTL")){
                     condition ="RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n" +
+                        "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" +
                         "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
                 }else if(serialization.equals("N-Triples")){
                     condition ="RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
                 }else if (serialization.equals("JSON-LD")){
                     condition = "RewriteCond %{HTTP_ACCEPT} application/ld+json\n";
                 }
-                normalSerialization = "RewriteRule ^def$ doc/"+serializations.get(serialization)+" [R=303,L]\n";
+                normalSerialization = "RewriteRule ^def$ doc/"+serializations.get(serialization)+" [R=303,L]\n\n";
                 complexSerialization = "RewriteRule ^def/(.+)$ doc/"+serializations.get(serialization)+" [R=303,NE,L]\n\n";
                 htAccessFile += condition+normalSerialization+condition+complexSerialization;
             }
@@ -765,7 +768,7 @@ public class TextConstants {
                 + "# Default response\n" +
                 "# ---------------------------\n" +
                 "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n" +
-                "RewriteRule ^def$ "+serializations.get("RDF/XML")+" [R=303,L]";
+                "RewriteRule ^def$ doc/"+serializations.get("RDF/XML")+" [R=303,L]";
         }
         
         return htAccessFile;

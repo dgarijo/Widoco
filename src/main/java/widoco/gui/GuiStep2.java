@@ -36,7 +36,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import widoco.Configuration;
 import widoco.CreateResources;
-import widoco.TextConstants;
+import widoco.Constants;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -611,7 +611,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 try{
                     URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
                     String path = (new File(root.toURI())).getParentFile().getPath();
-                    conf.reloadPropertyFile(path+File.separator+TextConstants.configPath);
+                    conf.reloadPropertyFile(path+File.separator+Constants.configPath);
                     //g.reloadConfiguration(path+File.separator+TextConstants.configPath);
                     this.refreshPropertyTable();
                 }catch(URISyntaxException e){

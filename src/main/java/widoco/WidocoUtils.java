@@ -43,7 +43,7 @@ public class WidocoUtils {
         if(!c.isFromFile()){
             //if the vocabulary is from a URI, I download it locally. This is done
             //because Jena doesn't handle https very well.
-            for(String serialization: TextConstants.vocabPossibleSerializations){
+            for(String serialization: Constants.vocabPossibleSerializations){
                 System.out.println("Attempting to download vocabulary in "+serialization);
                 try{
                     URL url = new URL(c.getOntologyURI());

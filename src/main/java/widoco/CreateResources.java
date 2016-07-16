@@ -131,16 +131,16 @@ public class CreateResources {
      * Provenance page
      */
     private static void createProvenancePage(String path, Configuration c, Properties lang){
-        saveDocument(path+File.separator+"provenance-"+c.getCurrentLanguage()+".html", TextConstants.getProvenanceHtml(c, lang),c);
-        saveDocument(path+File.separator+"provenance-"+c.getCurrentLanguage()+".ttl", TextConstants.getProvenanceRDF(c),c);
+        saveDocument(path+File.separator+"provenance-"+c.getCurrentLanguage()+".html", Constants.getProvenanceHtml(c, lang),c);
+        saveDocument(path+File.separator+"provenance-"+c.getCurrentLanguage()+".ttl", Constants.getProvenanceRDF(c),c);
     }
     
     private static void createHTACCESSFile(String path, Configuration c){
-        saveDocument(path,TextConstants.getHTACCESS(c), c);
+        saveDocument(path,Constants.getHTACCESS(c), c);
     }
     
     private static void create406Page(String path, Configuration c) {
-        saveDocument(path,TextConstants.get406(c), c);
+        saveDocument(path,Constants.get406(c), c);
     }
     
     /**
@@ -150,7 +150,7 @@ public class CreateResources {
         if((c.getAbstractPath()!=null) && (!"".equals(c.getAbstractPath()))){
             WidocoUtils.copyExternalResource(c.getAbstractPath(),new File(path+File.separator+"abstract-"+c.getCurrentLanguage()+".html"));
         }else{
-            saveDocument(path+File.separator+"abstract-"+c.getCurrentLanguage()+".html", TextConstants.getAbstractSection(c.getAbstractSection(),c, languageFile),c);
+            saveDocument(path+File.separator+"abstract-"+c.getCurrentLanguage()+".html", Constants.getAbstractSection(c.getAbstractSection(),c, languageFile),c);
         }
         
     }
@@ -159,9 +159,9 @@ public class CreateResources {
         if((c.getIntroductionPath()!=null) && (!"".equals(c.getIntroductionPath()))){
             WidocoUtils.copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction-"+c.getCurrentLanguage()+".html"));
         }else{
-            String introSectionText = TextConstants.getIntroductionSection(c, lang);
+            String introSectionText = Constants.getIntroductionSection(c, lang);
             if(nsDecl!=null && !nsDecl.isEmpty()){
-                introSectionText += TextConstants.getNameSpaceDeclaration(nsDecl, lang);
+                introSectionText += Constants.getNameSpaceDeclaration(nsDecl, lang);
                 //small fix: use prefix selected by user.
                 if(c.getMainOntology().getNamespacePrefix()!=null && !"".equals(c.getMainOntology().getNamespacePrefix()))
                     introSectionText = introSectionText.replace("default namespace", c.getMainOntology().getNamespacePrefix());
@@ -176,7 +176,7 @@ public class CreateResources {
         if((c.getOverviewPath()!=null) && (!"".equals(c.getOverviewPath()))){
             WidocoUtils.copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview-"+c.getCurrentLanguage()+".html"));
         }else{
-            String overViewSection = TextConstants.getOverviewSection(c, lang);
+            String overViewSection = Constants.getOverviewSection(c, lang);
             if(!"".equals(classesList) && classesList!=null){
                 overViewSection+=("<h4>"+lang.getProperty("classes")+"</h4>\n");
                 overViewSection+=(classesList);
@@ -205,13 +205,13 @@ public class CreateResources {
         if((c.getDescriptionPath()!=null) && (!"".equals(c.getDescriptionPath()))){
             WidocoUtils.copyExternalResource(c.getDescriptionPath(), new File(path+File.separator+"description-"+c.getCurrentLanguage()+".html"));
         }else{
-            saveDocument(path+File.separator+"description-"+c.getCurrentLanguage()+".html",TextConstants.getDescriptionSection(c,lang),c);
+            saveDocument(path+File.separator+"description-"+c.getCurrentLanguage()+".html",Constants.getDescriptionSection(c,lang),c);
         }
     }
     
     private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c, Properties lang){
         //cross reference section has to be included always.
-        String crossRef = TextConstants.getCrossReferenceSection(c, lang);
+        String crossRef = Constants.getCrossReferenceSection(c, lang);
         String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList(),
                 annotationPropList = lodeParser.getAnnotationPropList(), namedIndividualList = lodeParser.getNamedIndividualList();
         if(classesList!=null && !"".equals(classesList)){
@@ -236,7 +236,7 @@ public class CreateResources {
         if((c.getReferencesPath()!=null) && (!"".equals(c.getReferencesPath()))){
             WidocoUtils.copyExternalResource(c.getReferencesPath(), new File(path+File.separator+"overview-"+c.getCurrentLanguage()+".html"));
         }else{
-            saveDocument(path+File.separator+"references-"+c.getCurrentLanguage()+".html", TextConstants.getReferencesSection(c, lang),c);
+            saveDocument(path+File.separator+"references-"+c.getCurrentLanguage()+".html", Constants.getReferencesSection(c, lang),c);
         }
     }
     
@@ -246,7 +246,7 @@ public class CreateResources {
      */
     private static void createIndexDocument(String path, Configuration c, LODEParser l, Properties lang){
         //the boolean valuas come from the configuration.
-        String textToWrite = TextConstants.getIndexDocument("resources",c, l, lang);
+        String textToWrite = Constants.getIndexDocument("resources",c, l, lang);
         saveDocument(path+File.separator+"index-"+c.getCurrentLanguage()+".html", textToWrite,c);
     }
     
@@ -321,20 +321,20 @@ public class CreateResources {
     
     public static void saveConfigFile(String path, Configuration conf)throws IOException{
         String textProperties = "\n";//the first line I leave an intro because there have been problems.
-            textProperties+=TextConstants.abstractSectionContent+"="+conf.getAbstractSection()+"\n";
-            textProperties+=TextConstants.ontTitle+"="+conf.getTitle()+"\n";
-            textProperties+=TextConstants.ontPrefix+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
-            textProperties+=TextConstants.ontNamespaceURI+"="+conf.getMainOntology().getNamespaceURI()+"\n";
-            textProperties+=TextConstants.ontName+"="+conf.getMainOntology().getName()+"\n";
-            textProperties+=TextConstants.thisVersionURI+"="+conf.getThisVersion()+"\n";
-            textProperties+=TextConstants.latestVersionURI+"="+conf.getLatestVersion()+"\n";
-            textProperties+=TextConstants.previousVersionURI+"="+conf.getPreviousVersion()+"\n";
-            textProperties+=TextConstants.dateOfRelease+"="+conf.getReleaseDate()+"\n";
-            textProperties+=TextConstants.ontologyRevision+"="+conf.getRevision()+"\n";
-            textProperties+=TextConstants.licenseURI+"="+conf.getMainOntology().getLicense().getUrl()+"\n";
-            textProperties+=TextConstants.licenseName+"="+conf.getMainOntology().getLicense().getName()+"\n";
-            textProperties+=TextConstants.licenseIconURL+"="+conf.getMainOntology().getLicense().getIcon()+"\n";
-            textProperties+=TextConstants.citeAs+"="+conf.getCiteAs()+"\n";
+            textProperties+=Constants.abstractSectionContent+"="+conf.getAbstractSection()+"\n";
+            textProperties+=Constants.ontTitle+"="+conf.getTitle()+"\n";
+            textProperties+=Constants.ontPrefix+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
+            textProperties+=Constants.ontNamespaceURI+"="+conf.getMainOntology().getNamespaceURI()+"\n";
+            textProperties+=Constants.ontName+"="+conf.getMainOntology().getName()+"\n";
+            textProperties+=Constants.thisVersionURI+"="+conf.getThisVersion()+"\n";
+            textProperties+=Constants.latestVersionURI+"="+conf.getLatestVersion()+"\n";
+            textProperties+=Constants.previousVersionURI+"="+conf.getPreviousVersion()+"\n";
+            textProperties+=Constants.dateOfRelease+"="+conf.getReleaseDate()+"\n";
+            textProperties+=Constants.ontologyRevision+"="+conf.getRevision()+"\n";
+            textProperties+=Constants.licenseURI+"="+conf.getMainOntology().getLicense().getUrl()+"\n";
+            textProperties+=Constants.licenseName+"="+conf.getMainOntology().getLicense().getName()+"\n";
+            textProperties+=Constants.licenseIconURL+"="+conf.getMainOntology().getLicense().getIcon()+"\n";
+            textProperties+=Constants.citeAs+"="+conf.getCiteAs()+"\n";
             String authors="", authorURLs="", authorInstitutions="";
             ArrayList<Agent> ag = conf.getCreators();
             if(!ag.isEmpty()){
@@ -352,9 +352,9 @@ public class CreateResources {
                 if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
                 if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
             }
-            textProperties+=TextConstants.authors+"="+authors+"\n";
-            textProperties+=TextConstants.authorsURI+"="+authorURLs+"\n";
-            textProperties+=TextConstants.authorsInstitution+"="+authorInstitutions+"\n";
+            textProperties+=Constants.authors+"="+authors+"\n";
+            textProperties+=Constants.authorsURI+"="+authorURLs+"\n";
+            textProperties+=Constants.authorsInstitution+"="+authorInstitutions+"\n";
             
             ag = conf.getContributors();
             authors=""; 
@@ -374,9 +374,9 @@ public class CreateResources {
                 if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
                 if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
             }
-            textProperties+=TextConstants.contributors+"="+authors+"\n";
-            textProperties+=TextConstants.contributorsURI+"="+authorURLs+"\n";
-            textProperties+=TextConstants.contributorsInstitution+"="+authorInstitutions+"\n";
+            textProperties+=Constants.contributors+"="+authors+"\n";
+            textProperties+=Constants.contributorsURI+"="+authorURLs+"\n";
+            textProperties+=Constants.contributorsInstitution+"="+authorInstitutions+"\n";
             String importedNames="", importedURIs="";
             ArrayList<Ontology> imported = conf.getImportedOntologies();
             if(!imported.isEmpty()){
@@ -391,8 +391,8 @@ public class CreateResources {
                 if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
                 if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
             }
-            textProperties+=TextConstants.importedOntologyNames+"="+importedNames+"\n";
-            textProperties+=TextConstants.importedOntologyURIs+"="+importedURIs+"\n";
+            textProperties+=Constants.importedOntologyNames+"="+importedNames+"\n";
+            textProperties+=Constants.importedOntologyURIs+"="+importedURIs+"\n";
             imported = conf.getExtendedOntologies();
             importedNames = "";
             importedURIs = "";
@@ -408,8 +408,8 @@ public class CreateResources {
                 if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
                 if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
             }
-            textProperties+=TextConstants.extendedOntologyNames+"="+importedNames+"\n";
-            textProperties+=TextConstants.extendedOntologyURIs+"="+importedURIs+"\n";
+            textProperties+=Constants.extendedOntologyNames+"="+importedNames+"\n";
+            textProperties+=Constants.extendedOntologyURIs+"="+importedURIs+"\n";
             //copy the result into the file
             Writer writer = null;
             try {

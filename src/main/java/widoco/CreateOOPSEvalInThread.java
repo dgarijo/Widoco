@@ -49,7 +49,7 @@ public class CreateOOPSEvalInThread implements Runnable{
             if(!evalFolder.exists())evalFolder.mkdir();
             evalResourcesFolder.mkdir();
             //CreateResources.copyResourceFolder(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
-            WidocoUtils.unZipIt(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
+            WidocoUtils.unZipIt(Constants.oopsResources, evalResourcesFolder.getAbsolutePath());
             //do POST petition with evaluation.
             String evaluation;
             OOPSevaluation eval;
@@ -78,7 +78,7 @@ public class CreateOOPSEvalInThread implements Runnable{
                 this.pointerToMain.switchState("savingResponse");
             }
             System.out.println("Saving response...");
-            CreateResources.saveDocument(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html", TextConstants.getEvaluationText(evaluation, c),c);
+            CreateResources.saveDocument(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html", Constants.getEvaluationText(evaluation, c),c);
             if(showGui){
                 pointerToMain.openBrowser(new File(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html").toURI());
             }

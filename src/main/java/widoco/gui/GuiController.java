@@ -30,7 +30,7 @@ import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
 import widoco.LoadOntologyPropertiesInThread;
-import widoco.TextConstants;
+import widoco.Constants;
 import widoco.WidocoUtils;
 
 
@@ -54,7 +54,7 @@ public final class GuiController {
         //read logo
         gui = new GuiStep1(this);
         gui.setVisible(true);
-        WidocoUtils.unZipIt(TextConstants.lodeResources, config.getTmpFile().getName());
+        WidocoUtils.unZipIt(Constants.lodeResources, config.getTmpFile().getName());
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -135,7 +135,7 @@ public final class GuiController {
         }        
         try {
             //CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
-            WidocoUtils.unZipIt(TextConstants.lodeResources, config.getTmpFile().getName());
+            WidocoUtils.unZipIt(Constants.lodeResources, config.getTmpFile().getName());
         } catch (Exception ex) {
             System.err.println("Error while creating the temporal files");
         }
