@@ -103,7 +103,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jSeparator1" min="-2" pref="17" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="jPanel1" pref="309" max="32767" attributes="0"/>
+                      <Component id="jPanel1" pref="341" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
@@ -203,45 +203,44 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="checkBoxProv" pref="357" max="32767" attributes="1"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                              <Component id="checkBoxHTAccess" alignment="0" pref="357" max="32767" attributes="1"/>
+                              <Component id="checkBoxProv" alignment="0" max="32767" attributes="1"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="checkBoxRefs" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkBoxDescription" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkBoxOverview" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkBoxIntro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkBoxAbstract" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="132" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="abstractSectionButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="labelTitle1" min="-2" pref="72" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="introductionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="overviewSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="referencesSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="descriptionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="labelLode" min="-2" pref="73" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="checkBoxRefs" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxDescription" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxOverview" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxIntro" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxAbstract" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="abstractSectionButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="labelTitle1" min="-2" pref="72" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="introductionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="overviewSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="referencesSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="descriptionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="labelLode" min="-2" pref="73" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -296,19 +295,21 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="includeAnnProps" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="includeIndividuals" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   <Component id="checkBoxProv" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <Component id="checkBoxHTAccess" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="w3C" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="customRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -448,6 +449,11 @@
               <ComponentRef name="buttonGroup1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Custom"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkBoxHTAccess">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Create an .htaccess file (for ontology publication)"/>
           </Properties>
         </Component>
       </SubComponents>

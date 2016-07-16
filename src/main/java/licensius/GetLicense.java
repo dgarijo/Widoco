@@ -16,18 +16,15 @@
 package licensius;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import widoco.TextConstants;
+import widoco.Constants;
 
 /**
  *
@@ -35,18 +32,20 @@ import widoco.TextConstants;
  * Integrated by Daniel Garijo
  */
 public class GetLicense {
-    
+//    hay que hacer un post! POST /license/findlicenseinrdf
        
    public static String getTitle(String uriToScan) {
+       
     String output="unknown";
     try {
-        String uri=TextConstants.licensiusURIServiceLicenseInfo;
+        String uri=Constants.licensiusURIServiceLicenseInfo;
         String encodedData = URLEncoder.encode(uriToScan);
         uri+=encodedData;
-//        System.out.println(uri);
+        System.out.println(uri);
         URL url = new URL(uri);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
+        conn.setConnectTimeout(Constants.licensiusTimeOut);
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("Content-Length", String.valueOf(encodedData.length()));
@@ -76,7 +75,7 @@ public class GetLicense {
 public static String getFirstLicenseFound(String uriToScan) {
     String output="unknown";
     try {
-        String uri=TextConstants.licensiusURIServiceLicense;
+        String uri=Constants.licensiusURIServiceLicense;
         String encodedData = URLEncoder.encode(uriToScan);
         uri+=encodedData;
         System.out.println(uri);
@@ -86,6 +85,7 @@ public static String getFirstLicenseFound(String uriToScan) {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("Content-Length", String.valueOf(encodedData.length()));
+        conn.setConnectTimeout(Constants.licensiusTimeOut);
         if (conn.getResponseCode() != 200) {
             throw new RuntimeException("HTTP error code : "+ conn.getResponseCode());
         }
@@ -109,7 +109,7 @@ public static String getFirstLicenseFound(String uriToScan) {
         }
         conn.disconnect();
     } catch (Exception e) {
-        System.out.println("-->Could not load license for vocab");
+        System.out.println("-->Could not load license for vocab: "+e.getMessage());
     }
     return output;
 }

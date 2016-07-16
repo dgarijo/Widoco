@@ -16,6 +16,8 @@
 package widoco;
 
 import java.io.File;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,11 +30,14 @@ import widoco.entities.Ontology;
  *
  * @author Daniel Garijo
  */
-public class TextConstants {
+public class Constants {
     //constants for the Licensius service
     public static final String licensiusURIServiceLicense = "http://www.licensius.com/api/license/findlicenseinrdf?uri=";//"http://licensius.appspot.com/getLicense?content=";
     public static final String licensiusURIServiceLicenseInfo = "http://www.licensius.com/api/license/getlicenseinfo?uri=";//"http://licensius.appspot.com/getLicenseTitle?content=";
-
+    public static final int licensiusTimeOut = 10000;
+    
+    public static final int oopsTimeOut = 30000;
+    
     public static final String[] vocabPossibleSerializations = {"application/rdf+xml","text/turtle","text/n3"};
     /**
      * Constants for the  Step 2 (table)
@@ -62,7 +67,12 @@ public class TextConstants {
     public static final String licenseURI="licenseURI";
     public static final String licenseIconURL="licenseIconURL";
     public static final String citeAs="citeAs";
-    public static final String deafultSerialization="deafultSerialization";
+    public static final String rdf="RDFXMLSerialization";
+    public static final String ttl="TurtleSerialization";
+    public static final String n3="N3Serialization";
+    public static final String json="JSONLDSerialization";
+//    public static final String deafultSerialization="deafultSerialization";
+    public static final String status="status";
     
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
@@ -77,12 +87,26 @@ public class TextConstants {
         else{
             abstractSection+=langFile.getProperty("abstractPlaceHolder");
         }
-        abstractSection+="</p>\n";
         //citation info
         if(!"".equals(c.getCiteAs()) && c.getCiteAs()!=null){
             abstractSection+="<p><strong>"+langFile.getProperty("citeAs")+"</strong></br>\n"+c.getCiteAs()+"\n</p>";
         }
         return abstractSection;
+    }
+    
+    /**
+     * Text representing the div of the status.
+     * @param c
+     * @return 
+     */
+    public static String getStatus(Configuration c){
+        String html = "";
+        if(c.getStatus()!=null && !c.getStatus().equals("")){
+            html+="<div class=\"status\">\n"
+                    + "<div>\n"
+                    + "<span>"+c.getStatus()+"</span>\n</div>\n</div>";
+        }
+        return html;
     }
     
     public static int numSection(String section, Configuration c){
@@ -240,11 +264,13 @@ public class TextConstants {
                      " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/site.css\" media=\"screen\" />";
         }
         document += "<script src=\""+resourcesFolderName+"/jquery.js\"></script> \n" +
+                    "<script src=\""+resourcesFolderName+"/marked.min.js\"></script> \n" +
                      "    <script> \n" +
                      "function loadHash() {\n" +
+                     "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});\n" +
                      "	var hash = location.hash;\n" +
                      "	if($(hash).offset()!=null){\n" +
-                     "		$('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" +
+                     "	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n"+
                      "	}\n" +
                      "}"+
                      "    $(function(){\n";
@@ -275,6 +301,7 @@ public class TextConstants {
             document+="<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://purl.org/net/dgarijo\"></span>\n"+
                         "</span>\n";
         document += getHeadSection(c, lang);
+        document += getStatus(c);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
         document += getTableOfContentsSection(c,l,lang);
         if(c.isIncludeIntroduction()) document += "     <div id=\"introduction\"></div>\n";
@@ -329,17 +356,21 @@ public class TextConstants {
         if(!c.getExtendedOntologies().isEmpty())
             head += getExtends(c.getExtendedOntologies(),l)+"\n";
         
-        if(!"".equals(c.getVocabSerialization())){
-            head+="<dl><dt>"+l.getProperty("serialization")+"</dt><dd><a href=\"ontology.owl\">"+c.getVocabSerialization()+"</a></dd></dl>";
+        HashMap<String,String> availableSerializations = c.getMainOntology().getSerializations();
+        head+="<dl><dt>"+l.getProperty("serialization")+"</dt>";
+        for(String serialization:availableSerializations.keySet()){
+            head+="<span><a href=\""+availableSerializations.get(serialization)+"\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\"</img></a> </span>";
         }
-        if(c.getLicense()!=null){
-            String lname = c.getLicense().getName();//"license name goes here";
-            String licenseURL = c.getLicense().getUrl();//"http://insertlicenseURIhere.org";
+        
+        head+="</dl>";
+        if(c.getMainOntology().getLicense()!=null){
+            String lname = c.getMainOntology().getLicense().getName();//"license name goes here";
+            String licenseURL = c.getMainOntology().getLicense().getUrl();//"http://insertlicenseURIhere.org";
             if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty("licenseURLIfNull");
             if(lname == null || "".equals(lname)) lname = l.getProperty("licenseIfNull");
-            if(c.getLicense().getIcon()!=null && !"".equals(c.getLicense().getIcon())){
+            if(c.getMainOntology().getLicense().getIcon()!=null && !"".equals(c.getMainOntology().getLicense().getIcon())){
                 head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\">\n" +
-                "<img src=\""+c.getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
+                "<img src=\""+c.getMainOntology().getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
                 "</a>\n<br/>";
             }
             head+="<dl>"+l.getProperty("license")+"<a rel=\"license\" href=\""+licenseURL+"\">"+lname+"</a>.</dl>\n"+
@@ -643,6 +674,130 @@ public class TextConstants {
             "      </footer>\n" +
             "    </div> <!-- /container -->\n";
         return eval;
+    }
+    
+    /**
+     * Method that writes an htaccess file according to the W3C best practices.
+     * Note that hash is different than slash
+     * @param c
+     * @return 
+     */
+    public static final String getHTACCESS(Configuration c){
+        String projectFolder = c.getDocumentationURI().substring(c.getDocumentationURI().lastIndexOf(File.separator)+1);
+        String htAccessFile = "# Turn off MultiViews\n" +
+        "Options -MultiViews\n" +
+        "\n" +
+        "# Directive to ensure *.rdf files served as appropriate content type,\n" +
+        "# if not present in main apache config\n" +
+        "AddType application/rdf+xml .rdf\n" +
+        "AddType application/rdf+xml .owl\n" +
+        "AddType text/turtle .ttl\n" +
+        "AddType application/n-triples .n3\n" +
+        "AddType application/ld+json .json\n" +
+        "# Rewrite engine setup\n" +
+        "RewriteEngine On\n"+
+        "#Change the path to the folder here\n"+
+        "RewriteBase /"+projectFolder+" \n\n";
+        
+        htAccessFile+="# Rewrite rule to serve HTML content from the vocabulary URI if requested\n" +
+        "RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n" +
+        "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n" +
+        "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n" +
+        "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" +
+        "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
+        "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n";
+        //this depends on whether the vocab is hash or slash!
+        if(c.getMainOntology().isHashOntology()){
+            htAccessFile +="RewriteRule ^$ index-"+c.getCurrentLanguage()+".html [R=303,L]\n";
+            HashMap<String,String> serializations = c.getMainOntology().getSerializations();
+            for(String serialization:serializations.keySet()){
+                htAccessFile +="# Rewrite rule to serve "+serialization+" content from the vocabulary URI if requested\n";
+                if(serialization.equals("RDF/XML")){
+                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
+                }else if(serialization.equals("TTL")){
+                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n" +
+                        "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
+                }else if(serialization.equals("N-Triples")){
+                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
+                }else if (serialization.equals("JSON-LD")){
+                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/ld+json\n";
+                }
+                htAccessFile +="RewriteRule ^$ "+serializations.get(serialization)+" [R=303,L]\n\n";
+            }
+            htAccessFile += "RewriteCond %{HTTP_ACCEPT} .+\n" +
+                "RewriteRule ^$ 406.html [R=406,L]\n"
+                + "# Default response\n" +
+                "# ---------------------------\n" +
+                "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n" +
+                "RewriteRule ^$ "+serializations.get("RDF/XML")+" [R=303,L]";    
+        }else{//slash (the structure changes a little)
+            String warning = "############################################################################\n"
+                           + "### THIS FILE SHOULD BE PLACED ON THE PARENT FOLDER OF THE DOCUMENTATION ###\n"
+                           + "### OTHERWISE THE CONTENT NEGOTIATION WILL NOT WORK                      ###\n"
+                           + "### THE URL OF YOUR VOCABULARY WILL BE (domain)/"+projectFolder+"/def    ###\n"
+                           + "############################################################################\n";
+            htAccessFile = warning + htAccessFile;
+            htAccessFile +="RewriteRule ^def$ doc/index-"+c.getCurrentLanguage()+".html [R=303,L]\n";
+            htAccessFile +="RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n" +
+                "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n" +
+                "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n" +
+                "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n" +
+                "RewriteRule ^def/(.+) doc/index-"+c.getCurrentLanguage()+".html#$1 [R=303,NE,L]\n";
+            HashMap<String,String> serializations = c.getMainOntology().getSerializations();
+            for(String serialization:serializations.keySet()){
+                htAccessFile +="# Rewrite rule to serve "+serialization+" content from the vocabulary URI if requested\n";
+                String normalSerialization, complexSerialization, condition="";
+                if(serialization.equals("RDF/XML")){
+                    condition = "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
+                            "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
+                }else if(serialization.equals("TTL")){
+                    condition ="RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n" +
+                        "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" +
+                        "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
+                }else if(serialization.equals("N-Triples")){
+                    condition ="RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
+                }else if (serialization.equals("JSON-LD")){
+                    condition = "RewriteCond %{HTTP_ACCEPT} application/ld+json\n";
+                }
+                normalSerialization = "RewriteRule ^def$ doc/"+serializations.get(serialization)+" [R=303,L]\n\n";
+                complexSerialization = "RewriteRule ^def/(.+)$ doc/"+serializations.get(serialization)+" [R=303,NE,L]\n\n";
+                htAccessFile += condition+normalSerialization+condition+complexSerialization;
+            }
+            htAccessFile += "RewriteCond %{HTTP_ACCEPT} .+\n" +
+                "RewriteRule ^def()$ 406.html [R=406,L]\n"
+                + "# Default response\n" +
+                "# ---------------------------\n" +
+                "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n" +
+                "RewriteRule ^def$ doc/"+serializations.get("RDF/XML")+" [R=303,L]";
+        }
+        
+        return htAccessFile;
+        
+    }
+
+    /**
+     * Text for the 406 page
+     * @param c 
+     * @return  the content of the 406 page
+     */
+    public static String get406(Configuration c) {
+        String page406 = "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n" +
+            "<html><head>\n" +
+            "<title>406 Not Acceptable</title>\n" +
+            "</head><body>\n" +
+            "<h1>Not Acceptable</h1>\n" +
+            "<p>An appropriate representation of the requested resource could not be found on this server.</p>\n" +
+            "\n" +
+            "Available variants:</ul>";
+        HashMap<String,String> serializations = c.getMainOntology().getSerializations();
+        page406+="<li><a href=\"index-"+c.getCurrentLanguage()+".html\">html</a></li>";
+        for(String s:serializations.keySet()){
+            page406+="<li><a href=\""+serializations.get(s)+"\">"+s+"</a></li>";
+        }
+        page406+= "</ul>\n" +
+            "\n" +
+            "</body></html>";
+        return page406;
     }
     
 }

@@ -36,6 +36,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import widoco.Constants;
 
 /**
  * 
@@ -69,6 +70,7 @@ public class OOPSevaluation {
 		String uri = "http://oops-ws.oeg-upm.net/rest";
 		URL url = new URL(uri);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(Constants.oopsTimeOut);
 		connection.setRequestMethod("POST");
 		connection.setDoOutput(true);
 		connection.setRequestProperty("Connection", "Keep-Alive");

@@ -151,9 +151,9 @@
      </dependency>
     
     <dependency>
-        <groupId>net.sourceforge.owlapi</groupId>
-        <artifactId>owlapi-distribution</artifactId>
-        <version>3.4.5</version>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-distribution</artifactId>
+            <version>3.5.0</version>
     </dependency>
     
     <dependency>

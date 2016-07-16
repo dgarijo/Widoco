@@ -36,7 +36,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import widoco.Configuration;
 import widoco.CreateResources;
-import widoco.TextConstants;
+import widoco.Constants;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -55,9 +55,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.g =g;
         conf = g.getConfig();
         initComponents();
-        Image l = g.getConfig().getLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
+        Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
-        this.setIconImage(g.getConfig().getLogoMini());
+        this.setIconImage(g.getConfig().getWidocoLogoMini());
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -76,6 +76,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.nextButton.setEnabled(false);
         this.languageButton.setEnabled(false);
         this.tableProperties.setEnabled(false);
+        this.loadMetadataFromOnto.setEnabled(false);
+        this.loadMetadataFromDefaultConfigFile.setEnabled(false);
 //        properties = g.getEditableProperties();
 //        refreshTable();
         final GuiStep2 gAux = this;
@@ -131,6 +133,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.labelStatusReading.setVisible(false);
         this.tableProperties.setEnabled(true);
         
+        this.loadMetadataFromOnto.setEnabled(true);
+        this.loadMetadataFromDefaultConfigFile.setEnabled(true);
+        
     }
     
     private void refreshTable(){
@@ -183,8 +188,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"contributors", contributors},
                 {"imported ontologies", imported},
                 {"extended ontologies", extended},
-                {"license", conf.getLicense().getUrl()},
-                {"cite As", conf.getCiteAs()}
+                {"license", conf.getMainOntology().getLicense().getUrl()},
+                {"cite As", conf.getCiteAs()},
+                {"status", conf.getStatus()}
             },
             new String [] {
                 "Property", "Value"
@@ -226,33 +232,35 @@ public final class GuiStep2 extends javax.swing.JFrame {
             String value = (String) tableModel.getValueAt(i, 1);
             //we save all except for: authors, contribs, imported and exported
             //ontos, which will be saved with the other form
-            if(value!=null && !value.equals("")){
-                if(prop.equals("abstract")){
-                    conf.setAbstractSection(value);
-                }else if(prop.equals("ontology title")){
-                    conf.setTitle(value);
-                }else if(prop.equals("ontology name")){
-                    conf.getMainOntology().setName(value);
-                }else if(prop.equals("ontology prefix")){
-                    conf.getMainOntology().setNamespacePrefix(value);
-                }else if(prop.equals("ontology ns URI")){
-                    conf.getMainOntology().setNamespaceURI(value);
-                }else if(prop.equals("date of release")){
-                    conf.setReleaseDate(value);
-                }else if(prop.equals("this version URI")){
-                    conf.setThisVersion(value);
-                }else if(prop.equals("latest version URI")){
-                    conf.setLatestVersion(value);
-                }else if(prop.equals("previous version URI")){
-                    conf.setPreviousVersion(value);
-                }else if(prop.equals("ontology revision")){
-                    conf.setRevision(value);
-                }else if(prop.equals("license URI")){
-                    conf.getLicense().setUrl(value);
-                }else if(prop.equals("cite As")){
-                    conf.setCiteAs(value);
-                }
+            //if(value!=null && !value.equals("")){
+            if(prop.equals("abstract")){
+                conf.setAbstractSection(value);
+            }else if(prop.equals("ontology title")){
+                conf.setTitle(value);
+            }else if(prop.equals("ontology name")){
+                conf.getMainOntology().setName(value);
+            }else if(prop.equals("ontology prefix")){
+                conf.getMainOntology().setNamespacePrefix(value);
+            }else if(prop.equals("ontology ns URI")){
+                conf.getMainOntology().setNamespaceURI(value);
+            }else if(prop.equals("date of release")){
+                conf.setReleaseDate(value);
+            }else if(prop.equals("this version URI")){
+                conf.setThisVersion(value);
+            }else if(prop.equals("latest version URI")){
+                conf.setLatestVersion(value);
+            }else if(prop.equals("previous version URI")){
+                conf.setPreviousVersion(value);
+            }else if(prop.equals("ontology revision")){
+                conf.setRevision(value);
+            }else if(prop.equals("license URI")){
+                conf.getMainOntology().getLicense().setUrl(value);
+            }else if(prop.equals("cite As")){
+                conf.setCiteAs(value);
+            }else if(prop.equals("status")){
+                conf.setStatus(value);
             }
+            //}
         }
     }
 
@@ -348,7 +356,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"imported ontologies", null},
                 {"extended ontologies", null},
                 {"license", null},
-                {"cite as", null}
+                {"cite as", null},
+                {"status", null}
             },
             new String [] {
                 "Property", "Value"
@@ -602,7 +611,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 try{
                     URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
                     String path = (new File(root.toURI())).getParentFile().getPath();
-                    conf.reloadPropertyFile(path+File.separator+TextConstants.configPath);
+                    conf.reloadPropertyFile(path+File.separator+Constants.configPath);
                     //g.reloadConfiguration(path+File.separator+TextConstants.configPath);
                     this.refreshPropertyTable();
                 }catch(URISyntaxException e){

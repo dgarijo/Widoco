@@ -36,7 +36,8 @@ public class LoadOntologyPropertiesInThread implements Runnable{
     public void run() {
         //once it is loaded, load the properties in the config
         try{
-            c.loadPropertiesFromOntology(WidocoUtils.loadModel(c));
+            WidocoUtils.loadModel(c);
+            c.loadPropertiesFromOntology(c.getMainModel());
             if(showGui){
                 pointerToMain.switchState("finishedLoading");
             }

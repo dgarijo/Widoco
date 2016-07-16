@@ -2,10 +2,10 @@ WIzard for DOCumenting Ontologies (Widoco)
 ===================
 Author: Daniel Garijo
 
-Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García and Oscar Corcho.
+Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
 
 Description
-===========
+==========
 Widoco helps you to create a complete documentation of your ontology, by following a series of steps in a wizard. We reuse the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used.
 
 The purpose of Widoco is to reuse and integrate existing tools for documentation, plus the set of features listed below:
@@ -49,7 +49,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -68,6 +68,8 @@ The -useCustomStyle option allows exporting the documentation using alternate cs
 The -lang option allows showing the languages in which the documentation will be published (separated by ";"). Note that if the language is not supported, the system will load the labels in english. For example: en;pt;es
 
 The -includeImportedOntologies flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
+
+The -htaccess flag creates a bundle for publication ready to be deployed on your apache server.
 
 Browser problems
 ==========
@@ -92,3 +94,7 @@ We are working on the following features:
 * Previsualization of the terms that will be generated.
 
 For a complete list, check the project open issues.
+
+Requirements
+==========
+Java 1.8
