@@ -23,7 +23,7 @@ import widoco.entities.Ontology;
  */
 public class EditProperty extends javax.swing.JFrame {
 
-    public enum PropertyType{authors, contributors, extended, imported, license};
+    public enum PropertyType{authors, contributors, publisher, extended, imported, license};
     private final GuiStep2 step2Gui;
     private final Configuration c;
     private final PropertyType type;
@@ -58,6 +58,15 @@ public class EditProperty extends javax.swing.JFrame {
                 this.setTitle("Editing Contributors");
                 createTable(new String[]{"Name","URI","Institution Name"});
                 loadAgents(c.getContributors());
+                break;
+            case publisher:
+                this.setTitle("Editing Publisher");
+                createTable(new String[]{"Name","URI","Institution Name"});
+                this.addRowButton.setEnabled(false);
+                this.deleteRowButton.setEnabled(false);
+                ArrayList<Agent> aux = new ArrayList<Agent>();
+                aux.add(c.getPublisher());
+                loadAgents(aux);
                 break;
             case extended: 
                 this.setTitle("Editing Extended Ontologies");
@@ -226,6 +235,8 @@ public class EditProperty extends javax.swing.JFrame {
             case authors:this.c.setCreators(getAgentsFromTable());
                 break;
             case contributors:this.c.setContributors(getAgentsFromTable());
+                break;
+            case publisher:this.c.setPublisher(getAgentsFromTable().get(0));
                 break;
             case extended:this.c.setExtendedOntologies(getOntologiesFromTable());
                 break;

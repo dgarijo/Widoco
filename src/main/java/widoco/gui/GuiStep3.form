@@ -103,7 +103,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jSeparator1" min="-2" pref="17" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="jPanel1" pref="341" max="32767" attributes="0"/>
+                      <Component id="jPanel1" pref="361" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
@@ -211,6 +211,7 @@
                               </Group>
                               <Component id="checkBoxHTAccess" alignment="0" pref="357" max="32767" attributes="1"/>
                               <Component id="checkBoxProv" alignment="0" max="32767" attributes="1"/>
+                              <Component id="checkBoxWebVowl" alignment="1" pref="357" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                       </Group>
@@ -297,13 +298,15 @@
                   <Component id="includeAnnProps" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="includeIndividuals" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxProv" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxHTAccess" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="checkBoxWebVowl" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="w3C" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="customRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -454,6 +457,11 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxHTAccess">
           <Properties>
             <Property name="text" type="java.lang.String" value="Create an .htaccess file (for ontology publication)"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkBoxWebVowl">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add link to WebVowl visualization"/>
           </Properties>
         </Component>
       </SubComponents>

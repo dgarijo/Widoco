@@ -99,6 +99,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
                         else if(prop.equals("contributors")){
                             form = new EditProperty(gAux, conf, EditProperty.PropertyType.contributors);
                         }
+                        else if(prop.equals("publisher")){
+                            form = new EditProperty(gAux, conf, EditProperty.PropertyType.publisher);
+                        }
                         else if(prop.equals("extended ontologies")){
                             form = new EditProperty(gAux, conf, EditProperty.PropertyType.extended);
                         }
@@ -186,6 +189,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"ontology revision", conf.getRevision()},
                 {"authors", authors},
                 {"contributors", contributors},
+                {"publisher", conf.getPublisher().getURL()},
                 {"imported ontologies", imported},
                 {"extended ontologies", extended},
                 {"license", conf.getMainOntology().getLicense().getUrl()},
@@ -210,6 +214,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 if(getValueAt(rowIndex, 0).equals("authors")||
                         getValueAt(rowIndex, 0).equals("contributors")||
+                        getValueAt(rowIndex, 0).equals("publisher")||
                         ((String)getValueAt(rowIndex, 0)).toLowerCase().contains("extended")||
                         ((String)getValueAt(rowIndex, 0)).toLowerCase().contains("license")||
                         ((String)getValueAt(rowIndex, 0)).toLowerCase().contains("imported")){
@@ -353,6 +358,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"ontology revision", null},
                 {"authors", null},
                 {"contributors", null},
+                {"publisher", null},
                 {"imported ontologies", null},
                 {"extended ontologies", null},
                 {"license", null},

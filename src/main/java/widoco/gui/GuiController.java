@@ -72,7 +72,7 @@ public final class GuiController {
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
-                includeImportedOntologies = false, htAccess = false;
+                includeImportedOntologies = false, htAccess = false, webVowl=false;
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -126,6 +126,9 @@ public final class GuiController {
                 languages = args[i+1].replace(" ","").split(";");
                 i++;
             }
+            else if(s.equals("-webVowl")){
+                webVowl = true;
+            }
             else{
                 System.out.println("Command"+s+" not recognized.");
                 System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess]\n");
@@ -146,6 +149,7 @@ public final class GuiController {
         this.config.setUseW3CStyle(useW3Cstyle);
         this.config.setUseImported(includeImportedOntologies);
         this.config.setCreateHTACCESS(htAccess);
+        this.config.setCreateWebVowlVisualization(webVowl);
         if(languages!=null){
             config.removeLanguageToGenerate("en");//default
             for (String language : languages) {
