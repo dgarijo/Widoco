@@ -90,7 +90,7 @@ public static String getFirstLicenseFound(String uriToScan) {
             throw new RuntimeException("HTTP error code : "+ conn.getResponseCode());
         }
         String r="";
-        String linea="";
+        String linea;
         BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
         
         while ((linea = br.readLine()) != null) {

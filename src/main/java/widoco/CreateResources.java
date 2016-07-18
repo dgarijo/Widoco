@@ -71,7 +71,7 @@ public class CreateResources {
                 folderOut+=File.separator+"doc";
             }
         }
-        createFolderStructure(folderOut,c);
+        createFolderStructure(folderOut,c,languageFile);
         if(c.isIncludeAbstract()){
             createAbstractSection(folderOut+File.separator+"sections",c, languageFile);
         }
@@ -119,7 +119,7 @@ public class CreateResources {
         c.setIncludeDiagram(false);
         c.setPublishProvenance(false);
         c.setUseW3CStyle(true);
-        createFolderStructure(folderOut,c);
+        createFolderStructure(folderOut,c,l);
         createAbstractSection(folderOut+File.separator+"sections",c, l);
         createIntroductionSection(folderOut+File.separator+"sections",null,c,l);
         createDescriptionSection(folderOut+File.separator+"sections",c,l);
@@ -139,8 +139,8 @@ public class CreateResources {
         saveDocument(path,Constants.getHTACCESS(c), c);
     }
     
-    private static void create406Page(String path, Configuration c) {
-        saveDocument(path,Constants.get406(c), c);
+    private static void create406Page(String path, Configuration c, Properties lang) {
+        saveDocument(path,Constants.get406(c,lang), c);
     }
     
     /**
@@ -277,7 +277,7 @@ public class CreateResources {
         
     }
     
-    private static void createFolderStructure(String s, Configuration c){
+    private static void createFolderStructure(String s, Configuration c, Properties lang){
         File f = new File(s);
         File sections = new File(s+File.separator+"sections");
         File img = new File(s+File.separator+"img");
@@ -314,7 +314,7 @@ public class CreateResources {
         //copy widoco readme
         WidocoUtils.copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
         if(c.isCreateHTACCESS()){
-            create406Page(s+File.separator+"406.html",c);
+            create406Page(s+File.separator+"406.html",c,lang);
         }
     }
 

@@ -48,6 +48,7 @@ import widoco.gui.GuiController;
 public class Configuration {
     private ArrayList<Agent> creators;
     private ArrayList<Agent> contributors;
+    private Agent publisher;
     private String previousVersion;
     private String thisVersion;
     private String latestVersion;
@@ -117,7 +118,7 @@ public class Configuration {
     private boolean addImportedOntologies;
     private File tmpFolder; //file where different auxiliary resources might be copied to
     private boolean createHTACCESS;
-   // private boolean createWebVowlVisualization;
+    private boolean createWebVowlVisualization;
     
     
     private OntModel mainOntologyModel;//model of the mainOntology. Loaded separately 
@@ -161,6 +162,7 @@ public class Configuration {
         revision = "";
         creators = new ArrayList<Agent>();
         contributors = new ArrayList<Agent>();
+        publisher = new Agent();
         importedOntologies = new ArrayList<Ontology>();
         extendedOntologies = new ArrayList<Ontology>();
         //this has to be checked because we might delete the uri of the onto from a previous step.
@@ -215,6 +217,9 @@ public class Configuration {
             mainOntologyMetadata.setNamespacePrefix(propertyFile.getProperty(Constants.ontPrefix));
             mainOntologyMetadata.setNamespaceURI(propertyFile.getProperty(Constants.ontNamespaceURI));
             revision = propertyFile.getProperty(Constants.ontologyRevision);
+            publisher = new Agent();
+            publisher.setName(propertyFile.getProperty(Constants.publisher,""));
+            publisher.setURL(propertyFile.getProperty(Constants.publisherURI,""));
             String aux = propertyFile.getProperty(Constants.authors,"");
             String[]names,urls,authorInst;
             if(!aux.equals("")){
@@ -363,6 +368,9 @@ public class Configuration {
                 if(propertyName.equals("versionInfo")){
                     this.revision = value;
                 }else
+                if(propertyName.equals("versionIRI")){
+                    this.thisVersion = value;
+                }else
                 if(propertyName.equals("preferredNamespacePrefix")){
                     this.mainOntologyMetadata.setNamespacePrefix(value);
                 }else
@@ -380,7 +388,8 @@ public class Configuration {
                     }
                     mainOntologyMetadata.setLicense(l);
                 }else
-                if(propertyName.equals("creator")||propertyName.equals("contributor")){
+                if(propertyName.equals("creator")||propertyName.equals("contributor")
+                        ||propertyName.equals("publisher")){
                     Agent g = new Agent();
                     if(isURL(value)){
                         g.setURL(value);
@@ -391,8 +400,10 @@ public class Configuration {
                     }
                     if(propertyName.equals("creator")){
                         this.creators.add(g);
-                    }else{
+                    }else if (propertyName.equals("contributor")){
                         this.contributors.add(g);
+                    }else{
+                        this.publisher = g;
                     }
                 }else
                 if(propertyName.equals("created")){
@@ -923,6 +934,23 @@ public class Configuration {
     public void setMainModel(OntModel model) {
         this.mainOntologyModel = model;
     }
+
+    public boolean isCreateWebVowlVisualization() {
+        return createWebVowlVisualization;
+    }
+
+    public void setCreateWebVowlVisualization(boolean createWebVowlVisualization) {
+        this.createWebVowlVisualization = createWebVowlVisualization;
+    }
+
+    public Agent getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Agent publisher) {
+        this.publisher = publisher;
+    }
+    
     
     
     

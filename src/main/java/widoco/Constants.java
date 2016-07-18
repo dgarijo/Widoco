@@ -16,8 +16,6 @@
 package widoco;
 
 import java.io.File;
-import java.util.AbstractMap;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -59,6 +57,8 @@ public class Constants {
     public static final String contributors="contributors";
     public static final String contributorsURI="contributorsURI";
     public static final String contributorsInstitution="contributorsInstitution";
+    public static final String publisher="publisher";
+    public static final String publisherURI="publisherURI";
     public static final String importedOntologyNames="importedOntologyNames";
     public static final String importedOntologyURIs="importedOntologyURIs";
     public static final String extendedOntologyNames="extendedOntologyNames";
@@ -351,33 +351,55 @@ public class Constants {
             head += getAuthors(c.getCreators(),l)+"\n";
         if(!c.getContributors().isEmpty())
             head += getContributors(c.getContributors(),l)+"\n";
+        if(c.getPublisher()!=null){
+            String publisherName = c.getPublisher().getName();
+            String publisherURL = c.getPublisher().getURL();
+            if(publisherURL == null ||publisherURL.equals("")){
+                publisherURL = "http://example.org/insertPublisherURIHere";
+            }
+            if(publisherName == null || publisherName.equals("")){
+                publisherName = publisherURL;
+            }
+            head += "<dl><dt>"+l.getProperty("publisher")+"</dt>"+"\n"
+                    + "<dd><a href="+publisherURL+" target=\"_blank\">"+publisherName+"</a></dd></dl>\n";
+        }
         if(!c.getImportedOntologies().isEmpty())
             head += getImports(c.getImportedOntologies(),l)+"\n";
         if(!c.getExtendedOntologies().isEmpty())
             head += getExtends(c.getExtendedOntologies(),l)+"\n";
         
         HashMap<String,String> availableSerializations = c.getMainOntology().getSerializations();
-        head+="<dl><dt>"+l.getProperty("serialization")+"</dt>";
+        head+="<dl><dt>"+l.getProperty("serialization")+"</dt><dd>";
         for(String serialization:availableSerializations.keySet()){
-            head+="<span><a href=\""+availableSerializations.get(serialization)+"\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\"</img></a> </span>";
+            head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\"</img></a> </span>";
         }
         
-        head+="</dl>";
+        head+="</dd></dl>";
         if(c.getMainOntology().getLicense()!=null){
             String lname = c.getMainOntology().getLicense().getName();//"license name goes here";
             String licenseURL = c.getMainOntology().getLicense().getUrl();//"http://insertlicenseURIhere.org";
             if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty("licenseURLIfNull");
             if(lname == null || "".equals(lname)) lname = l.getProperty("licenseIfNull");
+            head+="<dl><dt>"+l.getProperty("license")+"</dt><dd>"
+                    + "<a rel=\"license\" href=\""+licenseURL+"\" target=\"_blank\"><img src =\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\"</img></a>\n"+
+                    "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
             if(c.getMainOntology().getLicense().getIcon()!=null && !"".equals(c.getMainOntology().getLicense().getIcon())){
-                head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\">\n" +
+                head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\" target=\"_blank\">\n" +
                 "<img src=\""+c.getMainOntology().getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
                 "</a>\n<br/>";
             }
-            head+="<dl>"+l.getProperty("license")+"<a rel=\"license\" href=\""+licenseURL+"\">"+lname+"</a>.</dl>\n"+
-                    "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
+            head+="</dd></dl>";
+        }
+        //add lang tags here
+        if(c.isCreateWebVowlVisualization()){
+            head+="<dl><dt>"+l.getProperty("visualization")+"</dt>"
+                + "<dd>"
+                + "<a href=\"http://vowl.visualdataweb.org/webvowl/index.html#iri="+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\"</img></a>"
+                + "</dd>"
+                + "</dl>";
         }
         if(c.isPublishProvenance()){
-            head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\">"+l.getProperty("provHead")+"</a></dl>";
+            head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\" target=\"_blank\">"+l.getProperty("provHead")+"</a></dl>";
         }
         head+= "<hr/>\n"+
                 "</div>\n";
@@ -703,19 +725,19 @@ public class Constants {
         "RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n" +
         "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n" +
         "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n" +
-        "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" +
-        "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
         "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n";
         //this depends on whether the vocab is hash or slash!
         if(c.getMainOntology().isHashOntology()){
-            htAccessFile +="RewriteRule ^$ index-"+c.getCurrentLanguage()+".html [R=303,L]\n";
+            htAccessFile +="RewriteRule ^$ index-"+c.getCurrentLanguage()+".html [R=303,L]\n\n";
             HashMap<String,String> serializations = c.getMainOntology().getSerializations();
             for(String serialization:serializations.keySet()){
                 htAccessFile +="# Rewrite rule to serve "+serialization+" content from the vocabulary URI if requested\n";
                 if(serialization.equals("RDF/XML")){
-                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
+                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
+                            "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
                 }else if(serialization.equals("TTL")){
                     htAccessFile+="RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n" +
+                        "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" +
                         "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
                 }else if(serialization.equals("N-Triples")){
                     htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
@@ -764,7 +786,7 @@ public class Constants {
                 htAccessFile += condition+normalSerialization+condition+complexSerialization;
             }
             htAccessFile += "RewriteCond %{HTTP_ACCEPT} .+\n" +
-                "RewriteRule ^def()$ 406.html [R=406,L]\n"
+                "RewriteRule ^def$ doc/406.html [R=406,L]\n"
                 + "# Default response\n" +
                 "# ---------------------------\n" +
                 "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n" +
@@ -778,17 +800,12 @@ public class Constants {
     /**
      * Text for the 406 page
      * @param c 
+     * @param lang 
      * @return  the content of the 406 page
      */
-    public static String get406(Configuration c) {
+    public static String get406(Configuration c, Properties lang) {
         String page406 = "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n" +
-            "<html><head>\n" +
-            "<title>406 Not Acceptable</title>\n" +
-            "</head><body>\n" +
-            "<h1>Not Acceptable</h1>\n" +
-            "<p>An appropriate representation of the requested resource could not be found on this server.</p>\n" +
-            "\n" +
-            "Available variants:</ul>";
+            "<html><head>\n" + lang.getProperty("notAccPage")+"<ul>";
         HashMap<String,String> serializations = c.getMainOntology().getSerializations();
         page406+="<li><a href=\"index-"+c.getCurrentLanguage()+".html\">html</a></li>";
         for(String s:serializations.keySet()){

@@ -49,7 +49,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess] [-webVowl]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -70,6 +70,8 @@ The -lang option allows showing the languages in which the documentation will be
 The -includeImportedOntologies flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
 
 The -htaccess flag creates a bundle for publication ready to be deployed on your apache server.
+
+The -webVowl flag provides a link to a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#)
 
 Browser problems
 ==========
