@@ -360,8 +360,12 @@ public class Constants {
             if(publisherName == null || publisherName.equals("")){
                 publisherName = publisherURL;
             }
-            head += "<dl><dt>"+l.getProperty("publisher")+"</dt>"+"\n"
-                    + "<dd><a href="+publisherURL+" target=\"_blank\">"+publisherName+"</a></dd></dl>\n";
+            //avoid including a publisher by default
+            if(!publisherName.equals("http://example.org/insertPublisherURIHere") || 
+                    !publisherURL.equals("http://example.org/insertPublisherURIHere")){
+                head += "<dl><dt>"+l.getProperty("publisher")+"</dt>"+"\n"
+                        + "<dd><a href="+publisherURL+" target=\"_blank\">"+publisherName+"</a></dd></dl>\n";
+            }
         }
         if(!c.getImportedOntologies().isEmpty())
             head += getImports(c.getImportedOntologies(),l)+"\n";
@@ -683,7 +687,7 @@ public class Constants {
             "	        <br>\n" +
             "    	Built with <a target=\"_blank\" href=\"http://getbootstrap.com/\">Bootstrap</a>\n" +
             "	        <br>\n" +
-            "           Integration with Widoco by <a href=\"http://delicias.dia.fi.upm.es/members/DGarijo/\">Daniel Garijo</a>"+
+            "           Integration with Widoco by <a href=\"https://w3id.org/people/dgarijo\">Daniel Garijo</a>"+
             "	        <br>\n" +
             "        </div>\n" +
             "    	<div class=\"col-md-5\">\n" +
