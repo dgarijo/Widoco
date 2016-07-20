@@ -277,7 +277,11 @@ public final class GuiController {
                 }else{
                     if(input.equals("loadOntologyProperties")){    
                         state = State.loadingConfig;
-                        this.startLoadingPropertiesFromOntology(true);                    
+                        if(config.getMainModel() == null){
+                            this.startLoadingPropertiesFromOntology(true);                    
+                        }else{
+                            switchState("finishedLoading");
+                        }
                     }else{//next
                         state = State.sections;
                         this.gui.dispose();
@@ -302,6 +306,7 @@ public final class GuiController {
                     this.gui.dispose();
                     gui = new GuiStep2(this);
                     gui.setVisible(true);
+                    switchState("loadOntologyProperties");
                 }else{//next
                     state = State.loading;
                     this.startGeneratingDoc();
@@ -318,6 +323,7 @@ public final class GuiController {
                         this.gui.dispose();
                         gui = new GuiStep2(this);
                         gui.setVisible(true);
+                        switchState("loadOntologyProperties");
                         break;
 //                        probar si esto itera bien
                     }
