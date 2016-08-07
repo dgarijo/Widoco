@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -58,20 +59,18 @@ public class LODEParser {
     private final HashMap <String,String> namespaceDeclarations;
     Configuration c;
 
-//    public LODEParser() {
-//        replacements = new HashMap<String, String>();
-//    }
     /**
      * Constructor for the lode parser. The reason for creating this class is that
      * I don't want to edit LODE's xls file, and I only want to reuse certain parts.
      * @param lodeContent text obtained as a response from LODE.
      * @param c configuration object
+     * @param langFile language file to do proper annotations of classes, props, etc.
      */
-    public LODEParser(String lodeContent, Configuration c) {
+    public LODEParser(String lodeContent, Configuration c, Properties langFile) {
         replacements = new HashMap<String, String>();
         namespaceDeclarations = new HashMap<String, String>();
         this.c = c;
-        parse(lodeContent);
+        parse(lodeContent, langFile);
     }
 
     public String getClassList() {
@@ -119,7 +118,7 @@ public class LODEParser {
     }
     
     
-    private void parse(String content){
+    private void parse(String content, Properties langFile){
         try {            
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();                    
@@ -132,22 +131,27 @@ public class LODEParser {
                 if(attrID.equals("classes")){
                     classList = getTermList(html.item(i));
                     classes = nodeToString(html.item(i));
+                    classes = classes.replace("<h2>"+langFile.getProperty("classes")+"</h2>", "<h3 id=\"classes\" class=\"list\">"+langFile.getProperty("classes")+"</h3>");
                 }
                 else if(attrID.equals("objectproperties")){
                     propertyList =getTermList(html.item(i));
                     properties = (nodeToString(html.item(i)));
+                    properties = properties.replace("<h2>"+langFile.getProperty("objProp")+"</h2>", "<h3 id=\"properties\" class=\"list\">"+langFile.getProperty("objProp")+"</h3>");
                 }
                 else if(attrID.equals("dataproperties")){
                     dataPropList = (getTermList(html.item(i)));
                     dataProp = (nodeToString(html.item(i)));
+                    dataProp = dataProp.replace("<h2>"+langFile.getProperty("dataProp")+"</h2>", "<h3 id=\"dataproperties\" class=\"list\">"+langFile.getProperty("dataProp")+"</h3>");
                 }
                 else if(attrID.equals("annotationproperties")){
                     annotationPropList = (getTermList(html.item(i)));
                     annotationProp = (nodeToString(html.item(i)));
+                    annotationProp = annotationProp.replace("<h2>"+langFile.getProperty("annProp")+"</h2>", "<h3 id=\"annotationproperties\" class=\"list\">"+langFile.getProperty("annProp")+"</h3>");
                 }
                 else if(attrID.equals("namedindividuals")){
                     namedIndividualList = (getTermList(html.item(i)));
                     namedIndividuals = (nodeToString(html.item(i)));
+                    namedIndividuals = namedIndividuals.replace("<h2>"+langFile.getProperty("namedIndiv")+"</h2>", "<h3 id=\"namedindividuals\" class=\"list\">"+langFile.getProperty("namedIndiv")+"</h3>");
                 }
                 else if(attrID.equals("namespacedeclarations")){
                     Node namespace = html.item(i);

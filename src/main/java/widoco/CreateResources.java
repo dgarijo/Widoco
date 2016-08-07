@@ -16,7 +16,6 @@
 
 package widoco;
 
-import com.hp.hpl.jena.ontology.OntModel;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,8 +23,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.AbstractMap;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -44,8 +41,6 @@ public class CreateResources {
     //to do: analyze if this is the right name for the class. Maybe "generate" is better
     public static void generateDocumentation(String outFolder, Configuration c, File lodeResources) throws Exception{
         String lodeContent;
-        lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
-        LODEParser lode = new LODEParser(lodeContent,c);
         String folderOut = outFolder;
         Properties languageFile = new Properties();
         try{
@@ -60,6 +55,8 @@ public class CreateResources {
                 System.out.println("Error while reading the language file: "+e1.getMessage());
             }
         }
+        lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
+        LODEParser lode = new LODEParser(lodeContent,c,languageFile);
         if(c.isCreateHTACCESS()){
             File f = new File (folderOut);
             if(!f.exists()){
@@ -104,7 +101,7 @@ public class CreateResources {
             if(sValue.startsWith("ontology")){
                 try {
                     out = new FileOutputStream(folderOut+File.separator+sValue);
-                    c.getMainModel().write(out,serialization);
+                    c.getMainOntology().getMainModel().write(out,serialization);
                     out.close();
                 } catch (Exception ex) {
                     System.out.println("Error while writing the model to file "+ex.getMessage());
@@ -322,21 +319,29 @@ public class CreateResources {
     public static void saveConfigFile(String path, Configuration conf)throws IOException{
         String textProperties = "\n";//the first line I leave an intro because there have been problems.
             textProperties+=Constants.abstractSectionContent+"="+conf.getAbstractSection()+"\n";
-            textProperties+=Constants.ontTitle+"="+conf.getTitle()+"\n";
+            textProperties+=Constants.ontTitle+"="+conf.getMainOntology().getTitle()+"\n";
             textProperties+=Constants.ontPrefix+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
             textProperties+=Constants.ontNamespaceURI+"="+conf.getMainOntology().getNamespaceURI()+"\n";
             textProperties+=Constants.ontName+"="+conf.getMainOntology().getName()+"\n";
-            textProperties+=Constants.thisVersionURI+"="+conf.getThisVersion()+"\n";
-            textProperties+=Constants.latestVersionURI+"="+conf.getLatestVersion()+"\n";
-            textProperties+=Constants.previousVersionURI+"="+conf.getPreviousVersion()+"\n";
-            textProperties+=Constants.dateOfRelease+"="+conf.getReleaseDate()+"\n";
-            textProperties+=Constants.ontologyRevision+"="+conf.getRevision()+"\n";
+            textProperties+=Constants.thisVersionURI+"="+conf.getMainOntology().getThisVersion()+"\n";
+            textProperties+=Constants.latestVersionURI+"="+conf.getMainOntology().getLatestVersion()+"\n";
+            textProperties+=Constants.previousVersionURI+"="+conf.getMainOntology().getPreviousVersion()+"\n";
+            textProperties+=Constants.dateOfRelease+"="+conf.getMainOntology().getReleaseDate()+"\n";
+            textProperties+=Constants.ontologyRevision+"="+conf.getMainOntology().getRevision()+"\n";
             textProperties+=Constants.licenseURI+"="+conf.getMainOntology().getLicense().getUrl()+"\n";
             textProperties+=Constants.licenseName+"="+conf.getMainOntology().getLicense().getName()+"\n";
             textProperties+=Constants.licenseIconURL+"="+conf.getMainOntology().getLicense().getIcon()+"\n";
-            textProperties+=Constants.citeAs+"="+conf.getCiteAs()+"\n";
-            String authors="", authorURLs="", authorInstitutions="";
-            ArrayList<Agent> ag = conf.getCreators();
+            textProperties+=Constants.citeAs+"="+conf.getMainOntology().getCiteAs()+"\n";
+            textProperties+=Constants.doi+"="+conf.getMainOntology().getDoi()+"\n";
+            textProperties+=Constants.status+"="+conf.getMainOntology().getStatus()+"\n";
+            if(conf.getMainOntology().getPublisher()!=null){
+                textProperties+=Constants.publisher+"="+conf.getMainOntology().getPublisher().getName()+"\n";
+                textProperties+=Constants.publisherURI+"="+conf.getMainOntology().getPublisher().getURL()+"\n";
+                textProperties+=Constants.publisherInstitution+"="+conf.getMainOntology().getPublisher().getInstitutionName()+"\n";
+                textProperties+=Constants.publisherInstitutionURI+"="+conf.getMainOntology().getPublisher().getInstitutionURL()+"\n";
+            }
+            String authors="", authorURLs="", authorInstitutions="",authorInstitutionURLs="";
+            ArrayList<Agent> ag = conf.getMainOntology().getCreators();
             if(!ag.isEmpty()){
                 for(int i=0; i<ag.size()-1;i++){
                     Agent a = ag.get(i);
@@ -346,20 +351,25 @@ public class CreateResources {
                     authorURLs+=";";
                     if(a.getInstitutionName()!=null)authorInstitutions+=a.getInstitutionName();
                     authorInstitutions+=";";
+                    if(a.getInstitutionURL()!=null)authorInstitutionURLs+=a.getInstitutionURL();
+                    authorInstitutionURLs+=";";
                 }
                 //last agent: no ";"
                 if(ag.get(ag.size()-1).getName()!=null) authors+=ag.get(ag.size()-1).getName();
                 if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
                 if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
+                if(ag.get(ag.size()-1).getInstitutionURL()!=null) authorInstitutionURLs+=ag.get(ag.size()-1).getInstitutionURL();
             }
             textProperties+=Constants.authors+"="+authors+"\n";
             textProperties+=Constants.authorsURI+"="+authorURLs+"\n";
             textProperties+=Constants.authorsInstitution+"="+authorInstitutions+"\n";
+            textProperties+=Constants.authorsInstitutionURI+"="+authorInstitutionURLs+"\n";
             
-            ag = conf.getContributors();
+            ag = conf.getMainOntology().getContributors();
             authors=""; 
             authorURLs="";
             authorInstitutions="";
+            authorInstitutionURLs="";
             if(!ag.isEmpty()){
                 for(int i=0; i<ag.size()-1;i++){
                     Agent a = ag.get(i);
@@ -369,16 +379,20 @@ public class CreateResources {
                     authorURLs+=";";
                     if(a.getInstitutionName()!=null)authorInstitutions+=a.getInstitutionName();
                     authorInstitutions+=";";
+                    if(a.getInstitutionURL()!=null)authorInstitutionURLs+=a.getInstitutionURL();
+                    authorInstitutionURLs+=";";
                 }
                 if(ag.get(ag.size()-1).getName()!=null) authors+=ag.get(ag.size()-1).getName();
                 if(ag.get(ag.size()-1).getURL()!=null) authorURLs+=ag.get(ag.size()-1).getURL();
                 if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
+                if(ag.get(ag.size()-1).getInstitutionURL()!=null) authorInstitutionURLs+=ag.get(ag.size()-1).getInstitutionURL();
             }
             textProperties+=Constants.contributors+"="+authors+"\n";
             textProperties+=Constants.contributorsURI+"="+authorURLs+"\n";
             textProperties+=Constants.contributorsInstitution+"="+authorInstitutions+"\n";
+            textProperties+=Constants.contributorsInstitutionURI+"="+authorInstitutionURLs+"\n";
             String importedNames="", importedURIs="";
-            ArrayList<Ontology> imported = conf.getImportedOntologies();
+            ArrayList<Ontology> imported = conf.getMainOntology().getImportedOntologies();
             if(!imported.isEmpty()){
                 for(int i=0; i<imported.size()-1;i++){
                     Ontology o = imported.get(i);
@@ -393,7 +407,7 @@ public class CreateResources {
             }
             textProperties+=Constants.importedOntologyNames+"="+importedNames+"\n";
             textProperties+=Constants.importedOntologyURIs+"="+importedURIs+"\n";
-            imported = conf.getExtendedOntologies();
+            imported = conf.getMainOntology().getExtendedOntologies();
             importedNames = "";
             importedURIs = "";
             if(!imported.isEmpty()){
@@ -410,6 +424,20 @@ public class CreateResources {
             }
             textProperties+=Constants.extendedOntologyNames+"="+importedNames+"\n";
             textProperties+=Constants.extendedOntologyURIs+"="+importedURIs+"\n";
+            //serializations
+            HashMap<String,String> serializations = conf.getMainOntology().getSerializations();
+            if(serializations.containsKey("RDF/XML")){
+                textProperties+=Constants.rdf+"="+serializations.get("RDF/XML")+"\n";
+            }
+            if(serializations.containsKey("TTL")){
+                textProperties+=Constants.ttl+"="+serializations.get("TTL")+"\n";
+            }
+            if(serializations.containsKey("N-Triples")){
+                textProperties+=Constants.n3+"="+serializations.get("N-Triples")+"\n";
+            }
+            if(serializations.containsKey("JSON-LD")){
+                textProperties+=Constants.json+"="+serializations.get("JSON-LD")+"\n";
+            }
             //copy the result into the file
             Writer writer = null;
             try {
@@ -425,38 +453,5 @@ public class CreateResources {
                } catch (IOException ex) {}
             }
     }
-//    public static void main(String[] args){
-//        //these methods have to be private!!
-////        createFolderStructure("C:\\Users\\Monen\\Desktop\\myDoc", false, false);
-//        Configuration c = new Configuration();
-////        c.setIncludeOverview(false);
-////        c.setIncludeCrossReferenceSection(false);
-//        c.setMainOntology(new Ontology("The Wf-Motif Ontology", "Wf-motif", "http://purl.org/net/wf-motifs#"));//<-cuidado con el hash y el slash del final...
-//        c.setTitle("The Wf-Motif Ontology"); //redindant??
-//        c.setRevision("5.0");
-//        c.setReleaseDate("1-1-2011");
-//        c.setThisVersion("thisversion.org");
-//        c.setPreviousVersion("lastVersion.link");
-//        c.setOntologyURI("http://purl.org/net/example#");//check why do I need ont path and ont uri... and ontology namespace.
-//        //c.setOntologyPath("http://purl.org/net/wf-motifs#");
-//        //local copy test
-//        c.setOntologyPath("C:\\Users\\Dani\\Desktop\\RO-opt.owl");
-//        Agent a = new Agent();
-//        a.setName("Dani");a.setURL("http://dani.org");a.setInstitutionName("OEG Corp");
-//        Agent a2 = new Agent("A", "http://bananen.org", "monen group", "hdhw");
-//        ArrayList<Agent> aux = new ArrayList<Agent>();
-//        aux.add(a);aux.add(a2);        
-//        c.setCreators(aux);
-//        c.setContributors(aux);
-//        Ontology test = new Ontology("a", "b", "cbc");
-//        ArrayList<Ontology> t = new ArrayList<Ontology>();
-//        t.add(test);
-//        c.setImportedOntolgies(t);
-//        License l = new License("http://licenseUri", "LicenseName", "http://i.creativecommons.org/l/by-nc-sa/2.0/88x31.png");
-//        c.setLicense(l);
-////        generateDocumentation("C:\\Users\\Monen\\Desktop\\myDoc", c);
-//        generateDocumentation("C:\\Users\\Dani\\Desktop\\myDoc", c, false);
-//    }
-
     
 }

@@ -16,6 +16,7 @@ body {
   background-position: top left;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  counter-reset:section;
 }
 :link { color: #00C; background: transparent }
 :visited { color: #609; background: transparent }
@@ -33,6 +34,12 @@ th, td { /* ns 4 */
 }
 
 h1, h2, h3, h4, h5, h6 { text-align: left }
+h2.list{counter-reset:subsection }
+h2.list:before{counter-increment:section;content: counter(section) ". ";}
+h3.list:before{counter-increment:subsection;content: counter(section) "." counter(subsection) ". ";
+	}
+h3.list{margin-top: 20px;
+	border-bottom: 0px; }
 /* background should be transparent, but WebTV has a bug */
 h1, h2, h3 { color: #005A9C; background: white }
 h1 { font: 170% sans-serif }

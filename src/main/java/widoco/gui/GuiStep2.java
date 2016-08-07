@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import widoco.Configuration;
@@ -92,8 +93,14 @@ public final class GuiStep2 extends javax.swing.JFrame {
 //                        System.out.println("clicked on "+tableProperties.getModel().getValueAt(row, 0));
                         //here I should verify that the edit property form is not already editing the current property.
                         String prop = (String) tableProperties.getModel().getValueAt(row, 0);
-                        EditProperty form = null;
-                        if(prop.equals("authors")){
+                        JFrame form = null;
+                        if(prop.equals("abstract")){
+                            form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.abs);
+                        }
+                        else if(prop.equals("cite as")){
+                            form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.citeAs);
+                        }
+                        else if(prop.equals("authors")){
                             form = new EditProperty(gAux, conf, EditProperty.PropertyType.authors);
                         }
                         else if(prop.equals("contributors")){
@@ -143,7 +150,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
     
     private void refreshTable(){
         String authors="", contributors="", imported="", extended="";
-        for(Agent a: conf.getCreators()){
+        for(Agent a: conf.getMainOntology().getCreators()){
             if(a.getName()==null || a.getName().equals("")){
                 authors+="creator; ";
             }
@@ -151,7 +158,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 authors+=a.getName()+"; ";
             }
         }
-        for(Agent a: conf.getContributors()){
+        for(Agent a: conf.getMainOntology().getContributors()){
             if(a.getName()==null || a.getName().equals("")){
                 contributors+="contributor; ";
             }
@@ -159,7 +166,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 contributors+=a.getName()+"; ";
             }
         }
-        for(Ontology a: conf.getImportedOntologies()){
+        for(Ontology a: conf.getMainOntology().getImportedOntologies()){
             if(a.getName()==null || a.getName().equals("")){
                 imported+="importedOnto; ";
             }
@@ -167,7 +174,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 imported+=a.getName()+"; ";
             }
         }
-        for(Ontology a: conf.getExtendedOntologies()){
+        for(Ontology a: conf.getMainOntology().getExtendedOntologies()){
             if(a.getName()==null || a.getName().equals("")){
                 extended+="extendedOnto; ";
             }
@@ -178,23 +185,24 @@ public final class GuiStep2 extends javax.swing.JFrame {
         tableProperties.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"abstract", conf.getAbstractSection()},
-                {"ontology title", conf.getTitle()},
+                {"ontology title", conf.getMainOntology().getTitle()},
                 {"ontology name", conf.getMainOntology().getName()},
                 {"ontology prefix", conf.getMainOntology().getNamespacePrefix()},
                 {"ontology ns URI", conf.getMainOntology().getNamespaceURI()},
-                {"date of release", conf.getReleaseDate()},
-                {"this version URI", conf.getThisVersion()},
-                {"latest version URI", conf.getLatestVersion()},
-                {"previous version URI", conf.getPreviousVersion()},
-                {"ontology revision", conf.getRevision()},
+                {"date of release", conf.getMainOntology().getReleaseDate()},
+                {"this version URI", conf.getMainOntology().getThisVersion()},
+                {"latest version URI", conf.getMainOntology().getLatestVersion()},
+                {"previous version URI", conf.getMainOntology().getPreviousVersion()},
+                {"ontology revision", conf.getMainOntology().getRevision()},
                 {"authors", authors},
                 {"contributors", contributors},
-                {"publisher", conf.getPublisher().getURL()},
+                {"publisher", conf.getMainOntology().getPublisher().getURL()},
                 {"imported ontologies", imported},
                 {"extended ontologies", extended},
                 {"license", conf.getMainOntology().getLicense().getUrl()},
-                {"cite As", conf.getCiteAs()},
-                {"status", conf.getStatus()}
+                {"cite as", conf.getMainOntology().getCiteAs()},
+                {"doi", conf.getMainOntology().getDoi()},
+                {"status", conf.getMainOntology().getStatus()}
             },
             new String [] {
                 "Property", "Value"
@@ -212,7 +220,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
             }
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                if(getValueAt(rowIndex, 0).equals("authors")||
+                if(getValueAt(rowIndex, 0).equals("abstract")||
+                        getValueAt(rowIndex, 0).equals("cite as")||
+                        getValueAt(rowIndex, 0).equals("authors")||
                         getValueAt(rowIndex, 0).equals("contributors")||
                         getValueAt(rowIndex, 0).equals("publisher")||
                         ((String)getValueAt(rowIndex, 0)).toLowerCase().contains("extended")||
@@ -241,7 +251,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
             if(prop.equals("abstract")){
                 conf.setAbstractSection(value);
             }else if(prop.equals("ontology title")){
-                conf.setTitle(value);
+                conf.getMainOntology().setTitle(value);
             }else if(prop.equals("ontology name")){
                 conf.getMainOntology().setName(value);
             }else if(prop.equals("ontology prefix")){
@@ -249,21 +259,23 @@ public final class GuiStep2 extends javax.swing.JFrame {
             }else if(prop.equals("ontology ns URI")){
                 conf.getMainOntology().setNamespaceURI(value);
             }else if(prop.equals("date of release")){
-                conf.setReleaseDate(value);
+                conf.getMainOntology().setReleaseDate(value);
             }else if(prop.equals("this version URI")){
-                conf.setThisVersion(value);
+                conf.getMainOntology().setThisVersion(value);
             }else if(prop.equals("latest version URI")){
-                conf.setLatestVersion(value);
+                conf.getMainOntology().setLatestVersion(value);
             }else if(prop.equals("previous version URI")){
-                conf.setPreviousVersion(value);
+                conf.getMainOntology().setPreviousVersion(value);
             }else if(prop.equals("ontology revision")){
-                conf.setRevision(value);
+                conf.getMainOntology().setRevision(value);
             }else if(prop.equals("license URI")){
                 conf.getMainOntology().getLicense().setUrl(value);
-            }else if(prop.equals("cite As")){
-                conf.setCiteAs(value);
+            }else if(prop.equals("cite as")){
+                conf.getMainOntology().setCiteAs(value);
+            }else if(prop.equals("doi")){
+                conf.getMainOntology().setDoi(value);
             }else if(prop.equals("status")){
-                conf.setStatus(value);
+                conf.getMainOntology().setStatus(value);
             }
             //}
         }
@@ -363,6 +375,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"extended ontologies", null},
                 {"license", null},
                 {"cite as", null},
+                {"doi", null},
                 {"status", null}
             },
             new String [] {

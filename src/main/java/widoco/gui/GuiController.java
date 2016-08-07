@@ -72,7 +72,7 @@ public final class GuiController {
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
-                includeImportedOntologies = false, htAccess = false, webVowl=false;
+                includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false;
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -123,7 +123,7 @@ public final class GuiController {
                 htAccess = true;
             }
             else if(s.equals("-lang")){
-                languages = args[i+1].replace(" ","").split(";");
+                languages = args[i+1].replace(" ","").split("-");
                 i++;
             }
             else if(s.equals("-webVowl")){
@@ -131,7 +131,7 @@ public final class GuiController {
             }
             else{
                 System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess]\n");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess]\n");
                 return;
             }
             i++;
@@ -141,6 +141,7 @@ public final class GuiController {
             WidocoUtils.unZipIt(Constants.lodeResources, config.getTmpFile().getName());
         } catch (Exception ex) {
             System.err.println("Error while creating the temporal files");
+            errors=true;
         }
         this.config.setFromFile(isFromFile);
         this.config.setDocumentationURI(outFolder);
@@ -160,7 +161,7 @@ public final class GuiController {
         //we load the model locally so we can use it.
         WidocoUtils.loadModel(config);
         if(getOntoMetadata){
-            config.loadPropertiesFromOntology(config.getMainModel());
+            config.loadPropertiesFromOntology(config.getMainOntology().getMainModel());
         }
         try{
             for (String l : config.getLanguagesToGenerateDoc()) {
@@ -170,14 +171,13 @@ public final class GuiController {
             }
         }catch(Exception e){
             System.err.println("Error while generating the documentation " +e.getMessage());
-//            e.printStackTrace();
+            errors = true;
         }
-        System.out.println("Documentation generated successfully");
+        
         if(oops){
             System.out.println("Generating the OOPS evaluation of the ontology...");
             startEvaluation(false);
-            //since this requires more time, it is created on a thread. 
-            //Since it is a user thread it will remian alive even after the main thread dies.
+            //Since it is a user thread it will remain alive even after the main thread ends.
         }
         if(configOutFile!=null){
             try{
@@ -188,6 +188,12 @@ public final class GuiController {
         }
         //delete temp files
         deleteAllTempFiles(config.getTmpFile());
+        if(errors){
+            //error code for notifying that there were errors.
+            System.exit(1);
+        }else{
+            System.out.println("Documentation generated successfully");
+        }
     }
 
     public Configuration getConfig() {
@@ -277,7 +283,7 @@ public final class GuiController {
                 }else{
                     if(input.equals("loadOntologyProperties")){    
                         state = State.loadingConfig;
-                        if(config.getMainModel() == null){
+                        if(config.getMainOntology().getMainModel() == null){
                             this.startLoadingPropertiesFromOntology(true);                    
                         }else{
                             switchState("finishedLoading");
@@ -336,7 +342,7 @@ public final class GuiController {
             case generated:
                 if(input.equals("restart")){
                     //clean properties
-                    this.config.cleanConfig();
+                    this.config.initializeConfig();
                     this.gui.dispose();
                     state = State.initial;
                     gui = new GuiStep1(this);

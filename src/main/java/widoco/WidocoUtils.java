@@ -85,7 +85,7 @@ public class WidocoUtils {
             
         }
         readModel(model, c);
-        c.setMainModel(model);
+        c.getMainOntology().setMainModel(model);
     }
     
     /**

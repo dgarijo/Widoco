@@ -9,7 +9,6 @@ package widoco.gui;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import widoco.Configuration;
@@ -51,35 +50,45 @@ public class EditProperty extends javax.swing.JFrame {
         switch(type){
             case authors:
                 this.setTitle("Editing Authors");
-                createTable(new String[]{"Name","URI","Institution Name"});
-                loadAgents(c.getCreators());
+                this.addRowButton.setText("Add author...");
+                this.deleteRowButton.setText("Delete author...");
+                createTable(new String[]{"Name","URI","Institution Name", "Institution URI"});
+                loadAgents(c.getMainOntology().getCreators());
                 break;
             case contributors:
                 this.setTitle("Editing Contributors");
-                createTable(new String[]{"Name","URI","Institution Name"});
-                loadAgents(c.getContributors());
+                this.addRowButton.setText("Add contributor...");
+                this.deleteRowButton.setText("Delete contributor...");
+                createTable(new String[]{"Name","URI","Institution Name", "Institution URI"});
+                loadAgents(c.getMainOntology().getContributors());
                 break;
             case publisher:
                 this.setTitle("Editing Publisher");
-                createTable(new String[]{"Name","URI","Institution Name"});
+                createTable(new String[]{"Name","URI","Institution Name","Institution URI"});
                 this.addRowButton.setEnabled(false);
                 this.deleteRowButton.setEnabled(false);
                 ArrayList<Agent> aux = new ArrayList<Agent>();
-                aux.add(c.getPublisher());
+                aux.add(c.getMainOntology().getPublisher());
                 loadAgents(aux);
                 break;
             case extended: 
                 this.setTitle("Editing Extended Ontologies");
+                this.addRowButton.setText("Add ontology...");
+                this.deleteRowButton.setText("Delete ontology...");
                 createTable(new String[]{"Extended Ontology Name","Extended Ontology URI"});
-                loadOntologies(c.getExtendedOntologies());
+                loadOntologies(c.getMainOntology().getExtendedOntologies());
                 break;
             case imported: 
                 this.setTitle("Editing Imported Ontologies");
+                this.addRowButton.setText("Add ontology...");
+                this.deleteRowButton.setText("Delete ontology...");
                 createTable(new String[]{"Extended Ontology Name","Extended Ontology URI"});
-                loadOntologies(c.getImportedOntologies());
+                loadOntologies(c.getMainOntology().getImportedOntologies());
                 break;
             case license:
                 this.setTitle("Editing License");
+                this.addRowButton.setText("Add license...");
+                this.deleteRowButton.setText("Delete license...");
                 createTable(new String[]{"License Name","License URI", "License Logo URL"});
                 loadLicense(c.getMainOntology().getLicense());
                 break;
@@ -98,7 +107,7 @@ public class EditProperty extends javax.swing.JFrame {
         Iterator<Agent> it = ag.iterator();
         while (it.hasNext()) {
             Agent currentAg = it.next();
-            Object[] row = new Object[]{currentAg.getName(),currentAg.getURL(),currentAg.getInstitutionName()};
+            Object[] row = new Object[]{currentAg.getName(),currentAg.getURL(),currentAg.getInstitutionName(), currentAg.getInstitutionURL()};
             ((DefaultTableModel)tableProperties.getModel()).addRow(row);
         }
     }
@@ -232,15 +241,15 @@ public class EditProperty extends javax.swing.JFrame {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         //save stuff according to the type and close
         switch(this.type){
-            case authors:this.c.setCreators(getAgentsFromTable());
+            case authors:this.c.getMainOntology().setCreators(getAgentsFromTable());
                 break;
-            case contributors:this.c.setContributors(getAgentsFromTable());
+            case contributors:this.c.getMainOntology().setContributors(getAgentsFromTable());
                 break;
-            case publisher:this.c.setPublisher(getAgentsFromTable().get(0));
+            case publisher:this.c.getMainOntology().setPublisher(getAgentsFromTable().get(0));
                 break;
-            case extended:this.c.setExtendedOntologies(getOntologiesFromTable());
+            case extended:this.c.getMainOntology().setExtendedOntologies(getOntologiesFromTable());
                 break;
-            case imported:this.c.setImportedOntologies(getOntologiesFromTable());
+            case imported:this.c.getMainOntology().setImportedOntologies(getOntologiesFromTable());
                 break;
             case license:this.c.getMainOntology().setLicense(getLicenseFromTable());
         }
@@ -254,11 +263,12 @@ public class EditProperty extends javax.swing.JFrame {
             String agentName = (String)tableProperties.getValueAt(row, 0);
             String agentURI = (String)tableProperties.getValueAt(row,1);
             String agentInstitution = (String)tableProperties.getValueAt(row,2);
-            if(!agentName.equals("") || !agentURI.equals("") || agentInstitution.equals("")){
-                if(agentName.equals("")){
-                    agentName = "creator"+row;
+            String agentInstitutionURI = (String)tableProperties.getValueAt(row,3);
+            if((agentName!=null &&!agentName.equals("")) || (agentURI!=null && !agentURI.equals(""))){
+                if(agentName==null || agentName.equals("")){
+                    agentName = "agent"+row;
                 }
-                Agent a = new Agent(agentName, agentURI, agentInstitution, null);            
+                Agent a = new Agent(agentName, agentURI, agentInstitution, agentInstitutionURI);            
                 agents.add(a);
             }
         }

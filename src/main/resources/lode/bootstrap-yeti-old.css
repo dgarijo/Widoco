@@ -16,8 +16,6 @@ html {
 
 body {
     margin: 0;
-	counter-reset:section;
-	padding: 2em 1em 2em 70px;
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
@@ -273,6 +271,18 @@ td,th {
     }
 }
 
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*:before,*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 html {
     font-size: 62.5%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -368,10 +378,6 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
     line-height: 1.1;
     color: inherit;
 }
-
-h2.list{counter-reset:subsection }
-h2.list:before{counter-increment:section;content: counter(section) ". ";}
-h3.list:before{counter-increment:subsection;content: counter(section) "." counter(subsection) ". ";}
 
 h1 small,h2 small,h3 small,h4 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small,h1 .small,h2 .small,h3 .small,h4 .small,h5 .small,h6 .small,.h1 .small,.h2 .small,.h3 .small,.h4 .small,.h5 .small,.h6 .small {
     line-height: 1;
@@ -6584,56 +6590,4 @@ label,.control-label,.help-block,.checkbox,.radio {
 
 .affix {
     position: fixed;
-}
-
-.status {
-    position: fixed;
-    left: 0em;
-    top: 0em;
-    text-align: right;
-    vertical-align: middle;
-    /* Square version of the inside span. Slightly larger */
-    width: 26em;
-    height: 26em;
-    z-index: -1;
-    opacity: 0.8;
-    
-    /** From http://stackoverflow.com/questions/1080792/how-to-draw-vertical-text-with-css-cross-browser */
-
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    /* also accepts left, right, top, bottom coordinates; not
-    * required, but a good idea for styling */
-    -webkit-transform-origin: 50% 50%;
-    -moz-transform-origin: 50% 50%;
-    -ms-transform-origin: 50% 50%;
-    -o-transform-origin: 50% 50%;
-    transform-origin: 50% 50%;
-
-    /* Should be unset in IE9+ I think. */
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-}
-
-/* The actual status box */
- .status div {   
-    display: block;
-    background: rgb(0, 90, 156);
-    color: white;
-    width: 24em;
-    padding-top: 0.3em;
-    padding-left: 0em;
-    padding-right: 5em;
-    padding-bottom: 0.3em;
-    /* Enable for debugging 
-    border: red thin solid;
-     */
-} 
-
-/* And text inside, don't confuse fonts as it breaks em above */
-.status div span {
-    font-family: "Tauri";
-    font-size: larger;
 }
