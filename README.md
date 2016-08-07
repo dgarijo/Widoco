@@ -49,7 +49,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1;lang2] [-includeImportedOntologies] [-htaccess] [-webVowl]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -65,7 +65,7 @@ The -saveConfig option allows you to save a configuration file on the "configOut
 
 The -useCustomStyle option allows exporting the documentation using alternate css files (thanks to Daniel Vila).
 
-The -lang option allows showing the languages in which the documentation will be published (separated by ";"). Note that if the language is not supported, the system will load the labels in english. For example: en;pt;es
+The -lang option allows showing the languages in which the documentation will be published (separated by "-"). Note that if the language is not supported, the system will load the labels in english. For example: en-pt-es
 
 The -includeImportedOntologies flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
 
@@ -91,7 +91,6 @@ Current improvements
 ==========
 We are working on the following features:
 * Integration with diagram creators to include a diagram of your ontology when generating the documentation
-* Possibility of generating the documentation in several languages (now supported: en, es, pt).
 * Means to add examples to your ontology terms.
 * Previsualization of the terms that will be generated.
 

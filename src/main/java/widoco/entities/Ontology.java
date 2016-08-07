@@ -1,9 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/*
  * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +15,8 @@
  */
 package widoco.entities;
 
+import com.hp.hpl.jena.ontology.OntModel;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -27,11 +24,88 @@ import java.util.HashMap;
  * @author Daniel Garijo
  */
 public class Ontology {
+    /**
+     * Name of the ontology
+     */
     private String name;
+    /**
+     * Namespace prefix of the ontology
+     */
     private String namespacePrefix;
+    /**
+     * Namespace URI of the ontology
+     */
     private String namespaceURI;
+    /**
+     * Available serializations of the ontology.
+     * Key: serialization type
+     * Value: Serialization path/URI
+     */ 
     private HashMap<String,String> serializations;
+    /**
+     * License of the ontology. A license may have name, uri and logo
+     */
     private License license;
+    /**
+     * Creators of the ontology
+     */
+    private ArrayList<Agent> creators;
+    /**
+     * Contributors of the ontology
+     */
+    private ArrayList<Agent> contributors;
+    /**
+     * Publisher of the ontology
+     */
+    private Agent publisher;
+    /**
+     * Previous version uri of the ontology
+     */
+    private String previousVersion;
+    /**
+     * This version uri of the ontology
+     */
+    private String thisVersion;
+    /**
+     * Latest version of the ontology
+     */
+    private String latestVersion;
+    /**
+     * Version number of the ontology
+     */
+    private String revision;
+    /**
+     * Imported ontologies used in the current ontology
+     */
+    private ArrayList<Ontology> importedOntologies;
+    /**
+     * Extended ontologies used in the current one
+     */
+    private ArrayList<Ontology> extendedOntologies;
+    /**
+     * OntModel of the ontology being documented. 
+     */
+    private OntModel mainOntologyModel;
+    /**
+     * Title of the ontology. Different from the name
+     */
+    private String title;
+    /**
+     * Release date of the ontology
+     */
+    private String releaseDate;
+    /**
+     * Status of the ontology (e.g., specification draft, official release, etc.)
+     */
+    private String status; 
+    /**
+     * How to cite the ontology (paper or publication that describes it)
+     */
+    private String citeAs;
+    /**
+     * DOI of the ontology, if available
+     */
+    private String doi;
 
     public Ontology() {
     }
@@ -82,8 +156,20 @@ public class Ontology {
         this.license = license;
     }
     
-    public void setSerializations(HashMap<String, String> serializations) {
-        this.serializations = serializations;
+    public ArrayList<Agent> getContributors() {
+        return contributors;
+    }
+    
+    public void setContributors(ArrayList<Agent> contributors) {
+        this.contributors = contributors;
+    }
+
+    public ArrayList<Agent> getCreators() {
+        return creators;
+    }
+
+    public void setCreators(ArrayList<Agent> creators) {
+        this.creators = creators;
     }
     
     /**
@@ -96,6 +182,113 @@ public class Ontology {
         
     }   
     
+    public void setSerializations(HashMap<String, String> serializations) {
+        this.serializations = serializations;
+    }
+     
+    public String getCiteAs() {
+        return citeAs;
+    }
 
+    public void setCiteAs(String citeAs) {
+        this.citeAs = citeAs;
+    }
     
+    public String getDoi() {
+        return doi;
+    }
+    
+    public void setDoi(String doi) {
+        this.doi = doi;
+    }
+     
+    public ArrayList<Ontology> getExtendedOntologies() {
+        return extendedOntologies;
+    }
+    
+    public void setExtendedOntologies(ArrayList<Ontology> extendedOntologies) {
+        this.extendedOntologies = extendedOntologies;
+    }
+
+    public String getRevision() {
+        return revision;
+    }
+    
+    public void setRevision(String revision) {
+        this.revision = revision;
+    }
+
+
+    public String getLatestVersion() {
+        return latestVersion;
+    }
+    
+    public void setLatestVersion(String latestVersion) {
+        this.latestVersion = latestVersion;
+    }
+    
+    public String getPreviousVersion() {
+        return previousVersion;
+    }
+    
+    public void setPreviousVersion(String previousVersion) {
+        this.previousVersion = previousVersion;
+    }
+
+    public String getThisVersion() {
+        return thisVersion;
+    }
+    
+    public void setThisVersion(String thisVersion) {
+        this.thisVersion = thisVersion;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+    
+    public void setTitle(String title) {
+        if(title==null) this.title= "Untitled ontology";
+        else this.title = title;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+    
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+    
+    public ArrayList<Ontology> getImportedOntologies() {
+        return importedOntologies;
+    }
+    
+    public void setImportedOntologies(ArrayList<Ontology> importedOntologies) {
+        this.importedOntologies = importedOntologies;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public OntModel getMainModel() {
+        return mainOntologyModel;
+    }
+
+    public void setMainModel(OntModel model) {
+        this.mainOntologyModel = model;
+    }
+    
+    public Agent getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Agent publisher) {
+        this.publisher = publisher;
+    }
 }

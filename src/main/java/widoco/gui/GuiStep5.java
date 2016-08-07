@@ -316,6 +316,9 @@ public class GuiStep5 extends javax.swing.JFrame {
 
     private void labelViewDocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelViewDocMouseClicked
         String url = g.getConfig().getDocumentationURI();
+        if(!g.getConfig().getMainOntology().isHashOntology()){
+            url+=File.separator+"doc";
+        }
         if(url!=null &&!"".equals(url)) {
             File f = new File(url+File.separator+"index-"+g.getConfig().getLanguagesToGenerateDoc().get(0)+".html");
             if(f.exists()){

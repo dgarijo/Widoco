@@ -54,11 +54,15 @@ public class Constants {
     public static final String authors="authors";
     public static final String authorsURI="authorsURI";
     public static final String authorsInstitution="authorsInstitution";
+    public static final String authorsInstitutionURI="authorsInstitutionURI";
     public static final String contributors="contributors";
     public static final String contributorsURI="contributorsURI";
     public static final String contributorsInstitution="contributorsInstitution";
+    public static final String contributorsInstitutionURI="contributorsInstitutionURI";
     public static final String publisher="publisher";
     public static final String publisherURI="publisherURI";
+    public static final String publisherInstitution="publisherInstitution";
+    public static final String publisherInstitutionURI="publisherInstitutionURI";
     public static final String importedOntologyNames="importedOntologyNames";
     public static final String importedOntologyURIs="importedOntologyURIs";
     public static final String extendedOntologyNames="extendedOntologyNames";
@@ -67,6 +71,7 @@ public class Constants {
     public static final String licenseURI="licenseURI";
     public static final String licenseIconURL="licenseIconURL";
     public static final String citeAs="citeAs";
+    public static final String doi="DOI";
     public static final String rdf="RDFXMLSerialization";
     public static final String ttl="TurtleSerialization";
     public static final String n3="N3Serialization";
@@ -77,7 +82,7 @@ public class Constants {
     public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
-    //missing specialization. Missing alterate
+    //missing specialization. Missing alternate
     
     public static String  getAbstractSection(String abstractContent, Configuration c, Properties langFile){
         String abstractSection = "<h2>"+langFile.getProperty("abstract")+"</h2><p>";
@@ -86,10 +91,6 @@ public class Constants {
         }
         else{
             abstractSection+=langFile.getProperty("abstractPlaceHolder");
-        }
-        //citation info
-        if(!"".equals(c.getCiteAs()) && c.getCiteAs()!=null){
-            abstractSection+="<p><strong>"+langFile.getProperty("citeAs")+"</strong></br>\n"+c.getCiteAs()+"\n</p>";
         }
         return abstractSection;
     }
@@ -101,51 +102,26 @@ public class Constants {
      */
     public static String getStatus(Configuration c){
         String html = "";
-        if(c.getStatus()!=null && !c.getStatus().equals("")){
+        if(c.getMainOntology().getStatus()!=null && !c.getMainOntology().getStatus().equals("")){
             html+="<div class=\"status\">\n"
                     + "<div>\n"
-                    + "<span>"+c.getStatus()+"</span>\n</div>\n</div>";
+                    + "<span>"+c.getMainOntology().getStatus()+"</span>\n</div>\n</div>";
         }
         return html;
     }
-    
-    public static int numSection(String section, Configuration c){
-        int n = 0;
-        if(section.equals("Introduction")){
-            if(c.isIncludeIntroduction()) return 1;
-            return n;
-        }
-        if(section.equals("Overview")){
-            if(c.isIncludeOverview()) n++;
-            return numSection("Introduction", c)+n;
-        }
-        if(section.equals("Description")){
-            if(c.isIncludeDescription()) n++;
-            return numSection("Overview", c)+n;
-        }
-        if(section.equals("Cross")){
-            if(c.isIncludeCrossReferenceSection()) n++;
-            return numSection("Description", c)+n;
-        }
-        if(section.equals("References")){
-            if(c.isIncludeReferences()) n++;
-            return numSection("Cross", c)+n;
-        }
-        return n;
-    }
             
     public static String getIntroductionSection(Configuration c, Properties lang){
-        String s = "<h2>"+numSection("Introduction", c)+lang.getProperty("introPlaceHolder");
+        String s = "<h2 id=\"intro\" class=\"list\">"+lang.getProperty("introPlaceHolder");
         return s;
     }
     
     public static String getReferencesSection(Configuration c, Properties lang){
-        String s ="<h2>"+numSection("References",c)+lang.getProperty("referencesPlaceHolder");
+        String s ="<h2 id=\"ref\" class=\"list\">"+lang.getProperty("referencesPlaceHolder");
         return s;
     }
     public static String getAcknowledgementsSection(Configuration c, Properties lang){
         String s = "<div id=\"acknowledgements\">\n"+
-                    "<h2>"+(numSection("References", c)+1)+lang.getProperty("ackText");
+                    "<h2 id=\"ack\" class=\"list\">"+lang.getProperty("ackText");
         return s;
     }
     public static String getChangeLogSection(Properties lang){
@@ -163,7 +139,7 @@ public class Constants {
                 Agent currAuth = it.next();
                 String authorName = currAuth.getName(); //the name should be always there
                 if(authorName==null || "".equals(authorName)){
-                    authorName = "Author"+i;
+                    authorName = "Agent"+i;
                     i++;
                 }
                 if(currAuth.getURL()!=null &&!"".equals(currAuth.getURL())){
@@ -171,8 +147,17 @@ public class Constants {
                 }else{
                     agents+="<dd>"+authorName;
                 }
-                if(currAuth.getInstitutionName()!=null && !"".equals(currAuth.getInstitutionName()))
-                    agents+=", "+currAuth.getInstitutionName();
+                if(currAuth.getInstitutionName()!=null && !"".equals(currAuth.getInstitutionName())){
+                    if(currAuth.getInstitutionURL()!=null && !"".equals(currAuth.getInstitutionURL())){
+                        agents+=", (<a href=\""+currAuth.getInstitutionURL()+"\">"+currAuth.getInstitutionName()+"</a>)";
+                    }else{
+                        agents+=", "+currAuth.getInstitutionName();
+                    }
+                }else{
+                    if(currAuth.getInstitutionURL()!=null && !"".equals(currAuth.getInstitutionURL())){
+                        agents+=", (<a href=\""+currAuth.getInstitutionURL()+"\">"+currAuth.getInstitutionURL()+"</a>)";
+                    }
+                }
                 agents+="</dd>";
             }   
         }catch(Exception e){
@@ -190,8 +175,24 @@ public class Constants {
     private static String getContributors(ArrayList<Agent> contrib, Properties l) {
         String c="<dl><dt>"+l.getProperty("contributors")+"</dt>\n";
         c+=getAgents(contrib);
-        c = c.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix of annotations
+        c = c.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix annotations
         return c +"</dl>\n";                   
+    }
+    
+    private static String getPublisher (Agent publisher, Properties l){
+        if(publisher.getName()!=null &&
+                !"".equals(publisher.getName()) && !"".equals(publisher.getURL())){
+            if(publisher.getName()!=null && !"".equals(publisher.getName())){
+                publisher.setName(publisher.getURL());
+            }
+            String c="<dl><dt>"+l.getProperty("publisher")+"</dt>\n";
+            ArrayList<Agent> p = new ArrayList<Agent>();
+            p.add(publisher);
+            c+=getAgents(p);
+            c = c.replace("dc:creator schema:author", "dc:publisher");//fix annotations
+            return c +"</dl>\n";                   
+        }
+        return "";
     }
 
     //method for extracting the ontologies from an arraylist.
@@ -227,18 +228,10 @@ public class Constants {
         extended = extended.replace("owl:imports",""); //to remove the import annotation
         return extended+"</dl>\n";
     }
-
-//    private static String getPreviousVersion() {
-//        String previousV = ReadConfigurationFileOld.getPreviousVersion();
-//        if(previousV!=null &&previousV!=null){
-//            return ;
-//        }
-//        else{ return "";}
-//    }
     
     public static String getNameSpaceDeclaration(HashMap<String,String> namesp, Properties lang){
     	String ns="<div id=\"namespacedeclarations\">\n"+
-        "<h2>1.1. "+lang.getProperty("ns")+lang.getProperty("nsText") ;
+        "<h3 id=\"ns\" class=\"list\">"+lang.getProperty("ns")+lang.getProperty("nsText") ;
         Iterator<String> keys = namesp.keySet().iterator();
         while(keys.hasNext()){
             String current = keys.next();
@@ -271,15 +264,40 @@ public class Constants {
                      "	var hash = location.hash;\n" +
                      "	if($(hash).offset()!=null){\n" +
                      "	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n"+
-                     "	}\n" +
-                     "}"+
+                     "}\n" +
+                     "	loadTOC();\n"+
+                     "}"
+                     + "function loadTOC(){\n" +
+                    "	//process toc dynamically\n" +
+                    "	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;\n" +
+                    "	  jQuery(\".list\").each(function(){\n" +
+                    "		if(jQuery(this).is('h2')){\n" +
+                    "			if(j>0){\n" +
+                    "				t+='</ul>';\n" +
+                    "				j=0;\n" +
+                    "			}\n" +
+                    "			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';\n" +
+                    "			i++;\n" +
+                    "		}\n" +
+                    "		if(jQuery(this).is('h3')){\n" +
+                    "			if(j==0){\n" +
+                    "				t+='<ul>';\n" +
+                    "			}\n" +
+                    "			j++;\n" +
+                    "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';\n" +
+                    "		}\n" +
+                    "		t = t.replace(' "+lang.getProperty("back3").replace("&iacute;", "í")+"','');\n" +//back to ToC
+                    "	  });\n" +
+                    "	  t+='</ul>';\n" +
+                    "	  $(\"#toc\").html(t); \n" +
+                    "}"+
                      "    $(function(){\n";
         if(c.isIncludeAbstract()) document += "      $(\"#abstract\").load(\"sections/abstract-"+c.getCurrentLanguage()+".html\"); \n";
         if(c.isIncludeIntroduction()) document += "      $(\"#introduction\").load(\"sections/introduction-"+c.getCurrentLanguage()+".html\"); \n";
         if(c.isIncludeOverview()) document += "      $(\"#overview\").load(\"sections/overview-"+c.getCurrentLanguage()+".html\"); \n";
         if(c.isIncludeDescription()) document += "      $(\"#description\").load(\"sections/description-"+c.getCurrentLanguage()+".html\"); \n";
-        if(c.isIncludeCrossReferenceSection()) document += "      $(\"#crossref\").load(\"sections/crossref-"+c.getCurrentLanguage()+".html\", null, loadHash); \n";
         if(c.isIncludeReferences()) document += "      $(\"#references\").load(\"sections/references-"+c.getCurrentLanguage()+".html\"); \n";
+        if(c.isIncludeCrossReferenceSection()) document += "      $(\"#crossref\").load(\"sections/crossref-"+c.getCurrentLanguage()+".html\", null, loadHash); \n";
             document+="    });\n" +
                      "    </script> \n" +
                      "  </head> \n" +
@@ -289,21 +307,21 @@ public class Constants {
                     "<body resource=\""+c.getMainOntology().getNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
 //                //RDF-a Annotations
                      "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n";
-        if(c.getReleaseDate()!=null && !"".equals(c.getReleaseDate())){
-            document+="<span property=\"dc:created schema:dateCreated\" content=\""+c.getReleaseDate()+"\"></span>\n";
+        if(c.getMainOntology().getReleaseDate()!=null && !"".equals(c.getMainOntology().getReleaseDate())){
+            document+="<span property=\"dc:created schema:dateCreated\" content=\""+c.getMainOntology().getReleaseDate()+"\"></span>\n";
          }
-        if(c.getLatestVersion()!=null && !"".equals(c.getLatestVersion())){
-            document+="<span property=\"dc:isVersionOf prov:specializationOf\" resource=\""+c.getLatestVersion()+"\"></span>\n";
+        if(c.getMainOntology().getLatestVersion()!=null && !"".equals(c.getMainOntology().getLatestVersion())){
+            document+="<span property=\"dc:isVersionOf prov:specializationOf\" resource=\""+c.getMainOntology().getLatestVersion()+"\"></span>\n";
         }
-        if(c.getPreviousVersion()!=null && !"".equals(c.getPreviousVersion())){
-            document+="<span property=\"prov:alternateOf prov:revisionOf\" resource=\""+c.getPreviousVersion()+"\"></span>\n";
+        if(c.getMainOntology().getPreviousVersion()!=null && !"".equals(c.getMainOntology().getPreviousVersion())){
+            document+="<span property=\"prov:alternateOf prov:revisionOf\" resource=\""+c.getMainOntology().getPreviousVersion()+"\"></span>\n";
         }
             document+="<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://purl.org/net/dgarijo\"></span>\n"+
                         "</span>\n";
         document += getHeadSection(c, lang);
         document += getStatus(c);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
-        document += getTableOfContentsSection(c,l,lang);
+        document += "<div id=\"toc\"></div>";
         if(c.isIncludeIntroduction()) document += "     <div id=\"introduction\"></div>\n";
         //else document += "<div id=\"namespacedeclaration\"></div>\n";
         if(c.isIncludeOverview()) document += "     <div id=\"overview\"></div>\n";
@@ -325,33 +343,35 @@ public class Constants {
             head +="<a href=\"index-"+nextLang+".html\"><b>"+nextLang+"</b></a> ";
         }
         head+="</div>\n";
-        if(c.getTitle()!=null &&!"".equals(c.getTitle()))
-            head+="<h1 property=\"dc:title schema:name\">"+c.getTitle()+"</h1>\n";
-        if(c.getReleaseDate()!=null && !"".equals(c.getReleaseDate()))
-            head+="<span property=\"dc:modified schema:dateModified\" content=\""+c.getReleaseDate()+"\"></span>\n"+
-                    "<h2>"+l.getProperty("date")+" "+c.getReleaseDate()+"</h2>\n";
-        if(c.getThisVersion()!=null && !"".equals(c.getThisVersion()))
+        if(c.getMainOntology().getTitle()!=null &&!"".equals(c.getMainOntology().getTitle()))
+            head+="<h1 property=\"dc:title schema:name\">"+c.getMainOntology().getTitle()+"</h1>\n";
+        if(c.getMainOntology().getReleaseDate()!=null && !"".equals(c.getMainOntology().getReleaseDate()))
+            head+="<span property=\"dc:modified schema:dateModified\" content=\""+c.getMainOntology().getReleaseDate()+"\"></span>\n"+
+                    "<h2>"+l.getProperty("date")+" "+c.getMainOntology().getReleaseDate()+"</h2>\n";
+        if(c.getMainOntology().getThisVersion()!=null && !"".equals(c.getMainOntology().getThisVersion()))
             head+="<dl>\n"+
                     "<dt>"+l.getProperty("thisVersion")+"</dt>\n"+
-                    "<dd><a href=\""+c.getThisVersion()+"\">"+c.getThisVersion()+"</a></dd>\n"+
+                    "<dd><a href=\""+c.getMainOntology().getThisVersion()+"\">"+c.getMainOntology().getThisVersion()+"</a></dd>\n"+
                     "</dl>";
-        if(c.getLatestVersion()!=null && !"".equals(c.getLatestVersion()))
+        if(c.getMainOntology().getLatestVersion()!=null && !"".equals(c.getMainOntology().getLatestVersion()))
             head+="<dl><dt>"+l.getProperty("latestVersion")+"</dt>\n"+
-                    "<dd><a href=\""+c.getLatestVersion()+"\">"+c.getLatestVersion()+"</a></dd>\n"+
+                    "<dd><a href=\""+c.getMainOntology().getLatestVersion()+"\">"+c.getMainOntology().getLatestVersion()+"</a></dd>\n"+
                     "</dl>";
-        if(c.getPreviousVersion()!=null && !"".equals(c.getPreviousVersion()))
+        if(c.getMainOntology().getPreviousVersion()!=null && !"".equals(c.getMainOntology().getPreviousVersion()))
             head+= "<dl>\n"+
                     "<dt>"+l.getProperty("previousVersion")+"</dt>\n"+
-                    "<dd><a property=\"schema:significantLink prov:wasRevisionOf\" href=\""+c.getPreviousVersion()+"\">"+c.getPreviousVersion()+"</a></dd>\n"+
+                    "<dd><a property=\"schema:significantLink prov:wasRevisionOf\" href=\""+c.getMainOntology().getPreviousVersion()+"\">"+c.getMainOntology().getPreviousVersion()+"</a></dd>\n"+
                     "</dl>\n";
-        if(c.getRevision()!=null && !"".equals(c.getRevision()))
+        if(c.getMainOntology().getRevision()!=null && !"".equals(c.getMainOntology().getRevision()))
             head +="<dt>"+l.getProperty("revision")+"</dt>\n"+
-                    "<dd property=\"schema:version\">"+c.getRevision()+"</dd>\n";
-        if(!c.getCreators().isEmpty())
-            head += getAuthors(c.getCreators(),l)+"\n";
-        if(!c.getContributors().isEmpty())
-            head += getContributors(c.getContributors(),l)+"\n";
-        if(c.getPublisher()!=null){
+                    "<dd property=\"schema:version\">"+c.getMainOntology().getRevision()+"</dd>\n";
+        if(!c.getMainOntology().getCreators().isEmpty())
+            head += getAuthors(c.getMainOntology().getCreators(),l)+"\n";
+        if(!c.getMainOntology().getContributors().isEmpty())
+            head += getContributors(c.getMainOntology().getContributors(),l)+"\n";
+        if(c.getMainOntology().getPublisher()!=null){
+            head += getPublisher(c.getMainOntology().getPublisher(), l);
+            /*
             String publisherName = c.getPublisher().getName();
             String publisherURL = c.getPublisher().getURL();
             if(publisherURL == null ||publisherURL.equals("")){
@@ -365,17 +385,17 @@ public class Constants {
                     !publisherURL.equals("http://example.org/insertPublisherURIHere")){
                 head += "<dl><dt>"+l.getProperty("publisher")+"</dt>"+"\n"
                         + "<dd><a href="+publisherURL+" target=\"_blank\">"+publisherName+"</a></dd></dl>\n";
-            }
+            }*/
         }
-        if(!c.getImportedOntologies().isEmpty())
-            head += getImports(c.getImportedOntologies(),l)+"\n";
-        if(!c.getExtendedOntologies().isEmpty())
-            head += getExtends(c.getExtendedOntologies(),l)+"\n";
+        if(!c.getMainOntology().getImportedOntologies().isEmpty())
+            head += getImports(c.getMainOntology().getImportedOntologies(),l)+"\n";
+        if(!c.getMainOntology().getExtendedOntologies().isEmpty())
+            head += getExtends(c.getMainOntology().getExtendedOntologies(),l)+"\n";
         
         HashMap<String,String> availableSerializations = c.getMainOntology().getSerializations();
         head+="<dl><dt>"+l.getProperty("serialization")+"</dt><dd>";
         for(String serialization:availableSerializations.keySet()){
-            head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\"</img></a> </span>";
+            head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\" alt=\""+serialization+"\"></img></a> </span>";
         }
         
         head+="</dd></dl>";
@@ -385,7 +405,7 @@ public class Constants {
             if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty("licenseURLIfNull");
             if(lname == null || "".equals(lname)) lname = l.getProperty("licenseIfNull");
             head+="<dl><dt>"+l.getProperty("license")+"</dt><dd>"
-                    + "<a rel=\"license\" href=\""+licenseURL+"\" target=\"_blank\"><img src =\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\"</img></a>\n"+
+                    + "<a rel=\"license\" href=\""+licenseURL+"\" target=\"_blank\"><img src =\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\" alt=\""+licenseURL+"\"></img></a>\n"+
                     "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
             if(c.getMainOntology().getLicense().getIcon()!=null && !"".equals(c.getMainOntology().getLicense().getIcon())){
                 head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\" target=\"_blank\">\n" +
@@ -398,9 +418,16 @@ public class Constants {
         if(c.isCreateWebVowlVisualization()){
             head+="<dl><dt>"+l.getProperty("visualization")+"</dt>"
                 + "<dd>"
-                + "<a href=\"http://vowl.visualdataweb.org/webvowl/index.html#iri="+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\"</img></a>"
+                + "<a href=\"http://vowl.visualdataweb.org/webvowl/index.html#iri="+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
                 + "</dd>"
-                + "</dl>";
+                + "</dl>\n";
+        }
+        if(!"".equals(c.getMainOntology().getCiteAs()) && c.getMainOntology().getCiteAs()!=null){
+            head+="<dl><dt>"+l.getProperty("citeAs")+"</dt>\n<dd>"+c.getMainOntology().getCiteAs()+"</dd>\n</dl>\n";
+        }
+        if(!"".equals(c.getMainOntology().getDoi()) && c.getMainOntology().getDoi()!=null){
+            //doi is common for all languages
+            head+="<dl><dt>DOI:</dt>\n<dd><a href=\"http://dx.doi.org/"+c.getMainOntology().getDoi()+"\"><img src =\"https://img.shields.io/badge/DOI-"+c.getMainOntology().getDoi()+"-blue.svg\" alt=\""+c.getMainOntology().getDoi()+"\"></img></a></dd>\n</dl>\n";
         }
         if(c.isPublishProvenance()){
             head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\" target=\"_blank\">"+l.getProperty("provHead")+"</a></dl>";
@@ -410,73 +437,16 @@ public class Constants {
         return head;
     }
     
-    public static String getTableOfContentsSection(Configuration c, LODEParser l, Properties lang){
-        int i=1;
-        String table ="<div id=\"toc\">"+
-            "<h2>"+lang.getProperty("toc")+"</h2>\n"+
-            "<ul>\n";
-            if(c.isIncludeIntroduction()){
-                table+="<li><a href=\"#introduction\">"+i+". "+lang.getProperty("introTitle")+"</a></li>\n"+
-                    "<ul><li><a href=\"#namespacedeclarations\">"+i+".1 "+lang.getProperty("namespace")+"</a></li></ul>\n";
-                i++;
-            }
-            if(c.isIncludeOverview()) {
-                table+="<li><a href=\"#overview\">"+i+". "+c.getMainOntology().getName()+": "+lang.getProperty("overviewTitle")+"</a></li>\n";
-                i++;
-            }
-            if(c.isIncludeDescription()){
-                table+="<li><a href=\"#description\">"+i+". "+c.getMainOntology().getName()+": "+lang.getProperty("descriptionTitle")+"</a></li>\n";
-                i++;
-            }	
-            if(c.isIncludeCrossReferenceSection()){
-                int j=1;
-                if(l!=null){
-                    table+="<li><a href=\"#crossref\">"+i+". "+lang.getProperty("crossRefTitle")+" "+c.getMainOntology().getName()+" "+lang.getProperty("crossRefTitle2")+"</a></li>\n"+
-                        "<ul>\n";
-                    if(l.getClassList()!=null && !"".equals(l.getClassList())){
-                        table+="<li><a href=\"#classes\">"+i+"."+j+" "+lang.getProperty("classes")+"</a></li>\n";
-                        j++;
-                    }
-                    if(l.getPropertyList()!=null && !"".equals(l.getPropertyList())){
-                        table+="<li><a href=\"#objectproperties\">"+i+"."+j+" "+lang.getProperty("objProp")+"</a></li>\n";
-                        j++;
-                    }
-                    if(l.getDataPropList()!=null && !"".equals(l.getDataPropList())){
-                        table+="        <li><a href=\"#dataproperties\">"+i+"."+j+" "+lang.getProperty("dataProp")+"</a></li>\n";
-                        j++;
-                    }
-                    if(c.isIncludeAnnotationProperties() && l.getAnnotationPropList()!=null && !"".equals(l.getAnnotationPropList())){
-                        table+="        <li><a href=\"#annotationproperties\">"+i+"."+j+" "+lang.getProperty("annProp")+"</a></li>\n";
-                        j++;
-                    }
-                    if(c.isIncludeNamedIndividuals() && l.getNamedIndividualList()!=null && !"".equals(l.getNamedIndividualList())){
-                        table+="        <li><a href=\"#namedindividuals\">"+i+"."+j+" "+lang.getProperty("namedIndiv")+"</a></li>\n";
-                        j++;
-                    }
-                    table+="</ul>\n";
-                    i++;
-                }
-            }
-            if(c.isIncludeReferences()){
-                table+="<li><a href=\"#references\">"+i+". "+lang.getProperty("referencesTitle")+"</a></li>\n";
-                i++;
-            }
-            table+="<li><a href=\"#acknowledgements\">"+i+". "+lang.getProperty("ackTitle")+"</a></li>\n"+
-            "</ul>\n"+
-            "</div>\n";
-        return table;
-    }
-    
     public static String getOverviewSection(Configuration c, Properties lang){
-        return "<h2>"+numSection("Overview", c)+". "+c.getMainOntology().getName()+": "+lang.getProperty("overviewPlaceHolder");
+        return "<h2 id=\"overv\" class=\"list\">"+c.getMainOntology().getName()+": "+lang.getProperty("overviewPlaceHolder");
     }
     
     public static String getDescriptionSection(Configuration c, Properties lang){
-        return "<h2>"+numSection("Description", c)+". "+c.getMainOntology().getName()+": "+lang.getProperty("descriptionPlaceHolder");
+        return "<h2 id=\"desc\" class=\"list\">"+c.getMainOntology().getName()+": "+lang.getProperty("descriptionPlaceHolder");
     }
     
     public static String getCrossReferenceSection(Configuration c, Properties lang){
-        return "<h2>"+numSection("Cross", c)+". "+lang.getProperty("crossRefTitle")+" "+c.getMainOntology().getName()+" "+lang.getProperty("crossRefTitle2")+"</h2>"+"\n" +
+        return "<h2  id=\"crossreference\" class=\"list\">"+lang.getProperty("crossRefTitle")+" "+c.getMainOntology().getName()+" "+lang.getProperty("crossRefTitle2")+"</h2>"+"\n" +
                lang.getProperty("crossRefPlaceHolder")+c.getMainOntology().getName()+".\n";
     }
     
@@ -490,41 +460,41 @@ public class Constants {
                 "\n" +
                 "<body>\n" +
                 "<div class=\"head\">\n";
-        String provURI = c.getThisVersion();
+        String provURI = c.getMainOntology().getThisVersion();
         if(provURI==null || provURI.equals("")){
             provURI = c.getDocumentationURI();
         }
-        if(c.getTitle()!=null &&!"".equals(c.getTitle())){
-            provhtml+="<h1>"+lang.getProperty("prov1")+" "+c.getTitle()+" "+lang.getProperty("prov2")+" ("+provURI+")</h1>\n";
+        if(c.getMainOntology().getTitle()!=null &&!"".equals(c.getMainOntology().getTitle())){
+            provhtml+="<h1>"+lang.getProperty("prov1")+" "+c.getMainOntology().getTitle()+" "+lang.getProperty("prov2")+" ("+provURI+")</h1>\n";
         }
         provhtml+="<ul>\n";
-        if(!c.getCreators().isEmpty()){
+        if(!c.getMainOntology().getCreators().isEmpty()){
             provhtml+="	<li>"+lang.getProperty("createdBy")+" :\n";
-            Iterator<Agent> creators = c.getCreators().iterator();
+            Iterator<Agent> creators = c.getMainOntology().getCreators().iterator();
             while(creators.hasNext()){
                 Agent currCreator = creators.next();
                 provhtml+= " "+currCreator.getName()+" ("+currCreator.getInstitutionName()+"),";
             }
             provhtml+="</li>";
         }
-        if(!c.getContributors().isEmpty()){
+        if(!c.getMainOntology().getContributors().isEmpty()){
             provhtml+="	<li>"+lang.getProperty("contribBy")+":\n";
-            Iterator<Agent> contrib = c.getContributors().iterator();
+            Iterator<Agent> contrib = c.getMainOntology().getContributors().iterator();
             while(contrib.hasNext()){
                 Agent currContrib = contrib.next();
                 provhtml+= " "+currContrib.getName()+" ("+currContrib.getInstitutionName()+"),";
             }
             provhtml+="</li>\n";
         }
-        if(c.getLatestVersion()!=null &&!"".equals(c.getLatestVersion())){
-            provhtml+="<li>"+provURI+ " "+lang.getProperty("spec")+" "+ c.getLatestVersion()+"</li>\n";
+        if(c.getMainOntology().getLatestVersion()!=null &&!"".equals(c.getMainOntology().getLatestVersion())){
+            provhtml+="<li>"+provURI+ " "+lang.getProperty("spec")+" "+ c.getMainOntology().getLatestVersion()+"</li>\n";
         }
-        if(c.getPreviousVersion()!=null &&!"".equals(c.getPreviousVersion())){
-            provhtml+="<li>"+provURI+ " "+lang.getProperty("rev")+" "+ c.getPreviousVersion()+"</li>\n";
+        if(c.getMainOntology().getPreviousVersion()!=null &&!"".equals(c.getMainOntology().getPreviousVersion())){
+            provhtml+="<li>"+provURI+ " "+lang.getProperty("rev")+" "+ c.getMainOntology().getPreviousVersion()+"</li>\n";
         }                    
         provhtml+="<li>"+lang.getProperty("result");
-        if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
-            provhtml+="<li>"+lang.getProperty("generated") +" "+c.getReleaseDate();
+        if(c.getMainOntology().getReleaseDate()!=null &&!"".equals(c.getMainOntology().getReleaseDate())){
+            provhtml+="<li>"+lang.getProperty("generated") +" "+c.getMainOntology().getReleaseDate();
         }
         provhtml+="</ul>\n" +
         "</div>\n<p>"+lang.getProperty("back")+" <a href=\"..\\index-"+c.getCurrentLanguage()+".html\">"+lang.getProperty("back1")+"</a>. <a href=\"provenance-"+c.getCurrentLanguage()+".ttl\">"+lang.getProperty("back2")+"</a></p>" +
@@ -534,7 +504,7 @@ public class Constants {
     }
     
     public static String getProvenanceRDF(Configuration c){
-        String provURI = c.getThisVersion();
+        String provURI = c.getMainOntology().getThisVersion();
         if(provURI==null || provURI.equals("")){
             provURI = "..\\index-"+c.getCurrentLanguage()+".html";
         }
@@ -542,11 +512,11 @@ public class Constants {
                 + "@prefix dc: <http://purl.org/dc/terms/> .\n"
                 + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
                 provrdf+="<"+provURI+"> a prov:Entity;\n";
-                if(c.getTitle()!=null &&!"".equals(c.getTitle())){
-                    provrdf+= "\t dc:title \""+c.getTitle()+"\";\n";
+                if(c.getMainOntology().getTitle()!=null &&!"".equals(c.getMainOntology().getTitle())){
+                    provrdf+= "\t dc:title \""+c.getMainOntology().getTitle()+"\";\n";
                 }
-                if(!c.getCreators().isEmpty()){
-                    Iterator<Agent> creators = c.getCreators().iterator();
+                if(!c.getMainOntology().getCreators().isEmpty()){
+                    Iterator<Agent> creators = c.getMainOntology().getCreators().iterator();
                     while(creators.hasNext()){
                         //me quedo aqui. Hay que cambiar todo. Quizas la responsabilidad puedo pasar, o asumir que todos los agentes itenen uris. Si no es un rollo
                         Agent currCreator = creators.next();
@@ -558,8 +528,8 @@ public class Constants {
                         }
                     }
                 }
-                if(!c.getContributors().isEmpty()){
-                    Iterator<Agent> contrib = c.getContributors().iterator();
+                if(!c.getMainOntology().getContributors().isEmpty()){
+                    Iterator<Agent> contrib = c.getMainOntology().getContributors().iterator();
                     while(contrib.hasNext()){
                         Agent currContrib = contrib.next();
                         if(currContrib.getURL()!=null && !"".equals(currContrib.getURL())){
@@ -571,14 +541,14 @@ public class Constants {
                     }
                 }
                 provrdf+= "\t prov:wasAttributedTo <https://github.com/dgarijo/Widoco/>,<http://www.essepuntato.it/lode/>;\n";
-                if(c.getLatestVersion()!=null &&!"".equals(c.getLatestVersion())){
-                    provrdf+="\t prov:specializationOf <"+c.getLatestVersion()+">;\n";
+                if(c.getMainOntology().getLatestVersion()!=null &&!"".equals(c.getMainOntology().getLatestVersion())){
+                    provrdf+="\t prov:specializationOf <"+c.getMainOntology().getLatestVersion()+">;\n";
                 }
-                if(c.getPreviousVersion()!=null &&!"".equals(c.getPreviousVersion())){
-                    provrdf+="\t prov:wasRevisionOf <"+c.getPreviousVersion()+">;\n";
+                if(c.getMainOntology().getPreviousVersion()!=null &&!"".equals(c.getMainOntology().getPreviousVersion())){
+                    provrdf+="\t prov:wasRevisionOf <"+c.getMainOntology().getPreviousVersion()+">;\n";
                 }                    
-                if(c.getReleaseDate()!=null &&!"".equals(c.getReleaseDate())){
-                    provrdf+="\t prov:wasGeneratedAt \""+c.getReleaseDate()+"\";\n";                    
+                if(c.getMainOntology().getReleaseDate()!=null &&!"".equals(c.getMainOntology().getReleaseDate())){
+                    provrdf+="\t prov:wasGeneratedAt \""+c.getMainOntology().getReleaseDate()+"\";\n";                    
                 }
                 provrdf +=".\n";
         return provrdf;
@@ -594,7 +564,7 @@ public class Constants {
         "<html lang=\"en\">\n" +
         "  <head>\n" +
         "    <meta charset=\"UTF-8\">\n" +
-        "    <title>"+c.getTitle()+"</title>\n" +
+        "    <title>"+c.getMainOntology().getTitle()+"</title>\n" +
         "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
         "    <meta name=\"description\" content=\"Evaluation of the ontology with the OOPS tool.\">\n" +
         "    <meta name=\"Languaje\" content=\"English\">\n" +
@@ -630,15 +600,15 @@ public class Constants {
         "\n" +
         "  </head>\n"
         + "<div class=\"container\">\n" +
-            "<h1> <a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getTitle()+"</a></h1>\n" +
+            "<h1> <a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getMainOntology().getTitle()+"</a></h1>\n" +
             "<br>\n" +
             "<dl class=\"dl-horizontal\">\n" +
             "<dt>Title</dt>\n" +
-            "<dd><a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getTitle()+"</a></dd>\n" +
+            "<dd><a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getMainOntology().getTitle()+"</a></dd>\n" +
             "<dt>URI</dt>\n" +
             "<dd><a href=\""+c.getOntologyURI()+"\" target=\"_blank\">"+c.getOntologyURI()+"</a></dd>\n" +
             "<dt>Version</dt>\n" +
-            "<dd>"+c.getRevision()+"</dd>\n" +
+            "<dd>"+c.getMainOntology().getRevision()+"</dd>\n" +
             "</dl>"+
             "<p> The following evaluation results have been generated by the <a href = \"http://oops-ws.oeg-upm.net/\" target=\"_blank\">RESTFul web service</a> provided by <a href = \"http://oops.linkeddata.es\" target=\"_blank\">OOPS! (OntOlogy Pitfall Scanner!)</a>.</p>" +
             "<p>\n" +

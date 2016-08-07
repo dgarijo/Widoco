@@ -46,31 +46,23 @@ import widoco.gui.GuiController;
  * @author Daniel Garijo
  */
 public class Configuration {
-    private ArrayList<Agent> creators;
-    private ArrayList<Agent> contributors;
-    private Agent publisher;
-    private String previousVersion;
-    private String thisVersion;
-    private String latestVersion;
-    private String revision;
-    private ArrayList<Ontology> importedOntologies;
-    private ArrayList<Ontology> extendedOntologies;
-    private Ontology mainOntologyMetadata;
    
+    private Ontology mainOntologyMetadata;
+    /**
+     * Path where the ontology is saved (locally)
+     */
     private String ontologyPath;
     /**
      * Path where the documentation will be generated.
      */
     private String documentationURI;
-    private String title;
-    private String releaseDate;
-    private String status; //status of the ontology: draft, official release, etc
-//    private String vocabLoadedSerialization ="";//serialization of the vocabulary loaded by Widoco
-    
-    private boolean fromFile;//if this is true, the onto will be from a file. otherwise it's a URI
+    /**
+     * Flag to tell Widoco whether the ontology will be loaded from a file or URI.
+     * True if loaded from file.
+     */    
+    private boolean fromFile;
     
     private boolean publishProvenance;
-//    private String provenanceURI; //this will be used as the subject for describing provenance (url of the doc)
     
     private boolean includeAbstract;
     private boolean includeIntroduction;
@@ -86,6 +78,9 @@ public class Configuration {
     private String descriptionPath;
     private String referencesPath;
     
+    /**
+     * Property for including an ontology diagram (future work)
+     */
     private boolean includeDiagram;
     
     private Properties propertyFile = null;
@@ -107,9 +102,6 @@ public class Configuration {
     //just in case there is an abstract included
     private String abstractSection;
     
-    //citation (if included)
-    private String citeAs;
-    
     private boolean useW3CStyle;
     
     private String error;//Latest error to show to user via interface.
@@ -120,28 +112,23 @@ public class Configuration {
     private boolean createHTACCESS;
     private boolean createWebVowlVisualization;
     
-    
-    private OntModel mainOntologyModel;//model of the mainOntology. Loaded separately 
-    //because the ontology metadata may not exist when the model is read
-    
-    //model everything as a singleton object. No need: only the controller accesses this file.
     public Configuration() {
+        initializeConfig();
         try {
             //create a temporal folder with all LODE resources
             tmpFolder = new File("tmp"+new Date().getTime());
             tmpFolder.mkdir();
         } catch (Exception ex) {
-            System.err.println("Error while creating the temporal file");
+            System.err.println("Error while creating the temporal file for storing the intermediate Widoco files.");
         }
         propertyFile = new Properties();
-        //just in case, we initialize the objects:
-        
+        //just in case, we initialize the objects:        
         try{
             URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
             String path = (new File(root.toURI())).getParentFile().getPath();
             loadConfigPropertyFile(path+File.separator+Constants.configPath);
         }catch(URISyntaxException e){
-            System.err. println("Error while loading the default property file" +e.getMessage());
+            System.err. println("Error while loading the default property file: " +e.getMessage());
         }
     }
 
@@ -151,35 +138,37 @@ public class Configuration {
 
     
     
-    public void cleanConfig(){
+    public void initializeConfig(){
         //initialization of variables (in case something fails)
         abstractSection = "";
-        title = "";
-        releaseDate = "";
-        previousVersion ="";
-        thisVersion ="";
-        latestVersion ="";
-        revision = "";
-        creators = new ArrayList<Agent>();
-        contributors = new ArrayList<Agent>();
-        publisher = new Agent();
-        importedOntologies = new ArrayList<Ontology>();
-        extendedOntologies = new ArrayList<Ontology>();
         //this has to be checked because we might delete the uri of the onto from a previous step.
         if(mainOntologyMetadata==null){
             mainOntologyMetadata = new Ontology();
-            mainOntologyMetadata.setName("");
-            mainOntologyMetadata.setNamespacePrefix("");
             mainOntologyMetadata.setNamespaceURI("");
-            License l = new License();
-            mainOntologyMetadata.setLicense(l);
-            mainOntologyMetadata.setSerializations(new HashMap<String, String>());
-            //add default serializations: rdf/xml, n3 and turtle
-            mainOntologyMetadata.addSerialization("RDF/XML", "ontology.xml");
-            mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
-            mainOntologyMetadata.addSerialization("N-Triples", "ontology.n3");
         }
-        citeAs = "";
+        mainOntologyMetadata.setTitle("");
+        mainOntologyMetadata.setReleaseDate("");
+        mainOntologyMetadata.setPreviousVersion("");
+        mainOntologyMetadata.setThisVersion("");
+        mainOntologyMetadata.setLatestVersion("");
+        mainOntologyMetadata.setRevision("");
+        mainOntologyMetadata.setPublisher(new Agent());
+        mainOntologyMetadata.setImportedOntologies(new ArrayList<Ontology>());
+        mainOntologyMetadata.setExtendedOntologies(new ArrayList<Ontology>());
+        mainOntologyMetadata.setName("");
+        mainOntologyMetadata.setNamespacePrefix("");
+        License l = new License();
+        mainOntologyMetadata.setLicense(l);
+        mainOntologyMetadata.setSerializations(new HashMap<String, String>());
+        //add default serializations: rdf/xml, n3 and turtle
+        mainOntologyMetadata.addSerialization("RDF/XML", "ontology.xml");
+        mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
+        mainOntologyMetadata.addSerialization("N-Triples", "ontology.n3");
+        mainOntologyMetadata.setCreators(new ArrayList<Agent>());
+        mainOntologyMetadata.setContributors(new ArrayList<Agent>());
+        mainOntologyMetadata.setCiteAs("");
+        mainOntologyMetadata.setDoi("");
+        mainOntologyMetadata.setStatus("");
         publishProvenance = true;    
         includeAbstract = true;
         includeIntroduction = true;
@@ -197,37 +186,41 @@ public class Configuration {
         useW3CStyle = true;//by default
         error = "";
         addImportedOntologies = false;
-        status = "";
         createHTACCESS = false;
     }
     
     private void loadConfigPropertyFile(String path){
         try {
-            cleanConfig();
+            initializeConfig();
             //this forces the property file to be in UTF 8 instead of the ISO
             propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
             abstractSection = propertyFile.getProperty(Constants.abstractSectionContent);
-            title = propertyFile.getProperty(Constants.ontTitle,"Title goes here");
-            releaseDate = propertyFile.getProperty(Constants.dateOfRelease, "Date of release");
-            previousVersion =propertyFile.getProperty(Constants.previousVersionURI);
-            thisVersion =propertyFile.getProperty(Constants.thisVersionURI);
-            latestVersion =propertyFile.getProperty(Constants.latestVersionURI);
+            mainOntologyMetadata.setTitle (propertyFile.getProperty(Constants.ontTitle,"Title goes here"));
+            mainOntologyMetadata.setReleaseDate(propertyFile.getProperty(Constants.dateOfRelease, "Date of release"));
+            mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.previousVersionURI));
+            mainOntologyMetadata.setThisVersion(propertyFile.getProperty(Constants.thisVersionURI));
+            mainOntologyMetadata.setLatestVersion(propertyFile.getProperty(Constants.latestVersionURI));
             mainOntologyMetadata.setName(propertyFile.getProperty(Constants.ontName));
             mainOntologyMetadata.setNamespacePrefix(propertyFile.getProperty(Constants.ontPrefix));
             mainOntologyMetadata.setNamespaceURI(propertyFile.getProperty(Constants.ontNamespaceURI));
-            revision = propertyFile.getProperty(Constants.ontologyRevision);
-            publisher = new Agent();
+            mainOntologyMetadata.setRevision(propertyFile.getProperty(Constants.ontologyRevision));
+            Agent publisher = new Agent();
             publisher.setName(propertyFile.getProperty(Constants.publisher,""));
             publisher.setURL(propertyFile.getProperty(Constants.publisherURI,""));
+            publisher.setInstitutionName(propertyFile.getProperty(Constants.publisherInstitution, ""));
+            publisher.setInstitutionURL(propertyFile.getProperty(Constants.publisherInstitutionURI, ""));
+            mainOntologyMetadata.setPublisher(publisher);
             String aux = propertyFile.getProperty(Constants.authors,"");
-            String[]names,urls,authorInst;
+            String[] names,urls,authorInst, authorInstURI;
             if(!aux.equals("")){
                 names = aux.split(";");
                 aux = propertyFile.getProperty(Constants.authorsURI,"");
                 urls = aux.split(";");
                 aux = propertyFile.getProperty(Constants.authorsInstitution,"");
                 authorInst = aux.split(";");
+                aux = propertyFile.getProperty(Constants.authorsInstitutionURI,"");
+                authorInstURI = aux.split(";");
                 for(int i =0; i< names.length; i++){
                     Agent a = new Agent();
                     a.setName(names[i]);
@@ -241,7 +234,12 @@ public class Configuration {
                     }catch(Exception e){
                         a.setInstitutionName("");
                     }
-                    creators.add(a);
+                    try{
+                        a.setInstitutionURL(authorInstURI[i]);
+                    }catch(Exception e){
+                        a.setInstitutionURL("");
+                    }
+                    mainOntologyMetadata.getCreators().add(a);
                 }
             }
             aux = propertyFile.getProperty(Constants.contributors,"");
@@ -251,6 +249,8 @@ public class Configuration {
                 urls = aux.split(";");
                 aux = propertyFile.getProperty(Constants.contributorsInstitution,"");
                 authorInst = aux.split(";");
+                aux = propertyFile.getProperty(Constants.contributorsInstitutionURI,"");
+                authorInstURI = aux.split(";");
                 for(int i =0; i< names.length; i++){
                     Agent a = new Agent();
                     a.setName(names[i]);
@@ -264,7 +264,12 @@ public class Configuration {
                     }catch(Exception e){
                         a.setInstitutionName("");
                     }
-                    contributors.add(a);
+                    try{
+                        a.setInstitutionURL(authorInstURI[i]);
+                    }catch(Exception e){
+                        a.setInstitutionURL("");
+                    }
+                    mainOntologyMetadata.getContributors().add(a);
                 }
             }
             aux = propertyFile.getProperty(Constants.importedOntologyNames,"");
@@ -280,7 +285,7 @@ public class Configuration {
                     }catch(Exception e){
                         o.setNamespaceURI("");
                     }
-                    importedOntologies.add(o);
+                    mainOntologyMetadata.getImportedOntologies().add(o);
                 }
             }
             aux = propertyFile.getProperty(Constants.extendedOntologyNames,"");
@@ -296,14 +301,15 @@ public class Configuration {
                     }catch(Exception e){
                         o.setNamespaceURI("");
                     }
-                    extendedOntologies.add(o);
+                    mainOntologyMetadata.getExtendedOntologies().add(o);
                 }
             }
             mainOntologyMetadata.getLicense().setName(propertyFile.getProperty(Constants.licenseName,""));
             mainOntologyMetadata.getLicense().setUrl(propertyFile.getProperty(Constants.licenseURI,""));
             mainOntologyMetadata.getLicense().setIcon(propertyFile.getProperty(Constants.licenseIconURL,""));
-            status = propertyFile.getProperty(Constants.status,"Specification Draft");
-            citeAs = propertyFile.getProperty(Constants.citeAs, "");
+            mainOntologyMetadata.setStatus(propertyFile.getProperty(Constants.status,"Specification Draft"));
+            mainOntologyMetadata.setCiteAs(propertyFile.getProperty(Constants.citeAs, ""));
+            mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.doi, ""));
             //vocabLoadedSerialization = propertyFile.getProperty(TextConstants.deafultSerialization, "RDF/XML");
             String serializationRDFXML = propertyFile.getProperty(Constants.rdf,"");
             if(!"".equals(serializationRDFXML)){
@@ -332,7 +338,7 @@ public class Configuration {
             System.err.println("The ontology could not be read...");
             return;
         }
-        cleanConfig();
+        initializeConfig();
         this.mainOntologyMetadata.setName("[Ontology Name]");
         this.mainOntologyMetadata.setNamespacePrefix("[Ontology NS Prefix]");
         this.mainOntologyMetadata.setNamespaceURI("[Ontology URI]");
@@ -360,16 +366,16 @@ public class Configuration {
                     this.abstractSection = value;
                 }else
                 if(propertyName.equals("title")){
-                    this.title = value;
+                    mainOntologyMetadata.setTitle(value);
                 }else
                 if(propertyName.equals("replaces")||propertyName.equals("wasRevisionOf")){
-                    this.previousVersion = value;
+                    mainOntologyMetadata.setPreviousVersion(value);
                 }else
                 if(propertyName.equals("versionInfo")){
-                    this.revision = value;
+                    mainOntologyMetadata.setRevision(value);
                 }else
                 if(propertyName.equals("versionIRI")){
-                    this.thisVersion = value;
+                    mainOntologyMetadata.setThisVersion(value);
                 }else
                 if(propertyName.equals("preferredNamespacePrefix")){
                     this.mainOntologyMetadata.setNamespacePrefix(value);
@@ -399,20 +405,20 @@ public class Configuration {
                         g.setURL("");
                     }
                     if(propertyName.equals("creator")){
-                        this.creators.add(g);
+                        mainOntologyMetadata.getCreators().add(g);
                     }else if (propertyName.equals("contributor")){
-                        this.contributors.add(g);
+                        mainOntologyMetadata.getContributors().add(g);
                     }else{
-                        this.publisher = g;
+                        mainOntologyMetadata.setPublisher(g);
                     }
                 }else
                 if(propertyName.equals("created")){
-                    if(releaseDate==null || "".equals(releaseDate)){
-                        this.releaseDate = value;
+                    if(mainOntologyMetadata.getReleaseDate()==null || "".equals(mainOntologyMetadata.getReleaseDate())){
+                        mainOntologyMetadata.setReleaseDate(value);
                     }
                 }else
                 if(propertyName.equals("modified")){
-                    releaseDate = value;
+                    mainOntologyMetadata.setReleaseDate(value);
                 }else
                 if(propertyName.equals("imports")){
                     Ontology o = new Ontology();
@@ -423,21 +429,21 @@ public class Configuration {
                         o.setName(value);
                         o.setNamespaceURI("");
                     }
-                    this.importedOntologies.add(o);
+                    mainOntologyMetadata.getImportedOntologies().add(o);
                 }
                 //to do: if property is comment and abstract is null, then complete abstract.
             }
         if(this.mainOntologyMetadata.getName()==null || this.mainOntologyMetadata.getName().equals("")){
-            this.mainOntologyMetadata.setName(this.title);
+            this.mainOntologyMetadata.setName(mainOntologyMetadata.getTitle());
         }
-        if(this.status==null || this.status.equals("")){
-            this.status = "Ontology Specification Draft";
+        if(mainOntologyMetadata.getStatus()==null || mainOntologyMetadata.getStatus().equals("")){
+            mainOntologyMetadata.setStatus("Ontology Specification Draft");
         }
         }catch(Exception e){
             System.err.println("No ontology declared. Ignoring properties");
         }
         //refine license from licensius. This should be optional
-        String licName = null;
+        String licName;
         String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
         if (!lic.isEmpty()&& !lic.equals("unknown"))
         {
@@ -448,11 +454,6 @@ public class Configuration {
         
         System.out.println("Loaded properties from ontology");
     }
-
-    public String getCiteAs() {
-        return citeAs;
-    }
-
     
     private boolean isURL(String s){
         try{
@@ -481,14 +482,6 @@ public class Configuration {
         this.loadConfigPropertyFile(path);
     }
 
-    public ArrayList<Agent> getContributors() {
-        return contributors;
-    }
-
-    public ArrayList<Agent> getCreators() {
-        return creators;
-    }
-
     /**
      * returns the path where the documentation will be generated.
      * @return documentation path
@@ -496,21 +489,6 @@ public class Configuration {
     public String getDocumentationURI() {
         return documentationURI;
     }
-
-    public ArrayList<Ontology> getExtendedOntologies() {
-        return extendedOntologies;
-    }
-
-    public String getRevision() {
-        return revision;
-    }
-
-
-    public String getLatestVersion() {
-        return latestVersion;
-    }
-
-    
 
     public Ontology getMainOntology() {
         return mainOntologyMetadata;
@@ -524,71 +502,14 @@ public class Configuration {
         return this.mainOntologyMetadata.getNamespaceURI();
     }
 
-    public String getPreviousVersion() {
-        return previousVersion;
-    }
-
-    public String getThisVersion() {
-        return thisVersion;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
     public boolean isPublishProvenance() {
         return publishProvenance;
     }
-
-//    public String getProvenanceURI() {
-//        return provenanceURI;
-//    }
-
     
-    
-//    public void setProvenanceURI(String provenanceURI) {
-//        this.provenanceURI = provenanceURI;
-//    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public void setTitle(String title) {
-        if(title==null) this.title= "Untitled ontology";
-        else this.title = title;
-    }
-
-
-    public void setContributors(ArrayList<Agent> contributors) {
-        this.contributors = contributors;
-    }
-
-    public void setCreators(ArrayList<Agent> creators) {
-        this.creators = creators;
-    }
 
     public void setDocumentationURI(String documentationURI) {
         this.documentationURI = documentationURI;
     }
-
-    public void setExtendedOntologies(ArrayList<Ontology> extendedOntologies) {
-        this.extendedOntologies = extendedOntologies;
-    }
-
-    public void setGetRevision(String getRevision) {
-        this.revision = getRevision;
-    }
-
-    public void setLatestVersion(String latestVersion) {
-        this.latestVersion = latestVersion;
-    }
-
-    
 
     public void setMainOntology(Ontology mainOntology) {
         this.mainOntologyMetadata = mainOntology;
@@ -600,14 +521,6 @@ public class Configuration {
 
     public void setOntologyURI(String ontologyURI) {
         this.mainOntologyMetadata.setNamespaceURI(ontologyURI);
-    }
-
-    public void setPreviousVersion(String previousVersion) {
-        this.previousVersion = previousVersion;
-    }
-
-    public void setThisVersion(String thisVersion) {
-        this.thisVersion = thisVersion;
     }
 
     public void setPublishProvenance(boolean publishProvenance) {
@@ -624,10 +537,6 @@ public class Configuration {
 
     public String getIntroductionPath() {
         return introductionPath;
-    }
-
-    public ArrayList<Ontology> getImportedOntologies() {
-        return importedOntologies;
     }
 
     public String getOverviewPath() {
@@ -678,10 +587,6 @@ public class Configuration {
         this.includeAbstract = includeAbstract;
     }
 
-    public void setImportedOntologies(ArrayList<Ontology> importedOntologies) {
-        this.importedOntologies = importedOntologies;
-    }
-
     public void setIncludeDescription(boolean includeDescription) {
         this.includeDescription = includeDescription;
     }
@@ -720,10 +625,6 @@ public class Configuration {
 
     public void setReferencesPath(String referencesPath) {
         this.referencesPath = referencesPath;
-    }
-
-    public void setRevision(String revision) {
-        this.revision = revision;
     }    
     
     public void setFromFile(boolean fromFile) {
@@ -776,14 +677,6 @@ public class Configuration {
         return this.logoMini;
     }
     
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
     private void loadWidocoLogos(){
         try {
             //logo
@@ -800,10 +693,6 @@ public class Configuration {
 
     public void setAbstractSection(String abstractSection) {
         this.abstractSection = abstractSection;
-    }
-    
-    public void setCiteAs(String citeAs) {
-        this.citeAs = citeAs;
     }
 
     public boolean isIncludeAnnotationProperties() {
@@ -927,32 +816,13 @@ public class Configuration {
         this.createHTACCESS = createHTACCESS;
     }
 
-    public OntModel getMainModel() {
-        return mainOntologyModel;
-    }
-
-    public void setMainModel(OntModel model) {
-        this.mainOntologyModel = model;
-    }
-
     public boolean isCreateWebVowlVisualization() {
         return createWebVowlVisualization;
     }
 
     public void setCreateWebVowlVisualization(boolean createWebVowlVisualization) {
         this.createWebVowlVisualization = createWebVowlVisualization;
-    }
-
-    public Agent getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Agent publisher) {
-        this.publisher = publisher;
-    }
-    
-    
-    
+    } 
     
     
 }
