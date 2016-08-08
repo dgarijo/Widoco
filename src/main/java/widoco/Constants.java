@@ -181,7 +181,7 @@ public class Constants {
     
     private static String getPublisher (Agent publisher, Properties l){
         if((publisher.getName()!=null &&
-                !"".equals(publisher.getName())) || !"".equals(publisher.getURL())){
+                !"".equals(publisher.getName())) || (publisher.getURL()!=null && !"".equals(publisher.getURL()))){
             if(publisher.getName()==null && "".equals(publisher.getName())){
                 publisher.setName(publisher.getURL());
             }
