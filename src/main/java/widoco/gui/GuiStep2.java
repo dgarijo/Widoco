@@ -49,6 +49,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
     private final GuiController g;
 //    private HashMap<String,String> properties;
     private final Configuration conf;
+    private static final String WARNING_DEFAULT = "Reloading the properties will erase the values you have already introduced. Are you sure?";
+    private static final String WARNING_LICENSIUS = "This action will reload the properties from the ontology and use Licensius WS to retrieve license metadata. Are you sure?";
     
     /** Creates new form WidocoGui2
      * @param g */
@@ -79,6 +81,11 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.tableProperties.setEnabled(false);
         this.loadMetadataFromOnto.setEnabled(false);
         this.loadMetadataFromDefaultConfigFile.setEnabled(false);
+        this.cancelLoadingProperties.setVisible(false);
+        this.useLicensiusWSCheckBox.setEnabled(false);
+        this.useLicensiusWSCheckBox.setSelected(conf.isUseLicensius());
+        this.cancelLoadingProperties.setVisible(true);
+        
 //        properties = g.getEditableProperties();
 //        refreshTable();
         final GuiStep2 gAux = this;
@@ -130,7 +137,6 @@ public final class GuiStep2 extends javax.swing.JFrame {
     }
     
     public void refreshPropertyTable(){
-//        properties = g.getEditableProperties();
         refreshTable();
     }
     
@@ -142,9 +148,10 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.languageButton.setEnabled(true);
         this.labelStatusReading.setVisible(false);
         this.tableProperties.setEnabled(true);
-        
         this.loadMetadataFromOnto.setEnabled(true);
         this.loadMetadataFromDefaultConfigFile.setEnabled(true);
+        this.useLicensiusWSCheckBox.setEnabled(true);
+        this.cancelLoadingProperties.setVisible(false);
         
     }
     
@@ -314,6 +321,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         labelCurrentLanguage1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        cancelLoadingProperties = new javax.swing.JToggleButton();
+        useLicensiusWSCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 2: Load the metadata");
@@ -431,7 +440,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
             }
         });
 
-        labelStatusReading.setText("Loading ontology ...");
+        labelStatusReading.setText("Loading ...");
 
         jLabel1.setText("Generating documentation for language:");
 
@@ -451,6 +460,21 @@ public final class GuiStep2 extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Select the languages in which the documentation will be generated");
+
+        cancelLoadingProperties.setText("Cancel loading");
+        cancelLoadingProperties.setToolTipText("");
+        cancelLoadingProperties.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelLoadingPropertiesActionPerformed(evt);
+            }
+        });
+
+        useLicensiusWSCheckBox.setText("Use Licensius WS");
+        useLicensiusWSCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useLicensiusWSCheckBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -477,36 +501,37 @@ public final class GuiStep2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(labelCurrentLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(labelCurrentLanguage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGap(36, 36, 36)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(languageButton)
-                                            .addGap(53, 135, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(labelStatusReading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(labelCurrentLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(labelTitle)
-                                    .addComponent(jLabel3))
-                                .addGap(0, 180, Short.MAX_VALUE)))))
+                                    .addComponent(jLabel3)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(loadMetadataFromOnto, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel2)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(labelCurrentLanguage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGap(36, 36, 36)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(languageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                                    .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                                    .addComponent(useLicensiusWSCheckBox)))
+                                            .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelStatusReading, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cancelLoadingProperties))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -536,7 +561,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(languageButton)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,16 +569,16 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(loadMetadataFromOnto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(labelStatusReading)
-                                .addGap(5, 5, 5)))
-                        .addComponent(loadMetadataFromDefaultConfigFile))
-                    .addComponent(barStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(loadMetadataFromOnto)
+                            .addComponent(cancelLoadingProperties)
+                            .addComponent(useLicensiusWSCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(loadMetadataFromDefaultConfigFile)
+                            .addComponent(labelStatusReading)))
+                    .addComponent(barStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -586,7 +611,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
             loadMetadataFromDefaultConfigFile.setSelected(false);
         }
         if(loadMetadataFromOnto.isSelected()){
-            if(showReloadWarning()==JOptionPane.OK_OPTION){
+            if(showReloadWarning(WARNING_DEFAULT)==JOptionPane.OK_OPTION){
                 this.barStatus.setVisible(true);
                 this.barStatus.setIndeterminate(true);
                 this.saveMetadata();//we save the metadata before checking: the URI could have changed.
@@ -594,18 +619,25 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 this.backButton.setEnabled(false);
                 this.nextButton.setEnabled(false);
                 this.languageButton.setEnabled(false);
+                useLicensiusWSCheckBox.setEnabled(true);
+                this.cancelLoadingProperties.setVisible(true);
             }else{
                 loadMetadataFromOnto.setSelected(false);
+                useLicensiusWSCheckBox.setEnabled(false);
             }
+        }else{
+            useLicensiusWSCheckBox.setEnabled(false);
         }
     }//GEN-LAST:event_loadMetadataFromOntoActionPerformed
 
-    private int showReloadWarning(){
-        return JOptionPane.showConfirmDialog(this, "Reloading the properties will erase the values you have already introduced. Are you sure?", "Warning", JOptionPane.YES_NO_OPTION);
+    private int showReloadWarning(String message){
+        return JOptionPane.showConfirmDialog(this, message, "Warning", JOptionPane.YES_NO_OPTION);
     }
     
     private void loadMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataButtonActionPerformed
-        //To do: reload the config file from another .properties file.
+        this.useLicensiusWSCheckBox.setEnabled(false);
+        this.loadMetadataFromOnto.setSelected(false);
+        this.loadMetadataFromDefaultConfigFile.setSelected(false);
         JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -620,11 +652,12 @@ public final class GuiStep2 extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void loadMetadataFromDefaultConfigFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMetadataFromDefaultConfigFileActionPerformed
+        useLicensiusWSCheckBox.setEnabled(false);
         if(loadMetadataFromDefaultConfigFile.isSelected() && loadMetadataFromOnto.isSelected()){
             loadMetadataFromOnto.setSelected(false);
         }
         if(loadMetadataFromDefaultConfigFile.isSelected()){
-            if(showReloadWarning()==JOptionPane.OK_OPTION){
+            if(showReloadWarning(WARNING_DEFAULT)==JOptionPane.OK_OPTION){
                 //load metadata from the default property file.
                 //taken from config
                 try{
@@ -680,6 +713,19 @@ public final class GuiStep2 extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_languageButtonActionPerformed
 
+    private void cancelLoadingPropertiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelLoadingPropertiesActionPerformed
+        g.switchState("finishedLoading");
+    }//GEN-LAST:event_cancelLoadingPropertiesActionPerformed
+
+    private void useLicensiusWSCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useLicensiusWSCheckBoxActionPerformed
+        if(useLicensiusWSCheckBox.isSelected()){
+            conf.setUseLicensius(true);
+            loadMetadataFromOntoActionPerformed(evt);
+        }else{
+            conf.setUseLicensius(false);
+        }
+    }//GEN-LAST:event_useLicensiusWSCheckBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -719,6 +765,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JProgressBar barStatus;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JToggleButton cancelLoadingProperties;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -739,6 +786,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
     private javax.swing.JButton saveMetadataButton;
     private javax.swing.JTable tableProperties;
     private javax.swing.JTextPane textPaneSteps;
+    private javax.swing.JCheckBox useLicensiusWSCheckBox;
     private javax.swing.JLabel widocoLogo;
     // End of variables declaration//GEN-END:variables
 }

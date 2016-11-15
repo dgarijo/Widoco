@@ -111,6 +111,7 @@ public class Configuration {
     private File tmpFolder; //file where different auxiliary resources might be copied to
     private boolean createHTACCESS;
     private boolean createWebVowlVisualization;
+    private boolean useLicensius;//optional usage of Licensius service.
     
     public Configuration() {
         initializeConfig();
@@ -126,7 +127,7 @@ public class Configuration {
         try{
             URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
             String path = (new File(root.toURI())).getParentFile().getPath();
-            loadConfigPropertyFile(path+File.separator+Constants.configPath);
+            loadPropertyFile(path+File.separator+Constants.configPath);
         }catch(URISyntaxException e){
             System.err. println("Error while loading the default property file: " +e.getMessage());
         }
@@ -141,6 +142,29 @@ public class Configuration {
     public void initializeConfig(){
         //initialization of variables (in case something fails)
         abstractSection = "";
+        publishProvenance = true;    
+        includeAbstract = true;
+        includeIntroduction = true;
+        includeOverview = true;
+        includeDescription = true;
+        includeReferences = true;
+        includeCrossReferenceSection = true;
+        includeAnnotationProperties = false;
+        includeNamedIndividuals = true;
+        if(languages==null){
+            currentLanguage = "en";
+            languages = new HashMap<String, Boolean>();
+            languages.put("en", false);
+        }
+        useW3CStyle = true;//by default
+        error = "";
+        addImportedOntologies = false;
+        createHTACCESS = false;
+        useLicensius = false;
+        initializeOntology();
+    }
+    
+    private void initializeOntology(){
         //this has to be checked because we might delete the uri of the onto from a previous step.
         if(mainOntologyMetadata==null){
             mainOntologyMetadata = new Ontology();
@@ -169,29 +193,11 @@ public class Configuration {
         mainOntologyMetadata.setCiteAs("");
         mainOntologyMetadata.setDoi("");
         mainOntologyMetadata.setStatus("");
-        publishProvenance = true;    
-        includeAbstract = true;
-        includeIntroduction = true;
-        includeOverview = true;
-        includeDescription = true;
-        includeReferences = true;
-        includeCrossReferenceSection = true;
-        includeAnnotationProperties = false;
-        includeNamedIndividuals = true;
-        if(languages==null){
-            currentLanguage = "en";
-            languages = new HashMap<String, Boolean>();
-            languages.put("en", false);
-        }
-        useW3CStyle = true;//by default
-        error = "";
-        addImportedOntologies = false;
-        createHTACCESS = false;
     }
     
-    private void loadConfigPropertyFile(String path){
+    private void loadPropertyFile(String path){
         try {
-            initializeConfig();
+            initializeOntology();
             //this forces the property file to be in UTF 8 instead of the ISO
             propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
@@ -338,7 +344,7 @@ public class Configuration {
             System.err.println("The ontology could not be read...");
             return;
         }
-        initializeConfig();
+        initializeOntology();
         this.mainOntologyMetadata.setName("[Ontology Name]");
         this.mainOntologyMetadata.setNamespacePrefix("[Ontology NS Prefix]");
         this.mainOntologyMetadata.setNamespaceURI("[Ontology URI]");
@@ -347,7 +353,7 @@ public class Configuration {
             OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
             this.mainOntologyMetadata.setNamespaceURI(onto.getURI());
             this.mainOntologyMetadata.setName(onto.getLocalName());
-            Iterator it = onto.listProperties();//model.getResource("http://purl.org/net/wf-motifs").listProperties();
+            Iterator it = onto.listProperties();
             String propertyName, value;
             while(it.hasNext()){
                 Statement s = (Statement) it.next();
@@ -442,14 +448,15 @@ public class Configuration {
         }catch(Exception e){
             System.err.println("No ontology declared. Ignoring properties");
         }
-        //refine license from licensius. This should be optional
-        String licName;
-        String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
-        if (!lic.isEmpty()&& !lic.equals("unknown"))
-        {
-            mainOntologyMetadata.getLicense().setUrl(lic);
-            licName = GetLicense.getTitle(lic);
-            mainOntologyMetadata.getLicense().setName(licName);
+        if(isUseLicensius()){
+            String licName;
+            String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
+            if (!lic.isEmpty()&& !lic.equals("unknown"))
+            {
+                mainOntologyMetadata.getLicense().setUrl(lic);
+                licName = GetLicense.getTitle(lic);
+                mainOntologyMetadata.getLicense().setName(licName);
+            }
         }
         
         System.out.println("Loaded properties from ontology");
@@ -479,7 +486,7 @@ public class Configuration {
     }
     
     public void reloadPropertyFile(String path){
-        this.loadConfigPropertyFile(path);
+        this.loadPropertyFile(path);
     }
 
     /**
@@ -679,7 +686,6 @@ public class Configuration {
     
     private void loadWidocoLogos(){
         try {
-            //logo
             this.logo = ImageIO.read(ClassLoader.getSystemResource("logo/logo2.png"));
             this.logoMini = ImageIO.read(ClassLoader.getSystemResource("logo/logomini100.png"));
         } catch (IOException e) {
@@ -773,7 +779,6 @@ public class Configuration {
         languages.put(currentLanguage, true);
         System.out.println("Doc successfully generated for lang "+ currentLanguage);
         currentLanguage = getNextLanguageToGenerateDoc();
-//        System.out.println("Next lang "+ currentLanguage);
     }
     
       public boolean isUseW3CStyle() {
@@ -800,13 +805,6 @@ public class Configuration {
         this.addImportedOntologies = addImportedOntologies;
     }
 
-//    public void setVocabSerialization(String vocabSerialization) {
-//        this.vocabLoadedSerialization = vocabSerialization;
-//    }
-//
-//    public String getVocabSerialization() {
-//        return vocabLoadedSerialization;
-//    }
 
     public boolean isCreateHTACCESS() {
         return createHTACCESS;
@@ -823,6 +821,16 @@ public class Configuration {
     public void setCreateWebVowlVisualization(boolean createWebVowlVisualization) {
         this.createWebVowlVisualization = createWebVowlVisualization;
     } 
+
+    public boolean isUseLicensius() {
+        return useLicensius;
+    }
+
+    public void setUseLicensius(boolean useLicensius) {
+        this.useLicensius = useLicensius;
+    }
+    
+    
     
     
 }
