@@ -72,7 +72,7 @@ public final class GuiController {
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
-                includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false;
+                includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false;
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -129,9 +129,12 @@ public final class GuiController {
             else if(s.equals("-webVowl")){
                 webVowl = true;
             }
+            else if (s.equals("-licensius")){
+                licensius = true;
+            }
             else{
                 System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess]\n");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius]\n");
                 return;
             }
             i++;
@@ -151,6 +154,7 @@ public final class GuiController {
         this.config.setUseImported(includeImportedOntologies);
         this.config.setCreateHTACCESS(htAccess);
         this.config.setCreateWebVowlVisualization(webVowl);
+        this.config.setUseLicensius(licensius);
         if(languages!=null){
             config.removeLanguageToGenerate("en");//default
             for (String language : languages) {
@@ -265,14 +269,14 @@ public final class GuiController {
                     this.gui.dispose();
                     gui = new GuiStep5(this, true);
                     gui.setVisible(true);
-                }
-                else {//next
-                    state = State.metadata;
-                    this.gui.dispose();
-                    gui = new GuiStep2(this);
-                    gui.setVisible(true);
-                    switchState("loadOntologyProperties");
-                }
+                }else
+                    if(input.equals("next")){
+                        state = State.metadata;
+                        this.gui.dispose();
+                        gui = new GuiStep2(this);
+                        gui.setVisible(true);
+                        switchState("loadOntologyProperties");
+                    }
                 break;
             case metadata:
                 if(input.equals("back")){
@@ -283,12 +287,8 @@ public final class GuiController {
                 }else{
                     if(input.equals("loadOntologyProperties")){    
                         state = State.loadingConfig;
-                        if(config.getMainOntology().getMainModel() == null){
-                            this.startLoadingPropertiesFromOntology(true);                    
-                        }else{
-                            switchState("finishedLoading");
-                        }
-                    }else{//next
+                        this.startLoadingPropertiesFromOntology(true);                    
+                    }else if(input.equals("next")){//next
                         state = State.sections;
                         this.gui.dispose();
                         gui = new GuiStep3(this);
@@ -312,8 +312,9 @@ public final class GuiController {
                     this.gui.dispose();
                     gui = new GuiStep2(this);
                     gui.setVisible(true);
-                    switchState("loadOntologyProperties");
-                }else{//next
+                    ((GuiStep2)gui).refreshPropertyTable();
+                    ((GuiStep2)gui).stopLoadingAnimation();
+                }else if(input.equals("next")){
                     state = State.loading;
                     this.startGeneratingDoc();
                 }
@@ -383,10 +384,6 @@ public final class GuiController {
             }
         }
     }
-    
-//    public void generateDoc(boolean considerImportedOntologies, boolean considerImportedClosure, boolean useReasoner){
-//        //this method will invoke the LODE transformation to get the html and then get the resultant html for our needs.
-//    }
     
     public static void main(String[] args){
         GuiController guiController;
