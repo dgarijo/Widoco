@@ -180,16 +180,16 @@ public class Constants {
     }
     
     private static String getPublisher (Agent publisher, Properties l){
-        if(publisher.getName()!=null &&
-                !"".equals(publisher.getName()) && !"".equals(publisher.getURL())){
-            if(publisher.getName()!=null && !"".equals(publisher.getName())){
+        if((publisher.getName()!=null &&
+                !"".equals(publisher.getName())) || (publisher.getURL()!=null && !"".equals(publisher.getURL()))){
+            if(publisher.getName()==null && "".equals(publisher.getName())){
                 publisher.setName(publisher.getURL());
             }
             String c="<dl><dt>"+l.getProperty("publisher")+"</dt>\n";
             ArrayList<Agent> p = new ArrayList<Agent>();
             p.add(publisher);
             c+=getAgents(p);
-            c = c.replace("dc:creator schema:author", "dc:publisher");//fix annotations
+            c = c.replace("dc:creator schema:author", "dc:publisher schema:publisher");//fix annotations
             return c +"</dl>\n";                   
         }
         return "";
