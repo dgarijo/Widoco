@@ -4,7 +4,10 @@ Author: Daniel Garijo
 
 Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
 
-To download Widoco, check the latest release (https://github.com/dgarijo/Widoco/releases/latest).
+Download the executable
+===================
+
+To download Widoco JAR, check the latest release (https://github.com/dgarijo/Widoco/releases/latest).
 
 Description
 ==========
