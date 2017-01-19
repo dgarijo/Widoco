@@ -4,6 +4,11 @@ Author: Daniel Garijo
 
 Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
 
+Download the executable
+===================
+
+To download Widoco JAR, check the latest release (https://github.com/dgarijo/Widoco/releases/latest).
+
 Description
 ==========
 Widoco helps you to create a complete documentation of your ontology, by following a series of steps in a wizard. We reuse the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used.
