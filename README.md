@@ -54,7 +54,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -65,6 +65,8 @@ The -confFile allows you to choose your own configuration file for the ontology 
 The -oops flag creates an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
 
 The -rewriteAll option will tell Widoco to rewrite files if the new generate files are replacing existing files. Otherwise the tool will promt a window asking the user.
+
+The -crossRef option will ONLY generate the overview and cross reference sections. The index document will NOT be generated. The htaccess, provenance page, etc., will not be generated unless requested by other flags. This flag in intended to be used only after a first version of the documentation exists.
 
 The -saveConfig option allows you to save a configuration file on the "configOutFile" route with the properties of a given ontology.
 

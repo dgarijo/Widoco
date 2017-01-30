@@ -72,6 +72,7 @@ public class Configuration {
     private boolean includeCrossReferenceSection;//needed for skeleton
     private boolean includeAnnotationProperties;
     private boolean includeNamedIndividuals;
+    private boolean includeIndex;
     private String abstractPath;
     private String introductionPath;
     private String overviewPath;
@@ -151,6 +152,7 @@ public class Configuration {
         includeCrossReferenceSection = true;
         includeAnnotationProperties = false;
         includeNamedIndividuals = true;
+        includeIndex = true;
         if(languages==null){
             currentLanguage = "en";
             languages = new HashMap<String, Boolean>();
@@ -481,6 +483,7 @@ public class Configuration {
     public boolean getOverWriteAll(){
         return overwriteAll;
     }
+    
     public boolean isFromFile() {
         return fromFile;
     }
@@ -582,6 +585,12 @@ public class Configuration {
         return includeCrossReferenceSection;
     }
 
+    public boolean isIncludeIndex() {
+        return includeIndex;
+    }
+    
+    
+
     public void setAbstractPath(String abstractPath) {
         this.abstractPath = abstractPath;
     }
@@ -617,6 +626,12 @@ public class Configuration {
     public void setIncludeCrossReferenceSection(boolean includeCrossReferenceSection) {
         this.includeCrossReferenceSection = includeCrossReferenceSection;
     }
+
+    public void setIncludeIndex(boolean includeIndex) {
+        this.includeIndex = includeIndex;
+    }
+    
+    
 
     public void setIntroductionPath(String introductionPath) {
         this.introductionPath = introductionPath;

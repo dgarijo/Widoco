@@ -108,7 +108,9 @@ public class CreateResources {
                 }
             }
         }
-        createIndexDocument(folderOut,c, lode, languageFile);
+        if(c.isIncludeIndex()){
+            createIndexDocument(folderOut,c, lode, languageFile);
+        }
     }
     
     public static void generateSkeleton(String folderOut, Configuration c, Properties l){
