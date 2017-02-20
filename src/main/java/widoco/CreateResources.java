@@ -334,8 +334,8 @@ public class CreateResources {
             textProperties+=Constants.licenseName+"="+conf.getMainOntology().getLicense().getName()+"\n";
             textProperties+=Constants.licenseIconURL+"="+conf.getMainOntology().getLicense().getIcon()+"\n";
             textProperties+=Constants.citeAs+"="+conf.getMainOntology().getCiteAs()+"\n";
-            textProperties+=Constants.doi+"="+conf.getMainOntology().getDoi()+"\n";
-            textProperties+=Constants.status+"="+conf.getMainOntology().getStatus()+"\n";
+            textProperties+=Constants.DOI+"="+conf.getMainOntology().getDoi()+"\n";
+            textProperties+=Constants.STATUS+"="+conf.getMainOntology().getStatus()+"\n";
             if(conf.getMainOntology().getPublisher()!=null){
                 textProperties+=Constants.publisher+"="+conf.getMainOntology().getPublisher().getName()+"\n";
                 textProperties+=Constants.publisherURI+"="+conf.getMainOntology().getPublisher().getURL()+"\n";
@@ -429,16 +429,16 @@ public class CreateResources {
             //serializations
             HashMap<String,String> serializations = conf.getMainOntology().getSerializations();
             if(serializations.containsKey("RDF/XML")){
-                textProperties+=Constants.rdf+"="+serializations.get("RDF/XML")+"\n";
+                textProperties+=Constants.RDF+"="+serializations.get("RDF/XML")+"\n";
             }
             if(serializations.containsKey("TTL")){
-                textProperties+=Constants.ttl+"="+serializations.get("TTL")+"\n";
+                textProperties+=Constants.TTL+"="+serializations.get("TTL")+"\n";
             }
             if(serializations.containsKey("N-Triples")){
-                textProperties+=Constants.n3+"="+serializations.get("N-Triples")+"\n";
+                textProperties+=Constants.N3+"="+serializations.get("N-Triples")+"\n";
             }
             if(serializations.containsKey("JSON-LD")){
-                textProperties+=Constants.json+"="+serializations.get("JSON-LD")+"\n";
+                textProperties+=Constants.JSON+"="+serializations.get("JSON-LD")+"\n";
             }
             //copy the result into the file
             Writer writer = null;

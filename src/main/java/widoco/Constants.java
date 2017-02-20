@@ -17,6 +17,7 @@ package widoco;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
@@ -35,6 +36,8 @@ public class Constants {
     public static final int licensiusTimeOut = 10000;
     
     public static final int oopsTimeOut = 30000;
+    
+    public static final String WEBVOWL_SERVICE = "http://vowl.visualdataweb.org/webvowl/index.html#iri=";
     
     public static final String[] vocabPossibleSerializations = {"application/rdf+xml","text/turtle","text/n3"};
     /**
@@ -71,15 +74,19 @@ public class Constants {
     public static final String licenseURI="licenseURI";
     public static final String licenseIconURL="licenseIconURL";
     public static final String citeAs="citeAs";
-    public static final String doi="DOI";
-    public static final String rdf="RDFXMLSerialization";
-    public static final String ttl="TurtleSerialization";
-    public static final String n3="N3Serialization";
-    public static final String json="JSONLDSerialization";
+    public static final String DOI="DOI";
+    public static final String RDF="RDFXMLSerialization";
+    public static final String TTL="TurtleSerialization";
+    public static final String N3="N3Serialization";
+    public static final String JSON="JSONLDSerialization";
 //    public static final String deafultSerialization="deafultSerialization";
-    public static final String status="status";
+    /**Property that will retrieve the status of the document from the property file**/
+    public static final String STATUS="status";
     
-    public static final String opening= "<!DOCTYPE html>\n<html prefix=\"dc: http://purl.org/dc/terms/ schema: http://schema.org/ prov: http://www.w3.org/ns/prov# foaf: http://xmlns.com/foaf/0.1/ owl: http://www.w3.org/2002/07/owl#\">\n"
+    /**
+     * Head section of the HTML document.
+     */
+    public static final String OPENING= "<!DOCTYPE html>\n<html>\n"
             + "<head>\n"
             + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n";
     //missing specialization. Missing alternate
@@ -129,7 +136,7 @@ public class Constants {
     }
     public static final String ending="</body></html>";
     
-    //given a list of agents, this method gets it as a String
+    //given a list of agents, this method gets it as an html String
     private static String getAgents(ArrayList<Agent> auth){
         String agents ="";
         try{
@@ -143,7 +150,7 @@ public class Constants {
                     i++;
                 }
                 if(currAuth.getURL()!=null &&!"".equals(currAuth.getURL())){
-                    agents+="<dd><a property=\"dc:creator schema:author prov:wasAttributedTo\" resource=\""+currAuth.getURL()+"\" href=\""+currAuth.getURL()+"\">"+authorName+"</a>";
+                    agents+="<dd><a href=\""+currAuth.getURL()+"\">"+authorName+"</a>";
                 }else{
                     agents+="<dd>"+authorName;
                 }
@@ -175,7 +182,6 @@ public class Constants {
     private static String getContributors(ArrayList<Agent> contrib, Properties l) {
         String c="<dl><dt>"+l.getProperty("contributors")+"</dt>\n";
         c+=getAgents(contrib);
-        c = c.replace("dc:creator schema:author", "dc:contributor schema:contributor");//fix annotations
         return c +"</dl>\n";                   
     }
     
@@ -189,7 +195,6 @@ public class Constants {
             ArrayList<Agent> p = new ArrayList<Agent>();
             p.add(publisher);
             c+=getAgents(p);
-            c = c.replace("dc:creator schema:author", "dc:publisher schema:publisher");//fix annotations
             return c +"</dl>\n";                   
         }
         return "";
@@ -208,7 +213,7 @@ public class Constants {
                 i++;
             }
             if(currentOnto.getNamespaceURI()!=null && !"".equals(currentOnto.getNamespaceURI())){
-                ontologies+="<dd><a property=\"owl:imports schema:mentions\" resource=\""+currentOnto.getNamespaceURI()+"\" href=\""+currentOnto.getNamespaceURI()+"\">"+currentOntoName+"</a></dd>";
+                ontologies+="<dd><a href=\""+currentOnto.getNamespaceURI()+"\">"+currentOntoName+"</a></dd>";
             }
             else{
                 ontologies+="<dd>"+currentOntoName+"</dd>";
@@ -244,8 +249,98 @@ public class Constants {
     	return ns;
     }
     
+    /**
+     * Serialization of the JSON LD for the ontology specification.
+     * Given that I have faced some serialization issues, I serialize it by hand,
+     * using basic properties.
+     * @param c
+     * @return 
+     */
+    public static String getJSONLDSnippet(Configuration c){
+        Ontology o = c.getMainOntology();
+        String metadata = "\n\n<!-- SCHEMA.ORG METADATA -->\n<script type=\"application/ld+json\">{\"@context\":\"http://schema.org\",\"@type\":\"TechArticle\","
+                + "\"url\":\""+o.getNamespaceURI()+"\","
+                + "\"image\":\""+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\",";
+        //name (mandatory)
+        metadata +="\"name\":";
+        if(o.getTitle()!=null && !"".equals(o.getTitle())){
+            metadata +="\""+o.getTitle()+"\"";
+        }else{
+            metadata +="\""+o.getNamespaceURI()+"\"";
+        }
+        //headline (mandatory)
+        metadata+=", \"headline\":";
+        if(c.getAbstractSection()!=null && !"".equals(c.getAbstractSection())){
+            metadata +="\""+c.getAbstractSection()+"\"";
+        }else {
+            metadata +="\"Document describing the ontology "+o.getNamespaceURI()+"\"";
+        }
+        //release date (mandatory)
+        metadata+=", \"datePublished\":";
+        if(o.getReleaseDate()!=null && !"".equals(o.getReleaseDate())){
+            metadata +="\""+o.getReleaseDate()+"\"";
+        }else{
+            metadata +="\""+(new Date()).toString()+"\"";
+        }
+        //version (optional)
+        if(o.getRevision()!=null && !"".equals(o.getRevision())){
+            metadata +=", \"version\":\""+o.getRevision()+"\"";
+        }
+        //license (optional)
+        if(o.getLicense()!=null && o.getLicense().getUrl()!=null 
+                && !"".equals(o.getLicense().getUrl())){
+            metadata +=", \"license\":\""+o.getLicense().getUrl()+"\"";
+        }
+        //authors (optional)
+        ArrayList<Agent> a = o.getCreators();
+        if (!a.isEmpty()){
+            metadata +=", \"author\":[";
+            Iterator<Agent> it = a.iterator();
+            while (it.hasNext()){
+                Agent aux = it.next();
+                metadata += "{\"@type\":\"Person\",";
+                if(aux.getName()!=null && !"".equals(aux.getName())){
+                    metadata += "\"name\":\""+aux.getName()+"\"";
+                }
+                if(aux.getURL()!=null && !"".equals(aux.getURL())){
+                    metadata += ",\"url\":\""+aux.getURL()+"\"";
+                }
+                metadata +="}";
+                if(it.hasNext()){
+                    metadata +=",";
+                }
+            }
+            metadata +="]";
+        }
+        //contributors (optional)
+        ArrayList<Agent> co = o.getContributors();
+        if (!co.isEmpty()){
+            metadata +=", \"contributor\":[";
+            Iterator<Agent> it = co.iterator();
+            while (it.hasNext()){
+                Agent aux = it.next();
+                metadata += "{\"@type\":\"Person\",";
+                if(aux.getName()!=null && !"".equals(aux.getName())){
+                    metadata += "\"name\":\""+aux.getName()+"\"";
+                }
+                if(aux.getURL()!=null && !"".equals(aux.getURL())){
+                    metadata += ",\"url\":\""+aux.getURL()+"\"";
+                }
+                metadata +="}";
+                if(it.hasNext()){
+                    metadata +=",";
+                }
+            }
+            metadata +="]";
+        }
+        metadata+="}</script>\n\n";
+        return metadata;
+        //note to self: should clean up to avoid doing the same loop twice.
+    }
+    
     public static String getIndexDocument(String resourcesFolderName,Configuration c, LODEParser l, Properties lang){
-        String document=opening;
+        String document=OPENING;
+        /*Style selection*/
         if(c.isUseW3CStyle()){
             document+= " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/primer.css\" media=\"screen\" />   " +
                      " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/rec.css\" media=\"screen\" />   " +
@@ -256,6 +351,8 @@ public class Constants {
             document+= " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/yeti.css\" media=\"screen\" />   " +
                      " <link rel=\"stylesheet\" href=\""+resourcesFolderName+"/site.css\" media=\"screen\" />";
         }
+        //JSON-LD snippet
+        document += getJSONLDSnippet(c);
         document += "<script src=\""+resourcesFolderName+"/jquery.js\"></script> \n" +
                     "<script src=\""+resourcesFolderName+"/marked.min.js\"></script> \n" +
                      "    <script> \n" +
@@ -302,22 +399,8 @@ public class Constants {
                      "    </script> \n" +
                      "  </head> \n" +
                      "\n" +
-                    //missing specialization. Missing alterante
-                    //I assume the namespace prefix of the ontology is provided
-                    "<body resource=\""+c.getMainOntology().getNamespaceURI()+"\" typeOf=\"owl:Ontology schema:TechArticle\">\n"+
-//                //RDF-a Annotations
-                     "<span resource=\"\" typeOf=\"foaf:Document schema:WebPage\">\n";
-        if(c.getMainOntology().getReleaseDate()!=null && !"".equals(c.getMainOntology().getReleaseDate())){
-            document+="<span property=\"dc:created schema:dateCreated\" content=\""+c.getMainOntology().getReleaseDate()+"\"></span>\n";
-         }
-        if(c.getMainOntology().getLatestVersion()!=null && !"".equals(c.getMainOntology().getLatestVersion())){
-            document+="<span property=\"dc:isVersionOf prov:specializationOf\" resource=\""+c.getMainOntology().getLatestVersion()+"\"></span>\n";
-        }
-        if(c.getMainOntology().getPreviousVersion()!=null && !"".equals(c.getMainOntology().getPreviousVersion())){
-            document+="<span property=\"prov:alternateOf prov:revisionOf\" resource=\""+c.getMainOntology().getPreviousVersion()+"\"></span>\n";
-        }
-            document+="<span property=\"dc:contributor prov:wasAttributedTo schema:contributor\" resource=\"http://purl.org/net/dgarijo\"></span>\n"+
-                        "</span>\n";
+                    "<body>\n";
+                    ;
         document += getHeadSection(c, lang);
         document += getStatus(c);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
@@ -344,10 +427,9 @@ public class Constants {
         }
         head+="</div>\n";
         if(c.getMainOntology().getTitle()!=null &&!"".equals(c.getMainOntology().getTitle()))
-            head+="<h1 property=\"dc:title schema:name\">"+c.getMainOntology().getTitle()+"</h1>\n";
+            head+="<h1>"+c.getMainOntology().getTitle()+"</h1>\n";
         if(c.getMainOntology().getReleaseDate()!=null && !"".equals(c.getMainOntology().getReleaseDate()))
-            head+="<span property=\"dc:modified schema:dateModified\" content=\""+c.getMainOntology().getReleaseDate()+"\"></span>\n"+
-                    "<h2>"+l.getProperty("date")+" "+c.getMainOntology().getReleaseDate()+"</h2>\n";
+            head+="<h2>"+l.getProperty("date")+" "+c.getMainOntology().getReleaseDate()+"</h2>\n";
         if(c.getMainOntology().getThisVersion()!=null && !"".equals(c.getMainOntology().getThisVersion()))
             head+="<dl>\n"+
                     "<dt>"+l.getProperty("thisVersion")+"</dt>\n"+
@@ -360,32 +442,17 @@ public class Constants {
         if(c.getMainOntology().getPreviousVersion()!=null && !"".equals(c.getMainOntology().getPreviousVersion()))
             head+= "<dl>\n"+
                     "<dt>"+l.getProperty("previousVersion")+"</dt>\n"+
-                    "<dd><a property=\"schema:significantLink prov:wasRevisionOf\" href=\""+c.getMainOntology().getPreviousVersion()+"\">"+c.getMainOntology().getPreviousVersion()+"</a></dd>\n"+
+                    "<dd><a href=\""+c.getMainOntology().getPreviousVersion()+"\">"+c.getMainOntology().getPreviousVersion()+"</a></dd>\n"+
                     "</dl>\n";
         if(c.getMainOntology().getRevision()!=null && !"".equals(c.getMainOntology().getRevision()))
             head +="<dt>"+l.getProperty("revision")+"</dt>\n"+
-                    "<dd property=\"schema:version\">"+c.getMainOntology().getRevision()+"</dd>\n";
+                    "<dd>"+c.getMainOntology().getRevision()+"</dd>\n";
         if(!c.getMainOntology().getCreators().isEmpty())
             head += getAuthors(c.getMainOntology().getCreators(),l)+"\n";
         if(!c.getMainOntology().getContributors().isEmpty())
             head += getContributors(c.getMainOntology().getContributors(),l)+"\n";
         if(c.getMainOntology().getPublisher()!=null){
             head += getPublisher(c.getMainOntology().getPublisher(), l);
-            /*
-            String publisherName = c.getPublisher().getName();
-            String publisherURL = c.getPublisher().getURL();
-            if(publisherURL == null ||publisherURL.equals("")){
-                publisherURL = "http://example.org/insertPublisherURIHere";
-            }
-            if(publisherName == null || publisherName.equals("")){
-                publisherName = publisherURL;
-            }
-            //avoid including a publisher by default
-            if(!publisherName.equals("http://example.org/insertPublisherURIHere") || 
-                    !publisherURL.equals("http://example.org/insertPublisherURIHere")){
-                head += "<dl><dt>"+l.getProperty("publisher")+"</dt>"+"\n"
-                        + "<dd><a href="+publisherURL+" target=\"_blank\">"+publisherName+"</a></dd></dl>\n";
-            }*/
         }
         if(!c.getMainOntology().getImportedOntologies().isEmpty())
             head += getImports(c.getMainOntology().getImportedOntologies(),l)+"\n";
@@ -405,10 +472,9 @@ public class Constants {
             if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty("licenseURLIfNull");
             if(lname == null || "".equals(lname)) lname = l.getProperty("licenseIfNull");
             head+="<dl><dt>"+l.getProperty("license")+"</dt><dd>"
-                    + "<a rel=\"license\" href=\""+licenseURL+"\" target=\"_blank\"><img src =\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\" alt=\""+licenseURL+"\"></img></a>\n"+
-                    "<span property=\"dc:license\" resource=\""+licenseURL+"\"></span>\n";
+                    + "<a href=\""+licenseURL+"\" target=\"_blank\"><img src =\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\" alt=\""+licenseURL+"\"></img></a>\n";
             if(c.getMainOntology().getLicense().getIcon()!=null && !"".equals(c.getMainOntology().getLicense().getIcon())){
-                head+="<a property=\"dc:rights\" href=\""+licenseURL+"\" rel=\"license\" target=\"_blank\">\n" +
+                head+="<a href=\""+licenseURL+"\" rel=\"license\" target=\"_blank\">\n" +
                 "<img src=\""+c.getMainOntology().getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
                 "</a>\n<br/>";
             }
@@ -418,7 +484,7 @@ public class Constants {
         if(c.isCreateWebVowlVisualization()){
             head+="<dl><dt>"+l.getProperty("visualization")+"</dt>"
                 + "<dd>"
-                + "<a href=\"http://vowl.visualdataweb.org/webvowl/index.html#iri="+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
+                + "<a href=\""+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
                 + "</dd>"
                 + "</dl>\n";
         }

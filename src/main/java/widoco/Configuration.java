@@ -315,23 +315,23 @@ public class Configuration {
             mainOntologyMetadata.getLicense().setName(propertyFile.getProperty(Constants.licenseName,""));
             mainOntologyMetadata.getLicense().setUrl(propertyFile.getProperty(Constants.licenseURI,""));
             mainOntologyMetadata.getLicense().setIcon(propertyFile.getProperty(Constants.licenseIconURL,""));
-            mainOntologyMetadata.setStatus(propertyFile.getProperty(Constants.status,"Specification Draft"));
+            mainOntologyMetadata.setStatus(propertyFile.getProperty(Constants.STATUS,"Specification Draft"));
             mainOntologyMetadata.setCiteAs(propertyFile.getProperty(Constants.citeAs, ""));
-            mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.doi, ""));
+            mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.DOI, ""));
             //vocabLoadedSerialization = propertyFile.getProperty(TextConstants.deafultSerialization, "RDF/XML");
-            String serializationRDFXML = propertyFile.getProperty(Constants.rdf,"");
+            String serializationRDFXML = propertyFile.getProperty(Constants.RDF,"");
             if(!"".equals(serializationRDFXML)){
                 mainOntologyMetadata.addSerialization("RDF/XML", serializationRDFXML);
             }
-            String serializationTTL = propertyFile.getProperty(Constants.ttl,"");
+            String serializationTTL = propertyFile.getProperty(Constants.TTL,"");
             if(!"".equals(serializationTTL)){
                 mainOntologyMetadata.addSerialization("TTL", serializationTTL);
             }
-            String serializationN3 = propertyFile.getProperty(Constants.n3,"");
+            String serializationN3 = propertyFile.getProperty(Constants.N3,"");
             if(!"".equals(serializationN3)){
                 mainOntologyMetadata.addSerialization("N-Triples", serializationN3);
             }
-            String serializationJSONLD = propertyFile.getProperty(Constants.json,"");
+            String serializationJSONLD = propertyFile.getProperty(Constants.JSON,"");
             if(!"".equals(serializationJSONLD)){
                 mainOntologyMetadata.addSerialization("JSON-LD", serializationJSONLD);
             }
