@@ -178,7 +178,7 @@ public final class GuiController {
         }
         if(!isFromFile)this.config.setOntologyURI(ontology);
         //we load the model locally so we can use it.
-        WidocoUtils.loadModel(config);
+        WidocoUtils.loadModelToDocument(config);
         if(getOntoMetadata){
             config.loadPropertiesFromOntology(config.getMainOntology().getMainModel());
         }

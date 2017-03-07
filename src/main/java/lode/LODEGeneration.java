@@ -78,7 +78,6 @@ public class LODEGeneration {
             String result = "";
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();			
             OWLOntology ontology;
-//            ontology = manager.loadOntology(IRI.create("https://raw.githubusercontent.com/wf4ever/ro/master/ro.owl"));
             ontology= manager.loadOntologyFromOntologyDocument(new File(ontologyURL));
 //            
 //            else{

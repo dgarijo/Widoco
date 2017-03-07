@@ -38,15 +38,34 @@ import java.util.zip.ZipInputStream;
  * @author Daniel Garijo
  */
 public class WidocoUtils {
-    public static void loadModel(Configuration c){
+    /**
+     * Method that will download the ontology to document with Widoco.
+     * @param c Widoco configuration object.
+     */
+    public static void loadModelToDocument(Configuration c){
         OntModel model = ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();
         if(!c.isFromFile()){
-            //if the vocabulary is from a URI, I download it locally. This is done
-            //because Jena doesn't handle https very well.
-            for(String serialization: Constants.vocabPossibleSerializations){
+            String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"Ontology";
+            downloadOntology(c.getOntologyURI(), newOntologyPath);
+            c.setFromFile(true);
+            c.setOntologyPath(newOntologyPath);
+        }
+        readModel(model, c);
+        c.getMainOntology().setMainModel(model);
+    }
+    
+    /**
+     * Method that will download an ontology given its URI, doing content negotiation
+     * The ontology will be downloaded in the first serialization available
+     * (see Constants.POSSIBLE_VOCAB_SERIALIZATIONS)
+     * @param uri the URI of the ontology
+     * @param downloadPath path where the ontology will be saved locally.
+     */
+    public static void downloadOntology(String uri, String downloadPath){
+        for(String serialization: Constants.POSSIBLE_VOCAB_SERIALIZATIONS){
                 System.out.println("Attempting to download vocabulary in "+serialization);
                 try{
-                    URL url = new URL(c.getOntologyURI());
+                    URL url = new URL(uri);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.setInstanceFollowRedirects(true);
@@ -72,23 +91,17 @@ public class WidocoUtils {
                             redirect=false;
                     }
                     InputStream in = (InputStream) connection.getInputStream();
-                    String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"Ontology";
-                    Files.copy(in, Paths.get(newOntologyPath), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(in, Paths.get(downloadPath), StandardCopyOption.REPLACE_EXISTING);
                     in.close();
-                    c.setFromFile(true);
-                    c.setOntologyPath(newOntologyPath);
                     break; //if the vocabulary is downloaded, then we don't download it for the other serializations
                 }catch(Exception e){
                     System.err.println("Failed to download vocabulary in "+serialization);
                 }
             }
-            
-        }
-        readModel(model, c);
-        c.getMainOntology().setMainModel(model);
     }
     
     /**
+     * Method that reads a local file and loads it into the configuration.
      * @param model
      * @param ontoPath
      * @param ontoURL 

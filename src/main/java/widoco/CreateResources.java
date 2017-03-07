@@ -16,6 +16,7 @@
 
 package widoco;
 
+import diff.CompareOntologies;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -90,9 +91,14 @@ public class CreateResources {
         if(c.isPublishProvenance()){
             createProvenancePage(folderOut+File.separator+"provenance", c, languageFile);
         }
-        
-        //here copy the vocabulary to the right folder
-//        WidocoUtils.copyExternalResource(c.getOntologyPath(), new File(folderOut+File.separator+"ontology.owl"));
+        if(c.isIncludeChangeLog()){
+            if(c.getMainOntology().getPreviousVersion()!=null &&!"".equals(c.getMainOntology().getPreviousVersion())){
+                createChangeLog(folderOut+File.separator+"sections", c, languageFile);
+            }else{
+                System.out.println("No previous version provided. No changelog produced!");
+            }
+        }
+    
         //serialize the model in different serializations.
         HashMap<String,String> s = c.getMainOntology().getSerializations();
         for(String serialization:s.keySet()){
@@ -134,12 +140,42 @@ public class CreateResources {
         saveDocument(path+File.separator+"provenance-"+c.getCurrentLanguage()+".ttl", Constants.getProvenanceRDF(c),c);
     }
     
+    /**
+     * Method that creates an htaccess file for content negotiation
+     * @param path where to save the file
+     * @param c configuration with the information of the current settings
+     */
     private static void createHTACCESSFile(String path, Configuration c){
         saveDocument(path,Constants.getHTACCESS(c), c);
     }
-    
+    /**
+     * Method that creates a 406 page in case the user ir requesting an unsupported serialization
+     * @param path where to save the file
+     * @param c configuration with the information of the current settings
+     * @lang patameter with the language properties document with the translations
+     */
     private static void create406Page(String path, Configuration c, Properties lang) {
         saveDocument(path,Constants.get406(c,lang), c);
+    }
+    
+    /**
+     * Method that creates the change log for the ontology, automatically.
+     * @param path
+     * @param c
+     * @param lang 
+     */
+    private static void createChangeLog(String path, Configuration c, Properties lang){
+        try{
+            System.out.println("Attempting to generate an automated changelog\nDownloading old ontology "+c.getMainOntology().getPreviousVersion());
+            String oldVersionPath = c.getTmpFile().getAbsolutePath()+File.separator+"OLDOntology";
+            WidocoUtils.downloadOntology(c.getMainOntology().getPreviousVersion(), oldVersionPath);
+            CompareOntologies comparison = new CompareOntologies(oldVersionPath, c.getOntologyPath());
+            saveDocument(path+File.separator+"changelog-"+c.getCurrentLanguage()+".html", Constants.getChangeLogSection(c, comparison, lang),c);
+            System.out.println("Changelog successfully created");
+        }catch(Exception e){
+            System.out.println("Could not generate changelog: "+e.getMessage());
+        }
+        
     }
     
     /**
@@ -177,23 +213,23 @@ public class CreateResources {
         }else{
             String overViewSection = Constants.getOverviewSection(c, lang);
             if(!"".equals(classesList) && classesList!=null){
-                overViewSection+=("<h4>"+lang.getProperty("classes")+"</h4>\n");
+                overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_CLASSES)+"</h4>\n");
                 overViewSection+=(classesList);
             }
             if(!"".equals(propList) && propList!=null){
-                overViewSection+=("<h4>"+lang.getProperty("objProp")+"</h4>");
+                overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_OBJ_PROP)+"</h4>");
                 overViewSection+=(propList);
             }
             if(!"".equals(dataPropList) && dataPropList!=null){
-                overViewSection+=("<h4>"+lang.getProperty("dataProp")+"</h4>");
+                overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_DATA_PROP)+"</h4>");
                 overViewSection+=(dataPropList);
             }
             if(!"".equals(annotationProps) && annotationProps!=null && c.isIncludeAnnotationProperties()){
-                overViewSection+=("<h4>"+lang.getProperty("annProp")+"</h4>");
+                overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_ANN_PROP)+"</h4>");
                 overViewSection+=(annotationProps);
             }
             if(!"".equals(namedIndividuals) && namedIndividuals!=null && c.isIncludeNamedIndividuals()){
-                overViewSection+=("<h4>"+lang.getProperty("namedIndiv")+"</h4>");
+                overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_NAMED_INDIV)+"</h4>");
                 overViewSection+=(namedIndividuals);
             }
             saveDocument(path+File.separator+"overview-"+c.getCurrentLanguage()+".html", overViewSection,c);
@@ -320,27 +356,27 @@ public class CreateResources {
     
     public static void saveConfigFile(String path, Configuration conf)throws IOException{
         String textProperties = "\n";//the first line I leave an intro because there have been problems.
-            textProperties+=Constants.abstractSectionContent+"="+conf.getAbstractSection()+"\n";
-            textProperties+=Constants.ontTitle+"="+conf.getMainOntology().getTitle()+"\n";
-            textProperties+=Constants.ontPrefix+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
-            textProperties+=Constants.ontNamespaceURI+"="+conf.getMainOntology().getNamespaceURI()+"\n";
-            textProperties+=Constants.ontName+"="+conf.getMainOntology().getName()+"\n";
-            textProperties+=Constants.thisVersionURI+"="+conf.getMainOntology().getThisVersion()+"\n";
-            textProperties+=Constants.latestVersionURI+"="+conf.getMainOntology().getLatestVersion()+"\n";
-            textProperties+=Constants.previousVersionURI+"="+conf.getMainOntology().getPreviousVersion()+"\n";
-            textProperties+=Constants.dateOfRelease+"="+conf.getMainOntology().getReleaseDate()+"\n";
-            textProperties+=Constants.ontologyRevision+"="+conf.getMainOntology().getRevision()+"\n";
-            textProperties+=Constants.licenseURI+"="+conf.getMainOntology().getLicense().getUrl()+"\n";
-            textProperties+=Constants.licenseName+"="+conf.getMainOntology().getLicense().getName()+"\n";
-            textProperties+=Constants.licenseIconURL+"="+conf.getMainOntology().getLicense().getIcon()+"\n";
-            textProperties+=Constants.citeAs+"="+conf.getMainOntology().getCiteAs()+"\n";
+            textProperties+=Constants.ABSTRACT_SECTION_CONTENT+"="+conf.getAbstractSection()+"\n";
+            textProperties+=Constants.ONT_TITLE+"="+conf.getMainOntology().getTitle()+"\n";
+            textProperties+=Constants.ONT_PREFIX+"="+conf.getMainOntology().getNamespacePrefix()+"\n";
+            textProperties+=Constants.ONT_NAMESPACE_URI+"="+conf.getMainOntology().getNamespaceURI()+"\n";
+            textProperties+=Constants.ONT_NAME+"="+conf.getMainOntology().getName()+"\n";
+            textProperties+=Constants.THIS_VERSION_URI+"="+conf.getMainOntology().getThisVersion()+"\n";
+            textProperties+=Constants.LATEST_VERSION_URI+"="+conf.getMainOntology().getLatestVersion()+"\n";
+            textProperties+=Constants.PREVIOUS_VERSION+"="+conf.getMainOntology().getPreviousVersion()+"\n";
+            textProperties+=Constants.DATE_OF_RELEASE+"="+conf.getMainOntology().getReleaseDate()+"\n";
+            textProperties+=Constants.ONTOLOGY_REVISION+"="+conf.getMainOntology().getRevision()+"\n";
+            textProperties+=Constants.LICENSE_URI+"="+conf.getMainOntology().getLicense().getUrl()+"\n";
+            textProperties+=Constants.LICENSE_NAME+"="+conf.getMainOntology().getLicense().getName()+"\n";
+            textProperties+=Constants.LICENSE_ICON_URL+"="+conf.getMainOntology().getLicense().getIcon()+"\n";
+            textProperties+=Constants.CITE_AS+"="+conf.getMainOntology().getCiteAs()+"\n";
             textProperties+=Constants.DOI+"="+conf.getMainOntology().getDoi()+"\n";
             textProperties+=Constants.STATUS+"="+conf.getMainOntology().getStatus()+"\n";
             if(conf.getMainOntology().getPublisher()!=null){
-                textProperties+=Constants.publisher+"="+conf.getMainOntology().getPublisher().getName()+"\n";
-                textProperties+=Constants.publisherURI+"="+conf.getMainOntology().getPublisher().getURL()+"\n";
-                textProperties+=Constants.publisherInstitution+"="+conf.getMainOntology().getPublisher().getInstitutionName()+"\n";
-                textProperties+=Constants.publisherInstitutionURI+"="+conf.getMainOntology().getPublisher().getInstitutionURL()+"\n";
+                textProperties+=Constants.PUBLISHER+"="+conf.getMainOntology().getPublisher().getName()+"\n";
+                textProperties+=Constants.PUBLISHER_URI+"="+conf.getMainOntology().getPublisher().getURL()+"\n";
+                textProperties+=Constants.PUBLISHER_INSTITUTION+"="+conf.getMainOntology().getPublisher().getInstitutionName()+"\n";
+                textProperties+=Constants.PUBLISHER_INSTITUTION_URI+"="+conf.getMainOntology().getPublisher().getInstitutionURL()+"\n";
             }
             String authors="", authorURLs="", authorInstitutions="",authorInstitutionURLs="";
             ArrayList<Agent> ag = conf.getMainOntology().getCreators();
@@ -362,10 +398,10 @@ public class CreateResources {
                 if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
                 if(ag.get(ag.size()-1).getInstitutionURL()!=null) authorInstitutionURLs+=ag.get(ag.size()-1).getInstitutionURL();
             }
-            textProperties+=Constants.authors+"="+authors+"\n";
-            textProperties+=Constants.authorsURI+"="+authorURLs+"\n";
-            textProperties+=Constants.authorsInstitution+"="+authorInstitutions+"\n";
-            textProperties+=Constants.authorsInstitutionURI+"="+authorInstitutionURLs+"\n";
+            textProperties+=Constants.AUTHORS+"="+authors+"\n";
+            textProperties+=Constants.AUTHORS_URI+"="+authorURLs+"\n";
+            textProperties+=Constants.AUTHORS_INSTITUTION+"="+authorInstitutions+"\n";
+            textProperties+=Constants.AUTHORS_INSTITUTION_URI+"="+authorInstitutionURLs+"\n";
             
             ag = conf.getMainOntology().getContributors();
             authors=""; 
@@ -389,10 +425,10 @@ public class CreateResources {
                 if(ag.get(ag.size()-1).getInstitutionName()!=null) authorInstitutions+=ag.get(ag.size()-1).getInstitutionName();
                 if(ag.get(ag.size()-1).getInstitutionURL()!=null) authorInstitutionURLs+=ag.get(ag.size()-1).getInstitutionURL();
             }
-            textProperties+=Constants.contributors+"="+authors+"\n";
-            textProperties+=Constants.contributorsURI+"="+authorURLs+"\n";
-            textProperties+=Constants.contributorsInstitution+"="+authorInstitutions+"\n";
-            textProperties+=Constants.contributorsInstitutionURI+"="+authorInstitutionURLs+"\n";
+            textProperties+=Constants.CONTRIBUTORS+"="+authors+"\n";
+            textProperties+=Constants.CONTRIBUTORS_URI+"="+authorURLs+"\n";
+            textProperties+=Constants.CONTRIBUTORS_INSTITUTION+"="+authorInstitutions+"\n";
+            textProperties+=Constants.CONTRIBUTORS_INSTITUTION_URI+"="+authorInstitutionURLs+"\n";
             String importedNames="", importedURIs="";
             ArrayList<Ontology> imported = conf.getMainOntology().getImportedOntologies();
             if(!imported.isEmpty()){
@@ -407,8 +443,8 @@ public class CreateResources {
                 if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
                 if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
             }
-            textProperties+=Constants.importedOntologyNames+"="+importedNames+"\n";
-            textProperties+=Constants.importedOntologyURIs+"="+importedURIs+"\n";
+            textProperties+=Constants.IMPORTED_ONTOLOGY_NAMES+"="+importedNames+"\n";
+            textProperties+=Constants.IMPORTED_ONTOLOGY_URIS+"="+importedURIs+"\n";
             imported = conf.getMainOntology().getExtendedOntologies();
             importedNames = "";
             importedURIs = "";
@@ -424,8 +460,8 @@ public class CreateResources {
                 if(imported.get(imported.size()-1).getName()!=null) importedNames+=imported.get(imported.size()-1).getName();
                 if(imported.get(imported.size()-1).getNamespaceURI()!=null) importedURIs+=imported.get(imported.size()-1).getNamespaceURI();
             }
-            textProperties+=Constants.extendedOntologyNames+"="+importedNames+"\n";
-            textProperties+=Constants.extendedOntologyURIs+"="+importedURIs+"\n";
+            textProperties+=Constants.EXTENDED_ONTOLOGY_NAMES+"="+importedNames+"\n";
+            textProperties+=Constants.EXTENDED_ONTOLOGY_URIS+"="+importedURIs+"\n";
             //serializations
             HashMap<String,String> serializations = conf.getMainOntology().getSerializations();
             if(serializations.containsKey("RDF/XML")){

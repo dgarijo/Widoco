@@ -46,6 +46,10 @@ public class GuiStep3 extends javax.swing.JFrame {
     public GuiStep3(GuiController g) {
         this.g = g;
         initComponents();
+        initializeGUI();
+    }
+    
+    private void initializeGUI(){
         Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
         this.setIconImage(g.getConfig().getWidocoLogoMini());
@@ -73,8 +77,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         if(!g.getConfig().isPublishProvenance())checkBoxProv.setSelected(false);
         checkBoxHTAccess.setSelected(true);
         checkBoxWebVowl.setSelected(true);
-        //if(g.isDiagram())
-                        
+        checkBoxAutomatedChangeLog.setSelected(true);
     }
 
     /** This method is called from within the constructor to
@@ -118,6 +121,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         customRadioButton = new javax.swing.JRadioButton();
         checkBoxHTAccess = new javax.swing.JCheckBox();
         checkBoxWebVowl = new javax.swing.JCheckBox();
+        checkBoxAutomatedChangeLog = new javax.swing.JCheckBox();
         labelDescription = new javax.swing.JLabel();
         widocoLogo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -258,6 +262,8 @@ public class GuiStep3 extends javax.swing.JFrame {
 
         checkBoxWebVowl.setText("Add link to WebVowl visualization");
 
+        checkBoxAutomatedChangeLog.setText("Include change log from last version");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -270,9 +276,12 @@ public class GuiStep3 extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(addImportedOntologiesCheckBox)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(checkBoxHTAccess, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                            .addComponent(checkBoxHTAccess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(checkBoxWebVowl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(checkBoxWebVowl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(219, 219, 219))
+                            .addComponent(checkBoxAutomatedChangeLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(104, 104, 104))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,12 +355,14 @@ public class GuiStep3 extends javax.swing.JFrame {
                 .addComponent(checkBoxHTAccess)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxWebVowl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxAutomatedChangeLog)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(w3C)
                     .addComponent(customRadioButton)
                     .addComponent(jLabel1))
-                .addGap(13, 13, 13))
+                .addGap(10, 10, 10))
         );
 
         labelDescription.setText("<html>Select the sections you want your document to have.<br/> If you have a section you want to load, click on the \"Load\" button.<br/> The diagram of the ontology will be created on the \"images\" folder of the documentation.</html>");
@@ -420,9 +431,9 @@ public class GuiStep3 extends javax.swing.JFrame {
                         .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)))
-                .addGap(13, 13, 13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -479,6 +490,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         g.getConfig().setUseImported(addImportedOntologiesCheckBox.isSelected());
         g.getConfig().setCreateHTACCESS(checkBoxHTAccess.isSelected());
         g.getConfig().setCreateWebVowlVisualization(checkBoxWebVowl.isSelected());
+        g.getConfig().setIncludeChangeLog(checkBoxAutomatedChangeLog.isSelected());
     }
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -573,6 +585,7 @@ public class GuiStep3 extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cancelButton;
     private javax.swing.JCheckBox checkBoxAbstract;
+    private javax.swing.JCheckBox checkBoxAutomatedChangeLog;
     private javax.swing.JCheckBox checkBoxDescription;
     private javax.swing.JCheckBox checkBoxHTAccess;
     private javax.swing.JCheckBox checkBoxIntro;
