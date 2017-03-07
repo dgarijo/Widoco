@@ -44,6 +44,10 @@ public class GuiStep5 extends javax.swing.JFrame {
     public GuiStep5(GuiController g, boolean isSkeleton) {
         initComponents();
         this.g = g;
+        initializeGUI(isSkeleton);
+    }
+    
+    private void initializeGUI(boolean isSkeleton){
         Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
         this.setIconImage(g.getConfig().getWidocoLogoMini());

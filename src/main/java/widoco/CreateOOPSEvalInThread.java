@@ -71,6 +71,7 @@ public class CreateOOPSEvalInThread implements Runnable{
                 br.close();
             }
             eval = new OOPSevaluation("",content);
+            //eval = new OOPSevaluation(c.getMainOntology().getNamespaceURI(),"");
                         
             evaluation = eval.printEvaluation();
             //SAVE File

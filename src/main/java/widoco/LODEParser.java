@@ -131,27 +131,27 @@ public class LODEParser {
                 if(attrID.equals("classes")){
                     classList = getTermList(html.item(i));
                     classes = nodeToString(html.item(i));
-                    classes = classes.replace("<h2>"+langFile.getProperty("classes")+"</h2>", "<h3 id=\"classes\" class=\"list\">"+langFile.getProperty("classes")+"</h3>");
+                    classes = classes.replace("<h2>"+langFile.getProperty(Constants.LANG_CLASSES)+"</h2>", "<h3 id=\"classes\" class=\"list\">"+langFile.getProperty(Constants.LANG_CLASSES)+"</h3>");
                 }
                 else if(attrID.equals("objectproperties")){
                     propertyList =getTermList(html.item(i));
                     properties = (nodeToString(html.item(i)));
-                    properties = properties.replace("<h2>"+langFile.getProperty("objProp")+"</h2>", "<h3 id=\"properties\" class=\"list\">"+langFile.getProperty("objProp")+"</h3>");
+                    properties = properties.replace("<h2>"+langFile.getProperty(Constants.LANG_OBJ_PROP)+"</h2>", "<h3 id=\"properties\" class=\"list\">"+langFile.getProperty(Constants.LANG_OBJ_PROP)+"</h3>");
                 }
                 else if(attrID.equals("dataproperties")){
                     dataPropList = (getTermList(html.item(i)));
                     dataProp = (nodeToString(html.item(i)));
-                    dataProp = dataProp.replace("<h2>"+langFile.getProperty("dataProp")+"</h2>", "<h3 id=\"dataproperties\" class=\"list\">"+langFile.getProperty("dataProp")+"</h3>");
+                    dataProp = dataProp.replace("<h2>"+langFile.getProperty(Constants.LANG_DATA_PROP)+"</h2>", "<h3 id=\"dataproperties\" class=\"list\">"+langFile.getProperty(Constants.LANG_DATA_PROP)+"</h3>");
                 }
                 else if(attrID.equals("annotationproperties")){
                     annotationPropList = (getTermList(html.item(i)));
                     annotationProp = (nodeToString(html.item(i)));
-                    annotationProp = annotationProp.replace("<h2>"+langFile.getProperty("annProp")+"</h2>", "<h3 id=\"annotationproperties\" class=\"list\">"+langFile.getProperty("annProp")+"</h3>");
+                    annotationProp = annotationProp.replace("<h2>"+langFile.getProperty(Constants.LANG_ANN_PROP)+"</h2>", "<h3 id=\"annotationproperties\" class=\"list\">"+langFile.getProperty(Constants.LANG_ANN_PROP)+"</h3>");
                 }
                 else if(attrID.equals("namedindividuals")){
                     namedIndividualList = (getTermList(html.item(i)));
                     namedIndividuals = (nodeToString(html.item(i)));
-                    namedIndividuals = namedIndividuals.replace("<h2>"+langFile.getProperty("namedIndiv")+"</h2>", "<h3 id=\"namedindividuals\" class=\"list\">"+langFile.getProperty("namedIndiv")+"</h3>");
+                    namedIndividuals = namedIndividuals.replace("<h2>"+langFile.getProperty(Constants.LANG_NAMED_INDIV)+"</h2>", "<h3 id=\"namedindividuals\" class=\"list\">"+langFile.getProperty(Constants.LANG_NAMED_INDIV)+"</h3>");
                 }
                 else if(attrID.equals("namespacedeclarations")){
                     Node namespace = html.item(i);

@@ -24,9 +24,7 @@ package widoco.gui;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -47,6 +45,11 @@ public class GuiStep1 extends javax.swing.JFrame {
     public GuiStep1(GuiController g) {
         this.g = g;
         initComponents();
+        initializeGUI();
+        
+    }
+    
+    private void initializeGUI(){
         //loading logo
         Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
@@ -85,7 +88,6 @@ public class GuiStep1 extends javax.swing.JFrame {
         
         //to do: if we are going back, get the configuration, load the parameters.
         //if not, do as above.
-        
     }
 
     /** This method is called from within the constructor to

@@ -38,14 +38,14 @@ public class GetLicense {
        
     String output="unknown";
     try {
-        String uri=Constants.licensiusURIServiceLicenseInfo;
+        String uri=Constants.LICENSIUS_URI_SEVICE_LICENSE_INFO;
         String encodedData = URLEncoder.encode(uriToScan);
         uri+=encodedData;
         System.out.println(uri);
         URL url = new URL(uri);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
-        conn.setConnectTimeout(Constants.licensiusTimeOut);
+        conn.setConnectTimeout(Constants.LICENSIUS_TIME_OUT);
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("Content-Length", String.valueOf(encodedData.length()));
@@ -75,7 +75,7 @@ public class GetLicense {
 public static String getFirstLicenseFound(String uriToScan) {
     String output="unknown";
     try {
-        String uri=Constants.licensiusURIServiceLicense;
+        String uri=Constants.LICENSUS_URI_SERVICE_LICENSE;
         String encodedData = URLEncoder.encode(uriToScan);
         uri+=encodedData;
         System.out.println(uri);
@@ -85,7 +85,7 @@ public static String getFirstLicenseFound(String uriToScan) {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("Content-Length", String.valueOf(encodedData.length()));
-        conn.setConnectTimeout(Constants.licensiusTimeOut);
+        conn.setConnectTimeout(Constants.LICENSIUS_TIME_OUT);
         if (conn.getResponseCode() != 200) {
             throw new RuntimeException("HTTP error code : "+ conn.getResponseCode());
         }

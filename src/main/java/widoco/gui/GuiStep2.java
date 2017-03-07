@@ -58,6 +58,10 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.g =g;
         conf = g.getConfig();
         initComponents();
+        initializeGUI();
+    }
+    
+    private void initializeGUI(){
         Image l = g.getConfig().getWidocoLogo().getScaledInstance(widocoLogo.getWidth(), widocoLogo.getHeight(), Image.SCALE_SMOOTH);
         widocoLogo.setIcon(new ImageIcon(l));
         this.setIconImage(g.getConfig().getWidocoLogoMini());

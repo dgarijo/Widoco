@@ -70,7 +70,7 @@ public class OOPSevaluation {
 		String uri = "http://oops-ws.oeg-upm.net/rest";
 		URL url = new URL(uri);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(Constants.oopsTimeOut);
+                connection.setConnectTimeout(Constants.OOPS_TIME_OUT);
 		connection.setRequestMethod("POST");
 		connection.setDoOutput(true);
 		connection.setRequestProperty("Connection", "Keep-Alive");

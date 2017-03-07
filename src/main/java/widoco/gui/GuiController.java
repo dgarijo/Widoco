@@ -72,7 +72,8 @@ public final class GuiController {
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
-                includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false;
+                includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false,
+                generateOnlyCrossRef = false;
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -106,6 +107,9 @@ public final class GuiController {
             else if(s.equals("-rewriteAll")){
                 rewriteAll = true;
             }
+            else if(s.equals("-crossRef")){
+                generateOnlyCrossRef = true;
+            }
             else if(s.equals("-getOntologyMetadata")){
                 getOntoMetadata = true;
             }
@@ -134,7 +138,7 @@ public final class GuiController {
             }
             else{
                 System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius]\n");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius]\n");
                 return;
             }
             i++;
@@ -145,6 +149,17 @@ public final class GuiController {
         } catch (Exception ex) {
             System.err.println("Error while creating the temporal files");
             errors=true;
+        }
+        if(generateOnlyCrossRef){
+            this.config.setIncludeIndex(false);
+            this.config.setIncludeAbstract(false);
+            this.config.setIncludeIntroduction(false);
+            this.config.setIncludeOverview(true);
+            this.config.setIncludeDescription(false);
+            this.config.setIncludeCrossReferenceSection(true);
+            this.config.setIncludeReferences(false);
+            this.config.setCreateHTACCESS(false);
+            this.config.setPublishProvenance(false);
         }
         this.config.setFromFile(isFromFile);
         this.config.setDocumentationURI(outFolder);
@@ -163,7 +178,7 @@ public final class GuiController {
         }
         if(!isFromFile)this.config.setOntologyURI(ontology);
         //we load the model locally so we can use it.
-        WidocoUtils.loadModel(config);
+        WidocoUtils.loadModelToDocument(config);
         if(getOntoMetadata){
             config.loadPropertiesFromOntology(config.getMainOntology().getMainModel());
         }
