@@ -1,20 +1,23 @@
 package diff;
 
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 import widoco.Constants;
 
@@ -145,19 +148,19 @@ public class OntologyDifferencesRenderer {
         String v = "";
         Iterator<OWLAxiomInfo> i = set.iterator();
         while (i.hasNext()) {
-            OWLAxiomInfo classAxiomSet = i.next();
+            OWLAxiomInfo axiomSet = i.next();
             //we print the whole url of the new property and link to the document reference.
-            v+="<li><a href=\"#"+classAxiomSet.getIRIAsString().replace(ns, "")+"\">"+classAxiomSet.getIRIAsString()+"</a>\n";
+            v+="<li><a href=\"#"+axiomSet.getIRIAsString().replace(ns, "")+"\">"+axiomSet.getIRIAsString()+"</a>\n";
             if(showAdditions && 
-                    classAxiomSet.getNewAxioms()!=null && !classAxiomSet.getNewAxioms().isEmpty()){
+                    axiomSet.getNewAxioms()!=null && !axiomSet.getNewAxioms().isEmpty()){
                 v+="<ul>\n";
-                v+=axiomSetToHTML(classAxiomSet.getNewAxioms(), true, lang);
+                v+=axiomSetToHTML(axiomSet.getNewAxioms(), true, lang);
                 v+="</ul>\n";
             }
             if(showDeletions &&
-                    classAxiomSet.getDeletedAxioms()!=null && !classAxiomSet.getDeletedAxioms().isEmpty()){
+                    axiomSet.getDeletedAxioms()!=null && !axiomSet.getDeletedAxioms().isEmpty()){
                 v+="<ul>\n";
-                v+=axiomSetToHTML(classAxiomSet.getDeletedAxioms(), false, lang);
+                v+=axiomSetToHTML(axiomSet.getDeletedAxioms(), false, lang);
                 v+="</ul>\n";
             }
             v+="</li>\n";
@@ -174,35 +177,80 @@ public class OntologyDifferencesRenderer {
             message=lang.getProperty(Constants.LANG_DELETED)+": ";
         }
         for(OWLAxiom f:set){
-            v+="<li>";
-            if(f instanceof OWLSubClassOfAxiom){
-                v+=message+lang.getProperty(Constants.LANG_SUBCLASS_OF) +" "+ ((OWLSubClassOfAxiom)f).getSuperClass().asOWLClass().getIRI();
-            }else if(f instanceof OWLSubPropertyAxiom){
-                v+=message+lang.getProperty(Constants.LANG_SUBPROP_OF) +" "+ ((OWLObjectPropertyImpl)((OWLSubPropertyAxiom)f).getSuperProperty()).getIRI();
-            }else if(f instanceof OWLObjectPropertyDomainAxiom){
-                v+=message+Constants.LANG_DOMAIN+" "+((OWLObjectPropertyDomainAxiom)f).getDomain().asOWLClass().getIRI();
-            }else if(f instanceof OWLDataPropertyDomainAxiom){
-                v+=message+Constants.LANG_DOMAIN+" "+((OWLDataPropertyDomainAxiom)f).getDomain().asOWLClass().getIRI();
-            }else if(f instanceof OWLObjectPropertyRangeAxiom){
-                v+=message+Constants.LANG_RANGE+" "+((OWLObjectPropertyRangeAxiom)f).getRange().asOWLClass().getIRI();
-            }else if(f instanceof OWLDataPropertyRangeAxiom){
-                v+=message+Constants.LANG_RANGE+" "+((OWLDataPropertyRangeAxiom)f).getRange().asOWLDatatype().getIRI();
-            }else if(f instanceof OWLAnnotationAssertionAxiom){
-                v+= message+((OWLAnnotationAssertionAxiom)f).getProperty().toString() +" "+ ((OWLAnnotationAssertionAxiom)f).getValue().toString();
-            }else{
-                //other less typical axioms
-                v+=message+f.getAxiomType().getName()+" "+f.toString().replace("<", "&lt;").replace(">", "&gt;");
-            }
-            /**
-             * To add if we want to refine
-             * OWLDisjointClassesAxiom, OWLDisjointDataPropertiesAxiom, OWLDisjointObjectPropertiesAxiom,
-             * OWLEquivalentClassesAxiom, OWLEquivalentDataPropertiesAxiom, OWLEquivalentObjectPropertiesAxiom, 
-             * OWLFunctionalDataPropertyAxiom, OWLFunctionalObjectPropertyAxiom,
-             */
-            v+="</li>\n";
+            try{
+                v+="<li>";
+                if(f instanceof OWLSubClassOfAxiom){
+                    v+=message+lang.getProperty(Constants.LANG_SUBCLASS_OF) +" "+ ((OWLSubClassOfAxiom)f).getSuperClass().asOWLClass().getIRI();
+                }else if(f instanceof OWLSubPropertyAxiom){
+                    OWLPropertyExpression prop = ((OWLSubPropertyAxiom)f).getSuperProperty();
+                    if(prop instanceof OWLObjectPropertyImpl){
+                        v+=message+lang.getProperty(Constants.LANG_SUBPROP_OF) +" "+ ((OWLObjectPropertyImpl)prop).getIRI();
+                    }else if(prop instanceof OWLDataPropertyImpl){
+                        v+=message+lang.getProperty(Constants.LANG_SUBPROP_OF) +" "+ ((OWLDataPropertyImpl)prop).getIRI();
+                    }
+                }else if(f instanceof OWLObjectPropertyDomainAxiom){
+                    v+=message+Constants.LANG_DOMAIN+" "+expressionToHTML(((OWLObjectPropertyDomainAxiom)f).getDomain(), lang);
+                }else if(f instanceof OWLDataPropertyDomainAxiom){
+                    v+=message+lang.getProperty(Constants.LANG_DOMAIN)+" "+expressionToHTML(((OWLDataPropertyDomainAxiom)f).getDomain(), lang);
+                }else if(f instanceof OWLObjectPropertyRangeAxiom){
+                    v+=message+lang.getProperty(Constants.LANG_RANGE)+" "+expressionToHTML(((OWLObjectPropertyRangeAxiom)f).getRange(), lang);
+                }else if(f instanceof OWLDataPropertyRangeAxiom){
+                    v+=message+lang.getProperty(Constants.LANG_RANGE)+" "+((OWLDataPropertyRangeAxiom)f).getRange().asOWLDatatype().getIRI();
+                }else if(f instanceof OWLAnnotationAssertionAxiom){
+                    v+= message+((OWLAnnotationAssertionAxiom)f).getProperty().toString() +" "+ ((OWLAnnotationAssertionAxiom)f).getValue().toString();
+                }else{
+                    //other less typical axioms
+                    v+=message+f.getAxiomType().getName()+" "+f.toString().replace("<", "&lt;").replace(">", "&gt;");
                 }
+                /**
+                 * To add if we want to refine
+                 * OWLDisjointClassesAxiom, OWLDisjointDataPropertiesAxiom, OWLDisjointObjectPropertiesAxiom,
+                 * OWLEquivalentClassesAxiom, OWLEquivalentDataPropertiesAxiom, OWLEquivalentObjectPropertiesAxiom, 
+                 * OWLFunctionalDataPropertyAxiom, OWLFunctionalObjectPropertyAxiom,
+                 */
+                v+="</li>\n";
+            }catch (Exception e){
+                System.out.println("Error while transforming "+f.toString() +" "+e.getMessage());
+            }
+                
+        }
+        
         return v;
     }    
+    
+    /**
+     * Method to translate expressions to html. It is recursive as an expression 
+     * could be the union of intersections or viceversa.
+     * @param expr
+     * @param lang
+     * @return 
+     */
+    private static String expressionToHTML(OWLClassExpression expr, Properties lang){
+        String v ="";
+        if(expr instanceof OWLClass){
+            v+=expr.asOWLClass().getIRI();
+        }else{
+            if(expr instanceof  OWLObjectUnionOf || expr instanceof  OWLObjectIntersectionOf){
+                if(expr instanceof  OWLObjectUnionOf){
+                    v+=lang.getProperty(Constants.LANG_UNION)+" (";
+                    for(OWLClassExpression e:expr.asDisjunctSet()){
+                        v+= expressionToHTML(e, lang)+", ";
+                    }
+                }else{
+                    v+=lang.getProperty(Constants.LANG_INTERSECTION)+" (";
+                    for(OWLClassExpression e:expr.asConjunctSet()){
+                        v+= expressionToHTML(e, lang)+", ";
+                    }
+                }            
+                
+                if(v.length()>2){
+                    v = v.substring(0, v.length()-2);//remove last comma
+                }
+                v+=")";
+            }
+        }
+        return v;
+    }
     
      /**
      * Method that renders the current differences as HTML.

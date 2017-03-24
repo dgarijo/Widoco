@@ -153,6 +153,8 @@ public class Constants {
     public static final String LANG_SUBPROP_OF = "subPropOf";
     public static final String LANG_DOMAIN = "domain";
     public static final String LANG_RANGE = "range";
+    public static final String LANG_UNION = "unionOf";
+    public static final String LANG_INTERSECTION = "intersectionOf";
     
     /**
      * Head section of the HTML document.
