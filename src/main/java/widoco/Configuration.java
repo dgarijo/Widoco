@@ -121,6 +121,7 @@ public class Configuration {
             //create a temporal folder with all LODE resources
             tmpFolder = new File("tmp"+new Date().getTime());
             tmpFolder.mkdir();
+            WidocoUtils.unZipIt(Constants.lodeResources, tmpFolder.getName());
         } catch (Exception ex) {
             System.err.println("Error while creating the temporal file for storing the intermediate Widoco files.");
         }
@@ -141,7 +142,7 @@ public class Configuration {
 
     
     
-    public void initializeConfig(){
+    public final void initializeConfig(){
         //initialization of variables (in case something fails)
         abstractSection = "";
         publishProvenance = true;    

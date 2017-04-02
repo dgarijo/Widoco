@@ -75,4 +75,9 @@
     <annotationpropertytoc>indice delle Annotation Property</annotationpropertytoc>
     <namedindividualtoc>indice degli Individui</namedindividualtoc>
     <hascharacteristics>è di tipo</hascharacteristics>
+	<rationale>Fondamento logico</rationale>
+	<example>Esempio</example>
+	<propertyannotation>Anotazioni di proprietà</propertyannotation>
+	<category>Categoria</category>
+	<isrequired>Necessario</isrequired>
 </labels>

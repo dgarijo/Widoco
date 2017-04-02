@@ -102,7 +102,7 @@ public class CreateResources {
         //serialize the model in different serializations.
         HashMap<String,String> s = c.getMainOntology().getSerializations();
         for(String serialization:s.keySet()){
-            OutputStream out;
+            OutputStream out = null;
             String sValue = s.get(serialization);
             if(sValue.startsWith("ontology")){
                 try {
@@ -111,6 +111,9 @@ public class CreateResources {
                     out.close();
                 } catch (Exception ex) {
                     System.out.println("Error while writing the model to file "+ex.getMessage());
+                    if(out!=null){
+                        out.close();
+                    }
                 }
             }
         }

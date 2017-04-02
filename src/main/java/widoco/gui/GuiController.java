@@ -54,7 +54,6 @@ public final class GuiController {
         //read logo
         gui = new GuiStep1(this);
         gui.setVisible(true);
-        WidocoUtils.unZipIt(Constants.lodeResources, config.getTmpFile().getName());
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
