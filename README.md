@@ -1,6 +1,8 @@
 WIzard for DOCumenting Ontologies (Widoco)
 ===================
-Author: Daniel Garijo
+[![DOI](https://zenodo.org/badge/11427075.svg)](https://zenodo.org/badge/latestdoi/11427075)
+
+Author: Daniel Garijo Verdejo
 
 Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
 
@@ -12,9 +14,7 @@ To download Widoco JAR, check the latest release (https://github.com/dgarijo/Wid
 Citing Widoco
 ===================
 
-Please cite the latest version of Widoco as follows:
-
-Daniel Garijo, Almudena Ruiz-Iniesta, Oscar Corcho & Miguel Angel Garcia. (2017). dgarijo/Widoco: Widoco 1.3.0. Zenodo. http://doi.org/10.5281/zenodo.360175
+Please cite the latest version of Widoco in Zenodo: https://zenodo.org/badge/latestdoi/11427075
 
 Description
 ==========
