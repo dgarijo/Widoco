@@ -84,7 +84,7 @@ public class CreateDocInThreadTest {
     public void testOntoInTTL() {
         System.out.println("Testing Ontology: BNE");
         try{
-            String pathToOnto = "C:\\Users\\dgarijo\\Dropbox (OEG-UPM)\\NetBeansProjects\\Widoco\\JAR\\testOntos\\bne.ttl";
+            String pathToOnto = "test\\bne.ttl";
             this.c.setOntologyPath(pathToOnto);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
@@ -99,7 +99,7 @@ public class CreateDocInThreadTest {
     public void testOntoOWLXML() {
         System.out.println("Testing Ontology: coil.owl");
         try{
-            String pathToOnto = "C:\\Users\\dgarijo\\Dropbox (OEG-UPM)\\NetBeansProjects\\Widoco\\JAR\\testOntos\\coil.owl";
+            String pathToOnto = "test\\coil.owl";
             this.c.setOntologyPath(pathToOnto);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
@@ -114,7 +114,7 @@ public class CreateDocInThreadTest {
     public void testOntologySmall() {
         System.out.println("Testing Ontology: observation.owl");
         try{
-            String pathToOnto = "C:\\Users\\dgarijo\\Dropbox (OEG-UPM)\\NetBeansProjects\\Widoco\\JAR\\testOntos\\observation.owl";
+            String pathToOnto = "test\\observation.owl";
             this.c.setOntologyPath(pathToOnto);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
@@ -129,7 +129,7 @@ public class CreateDocInThreadTest {
     public void testOntologyMedium() {
         System.out.println("Testing Ontology: otalex.owl");
         try{
-            String pathToOnto = "C:\\Users\\dgarijo\\Dropbox (OEG-UPM)\\NetBeansProjects\\Widoco\\JAR\\testOntos\\otalex.owl";
+            String pathToOnto = "test\\otalex.owl";
             this.c.setOntologyPath(pathToOnto);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
@@ -164,7 +164,7 @@ public class CreateDocInThreadTest {
 //    public void testBigOntology() {
 //        System.out.println("Testing Ontology: IFC4_ADD1.ttl");
 //        try{
-//            String pathToOnto = "C:\\Users\\dgarijo\\Dropbox (OEG-UPM)\\NetBeansProjects\\Widoco\\JAR\\testOntos\\IFC4_ADD1.ttl";
+//            String pathToOnto = "test\\IFC4_ADD1.ttl";
 //            this.c.setOntologyPath(pathToOnto);
 //            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
 //        }catch(Exception e){
@@ -181,7 +181,7 @@ public class CreateDocInThreadTest {
     public void testOntologyInLanguage() {
         System.out.println("Testing Ontology: geolinkeddata.owl");
         try{
-            String pathToOnto = "C:\\Users\\dgarijo\\Dropbox (OEG-UPM)\\NetBeansProjects\\Widoco\\JAR\\testOntos\\geolinkeddata.owl";
+            String pathToOnto = "test\\geolinkeddata.owl";
             this.c.setOntologyPath(pathToOnto);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){

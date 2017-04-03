@@ -213,7 +213,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"license", conf.getMainOntology().getLicense().getUrl()},
                 {"cite as", conf.getMainOntology().getCiteAs()},
                 {"doi", conf.getMainOntology().getDoi()},
-                {"status", conf.getMainOntology().getStatus()}
+                {"status", conf.getMainOntology().getStatus()},
+                {"compatible", conf.getMainOntology().getBackwardsCompatibleWith()}
             },
             new String [] {
                 "Property", "Value"
@@ -287,6 +288,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 conf.getMainOntology().setDoi(value);
             }else if(prop.equals("status")){
                 conf.getMainOntology().setStatus(value);
+            }else if(prop.equals("compatible")){
+                conf.getMainOntology().setBackwardsCompatibleWith(value);
             }
             //}
         }

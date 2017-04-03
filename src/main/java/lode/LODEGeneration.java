@@ -37,11 +37,18 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.FileDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.MissingImportEvent;
+import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
+import org.semanticweb.owlapi.model.MissingImportListener;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import widoco.Configuration;
@@ -76,13 +83,12 @@ public class LODEGeneration {
                         boolean considerImportedOntologies) 
 	throws OWLOntologyCreationException, OWLOntologyStorageException, URISyntaxException {
             String result = "";
-            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();			
+            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
+            loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
             OWLOntology ontology;
-            ontology= manager.loadOntologyFromOntologyDocument(new File(ontologyURL));
-//            
-//            else{
-//                ontology = manager.loadOntology(IRI.create(ontologyURL));
-//            }
+//            ontology = manager.loadOntologyFromOntologyDocument(new OWLOntologyDocumentSource, config)
+            ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(ontologyURL)),loadingConfig);
             if (considerImportedOntologies) {
                 //considerImportedClosure || //<- removed for the moment
                 Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();

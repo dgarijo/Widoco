@@ -43,19 +43,13 @@ public class CreateOOPSEvalInThread implements Runnable{
             this.pointerToMain.switchState("sendingRequest");
         }
         System.out.println("Sending request to OOPS server...");
-        File evalFolder = new File(c.getDocumentationURI()+File.separator+"OOPSevaluation");
-        File evalResourcesFolder = new File(evalFolder.getAbsolutePath()+File.separator+"evaluation");//for the css etc.
         try{
-            if(!evalFolder.exists())evalFolder.mkdir();
-            evalResourcesFolder.mkdir();
-            //CreateResources.copyResourceFolder(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
-            WidocoUtils.unZipIt(Constants.oopsResources, evalResourcesFolder.getAbsolutePath());
             //do POST petition with evaluation.
             String evaluation;
             OOPSevaluation eval;
             
             //read file
-            String content;
+            String content=null;
             BufferedReader br = new BufferedReader(new FileReader(c.getOntologyPath()));
             try {
                 StringBuilder sb = new StringBuilder();
@@ -70,18 +64,27 @@ public class CreateOOPSEvalInThread implements Runnable{
             } finally {
                 br.close();
             }
-            eval = new OOPSevaluation("",content);
-            //eval = new OOPSevaluation(c.getMainOntology().getNamespaceURI(),"");
-                        
-            evaluation = eval.printEvaluation();
-            //SAVE File
-            if(showGui){
-                this.pointerToMain.switchState("savingResponse");
-            }
-            System.out.println("Saving response...");
-            CreateResources.saveDocument(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html", Constants.getEvaluationText(evaluation, c),c);
-            if(showGui){
-                pointerToMain.openBrowser(new File(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html").toURI());
+            if(content!=null && !content.equals("")){
+                File evalFolder = new File(c.getDocumentationURI()+File.separator+"OOPSevaluation");
+                File evalResourcesFolder = new File(evalFolder.getAbsolutePath()+File.separator+"evaluation");//for the css etc.
+                if(!evalFolder.exists())evalFolder.mkdir();
+                evalResourcesFolder.mkdir();
+                //CreateResources.copyResourceFolder(TextConstants.oopsResources, evalResourcesFolder.getAbsolutePath());
+                WidocoUtils.unZipIt(Constants.oopsResources, evalResourcesFolder.getAbsolutePath());
+                eval = new OOPSevaluation("",content);
+                //eval = new OOPSevaluation(c.getMainOntology().getNamespaceURI(),"");
+                evaluation = eval.printEvaluation();
+                //SAVE File
+                if(showGui){
+                    this.pointerToMain.switchState("savingResponse");
+                }
+                System.out.println("Saving response...");
+                CreateResources.saveDocument(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html", Constants.getEvaluationText(evaluation, c),c);
+                if(showGui){
+                    pointerToMain.openBrowser(new File(evalFolder.getAbsolutePath()+File.separator+"oopsEval.html").toURI());
+                }
+            }else{
+                throw new Exception("OOPS server did not return an evaluation report");
             }
         }catch(Exception e){
             System.err.println("Error while saving OOPS evaluation: "+e.getMessage());

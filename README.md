@@ -61,7 +61,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -88,6 +88,8 @@ The -htaccess flag creates a bundle for publication ready to be deployed on your
 The -webVowl flag provides a link to a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#).
 
 The -licensius flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the -getOntologyMetadata flag is enabled.
+
+The -ignoreIndividuals allows you to ignore the named individuals in the ontology.
 
 Browser problems
 ==========

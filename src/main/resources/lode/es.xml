@@ -80,4 +80,5 @@
 	<propertyannotation>Anotaciones de propiedad</propertyannotation>
 	<category>Categoría</category>
 	<isrequired>Requerido</isrequired>
+	<source>Fuente</source>
 </labels>

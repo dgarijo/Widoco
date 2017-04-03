@@ -106,6 +106,11 @@ public class Ontology {
      * DOI of the ontology, if available
      */
     private String doi;
+    
+    /**
+     * Compatible with
+     */
+    private String backwardsCompatibleWith;
 
     public Ontology() {
     }
@@ -291,4 +296,14 @@ public class Ontology {
     public void setPublisher(Agent publisher) {
         this.publisher = publisher;
     }
+
+    public String getBackwardsCompatibleWith() {
+        return backwardsCompatibleWith;
+    }
+
+    public void setBackwardsCompatibleWith(String backwardsCompatibleWith) {
+        this.backwardsCompatibleWith = backwardsCompatibleWith;
+    }
+    
+    
 }

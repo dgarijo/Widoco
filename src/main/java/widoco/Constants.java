@@ -85,6 +85,7 @@ public class Constants {
     
     /*Property that will retrieve the status of the document from the property file*/
     public static final String STATUS="status";
+    public static final String COMPATIBLE="backwardsCompatibleWith";
     
     
     //Constants for language tags. These are the names used in the property file
@@ -136,6 +137,10 @@ public class Constants {
     public static final String LANG_DATA_PROP = "dataProp";
     public static final String LANG_ANN_PROP = "annProp";
     public static final String LANG_NAMED_INDIV = "namedIndiv";
+    public static final String LANG_TABLE_OF_CONTENTS = "tableOfContents";
+    public static final String LANG_COMPATIBLE = "compatible";
+    public static final String LANG_LEGEND = "legend";
+    
     //labels for the changelog
     public static final String LANG_CHANGELOG_HEAD = "changelogHead";
     public static final String LANG_ADDED_CLASS = "addedClass";
@@ -445,7 +450,7 @@ public class Constants {
                      "}\n"
                      + "function loadTOC(){\n" +
                     "	//process toc dynamically\n" +
-                    "	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;\n" +
+                    "	  var t='<h2>"+lang.getProperty(LANG_TABLE_OF_CONTENTS)+"</h2><ul>';i = 1;j=0;\n" +
                     "	  jQuery(\".list\").each(function(){\n" +
                     "		if(jQuery(this).is('h2')){\n" +
                     "			if(j>0){\n" +
@@ -475,7 +480,7 @@ public class Constants {
         if(c.isIncludeDescription()) document += "      $(\"#description\").load(\"sections/description-"+c.getCurrentLanguage()+".html\"); \n";
         if(c.isIncludeReferences()) document += "      $(\"#references\").load(\"sections/references-"+c.getCurrentLanguage()+".html\"); \n";
         if(c.isIncludeChangeLog()){
-            if(c.getMainOntology().getPreviousVersion()!=null &&!"".equals(c.getMainOntology().getPreviousVersion())){
+            if(c.getMainOntology().getPreviousVersion()!=null &&!"".equals(c.getMainOntology().getPreviousVersion()) && c.isChangeLogSuccessfullyCreated()){
                 document += "      $(\"#changelog\").load(\"sections/changelog-"+c.getCurrentLanguage()+".html\"); \n";
             }
         }
@@ -583,6 +588,10 @@ public class Constants {
         if(!"".equals(c.getMainOntology().getDoi()) && c.getMainOntology().getDoi()!=null){
             //doi is common for all languages
             head+="<dl><dt>DOI:</dt>\n<dd><a href=\"http://dx.doi.org/"+c.getMainOntology().getDoi()+"\"><img src =\"https://img.shields.io/badge/DOI-"+c.getMainOntology().getDoi()+"-blue.svg\" alt=\""+c.getMainOntology().getDoi()+"\"></img></a></dd>\n</dl>\n";
+        }
+        if(!"".equals(c.getMainOntology().getBackwardsCompatibleWith()) && c.getMainOntology().getBackwardsCompatibleWith()!=null){
+            //doi is common for all languages
+            head+="<dl><dt>"+l.getProperty(LANG_COMPATIBLE)+":</dt>\n<dd>"+c.getMainOntology().getBackwardsCompatibleWith()+"</dd>\n</dl>\n";
         }
         if(c.isPublishProvenance()){
             head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\" target=\"_blank\">"+l.getProperty(LANG_PRPOV_HEAD)+"</a></dl>";
@@ -944,6 +953,18 @@ public class Constants {
             "\n" +
             "</body></html>";
         return page406;
+    }
+    
+    public static String getLegend(Properties lang){
+        return "<div id=\"legend\">\n" +
+        "<h2>"+lang.getProperty(Constants.LANG_LEGEND)+" <span class=\"backlink\"> "+lang.getProperty(Constants.LANG_BACK)+" <a href=\"#toc\">ToC</a></span></h2>\n" +
+        "<div   class=\"entity\">\n" +
+        "<sup class=\"type-c\" title=\""+lang.getProperty(Constants.LANG_CLASSES)+"\">c</sup>: "+lang.getProperty(Constants.LANG_CLASSES)+" <br/>\n" +
+        "<sup class=\"type-op\" title=\""+lang.getProperty(Constants.LANG_OBJ_PROP)+"\">op</sup>: "+lang.getProperty(Constants.LANG_OBJ_PROP)+" <br/>\n" +
+        "<sup class=\"type-dp\" title=\""+lang.getProperty(Constants.LANG_DATA_PROP)+"\">dp</sup>: "+lang.getProperty(Constants.LANG_DATA_PROP)+" <br/>\n" +
+        "<sup class=\"type-ni\" title=\""+lang.getProperty(Constants.LANG_NAMED_INDIV)+"\">ni</sup>: "+lang.getProperty(Constants.LANG_NAMED_INDIV)+"\n" +
+        "</div>\n" +
+        "</div>";
     }
     
 }

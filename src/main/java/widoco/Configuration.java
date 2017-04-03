@@ -115,6 +115,12 @@ public class Configuration {
     private boolean createWebVowlVisualization;
     private boolean useLicensius;//optional usage of Licensius service.
     
+    /**
+     * Variable to keep track of possible errors in the changelog. If there are errors, the 
+     * section will not be produced. True by default.
+     */
+    private boolean changeLogSuccessfullyCreated = true;
+    
     public Configuration() {
         initializeConfig();
         try {
@@ -198,6 +204,7 @@ public class Configuration {
         mainOntologyMetadata.setCiteAs("");
         mainOntologyMetadata.setDoi("");
         mainOntologyMetadata.setStatus("");
+        mainOntologyMetadata.setBackwardsCompatibleWith("");
     }
     
     private void loadPropertyFile(String path){
@@ -321,6 +328,7 @@ public class Configuration {
             mainOntologyMetadata.setStatus(propertyFile.getProperty(Constants.STATUS,"Specification Draft"));
             mainOntologyMetadata.setCiteAs(propertyFile.getProperty(Constants.CITE_AS, ""));
             mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.DOI, ""));
+            mainOntologyMetadata.setBackwardsCompatibleWith(propertyFile.getProperty(Constants.COMPATIBLE, ""));
             //vocabLoadedSerialization = propertyFile.getProperty(TextConstants.deafultSerialization, "RDF/XML");
             String serializationRDFXML = propertyFile.getProperty(Constants.RDF,"");
             if(!"".equals(serializationRDFXML)){
@@ -431,6 +439,18 @@ public class Configuration {
                 if(propertyName.equals("modified")){
                     mainOntologyMetadata.setReleaseDate(value);
                 }else
+                if(propertyName.equals("bibliographicCitation")){
+                    mainOntologyMetadata.setCiteAs(value);
+                }else
+                if(propertyName.equals("doi")||propertyName.equals("hasDOI")){
+                    mainOntologyMetadata.setDoi(value);
+                }else
+                if(propertyName.equals("backwardsCompatibleWith")){
+                    mainOntologyMetadata.setBackwardsCompatibleWith(value);
+                }else
+                if(propertyName.equals("status")){
+                    mainOntologyMetadata.setStatus(value);
+                }else
                 if(propertyName.equals("imports")){
                     Ontology o = new Ontology();
                     if(isURL(value)){
@@ -518,6 +538,16 @@ public class Configuration {
     public boolean isPublishProvenance() {
         return publishProvenance;
     }
+
+    public boolean isChangeLogSuccessfullyCreated() {
+        return changeLogSuccessfullyCreated;
+    }
+
+    public void setChangeLogSuccessfullyCreated(boolean changeLogSuccessfullyCreated) {
+        this.changeLogSuccessfullyCreated = changeLogSuccessfullyCreated;
+    }
+    
+    
     
 
     public void setDocumentationURI(String documentationURI) {

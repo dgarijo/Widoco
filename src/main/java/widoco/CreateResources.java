@@ -176,9 +176,9 @@ public class CreateResources {
             saveDocument(path+File.separator+"changelog-"+c.getCurrentLanguage()+".html", Constants.getChangeLogSection(c, comparison, lang),c);
             System.out.println("Changelog successfully created");
         }catch(Exception e){
+            c.setChangeLogSuccessfullyCreated(false);
             System.out.println("Could not generate changelog: "+e.getMessage());
         }
-        
     }
     
     /**
@@ -267,6 +267,8 @@ public class CreateResources {
         if(c.isIncludeNamedIndividuals() && namedIndividualList!=null && !"".equals(namedIndividualList)){
             crossRef += lodeParser.getNamedIndividuals();
         }
+        //add legend
+        crossRef+=Constants.getLegend(lang);
         saveDocument(path+File.separator+"crossref-"+c.getCurrentLanguage()+".html", crossRef,c);
     }
     
@@ -375,6 +377,7 @@ public class CreateResources {
             textProperties+=Constants.CITE_AS+"="+conf.getMainOntology().getCiteAs()+"\n";
             textProperties+=Constants.DOI+"="+conf.getMainOntology().getDoi()+"\n";
             textProperties+=Constants.STATUS+"="+conf.getMainOntology().getStatus()+"\n";
+            textProperties+=Constants.COMPATIBLE+"="+conf.getMainOntology().getBackwardsCompatibleWith()+"\n";
             if(conf.getMainOntology().getPublisher()!=null){
                 textProperties+=Constants.PUBLISHER+"="+conf.getMainOntology().getPublisher().getName()+"\n";
                 textProperties+=Constants.PUBLISHER_URI+"="+conf.getMainOntology().getPublisher().getURL()+"\n";

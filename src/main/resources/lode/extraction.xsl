@@ -33,6 +33,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:osw="http://ontosoft.org/software#"
     xmlns:vann="http://purl.org/vocab/vann/"
     xmlns:prov="http://www.w3.org/ns/prov#"
+    xmlns:obo="http://purl.obolibrary.org/obo/"
     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     xmlns="http://www.w3.org/1999/xhtml">
      
@@ -241,7 +242,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:call-template name="get.content" />
     </xsl:template>
     
-    <xsl:template match="rdfs:comment[f:isInLanguage(.)] | prov:definition[f:isInLanguage(.)] | skos:definition[f:isInLanguage(.)]">
+    <xsl:template match="rdfs:comment[f:isInLanguage(.)] | prov:definition[f:isInLanguage(.)] | skos:definition[f:isInLanguage(.)] |obo:IAO_0000115[f:isInLanguage(.)]">
     <!--<xsl:template match="prov:definition">-->
         <div class="comment">
             <xsl:call-template name="get.content" />
@@ -357,7 +358,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:with-param name="toc.string" select="f:getDescriptionLabel('classtoc')" tunnel="yes" as="xs:string" />
             </xsl:call-template>
             <xsl:call-template name="get.entity.url" />
-            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition" />
+            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition|obo:IAO_0000115" />
             <xsl:apply-templates select="dc:description[normalize-space() != ''] , dc:description[@*:resource]" />
             <xsl:call-template name="get.entity.metadata" />
             <xsl:call-template name="get.rationale" />
@@ -373,7 +374,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:with-param name="toc.string" select="f:getDescriptionLabel('namedindividualtoc')" tunnel="yes" as="xs:string" />
             </xsl:call-template>
             <xsl:call-template name="get.entity.url" />
-            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition" />
+            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition|obo:IAO_0000115" />
             <xsl:apply-templates select="dc:description[normalize-space() != ''] , dc:description[@*:resource]" />
             <xsl:call-template name="get.entity.metadata" />
             <xsl:call-template name="get.individual.description" />
@@ -387,7 +388,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:with-param name="toc.string" select="if (self::owl:ObjectProperty) then f:getDescriptionLabel('objectpropertytoc') else if (self::owl:AnnotationProperty) then f:getDescriptionLabel('annotationpropertytoc') else f:getDescriptionLabel('datapropertytoc')" tunnel="yes" as="xs:string" />
             </xsl:call-template>
             <xsl:call-template name="get.entity.url" />
-            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition" />
+            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition|obo:IAO_0000115" />
             <xsl:apply-templates select="dc:description[normalize-space() != ''] , dc:description[@*:resource]" />
             <xsl:call-template name="get.entity.metadata" />
             <xsl:call-template name="get.rationale" />
@@ -876,6 +877,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:call-template name="get.version" />
         <xsl:call-template name="get.author" />
         <xsl:call-template name="get.original.source" />
+        <xsl:call-template name="get.source" />
     </xsl:template>
     
     <xsl:template name="get.original.source">
@@ -1814,16 +1816,38 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.example">
-        <xsl:if test="exists(vann:example)">
+        <xsl:if test="exists(vann:example | obo:IAO_0000112)">
             <dl>
                 <dt>
                     <xsl:value-of select="f:getDescriptionLabel('example')" />
                 </dt>
-                <xsl:for-each select="vann:example">
+                <xsl:for-each select="vann:example | obo:IAO_0000112">
                     <dd>
                         <xsl:choose>
                             <xsl:when test="normalize-space(@*:resource) = ''">
-                                <xsl:value-of select="$ontology-url" />
+                                <xsl:value-of select="text()" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <a href="{@*:resource}">
+                                    <xsl:value-of select="@*:resource" />
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="get.source">
+        <xsl:if test="exists(dcterms:source | obo:IAO_0000119)">
+            <dl class="definedBy">
+                <dt><xsl:value-of select="f:getDescriptionLabel('source')" /></dt>
+                <xsl:for-each select="dcterms:source | obo:IAO_0000119">
+                    <dd>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(@*:resource) = ''">
+                                <xsl:value-of select="text()" />
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{@*:resource}">
