@@ -1,0 +1,2296 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY prov "http://www.w3.org/ns/prov#" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"
+     xml:base="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:dcterms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#">
+        <dcterms:created rdf:datatype="&xsd;date">2015-12-25</dcterms:created>
+        <dcterms:creator rdf:datatype="&xsd;anyURI">http://delicias.dia.fi.upm.es/members/DGarijo/#me</dcterms:creator>
+        <dcterms:contributor rdf:datatype="&xsd;anyURI">http://mayor2.dia.fi.upm.es/oeg-upm/index.php/es/teachers/11-ocorcho</dcterms:contributor>
+        <dcterms:license>http://creativecommons.org/licenses/by-nc-sa/2.0/</dcterms:license>
+        <owl:versionInfo>1.0</owl:versionInfo>
+        <dcterms:description xml:lang="en">Geonames extension for encoding the terms of the Otalex project</dcterms:description>
+        <dcterms:title xml:lang="en">Otalex ontology</dcterms:title>
+        <dcterms:description xml:lang="es">Extensión de Geonames para representar los términos del proyecto Otalex</dcterms:description>
+        <rdfs:comment xml:lang="es">Extensión de Geonames para representar los términos del proyecto Otalex</rdfs:comment>
+        <dcterms:title xml:lang="es">Ontología Otalex</dcterms:title>
+        <rdfs:comment xml:lang="pt">Extensão de Geonames parágrafo representar los términos del proyecto Otalex</rdfs:comment>
+        <dcterms:title xml:lang="pt">Ontologia Otalex</dcterms:title>
+        <vann:preferredNamespaceUri>http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#</vann:preferredNamespaceUri>
+        <dcterms:description xml:lang="pt">Extensão de Geonames parágrafo representar los términos del proyecto Otalex</dcterms:description>
+        <vann:preferredNamespacePrefix>otalex</vann:preferredNamespacePrefix>
+        <rdfs:comment xml:lang="en">Geonames extension for encoding the terms of the Otalex project</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/source -->
+
+    <owl:AnnotationProperty rdf:about="&dcterms;source"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://geo.linkeddata.es/ontology/superficie -->
+
+    <owl:DatatypeProperty rdf:about="http://geo.linkeddata.es/ontology/superficie">
+        <rdfs:label xml:lang="en">area</rdfs:label>
+        <rdfs:label xml:lang="es">superficie</rdfs:label>
+        <rdfs:label xml:lang="pt">área</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://geo.linkeddata.es/ontology/hydro.owl"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#abreviacionSuelo -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#abreviacionSuelo">
+        <rdfs:label xml:lang="en">abbreviation for the type of soil</rdfs:label>
+        <rdfs:label xml:lang="es">abreviación de tipo de suelo</rdfs:label>
+        <rdfs:label xml:lang="pt">abreviatura do tipo de solo</rdfs:label>
+        <rdfs:comment xml:lang="en">Abbreviation for the type of soil represented by this geographical feature</rdfs:comment>
+        <rdfs:comment xml:lang="es">Abreviación para el tipo de suelo representado por esta característica geográfica</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Curto para o tipo de solo representado por esta característica geográfica</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#caracteristicaSituadaEnProvinciaConCodigo -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#caracteristicaSituadaEnProvinciaConCodigo">
+        <rdfs:label xml:lang="en">feature located in province with code</rdfs:label>
+        <rdfs:label xml:lang="es">característica situada en provincia con código</rdfs:label>
+        <rdfs:label xml:lang="pt">O recurso localizada na província com código</rdfs:label>
+        <rdfs:comment xml:lang="en">Code of the province to which the feature that is associated by this property belongs to.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Código de la provincia a la cual pertenece la característica asociada con esta propiedad</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Código da província à qual pertence a característica associada a esta propriedade</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#caracteristicaSituadaEnProvinciaConNombre -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#caracteristicaSituadaEnProvinciaConNombre">
+        <rdfs:label xml:lang="es">característica situada en provincia con nombre</rdfs:label>
+        <rdfs:label xml:lang="pt">O recurso localizada na província com nome</rdfs:label>
+        <rdfs:comment xml:lang="en">Name of the province to which the feature that is associated by this property belongs to.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Nombre de la provincia a la cual pertenece la característica asociada con esta propiedad</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Nome da província à qual pertence a característica associada a esta propriedade</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#clasificacionCorine -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#clasificacionCorine">
+        <rdfs:label xml:lang="en">Corine classification</rdfs:label>
+        <rdfs:label xml:lang="es">clasificación Corine</rdfs:label>
+        <rdfs:label xml:lang="pt">classificação Corine</rdfs:label>
+        <rdfs:comment xml:lang="en">Corine property that determines which class corresponding to the feature.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Propiedad que determina qué clase Corine se corresponde con la característica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Corine propriedade que determina qual a classe correspondente ao recurso.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#codigoCaracteristica -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#codigoCaracteristica">
+        <rdfs:label xml:lang="en">feature code</rdfs:label>
+        <rdfs:label xml:lang="es">código de característica</rdfs:label>
+        <rdfs:label xml:lang="pt">código de recurso</rdfs:label>
+        <rdfs:comment xml:lang="en">Code associated with a feature. It can refer to its location, its type, etc. The code may vary depending on the feature</rdfs:comment>
+        <rdfs:comment xml:lang="es">Código asociado a caracteristica. Puede indicar donde se encuentra, su tipo, etc. El código puede variar dependiendo de la característica</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Código associado a um recurso. Pode referir-se à sua localização, o seu tipo, etc. O código pode variar dependendo da função</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#codigoMunicipio -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#codigoMunicipio">
+        <rdfs:label xml:lang="en">municipality code</rdfs:label>
+        <rdfs:label xml:lang="es">código de municipio</rdfs:label>
+        <rdfs:label xml:lang="pt">código de municipío</rdfs:label>
+        <rdfs:comment xml:lang="en">Municipality code, associated to a Feature, and expressed as a combination of a country code and a number with up to 8 digits (e.g., ES43106049)</rdfs:comment>
+        <rdfs:comment xml:lang="es">Código del municipio, asociado a una característica, y expresado como una combinación de código de país y un entero de hasta ocho dígitos (por ejemplo, ES43106049)</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Código da municipío associado a um recurso, e expressa como uma combinação de código Paisy um número inteiro de até oito dígitos (por exemplo ES43106049)</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoAgua2009EnM3PorHab -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoAgua2009EnM3PorHab">
+        <rdfs:label xml:lang="en">water consumption in 2009 in m3 per person</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de agua en 2009 en m3 por habitante</rdfs:label>
+        <rdfs:label xml:lang="pt">O consumo de água em 2009 m3 por habitante</rdfs:label>
+        <rdfs:comment xml:lang="en">Water consumption in 2009 for the selected feature, measured in m3 per person</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de agua en 2009, medido en metros cúbicos por habitante</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de água em 2009, medida em metros cúbicos por habitante</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2001EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2001EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2001, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2001, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2001, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2001, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2001, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2001, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2002EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2002EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2002, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2002, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2002, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2002, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2002, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2002, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2003EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2003EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2003, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2003, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2003, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2003, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2003, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2003, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2004EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2004EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2004, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2004, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2004, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2004, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2004, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2004, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2005EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2005EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2005, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2005, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2005, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2005, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2005, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2005, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2006EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2006EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2006, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2006, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2006, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2006, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2006, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2006, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2007EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2007EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2007, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2007, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2007, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2007, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2007, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2007, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2008EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2008EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2008, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2008, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2008, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2008, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2008, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2008, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2009EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2009EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2009, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2009, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2009, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2009, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2009, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2009, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2010EnKwh -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#consumoEnergia2010EnKwh">
+        <rdfs:label xml:lang="en">energy consumption in 2010, measured in Kwh</rdfs:label>
+        <rdfs:label xml:lang="es">consumo de energía en 2010, medido en Kwh</rdfs:label>
+        <rdfs:label xml:lang="pt">o consumo de energia em 2010, medido em kWh</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2010, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía para un municipio o característica en 2010, medido en Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia para o recurso em 2010, medido em Kwh</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#criterios -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#criterios">
+        <rdfs:label xml:lang="en">criteria</rdfs:label>
+        <rdfs:label xml:lang="es">criterios</rdfs:label>
+        <rdfs:label xml:lang="pt">critério</rdfs:label>
+        <rdfs:comment xml:lang="en">Energy consumption for the feature in 2010, measured in Kwh</rdfs:comment>
+        <rdfs:comment xml:lang="es">Criterios bajo los que se ha publicado la característica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Critérios em que a propriedade foi publicado.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#numeroDeCuencasHidrograficas -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#numeroDeCuencasHidrograficas">
+        <rdfs:label xml:lang="en">number of hydrographic watersheds</rdfs:label>
+        <rdfs:label xml:lang="es">número de cuencas hidrográficas</rdfs:label>
+        <rdfs:label xml:lang="pt">número de bacias hidrográficas</rdfs:label>
+        <rdfs:comment xml:lang="en">Number of watersheds on the feature</rdfs:comment>
+        <rdfs:comment xml:lang="es">Número de cuencas hidrográficas en la característica</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Número de bacias hidrográficas na propriedade</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#perimetro -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#perimetro">
+        <rdfs:label xml:lang="en">perimeter</rdfs:label>
+        <rdfs:label xml:lang="es">perímetro</rdfs:label>
+        <rdfs:label xml:lang="pt">perímetro</rdfs:label>
+        <rdfs:comment xml:lang="en">perimeter of the feature</rdfs:comment>
+        <rdfs:comment xml:lang="es">perímetro de la característica geográfica</rdfs:comment>
+        <rdfs:comment xml:lang="pt">perímetro da característica geográfica</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#publicadoEn -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#publicadoEn">
+        <rdfs:label xml:lang="en">published in</rdfs:label>
+        <rdfs:label xml:lang="es">publicado en</rdfs:label>
+        <rdfs:label xml:lang="pt">publicada em</rdfs:label>
+        <rdfs:comment xml:lang="en">Official document according to which the feature was published.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Documento oficial (por ejemplo, BOE) de acuerdo al que la característica geográfica se ha publicado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Documento oficial segundo a qual a característica geográfica é postado.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#superficieHectareas -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#superficieHectareas">
+        <rdfs:label xml:lang="en">area in hectare</rdfs:label>
+        <rdfs:label xml:lang="es">superficie en hectáreas</rdfs:label>
+        <rdfs:label xml:lang="pt">área en hectares</rdfs:label>
+        <rdfs:comment xml:lang="en">Area of a feature, measured in hectares.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Superficie de una caracteristica geográfica, medida en hectáreas.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Área de um recurso, medida em hectares.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="http://geo.linkeddata.es/ontology/superficie"/>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#superficieM2 -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#superficieM2">
+        <rdfs:label xml:lang="en">area in square square meters</rdfs:label>
+        <rdfs:label xml:lang="es">superficie en metros cuadrados</rdfs:label>
+        <rdfs:label xml:lang="pt">área en metros quadrados</rdfs:label>
+        <rdfs:comment xml:lang="en">Area of a feature, measured in square hectares.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Superficie de una caracteristica geográfica, medida en metros cuadrados.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Área de um recurso, medida em metros quadrados.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="http://geo.linkeddata.es/ontology/superficie"/>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorDeIndiceEnKgPorHab -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorDeIndiceEnKgPorHab">
+        <rdfs:label xml:lang="en">index value in kg per person</rdfs:label>
+        <rdfs:label xml:lang="es">valor de índice en kg por habitante</rdfs:label>
+        <rdfs:label xml:lang="pt">valor do índice em kg per capita</rdfs:label>
+        <rdfs:comment xml:lang="en">Value of the index associated with a feature, measured in kg per person.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Valor de índice asociado a la característica geográfica (normalmente a recogida de residuos sólidos), medido en kg por habitante.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Índice de valor associado com a característica geográfica (recolha de resíduos sólidos geralmente), medido em kg per capita.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMaximoDeIndice -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMaximoDeIndice">
+        <rdfs:label xml:lang="en">maximum index value</rdfs:label>
+        <rdfs:label xml:lang="es">valor máximo de índice</rdfs:label>
+        <rdfs:label xml:lang="pt">valor máximo do índice</rdfs:label>
+        <rdfs:comment xml:lang="en">Maximum value of an index (e.g., aridity).</rdfs:comment>
+        <rdfs:comment xml:lang="es">Valor máximo del índice (por ejemplo, de aridez, de continentalidad, etc.).</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O valor máximo do índice (por exemplo, aridez, de continental, etc.).</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMaximoDeTempEnC -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMaximoDeTempEnC">
+        <rdfs:label xml:lang="en">Maximum temperature value in celsius degrees</rdfs:label>
+        <rdfs:label xml:lang="es">Valor máximo de temperatura en grados centígrados</rdfs:label>
+        <rdfs:label xml:lang="pt">O valor máximo da temperatura em graus celsius</rdfs:label>
+        <rdfs:comment xml:lang="en">Maximum temperature value, represented in celsius degrees</rdfs:comment>
+        <rdfs:comment xml:lang="es">Valor máximo de temperatura representada en grados centigrados</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Valor temperatura máxima, representada em graus celsius</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMaximoEnMM -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMaximoEnMM">
+        <rdfs:label xml:lang="en">Maximum value in milimeters</rdfs:label>
+        <rdfs:label xml:lang="es">Valor máximo en milímetros</rdfs:label>
+        <rdfs:label xml:lang="pt">O valor máximo da temperatura em milímetros</rdfs:label>
+        <rdfs:comment xml:lang="en">Maximum value, represented in milimeters</rdfs:comment>
+        <rdfs:comment xml:lang="es">Valor máximo asociado con la característica (por ejemplo, mapa de evapotranspiración), representado en milímetros</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O valor máximo associado à propriedade (por exemplo, mapa de evapotranspiração), representada em milímetros</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMinimoDeIndice -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMinimoDeIndice">
+        <rdfs:label xml:lang="en">minimum index value</rdfs:label>
+        <rdfs:label xml:lang="es">valor mínimo de índice</rdfs:label>
+        <rdfs:label xml:lang="pt">valor mínimo do índice</rdfs:label>
+        <rdfs:comment xml:lang="en">Minimum value of an index (e.g., aridity).</rdfs:comment>
+        <rdfs:comment xml:lang="es">Valor mínimo del índice (por ejemplo, de aridez, de continentalidad, etc.).</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O valor mínimo do índice (por exemplo, aridez, de continental, etc.).</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMinimoDeTempEnC -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMinimoDeTempEnC">
+        <rdfs:label xml:lang="en">Minimum temperature value in celsius degrees</rdfs:label>
+        <rdfs:label xml:lang="es">Valor mínimo de temperatura en grados centígrados</rdfs:label>
+        <rdfs:label xml:lang="pt">O valor máximo da temperatura em graus celsius</rdfs:label>
+        <rdfs:comment xml:lang="en">Maximum temperature value, represented in celsius degrees</rdfs:comment>
+        <rdfs:comment xml:lang="es">Valor mínimo de temperatura, representada en grados centígrados</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O valor mínimo da temperatura, representada em graus celsius</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMinimoEnMM -->
+
+    <owl:DatatypeProperty rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#valorMinimoEnMM">
+        <rdfs:label xml:lang="en">Minimum value in milimeters</rdfs:label>
+        <rdfs:label xml:lang="es">Valor mínimo en milímetros</rdfs:label>
+        <rdfs:label xml:lang="pt">O valor mínimo da temperatura em milímetros</rdfs:label>
+        <rdfs:comment xml:lang="en">Minimum value, represented in milimeters</rdfs:comment>
+        <rdfs:comment xml:lang="es">Valor mínimo asociado con la característica (por ejemplo, mapa de evapotranspiración), representado en milímetros</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O valor mínimo associado à propriedade (por exemplo, mapa de evapotranspiração), representada em milímetros</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+        <rdfs:domain rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://geo.linkeddata.es/ontology/Rio -->
+
+    <owl:Class rdf:about="http://geo.linkeddata.es/ontology/Rio">
+        <rdfs:label xml:lang="es">Río</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://geo.linkeddata.es/ontology/hydro.owl"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AcrisolGleico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AcrisolGleico">
+        <rdfs:label xml:lang="en">Acrisol Gleico</rdfs:label>
+        <rdfs:label xml:lang="es">Acrisol Gleico</rdfs:label>
+        <rdfs:label xml:lang="pt">Acrisol Gleico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">The term derives from the Latin word &quot;acris&quot; which means very acidic, referring to its acidic and low base saturation caused by strong alteration. Acrisols develop primarily on products altered felsic rocks, with very high levels of altered clays, which may suffer further degradation. Old surfaces dominate with a wavy or colinada topography, with a humid tropical climate, monsoon, subtropical or very warm. The woodlands are their main form of natural vegetation.</rdfs:comment>
+        <rdfs:comment xml:lang="es">El término Acrisol deriva del vocablo latino &quot;acris&quot; que significa muy ácido, haciendo alusión a su carácter ácido y su baja saturación en bases, provocada por su fuerte alteración. Los Acrisoles se desarrollan principalmente sobre productos de alteración de rocas ácidas, con elevados niveles de arcillas muy alteradas, las cuales pueden sufrir posteriores degradaciones. Predominan en viejas superficies con una topografía ondulada o colinada, con un clima tropical húmedo, monzónico, subtropical o muy cálido. Los bosques claros son su principal forma de vegetación natural.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O termo deriva do latim palavra &quot;acris&quot;, que significa muito ácida, referindo-se a sua saturação por bases ácidos e de baixa causada pela forte alteração. Acrisols desenvolver principalmente em produtos alterados felsic rochas, com níveis muito elevados de argilas modificadas, que podem sofrer mais degradação. Superfícies antigas dominar com um ondulado ou colinada topografia, com um clima tropical úmido, monção, subtropical ou muito quente. As florestas são a principal forma de vegetação natural.</rdfs:comment>
+        <dcterms:source>http://www.eweb.unex.es/eweb/edafo/FAO/Acrisol.htm</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AgricolaHeterogenea -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AgricolaHeterogenea">
+        <rdfs:label xml:lang="en">Heterogeneous agricultural area</rdfs:label>
+        <rdfs:label xml:lang="es">Zona agrícola heterogénea</rdfs:label>
+        <rdfs:label xml:lang="pt">Zona agrícola heterogêneos</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Territories with heterogeneous agricultural areas</rdfs:comment>
+        <rdfs:comment xml:lang="es">Territorios con zonas agrícolas heterogéneas</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Territórios com áreas agrícolas heterogêneos</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AgroforestalMontado -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AgroforestalMontado">
+        <rdfs:label xml:lang="en">Agroforestry-Montado</rdfs:label>
+        <rdfs:label xml:lang="es">Agroforestal-Montado</rdfs:label>
+        <rdfs:label xml:lang="pt">Agro-florestais-Montado</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Territories with agroforestry areas.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Territorios con zonas agroforestales.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Territórios incluem agroflorestais áreas.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AluvialYColuvial -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AluvialYColuvial">
+        <rdfs:label xml:lang="en">Alluvial and colluvial</rdfs:label>
+        <rdfs:label xml:lang="es">Aluvial y coluvial</rdfs:label>
+        <rdfs:label xml:lang="pt">Aluviais e coluviais</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Lithologic group formed by recent sedimentary deposits created by the water, gravity or thaws.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Grupo litológico formado por aquellos depósitos sedimentarios recientes, creados tanto por el agua como por la gravedad y los deshielos.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Grupo de litologia que consiste em depósitos sedimentares criado pela água, tanto quanto pela gravidade e degelos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AmplitudTermicaAbsoluta -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AmplitudTermicaAbsoluta">
+        <rdfs:label xml:lang="en">Absolute thermal amplitude</rdfs:label>
+        <rdfs:label xml:lang="es">Amplitud térmica absoluta</rdfs:label>
+        <rdfs:label xml:lang="pt">Amplitud térmica absoluta</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Absolute thermal amplitude of a Feature. It is usually measured in celsius degrees</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Amplitud térmica absoluta de una característica. Normalmente es medida en grados centígrados</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Amplitude térmica absoluta de um recurso. Geralmente é medida em graus celsius</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AmplitudTermicaMediaAnual -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AmplitudTermicaMediaAnual">
+        <rdfs:label xml:lang="en">Annual thermal amplitude</rdfs:label>
+        <rdfs:label xml:lang="es">Amplitud térmica anual</rdfs:label>
+        <rdfs:label xml:lang="pt">Amplitude térmica anual</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Annual thermal amplitude of a Feature. It is usually measured in celsius degrees</rdfs:comment>
+        <rdfs:comment xml:lang="es">Amplitud térmica anual de una característica. Normalmente es medida en grados centígrados</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Amplitude térmica anual de uma Caracteristica. Geralmente é medida em graus Celsius</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ArboladoYMonteMediterraneo -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ArboladoYMonteMediterraneo">
+        <rdfs:label xml:lang="en">Mediterranean forest</rdfs:label>
+        <rdfs:label xml:lang="es">Arbolado y monte mediterráneo</rdfs:label>
+        <rdfs:label xml:lang="pt">Floresta mediterrânica</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <rdfs:comment xml:lang="es">Tipo de clasificación Corine que incluye territorios con arbolado y monte mediterráneo.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Corine type classification that includes territories with trees and Mediterranean bush.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Classificação do tipo de Corine, que inclui territórios com árvores e vegetação mediterrânica.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Arbusto -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Arbusto">
+        <rdfs:label xml:lang="en">Bush</rdfs:label>
+        <rdfs:label xml:lang="es">Arbusto</rdfs:label>
+        <rdfs:label xml:lang="pt">Matos</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="pt">Territorios con zonas de matos.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Territories con bush areas.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Territorios con zonas de arbusto.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AreaProtegida -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AreaProtegida">
+        <rdfs:label xml:lang="en">Protected area</rdfs:label>
+        <rdfs:label xml:lang="es">Área protegida</rdfs:label>
+        <rdfs:label xml:lang="pt">Área protegida</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Class grouping different natural areas considering their characteristics for uniqueness, rarity, fragility or interest of its elements or natural systems.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Clase que agrupa distintos espacios naturales en atención a sus características de representitividad, singularidad, rareza, fragilidad o interés de sus elementos o sistemas naturales</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Classe que agrupa diferentes áreas naturais em virtude das suas características representitividad, singularidade, raridade, fragilidade ou interesse de seus elementos ou sistemas naturais</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ArenosolHaplico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ArenosolHaplico">
+        <rdfs:label xml:lang="en">Arenosol Haplico</rdfs:label>
+        <rdfs:label xml:lang="es">Arenosol Haplico</rdfs:label>
+        <rdfs:label xml:lang="pt">Arenosol Haplico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Sandy soil, with little evolution.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo muy arenoso y de poce evolución.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo arenoso e muito pouca evolução.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#BosqueFrondoso -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#BosqueFrondoso">
+        <rdfs:label xml:lang="en">Broadleaf forest</rdfs:label>
+        <rdfs:label xml:lang="es">Bosque frondoso</rdfs:label>
+        <rdfs:label xml:lang="pt">Floresta de folhosas</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Area with hardwood forest.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zona con bosques frondosos.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Área com Floresta de folhosas.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caliza -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caliza">
+        <rdfs:label xml:lang="en">Limestone</rdfs:label>
+        <rdfs:label xml:lang="es">Caliza</rdfs:label>
+        <rdfs:label xml:lang="pt">Calcários</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <dcterms:source>C. Klein, C. S. Hurlbut. Manual de Mineralogía, cuarta edición. Editorial Reverté, 1998</dcterms:source>
+        <rdfs:comment xml:lang="en">Lithologic group consisting on sedimentary rock mainly composed of calcium carbonate (CaCO3), generally calcite, although often presents traces of magnesite (MgCO3) and other carbonates.</rdfs:comment>
+        <rdfs:comment xml:lang="es">grupo litológico que consiste en roca sedimentaria compuesta mayoritariamente por carbonato de calcio (CaCO3), generalmente calcita, aunque frecuentemente presenta trazas de magnesita (MgCO3) y otros carbonatos.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Grupo de litologia que consiste em rocha sedimentar composta principalmente por carbonato de cálcio (CaCO3), geralmente calcite, embora muitas vezes apresenta traços de magnesite (MgCO3) e outros carbonatos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolCalcarico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolCalcarico">
+        <rdfs:label xml:lang="en">Calcaric Cambisol</rdfs:label>
+        <rdfs:label xml:lang="es">Cambisol Calcárico</rdfs:label>
+        <rdfs:label xml:lang="pt">Cambissolo Calcarico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Cambrian soil type. Only umbric or ochric, but also mollic cambic then be desaturated.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con cámbico. Sólo con úmbrico u ócrico, también móllico pero entonces el cámbico estará desaturado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo cambissolo. Apenas umbric ou ochric, mas também câmbico mollic então ser desaturated.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolCromico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolCromico">
+        <rdfs:label xml:lang="en">Chromic Cambisol</rdfs:label>
+        <rdfs:label xml:lang="es">Cambisol Crómico</rdfs:label>
+        <rdfs:label xml:lang="pt">Cambissolo Chromico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Cambrian soil type. Only umbric or ochric, but also mollic cambic then be desaturated.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con cámbico. Sólo con úmbrico u ócrico, también móllico pero entonces el cámbico estará desaturado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo cambissolo. Apenas umbric ou ochric, mas também câmbico mollic então ser desaturated.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolDistrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolDistrico">
+        <rdfs:label xml:lang="en">Distric Cambisol</rdfs:label>
+        <rdfs:label xml:lang="es">Cambisol Dístrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Cambissolo Dystric</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Cambrian soil type. Only umbric or ochric, but also mollic cambic then be desaturated.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con cámbico. Sólo con úmbrico u ócrico, también móllico pero entonces el cámbico estará desaturado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo cambissolo. Apenas umbric ou ochric, mas também câmbico mollic então ser desaturated.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolEutrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolEutrico">
+        <rdfs:label xml:lang="en">Eutric Cambisol</rdfs:label>
+        <rdfs:label xml:lang="es">Cambisol Eutrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Cambissolo Eutrico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Cambrian soil type. Only umbric or ochric, but also mollic cambic then be desaturated.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="es">Tipo de suelo con cámbico. Sólo con úmbrico u ócrico, también móllico pero entonces el cámbico estará desaturado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo cambissolo. Apenas umbric ou ochric, mas também câmbico mollic então ser desaturated.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolMollico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CambisolMollico">
+        <rdfs:label xml:lang="en">Molico Cambisol</rdfs:label>
+        <rdfs:label xml:lang="es">Cambisol Mollico</rdfs:label>
+        <rdfs:label xml:lang="pt">Cambissolo Molico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Cambrian soil type. Only umbric or ochric, but also mollic cambic then be desaturated.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con cámbico. Sólo con úmbrico u ócrico, también móllico pero entonces el cámbico estará desaturado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo cambissolo. Apenas umbric ou ochric, mas também câmbico mollic então ser desaturated.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica">
+        <rdfs:label xml:lang="en">Feature</rdfs:label>
+        <rdfs:label xml:lang="es">Característica</rdfs:label>
+        <rdfs:label xml:lang="pt">Característica</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.geonames.org/ontology#Feature"/>
+        <rdfs:comment xml:lang="en">Extension of geonames:Feature. It represents the geographical features in the Otalex atlas. </rdfs:comment>
+        <rdfs:comment xml:lang="es">Extensión de geonames:Feature para representar las propiedades de Otalex asociadas a Features. Los individuos de esta clase se pueden comportar como observaciones</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Extensão de geonames:Feature. Representa as características geográficas nos atlas OTALEX.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CaracteristicaBiogeografica -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CaracteristicaBiogeografica">
+        <rdfs:label xml:lang="en">Biogeographic Feature</rdfs:label>
+        <rdfs:label xml:lang="es">Característica Biogeográfica</rdfs:label>
+        <rdfs:label xml:lang="pt">Recurso biogeográfico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">The biogeographical sector refers to a set of districts of large geographical entity which owns taxa, associations and vegetation series;  showing topographical geopermaseries and individuals, a fact which is often due to the existence of permanent communities and endemic climatophilous subserial.</rdfs:comment>
+        <rdfs:comment xml:lang="es">El sector biogeográfico debe ser un conjunto de distritos de gran entidad geográfica, que posea táxones, asociaciones y serie de vegetación propias; así como que muestre geoseries topográficas y geopermaseries particulares, circunstancia que suele deberse a la existencia de comunidades climatófilas permanentes y subseriales endémicas.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Refere-se a um conjunto de distritos de grande entidade geográfica que possui taxa, associações e séries de vegetação; Indivíduos e mostrando geopermaseries topográficas, o que é um fato Muitas vezes, devido à existência de Comunidades climatophilous subserial permanentes e endêmicas.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ConsumoAgua -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ConsumoAgua">
+        <rdfs:label xml:lang="en">Water consumption</rdfs:label>
+        <rdfs:label xml:lang="es">Consumo de agua</rdfs:label>
+        <rdfs:label xml:lang="pt">Consumo de água</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Water consumption of a feature (m^3 /person)</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de agua, generalmente asociado a un municipio y medido en metros cúbicos por habitante (m^3/hab)</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de água geralmente associada a um município e as medidas em metros cúbicos por habitante (m ^ 3 / pessoa)</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ConsumoEnergia -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ConsumoEnergia">
+        <rdfs:label xml:lang="en">Energy consumption</rdfs:label>
+        <rdfs:label xml:lang="es">Consumo de energía</rdfs:label>
+        <rdfs:label xml:lang="pt">Consumo de energia</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Energy consumption usually associated to a Feature, and  measured in Kwh.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Consumo de energía generalmente asociado a un municipio, y medido en Kwh.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O consumo de energia geralmente associada a um município, e meia Kwh.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine">
+        <rdfs:label xml:lang="en">Corine Feature</rdfs:label>
+        <rdfs:label xml:lang="es">Característica Corine</rdfs:label>
+        <rdfs:label xml:lang="pt">Característica Corine</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">The Corine Land Cover project developed a classification with a common methodology for all European countries. The minimum mapping unit surface is 25 hectares, while the collected linear elements have a width of at least 100 meters. The classification was synthesized and prepared for GEOALEX project, that distinguishes only 8 classes.</rdfs:comment>
+        <rdfs:comment xml:lang="es">El proyecto Corine Land Cover diseñó una clasificación con una metodología común para todos los países europeos. La unidad de mapeo mínima superficial es de 25 hectáreas, mientras que los elementos lineales recogidos tienen una anchura de al menos 100 metros. La clasificación fue sintetizada y elaborada para el proyecto GEOALEX, que distingue tan solo 8 clases.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O projecto Corine Land Cover desenvolveu uma classificação com uma metodologia comum para todos os países europeus. A superfície mínima unidade de mapeamento é de 25 hectares, enquanto que os elementos recolhidos lineares ter uma largura de pelo menos 100 metros. A classificação foi sintetizado e preparado para projeto GEOALEX que distingue apenas 8 classes.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Cuarcita -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Cuarcita">
+        <rdfs:label xml:lang="en">Quartzite</rdfs:label>
+        <rdfs:label xml:lang="es">Cuarcita</rdfs:label>
+        <rdfs:label xml:lang="pt">Quartzito</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Lithologic group consisting on hard metamorphic rock with high quartz content.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Grupo litológico que consiste en roca metamórfica dura con alto contenido de cuarzo.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Grupo de litologia que consiste em rocha metamórfica com alto teor de quartzo.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CultivoPermanente -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CultivoPermanente">
+        <rdfs:label xml:lang="en">Permanent crops</rdfs:label>
+        <rdfs:label xml:lang="es">Cultivo permanente</rdfs:label>
+        <rdfs:label xml:lang="pt">Culturas permanentes</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Area including permanent crops.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zona que incluye cultivos permanentes.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Área, incluindo as culturas permanentes.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CultivoTemporal -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#CultivoTemporal">
+        <rdfs:label xml:lang="en">Temporary crops</rdfs:label>
+        <rdfs:label xml:lang="es">Cultivo temporal</rdfs:label>
+        <rdfs:label xml:lang="pt">Culturas temporárias</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="es">Zona que incluye cultivos personales.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Area including temporary crops.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Área incluindo culturas temporárias.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#DominioAgricolaDeRegadio -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#DominioAgricolaDeRegadio">
+        <rdfs:label xml:lang="en">Irrigated agricultural domains</rdfs:label>
+        <rdfs:label xml:lang="es">Dominio agrícola de regadío</rdfs:label>
+        <rdfs:label xml:lang="pt">Dominío agrícola de regadío</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <rdfs:comment xml:lang="en">Type of territory within the classification Corine including irrigated agricultural domains</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Tipo de territorio dentro de la clasificación Corine que incluye dominios agrícolas de regadío.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de território dentro da classificação Corine incluindo domínios da agricultura irrigada.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#DominioAgricolaDeSecano -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#DominioAgricolaDeSecano">
+        <rdfs:label xml:lang="en">Agricultural field of dry land</rdfs:label>
+        <rdfs:label xml:lang="es">Dominio agrícola de secano</rdfs:label>
+        <rdfs:label xml:lang="pt">Dominio agrícola de sequeiro</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <rdfs:comment xml:lang="en">Type of territory within the Corine classification that includes rainfed agricultural domains.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de territorio dentro de la clasificación Corine que incluye dominios agrícolas de secano.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de território dentro da classificação Corine que inclui domínios agrícolas de sequeiro.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#DominioCosteroYLitoral -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#DominioCosteroYLitoral">
+        <rdfs:label xml:lang="en">Domain coastal and littoral</rdfs:label>
+        <rdfs:label xml:lang="es">Dominio costero y litoral</rdfs:label>
+        <rdfs:label xml:lang="pt">Domínio costeira e litoral</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <rdfs:comment xml:lang="es">Tipo de territorio dentro de la clasificación Corine que incluye costas y litorales.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de território dentro da classificação Corine que inclui o litoral e as linhas costeiras.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Type of territory within the Corine classification that includes coasts and shorelines.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Duna -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Duna">
+        <rdfs:label xml:lang="en">Dune</rdfs:label>
+        <rdfs:label xml:lang="es">Duna</rdfs:label>
+        <rdfs:label xml:lang="pt">Duna</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="es">Grupo litológico constituído por materiales recientes.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Grupo de litologia que consiste em materiais recentes.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Lithological group consisting of recent materials.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPAnual -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPAnual">
+        <rdfs:label xml:lang="en">Annual potential evapotranspiration</rdfs:label>
+        <rdfs:label xml:lang="es">Evapotranspiracion potencial anual</rdfs:label>
+        <rdfs:label xml:lang="pt">Evapotranspiração potencial anual</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Evapotranspiracion"/>
+        <rdfs:comment xml:lang="en">Potential evapotranspiration (ETP) expresses the amount of water evaporated from the soil surface over the transpired by vegetation growing on that land. It is calculated based on the average monthly temperature and latitudinal parameters of the territory, according to the formula proposed by Thornthwaite.En this case, the class refers to the annual evapotranspiration associated with a geographical feature.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">La evapotranspiración potencial (ETP) expresa la cantidad de agua evaporada de la superficie del suelo más la transpirada por la vegetación que crece sobre dicho suelo. Se calcula en función de la temperatura media mensual y parámetros latitudinales del territorio, según la fórmula propuesta por Thornthwaite.En este caso, la clase se refiere a la evapotranspiración anual asociada a una característica geográfica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">A evapotranspiração potencial (ETP) expressa a quantidade de água evaporada da superfície do solo sobre o acontecido pela vegetação que cresce sobre o mesmo. É calculada com base na temperatura média mensal e parâmetros de latitude do território, de acordo com a fórmula proposta por Thornthwaite.En Neste caso, a classe refere-se à evapotranspiração anual associado com uma entidade geográfica.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPInvierno -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPInvierno">
+        <rdfs:label xml:lang="en">Winter potential evapotranspiration</rdfs:label>
+        <rdfs:label xml:lang="es">Evapotranspiracion potencial en invierno</rdfs:label>
+        <rdfs:label xml:lang="pt">Evapotranspiração potencial no inverno</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Evapotranspiracion"/>
+        <rdfs:comment xml:lang="es">La evapotranspiración potencial (ETP) expresa la cantidad de agua evaporada de la superficie del suelo más la transpirada por la vegetación que crece sobre dicho suelo. Se calcula en función de la temperatura media mensual y parámetros latitudinales del territorio, según la fórmula propuesta por Thornthwaite.En este caso, la clase se refiere a la evapotranspiración anual asociada a una característica geográfica en invierno.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">A evapotranspiração potencial (ETP) expressa a quantidade de água evaporada da superfície do solo sobre o acontecido pela vegetação que cresce sobre o mesmo. É calculada com base na temperatura média mensal e parâmetros de latitude do território, de acordo com a fórmula proposta por Thornthwaite.En Neste caso, a classe refere-se à evapotranspiração anual associado com uma entidade geográfica no inverno.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Potential evapotranspiration (ETP) expresses the amount of water evaporated from the soil surface over the transpired by vegetation growing on that land. It is calculated based on the average monthly temperature and latitudinal parameters of the territory, according to the formula proposed by Thornthwaite.En this case, the class refers to the annual evapotranspiration associated with a geographical feature in winter.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPOtono -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPOtono">
+        <rdfs:label xml:lang="en">Autumn potential evapotranspiration</rdfs:label>
+        <rdfs:label xml:lang="es">Evapotranspiracion potencial en otoño</rdfs:label>
+        <rdfs:label xml:lang="pt">Evapotranspiração potencial no outono</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Evapotranspiracion"/>
+        <rdfs:comment xml:lang="en">Potential evapotranspiration (ETP) expresses the amount of water evaporated from the soil surface over the transpired by vegetation growing on that land. It is calculated based on the average monthly temperature and latitudinal parameters of the territory, according to the formula proposed by Thornthwaite.En this case, the class refers to the annual evapotranspiration associated with a geographical feature in autumn.</rdfs:comment>
+        <rdfs:comment xml:lang="es">La evapotranspiración potencial (ETP) expresa la cantidad de agua evaporada de la superficie del suelo más la transpirada por la vegetación que crece sobre dicho suelo. Se calcula en función de la temperatura media mensual y parámetros latitudinales del territorio, según la fórmula propuesta por Thornthwaite.En este caso, la clase se refiere a la evapotranspiración anual asociada a una característica geográfica en otoño.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">A evapotranspiração potencial (ETP) expressa a quantidade de água evaporada da superfície do solo sobre o acontecido pela vegetação que cresce sobre o mesmo. É calculada com base na temperatura média mensal e parâmetros de latitude do território, de acordo com a fórmula proposta por Thornthwaite.En Neste caso, a classe refere-se à evapotranspiração anual associado com uma entidade geográfica no outono.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPPrimavera -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPPrimavera">
+        <rdfs:label xml:lang="en">Spring potential evapotranspiration</rdfs:label>
+        <rdfs:label xml:lang="es">Evapotranspiracion potencial en primavera</rdfs:label>
+        <rdfs:label xml:lang="pt">Evapotranspiração potencial na primavera</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Evapotranspiracion"/>
+        <rdfs:comment xml:lang="en">Potential evapotranspiration (ETP) expresses the amount of water evaporated from the soil surface over the transpired by vegetation growing on that land. It is calculated based on the average monthly temperature and latitudinal parameters of the territory, according to the formula proposed by Thornthwaite.En this case, the class refers to the annual evapotranspiration associated with a geographical feature in spring.</rdfs:comment>
+        <rdfs:comment xml:lang="es">La evapotranspiración potencial (ETP) expresa la cantidad de agua evaporada de la superficie del suelo más la transpirada por la vegetación que crece sobre dicho suelo. Se calcula en función de la temperatura media mensual y parámetros latitudinales del territorio, según la fórmula propuesta por Thornthwaite.En este caso, la clase se refiere a la evapotranspiración anual asociada a una característica geográfica en primavera.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">A evapotranspiração potencial (ETP) expressa a quantidade de água evaporada da superfície do solo sobre o acontecido pela vegetação que cresce sobre o mesmo. É calculada com base na temperatura média mensal e parâmetros de latitude do território, de acordo com a fórmula proposta por Thornthwaite. Neste caso, a classe refere-se à evapotranspiração anual associado com uma entidade geográfica na primavera.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPVerano -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ETPVerano">
+        <rdfs:label xml:lang="en">Summer potential evapotranspiration</rdfs:label>
+        <rdfs:label xml:lang="es">Evapotranspiracion potencial en verano</rdfs:label>
+        <rdfs:label xml:lang="pt">Evapotranspiração potencial no verão</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Evapotranspiracion"/>
+        <rdfs:comment xml:lang="en">Potential evapotranspiration (ETP) expresses the amount of water evaporated from the soil surface over the transpired by vegetation growing on that land. It is calculated based on the average monthly temperature and latitudinal parameters of the territory, according to the formula proposed by Thornthwaite. In this case, the class refers to the annual evapotranspiration associated with a geographical feature during the summer.</rdfs:comment>
+        <rdfs:comment xml:lang="es">La evapotranspiración potencial (ETP) expresa la cantidad de agua evaporada de la superficie del suelo más la transpirada por la vegetación que crece sobre dicho suelo. Se calcula en función de la temperatura media mensual y parámetros latitudinales del territorio, según la fórmula propuesta por Thornthwaite. En este caso, la clase se refiere a la evapotranspiración anual asociada a una característica geográfica durante el verano.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">A evapotranspiração potencial (ETP) expressa a quantidade de água evaporada da superfície do solo sobre o acontecido pela vegetação que cresce sobre o mesmo. É calculada com base na temperatura média mensal e parâmetros de latitude do território, de acordo com a fórmula proposta por Thornthwaite. Neste caso, a classe refere-se à evapotranspiração anual associado com uma entidade geográfica no verão.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Evapotranspiracion -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Evapotranspiracion">
+        <rdfs:label xml:lang="en">Evapotranspiration</rdfs:label>
+        <rdfs:label xml:lang="es">Evapotranspiracion</rdfs:label>
+        <rdfs:label xml:lang="pt">Evapotranspiração</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Potential evapotranspiration (ETP) expresses the amount of water evaporated from the soil surface over the transpired by vegetation growing on that land. It is calculated based on the average monthly temperature and latitudinal parameters of the territory, according to the formula proposed by Thornthwaite.</rdfs:comment>
+        <rdfs:comment xml:lang="es">La evapotranspiración potencial (ETP) expresa la cantidad de agua evaporada de la superficie del suelo más la transpirada por la vegetación que crece sobre dicho suelo. Se calcula en función de la temperatura media mensual y parámetros latitudinales del territorio, según la fórmula propuesta por Thornthwaite.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">A evapotranspiração potencial (ETP) expressa a quantidade de água evaporada da superfície do solo sobre o acontecido pela vegetação que cresce sobre o mesmo. É calculada com base na temperatura média mensal e parâmetros de latitude do território, de acordo com a fórmula proposta por Thornthwaite.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FerrocarrilViaDoble -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FerrocarrilViaDoble">
+        <rdfs:label xml:lang="en">Double track railway</rdfs:label>
+        <rdfs:label xml:lang="es">Ferrocarril vía doble</rdfs:label>
+        <rdfs:label xml:lang="pt">Ferrocarril vía dupla</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via"/>
+        <rdfs:comment xml:lang="en">Railway with double track</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Duplo linha férrea</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Ferrocarril con vía doble</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FerrocarrilViaReducida -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FerrocarrilViaReducida">
+        <rdfs:label xml:lang="en">Reduced track railway</rdfs:label>
+        <rdfs:label xml:lang="es">Ferrocarril vía reducida</rdfs:label>
+        <rdfs:label xml:lang="pt">Reduzida via ferroviária</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via"/>
+        <rdfs:comment xml:lang="pt">Com rota ferroviária reduzida.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Railway with a reduced track.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Ferrocarril con vía reducida.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FerrocarrilViaSimple -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FerrocarrilViaSimple">
+        <rdfs:label xml:lang="en">Simple track railway</rdfs:label>
+        <rdfs:label xml:lang="es">Ferrocarril vía simple</rdfs:label>
+        <rdfs:label xml:lang="pt">Simple via ferroviária</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Railway with a simple track.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Ferrocarril con vía simple.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">ferrovia com única linha férrea.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FluvisolCalcarico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FluvisolCalcarico">
+        <rdfs:label xml:lang="en">Fluvisol calcaric</rdfs:label>
+        <rdfs:label xml:lang="es">Fluvisol calcárico</rdfs:label>
+        <rdfs:label xml:lang="pt">Neossolo flúvico calcaric</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of soil created from recent river materials (or dammed rivers if the original material still has not evolved). Usually occurs near the rivers. It has a layered profile.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo creado a partir de materiales flúvicos recientes (o en ríos represados si todavía el material original no ha evolucionado). Se suele dar cerca de los ríos. Posee un perfil estratificado.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="pt">Tipo de solo criado a partir de materiais recentes (ou rios represados se o material original ainda não evoluiu). Geralmente ocorre perto dos rios. Ele tem um perfil em camadas.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FluvisolEutrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#FluvisolEutrico">
+        <rdfs:label xml:lang="en">Eutric fluvisol</rdfs:label>
+        <rdfs:label xml:lang="es">Fluvisol eutrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Neossolo flúvico eutrico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Type of soil created from recent river materials (or dammed rivers if the original material still has not evolved). Usually occurs near the rivers. It has a layered profile.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo creado a partir de materiales flúvicos recientes (o en ríos represados si todavía el material original no ha evolucionado). Se suele dar cerca de los ríos. Posee un perfil estratificado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo criado a partir de materiais recentes (ou rios represados se o material original ainda não evoluiu). Geralmente ocorre perto dos rios. Ele tem um perfil em camadas.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Granito -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Granito">
+        <rdfs:label xml:lang="en">Granite</rdfs:label>
+        <rdfs:label xml:lang="es">Granito</rdfs:label>
+        <rdfs:label xml:lang="pt">Granito</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Lithologic group made of plutonic and igneous  rock constituted by quartz, feldspar and mica</rdfs:comment>
+        <rdfs:comment xml:lang="es">Grupo litológico que consiste en roca ígnea plutónica, constituida esencialmente por cuarzo, feldespato y mica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Grupo de litologia que consiste em roca ígnea plutónica constituida esencialmente por quartzo, feldespato y mica.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceAridez -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceAridez">
+        <rdfs:label xml:lang="en">Aridity index</rdfs:label>
+        <rdfs:label xml:lang="es">Índice de aridez</rdfs:label>
+        <rdfs:label xml:lang="pt">Índice de Aridez</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">The aridity index (Ia) is defined as the lack of water in the soil. It is calculated based on the annual precipitation (P) and annual potential evapotranspiration (PET) as proposed by Thornthwaite in his formula (Ia = P / ETP).</rdfs:comment>
+        <rdfs:comment xml:lang="es">El índice de aridez (Ia) se se define como la falta de agua en el suelo. Se calcula en función de la precipitación anual (P) y la evapotranspiración potencial anual (ETP) según la fórmula propuesta por Thornthwaite (Ia = P/ETP).</rdfs:comment>
+        <rdfs:comment xml:lang="pt">O índice de aridez (Ia) é definido como a falta de água no solo. Ele é calculado com base na precipitação anual (P) ea evapotranspiração potencial anual (PET) como proposto por Thornthwaite fórmula (Ia = P / ETP). </rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceContinentalidad -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceContinentalidad">
+        <rdfs:label xml:lang="en">Continentality index</rdfs:label>
+        <rdfs:label xml:lang="es">Índice de continentalidad</rdfs:label>
+        <rdfs:label xml:lang="pt">Índice de continentalidade</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Continentality index (Ic) is related to the oscillation of the average annual temperature of the warmest month (Tmax) and the coldest month (Tmin). [Ic = Tmax-Tmin]</rdfs:comment>
+        <rdfs:comment xml:lang="es">El índice de continentalidad (Ic) está relacionado con la oscilación anual de la temperatura media del mes más cálido (Tmax) y la del mes más frío (Tmin). [Ic = Tmax-Tmin].</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Índice continentalidade (Ic) está relacionado com o de oscilação da temperatura anual média do mês mais quente (Tmax) e o mês mais frio (Tmin). [Ic = Tmax-Tmin]</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceOmbrotermico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceOmbrotermico">
+        <rdfs:label xml:lang="en">Ombrothermic index</rdfs:label>
+        <rdfs:label xml:lang="es">Índice ombrotérmico</rdfs:label>
+        <rdfs:label xml:lang="pt">Índice Ombrothermic</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">The ombrothermic index (Io) defines ranges based on precipitation and temperature (types and ómbricos horizons). It is the ratio between the amount of rainfall in mm in the months whose temperature is above zero degrees Celsius (Pp) and the sum of the monthly average temperatures duperiores to zero degrees Celsius in décimat grade (Tp). Io = Pp (Tp) 10.</rdfs:comment>
+        <rdfs:comment xml:lang="es">El índice ombrotérmico (Io) define rangos basados en la precipitación y temperatura (tipos y horizontes ómbricos). Es el cociente entre la suma de la precipitación media en mm de los meses cuya temperatura es superior a cero grados centígrados (Pp) y la suma de las temperaturas medias mensuales duperiores a cero grados centígrados en décimat de grado (Tp). Io = Pp(Tp)10.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">O índice ombrothermic (Io) define as faixas com base na precipitação e temperatura (tipos e ómbricos horizontes). É a relação entre a quantidade de chuva no mês mm cuja temperatura é acima de zero graus Celsius (PP) e a soma das temperaturas médias mensais duperiores a zero graus Celsius em grau décimat (TP). Io = Pp (Tp) 10.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaPapel -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaPapel">
+        <rdfs:label xml:lang="en">Paper collection rate</rdfs:label>
+        <rdfs:label xml:lang="es">Índice de recogida de papel</rdfs:label>
+        <rdfs:label xml:lang="pt">Taxa de recolha de papel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Paper collection rate (for recycling)</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tasa de recogida de papel para su reciclaje.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Taxa de recolha de papel para reciclagem</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaPlastico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaPlastico">
+        <rdfs:label xml:lang="en">Plastic collection rate</rdfs:label>
+        <rdfs:label xml:lang="es">Índice de recogida de plástico</rdfs:label>
+        <rdfs:label xml:lang="pt">Taxa de recolha de plástico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Plastic collection rate (for recycling)</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tasa de recogida de plástico para su reciclaje.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Taxa de recolha de plástico para reciclagem</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaSolidosUrbanosIndiferenciado -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaSolidosUrbanosIndiferenciado">
+        <rdfs:label xml:lang="en">garbage collection rate</rdfs:label>
+        <rdfs:label xml:lang="es">Índice de recogida de sólidos urbanos (indiferenciado)</rdfs:label>
+        <rdfs:label xml:lang="pt">Taxa de recolha de sólidos urbanos</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Plastic collection rate (for recycling).</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tasa de recogida de sólidos urbanos.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Taxa de recolha de sólidos urbanos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaVidrio -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceRecogidaVidrio">
+        <rdfs:label xml:lang="en">Glass collection rate</rdfs:label>
+        <rdfs:label xml:lang="es">Índice de recogida de vidrio</rdfs:label>
+        <rdfs:label xml:lang="pt">Taxa de recolha de vidrio</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Glass collection rate (for recycling)</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tasa de recogida de vidrio para su reciclaje.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Taxa de recolha de vidro para reciclagem</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceTermicidad -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#IndiceTermicidad">
+        <rdfs:label xml:lang="en">Thermal index</rdfs:label>
+        <rdfs:label xml:lang="es">Índice de termicidad</rdfs:label>
+        <rdfs:label xml:lang="pt">Índice de termicidade</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="es">El índice de termicidad (It) es la suma, en décimas de grado, de la temperatura media anual (T), la temperatura media de las mínimas (m) del mes más frío y la temperatura media de las máximas (M) del período mensual más frío. It= (T+m+M)10.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">The thermal index (It) is the sum, in tenths of a degree, of the average annual temperature (T), the average temperature minimum (m) of the coldest month and the average temperature of the maximum (M) for the period coldest month. It = (T + m + M) 10.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Índice Termicidad (A) é a soma, em décimos de um grau, a temperatura média anual (T), a temperatura mínima média (M) do mês mais fria e a temperatura média do valor máximo (M) durante o período mês mais frio. It = (T + M + H) 10.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LaminaDeAgua -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LaminaDeAgua">
+        <rdfs:label xml:lang="en">Continental Waters</rdfs:label>
+        <rdfs:label xml:lang="es">Lámina de agua</rdfs:label>
+        <rdfs:label xml:lang="pt">Aguas continentais</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <rdfs:comment xml:lang="en">Corine type classification that includes continental water of a territory.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de clasificación Corine que incluye las láminas de agua en un territorio.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de classificação Corine que inclui aguas continentais em um território.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LeptosolDistrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LeptosolDistrico">
+        <rdfs:label xml:lang="en">Distric leptosol</rdfs:label>
+        <rdfs:label xml:lang="es">Leptosol dístrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Leptosol dystric</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Soil type very thin (less than 25 cm thick), on a hard rock (or cemented layer, or materials&gt; 40% CaCO3, very burdensome material). It has very low evolution.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo muy delgados (espesor menor a 25 cm), sobre una roca dura (o capa cementada, o material &gt; 40% CO3Ca, material muy gravoso). Es de muy baja evolución.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo muito fino (menos de 25 cm de espessura), em um hard rock (ou camada cimentada, ou materiais&gt; 40% de CaCO3, material muito pesado). É muito baixa a evolução.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LeptosolEutrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LeptosolEutrico">
+        <rdfs:label xml:lang="en">Eutric leptosol</rdfs:label>
+        <rdfs:label xml:lang="es">Leptosol eutrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Leptosol eutric</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Soil type very thin (less than 25 cm thick), on a hard rock (or cemented layer, or materials&gt; 40% CaCO3, very burdensome material). It has very low evolution.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo muy delgados (espesor menor a 25 cm), sobre una roca dura (o capa cementada, o material &gt; 40% CO3Ca, material muy gravoso). Es de muy baja evolución.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo muito fino (menos de 25 cm de espessura), em um hard rock (ou camada cimentada, ou materiais&gt; 40% de CaCO3, material muito pesado). É muito baixa a evolução.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LeptosolHaplico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LeptosolHaplico">
+        <rdfs:label xml:lang="en">Haplic leptosol</rdfs:label>
+        <rdfs:label xml:lang="es">Leptosol háplico</rdfs:label>
+        <rdfs:label xml:lang="pt">Leptosol háplico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Soil type very thin (less than 25 cm thick), on a hard rock (or cemented layer, or materials&gt; 40% CaCO3, very burdensome material). It has very low evolution.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo muy delgados (espesor menor a 25 cm), sobre una roca dura (o capa cementada, o material &gt; 40% CO3Ca, material muy gravoso). Es de muy baja evolución.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo muito fino (menos de 25 cm de espessura), em um hard rock (ou camada cimentada, ou materiais&gt; 40% de CaCO3, material muito pesado). É muito baixa a evolução.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Llanura -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Llanura">
+        <rdfs:label xml:lang="en">Plain</rdfs:label>
+        <rdfs:label xml:lang="es">Llanura</rdfs:label>
+        <rdfs:label xml:lang="pt">Planície</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Plain areas</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zonas con llanuras.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Áreas com planícies.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolCalcico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolCalcico">
+        <rdfs:label xml:lang="en">Calcium luvisol</rdfs:label>
+        <rdfs:label xml:lang="es">Luvisol cálcico</rdfs:label>
+        <rdfs:label xml:lang="pt">Luvisol cálcio</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of soil with normal clays. It occurs in any excluded tropical and subtropical climate.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con arcillas normales. Se da en cualquier clima excluidos los tropicales y subtropicales.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo com argilas normais. Ocorre em qualquer clima tropical e subtropical excluídos.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolCromico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolCromico">
+        <rdfs:label xml:lang="en">Chromic luvisol</rdfs:label>
+        <rdfs:label xml:lang="es">Luvisol crómico</rdfs:label>
+        <rdfs:label xml:lang="pt">Luvisol crómico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of soil with normal clays. It occurs in any excluded tropical and subtropical climate.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con arcillas normales. Se da en cualquier clima excluidos los tropicales y subtropicales.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo com argilas normais. Ocorre em qualquer clima tropical e subtropical excluídos.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolFerrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolFerrico">
+        <rdfs:label xml:lang="en">Ferric luvisol</rdfs:label>
+        <rdfs:label xml:lang="es">Luvisol férrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Luvisol férrico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of soil with normal clays. It occurs in any excluded tropical and subtropical climate.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="es">Tipo de suelo con arcillas normales. Se da en cualquier clima excluidos los tropicales y subtropicales.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo com argilas normais. Ocorre em qualquer clima tropical e subtropical excluídos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolGleico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolGleico">
+        <rdfs:label xml:lang="en">Gleico luvisol</rdfs:label>
+        <rdfs:label xml:lang="es">Luvisol gleico</rdfs:label>
+        <rdfs:label xml:lang="pt">Luvisol gleico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of soil with normal clays. It occurs in any excluded tropical and subtropical climate.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con arcillas normales. Se da en cualquier clima excluidos los tropicales y subtropicales.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="pt">Tipo de solo com argilas normais. Ocorre em qualquer clima tropical e subtropical excluídos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolHaplico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolHaplico">
+        <rdfs:label xml:lang="en">Haplic luvisol</rdfs:label>
+        <rdfs:label xml:lang="es">Luvisol háplico</rdfs:label>
+        <rdfs:label xml:lang="pt">Luvisol háplico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of soil with normal clays. It occurs in any excluded tropical and subtropical climate.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con arcillas normales.  Se da en cualquier clima excluidos los tropicales y subtropicales.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="pt">Tipo de solo com argilas normais. Ocorre em qualquer clima tropical e subtropical excluídos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolVertico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#LuvisolVertico">
+        <rdfs:label xml:lang="en">Vertico luvisol</rdfs:label>
+        <rdfs:label xml:lang="es">Luvisol vertico</rdfs:label>
+        <rdfs:label xml:lang="pt">Luvisol vertico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of soil with normal clays. It occurs in any excluded tropical and subtropical climate.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="es">Tipo de suelo con arcillas normales.  Se da en cualquier clima excluidos los tropicales y subtropicales.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo com argilas normais. Ocorre em qualquer clima tropical e subtropical excluídos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Mixta -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Mixta">
+        <rdfs:label xml:lang="en">Mixed area</rdfs:label>
+        <rdfs:label xml:lang="es">Zona mixta</rdfs:label>
+        <rdfs:label xml:lang="pt">Zona mista</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Landscape unit with mixed terrain.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Unidad de paisaje con terreno mixto.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Unidade de paisagem com terreno misto.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#MonumentoNatural -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#MonumentoNatural">
+        <rdfs:label xml:lang="en">Natural monument</rdfs:label>
+        <rdfs:label xml:lang="es">Monumento natural</rdfs:label>
+        <rdfs:label xml:lang="pt">Monumento natural</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AreaProtegida"/>
+        <rdfs:comment xml:lang="en">Spaces or elements of nature consisting on notorious formations uniqueness, rarity or beauty, that deserve special protection. Geological formations and other elements of the earth that meet a particular interest in the uniqueness and importance of their scientific, cultural or scenic values can also be considered natural monuments.</rdfs:comment>
+        <dcterms:source>http://www.juntadeandalucia.es/medioambiente/site/portalweb/menuitem.220de8226575045b25f09a105510e1ca/?vgnextoid=89b4b924931f4310VgnVCM2000000624e50aRCRD</dcterms:source>
+        <rdfs:comment xml:lang="es">Espacios o elementos de la naturaleza constituidos básicamente por formaciones de notoria singularidad, rareza o belleza, que merecen ser objeto de protección especial. Se pueden considerar también Monumentos Naturales, las formaciones geológicas, los yacimientos paleontológicos y demás elementos de la tierra que reúnan un interés especial por la singularidad o importancia de sus valores científicos, culturales o paisajísticos.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Espaços ou elementos da natureza consistem basicamente formações notórios singularidade, raridade ou beleza, que merecem proteção especial. Também pode ser considerado monumentos naturais, formações geológicas, paleontológicas e outros elementos do GEA que atender a um interesse particular na singularidade e importância de seus valores científicos, culturais ou cénicos.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Municipio -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Municipio">
+        <rdfs:label xml:lang="en">Municipality</rdfs:label>
+        <rdfs:label xml:lang="es">Municipio</rdfs:label>
+        <rdfs:label xml:lang="pt">Município</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Municipality from Spain or Portugal. If the municipality is from Spain, then the class behaves as the one defined in http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Municipio</rdfs:comment>
+        <rdfs:comment xml:lang="es">Municipio de España o Portugal. Si el municipio es de España, esta clase se comporta como la que está definida en http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Municipio</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Município de Espanha ou de Portugal. Se o município é de Espanha, em seguida, a classe se comporta como o definido na http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Municipio</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PaisajeProtegido -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PaisajeProtegido">
+        <rdfs:label xml:lang="en">Protected landscape</rdfs:label>
+        <rdfs:label xml:lang="es">Paisaje protegido</rdfs:label>
+        <rdfs:label xml:lang="pt">Paisagem protegida</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AreaProtegida"/>
+        <rdfs:comment xml:lang="es">Los Paisajes Protegidos son aquellos lugares concretos del medio natural que, por sus valores estéticos y culturales, son merecedores de una protección especial.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">
+Paisagem protegida refere-se às partes específicas do ambiente natural, que, devido aos seus valores estéticos e culturais, merecem proteção especial.</rdfs:comment>
+        <dcterms:source>http://www.juntadeandalucia.es/medioambiente/site/portalweb/menuitem.220de8226575045b25f09a105510e1ca/?vgnextoid=54b27b32b31f4310VgnVCM1000001325e50aRCRD</dcterms:source>
+        <rdfs:comment xml:lang="en">Protected landscape refers to those specific parts of the natural environment, that due to their aesthetic and cultural values, deserve special protection.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ParqueNacional -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ParqueNacional">
+        <rdfs:label xml:lang="en">National park</rdfs:label>
+        <rdfs:label xml:lang="es">Parque nacional</rdfs:label>
+        <rdfs:label xml:lang="pt">Parque nacional</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AreaProtegida"/>
+        <dcterms:source>http://www.juntadeandalucia.es/medioambiente/site/portalweb/menuitem.220de8226575045b25f09a105510e1ca/?vgnextoid=39fd545f021f4310VgnVCM1000001325e50aRCRD</dcterms:source>
+        <rdfs:comment xml:lang="en">Natural areas of high ecological and cultural value, little changed by exploitation or human activity. Due tothe beauty of its landscape, the representativeness of their ecosystems or the singularity of their flora, fauna or its geomorphological formations, they possess some outstanding ecological, aesthetic, cultural, educational and scientific values whose conservation deserves preferential treatment.</rdfs:comment>
+        <rdfs:comment xml:lang="es"> Espacios naturales de alto valor ecológico y cultural, poco transformados por la explotación o actividad humana. En razón de la belleza de sus paisajes, la representatividad de sus ecosistemas o la singularidad de su flora, de su fauna, de su gelogía o de sus formaciones geomorfológicas, poseen unos valores ecológicos, estéticos, culturales, educativos y científicos destacados cuya conservación merece una atención preferente y se declaran de interés general del Estado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">As áreas naturais de elevado valor ecológico e cultural, pouco mudou por exploração ou atividade humana. Devido tothe beleza da sua paisagem, a representatividade dos seus ecossistemas ou a singularidade de seus flora, fauna ou formações geomorfológicas seus, eles possuem algum excelente ecológico, estético, valores culturais, educacionais e científicos cuja conservação merece um tratamento preferencial</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ParqueNatural -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ParqueNatural">
+        <rdfs:label xml:lang="en">Natural park</rdfs:label>
+        <rdfs:label xml:lang="es">Parque natural</rdfs:label>
+        <rdfs:label xml:lang="pt">Parque natural</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#AreaProtegida"/>
+        <dcterms:source>http://www.juntadeandalucia.es/medioambiente/site/portalweb/menuitem.220de8226575045b25f09a105510e1ca/?vgnextoid=8ac0ee9b421f4310VgnVCM2000000624e50aRCRD</dcterms:source>
+        <rdfs:comment xml:lang="en">Natural areas, little altered by human exploitation and occupation, that are representativeness of their ecosystems or the singularity of their flora, fauna or geomorphological formations. They have ecological, aesthetic, educational and scientific values and deserve a preferential conservation.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Áreas naturales, poco transformadas  por la explotación u ocupación humana que, en razón de la belleza de sus paisajes, la representatividad de sus ecosistemas o la singularidad de su flora, de su fauna o de sus formaciones geomorfológicas, poseen unos valores ecológicos, estéticos, educativos y científicos cuya conservación merece una atención preferente.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Áreas naturais, pouco alterados pela exploração humana e de trabalho, por causa da beleza das suas paisagens, a representatividade dos seus ecossistemas ou a singularidade da sua flora, fauna ou formações geomorfológicas, ter ecológicos, estéticos, conservação educacional e científico merecem tratamento preferencial.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PastizalYEspacioAbierto -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PastizalYEspacioAbierto">
+        <rdfs:label xml:lang="en">Grassland and open space</rdfs:label>
+        <rdfs:label xml:lang="es">Pastizal y espacio abierto</rdfs:label>
+        <rdfs:label xml:lang="pt">Pastagem e espaço aberto</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Grassland and open spaces according wing Corine classification.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zonas de pastizales y espacios abiertos de acuerdo a la clasificación Corine.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Pastagem e espaços abertos de acordo asa classificação Corine.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Pasto -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Pasto">
+        <rdfs:label xml:lang="en">Pasture land</rdfs:label>
+        <rdfs:label xml:lang="es">Pasto</rdfs:label>
+        <rdfs:label xml:lang="pt">Pastagen</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Areas with pasture land.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zonas de pastos.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Zonas de pastagem.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Pendiente -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Pendiente">
+        <rdfs:label xml:lang="en">Hillside</rdfs:label>
+        <rdfs:label xml:lang="es">Pendiente</rdfs:label>
+        <rdfs:label xml:lang="pt">Encosta</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Hillside aureas</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zonas con pendiente.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Zonas de encosta.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Pizarra -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Pizarra">
+        <rdfs:label xml:lang="en">Slate</rdfs:label>
+        <rdfs:label xml:lang="es">Pizarra</rdfs:label>
+        <rdfs:label xml:lang="pt">Ardósia</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Lithologic group consisting on homogeneous fine-grained metamorphic rock formed by the compaction of low-grade metamorphism of shale</rdfs:comment>
+        <rdfs:comment xml:lang="es">Grupo litológico que consiste en roca metamórfica homogénea de grano fino formada por la compactación por metamorfismo de bajo grado de lutitas.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Grupo de litologia que consiste em rocha metamórfica de grão fino formada pela compactação do metamorfismo de baixo grau de xisto</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Planicie -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Planicie">
+        <rdfs:label xml:lang="en">Plain</rdfs:label>
+        <rdfs:label xml:lang="es">Planicie</rdfs:label>
+        <rdfs:label xml:lang="pt">Planície</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">SArea with plain surfaces.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Superficie con planicies.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Área com planícies.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PlanosolEutrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PlanosolEutrico">
+        <rdfs:label xml:lang="en">Eutric planosol </rdfs:label>
+        <rdfs:label xml:lang="es">Planosol eutrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Planosol eutrico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Type of ground with surface hydromorphy. It has abrupt textural changes. Fat reliefs.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con hidromorfía superficial, en el hor. E; límite E / Bt con cambio textural brusco. Relieves planos.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo com hidromorfia superfície. Tem abruptas mudanças estruturais. Relevos gordura.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PlutonicaEIgnea -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PlutonicaEIgnea">
+        <rdfs:label xml:lang="en">Plutonic and igneous rocks</rdfs:label>
+        <rdfs:label xml:lang="es">Rocas plutónicas e ígneas</rdfs:label>
+        <rdfs:label xml:lang="pt">Rochas plutónicas e rochas igneas</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Lithologic group that includes igneous and plutonic rocks.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Grupo litológico que incluye rocas de tipo plutónico e ígneo.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Grupo de litologia que consiste em rochas plutónicas e rochas  ignease.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PodzolHaplico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PodzolHaplico">
+        <rdfs:label xml:lang="en">Haplic podzol</rdfs:label>
+        <rdfs:label xml:lang="es">Podzol háplico</rdfs:label>
+        <rdfs:label xml:lang="pt">Podzol haplico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Type of acid soil with organic matter illuviation and / or oxides of Fe and / or Al. It has a highly developed profile.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo ácido, con iluviación de materia orgánica y/o óxidos de Fe y/o Al. Posee un perfil muy evolucionado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo com ácido illuviation matéria orgânica e / ou óxidos de Fe e / ou Al. Ele tem um perfil altamente desenvolvida.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PrecipitacionMaxima24Horas -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PrecipitacionMaxima24Horas">
+        <rdfs:label xml:lang="en">Maximum rainfall in 24 hours</rdfs:label>
+        <rdfs:label xml:lang="es">Precipitación máxima en 24 horas</rdfs:label>
+        <rdfs:label xml:lang="pt">Precipitação máxima em 24 horas</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">The maximum precipitation in 24 hours presents a similar annual rainfall distribution, being largely conditioned by the relief.</rdfs:comment>
+        <rdfs:comment xml:lang="es">La precipitación máxima en 24 horas presenta una distribución similar a la precipitación media anual, estando condicionada en gran medida por el relieve. </rdfs:comment>
+        <rdfs:comment xml:lang="pt">A precipitação máxima em 24 horas apresenta uma distribuição da precipitação anual semelhante, sendo em grande parte condicionada pela alívio.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PrecipitacionMediaAnual -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#PrecipitacionMediaAnual">
+        <rdfs:label xml:lang="en">Annual average rainfall</rdfs:label>
+        <rdfs:label xml:lang="es">Precipitación media anual</rdfs:label>
+        <rdfs:label xml:lang="pt">A precipitação media anual</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Annual rainfall. It is usually measured in millimeters.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Precipitación media anual. Se suele recoger en milímetros.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">A precipitação anual. Eles costumam levar em milímetros.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RedNatura2000Aves -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RedNatura2000Aves">
+        <rdfs:label xml:lang="en">Natura 2000 bird network</rdfs:label>
+        <rdfs:label xml:lang="es">Red Natura 2000 Aves</rdfs:label>
+        <rdfs:label xml:lang="pt">Rede Natura 2000 Aves</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Natura 2000 is a network of protected areas that extends by the countries of the European Union whose aim is to preserve ecological biodiversity recognized as threatened or sensitive sites.
+It is created from the application of two directives: the Birds Directive (79/409 / EEC of April 2) and Habitats (92/43 / EEC of the Council of 21 May) policy and constitutes an instrument políticade fundamental in the European Union&apos;s nature conservation and biodiversity. This class refers to the characteristics that are suited to the Birds Directive.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Red Narura 2000 es una red de espacios naturales protegidos que se extiende por los países de la Unión Europea y cuyo objetivo es el de conservar la biodiversidad ecológica en sitios reconocidos como amenazados o sensibles.
+
+Se crea a partir de la aplicación de dos normas: la Directiva Aves (79/409/CEE del consejo, de 2 de Abril) y la directiva Habitats (92/43/CEE, del consejo de 21 de Mayo) y constituye un instrumento fundamental en la políticade la Unión Europea en materia de conservación de la naturaleza y biodiversidad. Esta clase se refiere a las características que se adecúan a la directiva Aves.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Rede Natura 2000 é uma rede de áreas protegidas que se estende pelos países da União Europeia, cujo objetivo é preservar a biodiversidade ecológica reconhecidos como locais ameaçados ou sensíveis.
+Ele é criado a partir da aplicação de duas directivas: a Directiva Aves (79/409 / CEE, de 2 de abril) e Habitats (92/43 / CEE do Conselho, de 21 de Maio) política e constitui um instrumento políticade fundamental na conservação da natureza da União Europeia e da biodiversidade. Esta classe refere-se às características que são adequadas para a Directiva Aves.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RedNatura2000Habitats -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RedNatura2000Habitats">
+        <rdfs:label xml:lang="en">Natura 2000 network habitat</rdfs:label>
+        <rdfs:label xml:lang="es">Red Natura 2000 Hábitats</rdfs:label>
+        <rdfs:label xml:lang="pt">Rede Natura 2000 habitats</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Natura 2000 is a network of protected areas that extends by the countries of the European Union whose aim is to preserve ecological biodiversity recognized as threatened or sensitive sites.
+It is created from the application of two directives: the Birds Directive (79/409 / EEC of April 2) and Habitats (92/43 / EEC of the Council of 21 May) policy and constitutes an instrument políticade fundamental in the European Union&apos;s nature conservation and biodiversity. This class refers to the features that fit the Habitats regulations.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Red Narura 2000 es una red de espacios naturales protegidos que se extiende por los países de la Unión Europea y cuyo objetivo es el de conservar la biodiversidad ecológica en sitios reconocidos como amenazados o sensibles. Se crea a partir de la aplicación de dos normas: la Directiva Aves (79/409/CEE del consejo, de 2 de Abril) y la directiva Habitats (92/43/CEE, del consejo de 21 de Mayo) y constituye un instrumento fundamental en la políticade la Unión Europea en materia de conservación de la naturaleza y biodiversidad. Esta clase se refiere a las características que se adecúan a la normativa Habitats.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Rede Natura 2000 é uma rede de áreas protegidas que se estende pelos países da União Europeia, cujo objetivo é preservar a biodiversidade ecológica reconhecidos como locais ameaçados ou sensíveis.
+Ele é criado a partir da aplicação de duas directivas: a Directiva Aves (79/409 / CEE, de 2 de abril) e Habitats (92/43 / CEE do Conselho, de 21 de Maio) política e constitui um instrumento políticade fundamental na conservação da natureza da União Europeia e da biodiversidade. Esta classe refere-se às características que se encaixam os regulamentos Habitats.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RegosolDistrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RegosolDistrico">
+        <rdfs:label xml:lang="en">Distric regosol</rdfs:label>
+        <rdfs:label xml:lang="es">Regosol dístrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Regosol dístrico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Soil type that occurs on loose original material (or hard rock deeper than 25cm). It has very low evolution.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelos que se da sobre materiales originales sueltos (o con roca dura a más de 25cm). Posee muy baja evolución.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo que ocorre no material original solto (ou rocha dura a mais de 25 cm). Tem muito baixa evolução.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RegosolEutrico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RegosolEutrico">
+        <rdfs:label xml:lang="en">Eutric regosol</rdfs:label>
+        <rdfs:label xml:lang="es">Regosol eutrico</rdfs:label>
+        <rdfs:label xml:lang="pt">Regosol eutrico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Soil type that occurs on loose original material (or hard rock deeper than 25cm). It has very low evolution.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelos que se da sobre materiales originales sueltos (o con roca dura a más de 25cm). Posee muy baja evolución.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de solo que ocorre no material original solto (ou rocha dura a mais de 25 cm). Tem muito baixa evolução.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RelieveAbrupto -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RelieveAbrupto">
+        <rdfs:label xml:lang="en">Abrupt relief</rdfs:label>
+        <rdfs:label xml:lang="es">Relieve abrupto</rdfs:label>
+        <rdfs:label xml:lang="pt">Relevo abrupto</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <dcterms:source>http://cvc.cervantes.es/obref/atlas/esp/territorio/ter_txt5.htm#2</dcterms:source>
+        <rdfs:comment xml:lang="en">Rugged landscape. Thus, farming  is difficult and it increases the risk of erosion and edaphic impoverishment. Naturally, populations and infrastructure are concentrated mainly on the rare plains- and valley bottoms, so that the size of the territory that can be directly occupied is greatly reduced in practice. </rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de paisaje accidentado. Ello dificulta la actividad agrícola e incrementa los riesgos de erosión y de empobrecimiento edáfico, y tampoco facilita la inscripción paisajística de las infraestructuras. Como es lógico, poblaciones e infraestructuras se concentran en las escasas llanuras —principalmente, en los litorales— y al fondo de los valles, de modo que la extensión del territorio que puede ser directamente ocupado se reduce mucho en la práctica. Este fenómeno provoca el clásico encarecimiento de todo aquello que es escaso, asimetrías socioeconómicas crecientes entre la plana y la montaña, e impactos paisajísticos agudos en las áreas operables, causados por las infraestructuras territoriales. Así, un paisaje singularmente sensible acaba por convertirse en un paisaje especialmente impactado.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Paisagem acidentada. Assim, a agricultura é difícil e aumenta o risco de erosão e empobrecimento edáfico. Naturalmente, populações e infra-estrutura estão concentrados principalmente nos planos raros em fundos litorales- e vale, de modo que o tamanho do território ocupado que podem ser diretamente é muito reduzida na prática.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ReservaNatural -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ReservaNatural">
+        <rdfs:label xml:lang="en">Natural reserve</rdfs:label>
+        <rdfs:label xml:lang="es">Reserva natural</rdfs:label>
+        <rdfs:label xml:lang="pt">Reserva natural</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Natural spaces, whose creation is aimed at protecting ecosystems, communities or biological elements which by their rarity, fragility, importance or uniqueness deserve special consideration.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Espacios naturales, cuya creación tiene como finalidad la protección de ecosistemas, comunidades o elementos biológicos que, por su rareza, fragilidad, importancia o singularidad merecen una valoración especial.</rdfs:comment>
+        <dcterms:source>http://www.juntadeandalucia.es/medioambiente/site/portalweb/menuitem.220de8226575045b25f09a105510e1ca/?vgnextoid=ae17b924931f4310VgnVCM2000000624e50aRCRD</dcterms:source>
+        <rdfs:comment xml:lang="pt">Espaços naturais, cuja criação visa proteger os ecossistemas, comunidades ou elementos biológicos que, pela sua raridade, fragilidade, importância ou singularidade merecem uma consideração especial.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Resinosa -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Resinosa">
+        <rdfs:label xml:lang="en">Resinous</rdfs:label>
+        <rdfs:label xml:lang="es">Resinoso</rdfs:label>
+        <rdfs:label xml:lang="pt">Resinoso</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Type of vegetation cover that consists of coniferous trees.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de cubierta vegetal formada por árboles resinosos.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Tipo de cobertura vegetal consiste de árvores coníferas.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RioPrincipal -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RioPrincipal">
+        <rdfs:label xml:lang="en">Main river</rdfs:label>
+        <rdfs:label xml:lang="es">Río principal</rdfs:label>
+        <rdfs:label xml:lang="pt">Rio principal</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://geo.linkeddata.es/ontology/Rio"/>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Main river</rdfs:comment>
+        <rdfs:comment xml:lang="es">Curso de agua principal</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Rio principal</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RioSecundario -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#RioSecundario">
+        <rdfs:label xml:lang="en">Secondary river</rdfs:label>
+        <rdfs:label xml:lang="es">Río secundario</rdfs:label>
+        <rdfs:label xml:lang="pt">Rio secundario</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://geo.linkeddata.es/ontology/Rio"/>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Secondary river</rdfs:comment>
+        <rdfs:comment xml:lang="es">Río no principal</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Rio secundario</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#SistemaAgroSilvoPastoril -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#SistemaAgroSilvoPastoril">
+        <rdfs:label xml:lang="en">Agro-Silvo-Pastoril system</rdfs:label>
+        <rdfs:label xml:lang="es">Sistema Agro-Silvo-Pastoril</rdfs:label>
+        <rdfs:label xml:lang="pt">Sistema Agro-Silvo-Pastoril</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <dcterms:source>http://www.agro.uba.ar/apuntes/no_8/sistemas.htm</dcterms:source>
+        <rdfs:comment xml:lang="en">Land usage and technologies in which woody perennials (trees, shrubs, palms and others) are deliberately combined in the same management unit with herbaceous plants (crops, pastures) and / or animals, even in the very form of spatial arrangement or timing, and there are both ecological and economic interactions between the different components (Young, 1987).</rdfs:comment>
+        <rdfs:comment xml:lang="es">Aquel uso de la tierra y tecnologías en que leñosas perennes (árboles, arbustos, palmas y otros) son deliberadamente combinados en la misma unidad de manejo con plantas herbáceas (cultivos, pasturas) y/o animales, incluso en la misma forma de arreglo espacial o secuencia temporal, y en que hay interacciones tanto ecológicas como económicas entre los diferentes componentes (Young, 1987).</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Que o uso e tecnologias terra em que lenhosas perenes (árvores, arbustos, palmeiras e outras) são deliberadamente combinados na mesma unidade de manejo com plantas herbáceas (lavouras, pastagens) e / ou animais, mesmo na própria forma de arranjo espacial ou momento, e há duas interações ecológicas e económicas entre os diferentes componentes (Young, 1987).</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#SolonchakGleico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#SolonchakGleico">
+        <rdfs:label xml:lang="en">Gleico solonchak</rdfs:label>
+        <rdfs:label xml:lang="es">Solonchak gleico</rdfs:label>
+        <rdfs:label xml:lang="pt">Solonchak gleico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="pt">Tipo de solo com um elevado teor de sais solúveis. Com sálico. Eles também podem ter apenas: mollic, ochric, histic, taquírico, yermic, câmbico, cálcio, gypsic, duric, ou vertic. É como um sais regosol.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Type of soil with a high content of soluble salts. They may also have: mollic, ochric, histic, yermic, cambic, calcium, gypsic, duric, or vertic. It&apos;s like a regosol with salt.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Tipo de suelo con un alto contenido en sales solubles. Con sálico. Además sólo pueden tener: móllico, ócrico, hístico, taquírico, yérmico, cámbico, cálcico, gypsico, dúrico, o vértico. Es parecido a un regosol con sales.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo">
+        <rdfs:label xml:lang="en">Soil</rdfs:label>
+        <rdfs:label xml:lang="es">Suelo</rdfs:label>
+        <rdfs:label xml:lang="pt">Solo</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Class grouping soil types found in a region. In this definition we include those types found in OTALEX atlas, i.e., mainly Regosols, Cambisoles and Luvisoles.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Clase que agrupa los tipos de suelo que encontramos en una región. En esta definición están considerados aquellos tipos que se encuentran en el atlas Otalex, es decir, principalmente Regosoles, Cambisoles y Luvisoles.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Classe agrupar tipos de solos encontrados em uma região. Nesta definição desses tipos encontrados no atlas OTALEX, ou seja, principalmente Regossolos, Cambisoles e Luvisoles são considerados.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#SuperficieArtificial -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#SuperficieArtificial">
+        <rdfs:label xml:lang="en">Artificial area</rdfs:label>
+        <rdfs:label xml:lang="es">Superficie artificial</rdfs:label>
+        <rdfs:label xml:lang="pt">Superficie artificial</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Corine"/>
+        <rdfs:comment xml:lang="en">Area with artificial resources.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Área con superficies artificiales.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Área com superfícies artificiais.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMaximaAbsoluta -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMaximaAbsoluta">
+        <rdfs:label xml:lang="en">Maximum absolute temperature</rdfs:label>
+        <rdfs:label xml:lang="es">Temperatura máxima absoluta</rdfs:label>
+        <rdfs:label xml:lang="pt">Temperatura máxima absoluta</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Absolute maximum temperature associated with a geographical feature.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Temperatura máxima absoluta asociada a una característica geográfica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Temperatura máxima absoluta associada a uma característica geográfica.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMaximaMediaAnual -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMaximaMediaAnual">
+        <rdfs:label xml:lang="en">Maximum average annual temperature</rdfs:label>
+        <rdfs:label xml:lang="es">Temperatura máxima media anual</rdfs:label>
+        <rdfs:label xml:lang="pt">Temperatura media anual máxima</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="es">Temperatura máxima media anual asociada a una característica geográfica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Temperatura media anual máxima associada a uma característica geográfica.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Maximum average annual temperature associated with a geographical feature.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMediaAnual -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMediaAnual">
+        <rdfs:label xml:lang="en">Average annual temperature</rdfs:label>
+        <rdfs:label xml:lang="es">Temperatura media anual</rdfs:label>
+        <rdfs:label xml:lang="pt">Temperatura media anual</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Average annual temperature associated with a geographical feature.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Temperatura media anual asociada a una característica geográfica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Temperatura media anual associada a uma característica geográfica.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMinimaAbsoluta -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMinimaAbsoluta">
+        <rdfs:label xml:lang="en">Minimum absolute temperature</rdfs:label>
+        <rdfs:label xml:lang="es">Temperatura mínima absoluta</rdfs:label>
+        <rdfs:label xml:lang="pt">Temperatura mínima absoluta</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Absolute minimum temperature associated with a geographical feature.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Temperatura mínima absoluta asociada a una característica geográfica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Temperatura mínima absoluta associada a uma característica geográfica.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMinimaMediaAnual -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#TemperaturaMinimaMediaAnual">
+        <rdfs:label xml:lang="en">Minimum average annual temperature</rdfs:label>
+        <rdfs:label xml:lang="es">Temperatura mínima media anual</rdfs:label>
+        <rdfs:label xml:lang="pt">Temperatura media anual mínima</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Minimum average annual temperature associated with a geographical feature.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Temperatura mínima media anual asociada a una característica geográfica.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Temperatura media anual mínima associada a uma característica geográfica.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UmbrisolArenico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UmbrisolArenico">
+        <rdfs:label xml:lang="en">Sandy umbrisol</rdfs:label>
+        <rdfs:label xml:lang="es">Umbrisol arénico</rdfs:label>
+        <rdfs:label xml:lang="pt">Umbrisol arénico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Soil rich in organic matter. Desaturated bases. Acids. With umbric, with or without cambic</rdfs:comment>
+        <rdfs:comment xml:lang="es">Suelos ricos en materia orgánica. Desaturados en bases. Acidos. Con úmbrico, con o sin cámbico.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Solo rico em matéria orgânica. Saturado bases. Acids. Com umbric, com ou sem câmbico</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje">
+        <rdfs:label xml:lang="en">Local lanscape unit</rdfs:label>
+        <rdfs:label xml:lang="es">Unidad local de paisaje</rdfs:label>
+        <rdfs:label xml:lang="pt">Unidad local de paisagem</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="en">Concept based on the hypothesis of the existence of basic elements which combined together give a specific spatial pattern which is associated a particular character (Cancela d&apos;Abreu et al 2002). The concept of local landscape unit refers to the smallest homogeneous unit represented at a local and regional level, which is discernible and can individualize their environment and have a natural or anthropogenic. It is based on lithology, landforms and occupation and land use.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Concepto basado en la hipótesis de la existencia de elementos básicos que combinados entre sí confieren un patrón espacial específico al que está asociado un carácter determinado (Cancela d&apos;Abreu et al 2002). El concepto de unidad local de paisaje (ULP) se refiere a la unidad más pequeña representada a escala local y regional, tendencialmente homogénea, que es discernible y capaz de individualización de su entorno, ya tenga un origen natural o antrópico. Se basa en la litología, accidentes geográficos y la ocupación y uso del suelo.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Conceito baseado na hipótese da existência de elementos básicos que combinados dão um padrão espacial específico que está associado um determinado personagem (Cancela d&apos;Abreu et al 2002). O conceito de unidade de paisagem local (ULP) refere-se à menor unidade representada tendencialmente nível local e regional homogêneo, o que é visível e pode individualizar seu ambiente e têm uma singular ou antrópica. Baseia-se em litologia, acidentes geográficos e ocupação e uso da terra.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadPaisaje -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadPaisaje">
+        <rdfs:label xml:lang="en">Landscape unit</rdfs:label>
+        <rdfs:label xml:lang="es">Unidad de paisaje</rdfs:label>
+        <rdfs:label xml:lang="pt">Unidad de paisagem</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Landscape unit that can be found in a feature.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Unidad de paisaje que se puede encontrar en un territorio.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Unidade de paisagem que pode ser encontrado em um território.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ValleAplanado -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ValleAplanado">
+        <rdfs:label xml:lang="en">Flattened valleys</rdfs:label>
+        <rdfs:label xml:lang="es">Valle aplanado</rdfs:label>
+        <rdfs:label xml:lang="pt">Valle aplanado</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Areas with flattened valleys</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zonas con valles aplanados</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Áreas com vales aplanados</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ValleCerrado -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ValleCerrado">
+        <rdfs:label xml:lang="en">Embedded valley</rdfs:label>
+        <rdfs:label xml:lang="es">Valle cerrado</rdfs:label>
+        <rdfs:label xml:lang="pt">Valle encaixado</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Embedded valley areas</rdfs:comment>
+        <rdfs:comment xml:lang="es">Zonas con valles cerrados</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="pt">Áreas de vale encaixados</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#VegetacionEscasa -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#VegetacionEscasa">
+        <rdfs:label xml:lang="en">Sparse vegetation</rdfs:label>
+        <rdfs:label xml:lang="es">Vegetación escasa</rdfs:label>
+        <rdfs:label xml:lang="pt">vegetação esparsa</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="es">Zonas de vegetación escasa.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Areas of low vegetation</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Áreas de vegetação baixa</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#VertisolCromico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#VertisolCromico">
+        <rdfs:label xml:lang="en">Chromic vertisol</rdfs:label>
+        <rdfs:label xml:lang="es">Vertisol crómico</rdfs:label>
+        <rdfs:label xml:lang="pt">Vertisol crómico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:comment xml:lang="en">Soils with high clay content, with wide and deep cracks, with abundant slickensides and wedge-shaped aggregates.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Suelos con alto contenido de arcillas, con anchas y profundas grietas, con abundantes slickensides (cútanes de presión) y agregados en forma de cuña.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Solos com alto teor de argila, com amplas e profundas rachaduras, com slickensides abundantes (cutans pressão) e agregados em forma de cunha.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#VertisolPelico -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#VertisolPelico">
+        <rdfs:label xml:lang="en">Pelico vertisol</rdfs:label>
+        <rdfs:label xml:lang="es">Vertisol pelico</rdfs:label>
+        <rdfs:label xml:lang="pt">Vertisol pelico</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Suelo"/>
+        <rdfs:comment xml:lang="en">Soils with high clay content, with wide and deep cracks, with abundant slickensides and wedge-shaped aggregates.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Suelos con alto contenido de arcillas, con anchas y profundas grietas, con abundantes slickensides (cútanes de presión) y agregados en forma de cuña.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Solos com alto teor de argila, com amplas e profundas rachaduras, com slickensides abundantes (cutans pressão) e agregados em forma de cunha.</rdfs:comment>
+        <dcterms:source>http://www.miliarium.com/Proyectos/SuelosContaminados/Manuales/clasificacionsuelos2.asp</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via">
+        <rdfs:label xml:lang="en">Road</rdfs:label>
+        <rdfs:label xml:lang="es">Vía</rdfs:label>
+        <rdfs:label xml:lang="pt">Vía</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Caracteristica"/>
+        <rdfs:comment xml:lang="es">Clase que agrupa todas las vías que se encuentran en un territorio. En el caso de Otalex son vías de ferrocarril y automovil.</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Class grouping all tracks found in a territory. For Otalex these are railroad tracks and car tracks.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Classe agrupar todos os caminhos encontrados em um território. Para Otalex são trilhos de trem e carros.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ViaDesdoblada -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ViaDesdoblada">
+        <rdfs:label xml:lang="en">Road with several lanes</rdfs:label>
+        <rdfs:label xml:lang="es">Vía desdoblada</rdfs:label>
+        <rdfs:label xml:lang="pt">Vía com várias faixas</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via"/>
+        <rdfs:comment xml:lang="en">Road with more than one lane to circulate.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Vía con varios carriles para circular.</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Vía com várias faixas</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ViaSinDesdoblarPrincipal -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ViaSinDesdoblarPrincipal">
+        <rdfs:label xml:lang="en">Main road</rdfs:label>
+        <rdfs:label xml:lang="es">Vía sin desdoblar principal</rdfs:label>
+        <rdfs:label xml:lang="pt">Vía principal-uma faixa</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via"/>
+        <rdfs:comment xml:lang="en">Main road, with a single lane.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Vía principal con un carril</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Vía principal-uma faixa</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ViaSinDesdoblarSecundaria -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ViaSinDesdoblarSecundaria">
+        <rdfs:label xml:lang="en">Secondary road</rdfs:label>
+        <rdfs:label xml:lang="es">Vía sin desdoblar secundaria</rdfs:label>
+        <rdfs:label xml:lang="pt">Vía secundária</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#Via"/>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="en">Secondary road, with a single lane.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Vía secundaria con un carril</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Vía secundária-uma faixa</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ZonaArtificial -->
+
+    <owl:Class rdf:about="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#ZonaArtificial">
+        <rdfs:label xml:lang="en">Artificial area</rdfs:label>
+        <rdfs:label xml:lang="es">Zona artificial</rdfs:label>
+        <rdfs:label xml:lang="pt">Zona artificial</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#UnidadLocalPaisaje"/>
+        <rdfs:comment xml:lang="en">Areas with artificial resources</rdfs:comment>
+        <dcterms:source>http://www.ideotalex.eu/OtalexC/Publicaciones/OTALEXC/Atlas_OTALEX_C.pdf</dcterms:source>
+        <rdfs:comment xml:lang="es">Zonas con superficies artificiales</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Áreas com superfícies artificiais</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.geonames.org/ontology#Feature -->
+
+    <owl:Class rdf:about="http://www.geonames.org/ontology#Feature">
+        <rdfs:label xml:lang="en">Feature</rdfs:label>
+        <rdfs:comment xml:lang="es">Característica geográfica</rdfs:comment>
+        <rdfs:comment xml:lang="pt">Característica geográfica</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://www.geonames.org/ontology#"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

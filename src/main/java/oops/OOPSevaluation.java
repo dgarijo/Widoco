@@ -139,7 +139,7 @@ public class OOPSevaluation {
 
             ExtendedIterator<Individual> p = model.listIndividuals(pitfallClass);	
             List<Individual> plist = p.toList();
-            System.out.println("Numero de pitfalls: " + plist.size() );
+            System.out.println("Pitfall number: " + plist.size() );
 
             if (plist.size() > 0){
 
@@ -460,6 +460,8 @@ public class OOPSevaluation {
                             }
                     }
                     evaluationOutput = evaluationOutput + "</div>\n"; //close div accordion
+            }else{
+                evaluationOutput = "<h2>Congratulations! OOPS did not find a single pitfall</h2>";
             }
 
 

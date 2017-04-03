@@ -1,0 +1,3627 @@
+@prefix : <http://datos.bne.es/vocab/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix def: <http://datos.bne.es/def/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix frad: <http://iflastandards.info/ns/fr/frad/> .
+@prefix frbr: <http://iflastandards.info/ns/fr/frbr/frbrer/> .
+@prefix isbd: <http://iflastandards.info/ns/isbd/elements/> .
+@prefix rdaa: <http://rdaregistry.info/Elements/a/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@base <http://datos.bne.es/def/> .
+
+<http://datos.bne.es/def/> rdf:type owl:Ontology ;
+                           
+                           rdfs:label "Ontología BNE "@es ;
+                           
+                           terms:created "2014-3-11"^^xsd:dateTime ;
+                           
+                           terms:license "http://creativecommons.org/licenses/by-nc-sa/2.0/"^^xsd:anyURI ;
+                           
+                           vann:preferredNamespaceUri "http://datos.bne.es/def/"^^xsd:anyURI ;
+                           
+                           rdfs:isDefinedBy "http://datos.bne.es/def/"^^xsd:anyURI ;
+                           
+                           vann:example "http://datos.bne.es/resource/XX1147441"^^xsd:anyURI ;
+                           
+                           dc:contributor "Ricardo Santos Muñoz" ;
+                           
+                           owl:versionInfo "1.0" ;
+                           
+                           terms:title "BNE ontology"@en ;
+                           
+                           dc:contributor "Daniel Vila-Suero" ;
+                           
+                           terms:modified "02-10-2015" ;
+                           
+                           terms:abstract """The ontology of National Library of Spain (BNE) is the core data model undelying the Linked Data solution of BNE: datos.bne.es. datos.bne.es is an open knowledge base that gathers, integrates and delivers the full catalogue in open and semantically enriched formats.
+"""@en ;
+                           
+                           rdfs:comment ""@es ;
+                           
+                           dc:creator "Biblioteca Nacional de España"@es ;
+                           
+                           terms:description "La ontología de la Biblioteca Nacional de España (BNE) es el modelo de datos central que se utiliza en datos.bne.es, la base de conocimiento abierta de la BNE. datos.bne.es recoge, integra y estructura información del catálogo y las digitalizaciones producidas en los sistemas de información de la BNE poniendola disponible utilizando tecnologías semánticas y datos enlazados."@es ;
+                           
+                           terms:abstract "La ontología de la Biblioteca Nacional de España (BNE) es el modelo de datos central que se utiliza en datos.bne.es, la base de conocimiento abierta de la BNE. datos.bne.es recoge, integra y estructura información del catálogo y las digitalizaciones producidas en los sistemas de información de la BNE poniendola disponible utilizando tecnologías semánticas y datos enlazados."@es ;
+                           
+                           vann:preferredNamespacePrefix "bne" ;
+                           
+                           rdfs:comment "La ontología de la Biblioteca Nacional de España (BNE) es el modelo de datos central que se utiliza en datos.bne.es, la base de conocimiento abierta de la BNE. datos.bne.es recoge, integra y estructura información del catálogo y las digitalizaciones producidas en los sistemas de información de la BNE poniendola disponible utilizando tecnologías semánticas y datos enlazados."@es ;
+                           
+                           terms:title "Ontología BNE"@es .
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+###  http://datos.bne.es/def/label
+
+def:label rdf:type owl:AnnotationProperty ;
+          
+          rdfs:subPropertyOf rdfs:label .
+
+
+
+###  http://purl.org/dc/elements/1.1/contributor
+
+dc:contributor rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/elements/1.1/creator
+
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/terms/abstract
+
+terms:abstract rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/terms/created
+
+terms:created rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/terms/description
+
+terms:description rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/terms/license
+
+terms:license rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/terms/modified
+
+terms:modified rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/terms/title
+
+terms:title rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/vocab/vann/example
+
+vann:example rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+
+vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
+
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://datos.bne.es/def/OP1001
+
+def:OP1001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is created by (person)"@en ,
+                      "es creada por (persona)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+		   
+		   rdfs:comment "";
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1005 ;
+           
+           owl:inverseOf def:OP5001 ;
+           
+           rdfs:subPropertyOf frbr:P2009 .
+
+
+
+###  http://datos.bne.es/def/OP1002
+
+def:OP1002 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is realized through"@en ,
+                      "es realizada a través de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1002 ;
+           
+           owl:inverseOf def:OP2002 ;
+           
+           rdfs:subPropertyOf frbr:P2001 .
+
+
+
+###  http://datos.bne.es/def/OP1003
+
+def:OP1003 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has part (work)"@en ,
+                      "tiene parte (obra)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1001 ;
+           
+           owl:inverseOf def:OP1004 ;
+           
+           rdfs:subPropertyOf frbr:P2057 .
+
+
+
+###  http://datos.bne.es/def/OP1004
+
+def:OP1004 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is part of work (work)"@en ,
+                      "forma parte de (obra)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:subPropertyOf frbr:P2058 .
+
+
+
+###  http://datos.bne.es/def/OP1005
+
+def:OP1005 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is created by (corporate body)"@en ,
+                      "es creada por (entidad corporativa)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1006 ;
+           
+           rdfs:subPropertyOf frbr:P2007 .
+
+
+
+###  http://datos.bne.es/def/OP1006
+
+def:OP1006 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has as subject (work)"@en ,
+                      "tiene como materia (obra)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:subPropertyOf frbr:P2035 .
+
+
+
+###  http://datos.bne.es/def/OP1007
+
+def:OP1007 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is subject (work) of"@en ,
+                      "es materia de (obra)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:domain def:C1001 ;
+           
+           owl:inverseOf def:OP1006 ;
+           
+           rdfs:subPropertyOf frbr:P2036 .
+
+
+
+###  http://datos.bne.es/def/OP1008
+
+def:OP1008 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has subject (person)"@en ,
+                      "tiene como materia (persona)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1005 ;
+           
+           rdfs:subPropertyOf frbr:P2033 .
+
+
+
+###  http://datos.bne.es/def/OP1009
+
+def:OP1009 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has as subject (expression)"@en ,
+                      "tiene como materia (expresión)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1002 ;
+           
+           rdfs:subPropertyOf frbr:P2037 .
+
+
+
+###  http://datos.bne.es/def/OP1010
+
+def:OP1010 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has as subject (corporate body)"@en ,
+                      "tiene como materia (entidad corporativa)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:range def:C1006 ;
+           
+           rdfs:subPropertyOf frbr:P2031 .
+
+
+
+###  http://datos.bne.es/def/OP2001
+
+def:OP2001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is embodied in"@en ,
+                      "está materializada en"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1002 ;
+           
+           rdfs:range def:C1003 ;
+           
+           rdfs:subPropertyOf frbr:P2003 .
+
+
+
+###  http://datos.bne.es/def/OP2002
+
+def:OP2002 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label """is realization of
+"""@en ,
+                      "es realización de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:domain def:C1002 ;
+           
+           rdfs:subPropertyOf frbr:P2002 .
+
+
+
+###  http://datos.bne.es/def/OP2003
+
+def:OP2003 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has part (expression)"@en ,
+                      "tiene parte (expresión)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1002 ;
+           
+           rdfs:domain def:C1002 ;
+           
+           rdfs:subPropertyOf frbr:P2079 .
+
+
+
+###  http://datos.bne.es/def/OP2004
+
+def:OP2004 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is part (expression) of"@en ,
+                      "forma parte (expresión) de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1002 ;
+           
+           rdfs:domain def:C1002 ;
+           
+           owl:inverseOf def:OP2003 ;
+           
+           rdfs:subPropertyOf frbr:P2080 .
+
+
+
+###  http://datos.bne.es/def/OP2005
+
+def:OP2005 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is subject (expression) of"@en ,
+                      "es materia (expresión) de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:domain def:C1002 ;
+           
+           owl:inverseOf def:OP1009 ;
+           
+           rdfs:subPropertyOf frbr:P2038 .
+
+
+
+###  http://datos.bne.es/def/OP3001
+
+def:OP3001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is exemplified by"@en ,
+                      "está ejemplificado por"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1003 ;
+           
+           rdfs:range def:C1004 ;
+           
+           owl:inverseOf def:OP4001 ;
+           
+           rdfs:subPropertyOf frbr:P2005 .
+
+
+
+###  http://datos.bne.es/def/OP3002
+
+def:OP3002 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is embodiment of"@en ,
+                      "es materialización de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1002 ;
+           
+           rdfs:domain def:C1003 ;
+           
+           owl:inverseOf def:OP2001 ;
+           
+           rdfs:subPropertyOf frbr:P2004 .
+
+
+
+###  http://datos.bne.es/def/OP3003
+
+def:OP3003 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is created (manifestation) by (person)"@en ,
+                      "es creada (manifestación) por (persona)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1003 ;
+           
+           rdfs:range def:C1005 .
+
+
+
+###  http://datos.bne.es/def/OP3004
+
+def:OP3004 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is created (manifestation) by (corporate body)"@en ,
+                      "es creada (manifestación) por (entidad corporativa)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1003 ;
+           
+           rdfs:range def:C1006 .
+
+
+
+###  http://datos.bne.es/def/OP3005
+
+def:OP3005 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "contributes (person) to (manifestation)"@en ,
+                      "contribuye (persona) a (manifestación)"@es ;
+           
+           rdfs:isDefinedBy """http://datos.bne.es/def/
+
+""" ;
+           
+           rdfs:range def:C1003 ;
+           
+           rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/OP3006
+
+def:OP3006 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has contributor"@en ,
+                      "tiene contribuidor"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1003 ;
+           
+           rdfs:range def:C1005 ;
+           
+           owl:inverseOf def:OP3005 .
+
+
+
+###  http://datos.bne.es/def/OP3007
+
+def:OP3007 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has relation"@en ,
+                      "tiene relacion"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain [ rdf:type owl:Class ;
+                         owl:unionOf ( frbr:C1001
+                                       frbr:C1002
+                                       frbr:C1003
+                                       frbr:C1004
+                                       frbr:C1005
+                                       frbr:C1006
+                                     )
+                       ] .
+
+
+
+###  http://datos.bne.es/def/OP3008
+
+def:OP3008 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has subject"@en ,
+                      "tiene como materia"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1003 ;
+           
+           rdfs:subPropertyOf <http://rdaregistry.info/Elements/rof/P10018> .
+
+
+
+###  http://datos.bne.es/def/OP4001
+
+def:OP4001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is exemplar of"@en ,
+                      "es ejemplar de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1003 ;
+           
+           rdfs:domain def:C1004 ;
+           
+           rdfs:subPropertyOf frbr:P2006 .
+
+
+
+###  http://datos.bne.es/def/OP5001
+
+def:OP5001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is creator of (person)"@en ,
+                      "es creador de (persona)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:domain def:C1005 ;
+           
+           rdfs:subPropertyOf frbr:P2010 .
+
+
+
+###  http://datos.bne.es/def/OP5002
+
+def:OP5002 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is creator (person) of (manifestation)"@en ,
+                      "es creador (persona) de (manifestación)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1003 ;
+           
+           rdfs:domain def:C1005 ;
+           
+           owl:inverseOf def:OP3003 .
+
+
+
+###  http://datos.bne.es/def/OP5003
+
+def:OP5003 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is subject (person) of"@en ,
+                      "es materia (persona) de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:domain def:C1005 ;
+           
+           owl:inverseOf def:OP1008 ;
+           
+           rdfs:subPropertyOf frbr:P2034 .
+
+
+
+###  http://datos.bne.es/def/OP6001
+
+def:OP6001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is creator (corporate body) of"@en ,
+                      "es creador de (entidad corporativa)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1001 ;
+           
+           rdfs:domain def:C1006 ;
+           
+           owl:inverseOf def:OP1005 ;
+           
+           rdfs:subPropertyOf frbr:P2008 .
+
+
+
+###  http://datos.bne.es/def/OP6002
+
+def:OP6002 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is subordinate of"@en ,
+                      "es subordinado de"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1006 ;
+           
+           rdfs:range def:C1006 ;
+           
+           owl:inverseOf def:OP6003 ;
+           
+           rdfs:subPropertyOf frad:P4015 .
+
+
+
+###  http://datos.bne.es/def/OP6003
+
+def:OP6003 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has subordinate"@en ,
+                      "tiene subordinado"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1006 ;
+           
+           rdfs:domain def:C1006 ;
+           
+           rdfs:subPropertyOf frad:P4014 .
+
+
+
+###  http://datos.bne.es/def/OP6004
+
+def:OP6004 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is creator (corporate body) of (manifestation) "@en ,
+                      "es creador (entidad corporativa) de (manifestación)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range def:C1003 ;
+           
+           rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/OP6005
+
+def:OP6005 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "is subject (corporate body) of"@en ,
+                      "es materia (entidad corporativa) de "@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:range frbr:C1001 ;
+           
+           rdfs:domain frbr:C1006 ;
+           
+           rdfs:subPropertyOf frbr:P2032 .
+
+
+
+###  http://datos.bne.es/def/OP7001
+
+def:OP7001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "has as subject (concept)"@en ,
+                      "tiene como materia (concepto)"@es ;
+           
+           rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+           
+           rdfs:domain def:C1001 ;
+           
+           rdfs:subPropertyOf frbr:P2023 ;
+           
+           rdfs:range <http://www.w3.org/2004/02/skos/core#Concept> .
+
+
+
+###  http://iflastandards.info/ns/fr/frad/P4014
+
+frad:P4014 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frad/P4014" .
+
+
+
+###  http://iflastandards.info/ns/fr/frad/P4015
+
+frad:P4015 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frad/P4015" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2001
+
+frbr:P2001 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2001" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2002
+
+frbr:P2002 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2002" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2003
+
+frbr:P2003 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2003" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2004
+
+frbr:P2004 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2004" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2005
+
+frbr:P2005 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2005" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2006
+
+frbr:P2006 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2006" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2007
+
+frbr:P2007 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2007" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2008
+
+frbr:P2008 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2008" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2009
+
+frbr:P2009 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2009" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2010
+
+frbr:P2010 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2010" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2023
+
+frbr:P2023 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2023" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2031
+
+frbr:P2031 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2031" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2032
+
+frbr:P2032 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2032" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2033
+
+frbr:P2033 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2033" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2034
+
+frbr:P2034 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2034" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2035
+
+frbr:P2035 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2035" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2036
+
+frbr:P2036 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2036" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2037
+
+frbr:P2037 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2037" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2038
+
+frbr:P2038 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2038" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2057
+
+frbr:P2057 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2057" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2058
+
+frbr:P2058 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2058" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2079
+
+frbr:P2079 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2079" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P2080
+
+frbr:P2080 rdf:type owl:ObjectProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P2080" .
+
+
+
+###  http://rdaregistry.info/Elements/rof/P10018
+
+<http://rdaregistry.info/Elements/rof/P10018> rdf:type owl:ObjectProperty ;
+                                              
+                                              rdfs:comment "http://rdaregistry.info/Elements/rof/P10018" .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://datos.bne.es/def/P1001
+
+def:P1001 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has title of the work"@en ,
+                     "tiene título de la obra"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Title"@en ,
+                    "Título"@es ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf frbr:P3001 .
+
+
+
+###  http://datos.bne.es/def/P1002
+
+def:P1002 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "source consulted"@en ,
+                     "fuente consultada"@es ;
+          
+          def:label "Source consulted"@en ,
+                    "Fuente consultada"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf <http://www.loc.gov/standards/mads/rdf/v1.html#citationSource> .
+
+
+
+###  http://datos.bne.es/def/P1003
+
+def:P1003 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "citation note"@en ,
+                     "información encontrada"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Information found"@en ,
+                    "Información encontrada"@es ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf <http://www.loc.gov/mads/rdf/v1#citationNote> .
+
+
+
+###  http://datos.bne.es/def/P1004
+
+def:P1004 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has date of the work"@en ,
+                     "tiene fecha de la obra"@es ;
+          
+          def:label "Date"@en ,
+                    "Fecha"@fecha ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf frbr:P3003 .
+
+
+
+###  http://datos.bne.es/def/P1005
+
+def:P1005 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has other variant name (work)"@en ,
+                     "tiene otra variante de nombre (obra)"@es ;
+          
+          def:label "Variant title"@en ,
+                    "Otro título"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf frad:P4033 .
+
+
+
+###  http://datos.bne.es/def/P1006
+
+def:P1006 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "numbering of part"@en ,
+                     "numeración de parte"@es ;
+          
+          def:label "Number"@en ,
+                    "Número"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf <http://rdvocab.info/RDARelationshipsWEMI/numberingOfPartWork> .
+
+
+
+###  http://datos.bne.es/def/P1007
+
+def:P1007 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "cataloguer's note"@en ,
+                     "nota del catalogador"@es ;
+          
+          def:label "Cataloger's note"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Nota del catalogador"@es ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf <http://rdvocab.info/Elements/cataloguersNote> .
+
+
+
+###  http://datos.bne.es/def/P1008
+
+def:P1008 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has medium of performance (musical work)"@en ,
+                     "tiene medio de interpretación (obra musical)"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Medium of performance"@en ,
+                    "Medio de interpretación"@es ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf frbr:P3059 .
+
+
+
+###  http://datos.bne.es/def/P1009
+
+def:P1009 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has key (musical work)"@en ,
+                     "tiene clave (obra musical)"@es ;
+          
+          def:label "Key"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Tonalidad"@es ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf frbr:P3061 .
+
+
+
+###  http://datos.bne.es/def/P1010
+
+def:P1010 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "Signatory to a treaty, etc."@en ,
+                     "firmante del tratado"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Signatory to the treaty"@en ,
+                    "Firmante del tratado"@es ;
+          
+          rdfs:domain def:C1001 ;
+          
+          rdfs:subPropertyOf <http://rdvocab.info/Elements/signatoryToATreatyEtc> .
+
+
+
+###  http://datos.bne.es/def/P1011
+
+def:P1011 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "label associated with author"@en ,
+                     "etiqueta asociada al autor"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" .
+
+
+
+###  http://datos.bne.es/def/P1012
+
+def:P1012 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "label of part"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" .
+
+
+
+###  http://datos.bne.es/def/P2001
+
+def:P2001 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has language of expression"@en ,
+                     "tiene lengua de la expresión"@es ;
+          
+          def:label "Language"@en ,
+                    "Lengua"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1002 ;
+          
+          rdfs:subPropertyOf frbr:P3011 .
+
+
+
+###  http://datos.bne.es/def/P2002
+
+def:P2002 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has other distinguishing characteristic of expression"@en ,
+                     "tiene otras características distintivas de expresión"@es ;
+          
+          def:label "Form"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Forma"@es ;
+          
+          rdfs:domain def:C1002 ;
+          
+          rdfs:subPropertyOf frbr:P3012 .
+
+
+
+###  http://datos.bne.es/def/P3001
+
+def:P3001 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has name of publisher, producer, distributor"@en ,
+                     "tiene nombre de editor, productor, distribuidor"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Publisher"@en ,
+                    "Editorial"@es ;
+          
+          rdfs:domain def:C1003 ;
+          
+          rdfs:subPropertyOf isbd:P1017 .
+
+
+
+###  http://datos.bne.es/def/P3002
+
+def:P3002 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has title proper"@en ,
+                     "tiene título propiamente dicho"@es ;
+          
+          def:label "Title"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Título"@es ;
+          
+          rdfs:domain def:C1003 ;
+          
+          rdfs:subPropertyOf isbd:P1004 .
+
+
+
+###  http://datos.bne.es/def/P3003
+
+def:P3003 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has place of publication, production, distribution"@en ,
+                     "tiene lugar de publicación, producción, distribución"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Place of publication"@en ,
+                    "Lugar de publicación"@es ;
+          
+          rdfs:domain def:C1003 ;
+          
+          rdfs:subPropertyOf isbd:P1016 .
+
+
+
+###  http://datos.bne.es/def/P3004
+
+def:P3004 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has specific material designation and extent"@en ,
+                     "tiene designación específica del material y extensión"@es ;
+          
+          def:label "Physical description or extent"@en ,
+                    "Descripción física o extensión"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 ;
+          
+          rdfs:subPropertyOf isbd:P1022 .
+
+
+
+###  http://datos.bne.es/def/P3005
+
+def:P3005 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has content form and media type statement"@en ,
+                     "tiene mención de forma del contenido y de tipo de medio"@es ;
+          
+          def:label "Content form"@en ,
+                    "Tipo de material"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3006
+
+def:P3006 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has date of publication, production, distribution"@en ,
+                     "tiene fecha de publicación, producción, distribución"@es ;
+          
+          def:label "Date of publication"@en ,
+                    "Fecha de publicación"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3007
+
+def:P3007 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has dimensions"@en ,
+                     "tiene dimensiones"@es ;
+          
+          def:label "Dimension"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Dimensiones"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3008
+
+def:P3008 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has statement of responsibility relating to title"@en ,
+                     "tienen mención de responsabilidad relativa al título"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Statement of responsabilidad"@en ,
+                    "Mención de autoría"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3009
+
+def:P3009 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "Identifier for the manifestation"@en ,
+                     "depósito legal"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Legal Deposit"@en ,
+                    "Depósito Legal"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3012
+
+def:P3012 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has other physical details"@en ,
+                     "tiene otros detalles físicos"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Other physical details"@en ,
+                    "Otras características físicas"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3013
+
+def:P3013 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "ISBN"@en ,
+                     "ISBN"@es ;
+          
+          def:label "ISBN"@en ,
+                    "ISBN"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3014
+
+def:P3014 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has other title information"@en ,
+                     "tiene información complementaria del título"@es ;
+          
+          def:label "Remainder of title"@en ,
+                    "Resto del título"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3015
+
+def:P3015 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note"@en ,
+                     "tiene nota"@es ;
+          
+          def:label "Note"@en ,
+                    "Nota"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3016
+
+def:P3016 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has title proper of series or multipart monographic resource"@en ,
+                     "tiene título propiamente dicho de serie o recurso monográfico multiparte"@es ;
+          
+          def:label "Series"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Serie"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3017
+
+def:P3017 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has edition statement"@en ,
+                     "tiene mención de edición"@es ;
+          
+          def:label "Edition"@en ,
+                    "Edición"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3018
+
+def:P3018 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has numbering within series or multipart monographic resource"@en ,
+                     "tiene numeración de serie o recurso monográfico multiparte"@es ;
+          
+          def:label "Numbering within series"@en ,
+                    "Número en la serie"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3019
+
+def:P3019 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has name of printer or manufacturer"@en ,
+                     "tiene nombre de impresor o fabricante"@es ;
+          
+          def:label "Printer"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Impresor"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3020
+
+def:P3020 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "publisher's number for music (manifestation)"@en ,
+                     """número del editor para música (manifestación
+)"""@es ;
+          
+          def:label "Music editor number"@en ,
+                    "Número de editor musical"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3021
+
+def:P3021 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on material description"@en ,
+                     "tiene nota sobre descripción del material"@es ;
+          
+          def:label "Note"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Nota"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3022
+
+def:P3022 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "is in series"@en ,
+                     "pertenece a serie"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Series"@en ,
+                    "Serie o colección"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3023
+
+def:P3023 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on contents"@en ,
+                     "tiene nota sobre el contenido"@es ;
+          
+          def:label "Note on contents"@en ,
+                    "Nota de contenido"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3024
+
+def:P3024 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has performer"@en ,
+                     "tiene intérprete"@es ;
+          
+          def:label "Performers"@en ,
+                    "Intérpretes"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3025
+
+def:P3025 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on bibliographic reference"@en ,
+                     "tiene nota de referencia bibliográfica"@es ;
+          
+          def:label "Bibliographic reference"@en ,
+                    "Referencia bibliográfica"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3026
+
+def:P3026 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on publication, production, distribution, etc."@en ,
+                     "tiene nota sobre publicación, producción, distribución, etc."@es ;
+          
+          def:label "Note on publication"@en ,
+                    "Nota de publicación"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3027
+
+def:P3027 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has place of printing or manufacturer"@en ,
+                     "tiene lugar de impresión o fabricación"@es ;
+          
+          def:label "Place of printing"@en ,
+                    "Lugar de impresión"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3028
+
+def:P3028 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "variant title (manifestation)"@en ,
+                     "variante de título (manifestación)"@es ;
+          
+          def:label "Variant title"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Otro título"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3029
+
+def:P3029 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has accompanying material statement"@en ,
+                     "tiene mención de material anejo"@es ;
+          
+          def:label "Accompanying material"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Material de acompañamiento"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3030
+
+def:P3030 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has dependent title of title proper"@en ,
+                     "tiene título dependiente de título propiamente dicho"@es ;
+          
+          def:label "Dependent title"@en ,
+                    "Título dependiente"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3031
+
+def:P3031 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has numeric designation"@en ,
+                     "tiene designación  numérica"@es ;
+          
+          def:label "Chronological or sequential designation"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Fechas o secuencia de la revista"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3032
+
+def:P3032 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on frequency"@en ,
+                     "tiene nota de frecuencia"@es ;
+          
+          def:label "Frequency"@en ,
+                    "Periodicidad"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3033
+
+def:P3033 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has dependent title designation of title proper"@en ,
+                     "tiene designación de título dependiente de título propiamente dicho"@es ;
+          
+          def:label "Dependent title"@en ,
+                    "Título dependiente"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3034
+
+def:P3034 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on relationship to other resources"@en ,
+                     "tiene nota de relación con otros recursos"@es ;
+          
+          def:label "Related resource"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Recurso relacionado"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3035
+
+def:P3035 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has statement of scale"@en ,
+                     "tiene mención de escala"@es ;
+          
+          def:label "Scale"@en ,
+                    "Escala"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3036
+
+def:P3036 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on use or audience"@en ,
+                     "tiene nota de uso o destinatario"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Note on use"@en ,
+                    "Nota de alcance"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3037
+
+def:P3037 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on basis of description"@en ,
+                     "tiene nota sobre base de descripción"@es ;
+          
+          def:label "Descripción basada en:"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Basis of descripción"@en ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3038
+
+def:P3038 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has terms of availability"@en ,
+                     "tiene condiciones de disponibilidad"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Price"@en ,
+                    "Precio"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3039
+
+def:P3039 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "ISSN"@en ,
+                     "ISSN"@es ;
+          
+          def:label "ISSN"@en ,
+                    "ISSN"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3040
+
+def:P3040 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on nature, scope, form, purpose or language"@en ,
+                     "tiene nota sobre naturaleza, alcance, forma, propósito o lengua"@es ;
+          
+          def:label "Note"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Nota"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3041
+
+def:P3041 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has standard identifier"@en ,
+                     "tiene identificador normalizado"@es ;
+          
+          def:label "Other standard identifier"@en ,
+                    "Otros números normalizados"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3042
+
+def:P3042 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on material type or resource specific type"@en ,
+                     "tiene nota sobre tipo de material o tipo específico de recurso"@es ;
+          
+          def:label "Note"@en ,
+                    "Nota"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3043
+
+def:P3043 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on edition area and bibliographic history"@en ,
+                     "tiene nota sobre el área de edición e historia bibliográfica"@es ;
+          
+          def:label "Note on edition"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Nota sobre la edición"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3044
+
+def:P3044 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on system requirements"@en ,
+                     "tiene nota de requisitos mínimos del sistema"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "System requirements"@en ,
+                    "Requisitos del sistema"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3045
+
+def:P3045 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has dependent title of series or multipart monographic resource"@en ,
+                     "tiene título dependiente de serie o recurso monográfico multiparte"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Dependent title of series"@en ,
+                    "Título dependiente de la serie"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3046
+
+def:P3046 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on relationship between continuing resources"@en ,
+                     "tiene nota sobre la relación con recursos continuados"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3047
+
+def:P3047 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on reproduction"@en ,
+                     "tiene nota de reproducción"@es ;
+          
+          def:label "Nota de versión original"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Reproduction note"@en ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3048
+
+def:P3048 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has date of printing or manufacturer"@en ,
+                     "tiene fecha de impresión o fabricación"@es ;
+          
+          def:label "Date of impression or manufacturing"@en ,
+                    "Fecha de impresión o fabricación"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3049
+
+def:P3049 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has international standard number of series or multipart monographic resource"@en ,
+                     "tiene número normalizado internacional de serie o recurso monográfico multiparte"@es ;
+          
+          def:label "Series ISSN"@en ,
+                    "ISSN de la serie"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3050
+
+def:P3050 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has statement of responsibility relating to edition"@en ,
+                     "tiene mención de responsabilidad relativa a edición"@es ;
+          
+          def:label "Edition statement"@en ,
+                    "Mención de edición"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3051
+
+def:P3051 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has music format statement"@en ,
+                     "tiene mención de formato musical"@es ;
+          
+          rdfs:comment "Music format"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:comment "Formato musical"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3052
+
+def:P3052 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on series and multipart monographic resources"@en ,
+                     "tiene nota de serie o recurso monográfico multiparte"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Series note"@en ,
+                    "Nota de serie"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3053
+
+def:P3053 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has dependent title designation of series or multipart monographic resource"@en ,
+                     "tiene designación de título dependiente de serie o recurso monográfico multiparte"@es ;
+          
+          def:label "Dependent title of series"@en ,
+                    "Título dependiente de la serie"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3054
+
+def:P3054 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on supplement to or insert in"@en ,
+                     "tiene nota de suplemento a o de insertado en"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Suplement to or insert in:"@en ,
+                    "Suplemento o parte de"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3055
+
+def:P3055 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on supplements, inserts, etc."@en ,
+                     "tiene nota de suplementos, insertos, etc"@es ;
+          
+          def:label "Suplements:"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Suplementos:"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3056
+
+def:P3056 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has coordinates"@en ,
+                     "tiene coordenadas"@es ;
+          
+          def:label "Coordinates"@en ,
+                    "Coordenadas"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3057
+
+def:P3057 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has longitude and latitude"@en ,
+                     "tiene longitud y latitud"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Longitude and latitude"@en ,
+                    "Longitud y latitud"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3058
+
+def:P3058 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on mode of access"@en ,
+                     "tiene nota sobre modo de acceso"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Note on mode of access"@en ,
+                    "Nota sobre modo de acceso"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3059
+
+def:P3059 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has fingerprint"@en ,
+                     "tiene identificador tipográfico"@es ;
+          
+          def:label "Fingerprint"@en ,
+                    "Identificador topográfico"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3060
+
+def:P3060 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note on binding"@en ,
+                     "tiene nota sobre la encuadernación"@es ;
+          
+          def:label "Nota sobre la encuadernación"@en ,
+                    "Note on binding"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3061
+
+def:P3061 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has content form"@en ,
+                     "tiene forma del contenido"@es ;
+          
+          def:label "Content form"@en ,
+                    "Forma del contenido"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3062
+
+def:P3062 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has media type"@en ,
+                     "tiene tipo de medio"@es ;
+          
+          def:label "Media type"@en ,
+                    "Tipo de medio"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3063
+
+def:P3063 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has right ascension and declination"@en ,
+                     "tiene ascensión recta y declinación"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Cartographic mathematical data"@en ,
+                    "Datos matemáticos cartográficos"@es ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3064
+
+def:P3064 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "type of resource"@en ,
+                     "tipo de recurso"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1003 .
+
+
+
+###  http://datos.bne.es/def/P3065
+
+def:P3065 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has note of incipit"@en ,
+                     "tiene nota de incipit"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "nota"@es .
+
+
+
+###  http://datos.bne.es/def/P3066
+
+def:P3066 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "associated image"@en ,
+                     "thumbnail"@en ,
+                     "miniatura"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "imagen asociada"@es .
+
+
+
+###  http://datos.bne.es/def/P3067
+
+def:P3067 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "abstract"@en ,
+                     "resumen"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" .
+
+
+
+###  http://datos.bne.es/def/P5001
+
+def:P5001 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has name of person"@en ,
+                     "tiene nombre de persona"@es ;
+          
+          def:label "Name"@en ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Nombre"@es ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5002
+
+def:P5002 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has dates of person"@en ,
+                     "tiene fechas de persona"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Dates"@en ,
+                    "Fechas asociadas"@es ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5003
+
+def:P5003 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has title of person"@en ,
+                     "tiene calificativo de persona"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Title, rank or office"@en ,
+                    "Título, rango, oficio o cargo"@es ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5004
+
+def:P5004 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "fuller form of name (person)"@en ,
+                     "nombre completo (persona)"@es ;
+          
+          def:label "Fuller form of name"@en ,
+                    "Forma completa del nombre"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5005
+
+def:P5005 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has biography or history"@en ,
+                     "tiene biografía o historia"@es ;
+          
+          def:label "Other biographical or historical data"@en ,
+                    "Otros datos biográficos o históricos"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5006
+
+def:P5006 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "related person (person)"@en ,
+                     "persona relacionada (persona)"@es ;
+          
+          def:label "Related person"@en ,
+                    "Persona relacionada"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5007
+
+def:P5007 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has other designation associated with the person"@en ,
+                     "tiene otras designaciones asociadas con la persona"@es ;
+          
+          def:label "Numeration"@en ,
+                    "Numeración"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5008
+
+def:P5008 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has pseudonymous persona"@en ,
+                     "tiene pseudónimo"@es ;
+          
+          def:label "Note on pseudonyms"@en ,
+                    "Nota sobre seudónimos"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5009
+
+def:P5009 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "related corporate body (person)"@en ,
+                     "entidad relacionada (persona)"@es ;
+          
+          def:label "Related group or body"@en ,
+                    "Entidad o grupo relacionado"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1005 .
+
+
+
+###  http://datos.bne.es/def/P5010
+
+def:P5010 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "date of birth"@en ,
+                     "fecha de nacimiento"@es ;
+          
+          def:label """fecha de nacimiento
+"""@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" .
+
+
+
+###  http://datos.bne.es/def/P5011
+
+def:P5011 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "date of death"@en ,
+                     "fecha de fallecimiento"@es ;
+          
+          def:label "date of death"@en ,
+                    "fecha de fallecimiento"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" .
+
+
+
+###  http://datos.bne.es/def/P6001
+
+def:P6001 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has name of the corporate body"@en ,
+                     "tiene nombre de entidad corporativa"@es ;
+          
+          def:label "Name"@en ,
+                    "Nombre"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6002
+
+def:P6002 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has hierarchical subordinate"@en ,
+                     "subordinada jerárquica"@es ;
+          
+          def:label "Subordinate unit"@en ,
+                    "Entidad subordinada"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6003
+
+def:P6003 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has date associated with the corporate body"@en ,
+                     "tiene fecha asociada a la entidad corporativa"@es ;
+          
+          def:label "Date of meeting or treaty signing"@en ,
+                    "Fecha del congreso o tratado"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6004
+
+def:P6004 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has place associated with the corporate body"@en ,
+                     "tiene lugar asociado a la entidad corporativa"@es ;
+          
+          def:label "Place of congress or exhibition"@en ,
+                    "Lugar del congreso o exhibición"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6005
+
+def:P6005 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has other variant name (corporate body)"@en ,
+                     "tiene otra variante de nombre (entidad corporativa)"@es ;
+          
+          def:label "Other variant name"@en ,
+                    "Variantes del nombre"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6006
+
+def:P6006 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has number associated with the corporate body"@en ,
+                     "tiene número asociado a la entidad corporativa"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Number of meeting"@en ,
+                    "Número del congreso o exposición"@es ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6007
+
+def:P6007 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "related corporate body (corporate body)"@en ,
+                     "entidad relacionada (entidad corporativa)"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Related group or body"@en ,
+                    "Entidad o grupo relacionado"@es ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6008
+
+def:P6008 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "note"@en ,
+                     "nota"@es ;
+          
+          def:label "Note"@en ,
+                    "Nota"@es ;
+          
+          rdfs:isDefinedBy """http://datos.bne.es/def/
+""" ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/P6009
+
+def:P6009 rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "related person (corporate body) "@en ,
+                     "persona relacionada (entidad corporativa)"@es ;
+          
+          def:label "Related person"@en ,
+                    "Persona relacionada"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:domain def:C1006 .
+
+
+
+###  http://datos.bne.es/def/id
+
+def:id rdf:type owl:DatatypeProperty ;
+       
+       rdfs:label "BNE id"@en ,
+                  "BNE id"@es ;
+       
+       rdfs:isDefinedBy "http://datos.bne.es/def/" .
+
+
+
+###  http://iflastandards.info/ns/fr/frad/P3039
+
+frad:P3039 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frad/P3039" ;
+           
+           rdfs:subPropertyOf def:P5005 .
+
+
+
+###  http://iflastandards.info/ns/fr/frad/P4032
+
+frad:P4032 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frad/P4032" ;
+           
+           rdfs:subPropertyOf def:P6005 .
+
+
+
+###  http://iflastandards.info/ns/fr/frad/P4033
+
+frad:P4033 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frad/P4033" .
+
+
+
+###  http://iflastandards.info/ns/fr/frad/P4035
+
+frad:P4035 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frad/P4035" ;
+           
+           rdfs:subPropertyOf def:P5008 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3001
+
+frbr:P3001 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3001" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3003
+
+frbr:P3003 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3003" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3011
+
+frbr:P3011 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3011" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3012
+
+frbr:P3012 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3012" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3039
+
+frbr:P3039 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3039" ;
+           
+           rdfs:subPropertyOf def:P5001 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3040
+
+frbr:P3040 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3040" ;
+           
+           rdfs:subPropertyOf def:P5002 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3041
+
+frbr:P3041 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3041" ;
+           
+           rdfs:subPropertyOf def:P5003 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3042
+
+frbr:P3042 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3042" ;
+           
+           rdfs:subPropertyOf def:P5007 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3043
+
+frbr:P3043 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3043" ;
+           
+           rdfs:subPropertyOf def:P6001 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3044
+
+frbr:P3044 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3044" ;
+           
+           rdfs:subPropertyOf def:P6006 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3045
+
+frbr:P3045 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3045" ;
+           
+           rdfs:subPropertyOf def:P6004 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3046
+
+frbr:P3046 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3046" ;
+           
+           rdfs:subPropertyOf def:P6003 .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3059
+
+frbr:P3059 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3059" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/P3061
+
+frbr:P3061 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/P3061" .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1001
+
+isbd:P1001 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1001" ;
+           
+           rdfs:subPropertyOf def:P3061 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1003
+
+isbd:P1003 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1003" ;
+           
+           rdfs:subPropertyOf def:P3062 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1004
+
+isbd:P1004 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1004" .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1006
+
+isbd:P1006 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1006" ;
+           
+           rdfs:subPropertyOf def:P3014 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1007
+
+isbd:P1007 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1007" ;
+           
+           rdfs:subPropertyOf def:P3008 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1008
+
+isbd:P1008 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1008" ;
+           
+           rdfs:subPropertyOf def:P3017 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1010
+
+isbd:P1010 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1010" ;
+           
+           rdfs:subPropertyOf def:P3050 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1014
+
+isbd:P1014 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1014" ;
+           
+           rdfs:subPropertyOf def:P3051 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1016
+
+isbd:P1016 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1016" .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1017
+
+isbd:P1017 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1017" .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1018
+
+isbd:P1018 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1018" ;
+           
+           rdfs:subPropertyOf def:P3006 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1019
+
+isbd:P1019 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1019" ;
+           
+           rdfs:subPropertyOf def:P3027 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1020
+
+isbd:P1020 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1020" ;
+           
+           rdfs:subPropertyOf def:P3019 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1021
+
+isbd:P1021 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1021" ;
+           
+           rdfs:subPropertyOf def:P3048 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1022
+
+isbd:P1022 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1022" .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1023
+
+isbd:P1023 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1023" ;
+           
+           rdfs:subPropertyOf def:P3012 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1024
+
+isbd:P1024 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1024" ;
+           
+           rdfs:subPropertyOf def:P3007 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1025
+
+isbd:P1025 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1025" ;
+           
+           rdfs:subPropertyOf def:P3029 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1026
+
+isbd:P1026 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1026" ;
+           
+           rdfs:subPropertyOf def:P3016 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1030
+
+isbd:P1030 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1030" ;
+           
+           rdfs:subPropertyOf def:P3049 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1031
+
+isbd:P1031 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1031" ;
+           
+           rdfs:subPropertyOf def:P3018 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1034
+
+isbd:P1034 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1034" ;
+           
+           rdfs:subPropertyOf def:P3038 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1037
+
+isbd:P1037 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1037" ;
+           
+           rdfs:subPropertyOf def:P3043 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1038
+
+isbd:P1038 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1038" ;
+           
+           rdfs:subPropertyOf def:P3042 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1039
+
+isbd:P1039 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1039" ;
+           
+           rdfs:subPropertyOf def:P3026 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1040
+
+isbd:P1040 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1040" ;
+           
+           rdfs:subPropertyOf def:P3021 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1041
+
+isbd:P1041 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1041" ;
+           
+           rdfs:subPropertyOf def:P3052 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1042
+
+isbd:P1042 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1042" ;
+           
+           rdfs:subPropertyOf def:P3023 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1044
+
+isbd:P1044 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1044" ;
+           
+           rdfs:subPropertyOf def:P3037 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1045
+
+isbd:P1045 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1045" ;
+           
+           rdfs:subPropertyOf def:P3015 ,
+                              def:P3065 ,
+                              def:P6008 ,
+                              isbd:P1045 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1047
+
+isbd:P1047 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1047" ;
+           
+           rdfs:subPropertyOf def:P3035 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1050
+
+isbd:P1050 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1050" ;
+           
+           rdfs:subPropertyOf def:P3056 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1051
+
+isbd:P1051 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1051" ;
+           
+           rdfs:subPropertyOf def:P3063 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1064
+
+isbd:P1064 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1064" ;
+           
+           rdfs:subPropertyOf def:P3025 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1065
+
+isbd:P1065 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1065" ;
+           
+           rdfs:subPropertyOf def:P3032 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1066
+
+isbd:P1066 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1066" ;
+           
+           rdfs:subPropertyOf def:P3044 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1067
+
+isbd:P1067 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1067" ;
+           
+           rdfs:subPropertyOf def:P3058 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1073
+
+isbd:P1073 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1073" ;
+           
+           rdfs:subPropertyOf def:P3040 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1075
+
+isbd:P1075 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1075" ;
+           
+           rdfs:subPropertyOf def:P3059 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1078
+
+isbd:P1078 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1078" ;
+           
+           rdfs:subPropertyOf def:P3060 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1091
+
+isbd:P1091 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1091" ;
+           
+           rdfs:subPropertyOf def:P3036 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1098
+
+isbd:P1098 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1098" ;
+           
+           rdfs:subPropertyOf def:P3047 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1099
+
+isbd:P1099 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1099" ;
+           
+           rdfs:subPropertyOf def:P3034 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1100
+
+isbd:P1100 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1100" ;
+           
+           rdfs:subPropertyOf def:P3055 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1101
+
+isbd:P1101 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1101" ;
+           
+           rdfs:subPropertyOf def:P3046 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1123
+
+isbd:P1123 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1123" ;
+           
+           rdfs:subPropertyOf def:P3054 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1138
+
+isbd:P1138 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1138" ;
+           
+           rdfs:subPropertyOf def:P3030 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1139
+
+isbd:P1139 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1139" ;
+           
+           rdfs:subPropertyOf def:P3033 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1148
+
+isbd:P1148 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1148" ;
+           
+           rdfs:subPropertyOf def:P3045 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1149
+
+isbd:P1149 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1149" ;
+           
+           rdfs:subPropertyOf def:P3053 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1154
+
+isbd:P1154 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1154" ;
+           
+           rdfs:subPropertyOf def:P3041 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1155
+
+isbd:P1155 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1155" ;
+           
+           rdfs:subPropertyOf def:P3057 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1156
+
+isbd:P1156 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1156" ;
+           
+           rdfs:subPropertyOf def:P3031 .
+
+
+
+###  http://iflastandards.info/ns/isbd/elements/P1185
+
+isbd:P1185 rdf:type owl:DatatypeProperty ;
+           
+           rdfs:comment "http://iflastandards.info/ns/isbd/elements/P1185" ;
+           
+           rdfs:subPropertyOf def:P3005 .
+
+
+
+###  http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedCorporateBodyCorporateBody
+
+<http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedCorporateBodyCorporateBody> rdf:type owl:DatatypeProperty ;
+                                                                                               
+                                                                                               rdfs:comment "http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedCorporateBodyCorporateBody" ;
+                                                                                               
+                                                                                               rdfs:subPropertyOf def:P6007 .
+
+
+
+###  http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedCorporateBodyPerson
+
+<http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedCorporateBodyPerson> rdf:type owl:DatatypeProperty ;
+                                                                                        
+                                                                                        rdfs:comment "http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedCorporateBodyPerson" ;
+                                                                                        
+                                                                                        rdfs:subPropertyOf def:P5009 .
+
+
+
+###  http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedPersonPerson
+
+<http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedPersonPerson> rdf:type owl:DatatypeProperty ;
+                                                                                 
+                                                                                 rdfs:comment "http://metadataregistry.org/uri/schema/RDARelationshipsGR2/relatedPersonPerson " ;
+                                                                                 
+                                                                                 rdfs:subPropertyOf def:P5006 .
+
+
+
+###  http://purl.org/ontology/bibo/isbn
+
+bibo:isbn rdf:type owl:DatatypeProperty ;
+          
+          rdfs:comment "http://purl.org/ontology/bibo/isbn" ;
+          
+          rdfs:subPropertyOf def:P3013 .
+
+
+
+###  http://purl.org/ontology/bibo/issn
+
+bibo:issn rdf:type owl:DatatypeProperty ;
+          
+          rdfs:comment "http://purl.org/ontology/bibo/issn" ;
+          
+          rdfs:subPropertyOf def:P3039 .
+
+
+
+###  http://rdaregistry.info/Elements/u/P60193
+
+<http://rdaregistry.info/Elements/u/P60193> rdf:type owl:DatatypeProperty ;
+                                            
+                                            rdfs:comment "http://rdaregistry.info/Elements/u/P60193" ;
+                                            
+                                            rdfs:subPropertyOf def:P3022 .
+
+
+
+###  http://rdaregistry.info/Elements/u/P60387
+
+<http://rdaregistry.info/Elements/u/P60387> rdf:type owl:DatatypeProperty ;
+                                            
+                                            rdfs:comment "http://rdaregistry.info/Elements/u/P60387" ;
+                                            
+                                            rdfs:subPropertyOf def:P3024 .
+
+
+
+###  http://rdaregistry.info/Elements/u/P60681
+
+<http://rdaregistry.info/Elements/u/P60681> rdf:type owl:DatatypeProperty ;
+                                            
+                                            rdfs:comment "http://rdaregistry.info/Elements/u/P60681" ;
+                                            
+                                            rdfs:subPropertyOf def:P6002 .
+
+
+
+###  http://rdvocab.info/Elements/cataloguersNote
+
+<http://rdvocab.info/Elements/cataloguersNote> rdf:type owl:DatatypeProperty ;
+                                               
+                                               rdfs:comment "http://rdvocab.info/Elements/cataloguersNote" .
+
+
+
+###  http://rdvocab.info/Elements/identifierForTheManifestation
+
+<http://rdvocab.info/Elements/identifierForTheManifestation> rdf:type owl:DatatypeProperty ;
+                                                             
+                                                             rdfs:comment "http://rdvocab.info/Elements/identifierForTheManifestation" ;
+                                                             
+                                                             rdfs:subPropertyOf def:P3009 .
+
+
+
+###  http://rdvocab.info/Elements/publishersNumberForMusicManifestation
+
+<http://rdvocab.info/Elements/publishersNumberForMusicManifestation> rdf:type owl:DatatypeProperty ;
+                                                                     
+                                                                     rdfs:comment "http://rdvocab.info/Elements/publishersNumberForMusicManifestation" ;
+                                                                     
+                                                                     rdfs:subPropertyOf def:P3020 .
+
+
+
+###  http://rdvocab.info/Elements/signatoryToATreatyEtc
+
+<http://rdvocab.info/Elements/signatoryToATreatyEtc> rdf:type owl:DatatypeProperty ;
+                                                     
+                                                     rdfs:comment "http://rdvocab.info/Elements/signatoryToATreatyEtc" .
+
+
+
+###  http://rdvocab.info/Elements/variantTitleManifestation
+
+<http://rdvocab.info/Elements/variantTitleManifestation> rdf:type owl:DatatypeProperty ;
+                                                         
+                                                         rdfs:comment "http://rdvocab.info/Elements/variantTitleManifestation" ;
+                                                         
+                                                         rdfs:subPropertyOf def:P3028 .
+
+
+
+###  http://rdvocab.info/ElementsGr2/dateOfBirth
+
+<http://rdvocab.info/ElementsGr2/dateOfBirth> rdf:type owl:DatatypeProperty ;
+                                              
+                                              rdfs:comment "http://rdvocab.info/ElementsGr2/dateOfBirth" ;
+                                              
+                                              rdfs:subPropertyOf def:P5010 .
+
+
+
+###  http://rdvocab.info/ElementsGr2/dateOfDeath
+
+<http://rdvocab.info/ElementsGr2/dateOfDeath> rdf:type owl:DatatypeProperty ;
+                                              
+                                              rdfs:comment "http://rdvocab.info/ElementsGr2/dateOfDeath" ;
+                                              
+                                              rdfs:subPropertyOf def:P5011 .
+
+
+
+###  http://rdvocab.info/ElementsGr2/fullerFormOfNamePerson
+
+<http://rdvocab.info/ElementsGr2/fullerFormOfNamePerson> rdf:type owl:DatatypeProperty ;
+                                                         
+                                                         rdfs:comment "http://rdvocab.info/ElementsGr2/fullerFormOfNamePerson" ;
+                                                         
+                                                         rdfs:subPropertyOf def:P5004 .
+
+
+
+###  http://rdvocab.info/RDARelationshipsWEMI/numberingOfPartWork
+
+<http://rdvocab.info/RDARelationshipsWEMI/numberingOfPartWork> rdf:type owl:DatatypeProperty ;
+                                                               
+                                                               rdfs:comment "http://rdvocab.info/RDARelationshipsWEMI/numberingOfPartWork" .
+
+
+
+###  http://www.loc.gov/mads/rdf/v1#citationNote
+
+<http://www.loc.gov/mads/rdf/v1#citationNote> rdf:type owl:DatatypeProperty ;
+                                              
+                                              rdfs:comment "http://www.loc.gov/mads/rdf/v1#citationNote" .
+
+
+
+###  http://www.loc.gov/standards/mads/rdf/v1.html#citationSource
+
+<http://www.loc.gov/standards/mads/rdf/v1.html#citationSource> rdf:type owl:DatatypeProperty ;
+                                                               
+                                                               rdfs:comment "http://www.loc.gov/standards/mads/rdf/v1.html#citationSource" .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://datos.bne.es/def/C1001
+
+def:C1001 rdf:type owl:Class ;
+          
+          rdfs:label "Work"@en ,
+                     """Obra
+"""@es ;
+          
+          rdfs:subClassOf frbr:C1001 ;
+          
+          rdfs:isDefinedBy "" ;
+          
+          rdfs:comment "A work is an abstract entity; there is no single material object one can point to as the work. We recognize the work through individual realizations or expressions of the work, but the work itself exists only in the commonality of content between and among the various expressions of the work. Because the notion of a work is abstract, it is difficult to define precise boundaries for the entity. The concept of what constitutes a work and where the line of demarcation lies between one work and another may in fact be viewed differently from one culture to another. Consequently the bibliographic conventions established by various cultures or national groups may differ in terms of the criteria they use for determining the boundaries between one work and another. For the purposes of this model variant texts incorporating revisions or updates to an earlier text are viewed simply as expressions of the same work (i.e., the variant texts are not viewed as separate works). Similarly, abridgements or enlargements of an existing text, or the addition of parts or an accompaniment to a musical composition are considered to be different expressions of the same work. Translations from one language to another, musical transcriptions and arrangements, and dubbed or subtitled versions of a film are also considered simply as different expressions of the same original work. By contrast, when the modification of a work involves a significant degree of independent intellectual or artistic effort, the result is viewed, for the purpose of this model, as a new work. Thus paraphrases, rewritings, adaptations for children, parodies, musical variations on a theme and free transcriptions of a musical composition are considered to represent new works. Similarly, adaptations of a work from one literary or art form to another (e.g., dramatizations, adaptations from one medium of the graphic arts to another, etc.) are considered to represent new works. Abstracts, digests and summaries are also considered to represent new works. [Source: http://iflastandards.info/ns/fr/frbr/frbrer/C1001]"@en ;
+          
+          def:label "Obra"@es ;
+          
+          rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/C1001" ;
+          
+          def:label "Work"@en .
+
+
+
+###  http://datos.bne.es/def/C1002
+
+def:C1002 rdf:type owl:Class ;
+          
+          rdfs:label "Expression"@en ,
+                     "Expresión"@es ;
+          
+          rdfs:subClassOf frbr:C1002 ;
+          
+          rdfs:comment "An expression is the specific intellectual or artistic form that a work takes each time it is \"realized\". Expression encompasses, for example, the specific words, sentences, paragraphs, etc. that result from the realization of a work in the form of a text, or the particular sounds, phrasing, etc. resulting from the realization of a musical work. The boundaries of the entity expression are defined, however, so as to exclude aspects of physical form, such as typeface and page layout, that are not integral to the intellectual or artistic realization of the work as such. Inasmuch as the form of expression is an inherent characteristic of the expression, any change in form (e.g., from alpha-numeric notation to spoken word) results in a new expression. Similarly, changes in the intellectual conventions or instruments that are employed to express a work (e.g., translation from one language to another) result in the production of a new expression. If a text is revised or modified, the resulting expression is considered to be a new expression. The degree to which bibliographic distinctions are made between variant expressions of a work will depend to some extent on the nature of the work itself, on the anticipated needs of users and on what the cataloguer can reasonably be expected to recognize from the manifestation being described. Differences in form of expression (e.g., the differences between the expression of a work in the form of musical notation and the expression of the same work in the form of recorded sound) will normally be reflected in the bibliographic record, no matter what the nature of the work itself may be. Variant expressions in the same form (e.g., revised versions of a text) will often be indirectly identified as different expressions because the variation is apparent from the data associated with an attribute used to identify the manifestation in which the expression is embodied (e.g., an edition statement). Variations that would be evident only from a more detailed analysis and comparison of expressions (e.g., variations between several of the early texts of Shakespeare's Hamlet) would normally be reflected in the data only if the nature or stature of the work warranted such analysis, and only if it was anticipated that the distinction would be important to users. [Source: http://iflastandards.info/ns/fr/frbr/frbrer/C1002]"@en ;
+          
+          def:label "Version"@en ,
+                    "Versión"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/C1002" .
+
+
+
+###  http://datos.bne.es/def/C1003
+
+def:C1003 rdf:type owl:Class ;
+          
+          rdfs:label "Manifestation"@en ,
+                     "Manifestación"@es ;
+          
+          rdfs:subClassOf frbr:C1003 ;
+          
+          rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/C1003" ;
+          
+          def:label "Edition"@en ;
+          
+          rdfs:comment "The entity defined as manifestation encompasses a wide range of materials, including manuscripts, books, periodicals, maps, posters, sound recordings, films, video recordings, CD-ROMs, multimedia kits, etc. As an entity, manifestation represents all the physical objects that bear the same characteristics, in respect to both intellectual content and physical form. When a work is realized, the resulting expression of the work may be physically embodied on or in a medium such as paper, audio tape, video tape, canvas, plaster, etc. That physical embodiment constitutes a manifestation of the work. In some cases there may be only a single physical exemplar produced of that manifestation of the work (e.g., an author's manuscript, a tape recorded for an oral history archive, an original oil painting, etc.). In other cases there are multiple copies produced in order to facilitate public dissemination or distribution. In those cases there is normally a more formal production process involved, and a publisher, producer, or distributor takes responsibility for the process. In other cases there may be only a limited number of copies made of an original exemplar for purposes such as private study (e.g., a dubbing of an original recording of a piece of music), or preservation (e.g., a photocopy produced on permanent paper of an author's original typescript). Whether the scope of production is broad (e.g., in the case of publication, etc.) or limited (e.g., in the case of copies made for private study, etc.), the set of copies produced in each case constitutes a manifestation. All copies produced that form part of the same set are considered to be copies of the same manifestation. The boundaries between one manifestation and another are drawn on the basis of both intellectual content and physical form. When the production process involves changes in physical form the resulting product is considered a new manifestation. Changes in physical form include changes affecting display characteristics (e.g., a change in typeface, size of font, page layout, etc.), changes in physical medium (e.g., a change from paper to microfilm as the medium of conveyance), and changes in the container (e.g., a change from cassette to cartridge as the container for a tape). Where the production process involves a publisher, producer, distributor, etc., and there are changes signalled in the product that are related to publication, marketing, etc. (e.g., a change in publisher, repackaging, etc.), the resulting product may be considered a new manifestation. Whenever the production process involves modifications, additions, deletions, etc. that affect the intellectual or artistic content, the result is a new manifestation embodying a new expression of the work. Changes that occur deliberately or even inadvertently in the production process that affect the copies result, strictly speaking, in a new manifestation. A manifestation resulting from such a change may be identified as a particular \"state\" or \"issue\" of the publication. Changes that occur to an individual copy after the production process is complete (e.g., the loss of a page, rebinding, etc.) are not considered to result in a new manifestation. That copy is simply considered to be an exemplar (or item) of the manifestation that deviates from the copy as produced. [Source: http://iflastandards.info/ns/fr/frbr/frbrer/C1003]"@en ;
+          
+          def:label "Edición"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" .
+
+
+
+###  http://datos.bne.es/def/C1004
+
+def:C1004 rdf:type owl:Class ;
+          
+          rdfs:label "Item"@en ,
+                     "Ejemplar"@es ;
+          
+          rdfs:subClassOf frbr:C1004 ;
+          
+          def:label "Item"@en ;
+          
+          rdfs:comment "The entity defined as item is a concrete entity. It is in many instances a single physical object (e.g., a copy of a one-volume monograph, a single audio cassette, etc.). There are instances, however, where the entity defined as item comprises more than one physical object (e.g., a monograph issued as two separately bound volumes, a recording issued on three separate compact discs, etc.). In terms of intellectual content and physical form, an item exemplifying a manifestation is normally the same as the manifestation itself. However, variations may occur from one item to another, even when the items exemplify the same manifestation, where those variations are the result of actions external to the intent of the producer of the manifestation (e.g., damage occurring after the item was produced, binding performed by a library, etc.). [Source: http://iflastandards.info/ns/fr/frbr/frbrer/C1004]"@en ;
+          
+          def:label "Ejemplar"@es ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/C1004" .
+
+
+
+###  http://datos.bne.es/def/C1005
+
+def:C1005 rdf:type owl:Class ;
+          
+          rdfs:label "Person"@en ,
+                     "Persona"@es ;
+          
+          rdfs:subClassOf frbr:C1005 ;
+          
+          def:label "Person"@en ;
+          
+          rdfs:comment "The entity defined as person encompasses individuals that are deceased as well as those that are living. For the purposes of this model persons are treated as entities only to the extent that they are involved in the creation or realization of a work (e.g., as authors, composers, artists, editors, translators, directors, performers, etc.), or are the subject of a work (e.g., as the subject of a biographical or autobiographical work, of a history, etc.). [Source: http://iflastandards.info/ns/fr/frbr/frbrer/C1005]"@en ;
+          
+          def:label "Persona"@es ;
+          
+          rdfs:isDefinedBy """http://datos.bne.es/def/
+""" ;
+          
+          rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/C1005" .
+
+
+
+###  http://datos.bne.es/def/C1006
+
+def:C1006 rdf:type owl:Class ;
+          
+          rdfs:label "Corporate Body"@en ,
+                     "Entidad Corporativa"@es ;
+          
+          rdfs:subClassOf frbr:C1006 ;
+          
+          rdfs:isDefinedBy "http://datos.bne.es/def/" ;
+          
+          def:label "Corporate body"@en ;
+          
+          rdfs:comment "The entity defined as corporate body encompasses organizations and groups of individuals and-or organizations that are identified by a particular name, including occasional groups and groups that are constituted as meetings, conferences, congresses, expeditions, exhibitions, festivals, fairs, etc. The entity also encompasses organizations that act as territorial authorities, exercising or claiming to exercise government functions over a certain territory, such as a federation, a state, a region, a local municipality, etc. The entity encompasses organizations and groups that are defunct as well as those that continue to operate.  For the purposes of this model corporate bodies are treated as entities only to the extent that they are involved in the creation or realization of a work (e.g., as the sponsors or endorsers of a work, etc.), or are the subject of a work (e.g., as the subject of a history, etc.). [Source: http://iflastandards.info/ns/fr/frbr/frbrer/C1006]"@en ;
+          
+          def:label "Entidad"@es ;
+          
+          rdfs:comment "http://iflastandards.info/ns/fr/frbr/frbrer/C1006" .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/C1001
+
+frbr:C1001 rdf:type owl:Class .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/C1002
+
+frbr:C1002 rdf:type owl:Class .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/C1003
+
+frbr:C1003 rdf:type owl:Class .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/C1004
+
+frbr:C1004 rdf:type owl:Class .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/C1005
+
+frbr:C1005 rdf:type owl:Class .
+
+
+
+###  http://iflastandards.info/ns/fr/frbr/frbrer/C1006
+
+frbr:C1006 rdf:type owl:Class .
+
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+
+<http://www.w3.org/2004/02/skos/core#Concept> rdf:type owl:Class .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+

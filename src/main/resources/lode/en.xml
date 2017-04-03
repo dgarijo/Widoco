@@ -75,4 +75,10 @@
     <annotationpropertytoc>Annotation Property ToC</annotationpropertytoc>
     <namedindividualtoc>Named Individual ToC</namedindividualtoc>
     <hascharacteristics>has characteristics</hascharacteristics>
+	<rationale>Term rationale</rationale>
+	<example>Example</example>
+	<propertyannotation>Property annotation</propertyannotation>
+	<category>Category</category>
+	<isrequired>Is required</isrequired>
+	<source>Source</source>
 </labels>

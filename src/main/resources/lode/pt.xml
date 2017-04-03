@@ -75,4 +75,10 @@
     <annotationpropertytoc>Índice do Propriedades do Anotação</annotationpropertytoc>
     <namedindividualtoc>Índice do Named Indivíduo</namedindividualtoc>
     <hascharacteristics>tem características</hascharacteristics>
+	<rationale>Fundamentação</rationale>
+	<example>Exemplo</example>
+	<propertyannotation>Anotação de propriedade</propertyannotation>
+	<category>Categoria</category>
+	<isrequired>É necessário</isrequired>
+	<source>Fonte</source>
 </labels>

@@ -9,6 +9,13 @@ Download the executable
 
 To download Widoco JAR, check the latest release (https://github.com/dgarijo/Widoco/releases/latest).
 
+Citing Widoco
+===================
+
+Please cite the latest version of Widoco as follows:
+
+Daniel Garijo, Almudena Ruiz-Iniesta, Oscar Corcho & Miguel Angel Garcia. (2017). dgarijo/Widoco: Widoco 1.3.0. Zenodo. http://doi.org/10.5281/zenodo.360175
+
 Description
 ==========
 Widoco helps you to create a complete documentation of your ontology, by following a series of steps in a wizard. We reuse the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used.
@@ -54,7 +61,7 @@ The character ";" is used for lists (for instance first author; second author; t
 
 Now you can execute Widoco through the console. Usage:
 
-	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius]
+	java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals]
 
 The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -81,6 +88,8 @@ The -htaccess flag creates a bundle for publication ready to be deployed on your
 The -webVowl flag provides a link to a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#).
 
 The -licensius flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the -getOntologyMetadata flag is enabled.
+
+The -ignoreIndividuals allows you to ignore the named individuals in the ontology.
 
 Browser problems
 ==========

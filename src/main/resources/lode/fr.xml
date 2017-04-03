@@ -76,4 +76,10 @@
     <annotationpropertytoc>Retour vers les annotations de propriétés</annotationpropertytoc>
     <namedindividualtoc>Retour vers l'individu nommé</namedindividualtoc>
     <hascharacteristics>a pour caractéristiques</hascharacteristics>
+	<rationale>Raisonnement</rationale>
+	<example>Exemple</example>
+	<propertyannotation>Annotation de propriété</propertyannotation>
+	<category>Catégorie</category>
+	<isrequired>Obligatoire</isrequired>
+	<source>La source</source>
 </labels>

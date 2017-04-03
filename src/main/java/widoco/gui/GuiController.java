@@ -54,7 +54,6 @@ public final class GuiController {
         //read logo
         gui = new GuiStep1(this);
         gui.setVisible(true);
-        WidocoUtils.unZipIt(Constants.lodeResources, config.getTmpFile().getName());
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -73,7 +72,7 @@ public final class GuiController {
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
                 includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false,
-                generateOnlyCrossRef = false;
+                generateOnlyCrossRef = false, includeNamedIndividuals=true;
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -136,9 +135,13 @@ public final class GuiController {
             else if (s.equals("-licensius")){
                 licensius = true;
             }
+            else if(s.equals("-ignoreIndividuals")){
+                includeNamedIndividuals=false;
+                i++;
+            }
             else{
                 System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius]\n");
+                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-ignoreIndividuals]\n");
                 return;
             }
             i++;
@@ -170,6 +173,7 @@ public final class GuiController {
         this.config.setCreateHTACCESS(htAccess);
         this.config.setCreateWebVowlVisualization(webVowl);
         this.config.setUseLicensius(licensius);
+        this.config.setIncludeNamedIndividuals(includeNamedIndividuals);
         if(languages!=null){
             config.removeLanguageToGenerate("en");//default
             for (String language : languages) {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+This file has been edited by Daniel Garijo and Varun Ratnakar
+
 Copyright (c) 2010-2014, Silvio Peroni <essepuntato@gmail.com>
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -27,12 +29,17 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:f="http://www.essepuntato.it/xslt/function"
     xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
+    xmlns:osw="http://ontosoft.org/software#"
+    xmlns:vann="http://purl.org/vocab/vann/"
+    xmlns:prov="http://www.w3.org/ns/prov#"
+    xmlns:obo="http://purl.obolibrary.org/obo/"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     xmlns="http://www.w3.org/1999/xhtml">
      
     <xsl:include href="swrl-module.xsl" />
     <xsl:include href="common-functions.xsl"/>
     <xsl:include href="structural-reasoner.xsl"/>
-    <xsl:include href="custom-annotations.xsl"/>
     
     <xsl:output encoding="UTF-8" indent="no" method="xhtml" />
     
@@ -235,7 +242,8 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:call-template name="get.content" />
     </xsl:template>
     
-    <xsl:template match="rdfs:comment[f:isInLanguage(.)]">
+    <xsl:template match="rdfs:comment[f:isInLanguage(.)] | prov:definition[f:isInLanguage(.)] | skos:definition[f:isInLanguage(.)] |obo:IAO_0000115[f:isInLanguage(.)]">
+    <!--<xsl:template match="prov:definition">-->
         <div class="comment">
             <xsl:call-template name="get.content" />
         </div>
@@ -349,10 +357,13 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:with-param name="toc" select="'classes'" tunnel="yes" as="xs:string" />
                 <xsl:with-param name="toc.string" select="f:getDescriptionLabel('classtoc')" tunnel="yes" as="xs:string" />
             </xsl:call-template>
-            <xsl:call-template name="get.entity.metadata" />
-            <xsl:apply-templates select="rdfs:comment" />
-            <xsl:call-template name="get.class.description" />
+            <xsl:call-template name="get.entity.url" />
+            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition|obo:IAO_0000115" />
             <xsl:apply-templates select="dc:description[normalize-space() != ''] , dc:description[@*:resource]" />
+            <xsl:call-template name="get.entity.metadata" />
+            <xsl:call-template name="get.rationale" />
+            <xsl:call-template name="get.example" />
+            <xsl:call-template name="get.class.description" />
         </div>
     </xsl:template>
     
@@ -362,10 +373,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:with-param name="toc" select="'namedindividuals'" tunnel="yes" as="xs:string" />
                 <xsl:with-param name="toc.string" select="f:getDescriptionLabel('namedindividualtoc')" tunnel="yes" as="xs:string" />
             </xsl:call-template>
-            <xsl:call-template name="get.entity.metadata" />
-            <xsl:apply-templates select="rdfs:comment" />
-            <xsl:call-template name="get.individual.description" />
+            <xsl:call-template name="get.entity.url" />
+            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition|obo:IAO_0000115" />
             <xsl:apply-templates select="dc:description[normalize-space() != ''] , dc:description[@*:resource]" />
+            <xsl:call-template name="get.entity.metadata" />
+            <xsl:call-template name="get.individual.description" />
         </div>
     </xsl:template>
     
@@ -375,10 +387,13 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:with-param name="toc" select="if (self::owl:ObjectProperty) then 'objectproperties' else if (self::owl:AnnotationProperty) then 'annotationproperties' else 'dataproperties'" tunnel="yes" as="xs:string" />
                 <xsl:with-param name="toc.string" select="if (self::owl:ObjectProperty) then f:getDescriptionLabel('objectpropertytoc') else if (self::owl:AnnotationProperty) then f:getDescriptionLabel('annotationpropertytoc') else f:getDescriptionLabel('datapropertytoc')" tunnel="yes" as="xs:string" />
             </xsl:call-template>
-            <xsl:call-template name="get.entity.metadata" />
-            <xsl:apply-templates select="rdfs:comment" />
-            <xsl:call-template name="get.property.description" />
+            <xsl:call-template name="get.entity.url" />
+            <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition|obo:IAO_0000115" />
             <xsl:apply-templates select="dc:description[normalize-space() != ''] , dc:description[@*:resource]" />
+            <xsl:call-template name="get.entity.metadata" />
+            <xsl:call-template name="get.rationale" />
+            <xsl:call-template name="get.example" />
+            <xsl:call-template name="get.property.description" />
         </div>
     </xsl:template>
     
@@ -859,10 +874,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.entity.metadata">
-        <xsl:call-template name="get.entity.url" />
         <xsl:call-template name="get.version" />
         <xsl:call-template name="get.author" />
         <xsl:call-template name="get.original.source" />
+        <xsl:call-template name="get.source" />
     </xsl:template>
     
     <xsl:template name="get.original.source">
@@ -1178,15 +1193,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                     <xsl:call-template name="get.entity.punning" />
                 </dl>
             </div>
-
-            <!--
-            <br />
-            <dt>Property annotation:</dt>
-            <div class="description">
-                <dl>
-                    <xsl:call-template name="get.custom.annotations" />
-                </dl>
-	    </div>-->
             <xsl:call-template name="get.custom.annotations" />
         </xsl:if>
     </xsl:template>
@@ -1648,6 +1654,14 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="osw:category">
+        <dd>
+            <xsl:apply-templates select="@*:resource | element()">
+                <xsl:with-param name="type" select="'class'" as="xs:string" tunnel="yes" />
+            </xsl:apply-templates>
+        </dd>
+    </xsl:template>
+    
     <!--
         input: un elemento tipicamente contenente solo testo
         output: un booleano che risponde se quell'elemento è quello giusto per la lingua considerata        
@@ -1784,4 +1798,86 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:variable name="type" select="f:getType($el)" as="xs:string" />
         <xsl:value-of select="exists($rdf/element()[@*:about = $iri or @*:ID = $iri][f:getType(.) != $type])" />
     </xsl:function>
+    
+    <!--CUSTOM ANNOTATIONS-->
+    <xsl:template name="get.rationale">
+        <xsl:if test="exists(vaem:rationale)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('rationale')" />
+                </dt>
+                <xsl:for-each select="vaem:rationale[f:isInLanguage(.)]">
+                    <dd>
+                        <xsl:value-of select="text()" />
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="get.example">
+        <xsl:if test="exists(vann:example | obo:IAO_0000112)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('example')" />
+                </dt>
+                <xsl:for-each select="vann:example | obo:IAO_0000112">
+                    <dd>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(@*:resource) = ''">
+                                <xsl:value-of select="text()" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <a href="{@*:resource}">
+                                    <xsl:value-of select="@*:resource" />
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="get.source">
+        <xsl:if test="exists(dcterms:source | obo:IAO_0000119)">
+            <dl class="definedBy">
+                <dt><xsl:value-of select="f:getDescriptionLabel('source')" /></dt>
+                <xsl:for-each select="dcterms:source | obo:IAO_0000119">
+                    <dd>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(@*:resource) = ''">
+                                <xsl:value-of select="text()" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <a href="{@*:resource}">
+                                    <xsl:value-of select="@*:resource" />
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+    
+    <!-- ADDED BY VARUN RATNAKAR FOR EXTRA PROPERTY ANNOTATIONS-->
+    <xsl:template name="get.custom.annotations">
+            <xsl:if test="exists(osw:category | osw:isRequired)">
+                <br />
+                <dt><xsl:value-of select="f:getDescriptionLabel('propertyannotation')" />:</dt>
+                <div class="description">
+                    <dl>
+                    <xsl:if test="exists(osw:category)">
+                            <dt><xsl:value-of select="f:getDescriptionLabel('category')" /></dt>
+                            <xsl:apply-templates select="osw:category" />
+                    </xsl:if>
+                    <xsl:if test="exists(osw:isRequired)">
+                            <dt><xsl:value-of select="f:getDescriptionLabel('isrequired')" /></dt>
+                            <dd><xsl:value-of select="osw:isRequired" /></dd>
+                    </xsl:if>
+                    </dl>
+                </div>
+            </xsl:if>
+    </xsl:template> 
 </xsl:stylesheet>
