@@ -39,9 +39,12 @@ public class Constants {
     
     public static final int OOPS_TIME_OUT = 30000;
     
-    public static final String WEBVOWL_SERVICE = "http://vowl.visualdataweb.org/webvowl/index.html#iri=";
     
     public static final String[] POSSIBLE_VOCAB_SERIALIZATIONS = {"application/rdf+xml","text/turtle","text/n3"};
+    
+    public static final String VOWL_LOGS = "owl2vowl_logs";
+    //this is left because in the json-ld schema there must be an image url.
+    public static final String WEBVOWL_SERVICE="http://vowl.visualdataweb.org/webvowl/#iri=";
     
     /**
      * Constants for the property file with the ontology metadata
@@ -578,7 +581,8 @@ public class Constants {
         if(c.isCreateWebVowlVisualization()){
             head+="<dl><dt>"+l.getProperty(LANG_VISUALIZATION)+"</dt>"
                 + "<dd>"
-                + "<a href=\""+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
+//                + "<a href=\"webvowl/index.html#ontology"+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
+                    + "<a href=\"webvowl/index.html#ontology\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
                 + "</dd>"
                 + "</dl>\n";
         }
@@ -718,10 +722,11 @@ public class Constants {
         return provrdf;
     }
      
-    public static final String lodeResources= "/lode.zip";
-    public static final String oopsResources = "/oops.zip";
+    public static final String LODE_RESOURCES= "/lode.zip";
+    public static final String OOPS_RESOURCES = "/oops.zip";
+    public static final String WEBVOWL_RESOURCES = "/webvowl.zip";
     
-    public static final String configPath = "config"+File.separator+"config.properties";
+    public static final String CONFIG_PATH = "config"+File.separator+"config.properties";
     
     public static String getEvaluationText(String evaluationContent, Configuration c){
         String eval = "<!DOCTYPE html>\n" +

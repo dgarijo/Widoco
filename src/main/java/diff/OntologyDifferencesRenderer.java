@@ -123,12 +123,12 @@ public class OntologyDifferencesRenderer {
 
             if(printDetails){
                 if(classAxiomSet.getNewAxioms()!=null){
-                    for(OWLAxiom f:classAxiomSet.getNewAxioms()){
+                    for(Object f:classAxiomSet.getNewAxioms()){
                         v+="+"+f.toString()+"\n";
                     }
                 }
                 if(classAxiomSet.getDeletedAxioms()!=null){
-                    for(OWLAxiom f:classAxiomSet.getDeletedAxioms()){
+                    for(Object f:classAxiomSet.getDeletedAxioms()){
                         v+="-"+f.toString()+"\n";
                     }
                 }
@@ -168,7 +168,7 @@ public class OntologyDifferencesRenderer {
         return v;
     }
         
-    private static String axiomSetToHTML(Set<OWLAxiom> set, boolean isAddition, Properties lang){
+    private static String axiomSetToHTML(Set<Object> set, boolean isAddition, Properties lang){
         String v = "";
         String message;
         if(isAddition){
@@ -176,7 +176,7 @@ public class OntologyDifferencesRenderer {
         }else{
             message=lang.getProperty(Constants.LANG_DELETED)+": ";
         }
-        for(OWLAxiom f:set){
+        for(Object f:set){
             try{
                 v+="<li>";
                 if(f instanceof OWLSubClassOfAxiom){
@@ -200,7 +200,7 @@ public class OntologyDifferencesRenderer {
                     v+= message+((OWLAnnotationAssertionAxiom)f).getProperty().toString() +" "+ ((OWLAnnotationAssertionAxiom)f).getValue().toString();
                 }else{
                     //other less typical axioms
-                    v+=message+f.getAxiomType().getName()+" "+f.toString().replace("<", "&lt;").replace(">", "&gt;");
+                    v+=message+((OWLAxiom)f).getAxiomType().getName()+" "+f.toString().replace("<", "&lt;").replace(">", "&gt;");
                 }
                 /**
                  * To add if we want to refine

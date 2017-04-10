@@ -190,7 +190,6 @@ public class WidocoUtils {
     	ZipEntry ze = zis.getNextEntry();
  
     	while(ze!=null){
- 
     	   String fileName = ze.getName();
            File newFile = new File(outputFolder + File.separator + fileName);
 //           System.out.println("file unzip : "+ newFile.getAbsoluteFile());
@@ -199,10 +198,17 @@ public class WidocoUtils {
                 new File(temp).mkdirs();
            }
            else{
-                FileOutputStream fos = new FileOutputStream(newFile);
-                int len; while ((len = zis.read(buffer)) > 0) {
-                fos.write(buffer, 0, len); }
-                fos.close();
+               String directory = newFile.getParent();
+               if(directory!=null){
+                   File d = new File (directory);
+                   if(!d.exists()){
+                       d.mkdirs();
+                   }
+               }
+               FileOutputStream fos = new FileOutputStream(newFile);
+               int len; while ((len = zis.read(buffer)) > 0) {
+               fos.write(buffer, 0, len); }
+               fos.close();
            }  
             ze = zis.getNextEntry();
     	}

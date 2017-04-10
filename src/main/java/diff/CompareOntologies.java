@@ -2,10 +2,13 @@ package diff;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.search.EntitySearcher;
 
 
 /**
@@ -114,12 +117,14 @@ public class CompareOntologies {
             //find the current class on the second ontology. Compare them.
             if (ont2.containsClassInSignature(ont1Class.getIRI())) {
                 OWLAxiomInfo tempDiffs = this.getDifferences(ont1Class.getIRI(), 
-                        new HashSet<OWLAxiom>(ont1.getAxioms(ont1Class)), 
-                            new HashSet<OWLAxiom>(ont2.getAxioms(ont1Class)));
+                        new HashSet<Object>(ont1.getAxioms(ont1Class)), 
+                            new HashSet<Object>(ont2.getAxioms(ont1Class)));
                 //differences in annotations
                 OWLAxiomInfo tempDiffs2 = this.getDifferences(ont1Class.getIRI(), 
-                        new HashSet<OWLAxiom>(ont1Class.getAnnotationAssertionAxioms(ont1)), 
-                            new HashSet<OWLAxiom>(ont1Class.getAnnotationAssertionAxioms(ont2)));
+                        EntitySearcher.getAnnotationAssertionAxioms(ont1Class,ont1).collect(Collectors.toSet()),
+                            EntitySearcher.getAnnotationAssertionAxioms(ont1Class,ont2).collect(Collectors.toSet()));
+//                        new HashSet<OWLAxiom>(ont1Class.getAnnotationAssertionAxioms(ont1)), 
+//                            new HashSet<OWLAxiom>(ont1Class.getAnnotationAssertionAxioms(ont2)));
                 //merge sets.
                 tempDiffs.addDeleteChangeAxioms(tempDiffs2.getDeletedAxioms());
                 tempDiffs.addNewChangeAxioms(tempDiffs2.getNewAxioms());
@@ -145,12 +150,14 @@ public class CompareOntologies {
             //find the current class on the second ontology. Compare them.
             if (ont2.containsObjectPropertyInSignature(ont1Property.getIRI())) {
                 OWLAxiomInfo tempDiffs = this.getDifferences(ont1Property.getIRI(), 
-                        new HashSet<OWLAxiom>(ont1.getAxioms(ont1Property)), 
-                            new HashSet<OWLAxiom>(ont2.getAxioms(ont1Property)));
+                        new HashSet<Object>(ont1.getAxioms(ont1Property)), 
+                            new HashSet<Object>(ont2.getAxioms(ont1Property)));
                 //differences in annotations
-                OWLAxiomInfo tempDiffs2 = this.getDifferences(ont1Property.getIRI(), 
-                        new HashSet<OWLAxiom>(ont1Property.getAnnotationAssertionAxioms(ont1)), 
-                            new HashSet<OWLAxiom>(ont1Property.getAnnotationAssertionAxioms(ont2)));
+                OWLAxiomInfo tempDiffs2 = this.getDifferences(ont1Property.getIRI(),
+                        EntitySearcher.getAnnotationAssertionAxioms(ont1Property, ont1).collect(Collectors.toSet()),
+                            EntitySearcher.getAnnotationAssertionAxioms(ont1Property, ont2).collect(Collectors.toSet()));
+//                        new HashSet<Object>(ont1Property.getAnnotationAssertionAxioms(ont1)), 
+//                            new HashSet<Object>(ont1Property.getAnnotationAssertionAxioms(ont2)));
                 //merge sets.
                 tempDiffs.addDeleteChangeAxioms(tempDiffs2.getDeletedAxioms());
                 tempDiffs.addNewChangeAxioms(tempDiffs2.getNewAxioms());
@@ -176,12 +183,14 @@ public class CompareOntologies {
             //find the current class on the second ontology. Compare them.
             if (ont2.containsDataPropertyInSignature(ont1Property.getIRI())) {
                 OWLAxiomInfo tempDiffs = this.getDifferences(ont1Property.getIRI(), 
-                        new HashSet<OWLAxiom>(ont1.getAxioms(ont1Property)), 
-                            new HashSet<OWLAxiom>(ont2.getAxioms(ont1Property)));
+                        new HashSet<Object>(ont1.getAxioms(ont1Property)), 
+                            new HashSet<Object>(ont2.getAxioms(ont1Property)));
                 //differences in annotations
-                OWLAxiomInfo tempDiffs2 = this.getDifferences(ont1Property.getIRI(), 
-                        new HashSet<OWLAxiom>(ont1Property.getAnnotationAssertionAxioms(ont1)), 
-                            new HashSet<OWLAxiom>(ont1Property.getAnnotationAssertionAxioms(ont2)));
+                OWLAxiomInfo tempDiffs2 = this.getDifferences(ont1Property.getIRI(),
+                        EntitySearcher.getAnnotationAssertionAxioms(ont1Property, ont1).collect(Collectors.toSet()),
+                            EntitySearcher.getAnnotationAssertionAxioms(ont1Property, ont2).collect(Collectors.toSet()));
+//                        new HashSet<Object>(ont1Property.getAnnotationAssertionAxioms(ont1)), 
+//                            new HashSet<Object>(ont1Property.getAnnotationAssertionAxioms(ont2)));
                 //merge sets.
                 tempDiffs.addDeleteChangeAxioms(tempDiffs2.getDeletedAxioms());
                 tempDiffs.addNewChangeAxioms(tempDiffs2.getNewAxioms());
@@ -200,13 +209,13 @@ public class CompareOntologies {
      * @param setOnto2 the set of axioms on ontology 2
      * @return 
      */
-    private OWLAxiomInfo getDifferences(IRI entity, Set<OWLAxiom>setOnto1, Set<OWLAxiom>setOnto2){
+    private OWLAxiomInfo getDifferences(IRI entity, Set<Object>setOnto1, Set<Object>setOnto2){
         OWLAxiomInfo tempDiffs = new OWLAxiomInfo(entity, null, null);
         if(!setOnto1.equals(setOnto2)){
-            Set<OWLAxiom> newChanges = new HashSet<OWLAxiom>(setOnto2);
+            Set<Object> newChanges = new HashSet<Object>(setOnto2);
             newChanges.removeAll(setOnto1);
 
-            Set<OWLAxiom> deletedChanges = new HashSet<OWLAxiom>(setOnto1);
+            Set<Object> deletedChanges = new HashSet<Object>(setOnto1);
             deletedChanges.removeAll(setOnto2);
 
             tempDiffs.addNewChangeAxioms(newChanges);
@@ -272,7 +281,7 @@ public class CompareOntologies {
         for (OWLClass ont2Class : ont2.getClassesInSignature()) {
             //if there is no reference in ontology 1 to the class in ontoloy 2 then it's new
             if (!ont1.containsClassInSignature(ont2Class.getIRI())) {
-                Set<OWLAxiom> newClassAxiomsSet = new HashSet<OWLAxiom>(ont2.getAxioms(ont2Class));
+                Set<Object> newClassAxiomsSet = new HashSet<Object>(ont2.getAxioms(ont2Class));
                 //create information for the new class
                 OWLAxiomInfo tempNewClass = new OWLAxiomInfo(ont2Class.getIRI(), newClassAxiomsSet,null);
                 newC.add(tempNewClass);
@@ -292,7 +301,7 @@ public class CompareOntologies {
         ArrayList<OWLAxiomInfo> newC = new ArrayList<OWLAxiomInfo>();
         for (OWLObjectProperty ont2Prop : ont2.getObjectPropertiesInSignature()) {
             if (!ont1.containsObjectPropertyInSignature(ont2Prop.getIRI())) {
-                Set<OWLAxiom> newProprAxiomsSet = new HashSet<OWLAxiom>(ont2.getAxioms(ont2Prop));
+                Set<Object> newProprAxiomsSet = new HashSet<Object>(ont2.getAxioms(ont2Prop));
                 OWLAxiomInfo tempNewProp = new OWLAxiomInfo(ont2Prop.getIRI(), newProprAxiomsSet,null);
                 newC.add(tempNewProp);
             }
@@ -310,7 +319,7 @@ public class CompareOntologies {
         ArrayList<OWLAxiomInfo> newC = new ArrayList<OWLAxiomInfo>();
         for (OWLDataProperty ont2Prop : ont2.getDataPropertiesInSignature()) {
             if (!ont1.containsDataPropertyInSignature(ont2Prop.getIRI())) {
-                Set<OWLAxiom> newDataProprAxiomsSet = new HashSet<OWLAxiom>(ont2.getAxioms(ont2Prop));
+                Set<Object> newDataProprAxiomsSet = new HashSet<Object>(ont2.getAxioms(ont2Prop));
                 OWLAxiomInfo tempNewProp = new OWLAxiomInfo(ont2Prop.getIRI(), newDataProprAxiomsSet,null);
                 newC.add(tempNewProp);
             }

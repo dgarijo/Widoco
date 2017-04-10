@@ -127,7 +127,7 @@ public class Configuration {
             //create a temporal folder with all LODE resources
             tmpFolder = new File("tmp"+new Date().getTime());
             tmpFolder.mkdir();
-            WidocoUtils.unZipIt(Constants.lodeResources, tmpFolder.getName());
+            WidocoUtils.unZipIt(Constants.LODE_RESOURCES, tmpFolder.getName());
         } catch (Exception ex) {
             System.err.println("Error while creating the temporal file for storing the intermediate Widoco files.");
         }
@@ -136,7 +136,7 @@ public class Configuration {
         try{
             URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
             String path = (new File(root.toURI())).getParentFile().getPath();
-            loadPropertyFile(path+File.separator+Constants.configPath);
+            loadPropertyFile(path+File.separator+Constants.CONFIG_PATH);
         }catch(URISyntaxException e){
             System.err. println("Error while loading the default property file: " +e.getMessage());
         }
