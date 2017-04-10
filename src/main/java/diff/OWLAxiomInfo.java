@@ -25,15 +25,15 @@ import org.semanticweb.owlapi.model.*;
 public class OWLAxiomInfo {
 
 	private final IRI classIRI;
-	private Set<OWLAxiom> newAxiomSet;
-	private Set<OWLAxiom> deletedAxiomSet;
+	private Set<Object> newAxiomSet;
+	private Set<Object> deletedAxiomSet;
 
 
 	
 	
 	//constructor
-	public OWLAxiomInfo(IRI classIRI, Set<OWLAxiom> newClassAxiomsSet, 
-							  Set<OWLAxiom> deletedClassAxiomsSet) {
+	public OWLAxiomInfo(IRI classIRI, Set<Object> newClassAxiomsSet, 
+							  Set<Object> deletedClassAxiomsSet) {
 		this.classIRI = classIRI;
 		this.newAxiomSet = newClassAxiomsSet;
 		this.deletedAxiomSet = deletedClassAxiomsSet;
@@ -48,7 +48,7 @@ public class OWLAxiomInfo {
 	
 	
 	//get method to return the new class axioms as Axioms
-	public Set<OWLAxiom> getNewAxioms(){
+	public Set<Object> getNewAxioms(){
 		return newAxiomSet;
 	}
         
@@ -56,9 +56,9 @@ public class OWLAxiomInfo {
          * Method to merge two collection of axioms to the new Changes Set
          * @param newAxioms
          */
-        public void addNewChangeAxioms(Set<OWLAxiom> newAxioms){
+        public void addNewChangeAxioms(Set<Object> newAxioms){
             if(this.newAxiomSet==null){
-                this.newAxiomSet = new HashSet<OWLAxiom>();                
+                this.newAxiomSet = new HashSet<Object>();                
             }
             if(newAxioms!= null && !newAxioms.isEmpty()){
                 this.newAxiomSet.addAll(newAxioms);
@@ -70,9 +70,9 @@ public class OWLAxiomInfo {
          * Method to merge two collection of axioms to the deletions Set
          * @param deleteAxioms
          */
-        public void addDeleteChangeAxioms(Set<OWLAxiom> deleteAxioms){
+        public void addDeleteChangeAxioms(Set<Object> deleteAxioms){
             if(this.deletedAxiomSet==null){
-                this.deletedAxiomSet = new HashSet<OWLAxiom>();
+                this.deletedAxiomSet = new HashSet<Object>();
             }
             if(deleteAxioms !=null && !deleteAxioms.isEmpty()){
                 this.deletedAxiomSet.addAll(deleteAxioms);
@@ -80,7 +80,7 @@ public class OWLAxiomInfo {
         }
 	
 	//get method to return the deleted class axioms as Axioms
-	public Set<OWLAxiom> getDeletedAxioms(){
+	public Set<Object> getDeletedAxioms(){
 		return deletedAxiomSet;
 	}
 	

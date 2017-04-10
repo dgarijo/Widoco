@@ -16,6 +16,7 @@
 
 package widoco;
 
+import diagram.DiagramGeneration;
 import diff.CompareOntologies;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -98,6 +99,8 @@ public class CreateResources {
                 System.out.println("No previous version provided. No changelog produced!");
             }
         }
+        //diagram creation
+        DiagramGeneration.generateOntologyDiagram(folderOut, c);
     
         //serialize the model in different serializations.
         HashMap<String,String> s = c.getMainOntology().getSerializations();
@@ -235,6 +238,8 @@ public class CreateResources {
                 overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_NAMED_INDIV)+"</h4>");
                 overViewSection+=(namedIndividuals);
             }
+            //add the webvowl diagram
+            overViewSection +="<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html#ontology\"></iframe> ";
             saveDocument(path+File.separator+"overview-"+c.getCurrentLanguage()+".html", overViewSection,c);
         }
     }
@@ -323,6 +328,7 @@ public class CreateResources {
         File img = new File(s+File.separator+"img");
         File provenance = new File(s+File.separator+"provenance");
         File resources = new File(s+File.separator+"resources");
+        File webvowl = new File(s+File.separator+"webvowl");
         if(!f.exists()){
             f.mkdirs();
         }else{
@@ -338,6 +344,7 @@ public class CreateResources {
             //do all provenance related stuff here
         }
         resources.mkdir();
+        webvowl.mkdir();
         //copy jquery
         WidocoUtils.copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
         WidocoUtils.copyLocalResource("/lode/marked.min.js",new File(resources.getAbsolutePath()+File.separator+"marked.min.js"));
@@ -351,6 +358,8 @@ public class CreateResources {
             WidocoUtils.copyLocalResource("/lode/bootstrap-yeti.css", new File(resources.getAbsolutePath()+File.separator+"yeti.css"));
             WidocoUtils.copyLocalResource("/lode/site.css", new File(resources.getAbsolutePath()+File.separator+"site.css"));
         }
+        //diagram information
+        WidocoUtils.unZipIt(Constants.WEBVOWL_RESOURCES, webvowl.getAbsolutePath());
         //copy widoco readme
         WidocoUtils.copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
         if(c.isCreateHTACCESS()){

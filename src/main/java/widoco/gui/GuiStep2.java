@@ -214,7 +214,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"cite as", conf.getMainOntology().getCiteAs()},
                 {"doi", conf.getMainOntology().getDoi()},
                 {"status", conf.getMainOntology().getStatus()},
-                {"compatible", conf.getMainOntology().getBackwardsCompatibleWith()}
+                {"backwards compatible with", conf.getMainOntology().getBackwardsCompatibleWith()}
             },
             new String [] {
                 "Property", "Value"
@@ -288,7 +288,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 conf.getMainOntology().setDoi(value);
             }else if(prop.equals("status")){
                 conf.getMainOntology().setStatus(value);
-            }else if(prop.equals("compatible")){
+            }else if(prop.equals("backwards compatible with")){
                 conf.getMainOntology().setBackwardsCompatibleWith(value);
             }
             //}
@@ -670,7 +670,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 try{
                     URL root = GuiController.class.getProtectionDomain().getCodeSource().getLocation();
                     String path = (new File(root.toURI())).getParentFile().getPath();
-                    conf.reloadPropertyFile(path+File.separator+Constants.configPath);
+                    conf.reloadPropertyFile(path+File.separator+Constants.CONFIG_PATH);
                     //g.reloadConfiguration(path+File.separator+TextConstants.configPath);
                     this.refreshPropertyTable();
                 }catch(URISyntaxException e){

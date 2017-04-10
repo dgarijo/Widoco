@@ -18,15 +18,16 @@ Please cite the latest version of Widoco in Zenodo: https://zenodo.org/badge/lat
 
 Description
 ==========
-Widoco helps you to create a complete documentation of your ontology, by following a series of steps in a wizard. We reuse the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used.
+Widoco helps you to publish and create a complete documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use webowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
 
-The purpose of Widoco is to reuse and integrate existing tools for documentation, plus the set of features listed below:
+The purpose of Widoco is to reuse and integrate existing tools for documentation and diagram creation, plus the set of features listed below:
 * Separation of the sections of your html page so you can write them independently and replace only those needed.
-* Automatic annotation in RDF-a of the html produced.
+* Automatic annotation in JSON-LD snippets of the html produced.
 * Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).
 * Metadata extraction from the ontology plus the means to complete it on the fly when generating your ontology.
 * Guidelines on the main sections that your document should have and how to complete them.
-* Integration with diagram creators (ongoing).
+* Integration with diagram creators (WebVOWL).
+* Automatic changelog of differences between the actual and the previous version of the ontology.
 
 The structure of the template is as follows:
 
@@ -40,7 +41,9 @@ The structure of the template is as follows:
 		* Contributors
 		* Imported Ontologies
 		* Extended Ontologies
+		* Ontology serializations
 		* License
+		* Diagram
 	* Abstract
 	* Table of Contents
 	* 1. Introduction
@@ -49,7 +52,9 @@ The structure of the template is as follows:
 	* 3. Ontology description
 	* 4. Cross reference section (Using LODE)
 	* 5. References
-	* 6. Acknowledgements
+	* 6. Changelog
+	* 7. Acknowledgements
+	
 	
 How to use Widoco
 ==========
@@ -108,7 +113,6 @@ b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Car
 Current improvements
 ==========
 We are working on the following features:
-* Integration with diagram creators to include a diagram of your ontology when generating the documentation
 * Means to add examples to your ontology terms.
 * Previsualization of the terms that will be generated.
 

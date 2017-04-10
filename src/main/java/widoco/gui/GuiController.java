@@ -25,6 +25,7 @@ import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import org.apache.commons.io.FileUtils;
 import widoco.Configuration;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
@@ -148,7 +149,7 @@ public final class GuiController {
         }        
         try {
             //CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
-            WidocoUtils.unZipIt(Constants.lodeResources, config.getTmpFile().getName());
+            WidocoUtils.unZipIt(Constants.LODE_RESOURCES, config.getTmpFile().getName());
         } catch (Exception ex) {
             System.err.println("Error while creating the temporal files");
             errors=true;
@@ -210,7 +211,12 @@ public final class GuiController {
             }
         }
         //delete temp files
-        deleteAllTempFiles(config.getTmpFile());
+        try{
+            FileUtils.deleteDirectory(config.getTmpFile());
+            FileUtils.deleteDirectory(new File(Constants.VOWL_LOGS));
+        }catch(Exception e){
+            System.err.println("could not delete temporal folder: "+ e.getMessage());
+        }
         if(errors){
             //error code for notifying that there were errors.
             System.exit(1);
@@ -257,22 +263,12 @@ public final class GuiController {
     
     private void exit(){
         this.gui.dispose();
-        //delete tmp folder here!
-        deleteAllTempFiles(config.getTmpFile());
-    }
-    
-    private void deleteAllTempFiles(File folder){
-        String[]entries = folder.list();
-        for(String s: entries){
-            File currentFile = new File(folder.getPath(),s);
-            if(currentFile.isDirectory()){
-                deleteAllTempFiles(currentFile);
-            }
-            else{
-                currentFile.delete();
-            }
+        try{
+            FileUtils.deleteDirectory(config.getTmpFile());
+            FileUtils.deleteDirectory(new File(Constants.VOWL_LOGS));
+        }catch(Exception e){
+            System.err.println("could not delete temporal folder: "+ e.getMessage());
         }
-        folder.delete();
     }
     
     public void switchState(String input){
