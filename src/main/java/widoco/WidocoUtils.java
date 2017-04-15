@@ -16,9 +16,6 @@
 
 package widoco;
 
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.util.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -32,6 +29,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.FileDocumentSource;
+import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * Some useful methods reused across different classes
@@ -43,15 +48,30 @@ public class WidocoUtils {
      * @param c Widoco configuration object.
      */
     public static void loadModelToDocument(Configuration c){
-        OntModel model = ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();
         if(!c.isFromFile()){
             String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"Ontology";
             downloadOntology(c.getOntologyURI(), newOntologyPath);
             c.setFromFile(true);
             c.setOntologyPath(newOntologyPath);
         }
-        readModel(model, c);
-        c.getMainOntology().setMainModel(model);
+        //reding the model with Jena (deprecated)
+//        OntModel model = ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();        
+//        readOntModel(model, c);
+//        c.getMainOntology().setMainModel(model);
+        
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
+        loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
+        OWLOntology ontology;
+        try{
+            ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(c.getOntologyPath())),loadingConfig);
+            c.getMainOntology().setMainOntology(ontology);
+            c.getMainOntology().setMainOntologyManager(manager);
+            System.out.println("Ontology loaded successfully");
+        }catch(OWLOntologyCreationException e){
+            System.err.println("Could not open the ontology: "+e.getMessage());
+        } 
+        
     }
     
     /**
@@ -101,41 +121,64 @@ public class WidocoUtils {
     }
     
     /**
-     * Method that reads a local file and loads it into the configuration.
-     * @param model
-     * @param ontoPath
-     * @param ontoURL 
+     * Writes a model into a file
+     * @param m the manager
+     * @param o the ontology to write
+     * @param f the format in which should be written
+     * @param outPath 
      */
-    private static void readModel(OntModel model,Configuration c){
-        String[] serializations = {"RDF/XML", "TTL", "N3"};
-        String ontoPath = c.getOntologyPath();
-        String ext = "";
-        for(String s:serializations){
-            InputStream in;
-            try{
-                in = FileManager.get().open(ontoPath);
-                if (in == null) {
-                    System.err.println("Error: Ontology file not found");
-                    return;
-                }
-                model.read(in, null, s);
-                System.out.println("Vocab loaded in "+s);
-                if(s.equals("RDF/XML")){
-                    ext="xml";
-                }else if(s.equals("TTL")){
-                    ext="ttl";
-                }else if(s.equals("N3")){
-                    ext="n3";
-                }
-                c.getMainOntology().addSerialization(s, "ontology."+ext);
-                //c.setVocabSerialization(s);
-                break;
-            }catch(Exception e){
-                System.err.println("Could not open the ontology in "+s);
+    public static void writeModel(OWLOntologyManager m, OWLOntology o, OWLDocumentFormat f, String outPath){
+        OutputStream out=null;
+        try {
+            out = new FileOutputStream(outPath);
+            m.saveOntology(o, f, out);
+            out.close();
+        } catch (Exception ex) {
+            System.out.println("Error while writing the model to file "+ex.getMessage());
+            if(out!=null){
+                try{
+                    out.close();
+                }catch(Exception e){}
             }
         }
-        
     }
+    
+//    /**
+//     * Method that reads a local file and loads it into the configuration.
+//     * @param model
+//     * @param ontoPath
+//     * @param ontoURL 
+//     */
+//    private static void readOntModel(OntModel model,Configuration c){
+//        String[] serializations = {"RDF/XML", "TTL", "N3"};
+//        String ontoPath = c.getOntologyPath();
+//        String ext = "";
+//        for(String s:serializations){
+//            InputStream in;
+//            try{
+//                in = FileManager.get().open(ontoPath);
+//                if (in == null) {
+//                    System.err.println("Error: Ontology file not found");
+//                    return;
+//                }
+//                model.read(in, null, s);
+//                System.out.println("Vocab loaded in "+s);
+//                if(s.equals("RDF/XML")){
+//                    ext="xml";
+//                }else if(s.equals("TTL")){
+//                    ext="ttl";
+//                }else if(s.equals("N3")){
+//                    ext="n3";
+//                }
+//                c.getMainOntology().addSerialization(s, "ontology."+ext);
+//                //c.setVocabSerialization(s);
+//                break;
+//            }catch(Exception e){
+//                System.err.println("Could not open the ontology in "+s);
+//            }
+//        }
+//        
+//    }
     
     public static void copyResourceFolder(String[] resources, String savePath) throws IOException{
         for (String resource : resources) {

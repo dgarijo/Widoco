@@ -7,11 +7,7 @@ package diagram;
 
 import static com.hp.hpl.jena.rdf.model.impl.RDFDefaultErrorHandler.logger;
 import de.uni_stuttgart.vis.vowl.owl2vowl.Owl2Vowl;
-import de.uni_stuttgart.vis.vowl.owl2vowl.converter.Converter;
-import de.uni_stuttgart.vis.vowl.owl2vowl.converter.IRIConverter;
-import de.uni_stuttgart.vis.vowl.owl2vowl.export.types.FileExporter;
 import java.io.File;
-import org.semanticweb.owlapi.model.IRI;
 import widoco.Configuration;
 
 /**
@@ -22,11 +18,12 @@ public class DiagramGeneration {
     public static void generateOntologyDiagram(String outFolder, Configuration c){
         try {
             //extract resource to target folder
-            //Owl2Vowl o = new Owl2Vowl(ontology); TO DO: Use this function instead of reading the ontology again
-            IRI ontologyIRI = IRI.create(new File(c.getOntologyPath()));
-            Converter converter = new IRIConverter(ontologyIRI);
-            converter.convert();
-            converter.export(new FileExporter(new File(outFolder+File.separator+"webvowl"+File.separator+"data"+File.separator+"ontology.json")));    
+            Owl2Vowl o = new Owl2Vowl(c.getMainOntology().getOWLAPIModel()); //TO DO: Use this function instead of reading the ontology again
+            o.writeToFile(new File(outFolder+File.separator+"webvowl"+File.separator+"data"+File.separator+"ontology.json"));
+//            IRI ontologyIRI = IRI.create(new File(c.getOntologyPath()));
+//            Converter converter = new IRIConverter(ontologyIRI);
+//            converter.convert();
+//            converter.export(new FileExporter(new File(outFolder+File.separator+"webvowl"+File.separator+"data"+File.separator+"ontology.json")));    
         } catch (Exception e) {
             logger.error("FAILED TO LOAD " + e.getMessage());
             System.err.println(e.getMessage());
