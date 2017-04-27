@@ -1,0 +1,144 @@
+<h2 id="desc" class="list">Vocabulary checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<p>When creating vocabularies, people often ask which are the metadata properties that they should include, because they don't know where to start from. The truth is that starting from scratch may not be an easy task, as there are plenty of ontologies that define properties to describe other vocabularies or ontologies. For example, initiatives like <a href="https://htmlpreview.github.io/?https://github.com/agroportal/documentation/blob/master/metadata/Metadata%20for%20AgroPortal.html#">Agrovoc</a> have collected over 120 terms from different vocabularies! Others may be found in metadata repositories like <a href="http://lov.okfn.org/">LOV</a>, but one has to know what to look for</p> 
+
+<p>
+In this section I address this issue by describing the metadata properties that you should include when releasing an ontology or vocabulary. I expand on previous recommendations for vocabulary design [<a href="">CITE</a>], explaining why they should be included and which properties from other vocabularies you could reuse.
+</p>
+
+<p>
+Explain here that the terms have been defined in two groups: recommended and optional
+</p>
+
+<p>
+<strong>All the reused metadata properties described in this document are supported by <a href="https://w3id.org/widoco">Widoco</a></strong>, a tool for building ontology documentation automatically. Therefore, an immediate benefit of adding them is that you will get more complete documentations automatically.
+</p>
+
+Summary of <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> properties
+<ul class="hlist">
+	<li><a href="#namespaceURI">namespace URI</a></li>
+	<li><a href="#namespaceURI">title</a></li>
+	<li><a href="#namespaceURI">description</a></li>
+	<li><a href="#namespaceURI">prefix</a></li>
+	<li><a href="#namespaceURI">version IRI</a></li>
+	<li><a href="#namespaceURI">version info</a></li>
+	<li><a href="#namespaceURI">TO CONTINUE</a></li>
+</ul>
+
+Summary of <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> properties
+<ul class="hlist">
+	<li><a href="#abs">abstract</a></li>
+	<li><a href="#namespaceURI">TO CONTINUE</a></li>
+</ul>
+
+<h3 id="access" class="list">Vocabulary access</h3>
+<p>
+Properties designed to tell anyone how to access your vocabulary. It is true that if a human accesses it and goes through it in detail, she/he will probably figure out which is the main vocabulary and which are the imported or extended ontologies. But from a machine perspective, this is harder. Why not make things easy for everybody? 
+</p>
+
+<h4 id="namespaceURI">Vocabulary namespace URI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4> 
+<p>
+Property defining the main URI of your vocabulary. This becomes important in cases when you use permanent URLs: the vocabulary local URI hosting the file may not be the main URI you want people to access when resolving it. The vann vocabulary is has a very nice property for describing this, and it is encouraged by the LOV best practices [CITE].
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>: 
+	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespaceURI</a></li>
+</ul>
+
+
+
+<h3 id="goals" class="list">Vocabulary goals and description</h3>
+<p>Once your vocabulary can be properly identified, it is important to describe what it does without forcing users to explore it thoroughly. For this purpose, the following properties are recommended:</p>
+<h4>Title [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>If you were writing a paper describing your ontology, what would be the title?</p>
+<ul class="hlist"><strong>Terms you may use</strong>: 
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/title">dc:title</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/title">terms:title</a></li>
+	<li><a target="_blank" href="http://schema.org/name">schema:name</a></li>
+</ul>
+<h4>Description [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>A small paragraph indicating what the ontology does and why should some one use it</p>
+<ul class="hlist"><strong>Terms you may use</strong>: 
+<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:description</a></li>
+<li><a target="_blank" href="http://purl.org/dc/terms/description">terms:description</a></li>
+<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
+<li><a target="_blank" href="http://schema.org/description">schema:description</a></li>
+<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#note">skos:note</a></li>
+</ul>
+
+<h4 id="abs">Abstract [<em class="rfc2119" title="RECOMMENDED">OPTIONAL</em>]</h4>
+<p>Similar to a description, but with a little bit more background and an explanation about the resued/extended vocabularies, context and applications using this ontology. It can be considered as the abstract of the paper describing you ontology.</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>: 
+<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:abstract</a></li>
+<li><a target="_blank" href="http://purl.org/dc/terms/abstract">dcterms:abstract</a></li>
+</ul>
+
+<h4>Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone referring to it in the same way.</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespacePrefix</a></li>
+</ul>
+
+<h4>Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="TO DO">bibo:status</a></li>
+</ul>
+
+<h3 id="version" class="list">Vocabulary version</h3>
+<p>Your vocabulary may evolve and be released several time. Knowing which version of the vocabulary is the one being operated with may help debugging and solving compatibility issues. </p>
+
+<h4>Version IRI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>version iri
+The IRI that identifies this version of your vocabulary.
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionIRI">owl:versionIRI</a></li>
+</ul>
+
+<h4>Version info [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+It is important to provide details about the version being handled. For example, the version number. 
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionInfo">owl:versionInfo</a></li>
+</ul>
+
+
+
+<h3 id="prov" class="list">Vocabulary provenance</h3>
+backwardCompatibility, replaces, source, etc.
+
+all the dates come here: created, modified, issued, 
+
+<h3 id="cite" class="list">Vocabulary citation</h3>
+DOI, cite as, bibliographicCitation
+
+<h3 id="credit" class="list">Vocabulary attribution</h3>
+creator, contributor, curator.
+
+<h3 id="credit" class="list">Vocabulary license</h3>
+license, rights.
+
+<h3 id="image" class="list">Vocabulary images</h3>
+foaf:logo, schema:logo, etc.
+
+foaf:diagram -> if you want certain diagrams to be included in your ontology.
+
+<h3 id="similar" class="list">Similar resources</h3>
+foaf:logo, schema:logo, etc.
+
+<h2 id="desc-term" class="list">Term checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+These terms should appear for every class and property:
+
+<h3 id="label" class="list">Term readable label</h3>
+
+<h3 id="def" class="list">Term definition</h3>
+
+<h3 id="example" class="list">Term example</h3>
+
+<h3 id="status" class="list">Term status</h3>
+
+<h3 id="rationale" class="list">Term rationale</h3>
+
+<h3 id="source" class="list">Term source</h3>
