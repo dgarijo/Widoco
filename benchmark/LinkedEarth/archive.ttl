@@ -1,0 +1,213 @@
+@prefix : <http://linked.earth/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://linked.earth/ontology#> a owl:Ontology ;
+	owl:versionIRI <http://linked.earth/ontology/archive/1.0.0> ;
+	dcterms:creator <http://earth.usc.edu/~khider/> ;
+	dcterms:contributor <http://w3id.org/people/dgarijo> ;
+	dcterms:creator <http://www.cefns.nau.edu/~npm4/> ;
+	dcterms:title "The Proxy Archive Ontology"@en ;
+	owl:versionInfo "1.0.0"@en ;
+	dcterms:license "http://creativecommons.org/licenses/by/2.0/" ;
+	vann:preferredNamespacePrefix "le" ;
+	dcterms:contributor <http://www.isi.edu/~gil/> ;
+	dcterms:creator <http://orcid.org/0000-0001-5920-4751> ;
+	vann:preferredNamespaceUri "http://linked.earth/ontology#" .
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://linked.earth/ontology#Coral
+
+:Coral a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:comment """<p>The geochemical tracers contain in the skeletons of <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Coral\">corals</a> provide an unaltered record of the chemical and physical conditions that existed in the surrounding seawater at the time of accretion of its calcium carbonate skeleton <sup id=\"cite_ref-druffel1997_1-0\" class=\"reference\"><a href=\"#cite_note-druffel1997-1\">[1]</a></sup>. Corals are useful oceanic recorders because they are widely distributed, can be accurately dated, provide an  enhanced time resolution (monthly) available from the high growth rate, and are nor subjected to the mixing processes that are present in all toxic sediments (i.e., bioturbation) <sup id=\"cite_ref-druffel1997_1-1\" class=\"reference\"><a href=\"#cite_note-druffel1997-1\">[1]</a></sup> <sup id=\"cite_ref-2\" class=\"reference\"><a href=\"#cite_note-2\">[2]</a></sup>.
+</p><p>Corals are from the order Scleractinian, a group in the subclass Zoantharia. Scleractinians include solitary and colonial species of corals. may of which secrete external skeletons of <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Aragonite\">aragonite</a> <sup id=\"cite_ref-druffel1997_1-2\" class=\"reference\"><a href=\"#cite_note-druffel1997-1\">[1]</a></sup>. The oldest known scleractinians are shallow water corals from the Middle Triassic <sup id=\"cite_ref-3\" class=\"reference\"><a href=\"#cite_note-3\">[3]</a></sup>.
+</p>
+The polyp portion of the coral secretes calcium carbonate (CaCO<sub>3</sub>) as the mineral aragonite <sup id=\"cite_ref-druffel1997_1-3\" class=\"reference\"><a href=\"#cite_note-druffel1997-1\">[1]</a></sup>. Massive <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Hermatypic_coral\">hermatypic corals</a> (i.e., reef-building corals) are more desirable than the branching varieties for paleoreconstructions. First, massive corals form round, wave-resistant structures that can include hundreds of years of uninterrupted growth. Second, the accretion rate of calcium carbonate is much higher for hermatypic corals  that contain symbiotic <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Zooxanthellae\">zooxanthellae</a> than for deep species <sup id=\"cite_ref-druffel1997_1-4\" class=\"reference\"><a href=\"#cite_note-druffel1997-1\">[1]</a></sup>. Most massive reef corals live at water depths of &lt;40m and grow continuously at rated of 6-20 mm yr<sup>-1</sup> <sup id=\"cite_ref-4\" class=\"reference\"><a href=\"#cite_note-4\">[4]</a></sup><ol class=\"references\">
+<li id=\"cite_note-druffel1997-1\"><span class=\"mw-cite-backlink\">? <sup><a href=\"#cite_ref-druffel1997_1-0\">1.0</a></sup> <sup><a href=\"#cite_ref-druffel1997_1-1\">1.1</a></sup> <sup><a href=\"#cite_ref-druffel1997_1-2\">1.2</a></sup> <sup><a href=\"#cite_ref-druffel1997_1-3\">1.3</a></sup> <sup><a href=\"#cite_ref-druffel1997_1-4\">1.4</a></sup></span> <span class=\"reference-text\">Druffel, E. R. M. (1997). Geochemistry of corals: Proxies of past ocean chemistry, ocean circulation, and climate. Proceeding of the National Academy of Sciences, 94, 8354-8361. </span>
+</li>
+<li id=\"cite_note-2\"><span class=\"mw-cite-backlink\"><a href=\"#cite_ref-2\">?</a></span> <span class=\"reference-text\"> Gagan, M. K., Ayliffe, L. K., Beck, J. W., Cole, J. E., Druffel, E. R. M., Dunbar, R. B., &amp; Schrag, D. P. (2000). New views of tropical paleoclimates from corals. Quaternary Science Reviews, 19(1-5), 45-64. doi:10.1016/S0277-3791(99)00054-2</span>
+</li>
+<li id=\"cite_note-3\"><span class=\"mw-cite-backlink\"><a href=\"#cite_ref-3\">?</a></span> <span class=\"reference-text\"> Stanley, G. (1981). Early history of scleractinian corals and its geological consequences. Geology, 9, 507-511. </span>
+</li>
+<li id=\"cite_note-4\"><span class=\"mw-cite-backlink\"><a href=\"#cite_ref-4\">?</a></span> <span class=\"reference-text\">Knutson, D. W., Buddemeier, R. W., &amp; Smith, S. V. (1972). Coal chronologies: seasonal growth bands in reef corals. Science, 177, 270-272. </span>
+</li>
+</ol>"""@en ;
+	rdfs:label "Coral"@en .
+# 
+# http://linked.earth/ontology#Document
+
+:Document a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Document"@en .
+# 
+# http://linked.earth/ontology#GlacierIce
+
+:GlacierIce a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Glacier ice"@en .
+# 
+# http://linked.earth/ontology#Hybrid
+
+:Hybrid a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Hybrid"@en .
+# 
+# http://linked.earth/ontology#LakeSediment
+
+:LakeSediment a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:comment """<p><a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Lake\">Lake</a> <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Sediment\">sediment</a> proxies provide widespread, continuous records of terrestrial environment variability. A variety of sensors are used to indicate past water temperature, physical properties, biology, and chemistry within the <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Lake\">lake</a> environment as well as changes in vegetation and precipitation in the <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Drainage_basin\">catchment</a> area.
+</p>"""@en ;
+	rdfs:label "Lake sediment"@en .
+# 
+# http://linked.earth/ontology#MarineSediment
+
+:MarineSediment a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:comment """<p><a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/w/index.php?title=Pelagic_sediment&amp;redirect=no\">Marine sediments</a> are a type of <a href=\"#ProxyArchive\" title=\"Category:ProxyArchive\"> proxy archives&rlm;&lrm;</a> that provide long, continuous records of past <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Ocean\">ocean</a> variability. The timescales associated with this <a href=\"#ProxyArchive\" title=\"Category:ProxyArchive\">archive&rlm;&lrm;</a> are usually in the order of several tens to millions of years. The resolution of the sedimentary archive varies from annual to multi-century. <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Paleoceanography\">Paleoceanographic</a> data are derived from many sensors found in deep-sea sediments including trace metal and isotopic composition of foraminifera, alkenones, and TEX86.
+</p>"""@en ;
+	rdfs:label "Marine sediment"@en .
+# 
+# http://linked.earth/ontology#MolluskShells
+
+:MolluskShells a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Mollusk shells"@en .
+# 
+# http://linked.earth/ontology#Peat
+
+:Peat a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Peat "@en .
+# 
+# http://linked.earth/ontology#ProxyArchive
+
+:ProxyArchive a owl:Class ;
+	rdfs:comment """The medium in which the response of a sensor to environmental forcing is recorded. Sensu Evans et al. (2013).
+
+Examples of archives include: marine sediments, corals, wood, lake sediments, speleothems, glacier ice, etc."""@en ;
+	rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+	rdfs:label "Proxy archive"@en .
+# 
+# http://linked.earth/ontology#Rock
+
+:Rock a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Rock"@en .
+# 
+# http://linked.earth/ontology#Sclerosponge
+
+:Sclerosponge a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Sclerosponge"@en .
+# 
+# http://linked.earth/ontology#Speleothem
+
+:Speleothem a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:label "Speleothem"@en .
+# 
+# http://linked.earth/ontology#Wood
+
+:Wood a owl:Class ;
+	rdfs:subClassOf :ProxyArchive ;
+	rdfs:comment """<p>The field of <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Dendroclimatology\">dendroclimatology</a> and, to some extent, the field of <a href=\"/Dendrochronology\" title=\"Dendrochronology\"> dendrochronology</a> have played an important role in generating climate reconstructions of the past millennium <sup id=\"cite_ref-1\" class=\"reference\"><a href=\"#cite_note-1\">[1]</a></sup> <sup id=\"cite_ref-2\" class=\"reference\"><a href=\"#cite_note-2\">[2]</a></sup> <sup id=\"cite_ref-3\" class=\"reference\"><a href=\"#cite_note-3\">[3]</a></sup> <sup id=\"cite_ref-4\" class=\"reference\"><a href=\"#cite_note-4\">[4]</a></sup>. In regions with large seasonal variations, trees produce rings of varying color depending on the species. In most cases, the rings shift from a lighter, low density early wood of spring and early summer to a darker, denser band of late wood at the end of the growing season. The growing season generally occurs during the summer month and its length depends on the species, latitude, and altitude. Therefore, trees  hold perhaps the greatest potential for reconstructing past terrestrial climates at annual or even sub-annual resolution. 
+</p><p>The following observations can be made on the wood archive:
+</p>
+<ul><li> Tree ring width</li>
+<li> Wood density</li>
+<li> Stables isotopes<ol class=\"references\"></li></ul><ol>
+<li id=\"cite_note-1\"><span class=\"mw-cite-backlink\"><a href=\"#cite_ref-1\">?</a></span> <span class=\"reference-text\"> Mann, M. E., Bradley, R. S., &amp; Hughes, M. K. (1998). Global-scale temperature patterns and climate forcing over the past six centuries. Nature, 392(6678), 779-787. doi:10.1038/33859 </span>
+</li>
+<li id=\"cite_note-2\"><span class=\"mw-cite-backlink\"><a href=\"#cite_ref-2\">?</a></span> <span class=\"reference-text\">Mann, M. E., Bradley, R. S., &amp; Hughes, M. K. (1999). Northern Hemipshere temperatures during the past millennium: Inferences, Uncertainties, and Limitations. Geophysical Research Letters, 26(6), 759. </span>
+</li>
+<li id=\"cite_note-3\"><span class=\"mw-cite-backlink\"><a href=\"#cite_ref-3\">?</a></span> <span class=\"reference-text\">Moberg, A., Sonechkin, D. M., Holmgren, K., Datsenko, N. M., &amp; Karlen, W. (2005). Highly variable Northern Hemisphere temperatures reconstructed from low- and high-resolution proxy data. Nature, 433(7026), 613-617. doi:10.1038/nature03265</span>
+</li>
+<li id=\"cite_note-4\"><span class=\"mw-cite-backlink\"><a href=\"#cite_ref-4\">?</a></span> <span class=\"reference-text\">Mann, M. E., Zhang, Z., Rutherford, S., Bradley, R., Hughes, M. K., Shindell, D. T., . . . Ni, F. (2009). Global signatures and dynamical origins of the Little Ice Age and Medieval Climate Anomaly. Science, 326, 1256-1260. dos: 10.1126/science.1177303</span>
+</li>
+</ol>"""@en ;
+	rdfs:label "Wood"@en .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# http://linked.earth/ontology#coral
+
+:coral a owl:NamedIndividual , :Coral ;
+	rdfs:label "Coral"@en .
+# 
+# http://linked.earth/ontology#document
+
+:document a owl:NamedIndividual , :Document ;
+	rdfs:label "Document"@en .
+# 
+# http://linked.earth/ontology#glacierIce
+
+:glacierIce a owl:NamedIndividual , :GlacierIce ;
+	rdfs:label "Glacier ice"@en .
+# 
+# http://linked.earth/ontology#hybrid
+
+:hybrid a owl:NamedIndividual , :Hybrid ;
+	rdfs:label "Hybrid"@en .
+# 
+# http://linked.earth/ontology#lakeSediment
+
+:lakeSediment a owl:NamedIndividual , :LakeSediment ;
+	rdfs:label "Lake sediment"@en .
+# 
+# http://linked.earth/ontology#marineSediment
+
+:marineSediment a owl:NamedIndividual , :MarineSediment ;
+	rdfs:label "Marine sediment"@en .
+# 
+# http://linked.earth/ontology#molluskShells
+
+:molluskShells a owl:NamedIndividual , :MolluskShells ;
+	rdfs:label "Mollusk shells"@en .
+# 
+# http://linked.earth/ontology#peat
+
+:peat a owl:NamedIndividual , :Peat ;
+	rdfs:label "Peat"@en .
+# 
+# http://linked.earth/ontology#rock
+
+:rock a owl:NamedIndividual , :Rock ;
+	rdfs:label "Rock"@en .
+# 
+# http://linked.earth/ontology#sclerosponge
+
+:sclerosponge a owl:NamedIndividual , :Sclerosponge ;
+	rdfs:label "Sclerosponge"@en .
+# 
+# http://linked.earth/ontology#speleothem
+
+:speleothem a owl:NamedIndividual , :Speleothem ;
+	rdfs:label "Speleothem"@en .
+# 
+# http://linked.earth/ontology#wood
+
+:wood a owl:NamedIndividual , :Wood ;
+	rdfs:label "Wood"@en .
+# 
+# Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

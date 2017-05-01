@@ -1,0 +1,607 @@
+@prefix : <https://w3id.org/softwareCredit#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <https://w3id.org/softwareCredit> .
+
+<https://w3id.org/softwareCredit> rdf:type owl:Ontology ;
+                                  
+                                  rdfs:comment "The Software credit ontology aims to represent the different roles of the participants to a software project."@en ;
+								  rdfs:comment "List of authors to be added: Rob van Niewpooort, Daniel Garijo, Jurgen Viju, Matt Turk. License to be added.";
+								  vann:preferredNamespacePrefix "cr" ;
+								  vann:preferredNamespaceUri "https://w3id.org/softwareCredit#" ;
+								  dcterms:title "The Software Credit Ontology";
+								  dcterms:description "The Software credit ontology aims to represent the different roles of the participants to a software project."@en;
+								  dcterms:creator  <https://www.esciencecenter.nl/profile/dr.-rob-van-nieuwpoort>,<http://homepages.cwi.nl/~jurgenv/>,<https://sites.google.com/site/matthewturk/>,<http://w3id.org/people/dgarijo>;
+								  owl:versionInfo "0.0.1"@en .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  https://w3id.org/softwareCredit#ModelDrivenSoftwareEngineeringExpert
+
+:ModelDrivenSoftwareEngineeringExpert rdf:type owl:ObjectProperty ;
+                                      
+                                      rdfs:label "model driven software engineering expert"@en ;
+									  
+									  rdfs:comment "Somebody who formally models part of the requirements, design or implementation in order to simulate or verify the software."@en;
+                                      
+                                      rdfs:range :Person ;
+                                      
+                                      rdfs:domain :SoftwareProject ;
+                                      
+                                      rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#SystemsAndNetworkEngineer
+
+:SystemsAndNetworkEngineer rdf:type owl:ObjectProperty ;
+                           
+                           rdfs:label "systems and network engineer"@en ;
+						   
+						   rdfs:comment "Operator of the running software. For example, system administration roles."@en;
+                           
+                           rdfs:range :Person ;
+                           
+                           rdfs:domain :SoftwareProject ;
+                           
+                           rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#acceptationTester
+
+:acceptationTester rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "acceptation tester"@en ;
+				   
+				   rdfs:comment "Person in charge of doing the accept tests."@en;
+                   
+                   rdfs:range :Person ;
+                   
+                   rdfs:domain :SoftwareProject ;
+                   
+                   rdfs:subPropertyOf :tester .
+
+
+
+###  https://w3id.org/softwareCredit#artist
+
+:artist rdf:type owl:ObjectProperty ;
+        
+        rdfs:label "artist"@en ;
+		
+		rdfs:comment "Anyone contributing to the logo or images in the software."@en;
+        
+        rdfs:range :Person ;
+        
+        rdfs:domain :SoftwareProject ;
+        
+        rdfs:subPropertyOf :designer .
+
+
+
+###  https://w3id.org/softwareCredit#bugFixer
+
+:bugFixer rdf:type owl:ObjectProperty ;
+          
+          rdfs:label "bug fixer"@en ;
+		  
+		  rdfs:comment "Person who fixed a buf in the code."@en;
+          
+          rdfs:range :Person ;
+          
+          rdfs:domain :SoftwareProject ;
+          
+          rdfs:subPropertyOf :developer .
+
+
+
+###  https://w3id.org/softwareCredit#codeReviewer
+
+:codeReviewer rdf:type owl:ObjectProperty ;
+              
+              rdfs:label "code reviewer"@en ;
+			  
+			  rdfs:comment "Someone who provided guidance, suggestions or feedback on code that was incorporated into the project. They do not contribute to the code, otherwise they become developers. E.g., people that provide feedback on patches"@en;
+              
+              rdfs:range :Person ;
+              
+              rdfs:domain :SoftwareProject ;
+              
+              rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#communityContributor
+
+:communityContributor rdf:type owl:ObjectProperty ;
+                      
+                      rdfs:label "community contributor"@en ;
+					  
+					  rdfs:comment "Someone who contributes by answering questions, help or advice in the mailing list, stack overflow, forums, etc."@en;
+                      
+                      rdfs:range :Person ;
+                      
+                      rdfs:domain :SoftwareProject ;
+                      
+                      rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#contributor
+
+:contributor rdf:type owl:ObjectProperty ;
+
+			 rdfs:comment "Anyone who made a material change to the software or its supporting materials"@en;
+             
+             rdfs:label "contributor"@en ;
+             
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             
+             rdfs:range :Person ;
+             
+             rdfs:domain :SoftwareProject .
+
+
+
+###  https://w3id.org/softwareCredit#coreDeveloper
+
+:coreDeveloper rdf:type owl:ObjectProperty ;
+               
+               rdfs:label "core developer"@en ;
+			   
+			   rdfs:comment "active developer who is essential to the progress of the project"@en;
+               
+               rdfs:range :Person ;
+               
+               rdfs:domain :SoftwareProject ;
+               
+               rdfs:subPropertyOf :developer .
+
+
+
+###  https://w3id.org/softwareCredit#creator
+
+:creator rdf:type owl:ObjectProperty ;
+         
+         rdfs:label "creator"@en ;
+         
+         rdfs:comment "The person or organization responsible for the initial release of the code."@en ;
+         
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( :Organization
+                                     :Person
+                                   )
+                     ] .
+
+
+
+###  https://w3id.org/softwareCredit#designer
+
+:designer rdf:type owl:ObjectProperty ;
+          
+          rdfs:label "designer"@en ;
+		  
+		  rdfs:comment "Someone who makes and documents decissions to address the tradeoffs caused by the requirements."@en;
+          
+          rdfs:range :Person ;
+          
+          rdfs:domain :SoftwareProject ;
+          
+          rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#developer
+
+:developer rdf:type owl:ObjectProperty ;
+           
+           rdfs:label "developer"@en ;
+		   
+		   rdfs:comment "Someone who made changes to the software itself"@en;
+           
+           rdfs:range :Person ;
+           
+           rdfs:domain :SoftwareProject ;
+           
+           rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#documenter
+
+:documenter rdf:type owl:ObjectProperty ;
+            
+            rdfs:label "documenter"@en ;
+			
+			rdfs:comment "Contributors to the tutorials and documentation of the code"@en;
+            
+            rdfs:range :Person ;
+            
+            rdfs:domain :SoftwareProject ;
+            
+            rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#funder
+
+:funder rdf:type owl:ObjectProperty ;
+        
+        rdfs:label "funder"@en ;
+        
+        rdfs:comment "The organization which provided the funds for affiliated meetings and materials."@en ;
+        
+        rdfs:domain :Person ;
+        
+        rdfs:range :SoftwareProject .
+
+
+
+###  https://w3id.org/softwareCredit#humanComputerInteractionDesigner
+
+:humanComputerInteractionDesigner rdf:type owl:ObjectProperty ;
+                                  
+                                  rdfs:label "human computer interaction designer"@en ;
+								  
+								  rdfs:comment "Someone in charge of the user experience"@en;
+                                  
+                                  rdfs:range :Person ;
+                                  
+                                  rdfs:domain :SoftwareProject ;
+                                  
+                                  rdfs:subPropertyOf :designer .
+
+
+
+###  https://w3id.org/softwareCredit#ideaContributor
+
+:ideaContributor rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:label "idea contributor"@en ;
+				 
+				 rdfs:comment "Person who participated in a brain storming, session, ore who contributed with suggestions, ideas, etc. "@en;
+                 
+                 rdfs:range :Person ;
+                 
+                 rdfs:domain :SoftwareProject ;
+                 
+                 rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#infrastructureSupporter
+
+:infrastructureSupporter rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:label "infrastructure supporter"@en ;
+						 
+						 rdfs:comment "Person that enables and supports task like continuous integration and deployment expert."@en;
+                         
+                         rdfs:range :Person ;
+                         
+                         rdfs:domain :SoftwareProject ;
+                         
+                         rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#integrationTester
+
+:integrationTester rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "integration tester"@en ;
+				   
+				   rdfs:comment "Person in charge of the integration tests."@en;
+                   
+                   rdfs:range :Person ;
+                   
+                   rdfs:domain :SoftwareProject ;
+                   
+                   rdfs:subPropertyOf :tester .
+
+
+
+###  https://w3id.org/softwareCredit#internationalization
+
+:internationalization rdf:type owl:ObjectProperty ;
+                      
+                      rdfs:label "internationalization"@en ;
+					  
+					  rdfs:comment "Person in charge of adapting the user interface to other cultures and languages. This task is different from translation"@en;
+                      
+                      rdfs:range :Person ;
+                      
+                      rdfs:domain :SoftwareProject ;
+                      
+                      rdfs:subPropertyOf :humanComputerInteractionDesigner .
+
+
+
+###  https://w3id.org/softwareCredit#investigator
+
+:investigator rdf:type owl:ObjectProperty ;
+              
+              rdfs:label "investigator"@en ;
+              
+              rdfs:comment "Person responsible for writing the grant proposal"@en ;
+              
+              rdfs:range :Person ;
+              
+              rdfs:domain :SoftwareProject .
+
+
+
+###  https://w3id.org/softwareCredit#issueReporter
+
+:issueReporter rdf:type owl:ObjectProperty ;
+               
+               rdfs:label "issue reporter"@en ;
+			   
+			   rdfs:comment "Person who detected and error and issued a ticket in the tracking system for it to be solved."@en;
+               
+               rdfs:range :Person ;
+               
+               rdfs:domain :SoftwareProject ;
+               
+               rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#maintainer
+
+:maintainer rdf:type owl:ObjectProperty ;
+            
+            rdfs:label "maintainer"@en ;
+			
+			rdfs:comment "Person in charge of keeping the software alive. Maintainers learn about existing code and changes to adapt new requirements. For example, refactoring."@en;
+            
+            rdfs:range :Person ;
+            
+            rdfs:domain :SoftwareProject ;
+            
+            rdfs:subPropertyOf :developer .
+
+
+
+###  https://w3id.org/softwareCredit#marketingAndSales
+
+:marketingAndSales rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "marketing and sales"@en ;
+				   
+				   rdfs:comment "Person in charge of promoting the software to be sold or distributed."@en;
+                   
+                   rdfs:range :Person ;
+                   
+                   rdfs:domain :SoftwareProject ;
+                   
+                   rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#packager
+
+:packager rdf:type owl:ObjectProperty ;
+          
+          rdfs:label "packager"@en ;
+		  
+		  rdfs:comment "Someone who took the responsibility of bundling or distributing the software to deploy it."@en;
+          
+          rdfs:range :Person ;
+          
+          rdfs:domain :SoftwareProject ;
+          
+          rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#regressionTester
+
+:regressionTester rdf:type owl:ObjectProperty ;
+                  
+                  rdfs:label "regression tester"@en ;
+				  
+				  rdfs:comment "Person in charge of the regression tests."@en;
+                  
+                  rdfs:range :Person ;
+                  
+                  rdfs:domain :SoftwareProject ;
+                  
+                  rdfs:subPropertyOf :tester .
+
+
+
+###  https://w3id.org/softwareCredit#requirementElicitator
+
+:requirementElicitator rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:label "requirement elicitator"@en ;
+					   
+					   rdfs:comment "Somebody who collects the needs of the software."@en;
+                       
+                       rdfs:range :Person ;
+                       
+                       rdfs:domain :SoftwareProject ;
+                       
+                       rdfs:subPropertyOf :contributor .
+
+
+
+###  https://w3id.org/softwareCredit#softwareArchitect
+
+:softwareArchitect rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:label "software architect"@en ;
+				   
+				   rdfs:comment "Someone who is in charge of the key design decissions to satisfy the requirements"@en;
+                   
+                   rdfs:range :Person ;
+                   
+                   rdfs:domain :SoftwareProject ;
+                   
+                   rdfs:subPropertyOf :designer .
+
+
+
+###  https://w3id.org/softwareCredit#technicalDocumenter
+
+:technicalDocumenter rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:label "technical documenter"@en ;
+					 
+					 rdfs:comment "Someone who documents the design decisions and API documentation"@en;
+                     
+                     rdfs:range :Person ;
+                     
+                     rdfs:domain :SoftwareProject ;
+                     
+                     rdfs:subPropertyOf :documenter .
+
+
+
+###  https://w3id.org/softwareCredit#tester
+
+:tester rdf:type owl:ObjectProperty ;
+        
+        rdfs:label "tester"@en ;
+        
+        rdfs:comment "Person who tests the code"@en ;
+        
+        rdfs:range :Person ;
+        
+        rdfs:domain :SoftwareProject .
+
+
+
+###  https://w3id.org/softwareCredit#translator
+
+:translator rdf:type owl:ObjectProperty ;
+            
+            rdfs:label "translator"@en ;
+			
+			rdfs:comment "Person that was responsible (or collaborated) in translating the documentaroin to another language "@en;
+            
+            rdfs:range :Person ;
+            
+            rdfs:domain :SoftwareProject ;
+            
+            rdfs:subPropertyOf :documenter .
+
+
+
+###  https://w3id.org/softwareCredit#unitTester
+
+:unitTester rdf:type owl:ObjectProperty ;
+            
+            rdfs:label "unit tester"@en ;
+			
+			rdfs:comment "Person in charge of doing unit tests."@en;
+            
+            rdfs:range :Person ;
+            
+            rdfs:domain :SoftwareProject ;
+            
+            rdfs:subPropertyOf :tester .
+
+
+
+###  https://w3id.org/softwareCredit#websiteDesigner
+
+:websiteDesigner rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:label "website designer"@en ;
+				 
+				 rdfs:comment "Someone who contributed to the website of the project."@en;
+                 
+                 rdfs:range :Person ;
+                 
+                 rdfs:domain :SoftwareProject ;
+                 
+                 rdfs:subPropertyOf :designer .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://usefulinc.com/ns/doap#Project
+
+<http://usefulinc.com/ns/doap#Project> rdf:type owl:Class ;
+                                       
+                                       owl:equivalentClass :SoftwareProject ;
+                                       
+                                       rdfs:isDefinedBy <http://usefulinc.com/ns/doap#> .
+
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+
+<http://xmlns.com/foaf/0.1/Organization> rdf:type owl:Class ;
+                                         
+                                         owl:equivalentClass :Organization ;
+                                         
+                                         rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+
+
+
+###  http://xmlns.com/foaf/0.1/Person
+
+<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class ;
+                                   
+                                   owl:equivalentClass :Person ;
+                                   
+                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+
+
+
+###  https://w3id.org/softwareCredit#Organization
+
+:Organization rdf:type owl:Class ;
+              
+              rdfs:label "Organization"@en ;
+              
+              rdfs:comment "An organization that may fund software projects"@en .
+
+
+
+###  https://w3id.org/softwareCredit#Person
+
+:Person rdf:type owl:Class ;
+        
+        rdfs:label "Person"@en ;
+        
+        rdfs:comment "A person potentially recipient of credit because their contributions to the software"@en .
+
+
+
+###  https://w3id.org/softwareCredit#SoftwareProject
+
+:SoftwareProject rdf:type owl:Class ;
+                 
+                 rdfs:label "Software Project"@en ;
+                 
+                 rdfs:comment "A software project to which people contribute with different roles"@en .
+
+
+
+
+###  Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net
+

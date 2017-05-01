@@ -1,0 +1,2164 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.org/net/SMARTprotocol#"
+     xml:base="http://purl.org/net/SMARTprotocol"
+     xmlns:p1="http://purl.obolibrary.org/obo/iao/dev/ontology-metadata.owl#"
+     xmlns:p2="http://www.semanticweb.org/ontologies/2013/3/Ontology1365706525737.owl#"
+     xmlns:Ontology1184060740="http://www.owl-ontologies.com/Ontology1184060740.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:Thesaurus="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:iao="http://purl.obolibrary.org/obo/iao.owl#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:SO="http://purl.org/obo/owl/SO#"
+     xmlns:sp="http://purl.org/net/SMARTprotocol#"
+     xmlns:MSH="http://purl.bioontology.org/ontology/MSH/"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:MGEDOntology="http://mged.sourceforge.net/ontologies/MGEDOntology.owl#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:bfo="http://www.ifomis.org/bfo/1.1#"
+     xmlns:miProtocol="http://www.semanticweb.org/ontologies/2013/3/miProtocol.owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:ro="http://www.obofoundry.org/ro/ro.owl#"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:span="http://www.ifomis.org/bfo/1.1/span#"
+     xmlns:snap="http://www.ifomis.org/bfo/1.1/snap#">
+    <owl:Ontology rdf:about="http://purl.org/net/SMARTprotocol#">
+        <terms:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.alexandergarcia.name/</terms:contributor>
+        <terms:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://oxgiraldo.wordpress.com/</terms:creator>
+        <rdfs:label xml:lang="en">SMART Protocols Ontology: Document Module</rdfs:label>
+        <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2013-07-01</terms:created>
+        <owl:versionInfo xml:lang="en">2.0</owl:versionInfo>
+        <vann:preferredNamespacePrefix>sp</vann:preferredNamespacePrefix>
+        <vann:preferredNamespaceUri>http://purl.org/net/SMARTprotocol#</vann:preferredNamespaceUri>
+        <terms:license>http://creativecommons.org/licenses/by-nc-sa/2.0/</terms:license>
+        <terms:description xml:lang="en">SMART Protocols Ontology: Document Module is an ontology designed to represent metadata used to report a laboratory protocol.</terms:description>
+        <terms:title xml:lang="en">SMART Protocols Ontology: Document Module</terms:title>
+        <rdfs:comment xml:lang="en">SMART Protocols Ontology: Document Module is an ontology designed to represent metadata used to report a laboratory protocol.</rdfs:comment>
+        <terms:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://delicias.dia.fi.upm.es/members/DGarijo/#me</terms:contributor>
+        <terms:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.dia.fi.upm.es/index.php?page=oscar-corcho/</terms:contributor>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000112 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000112">
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A phrase describing how a class name should be used. May also include other kinds of examples that facilitate immediate understanding of a class semantics, such as widely known prototypical subclasses or instances of the class. Although essential for high level terms, examples for low level terms (e.g., Affymetrix HU133 array) are not</obo:IAO_0000115>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">example of usage</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000115 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000115">
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The official definition, explaining the meaning of a class or property. Shall be Aristotelian, formalized and normalized. Can be augmented with colloquial definitions.</obo:IAO_0000115>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">definition</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000118 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000118">
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative name for a class or property which means the same thing as the preferred name (semantically equivalent)</obo:IAO_0000115>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">alternative term</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000119 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000119">
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">formal citation, e.g. identifier in external database to indicate / attribute source(s) for the definition. Free text indicate / attribute source(s) for the definition. EXAMPLE: Author Name, URI, MeSH Term C04, PUBMED ID, Wiki uri on 31.01.2007</obo:IAO_0000115>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">definition source</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000412 -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000412">
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For external terms/classes, the ontology from which the term was imported</obo:IAO_0000115>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">imported from</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0000304 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OBI_0000304">
+        <rdfs:domain rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:range rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+        <obo:IAO_0000112 xml:lang="en">http://www.affymetrix.com/products/arrays/specific/hgu133.affx is_manufactered_by http://www.affymetrix.com/ (if we decide to use these URIs for the actual entities)</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">c is_manufactured_by o means that there was a process p in which c was built in which a person, or set of people or machines did the work(bore the &amp;quot;Manufacturer Role&amp;quot;, and those people/and or machines were members or of directed by the organization to do this.</obo:IAO_0000115>
+        <obo:IAO_0000118 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_manufacturer</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label>is manufactured by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#hasAlertMessage -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/SMARTprotocol#hasAlertMessage">
+        <rdfs:range rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&quot;DNA Extraction Protocol&quot; hasAlertMessage &quot;Critical Step&quot;</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasAlertMessage is a relation that binds a chemical substance or protocol to an alert message such as caution, critical step, timing, etc.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">has alert message</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#hasAuthor -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/SMARTprotocol#hasAuthor">
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&quot;Laboratory protocol&quot; hasAuthor &quot;John Smith&quot;</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasAuthor is a relation that binds a document such as laboratory protocol to an author of protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">has author</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#hasCatalogNumber -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/SMARTprotocol#hasCatalogNumber">
+        <rdfs:domain rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:range rdf:resource="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&quot;Nalgene Cryogenic Tube&quot; hasCatalogNumber &quot;5000-0012&quot;</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasCatalogNumber binds a thing to a numeral or string of numerals that is used for identification.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">has catalog number</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#hasName -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/SMARTprotocol#hasName">
+        <rdfs:domain rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:range rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&quot;Buffer&quot; hasName &quot;1X Queen’s lysis buffer (1L)&quot;</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasName binds to a person, animal, place or thing to a word or set of words by which someone or something  is known, addressed, or referred to.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">has name</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#hasSequence -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/SMARTprotocol#hasSequence">
+        <rdfs:domain rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <rdfs:range rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The primer CII-fw hasSequence 5′-GAATGATGTACCACCTTTG-3′</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasSequence binds a oligonucleotide or nucleic acid  to a sequence.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">has sequence</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#hasTitle -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/SMARTprotocol#hasTitle">
+        <rdfs:range rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&quot;Laboratory protocol&quot; hasTitle &quot;An Optimized Chloroplast DNA Extraction Protocol for Grasses (Poaceae) Proves Suitable for Whole Plastid Genome Sequencing and SNP Detection&quot;</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasTitle is a relation that binds a document such as laboratory protocol to a title of protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">has title</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#hasVersion -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/SMARTprotocol#hasVersion">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/IAO_0000030"/>
+        <rdfs:range rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25714"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&quot;LightCycler 480 Software&quot; hasVersion &quot;Version 1.5&quot;</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasVersion binds a document, software, or other type of information content entity to a version (one of a sequence of copies of a program, document or software).</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">has version</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.obofoundry.org/ro/ro.owl#has_part -->
+
+    <owl:ObjectProperty rdf:about="http://www.obofoundry.org/ro/ro.owl#has_part">
+        <owl:inverseOf rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">has part</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.obofoundry.org/ro/ro.owl#part_of -->
+
+    <owl:ObjectProperty rdf:about="http://www.obofoundry.org/ro/ro.owl#part_of">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Parthood as a relation between instances: The primitive instance-level relation p part_of p1 is illustrated in assertions such as: this instance of rhodopsin mediated phototransduction part_of this instance of visual perception. This relation satisfies at least the following standard axioms of mereology: reflexivity (for all p, p part_of p); anti-symmetry (for all p, p1, if p part_of p1 and p1 part_of p then p and p1 are identical); and transitivity (for all p, p1, p2, if p part_of p1 and p1 part_of p2, then p part_of p2). Analogous axioms hold also for parthood as a relation between spatial regions. For parthood as a relation between continuants, these axioms need to be modified to take account of the incorporation of a temporal argument. Thus for example the axiom of transitivity for continuants will assert that if c part_of c1 at t and c1 part_of c2 at t, then also c part_of c2 at t. Parthood as a relation between classes: To define part_of as a relation between classes we again need to distinguish the two cases of continuants and processes, even though the explicit reference to instants of time now falls away. For continuants, we have C part_of C1 if and only if any instance of C at any time is an instance-level part of some instance of C1 at that time, as for example in: cell nucleus part_ of cell.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBO Relation Ontology</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">part of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://mged.sourceforge.net/ontologies/MGEDOntology.owl#Cultivar -->
+
+    <owl:Class rdf:about="http://mged.sourceforge.net/ontologies/MGEDOntology.owl#Cultivar">
+        <rdfs:subClassOf rdf:resource="http://mged.sourceforge.net/ontologies/MGEDOntology.owl#StrainOrLine"/>
+        <obo:IAO_0000115 xml:lang="en">a plant variety obtained in agriculture in horticulture.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Microarray and Gene Expression Data Ontology (MGEDO)</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">cultivar</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://mged.sourceforge.net/ontologies/MGEDOntology.owl#Ecotype -->
+
+    <owl:Class rdf:about="http://mged.sourceforge.net/ontologies/MGEDOntology.owl#Ecotype">
+        <rdfs:subClassOf rdf:resource="http://mged.sourceforge.net/ontologies/MGEDOntology.owl#StrainOrLine"/>
+        <obo:IAO_0000115 xml:lang="en">a biotype resulting from selection in a particular habitat, e.g. the A. thaliana Ecotype Ler</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Microarray and Gene Expression Data Ontology (MGEDO)</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">ecotype</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://mged.sourceforge.net/ontologies/MGEDOntology.owl#StrainOrLine -->
+
+    <owl:Class rdf:about="http://mged.sourceforge.net/ontologies/MGEDOntology.owl#StrainOrLine">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OBI_0100026"/>
+        <obo:IAO_0000115 xml:lang="en">A strain or line is an animal or plant offspring that has a single ancestral breeding pair or parent as a result of brother x sister or parent x offspring matings. This class is extended to include F1 offspring and established breeding lines. For microbes, these are isolates derived from nature or in the laboratory.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Microarray and Gene Expression Data Ontology (MGEDO)</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">strain or line</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12801 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12801">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OBI_0000671"/>
+        <obo:IAO_0000115 xml:lang="en">An anatomical structure consisting of similarly specialized cells and intercellular matrix, aggregated according to genetically determined spatial relationships, performing a specific function.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CDISC</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">tissue</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25714 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25714">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <owl:disjointWith rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000115 xml:lang="en">A form or variant of a type or original; one of a sequence of copies of a program, each incorporating new modifications.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">VERS 
+Versioned</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">version</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41185 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41185">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#Quality"/>
+        <obo:IAO_0000115 xml:lang="en">The quantity of a substance per unit volume or weight; a measure of the amount of substance present in a unit amount of mixture, particularly, the amount of solute dissolved in a solvent. The amounts can be expressed as moles, masses, volumes, or parts.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">concentration</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The words or language units by which a thing is known.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70830 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70830">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Hint"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#StorageCondition"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C85644"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#FinalConcentration"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#SolutionList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasName"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#SolutionName"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0000747"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0100026"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+        <obo:IAO_0000115 xml:lang="en">A homogeneous mixture of two or more substances; frequently (but not necessarily) a liquid solution.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">solution</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C84327 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C84327">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000115 xml:lang="en">A refrigerated cabinet or room for preserving materials at or below 32F (0C).</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">freezer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C85644 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C85644">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41185"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70830"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CHEBI_35225"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#FinalConcentration"/>
+        <obo:IAO_0000115 xml:lang="en">The first measured concentration of a compound in a substance. In pharmacology, the initial concentration is given only for bolus IV models.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">initial concentration</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93484 -->
+
+    <owl:Class rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93484">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25714"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareVersion"/>
+        <obo:IAO_0000115 xml:lang="en">A representation of a particular edition or snapshot of a document as it exists at a particular point in time.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NCI thesaurus</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">document version</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.bioontology.org/ontology/MSH/D004864 -->
+
+    <owl:Class rdf:about="http://purl.bioontology.org/ontology/MSH/D004864">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/OBI_0000304"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasCatalogNumber"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasName"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#EquipmentOrSuppliesName"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#EquipmentAndSuppliesList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CHEBI_33893"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CHEBI_35225"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0000747"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0100026"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <obo:IAO_0000115 xml:lang="en">Expendable and nonexpendable equipment, supplies, apparatus, and instruments that are used in diagnostic, surgical, therapeutic, scientific, and experimental procedures.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">Device 
+Apparatus and Instruments 
+Device, Medical 
+Devices, Medical 
+Instruments and Apparatus 
+Inventory 
+Medical Device 
+Supplies and Equipment 
+MED DEVICE 
+EQUIPMENT SUPPLIES 
+MED DEVICES 
+APPARATUS INSTRUM 
+DEVICES MED 
+DEVICE MED 
+Devices 
+Equipment 
+Inventories 
+Medical Devices 
+Supplies</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Medical Subject Headings (MeSH)</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">equipment and supplies</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CHEBI_33893 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_33893">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/OBI_0000304"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasCatalogNumber"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#ReagentList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0000747"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0100026"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+        <obo:IAO_0000115 xml:lang="en">A substance used in a chemical reaction to detect, measure, examine, or produce other substances.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ChEBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">reagent</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CHEBI_35225 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_35225">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Hint"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#StorageCondition"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C85644"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#FinalConcentration"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#BufferList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasName"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#BufferName"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0000747"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/OBI_0100026"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <obo:IAO_0000115 xml:lang="en">Any substance or mixture of substances that, in solution (typically aqueous), resists change in pH upon addition of small amounts of acid or base.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">buffer compound</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ChEBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">buffer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000010 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000010">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000104"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasName"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareName"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasVersion"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareVersion"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 xml:lang="en">Software is a plan specification composed of a series of instructions that can be interpreted by or directly executed by a processing unit.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GROUP: OBI</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">software</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000030 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000030">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples of information content entites include journal articles, data, graphical layouts, and graphs.</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">an information content entity is an entity that is generically dependent on some artifact and stands in relation of aboutness to some entity</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI_0000142</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">information content entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000100 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000100">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000030"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Intensity values in a CEL file or from multiple CEL files comprise a data set (as opposed to the CEL files themselves).</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A data item that is an aggregate of other data items of the same type that have something in common. Averages and distributions can be determined for data sets.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">group:OBI
+OBI_0000042</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">data set</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000104 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000104">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000030"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PMID: 18323827.Nat Med. 2008 Mar;14(3):226.New plan proposed to help resolve conflicting medical advice.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">a directive information entity that when concretized it is realized in a process in which the bearer tries to achieve the objectives, in part by taking the actions specified. Plan specifications includes parts such as objective specification, action specifications and conditional specifications.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI Plan and Planned Process branch
+OBI_0000344</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">plan specification</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000300 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000300">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000030"/>
+        <obo:IAO_0000112 xml:lang="en">Words, sentences, paragraphs, and the written (non-figure) parts of publications are all textual entities</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A textual entity is a part of a manifestation (FRBR sense), a generically dependent continuant whose concretizations are patterns of glyphs intended to be interpreted as words, formulas, etc.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">text</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">textual entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000302 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000302">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/IAO_0000321"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol"/>
+        <obo:IAO_0000112 xml:lang="en">orcid ID, O.Giraldo</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A textual entity intended to identify a particular author</obo:IAO_0000115>
+        <obo:IAO_0000412 xml:lang="en">IAO</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">author identification</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000310 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000310">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000030"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/IAO_0000314"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A journal article, patent application, laboratory notebook, or a book</obo:IAO_0000112>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A collection of information content entities intended to be understood together as a whole</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">document</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000314 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000314">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000030"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/IAO_0000310"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000112 xml:lang="en">An abstract, introduction, method or results section.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">an information content entity that is part of a document</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">document part</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000321 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000321">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000314"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/IAO_0000302"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000112 xml:lang="en">Lawrence Hunter and Kevin Brettonel Cohen</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">part of a document that enumerates the authors of the document</obo:IAO_0000115>
+        <obo:IAO_0000412 xml:lang="en">IAO</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">author list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0000136 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0000136">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">Incubators are used in microbiology for culturing (growing) bacteria and other microorganisms. Incubators in tissue culture rooms are used for culturing stem cells, lymphocytes, skin fibroblasts and other types of cells</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">a device in which environmental conditions (light, photoperiod, temperature, humidity, etc.) can be controlled</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.medterms.com/script/main/art.asp?articlekey=18426</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">incubator</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0000671 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0000671">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OBI_0000747"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 xml:lang="en">a material obtained from an organism in order to be a representative of the whole</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">sample from organism</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0000747 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0000747">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Kit"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <obo:IAO_0000112 xml:lang="en">blood drawn from patient to measure his systemic glucose level. A population of humans with HIV enrolled in a study taken to represent patients with HIV in general.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A material entity that has the material sample role</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">sample population</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">material sample</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0001087 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0001087">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000115 xml:lang="en">A device that is used to freeze dry material.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Freeze_drying</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">lyophilizer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0001100 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0001100">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OBI_0400106"/>
+        <obo:IAO_0000115 xml:lang="en">A type of centrifuge that is designed for small tubes (0.2 ml to 2.0 ml), has a compact design, and has a small footprint.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Laboratory_centrifuge</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">microcentrifuge</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0001128 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0001128">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000115 xml:lang="en">A microinjection device that is used to measure very small volumes of liquids.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.answers.com/topic/micropipette</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">micropipette</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0100026 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0100026">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Kit"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <obo:IAO_0000112 xml:lang="en">fungus, animal, virus, plant</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A material entity that is an individual living system, such as animal, plant, bacteria or virus, that is capable of replicating or reproducing, growth and maintenance in the right environment. An organism may be unicellular or made up, like humans, of many billions of cells divided into specialized tissues and organs.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Organism</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">organism</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0400106 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0400106">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000115 xml:lang="en">A device with a rapidly rotating container that applies centrifugal force to its contents</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Centrifuge</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">centrifuge</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0400116 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0400116">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">Piko(tm) 96-well Thermal Cycler</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">An instrument that is capable of repeatedly altering and maintaining specific temperatures for defined periods of time.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">DNA_amplifier 
+PCR_machine 
+Polymerase_Chain_Reaction_ machine 
+thermocycler</obo:IAO_0000118>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MO</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">thermal cycler</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0400120 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0400120">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">VWR Signature Deep-Chamber Heated Water Bath. A water bath is used for temperatures up to 100 degrees C. An oil bath is employed for temperatures over 100 degrees C.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A temperature_control_bath is a device that has the function to regulate the temperature of a material, the function to contain fluid and the function to vary and maintain the temperature of the contained fluid. Heat exchange (energy transfer) between the material and the heating element is facilitated via the contained fluid. A temperature_control_bath is composed of a container, a heating element and/or a cooling element and a means to adjust the needed temperature. In most cases also a timer and a means to stir the fluid is provided as well.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI Instrument branch</obo:IAO_0000119>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">temperature control bath</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OBI_0400155 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OBI_0400155">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OBI_0400120"/>
+        <obo:IAO_0000112 xml:lang="en">A water bath was used to allow for cell incubation at 38 degree centigrade for 8 hours.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A water bath is a temperature control bath in which a water acts as contact medium enabling temperature transfer from the heating element or cooling element to the sample. The temperature can be controlled in the 0 to 100 degree centigrade range (under normal pressure).</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBI</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">water bath</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#AdvantageOfTheProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#AdvantageOfTheProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+        <obo:IAO_0000115 xml:lang="en">Advantage of the protocol is a subclass of textual entity. It should be made clear in which situations the Protocol has been successfully employed.</obo:IAO_0000115>
+        <obo:IAO_0000119 xml:lang="en">http://www.nature.com/nprot/info/gta.html</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">advantage of the Protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 rdf:resource="http://banana.com"/>
+        <obo:IAO_0000112 xml:lang="en">The protocol works in northern blot assays using cactus, agave, banana,  tomato, Arabidopsis and tobacco. Allwood, J.W., et al., Inter-laboratory reproducibility of fast gas chromatography-electron impact-time of flight mass spectrometry (GC-EI-TOF/MS) based plant metabolomics. Metabolomics, 2009. 5(4): p. 479-496.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Applications of the protocol is a subclass of textual entity. Applications of the protocol list the full diversity of the applications of the method and support if is possible to extend the range of applications of the protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">application of the protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Bag -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Bag">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">Laboratory bags: autoclavable biohazard bags, specimen/document zipper bags</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A bag is a supply. A bag is a simple tool in the form of a non-rigid container.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">bag</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#BufferList -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#BufferList">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000100"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#EquipmentAndSuppliesList"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerList"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareList"/>
+        <obo:IAO_0000115 xml:lang="en">Buffer list is a data set of the names or identifiers of the buffers that are part of materials section of a protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">buffer list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#BufferName -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#BufferName">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#EquipmentOrSuppliesName"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerName"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareName"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1X Queen’s lysis buffer (1L), 
+AB lysis buffer (500ml).</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Buffer name is a textual entity. Buffer name is the name of the buffer produced by or used in a reaction involving changes in atoms or molecules. If is applicable, the name of the buffer should be including the follow information: buffer concentration, and final volume.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">buffer name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#CatalogNumber -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#CatalogNumber">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">5000-0012</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Catalog number is a subclass of textual entity. Catalog number is a numeral or string of numerals that is used for identification.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">catalog number</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#CentrifugeTube -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#CentrifugeTube">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">Weigh 300-400 mg of ground, lyophilized tissue, into a 15 ml polypropylene centrifuge tube.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Centrifuge tube is a supply. centrifuge tubes are tapered tubes of various sizes made of glass or plastic. They may vary in capacity from tens of millilitres.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">centrifuge tips</obo:IAO_0000118>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Laboratory_centrifuge#Centrifuge_tubes</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">centrifuge tube</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#CriticalStep -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#CriticalStep">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">Remove the combs and flush out the wells using a syringe. This is a CRITICAL STEP, especially for polymorphic bands that are close to each other. Otherwise, unpolymerized acrylamide solution will be polymerized at the bottom of the wells and will affect the migration of the fragments. (Laboratory Protocols CIMMYT, 2005) 
+
+CRITICAL STEP: The supernatant in each step should be carefully transferred without disturbing the other layers. (Sudha, 2012)</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A critical step is a message given to a user to perform a protocol instruction in a very precise manner e.g., where the time and temperature of a step is crucial or the use of RNase free solutions is required.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">critical step</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#DNAExtractionProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#DNAExtractionProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#NucleicAcidExtractionProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#RNAExtractionProtocol"/>
+        <obo:IAO_0000115 xml:lang="en">DNA extraction protocol is a subclass of nucleic acid extraction protocol. DNA extraction protocol, is a step by step description of a procedure in which is recovered a fraction of DNA from a material entity.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">DNA isolation protocol</obo:IAO_0000118>
+        <rdfs:label xml:lang="en">DNA extraction protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ElectrophoresisProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ElectrophoresisProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#ExperimentalProtocol"/>
+        <obo:IAO_0000115 xml:lang="en">Electrophoresis protocol is a subclass of laboratory protocol. Electrophoresis protocol is a step by step description of an electrophoresis procedure in which are recovered fragments of biomolecules separated by charge.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">electrophoresis protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#EnzimaticAmplificationProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#EnzimaticAmplificationProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#ExperimentalProtocol"/>
+        <obo:IAO_0000115 xml:lang="en">Enzimatic amplification protocol is a subclass of laboratory protocol. Enzimatic amplification protocol, is a step by step descriptionof a procedure about the use of enzymes to increase the number of molecules from a material entity.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">enzimatic amplification protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#EquipmentAndSuppliesList -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#EquipmentAndSuppliesList">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000100"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerList"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ReagentList"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareList"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SolutionList"/>
+        <obo:IAO_0000115 xml:lang="en">Equipment and supplies list is a data set of the names or identifiers of the equipments and supplies  that are part of  materials section of a protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">equipment and supplies list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#EquipmentOrSuppliesName -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#EquipmentOrSuppliesName">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerName"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ReagentName"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareName"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SolutionName"/>
+        <obo:IAO_0000112 xml:lang="en">Nalgene Cryogenic Tube, sterile, 1.2 ml. 
+S1000 Thermal Cycler with 96-Deep Well Reaction Module.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Equipment or supply name is a  textual entity. Equipment or supply name is the name of equipment or supply.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">equipment or supplies name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ExperimentalProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ExperimentalProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000310"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#CriticalStep"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Hint"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#PausePoint"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Timing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Troubleshooting"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/IAO_0000314"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#AdvantageOfTheProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasTitle"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasVersion"/>
+                <owl:allValuesFrom rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93484"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 xml:lang="en">An experimental protocol is a sequence of tasks and operations executed to perform experimental research. The protocols often include equipment, reagents, critical steps, troubleshooting, tips and all the information that facilitates reusability.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">experimental protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ExtractionBuffer -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ExtractionBuffer">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CHEBI_35225"/>
+        <obo:IAO_0000112 xml:lang="en">Protein extraction buffer, DNA extraction buffer (CTAB extraction buffer), RNA extraction buffer.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Extraction buffer is a subclass of buffer. An extraction buffer with correct pH, gets rid of the cell components, but retains the organelles.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">extraction buffer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#FinalConcentration -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#FinalConcentration">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41185"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70830"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CHEBI_35225"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 xml:lang="en">The final measured concentration of a compound in a substance.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">Last concentration</obo:IAO_0000118>
+        <obo:IAO_0000119 xml:lang="en">Adopted from NCI thesaurus</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">final concentration</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Flammable -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Flammable">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122"/>
+        <obo:IAO_0000112 xml:lang="en">Keep away from sources of ignition. Reference: Nature Protocols</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Easily ignited.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">Inflammable</obo:IAO_0000118>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://wordnetweb.princeton.edu/perl/webwn?s=flammable</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">flammable</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#GrindingMachine -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#GrindingMachine">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">Put the number of seed indicated by the kit protocol in the grinding machine and grind the seed to a powder.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Grinding machine is a equipment. Grinding machine is a machine used to grind grains and leaves.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">Grinding device</obo:IAO_0000118>
+        <rdfs:label xml:lang="en">grinding machine</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Hint -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Hint">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">HINT: Mix well by vortex before to use. 
+HINT: ADD NaOH to WATER to avoid splashing.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A hint is a message given to a user of a protocol that will help to perform the experiment.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">hint</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#IntroductionSection -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#IntroductionSection">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000314"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 xml:lang="en">Introduction section is part of a document. In the context of a protocol, this section show to reader about essential components of the protocol. So, the scientific community could make a decision as to the suitability of the protocol to their experimental problem.This section must include: applications of the protocol, comparison with other protocols, development of the protocol, limitations and purpose.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">introduction section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Kit -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Kit">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/OBI_0000304"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasCatalogNumber"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasName"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#KitName"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#KitList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+        <obo:IAO_0000112 xml:lang="en">Universal Linker Kit, laboratory kit that allows customization of protein microarrays.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A set of chemical substances, articles or equipment needed for a specific purpose.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">kit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#KitList -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#KitList">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000100"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Kit list is a data set of the names or identifiers of the kits that are part of materials section of a protocol.</rdfs:comment>
+        <rdfs:label xml:lang="en">kit list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#KitName -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#KitName">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <obo:IAO_0000112 xml:lang="en">Spectrum Plant Total RNA Kit, sufficient for 50 purifications.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Kit name is a  textual entity. Kit name is the name of a kit.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">kit name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">A major problem faced both in this and other safflower transformation studies is the hyperhydration of transgenic shoots which result in the loss of a large proportion of transgenic shoots. Belide Srinivas., 2011</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Limitations of the protocol is a subclass of textual entity where the possible limitations of the protocol should be discussed. It should be made clear in which situations the Protocol would be unreliable or otherwise unsuccessful.</obo:IAO_0000115>
+        <obo:IAO_0000119 xml:lang="en">http://www.nature.com/nprot/info/gta.html</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">limitation of the protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Manufacturer -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Manufacturer">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <obo:IAO_0000112 xml:lang="en">Bio-Rad, Nalgene, Thermoscientific, Eppendorf, Falcon.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Manufacturer is a subclass of material entity. Manufacturer is a person, enterprise, or entity that produces equipments, reagents, primers or other laboratory supplies.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">manufacturer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#MaterialsSection -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#MaterialsSection">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000314"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OBI_0000671"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#BufferList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#EquipmentAndSuppliesList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#KitList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#PrimerList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#ReagentList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#SolutionList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 xml:lang="en">Materials section is part of a document. In the context of a protocol, this section should list the sample, buffers, reagents, consumables, equipments, kits, software etc., necessary for carrying out your technique.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">materials section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#MethodsSection -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#MethodsSection">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000314"/>
+        <obo:IAO_0000115 xml:lang="en">Methods section is part of a document. This is the section where the protocol is presented.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">methods section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#MicrocentrifugeTube -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#MicrocentrifugeTube">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">Pour off supernatant into 1.5 ml microfuge tube.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Microcentrifuge tube is a supply. Microcentrifuge tubes are plastic tubes with capacities from 250 ul to 2.0 ml.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">Microcentrifuge tips 
+microfuge tube</obo:IAO_0000118>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Laboratory_centrifuge#Centrifuge_tubes</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">microcentrifuge tube</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Neurotoxic -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Neurotoxic">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122"/>
+        <obo:IAO_0000112 xml:lang="en">avoid contact with skin, eyes or mucous membranes; keep away from sources of ignition. When handling , wear gloves. Reference: Nature Protocols</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Poisonous to nerves or nerve cells.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://wordnetweb.princeton.edu/perl/webwn?s=neurotoxic</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">neurotoxic</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#NucleicAcidExtractionProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#NucleicAcidExtractionProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#ExperimentalProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ProteinExtractionProtocol"/>
+        <obo:IAO_0000115 xml:lang="en">Nucleic acid extraction protocol is a subclass of laboratory protocol. A nucleic acid extraction protocol is a step by step description of a procedure used to recover the nucleic acid fraction of an input material entity.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">nucleic acid extraction protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PausePoint -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#PausePoint">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">PAUSE POINT: Can be left overnight at 48 C or frozen for up to a month at -20 C.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Pause point is the point were the protocol naturally breaks into separate stages.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">pause point</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PlantTissue -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#PlantTissue">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12801"/>
+        <obo:IAO_0000112 xml:lang="en">roots, leaves, flowers, stems.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Plant tissue is a material entity. Plant tissue is the tissue derived from plants.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">plant tissue</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PortableIceChest -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#PortableIceChest">
+        <rdfs:subClassOf rdf:resource="http://purl.bioontology.org/ontology/MSH/D004864"/>
+        <obo:IAO_0000112 xml:lang="en">Place bags in a portable ice chest or other container with ice to keep samples cool.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A portable ice chest is a supply. A cooler, cool box, portable ice chest, chilly bin (in New Zealand), or esky (Australia) most commonly is an insulated box used to keep the things cool.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">cooler 
+cool box 
+chilly bin 
+esky</obo:IAO_0000118>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Cooler</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">portable ice chest</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Primer -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Primer">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/OBI_0000304"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Manufacturer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#PrimerList"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasName"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#PrimerName"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasSequence"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#PrimerSequence"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Oligos used in PCR.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A primer is a short strand of nucleic acid that serves as a starting point for DNA or RNA synthesis.</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://en.wikipedia.org/wiki/Primer_%28molecular_biology%29</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">primer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PrimerList -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#PrimerList">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000100"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareList"/>
+        <obo:IAO_0000115 xml:lang="en">Primer list is a data set of the names or identifiers of the primers that are part of materials section of a protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">primer list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PrimerName -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#PrimerName">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareName"/>
+        <obo:IAO_0000112 xml:lang="en">CII-fw, CII-rv.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Primer name is a  textual entity. Primer name is the name of a primer.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">primer name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PrimerSequence -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#PrimerSequence">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5′-GAATGATGTACCACCTTTG-3′</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Primer sequence is a textual entity. Primer sequence is a serie ordered of bases coded as letters (A,C,G,T) without spaces, that identify to a particular primer.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">primer sequence</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ProteinExtractionProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ProteinExtractionProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#ExperimentalProtocol"/>
+        <obo:IAO_0000115 xml:lang="en">Protein extraction protocol is a subclass of laboratory protocol. Protein extraction is an extraction where the desired output material is protein.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">Protein isolation protocol</obo:IAO_0000118>
+        <rdfs:label xml:lang="en">protein extraction protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">The extraction procedure precisely followed that of Lisec et al. (2006), which was developed from the protocol of Fiehn et al. (2000a). Allwood J. W., 2009</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Provenance of the protocol is a subclass of textual entity. Provenance of the protocol include references to key papers where the protocol has been used previously. Indicate if your protocol is the result of modify a previous one or if it is the result of reuse steps of several (more than 1) protocols.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">provenance of the protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PurposeOfProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#PurposeOfProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:allValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">Development of a method to isolate small RNAs from different plant species (...) that no need of first total RNA extraction and is not based on the commercially available TRIzol; Reagent or columns. Rosas-Cardenas, F.d.F., et al., A simple and efficient method for isolating small RNAs from different plant species. Plant Methods, 2011. 7(4): p. 7.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">The purpose of a protocol is a subclass of textual entity. Its role, is to enable readers to make a decision as to the suitability of the protocol to their experimental problem.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">purpose of the protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Pyrophoric -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Pyrophoric">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122"/>
+        <obo:IAO_0000112 xml:lang="en">Iron sulfide and many reactive metals including uranium, when powdered or thinly sliced. Pyrophoric materials are often water-reactive as well and will ignite when they contact water or humid air. They can be handled safely in atmospheres of argon or (with a few exceptions) nitrogen. Most pyrophoric fires should be extinguished with a Class D fire extinguisher for burning metals.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A chemical substance that will ignite spontaneously in air at or below a temperature of 130 F (54.4 C).</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.utexas.edu/safety/ehs/msds/glossary/?page=p</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">pyrophoric</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#RNAExtractionProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#RNAExtractionProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#NucleicAcidExtractionProtocol"/>
+        <obo:IAO_0000115 xml:lang="en">RNA extraction protocol is a subclass of nucleic acid extraction protocol. RNA extraction protocol, is a step by step description of a procedure in which is recovered a fraction of RNA from a material entity.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">RNA isolation protocol</obo:IAO_0000118>
+        <rdfs:label xml:lang="en">RNA extraction protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ReagentList -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ReagentList">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000100"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareList"/>
+        <obo:IAO_0000115 xml:lang="en">Reagent list is a data set of the names or identifiers of the reagents that are part of materials section of a protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">reagent list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#ReagentName -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#ReagentName">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SoftwareName"/>
+        <obo:IAO_0000112 xml:lang="en">Taq DNA Polymerase from Thermus aquaticus with 10X reaction buffer without MgCl2.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Reagent name is a textual entity. Reagent name is the name of a reagent.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">reagent name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#SoftwareList -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#SoftwareList">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000100"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SolutionList"/>
+        <obo:IAO_0000115 xml:lang="en">Software list is a data set of the names of softwares that are part of materials section of a protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">software list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#SoftwareName -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#SoftwareName">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <owl:disjointWith rdf:resource="http://purl.org/net/SMARTprotocol#SolutionName"/>
+        <obo:IAO_0000112 xml:lang="en">LightCycler 480 Software.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Software name is a textual entity. Software name is the name of a software.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">software name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#SoftwareVersion -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#SoftwareVersion">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25714"/>
+        <obo:IAO_0000112 xml:lang="en">Version 1.5</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Software version is a textual entity. A software version number is a software attribute that represents the version of software.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">software version</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#SolutionList -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#SolutionList">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000100"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#part_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 xml:lang="en">Solution list is a data set of the names or identifiers of solutions that are part of materials section of a protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">solution list</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#SolutionName -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#SolutionName">
+        <rdfs:subClassOf rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+        <obo:IAO_0000112 xml:lang="en">3M NaOH (1L)</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Solution name is a textual entity. Solution name is the name of a liquid preparation that contains at least 2 chemical substances, one playing the role of solvent and the other one playing the role of solute. If is applicable, the name of the buffer should including the follow information: solution concentration, and final volume.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">solution name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#StorageCondition -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#StorageCondition">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">Store the buffer in foil covered dark coloured bottle at room temperature. Light sensitive. Can be used up to 2 months.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Storage condition is a message given to a user of a protocol about the shelf life (maximum storage time) and temperature of storage of a buffer, reagent or solution.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">storage condition</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Timing -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Timing">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">Steps 1-3, 30 min.; Steps 6-7, 2 h</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Timing is a message used to indicate the approximate time that a step, or set of steps, could take.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">timing</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#TitleOfProtocol -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#TitleOfProtocol">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <owl:disjointWith rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000115 xml:lang="en">Title of protocol is a subclass of textual entity. Title of protocol is the name of a protocol.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">title of the protocol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Toxic -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Toxic">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122"/>
+        <obo:IAO_0000112 xml:lang="en">Avoid inhalation, ingestion or contact with skin, eyes or mucous membranes. Reference: Nature Protocols</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">Of or relating to or caused by a toxin or poison &apos;suffering from exposure to toxic substances&apos;</obo:IAO_0000115>
+        <obo:IAO_0000119 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://wordnetweb.princeton.edu/perl/webwn?s=toxic</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">toxic</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Troubleshooting -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Troubleshooting">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000112 xml:lang="en">Problem: Low detection level for tested a miRNA (CT value &gt;35) (Step 9 - 10) Possible reason: low abundant amiRNA, or low efficiency of low of polyA tailing and reverse transcription, or amplification condition is too stringent, or amiRNA is not correctly expressed or processed. Possible solutions: increase amount of cDNA template in PCR; use new polyA tailing and reverse transcription reagent, (...) or using low stringent PCR program; check PCR product sequence.</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">A troubleshooting is a message given to a user of a protocol where common problems, possible causes, and solutions/methods of correction should be listed.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">troubleshooting</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#Volatile -->
+
+    <owl:Class rdf:about="http://purl.org/net/SMARTprotocol#Volatile">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122"/>
+        <obo:IAO_0000112 xml:lang="en">handle in well-ventilated charcoal-filtered hood. Reference: Nature Protocols</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">The property of a substance of changing readily from a solid or liquid to a vapor.</obo:IAO_0000115>
+        <rdfs:label xml:lang="en">volatile</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/obo/owl/SO#SO_0000121 -->
+
+    <owl:Class rdf:about="http://purl.org/obo/owl/SO#SO_0000121">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <obo:IAO_0000115 xml:lang="en">A single stranded oligo used for polymerase chain reaction.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">forward DNA primer 
+DNA forward primer 
+forward primer oligonucleotide 
+forward primer oligo 
+forward primer polynucleotide 
+forward primer 
+forward primer sequence</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SNP Ontology</obo:IAO_0000412>
+        <rdfs:comment xml:lang="en">This term is mapped to MGED. Do not obsolete without consulting MGED ontology.</rdfs:comment>
+        <rdfs:label xml:lang="en">forward primer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/obo/owl/SO#SO_0000132 -->
+
+    <owl:Class rdf:about="http://purl.org/obo/owl/SO#SO_0000132">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/SMARTprotocol#Primer"/>
+        <obo:IAO_0000115 xml:lang="en">A single stranded oligo used for polymerase chain reaction.</obo:IAO_0000115>
+        <obo:IAO_0000118 xml:lang="en">reverse primer oligonucleotide 
+reverse primer sequence 
+reverse primer 
+oligo DNA reverse primer 
+reverse primer 
+reverse DNA primer</obo:IAO_0000118>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SNP Ontology</obo:IAO_0000412>
+        <rdfs:comment xml:lang="en">This term is mapped to MGED. Do not obsolete without consulting MGED ontology.</rdfs:comment>
+        <rdfs:label xml:lang="en">reverse primer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1#Entity -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1#Entity">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1/snap#Continuant -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1/snap#Continuant">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1#Entity"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition: An entity [bfo:Entity] that exists in full at any time in which it exists at all, persists through time while maintaining its identity and has no temporal parts.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples: a heart, a person, the color of a tomato, the mass of a cloud, a symphony orchestra, the disposition of blood to coagulate, the lawn and atmosphere in front of our building</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Synonyms: endurant</rdfs:comment>
+        <rdfs:label xml:lang="en">continuant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1/snap#DependentContinuant -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant"/>
+                    <rdf:Description rdf:about="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+        <owl:disjointWith rdf:resource="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition: A continuant [snap:Continuant] that is either dependent on one or other independent continuant [snap:IndependentContinuant] bearers or inheres in or is borne by other entities.</rdfs:comment>
+        <rdfs:label xml:lang="en">dependent continuant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1/snap#GenericallyDependentContinuant">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+        <owl:disjointWith rdf:resource="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition: A continuant [snap:Continuant] that is dependent on one or other independent continuant [snap:IndependentContinuant] bearers. For every instance of A requires some instance of (an independent continuant [snap:IndependentContinuant] type) B but which instance of B serves can change from time to time.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples: a certain PDF file that exists in different and in several hard drives</rdfs:comment>
+        <rdfs:label xml:lang="en">generically dependent continuant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#Continuant"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition: A continuant [snap:Continuant] that is a bearer of quality [snap:Quality] and realizable entity [snap:RealizableEntity] entities, in which other entities inhere and which itself cannot inhere in anything.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples: an organism, a heart, a leg, a person, a symphony orchestra, a chair, the bottom right portion of a human torso, the lawn and atmosphere in front of our building</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Synonyms: substantial entity</rdfs:comment>
+        <rdfs:label xml:lang="en">independent continuant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1/snap#MaterialEntity -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1/snap#MaterialEntity">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#IndependentContinuant"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition: An independent continuant [snap:IndependentContinuant] that is spatially extended whose identity is independent of that of other entities and can be maintained through time. Note: Material entity [snap:MaterialEntity] subsumes object [snap:Object], fiat object part [snap:FiatObjectPart], and object aggregate [snap:ObjectAggregate], which assume a three level theory of granularity, which is inadequate for some domains, such as biology.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples: collection of random bacteria, a chair, dorsal surface of the body</rdfs:comment>
+        <rdfs:label xml:lang="en">material entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1/snap#Quality -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1/snap#Quality">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition: A specifically dependent continuant [snap:SpecificallyDependentContinuant] that is exhibited if it inheres in an entity or entities at all (a categorical property).</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples: the color of a tomato, the ambient temperature of air, the circumference of a waist, the shape of a nose, the mass of a piece of gold, the weight of a chimpanzee</rdfs:comment>
+        <rdfs:label xml:lang="en">quality</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant -->
+
+    <owl:Class rdf:about="http://www.ifomis.org/bfo/1.1/snap#SpecificallyDependentContinuant">
+        <rdfs:subClassOf rdf:resource="http://www.ifomis.org/bfo/1.1/snap#DependentContinuant"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Definition: A continuant [snap:Continuant] that inheres in or is borne by other entities. Every instance of A requires some specific instance of B which must always be the same.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples: the mass of a cloud, the smell of mozzarella, the liquidity of blood, the color of a tomato, the disposition of fish to decay, the role of being a doctor, the function of the heart in the body: to pump blood, to receive de-oxygenated and oxygenated blood, etc.</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Synonyms: property, trope, mode</rdfs:comment>
+        <rdfs:label xml:lang="en">specifically dependent continuant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121 -->
+
+    <owl:Class rdf:about="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000300"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alert message is information, such as a warning or a caution that can be ignored by an automatic agent. The goal is to remind or alert the user.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EXACT</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">alert message</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122 -->
+
+    <owl:Class rdf:about="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_122">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        <obo:IAO_0000115 xml:lang="en">A caution is a message given to a user of a protocol about potentially dangerous properties of materials used in the experiment.</obo:IAO_0000115>
+        <obo:IAO_0000412 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EXACT</obo:IAO_0000412>
+        <rdfs:label xml:lang="en">caution</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#CIMMYT -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#CIMMYT">
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.obofoundry.org/ro/ro.owl#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/IAO_0000321"/>
+            </owl:Restriction>
+        </rdf:type>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CIMMYT</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#CTABExtractionBuffer -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#CTABExtractionBuffer">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#BufferName"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#Hint"/>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/net/SMARTprotocol#hasAlertMessage"/>
+                <owl:someValuesFrom rdf:resource="http://purl.org/net/SMARTprotocol#StorageCondition"/>
+            </owl:Restriction>
+        </rdf:type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#DNAExtractionProtocol01 -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#DNAExtractionProtocol01">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#DNAExtractionProtocol"/>
+        <hasAuthor rdf:resource="http://purl.org/net/SMARTprotocol#CIMMYT"/>
+        <hasTitle rdf:resource="http://purl.org/net/SMARTprotocol#GenomicDNAIsolation"/>
+        <ro:has_part rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection01"/>
+        <ro:has_part rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection01"/>
+        <ro:has_part rdf:resource="http://purl.org/net/SMARTprotocol#MethodsSection01"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DNAExtractionProtocol01</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#GenomicDNAIsolation -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#GenomicDNAIsolation">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GenomicDNAIsolation</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#IntroductionSection01 -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#IntroductionSection01">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection"/>
+        <ro:has_part rdf:resource="http://purl.org/net/SMARTprotocol#PlantDNAExtractionOfHighQuality"/>
+        <ro:has_part rdf:resource="http://purl.org/net/SMARTprotocol#PNAS81:8014-8019"/>
+        <ro:part_of rdf:resource="http://purl.org/net/SMARTprotocol#DNAExtractionProtocol01"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IntroductionSection01</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#MaterialsSection01 -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#MaterialsSection01">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+        <ro:part_of rdf:resource="http://purl.org/net/SMARTprotocol#DNAExtractionProtocol01"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MaterialsSection01</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#MethodsSection01 -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#MethodsSection01">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#MethodsSection"/>
+        <ro:part_of rdf:resource="http://purl.org/net/SMARTprotocol#DNAExtractionProtocol01"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PlantDNAExtractionOfHighQuality -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#PlantDNAExtractionOfHighQuality">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+        <ro:part_of rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection01"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plant DNA Extraction Of High Quality</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://purl.org/net/SMARTprotocol#PNAS81:8014-8019 -->
+
+    <owl:NamedIndividual rdf:about="http://purl.org/net/SMARTprotocol#PNAS81:8014-8019">
+        <rdf:type rdf:resource="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+        <ro:part_of rdf:resource="http://purl.org/net/SMARTprotocol#IntroductionSection01"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PNAS 81:8014-8019</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25714"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#AdvantageOfTheProtocol"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#ProvenanceOfTheProtocol"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#PurposeOfProtocol"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#TitleOfProtocol"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/IAO_0000302"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#AdvantageOfTheProtocol"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#ApplicationOfTheProtocol"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#CatalogNumber"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#LimitationOfTheProtocol"/>
+            <rdf:Description rdf:about="http://www.owl-ontologies.com/Ontology1184060740.owl#Class_121"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/IAO_0000321"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#IntroductionSection"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#MaterialsSection"/>
+            <rdf:Description rdf:about="http://purl.org/net/SMARTprotocol#MethodsSection"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
+

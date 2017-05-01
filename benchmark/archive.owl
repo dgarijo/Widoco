@@ -1,0 +1,187 @@
+@prefix : <http://linked.earth/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://linked.earth/ontology#> .
+
+<http://linked.earth/ontology#> rdf:type owl:Ontology ;
+                                
+                                dcterms:license "http://creativecommons.org/licenses/by-nc-sa/2.0/" ;
+                                
+                                dcterms:title "The Proxy Archive Ontology"@en ;
+                                
+                                vann:preferredNamespacePrefix "le" ;
+                                
+                                vann:preferredNamespaceUri "http://linked.earth/ontology#" ;
+                                
+                                owl:versionInfo "0.0.1"@en ;
+                                
+                                dcterms:creator <http://earth.usc.edu/~khider/> ;
+                                
+                                owl:versionIRI <http://linked.earth/ontology/archive> ;
+                                
+                                dcterms:creator <http://orcid.org/0000-0001-5920-4751> ;
+                                
+                                dcterms:contributor <http://w3id.org/people/dgarijo> ;
+                                
+                                dcterms:creator <http://www.cefns.nau.edu/~npm4/> ;
+                                
+                                dcterms:contributor <http://www.isi.edu/~gil/> .
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://linked.earth/ontology#Coral
+
+:Coral rdf:type owl:Class ;
+       
+       rdfs:label "Coral"@en ;
+       
+       rdfs:subClassOf :ProxyArchive ;
+       
+       rdfs:isDefinedBy "wiki.linked.earth/Coral"@en .
+
+
+
+###  http://linked.earth/ontology#Document
+
+:Document rdf:type owl:Class ;
+          
+          rdfs:label "Document"@en ;
+          
+          rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#GlacierIce
+
+:GlacierIce rdf:type owl:Class ;
+            
+            rdfs:label "Glacier ice"@en ;
+            
+            rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#Hybrid
+
+:Hybrid rdf:type owl:Class ;
+        
+        rdfs:label "Hybrid"@en ;
+        
+        rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#LakeSediment
+
+:LakeSediment rdf:type owl:Class ;
+              
+              rdfs:label "Lake Sediment"@en ;
+              
+              rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#MarineSediment
+
+:MarineSediment rdf:type owl:Class ;
+                
+                rdfs:label "Marine Sediment"@en ;
+                
+                rdfs:subClassOf :ProxyArchive ;
+                
+                rdfs:comment "Marine sediments are a type of proxy archives that provide long, continuous records of past ocean variability. The timescales associated with this proxy are usually in the order of several tens to millions of years. The resolution of the sedimentary archive varies from annual to multi-century. Paleoceanographic data are derived from many sensors found in deep-sea sediments including trace metal and isotopic composition of foraminifera, alkenones, and TEX86. "@en ;
+                
+                rdfs:isDefinedBy <http://wiki.linked.earth/Marine_Sediment> .
+
+
+
+###  http://linked.earth/ontology#MolluskShells
+
+:MolluskShells rdf:type owl:Class ;
+               
+               rdfs:label "Mollusk shells"@en ;
+               
+               rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#Peat
+
+:Peat rdf:type owl:Class ;
+      
+      rdfs:label "Peat "@en ;
+      
+      rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#ProxyArchive
+
+:ProxyArchive rdf:type owl:Class ;
+              
+              rdfs:label "Proxy archive"@en ;
+              
+              rdfs:comment """The medium in which the response of a sensor to environmental forcing is recorded. Sensu Evans et al. (2013).
+
+Examples of archives include: marine sediments, corals, wood, lake sediments, speleothems, glacier ice, etc."""@en ;
+              
+              rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> .
+
+
+
+###  http://linked.earth/ontology#Rock
+
+:Rock rdf:type owl:Class ;
+      
+      rdfs:label "Rock"@en ;
+      
+      rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#Sclerosponge
+
+:Sclerosponge rdf:type owl:Class ;
+              
+              rdfs:label "Sclerosponge"@en ;
+              
+              rdfs:subClassOf :ProxyArchive ;
+              
+              rdfs:isDefinedBy <http://wiki.linked.earth/Sclerosponge> .
+
+
+
+###  http://linked.earth/ontology#Speleothem
+
+:Speleothem rdf:type owl:Class ;
+            
+            rdfs:label "Speleothem"@en ;
+            
+            rdfs:subClassOf :ProxyArchive .
+
+
+
+###  http://linked.earth/ontology#Wood
+
+:Wood rdf:type owl:Class ;
+      
+      rdfs:label "Wood"@en ;
+      
+      rdfs:subClassOf :ProxyArchive .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+

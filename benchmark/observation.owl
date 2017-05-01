@@ -1,0 +1,690 @@
+@prefix : <http://linked.earth/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://linked.earth/ontology#> .
+
+<http://linked.earth/ontology#> rdf:type owl:Ontology ;
+                                
+                                dcterms:license "http://creativecommons.org/licenses/by-nc-sa/2.0/" ;
+                                
+                                dcterms:title "The Proxy Observation Ontology"@en ;
+                                
+                                vann:preferredNamespacePrefix "le" ;
+                                
+                                vann:preferredNamespaceUri "http://linked.earth/ontology#" ;
+                                
+                                owl:versionInfo "0.0.1"@en ;
+                                
+                                dcterms:creator <http://earth.usc.edu/~khider/> ;
+                                
+                                owl:versionIRI <http://linked.earth/ontology/observation> ;
+                                
+                                dcterms:creator <http://orcid.org/0000-0001-5920-4751> ;
+                                
+                                dcterms:contributor <http://w3id.org/people/dgarijo> ;
+                                
+                                dcterms:creator <http://www.cefns.nau.edu/~npm4/> ;
+                                
+                                dcterms:contributor <http://www.isi.edu/~gil/> .
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://linked.earth/ontology#Assemblage
+
+:Assemblage rdf:type owl:Class ;
+            
+            rdfs:label "Assemblage"@en ;
+            
+            rdfs:subClassOf :ProxyObservation .
+
+
+
+###  http://linked.earth/ontology#Chemical
+
+:Chemical rdf:type owl:Class ;
+          
+          rdfs:label "Chemical"@en ;
+          
+          rdfs:subClassOf :ProxyObservation .
+
+
+
+###  http://linked.earth/ontology#Composition
+
+:Composition rdf:type owl:Class ;
+             
+             rdfs:label "Composition"@en ;
+             
+             rdfs:subClassOf :Physical .
+
+
+
+###  http://linked.earth/ontology#Diffraction
+
+:Diffraction rdf:type owl:Class ;
+             
+             rdfs:label "Diffraction"@en ;
+             
+             rdfs:subClassOf :Spectral .
+
+
+
+###  http://linked.earth/ontology#Fluorescence
+
+:Fluorescence rdf:type owl:Class ;
+              
+              rdfs:label "Fluorescence"@en ;
+              
+              rdfs:subClassOf :Spectral .
+
+
+
+###  http://linked.earth/ontology#Isotope
+
+:Isotope rdf:type owl:Class ;
+         
+         rdfs:label "Isotope"@en ;
+         
+         rdfs:subClassOf :Chemical .
+
+
+
+###  http://linked.earth/ontology#MajorElement
+
+:MajorElement rdf:type owl:Class ;
+              
+              rdfs:label "Major element"@en ;
+              
+              rdfs:subClassOf :Chemical .
+
+
+
+###  http://linked.earth/ontology#OrganicIndex
+
+:OrganicIndex rdf:type owl:Class ;
+              
+              rdfs:label "Organic index"@en ;
+              
+              rdfs:subClassOf :Chemical .
+
+
+
+###  http://linked.earth/ontology#Physical
+
+:Physical rdf:type owl:Class ;
+          
+          rdfs:label "Physical obsrevation"@en ;
+          
+          rdfs:subClassOf :ProxyObservation .
+
+
+
+###  http://linked.earth/ontology#ProxyObservation
+
+:ProxyObservation rdf:type owl:Class ;
+                  
+                  rdfs:label "Proxy observation"@en ;
+                  
+                  rdfs:comment "The type of measurements made on the archives, whether chemical (e.g., Mg/Ca, d18O, TEX86, Sr/Ca....), physical (e.g. density, layer thickness) or biological (e.g. species abundance)"@en ;
+                  
+                  rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> .
+
+
+
+###  http://linked.earth/ontology#Radioisotope
+
+:Radioisotope rdf:type owl:Class ;
+              
+              rdfs:label "Radioisotope"@en ;
+              
+              rdfs:subClassOf :Isotope .
+
+
+
+###  http://linked.earth/ontology#Reflectance
+
+:Reflectance rdf:type owl:Class ;
+             
+             rdfs:label "Reflectance"@en ;
+             
+             rdfs:subClassOf :Spectral .
+
+
+
+###  http://linked.earth/ontology#Spectral
+
+:Spectral rdf:type owl:Class ;
+          
+          rdfs:label "Spectral observation"@en ;
+          
+          rdfs:subClassOf :ProxyObservation .
+
+
+
+###  http://linked.earth/ontology#StableCarbonIsotope
+
+:StableCarbonIsotope rdf:type owl:Class ;
+                     
+                     rdfs:label "Stable Carbon isotope"@en ;
+                     
+                     rdfs:subClassOf :StableIsotope .
+
+
+
+###  http://linked.earth/ontology#StableHydrogenIsotope
+
+:StableHydrogenIsotope rdf:type owl:Class ;
+                       
+                       rdfs:label "Stable Hydrogen isotope"@en ;
+                       
+                       rdfs:subClassOf :StableIsotope .
+
+
+
+###  http://linked.earth/ontology#StableIsotope
+
+:StableIsotope rdf:type owl:Class ;
+               
+               rdfs:label "Stable isotope"@en ;
+               
+               rdfs:subClassOf :Isotope .
+
+
+
+###  http://linked.earth/ontology#StableNitrogenIsotope
+
+:StableNitrogenIsotope rdf:type owl:Class ;
+                       
+                       rdfs:label "Stable Nitrogen isotope"@en ;
+                       
+                       rdfs:subClassOf :StableIsotope .
+
+
+
+###  http://linked.earth/ontology#StableOxygenIsotope
+
+:StableOxygenIsotope rdf:type owl:Class ;
+                     
+                     rdfs:label "Stable Oxygen isotope"@en ;
+                     
+                     rdfs:subClassOf :StableIsotope .
+
+
+
+###  http://linked.earth/ontology#StableSulfurIsotope
+
+:StableSulfurIsotope rdf:type owl:Class ;
+                     
+                     rdfs:label "Stable sulfur isotope"@en ;
+                     
+                     rdfs:subClassOf :StableIsotope .
+
+
+
+###  http://linked.earth/ontology#TraceElement
+
+:TraceElement rdf:type owl:Class ;
+              
+              rdfs:label "Trace element"@en ;
+              
+              rdfs:subClassOf :Chemical .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://linked.earth/ontology#Al/Ca
+
+<http://linked.earth/ontology#Al/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Al/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#Ar-Ar
+
+:Ar-Ar rdf:type :Radioisotope ,
+                owl:NamedIndividual ;
+       
+       rdfs:label "Ar-Ar"@en .
+
+
+
+###  http://linked.earth/ontology#B/Ca
+
+<http://linked.earth/ontology#B/Ca> rdf:type :TraceElement ,
+                                             owl:NamedIndividual ;
+                                    
+                                    rdfs:label "B/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#Ba/Ca
+
+<http://linked.earth/ontology#Ba/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Ba/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#C
+
+:C rdf:type :MajorElement ,
+            owl:NamedIndividual ;
+   
+   rdfs:label "C"@en .
+
+
+
+###  http://linked.earth/ontology#ClayFraction
+
+:ClayFraction rdf:type :Composition ,
+                       owl:NamedIndividual ;
+              
+              rdfs:label "Clay fraction"@en .
+
+
+
+###  http://linked.earth/ontology#Color
+
+:Color rdf:type :Physical ,
+                owl:NamedIndividual ;
+       
+       rdfs:label "Color"@en .
+
+
+
+###  http://linked.earth/ontology#Density
+
+:Density rdf:type :Physical ,
+                  owl:NamedIndividual ;
+         
+         rdfs:label "Density"@en .
+
+
+
+###  http://linked.earth/ontology#DiffuseSpectralReflectance
+
+:DiffuseSpectralReflectance rdf:type :Reflectance ,
+                                     owl:NamedIndividual ;
+                            
+                            rdfs:label "Diffuse spectral reflectance"@en .
+
+
+
+###  http://linked.earth/ontology#Faunal
+
+:Faunal rdf:type :Assemblage ,
+                 owl:NamedIndividual ;
+        
+        rdfs:label "Faunal"@en .
+
+
+
+###  http://linked.earth/ontology#Fe/Ca
+
+<http://linked.earth/ontology#Fe/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Fe/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#Floral
+
+:Floral rdf:type :Assemblage ,
+                 owl:NamedIndividual ;
+        
+        rdfs:label "Floral"@en .
+
+
+
+###  http://linked.earth/ontology#GrainSize
+
+:GrainSize rdf:type :Physical ,
+                    owl:NamedIndividual ;
+           
+           rdfs:label "Grain size"@en .
+
+
+
+###  http://linked.earth/ontology#Historic
+
+:Historic rdf:type :ProxyObservation ,
+                   owl:NamedIndividual ;
+          
+          rdfs:label "Historic"@en .
+
+
+
+###  http://linked.earth/ontology#LayerThickness
+
+:LayerThickness rdf:type :Physical ,
+                         owl:NamedIndividual ;
+                
+                rdfs:label "Layer thickness"@en .
+
+
+
+###  http://linked.earth/ontology#LeadIsotope
+
+:LeadIsotope rdf:type :Radioisotope ,
+                      owl:NamedIndividual ;
+             
+             rdfs:label "Lead Isotope"@en .
+
+
+
+###  http://linked.earth/ontology#Li/Ca
+
+<http://linked.earth/ontology#Li/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Li/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#Lithics
+
+:Lithics rdf:type :Physical ,
+                  owl:NamedIndividual ;
+         
+         rdfs:label "Lithics"@en .
+
+
+
+###  http://linked.earth/ontology#Luminescence
+
+:Luminescence rdf:type :Spectral ,
+                       owl:NamedIndividual ;
+              
+              rdfs:label "Luminescence"@en .
+
+
+
+###  http://linked.earth/ontology#MagneticSusceptibility
+
+:MagneticSusceptibility rdf:type :Physical ,
+                                 owl:NamedIndividual ;
+                        
+                        rdfs:label """Magnetic susceptibility
+"""@en .
+
+
+
+###  http://linked.earth/ontology#Mg/Ca
+
+<http://linked.earth/ontology#Mg/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Mg/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#MineralMatter
+
+:MineralMatter rdf:type :Chemical ,
+                        owl:NamedIndividual ;
+               
+               rdfs:label "Mineral matter"@en .
+
+
+
+###  http://linked.earth/ontology#Mn/Ca
+
+<http://linked.earth/ontology#Mn/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Mn/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#MoistureContent
+
+:MoistureContent rdf:type :Physical ,
+                          owl:NamedIndividual ;
+                 
+                 rdfs:label "Moisture Content"@en .
+
+
+
+###  http://linked.earth/ontology#N
+
+:N rdf:type :MajorElement ,
+            owl:NamedIndividual ;
+   
+   rdfs:label "N"@en .
+
+
+
+###  http://linked.earth/ontology#Neodymium
+
+:Neodymium rdf:type :Radioisotope ,
+                    owl:NamedIndividual ;
+           
+           rdfs:label "Neodymium"@en .
+
+
+
+###  http://linked.earth/ontology#OrganicMatter
+
+:OrganicMatter rdf:type :Chemical ,
+                        owl:NamedIndividual ;
+               
+               rdfs:label "Organic matter"@en .
+
+
+
+###  http://linked.earth/ontology#P
+
+:P rdf:type :MajorElement ,
+            owl:NamedIndividual ;
+   
+   rdfs:label "P"@en .
+
+
+
+###  http://linked.earth/ontology#Permeability
+
+:Permeability rdf:type :Physical ,
+                       owl:NamedIndividual ;
+              
+              rdfs:label "Permeability"@en .
+
+
+
+###  http://linked.earth/ontology#Porosity
+
+:Porosity rdf:type :Physical ,
+                   owl:NamedIndividual ;
+          
+          rdfs:label "Porosity"@en .
+
+
+
+###  http://linked.earth/ontology#Radiocarbon
+
+:Radiocarbon rdf:type :Radioisotope ,
+                      owl:NamedIndividual ;
+             
+             rdfs:label "Radiocarbon"@en .
+
+
+
+###  http://linked.earth/ontology#Resistivity
+
+:Resistivity rdf:type :Physical ,
+                      owl:NamedIndividual ;
+             
+             rdfs:label "Resistivity"@en .
+
+
+
+###  http://linked.earth/ontology#SandFraction
+
+:SandFraction rdf:type :Composition ,
+                       owl:NamedIndividual ;
+              
+              rdfs:label """Sand fraction
+"""@en .
+
+
+
+###  http://linked.earth/ontology#Si
+
+:Si rdf:type :MajorElement ,
+             owl:NamedIndividual ;
+    
+    rdfs:label "Si"@en .
+
+
+
+###  http://linked.earth/ontology#SiltFraction
+
+:SiltFraction rdf:type :Composition ,
+                       owl:NamedIndividual ;
+              
+              rdfs:label "Silt fraction"@en .
+
+
+
+###  http://linked.earth/ontology#Sr/Ca
+
+<http://linked.earth/ontology#Sr/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Sr/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#TEX86
+
+:TEX86 rdf:type :OrganicIndex ,
+                owl:NamedIndividual ;
+       
+       rdfs:label "TEX86"@en .
+
+
+
+###  http://linked.earth/ontology#U-Th
+
+:U-Th rdf:type :Radioisotope ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "U-Th"@en .
+
+
+
+###  http://linked.earth/ontology#Uk37
+
+:Uk37 rdf:type :OrganicIndex ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "Uk37"@en .
+
+
+
+###  http://linked.earth/ontology#X-RayDiffraction
+
+:X-RayDiffraction rdf:type :Diffraction ,
+                           owl:NamedIndividual ;
+                  
+                  rdfs:label "X-Ray diffraction"@en .
+
+
+
+###  http://linked.earth/ontology#X-rayFluorescence
+
+:X-rayFluorescence rdf:type :Fluorescence ,
+                            owl:NamedIndividual ;
+                   
+                   rdfs:label "X-ray fluorescence"@en .
+
+
+
+###  http://linked.earth/ontology#Zn/Ca
+
+<http://linked.earth/ontology#Zn/Ca> rdf:type :TraceElement ,
+                                              owl:NamedIndividual ;
+                                     
+                                     rdfs:label "Zn/Ca"@en .
+
+
+
+###  http://linked.earth/ontology#d134S
+
+:d134S rdf:type :StableSulfurIsotope ,
+                owl:NamedIndividual ;
+       
+       rdfs:label "d134S"@en .
+
+
+
+###  http://linked.earth/ontology#d13C
+
+:d13C rdf:type :StableCarbonIsotope ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "d13C"@en .
+
+
+
+###  http://linked.earth/ontology#d15N
+
+:d15N rdf:type :StableNitrogenIsotope ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "d15N"@en .
+
+
+
+###  http://linked.earth/ontology#d170
+
+:d170 rdf:type :StableOxygenIsotope ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "d170"@en .
+
+
+
+###  http://linked.earth/ontology#d180
+
+:d180 rdf:type :StableOxygenIsotope ,
+               owl:NamedIndividual ;
+      
+      rdfs:label "d180"@en .
+
+
+
+###  http://linked.earth/ontology#dD
+
+:dD rdf:type :StableHydrogenIsotope ,
+             owl:NamedIndividual ;
+    
+    rdfs:label "dD"@en .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+

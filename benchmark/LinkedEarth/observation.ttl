@@ -1,0 +1,456 @@
+@prefix : <http://linked.earth/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://linked.earth/ontology#> a owl:Ontology ;
+	owl:versionIRI <http://linked.earth/ontology/observation/1.0.0> ;
+	dcterms:creator <http://earth.usc.edu/~khider/> ;
+	dcterms:contributor <http://w3id.org/people/dgarijo> ;
+	dcterms:creator <http://www.cefns.nau.edu/~npm4/> ;
+	owl:versionInfo "1.0.0"@en ;
+	vann:preferredNamespacePrefix "le" ;
+	dcterms:contributor <http://www.isi.edu/~gil/> ;
+	dcterms:creator <http://orcid.org/0000-0001-5920-4751> ;
+	vann:preferredNamespaceUri "http://linked.earth/ontology#" ;
+	dcterms:title "The Proxy Observation Ontology"@en ;
+	dcterms:license <http://creativecommons.org/licenses/by/2.0/> .
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://linked.earth/ontology#Assemblage
+
+:Assemblage a owl:Class ;
+	rdfs:subClassOf :ProxyObservation ;
+	rdfs:label "Assemblage"@en .
+# 
+# http://linked.earth/ontology#Chemical
+
+:Chemical a owl:Class ;
+	rdfs:subClassOf :ProxyObservation ;
+	rdfs:label "Chemical"@en .
+# 
+# http://linked.earth/ontology#Composition
+
+:Composition a owl:Class ;
+	rdfs:subClassOf :Physical ;
+	rdfs:label "Composition"@en .
+# 
+# http://linked.earth/ontology#Diffraction
+
+:Diffraction a owl:Class ;
+	rdfs:subClassOf :Spectral ;
+	rdfs:label "Diffraction"@en .
+# 
+# http://linked.earth/ontology#Fluorescence
+
+:Fluorescence a owl:Class ;
+	rdfs:subClassOf :Spectral ;
+	rdfs:label "Fluorescence"@en .
+# 
+# http://linked.earth/ontology#Isotope
+
+:Isotope a owl:Class ;
+	rdfs:subClassOf :Chemical ;
+	rdfs:comment """<p>Atoms can be simply described as consisting of <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Proton\">protons</a>, <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Electron\">electrons</a>, and <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Neutron\">neutrons</a>. Isotopes of the same element differ by the number of neutrons in the nucleus, resulting in different mass.
+</p>"""@en ;
+	rdfs:label "Isotope"@en .
+# 
+# http://linked.earth/ontology#MajorElement
+
+:MajorElement a owl:Class ;
+	rdfs:subClassOf :Chemical ;
+	rdfs:label "Major element"@en .
+# 
+# http://linked.earth/ontology#OrganicIndex
+
+:OrganicIndex a owl:Class ;
+	rdfs:subClassOf :Chemical ;
+	rdfs:comment """<p>Paleoceanographers use the term <b>biomarker</b> to describe organic molecules found in <a href=\"/Category:MarineSediment\" title=\"Category:MarineSediment\"> marine sediments</a>, initially produced by a variety of organisms either on land or in the marine environment <sup id=\"cite_ref-rosell2007_1-0\" class=\"reference\"><a href=\"#cite_note-rosell2007-1\">[1]</a></sup>. A key characteristic of biomarkers is their ability to survive deposition in the <a href=\"/Category:ProxyArchive_%C2%A9\" title=\"Category:ProxyArchive ©\"> archive</a> in terms of their original structure and steroidal configuration (i.e., spatial distribution of the atoms) <sup id=\"cite_ref-rosell2007_1-1\" class=\"reference\"><a href=\"#cite_note-rosell2007-1\">[1]</a></sup>. Their usefulness for paleoceanographic reconstructions largely depends on their <a href=\"/wiki/index.php?title=Degradation&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Degradation (page does not exist)\">degradation</a> within the <a href=\"/Category:ProxyArchive_%C2%A9\" title=\"Category:ProxyArchive ©\"> archive</a> <sup id=\"cite_ref-rosell2007_1-2\" class=\"reference\"><a href=\"#cite_note-rosell2007-1\">[1]</a></sup>.<ol class=\"references\">
+<li id=\"cite_note-rosell2007-1\"><span class=\"mw-cite-backlink\">? <sup><a href=\"#cite_ref-rosell2007_1-0\">1.0</a></sup> <sup><a href=\"#cite_ref-rosell2007_1-1\">1.1</a></sup> <sup><a href=\"#cite_ref-rosell2007_1-2\">1.2</a></sup></span> <span class=\"reference-text\">Rosell-Melé, A., &amp; McClymont, E. L. (2007). Biomarkers as Paleoceanographic proxies. Developments in Marine Geology, 1, 441-490. doi:10.1016/S1572-5480(07)01016-0 </span>
+</li>
+</ol>"""@en ;
+	rdfs:label "Organic index"@en .
+# 
+# http://linked.earth/ontology#Physical
+
+:Physical a owl:Class ;
+	rdfs:subClassOf :ProxyObservation ;
+	rdfs:label "Physical observation"@en .
+# 
+# http://linked.earth/ontology#ProxyObservation
+
+:ProxyObservation a owl:Class ;
+	rdfs:isDefinedBy <http://linked.earth/ontology/core/1.2.0/> ;
+	rdfs:label "Proxy observation"@en .
+# 
+# http://linked.earth/ontology#Radioisotope
+
+:Radioisotope a owl:Class ;
+	rdfs:subClassOf :Isotope ;
+	rdfs:label "Radioisotope"@en .
+# 
+# http://linked.earth/ontology#Reflectance
+
+:Reflectance a owl:Class ;
+	rdfs:subClassOf :Spectral ;
+	rdfs:label "Reflectance"@en .
+# 
+# http://linked.earth/ontology#Spectral
+
+:Spectral a owl:Class ;
+	rdfs:subClassOf :ProxyObservation ;
+	rdfs:label "Spectral observation"@en .
+# 
+# http://linked.earth/ontology#StableCarbonIsotope
+
+:StableCarbonIsotope a owl:Class ;
+	rdfs:subClassOf :StableIsotope ;
+	rdfs:comment """<p><a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Carbon\">Carbon</a> in nature exists in oxidized (i.e., <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Carbon_dioxide\">CO<sub>2</sub></a> and <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Carbonate\">carbonates</a>), elemental (i.e., <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Graphite\">graphite</a> and <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Diamond\">diamond</a>), and reduced (i.e., <a rel=\"nofollow\" class=\"external text\" href=\"https://en.wikipedia.org/wiki/Methane\">methane</a> and organic matter]) forms. Carbon has two <a href=\"/Category:StableIsotope\" title=\"Category:StableIsotope\"> stable isotopes</a>: the light isotope <sup>12</sup>C (abundance: 98.9%, mass: 12.000000 amu) and the heavy isotope <sup>13</sup>C (abundance: 1.1%, mass: 13.003355 amu). Since the mass of <sup>13</sup>C is higher than the mass of <sup>12</sup>C, the carbon isotopes are fractionated by chemical and biological processes. In general, <sup>12</sup>C is strongly partitioned into organic matter (reduced form) while the heavy isotope is concentrated in the oxidized forms of carbon.
+</p>"""@en ;
+	rdfs:label "Stable Carbon isotope"@en .
+# 
+# http://linked.earth/ontology#StableHydrogenIsotope
+
+:StableHydrogenIsotope a owl:Class ;
+	rdfs:subClassOf :StableIsotope ;
+	rdfs:label "Stable Hydrogen isotope"@en .
+# 
+# http://linked.earth/ontology#StableIsotope
+
+:StableIsotope a owl:Class ;
+	rdfs:subClassOf :Isotope ;
+	rdfs:label "Stable isotope"@en .
+# 
+# http://linked.earth/ontology#StableNitrogenIsotope
+
+:StableNitrogenIsotope a owl:Class ;
+	rdfs:subClassOf :StableIsotope ;
+	rdfs:label "Stable Nitrogen isotope"@en .
+# 
+# http://linked.earth/ontology#StableOxygenIsotope
+
+:StableOxygenIsotope a owl:Class ;
+	rdfs:subClassOf :StableIsotope ;
+	rdfs:label "Stable Oxygen isotope"@en .
+# 
+# http://linked.earth/ontology#StableSulfurIsotope
+
+:StableSulfurIsotope a owl:Class ;
+	rdfs:subClassOf :StableIsotope ;
+	rdfs:label "Stable sulfur isotope"@en .
+# 
+# http://linked.earth/ontology#TraceElement
+
+:TraceElement a owl:Class ;
+	rdfs:subClassOf :Chemical ;
+	rdfs:label "Trace element"@en .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# http://linked.earth/ontology#Ar-Ar
+
+:Ar-Ar a owl:NamedIndividual , :Radioisotope ;
+	rdfs:label "Ar-Ar"@en .
+# 
+# http://linked.earth/ontology#C
+
+:C a owl:NamedIndividual , :MajorElement ;
+	rdfs:label "C"@en .
+# 
+# http://linked.earth/ontology#ClayFraction
+
+:ClayFraction a owl:NamedIndividual , :Composition ;
+	rdfs:label "Clay fraction"@en .
+# 
+# http://linked.earth/ontology#Color
+
+:Color a owl:NamedIndividual , :Physical ;
+	rdfs:label "Color"@en .
+# 
+# http://linked.earth/ontology#Density
+
+:Density a owl:NamedIndividual , :Physical ;
+	rdfs:label "Density"@en .
+# 
+# http://linked.earth/ontology#DiffuseSpectralReflectance
+
+:DiffuseSpectralReflectance a owl:NamedIndividual , :Reflectance ;
+	rdfs:label "Diffuse spectral reflectance"@en .
+# 
+# http://linked.earth/ontology#Faunal
+
+:Faunal a owl:NamedIndividual , :Assemblage ;
+	rdfs:label "Faunal"@en .
+# 
+# http://linked.earth/ontology#Floral
+
+:Floral a owl:NamedIndividual , :Assemblage ;
+	rdfs:label "Floral"@en .
+# 
+# http://linked.earth/ontology#GrainSize
+
+:GrainSize a owl:NamedIndividual , :Physical ;
+	rdfs:label "Grain size"@en .
+# 
+# http://linked.earth/ontology#Historic
+
+:Historic a owl:NamedIndividual , :ProxyObservation ;
+	rdfs:label "Historic"@en .
+# 
+# http://linked.earth/ontology#LayerThickness
+
+:LayerThickness a owl:NamedIndividual , :Physical ;
+	rdfs:label "Layer thickness"@en .
+# 
+# http://linked.earth/ontology#LeadIsotope
+
+:LeadIsotope a owl:NamedIndividual , :Radioisotope ;
+	rdfs:label "Lead Isotope"@en .
+# 
+# http://linked.earth/ontology#Lithics
+
+:Lithics a owl:NamedIndividual , :Physical ;
+	rdfs:label "Lithics"@en .
+# 
+# http://linked.earth/ontology#Luminescence
+
+:Luminescence a owl:NamedIndividual , :Spectral ;
+	rdfs:label "Luminescence"@en .
+# 
+# http://linked.earth/ontology#MagneticSusceptibility
+
+:MagneticSusceptibility a owl:NamedIndividual , :Physical ;
+	rdfs:label """Magnetic susceptibility
+"""@en .
+# 
+# http://linked.earth/ontology#MineralMatter
+
+:MineralMatter a owl:NamedIndividual , :Chemical ;
+	rdfs:label "Mineral matter"@en .
+# 
+# http://linked.earth/ontology#MoistureContent
+
+:MoistureContent a owl:NamedIndividual , :Physical ;
+	rdfs:label "Moisture Content"@en .
+# 
+# http://linked.earth/ontology#N
+
+:N a owl:NamedIndividual , :MajorElement ;
+	rdfs:label "N"@en .
+# 
+# http://linked.earth/ontology#Neodymium
+
+:Neodymium a owl:NamedIndividual , :Radioisotope ;
+	rdfs:label "Neodymium"@en .
+# 
+# http://linked.earth/ontology#OrganicMatter
+
+:OrganicMatter a owl:NamedIndividual , :Chemical ;
+	rdfs:label "Organic matter"@en .
+# 
+# http://linked.earth/ontology#P
+
+:P a owl:NamedIndividual , :MajorElement ;
+	rdfs:label "P"@en .
+# 
+# http://linked.earth/ontology#Permeability
+
+:Permeability a owl:NamedIndividual , :Physical ;
+	rdfs:label "Permeability"@en .
+# 
+# http://linked.earth/ontology#Porosity
+
+:Porosity a owl:NamedIndividual , :Physical ;
+	rdfs:label "Porosity"@en .
+# 
+# http://linked.earth/ontology#Radiocarbon
+
+:Radiocarbon a owl:NamedIndividual , :Radioisotope ;
+	rdfs:label "Radiocarbon"@en .
+# 
+# http://linked.earth/ontology#Resistivity
+
+:Resistivity a owl:NamedIndividual , :Physical ;
+	rdfs:label "Resistivity"@en .
+# 
+# http://linked.earth/ontology#SandFraction
+
+:SandFraction a owl:NamedIndividual , :Composition ;
+	rdfs:label """Sand fraction
+"""@en .
+# 
+# http://linked.earth/ontology#Si
+
+:Si a owl:NamedIndividual , :MajorElement ;
+	rdfs:label "Si"@en .
+# 
+# http://linked.earth/ontology#SiltFraction
+
+:SiltFraction a owl:NamedIndividual , :Composition ;
+	rdfs:label "Silt fraction"@en .
+# 
+# http://linked.earth/ontology#TEX86
+
+:TEX86 a owl:NamedIndividual , :OrganicIndex ;
+	rdfs:comment """The use of TEX86 (TetraEther indeX of 86 carbons) as a tool to reconstruct past sea surface temperature variability is based on the relative cyclization of isoprenoidal glycerol dialkyl glycerol tetra ethers (GDGTs) produced by marine archaea. TEX86 is defined as [1]:
+
+TEX_{86}=\\frac{GDGT-2+GDGT-3+Cren'}{GDGT-1+GDGT-2+GDGT-3+Cren'}
+
+where GDGTs 1-3 indicate compounds containing 1-3 cyclopentyl moieties, respectively, and Cren' denotes the regioisomer of crenarchaeol, a diagnostic biomarker for the Thaumarchaeota, the primary producers of GDGTs in the marine realm. By definition, values of the TEX86 index are comprised between 0 and 1.
+
+Experimental evidence suggests that archaea produce GDGTs with more rings warmer waters, a response observed in cultures of hyperthermophile archaea [2] [3] and mesocosm experiments with natural seawater containing heterogenous archaeal population [4] [5].
+References
+
+[1] Schouten, S., Hopmans, E. C., Schefuß, E., & Sinninghe Damsté, J. S. (2002). Distributional variations in marine crenarchaeotal membrane lipids: a new organic proxy for reconstructing ancient sea water temperatures? . Earth and Planetary Science Letters, 204, 265-274.
+
+[2] de Rosa, M., Esposito, E., Gambacorta, A., Nicolaus, B., & Bu'Lock, J. (1980). Effects of temperature on ether lipid composition of Caldariella acidophilia. Phytochemistry, 19, 827-831.
+
+[3] Uda, I., Sugai, A., Itoh, Y., & Itoh, T. (2001). Variation in molecular species of polar liipds from Thermoplasma acidophilum depends on growth temperature. Lipids, 36, 103-105.
+
+[4] Wuchter, C., Schouten, S., Coolen, M. J. L., & Sinninghe Damsté, J. S. (2004). Temperature-dependent variation in the distribution of tetraether membrane lipids of marine Crenarchaeota: implications for TEX86 paleothermometry. Paleoceanography, 19, PA4028. doi:10.1029/2004PA001041
+
+[5]Schouten, S., Forster, A., Panato, E., & Sinninghe Damsté, J. S. (2007). Towards the calibration of the TEX86 paleothermometer on ancient greenhouse worlds. Organic Geochemistry. doi:10.1016/j.orggeochem.2007.05.014"""@en ;
+	rdfs:label "TEX86"@en .
+# 
+# http://linked.earth/ontology#U-Th
+
+:U-Th a owl:NamedIndividual , :Radioisotope ;
+	rdfs:label "U-Th"@en .
+# 
+# http://linked.earth/ontology#Uk37
+
+:Uk37 a owl:NamedIndividual , :OrganicIndex ;
+	rdfs:comment """The C37 alkenone unsaturation index ( U_{37}^{k'} ) is a firmly established tool for past sea surface temperatures reconstruction and is based on the relative abundance of di- (C37:2) and tri- (C37:3) unsaturated ketones with 37 carbon atoms. The index varies between 0 and 1, thus it may saturate in the temperature extremes as it becomes more challenging to determine since C37:3 and C37:2 alkenones approach their detection limits. Since alkenones come exclusively from a few species of haptophyte algae which require sunlight, alkenone thermometry offers the advantage of direct estimate of near-surface ocean temperatures. The ubiquitous presence of alkenone-synthesizing organisms (most commonly the coccolithophorids Emiliania huxleyi and Gephyrocapsa oceanic through the world's ocean and the rapidity and high-precision of the alkenone analyses had made U_{37}^{k'} a valuable proxy for paleoceanographic reconstructions.
+
+However, the U_{37}^{k'} proxy is subject to non-temperature effects, such as lateral transport through oceanic currents (Ohkouchi et al. (2002)) and preferential post-depositional oxidation of C37:3 compared to C37:2 [1] [2]. Furthermore, changes in the seasonality of the proxy (i.e., which part of the seasonal cycle the proxy is recording) may bias the inferred temperatures toward winter or summer conditions [3]. Finally in oceanic regions where the photic zone extends below the surface mixed layer, the sedimentary signal may not strictly represent sea surface temperatures but rather a composite temperature of the mixed layer and the thermocline [4][5].
+References
+
+[1] Hoefs, M. J. L., Versteegh, G. J. M., Rijpstra, W. I. C., de Leeuw, J. W., & Damsté, J. S. S. (1998). Postdepositional oxic degradation of alkenones: Implications for the measurement of palaeo sea surface temperatures. Paleoceanography, 13(1), 42-49. doi:10.1029/97pa02893
+
+[2] Ohkouchi, N., Eglinton, T. I., Keigwin, L. D., & Hayes, J. M. (2002). Spatial and temporal offsets between proxy records in a sediment drift. Science, 298(5596), 1224-1227. doi:10.1126/science.1075287
+
+[3] Herfort, L., Schouten, S., Boon, J. P., & Sinninghe Damsté, J. S. (2006). Application of the TEX86 temperature proxy in the southern North Sea. Organic Geochemistry, 37, 1715-1726.
+
+[4] Müller, P. J., Kirst, G., Ruhland, G., von Storch, I., & Rosell-Melé, A. (1998). Calibration of the alkenone paleotemperature index U_{37}^{k'} based on core-tops from the eastern South Atlantic and the global ocean (60°N-60°S). Geochimica et cosmochimica acta, 62, 1757-1772.
+
+[5] Prahl, F. G., Mix, A. C., & Sparrow, M. A. (2006). Alkenone paleothermometry: biological lessons from amrine sediment records off Western South America. Geochimica and Cosmochimica Acta, 70, 101-117."""@en ;
+	rdfs:label "Uk37"@en .
+# 
+# http://linked.earth/ontology#Uk37Prime
+
+:Uk37Prime a owl:NamedIndividual , :OrganicIndex ;
+	rdfs:comment """The currently accepted U37kprime (Prahl and Wakeman, 1987) varies positively with temperature, and is defines as C(37:2)/(C(37:2)+C(37:3), where C(37:2) represents the quantity of the di-unsaturated ketone and C(37:3) the quantity of the tri-unsaturated form.
+
+Herbet, T.D., 2003, Alkenone paleotemperature determinations in Treatise on Geochemistry, Volume 6, pp 391-432"""@en ;
+	rdfs:label "Uk 37'"@en .
+# 
+# http://linked.earth/ontology#X-RayDiffraction
+
+:X-RayDiffraction a owl:NamedIndividual , :Diffraction ;
+	rdfs:label "X-Ray diffraction"@en .
+# 
+# http://linked.earth/ontology#X-rayFluorescence
+
+:X-rayFluorescence a owl:NamedIndividual , :Fluorescence ;
+	rdfs:label "X-ray fluorescence"@en .
+# 
+# http://linked.earth/ontology#d13C
+
+:d13C a owl:NamedIndividual , :StableCarbonIsotope ;
+	rdfs:label "d13C"@en .
+# 
+# http://linked.earth/ontology#d15N
+
+:d15N a owl:NamedIndividual , :StableNitrogenIsotope ;
+	rdfs:label "d15N"@en .
+# 
+# http://linked.earth/ontology#d170
+
+:d170 a owl:NamedIndividual , :StableOxygenIsotope ;
+	rdfs:label "d170"@en .
+# 
+# http://linked.earth/ontology#d180
+
+:d180 a owl:NamedIndividual , :StableOxygenIsotope ;
+	rdfs:comment """Oxygen has three naturally-occuring stable isotopes: 16O, 17O, 18O, with 16O being the most abundant (99.762%).
+
+Two international reference standards are used to report variations in oxygen isotope standards: PDB and SMOW. The use of the PDB standard in reporting oxygen isotope composition is restricted to carbonates of low-temperature origins (e.g., oceanic, lacustrine ). The conversion between SMOW and PDB scales is given by:
+\\delta^{18}O_{SMOW} = 1.03091 (\\delta^{18}O_{PDB}) +30.91
+
+δ18O may be measured on the shells of foraminifera"""@en ;
+	rdfs:label "d180"@en .
+# 
+# http://linked.earth/ontology#d34S
+
+:d34S a owl:NamedIndividual , :StableSulfurIsotope ;
+	rdfs:label "d34S"@en .
+# 
+# http://linked.earth/ontology#dD
+
+:dD a owl:NamedIndividual , :StableHydrogenIsotope ;
+	rdfs:label "dD"@en .
+# 
+# http://linked.earth/ontology#Al/Ca
+
+<http://linked.earth/ontology#Al/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Al/Ca"@en .
+# 
+# http://linked.earth/ontology#B/Ca
+
+<http://linked.earth/ontology#B/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "B/Ca"@en .
+# 
+# http://linked.earth/ontology#Ba/Ca
+
+<http://linked.earth/ontology#Ba/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Ba/Ca"@en .
+# 
+# http://linked.earth/ontology#Fe/Ca
+
+<http://linked.earth/ontology#Fe/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Fe/Ca"@en .
+# 
+# http://linked.earth/ontology#Li/Ca
+
+<http://linked.earth/ontology#Li/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Li/Ca"@en .
+# 
+# http://linked.earth/ontology#Mg/Ca
+
+<http://linked.earth/ontology#Mg/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Mg/Ca"@en .
+# 
+# http://linked.earth/ontology#Mn/Ca
+
+<http://linked.earth/ontology#Mn/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Mn/Ca"@en .
+# 
+# http://linked.earth/ontology#Sr/Ca
+
+<http://linked.earth/ontology#Sr/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Sr/Ca"@en .
+# 
+# http://linked.earth/ontology#Zn/Ca
+
+<http://linked.earth/ontology#Zn/Ca> a owl:NamedIndividual , :TraceElement ;
+	rdfs:label "Zn/Ca"@en .
+# 
+# Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

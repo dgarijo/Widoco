@@ -1,0 +1,483 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <Ontology rdf:about="https://w3id.org/def/System">
+        <imports rdf:resource="https://w3id.org/def/Organ"/>
+        <imports rdf:resource="https://w3id.org/def/Tissue"/>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esComponenteDe -->
+
+    <ObjectProperty rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esComponenteDe">
+        <rdfs:label xml:lang="en">is Component of</rdfs:label>
+        <rdfs:label xml:lang="es">es Componente de</rdfs:label>
+        <rdfs:comment xml:lang="es">relación de composición o formación</rdfs:comment>
+        <inverseOf rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#estaCompuestoPor"/>
+        <rdfs:range rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#Tejido"/>
+        <rdfs:domain rdf:resource="http://www.univalle.edu.co/ontologies/organ#Tunica"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esEstructuraDe -->
+
+    <ObjectProperty rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esEstructuraDe">
+        <rdfs:label xml:lang="en">is Structure of</rdfs:label>
+        <rdfs:label xml:lang="es">es Estructura de</rdfs:label>
+        <rdfs:comment xml:lang="es">relación de composición o formación</rdfs:comment>
+        <inverseOf rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura"/>
+        <rdfs:range rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#Estructura"/>
+        <rdfs:domain rdf:resource="http://www.univalle.edu.co/ontologies/organ#Organo"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esRegionDeLuzDe -->
+
+    <ObjectProperty rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esRegionDeLuzDe">
+        <rdfs:label xml:lang="en">is light region of</rdfs:label>
+        <rdfs:label xml:lang="es">es región de luz</rdfs:label>
+        <rdfs:comment xml:lang="en">Es región de luz de un órgano</rdfs:comment>
+        <rdfs:domain rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraRegionLuz"/>
+        <rdfs:range rdf:resource="http://www.univalle.edu.co/ontologies/organ#Organo"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#estaCompuestoPor -->
+
+    <ObjectProperty rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#estaCompuestoPor">
+        <rdfs:label xml:lang="en">is Composed by</rdfs:label>
+        <rdfs:label xml:lang="es">esta Compuesto por</rdfs:label>
+        <rdfs:comment xml:lang="es">relación de composición o formación</rdfs:comment>
+        <rdfs:domain rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#Tejido"/>
+        <rdfs:range rdf:resource="http://www.univalle.edu.co/ontologies/organ#Tunica"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura -->
+
+    <ObjectProperty rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura">
+        <rdfs:label xml:lang="en">has Structure</rdfs:label>
+        <rdfs:label xml:lang="es">tiene Estructura</rdfs:label>
+        <rdfs:comment xml:lang="es">relación de composición o formación</rdfs:comment>
+        <rdfs:domain rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#Estructura"/>
+        <rdfs:range rdf:resource="http://www.univalle.edu.co/ontologies/organ#Organo"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneRegionDeLuz -->
+
+    <ObjectProperty rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneRegionDeLuz">
+        <rdfs:label xml:lang="en">has light region</rdfs:label>
+        <rdfs:label xml:lang="es">tiene Región de Luz</rdfs:label>
+        <rdfs:comment xml:lang="es">tiene región de luz</rdfs:comment>
+        <inverseOf rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esRegionDeLuzDe"/>
+        <rdfs:range rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraRegionLuz"/>
+        <rdfs:domain rdf:resource="http://www.univalle.edu.co/ontologies/organ#Organo"/>
+    </ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#amplitud -->
+
+    <DatatypeProperty rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#amplitud">
+        <rdfs:label xml:lang="en">Amplitude</rdfs:label>
+        <rdfs:label xml:lang="es">Amplitud</rdfs:label>
+        <rdfs:comment xml:lang="es">Amplitud de una región de luz</rdfs:comment>
+        <rdfs:domain rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraRegionLuz"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#CelulaFibraMuscular -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#CelulaFibraMuscular">
+        <rdfs:subClassOf rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#Celula"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#OrganoArteriaMetarteriola -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#OrganoArteriaMetarteriola">
+        <rdfs:subClassOf rdf:resource="http://www.univalle.edu.co/ontologies/organ#OrganoArteria"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#OrganoConducto -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#OrganoConducto">
+        <rdfs:subClassOf rdf:resource="http://www.univalle.edu.co/ontologies/organ#Organo"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#esOrganoDe"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/organ#SistemaCirculatorioLinfatico"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#esOrganoDe"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/organ#SistemaCirculatorio"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+    </Class>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#OrganoArteria -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoArteria">
+        <equivalentClass>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneRegionDeLuz"/>
+                <someValuesFrom>
+                    <Class>
+                        <intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/Tissue#EstructuraRegionLuz"/>
+                            <Restriction>
+                                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#amplitud"/>
+                                <hasValue>Angosta</hasValue>
+                            </Restriction>
+                        </intersectionOf>
+                    </Class>
+                </someValuesFrom>
+            </Restriction>
+        </equivalentClass>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#esOrganoDe"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/organ#SistemaCirculatorioSanguineo"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#OrganoArteriaMuscular -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoArteriaMuscular">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraFibraElastica"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraLaminaElasticaExterna"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraLaminaElasticaInterna"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraVasoVasorum"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#OrganoCapilar -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoCapilar">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#esOrganoDe"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/organ#SistemaCirculatorioLinfatico"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#esOrganoDe"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/organ#SistemaCirculatorioSanguineo"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#OrganoCorazon -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoCorazon">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraSenoCoronario"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#esOrganoDe"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/organ#SistemaCirculatorioSanguineo"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#OrganoVena -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoVena">
+        <equivalentClass>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneRegionDeLuz"/>
+                <someValuesFrom>
+                    <Class>
+                        <intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/Tissue#EstructuraRegionLuz"/>
+                            <Restriction>
+                                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#amplitud"/>
+                                <hasValue>Amplia</hasValue>
+                            </Restriction>
+                        </intersectionOf>
+                    </Class>
+                </someValuesFrom>
+            </Restriction>
+        </equivalentClass>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraVasoVasorum"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#esOrganoDe"/>
+                <onClass rdf:resource="http://www.univalle.edu.co/ontologies/organ#SistemaCirculatorioSanguineo"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#OrganoVenaGranCalibre -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoVenaGranCalibre">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#tieneEstructura"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraVasoVasorum"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#TunicaCorazónMiocardio -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#TunicaCorazónMiocardio">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#TejidoMuscularEstriadoCardiaco"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#TunicaCorazónPericardio -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#TunicaCorazónPericardio">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#TejidoEpitelialPlanoSimple"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#ConectivoLaxo"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#TunicaCorazónSubendocardio -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#TunicaCorazónSubendocardio">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#ConectivoDensoIrregular"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#TunicaCorazónSubendotelio -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#TunicaCorazónSubendotelio">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#ConectivoLaxo"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#TunicaVasosSanguineosAdventicia -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#TunicaVasosSanguineosAdventicia">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#ConectivoLaxo"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#TunicaVasosSanguineosIntima -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#TunicaVasosSanguineosIntima">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#esComponenteDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#TejidoEpitelialPlanoSimple"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#ConectivoLaxo"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraLaminaElasticaInterna"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.univalle.edu.co/ontologies/organ#TunicaVasosSanguineosMedia -->
+
+    <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#TunicaVasosSanguineosMedia">
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#TejidoMuscularLiso"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraFibraElastica"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.univalle.edu.co/ontologies/organ#estaCompuestoDe"/>
+                <someValuesFrom rdf:resource="http://www.univalle.edu.co/ontologies/Tissue#EstructuraFibraColagena"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/mmvlab/ontologies/2015/2/System#OrganoArteriaMetarteriola"/>
+            <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoArteriaArteriola"/>
+            <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoArteriaElastica"/>
+            <rdf:Description rdf:about="http://www.univalle.edu.co/ontologies/organ#OrganoArteriaMuscular"/>
+        </members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
