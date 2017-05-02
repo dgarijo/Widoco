@@ -18,6 +18,8 @@ package widoco.entities;
 import com.hp.hpl.jena.ontology.OntModel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * Class for representing the ontology objects
@@ -86,6 +88,14 @@ public class Ontology {
      * OntModel of the ontology being documented. 
      */
     private OntModel mainOntologyModel;
+    /**
+     * In-Memory representation of the ontology being documented (OWLAPI)
+     */
+    private OWLOntology mainOntology;
+    /**
+     * In-Memory manager of the ontology being documented (OWLAPI
+     */
+    private OWLOntologyManager mainOntologyManager;
     /**
      * Title of the ontology. Different from the name
      */
@@ -281,12 +291,44 @@ public class Ontology {
         this.status = status;
     }
     
+    /**
+     * 
+     * THESE TWO METHODS BELOW SHOULD BE REMOVED
+     */
+    
     public OntModel getMainModel() {
         return mainOntologyModel;
     }
 
     public void setMainModel(OntModel model) {
         this.mainOntologyModel = model;
+    }
+    
+    /**
+     * 
+     * THESE TWO METHODS ABOVE SHOULD BE REMOVED
+     */
+    
+    //Should have getManager and getOWLOntology.
+    //In the ontology creation, should load the imports only when generating the doc (if necessary).
+    /**
+     * Getter for the in-memory ontology representation.
+     * @return 
+     */
+    public OWLOntology getOWLAPIModel(){
+        return this.mainOntology;
+    }
+    
+    public OWLOntologyManager getOWLAPIOntologyManager(){
+        return this.mainOntologyManager;
+    }
+    
+    public void setMainOntology(OWLOntology o){
+        this.mainOntology = o;
+    }
+    
+    public void setMainOntologyManager(OWLOntologyManager m){
+        this.mainOntologyManager = m;
     }
     
     public Agent getPublisher() {

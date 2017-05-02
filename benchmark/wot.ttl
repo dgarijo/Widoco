@@ -1,0 +1,395 @@
+@prefix : <http://iot.linkeddata.es/def/wot#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wot: <http://xmlns.com/wot/0.1/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix saref: <https://w3id.org/saref#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://iot.linkeddata.es/def/wot#> .
+
+<http://iot.linkeddata.es/def/wot#> rdf:type owl:Ontology ;
+                                     dcterms:creator <http://purl.org/net/mpoveda> ;
+                                     dc:title "Vicinity model for Web of Things"@en ;
+                                     dcterms:creator <http://www.garcia-castro.com/foaf.rdf#me> ;
+                                     vann:preferredNamespacePrefix "wot" ;
+                                     dcterms:license <http://purl.org/NET/rdflicense/cc-by4.0> ;
+                                     owl:versionInfo "1.0" ;
+                                     vann:preferredNamespaceUri "http://iot.linkeddata.es/def/wot" ;
+                                     rdfs:comment "This ontology aims to model the Web of Things domain according to the w3c Interest Group (http://w3c.github.io/wot/)"@en ;
+                                     dc:publisher <http://www.oeg-upm.net/> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2003/06/sw-vocab-status/ns#term_status
+vs:term_status rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://iot.linkeddata.es/def/wot#describes
+<http://iot.linkeddata.es/def/wot#describes> rdf:type owl:ObjectProperty ;
+                                             owl:inverseOf <http://iot.linkeddata.es/def/wot#isDescribedBy> ;
+                                             rdfs:label "describesThing"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#hasComponent
+<http://iot.linkeddata.es/def/wot#hasComponent> rdf:type owl:ObjectProperty ;
+                                                owl:inverseOf <http://iot.linkeddata.es/def/wot#isComponentOf> ;
+                                                rdfs:label "hasComponent"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#hasInputData
+<http://iot.linkeddata.es/def/wot#hasInputData> rdf:type owl:ObjectProperty ;
+                                                rdfs:label "hasInputData"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#hasMediaType
+<http://iot.linkeddata.es/def/wot#hasMediaType> rdf:type owl:ObjectProperty ;
+                                                rdfs:label "hasMediaType"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#hasOutputData
+<http://iot.linkeddata.es/def/wot#hasOutputData> rdf:type owl:ObjectProperty ;
+                                                 rdfs:label "hasOutputData"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#hasValueType
+<http://iot.linkeddata.es/def/wot#hasValueType> rdf:type owl:ObjectProperty ;
+                                                rdfs:label "hasValueType"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#isAccesibleThrough
+<http://iot.linkeddata.es/def/wot#isAccesibleThrough> rdf:type owl:ObjectProperty ;
+                                                      rdfs:label "isAccesibleThrough"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#isComponentOf
+<http://iot.linkeddata.es/def/wot#isComponentOf> rdf:type owl:ObjectProperty ;
+                                                 rdfs:label "isComponentOf"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#isDescribedBy
+<http://iot.linkeddata.es/def/wot#isDescribedBy> rdf:type owl:ObjectProperty ;
+                                                 rdfs:label "isDescribedBy"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#isMeasuredIn
+<http://iot.linkeddata.es/def/wot#isMeasuredIn> rdf:type owl:ObjectProperty ;
+                                                rdfs:label "isMeasuredIn"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#isProvidedOverProtocol
+<http://iot.linkeddata.es/def/wot#isProvidedOverProtocol> rdf:type owl:ObjectProperty ,
+                                                                   owl:FunctionalProperty ;
+                                                          rdfs:label "is provided over protocol"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#providedBy
+<http://iot.linkeddata.es/def/wot#providedBy> rdf:type owl:ObjectProperty ;
+                                              rdfs:label "providedBy"@en ;
+                                              vs:term_status "propose for deletion" .
+
+
+###  http://iot.linkeddata.es/def/wot#providesInteractionPattern
+<http://iot.linkeddata.es/def/wot#providesInteractionPattern> rdf:type owl:ObjectProperty ;
+                                                              rdfs:domain <http://iot.linkeddata.es/def/wot#InteractionPattern> ;
+                                                              rdfs:label "providesInteractionPattern"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://iot.linkeddata.es/def/wot#baseURI
+<http://iot.linkeddata.es/def/wot#baseURI> rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain <http://iot.linkeddata.es/def/wot#Entity> ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:label "baseURI"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#defaultValue
+<http://iot.linkeddata.es/def/wot#defaultValue> rdf:type owl:DatatypeProperty ;
+                                                rdfs:range rdfs:Literal ;
+                                                rdfs:label "defaultValue"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#entityName
+<http://iot.linkeddata.es/def/wot#entityName> rdf:type owl:DatatypeProperty ;
+                                              rdfs:subPropertyOf <http://iot.linkeddata.es/def/wot#name> ;
+                                              rdfs:label "entityName"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#href
+<http://iot.linkeddata.es/def/wot#href> rdf:type owl:DatatypeProperty ,
+                                                 owl:FunctionalProperty ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:label "href"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#interactionName
+<http://iot.linkeddata.es/def/wot#interactionName> rdf:type owl:DatatypeProperty ;
+                                                   rdfs:subPropertyOf <http://iot.linkeddata.es/def/wot#name> ;
+                                                   rdfs:label "interactionName"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#isRequired
+<http://iot.linkeddata.es/def/wot#isRequired> rdf:type owl:DatatypeProperty ,
+                                                       owl:FunctionalProperty ;
+                                              rdfs:range xsd:boolean ;
+                                              rdfs:label "isRequired"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#isWritable
+<http://iot.linkeddata.es/def/wot#isWritable> rdf:type owl:DatatypeProperty ,
+                                                       owl:FunctionalProperty ;
+                                              rdfs:range xsd:boolean ;
+                                              rdfs:label "isWritable"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#name
+<http://iot.linkeddata.es/def/wot#name> rdf:type owl:DatatypeProperty ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:label "name"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://iot.linkeddata.es/def/wot#Action
+<http://iot.linkeddata.es/def/wot#Action> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://iot.linkeddata.es/def/wot#InteractionPattern> ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://iot.linkeddata.es/def/wot#hasInputData> ;
+                                                            owl:allValuesFrom <http://iot.linkeddata.es/def/wot#DataFormat>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://iot.linkeddata.es/def/wot#hasOutputData> ;
+                                                            owl:allValuesFrom <http://iot.linkeddata.es/def/wot#DataFormat>
+                                                          ] ;
+                                          rdfs:label "Action"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#CommunicationProtocol
+<http://iot.linkeddata.es/def/wot#CommunicationProtocol> rdf:type owl:Class ;
+                                                         owl:disjointWith <http://iot.linkeddata.es/def/wot#DigitalRepresentation> ,
+                                                                          <http://iot.linkeddata.es/def/wot#Property> ,
+                                                                          <http://iot.linkeddata.es/def/wot#WoTInterface> ,
+                                                                          saref:Service ;
+                                                         rdfs:comment "A protocol is an agreement between the communicating parties on how communication is to proceed. (Definition taken from \"Tanenbaum, A. S. (2003). Computer networks, 4-th edition. ed: Prentice Hall.\")"@en ;
+                                                         rdfs:label "Communication protocol"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#DataFormat
+<http://iot.linkeddata.es/def/wot#DataFormat> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://iot.linkeddata.es/def/wot#hasValueType> ;
+                                                                owl:allValuesFrom <http://iot.linkeddata.es/def/wot#DataType>
+                                                              ] ;
+                                              rdfs:label "DataFormat"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#DataType
+<http://iot.linkeddata.es/def/wot#DataType> rdf:type owl:Class ;
+                                            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#isMeasuredIn> ;
+                                                              owl:allValuesFrom <http://iot.linkeddata.es/def/wot#UnitOfMeasure>
+                                                            ] ;
+                                            rdfs:label "DataType"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#DigitalRepresentation
+<http://iot.linkeddata.es/def/wot#DigitalRepresentation> rdf:type owl:Class ;
+                                                         owl:disjointWith <http://iot.linkeddata.es/def/wot#WoTInterface> ;
+                                                         rdfs:comment "A digital representation encapsulates a physical object accessible via Web services"@en ;
+                                                         rdfs:label "Digital representation"@en ;
+                                                         vs:term_status "unstable" .
+
+
+###  http://iot.linkeddata.es/def/wot#Ecosystem
+<http://iot.linkeddata.es/def/wot#Ecosystem> rdf:type owl:Class ;
+                                             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://iot.linkeddata.es/def/wot#hasComponent> ;
+                                                               owl:someValuesFrom <http://iot.linkeddata.es/def/wot#Entity>
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://iot.linkeddata.es/def/wot#isDescribedBy> ;
+                                                               owl:someValuesFrom <http://iot.linkeddata.es/def/wot#ThingEcosystemDescription>
+                                                             ] ;
+                                             rdfs:label "Ecosystem"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#Endpoint
+<http://iot.linkeddata.es/def/wot#Endpoint> rdf:type owl:Class ;
+                                            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#isProvidedOverProtocol> ;
+                                                              owl:someValuesFrom <http://iot.linkeddata.es/def/wot#CommunicationProtocol>
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#hasMediaType> ;
+                                                              owl:allValuesFrom <http://iot.linkeddata.es/def/wot#MediaType>
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#href> ;
+                                                              owl:someValuesFrom xsd:string
+                                                            ] ;
+                                            rdfs:label "Endpoint"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#Entity
+<http://iot.linkeddata.es/def/wot#Entity> rdf:type owl:Class ;
+                                          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://iot.linkeddata.es/def/wot#isComponentOf> ;
+                                                            owl:allValuesFrom <http://iot.linkeddata.es/def/wot#Ecosystem>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://iot.linkeddata.es/def/wot#isDescribedBy> ;
+                                                            owl:allValuesFrom <http://iot.linkeddata.es/def/wot#ThingDescription>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://iot.linkeddata.es/def/wot#providesInteractionPattern> ;
+                                                            owl:allValuesFrom <http://iot.linkeddata.es/def/wot#InteractionPattern>
+                                                          ] ;
+                                          rdfs:comment "The abstract concept of a physical entity that can either be a real-world artifact, such as a device, or a virtual entity that represents physicality, such as a room or group of devices"@en ;
+                                          rdfs:label "Entity"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#Event
+<http://iot.linkeddata.es/def/wot#Event> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://iot.linkeddata.es/def/wot#InteractionPattern> ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://iot.linkeddata.es/def/wot#hasOutputData> ;
+                                                           owl:allValuesFrom <http://iot.linkeddata.es/def/wot#DataFormat>
+                                                         ] ;
+                                         rdfs:label "Event"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#InteractionPattern
+<http://iot.linkeddata.es/def/wot#InteractionPattern> rdf:type owl:Class ;
+                                                      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://iot.linkeddata.es/def/wot#isAccesibleThrough> ;
+                                                                        owl:someValuesFrom <http://iot.linkeddata.es/def/wot#Endpoint>
+                                                                      ] ,
+                                                                      [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://iot.linkeddata.es/def/wot#providedBy> ;
+                                                                        owl:someValuesFrom <http://iot.linkeddata.es/def/wot#WebResource>
+                                                                      ] ,
+                                                                      [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://iot.linkeddata.es/def/wot#interactionName> ;
+                                                                        owl:someValuesFrom xsd:string
+                                                                      ] ;
+                                                      rdfs:label "Interaction"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#MediaType
+<http://iot.linkeddata.es/def/wot#MediaType> rdf:type owl:Class ;
+                                             rdfs:label "MediaType"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#PhysicalEntity
+<http://iot.linkeddata.es/def/wot#PhysicalEntity> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://iot.linkeddata.es/def/wot#Entity> ;
+                                                  rdfs:comment "Any entity that has a proper space region."@en ;
+                                                  rdfs:label "Physical entity"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#Property
+<http://iot.linkeddata.es/def/wot#Property> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://iot.linkeddata.es/def/wot#InteractionPattern> ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#hasOutputData> ;
+                                                              owl:someValuesFrom <http://iot.linkeddata.es/def/wot#DataFormat>
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#hasOutputData> ;
+                                                              owl:allValuesFrom <http://iot.linkeddata.es/def/wot#DataFormat>
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#isRequired> ;
+                                                              owl:allValuesFrom xsd:boolean
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://iot.linkeddata.es/def/wot#isWritable> ;
+                                                              owl:allValuesFrom xsd:boolean
+                                                            ] ;
+                                            owl:disjointWith <http://iot.linkeddata.es/def/wot#WoTInterface> ,
+                                                             saref:Service ;
+                                            rdfs:comment "An aspect of an entity that can be observable by a sensor."@en ;
+                                            rdfs:label "Property"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#ThingDescription
+<http://iot.linkeddata.es/def/wot#ThingDescription> rdf:type owl:Class ;
+                                                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty <http://iot.linkeddata.es/def/wot#describes> ;
+                                                                      owl:someValuesFrom <http://iot.linkeddata.es/def/wot#Entity>
+                                                                    ] ,
+                                                                    [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty <http://iot.linkeddata.es/def/wot#describes> ;
+                                                                      owl:allValuesFrom <http://iot.linkeddata.es/def/wot#Entity>
+                                                                    ] ;
+                                                    rdfs:comment "A digital representation encapsulates a physical object accessible via Web services"@en ;
+                                                    rdfs:label "Thing description"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#ThingEcosystemDescription
+<http://iot.linkeddata.es/def/wot#ThingEcosystemDescription> rdf:type owl:Class ;
+                                                             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://iot.linkeddata.es/def/wot#describes> ;
+                                                                               owl:someValuesFrom <http://iot.linkeddata.es/def/wot#Ecosystem>
+                                                                             ] ;
+                                                             rdfs:comment "A digital representation that encapsulates an ecosystem taht is accessible via Web services" ;
+                                                             rdfs:label "Thing ecosystem description"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#UnitOfMeasure
+<http://iot.linkeddata.es/def/wot#UnitOfMeasure> rdf:type owl:Class ;
+                                                 rdfs:label "UnitOfMeasure"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#VirtualEntity
+<http://iot.linkeddata.es/def/wot#VirtualEntity> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://iot.linkeddata.es/def/wot#Entity> ;
+                                                 rdfs:label "VirtualEntity"@en .
+
+
+###  http://iot.linkeddata.es/def/wot#WebResource
+<http://iot.linkeddata.es/def/wot#WebResource> rdf:type owl:Class ;
+                                               rdfs:label "WebResource"@en ;
+                                               vs:term_status "unstable" .
+
+
+###  http://iot.linkeddata.es/def/wot#WoTInterface
+<http://iot.linkeddata.es/def/wot#WoTInterface> rdf:type owl:Class ;
+                                                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://iot.linkeddata.es/def/wot#providesInteractionPattern> ;
+                                                                  owl:allValuesFrom <http://iot.linkeddata.es/def/wot#InteractionPattern>
+                                                                ] ;
+                                                rdfs:comment "A WoT interface is also a web API that follows the recommendations of the WoT Interest Group."@en ,
+                                                             "Resource-oriented Web interface (often called \"Web API\") that allows access to servients over the network using different Protocol Bindings."@en ;
+                                                rdfs:label "Web of Thing interface"@en ;
+                                                vs:term_status "proposed for deletion" .
+
+
+###  https://w3id.org/saref#Service
+saref:Service rdf:type owl:Class ;
+              rdfs:comment "A service is a representation of a function to a network that makes the function discoverable, registerable, remotely controllable by other devices in the network. A service can represent one or more functions. A Service is offered by a device that wants (a certain set of) its function(s) to be discoverable, registerable, remotely controllable by other devices in the network. A Service must specify the device that is offering the service, the function(s) to be represented, and the (input and output) parameters necessary to operate the service."@en ;
+              rdfs:isDefinedBy saref: ;
+              rdfs:label "Service"@en ;
+              vs:term_status "unstable" .
+
+
+###  Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi

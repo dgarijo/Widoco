@@ -2,13 +2,13 @@ package diff;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
+import widoco.Configuration;
 
 
 /**
@@ -46,30 +46,32 @@ public class CompareOntologies {
     
     private String oldVersion, newVersion;
 
-    public CompareOntologies(String ontology1Location, String ontology2Location) {
+    /**
+     * @param oldOntologyLocation     location of the first ontology to be compared (the older ontology in most cases)
+     * @param c     Configuration where the information of the current ontology is loaded
+     */
+    public CompareOntologies(String oldOntologyLocation, Configuration c) {
         //Create 2 OWLOntologyManager which manages a set of ontologies
         OWLOntologyManager manager1 = OWLManager.createOWLOntologyManager();
-        OWLOntologyManager manager2 = OWLManager.createOWLOntologyManager();
         OWLOntology ontology1;
-        OWLOntology ontology2;
 
         try {
-            ontology1= manager1.loadOntologyFromOntologyDocument(new File(ontology1Location));
+            ontology1= manager1.loadOntologyFromOntologyDocument(new File(oldOntologyLocation));
         } catch (Exception e) {
             System.err.println("Error while loading the first ontology");
             return;
         }
         System.out.println("loading ontology 1 complete");
 
-        try {
-            ontology2= manager2.loadOntologyFromOntologyDocument(new File(ontology2Location));
-        } catch (Exception e) {
-            System.err.println("Error while loading the second ontology");
-            return;
-        }
-        System.out.println("loading ontology 2 complete");
+//        try {
+//            ontology2= manager2.loadOntologyFromOntologyDocument(new File(ontology2Location));
+//        } catch (Exception e) {
+//            System.err.println("Error while loading the second ontology");
+//            return;
+//        }
+//        System.out.println("loading ontology 2 complete");
 
-        this.doFindAllChanges(ontology1, ontology2);
+        this.doFindAllChanges(ontology1, c.getMainOntology().getOWLAPIModel());
     }
 
 

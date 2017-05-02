@@ -1,0 +1,1646 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.oclc.org/NET/ssnx/ssn#"
+     xml:base="http://purl.oclc.org/NET/ssnx/ssn"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:dct="http://purl.org/dc/terms/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:DUL="http://www.loa-cnr.it/ontologies/DUL.owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:ssn="http://purl.oclc.org/NET/ssnx/ssn#">
+    <owl:Ontology rdf:about="http://purl.oclc.org/NET/ssnx/ssn">
+        <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">W3C Semantic Sensor Network Incubator Group</dc:creator>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"> Please report any errors to the Semantic Sensor Network Incubator Activity via the public W3C list public-xg-ssn@w3.org</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/</rdfs:seeAlso>
+        <dc:title>Semantic Sensor Network Ontology</dc:title>
+        <dct:modified>2011-06-20</dct:modified>
+        <cc:license rdf:resource="http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231.html"/>
+        <dc:identifier>http://purl.oclc.org/NET/ssnx/ssn</dc:identifier>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This ontology is developed by the W3C Semantic Sensor Networks Incubator Group (SSN-XG). The concepts and structure of the ontology were discussed in the group&apos;s meetings and on the mailing list. For more information on the group&apos;s activities see: http://www.w3.org/2005/Incubator/ssn/</rdfs:comment>
+        <dc:rights>Copyright 2009 - 2011 W3C.</dc:rights>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This ontology describes sensors and observations, and related concepts.  It does not describe domain concepts, time, locations, etc. these are intended to be included from other ontologies via OWL imports.</rdfs:comment>
+        <dct:created>2009-12-02</dct:created>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://creativecommons.org/ns#license -->
+
+    <owl:AnnotationProperty rdf:about="http://creativecommons.org/ns#license"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/creator -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/creator"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/date -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/date"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/identifier -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/identifier"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/rights -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/rights"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/source -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/source"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/title -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/title"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/modified -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/modified"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#comment -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#isDefinedBy -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#isDefinedBy"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#label -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#label"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#seeAlso -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#seeAlso"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#attachedSystem -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#attachedSystem">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isLocationOf"/>
+        <owl:inverseOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#onPlatform"/>
+        <rdfs:comment>Relation between a Platform and any Systems (e.g., Sensors) that are attached to the Platform.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>attached system</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#PlatformSite</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#deployedOnPlatform -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#deployedOnPlatform">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasParticipant"/>
+        <owl:inverseOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#inDeployment"/>
+        <rdfs:comment>Relation between a deployment and the platform on which the system was deployed.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>deployed on platform</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#Deployment</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#deployedSystem -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#deployedSystem">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasParticipant"/>
+        <owl:inverseOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasDeployment"/>
+        <rdfs:comment>Relation between a deployment and the deployed system.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>deployed system</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#Deployment</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#deploymentProcessPart -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#deploymentProcessPart">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasPart"/>
+        <rdfs:comment>Has part relation between a deployment process and its constituent processes.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>deployment process part</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#Deployment</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#detects -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#detects">
+        <rdfs:comment>A relation from a sensor to the Stimulus that the sensor can detect.   
+The Stimulus itself will be serving as a proxy for (see isProxyOf) some observable property.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>detects</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#endTime -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#endTime">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasRegion"/>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>end time</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Base#Time</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#featureOfInterest -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#featureOfInterest">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isSettingFor"/>
+        <dc:source>skos:exactMatch &apos;featureOfInterest&apos; [O&amp;M - ISO/DIS 19156] 
+		                    http://portal.opengeospatial.org/files/?artifact_id=41579</dc:source>
+        <rdfs:comment>A relation between an observation and the entity whose quality was observed.   For example, in an observation of the weight of a person, the feature of interest is the person and the quality is weight.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>feature of interest</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#forProperty -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#forProperty">
+        <rdfs:comment>A relation between some aspect of a sensing entity and a property.  For example, from a sensor to the properties it can observe, or from a deployment to the properties it was installed to observe.  Also from a measurement capability to the property the capability is described for.  (Used in conjunction with ofFeature).</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>for property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasDeployment -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasDeployment">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isParticipantIn"/>
+        <rdfs:comment>Relation between a System and a Deployment, recording that the System/Sensor was deployed in that Deployment.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has deployment</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#Deployment</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasInput -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasInput">
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has input</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#Process</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasMeasurementCapability -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasMeasurementCapability">
+        <rdfs:subPropertyOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+        <rdfs:comment>Relation from a Sensor to a MeasurementCapability describing the measurement properties of the sensor.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has measurement  capability</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasMeasurementProperty -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasMeasurementProperty">
+        <rdfs:subPropertyOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+        <rdfs:comment>Relation from a MeasurementCapability to a MeasurementProperty.  For example, to an accuracy (see notes at MeasurementCapability).</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has measurement property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasOperatingProperty -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasOperatingProperty">
+        <rdfs:subPropertyOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+        <rdfs:comment>Relation from an OperatingRange to a Property.  For example, to a battery lifetime.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has operating property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasOperatingRange -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasOperatingRange">
+        <rdfs:subPropertyOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+        <rdfs:comment>Relation from a System to an OperatingRange describing the normal operating environment of the System.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has operating range</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasOutput -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasOutput">
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has output</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#Process</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasProperty -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasProperty">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasQuality"/>
+        <owl:inverseOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#isPropertyOf"/>
+        <rdfs:comment>A relation between a FeatureOfInterest and a Property of that feature.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasSubSystem -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasSubSystem">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasPart"/>
+        <rdfs:comment>Haspart relation between a system and its parts.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has subsystem</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#System</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasSurvivalProperty -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasSurvivalProperty">
+        <rdfs:subPropertyOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+        <rdfs:comment>Relation from a SurvivalRange to a Property describing the survial range of a system.  For example, to the temperature extreme that a system can withstand before being considered damaged.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has survival property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasSurvivalRange -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasSurvivalRange">
+        <rdfs:subPropertyOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+        <rdfs:comment>A Relation from a System to a SurvivalRange.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has survival range</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasValue -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasValue">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasRegion"/>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>has value</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Base#Data</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#implementedBy -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#implementedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#describes"/>
+        <owl:inverseOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#implements"/>
+        <rdfs:comment>A relation between the description of an algorithm, procedure or method and an entity that implements that method in some executable way.  For example, between a scientific measuring method and a sensor the senses via that method.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>implemented by</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#implements -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#implements">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isDescribedBy"/>
+        <rdfs:comment>A relation between an entity that implements a method in some executable way and the description of an algorithm, procedure or method.  For example, between a Sensor and the scientific measuring method that the Sensor uses to observe a Property.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>implements</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#inCondition -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#inCondition">
+        <rdfs:comment>Describes the prevailing environmental conditions for MeasurementCapabilites, OperatingConditions and SurvivalRanges.  Used for example to say that a sensor has a particular accuracy in particular conditions.  (see also MeasurementCapability)</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>in condition</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Base#ConstraintBlock</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#inDeployment -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#inDeployment">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isParticipantIn"/>
+        <rdfs:comment>Relation between a Platform and a Deployment, recording that the object was used as a platform for a system/sensor for a particular deployment: as in this PhysicalObject is acting as a Platform inDeployment Deployment.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>in deployment</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#Deployment</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#isProducedBy -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#isProducedBy">
+        <rdfs:comment>Relation between a producer and a produced entity: for example, between a sensor and the produced output.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>is produced by</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#Process</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#isPropertyOf -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#isPropertyOf">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isQualityOf"/>
+        <rdfs:comment>Relation between a FeatureOfInterest and a Property (a Quality observable by a sensor) of that feature.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>is property of</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#isProxyFor -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#isProxyFor">
+        <rdfs:comment>A relation from a Stimulus to the Property that the Stimulus is serving as a proxy for.  For example, the expansion of the quicksilver is a stimulus that serves as a proxy for temperature, or an increase or decrease in the spinning of cups on a wind sensor is serving as a proxy for wind speed.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>isProxyFor</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#madeObservation -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#madeObservation">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isObjectIncludedIn"/>
+        <owl:inverseOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observedBy"/>
+        <rdfs:comment>Relation between a Sensor and Observations it has made.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>made observation</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Observation#Observation</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observationResult -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#observationResult">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isSettingFor"/>
+        <dc:source>skos:closeMatch &apos;result&apos; [O&amp;M - ISO/DIS 19156] 
+		                    http://portal.opengeospatial.org/files/?artifact_id=41579</dc:source>
+        <rdfs:comment>Relation linking an Observation (i.e., a description of the context, the Situation, in which the observatioin was made) and a Result, which contains a value representing the value associated with the observed Property.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>observation result</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observationResultTime -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#observationResultTime">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasRegion"/>
+        <dc:source>http://www.opengeospatial.org/standards/om</dc:source>
+        <rdfs:comment>The result time is the time when the procedure associated with the observation act was applied.</rdfs:comment>
+        <rdfs:comment>The result time shall describe the time when the result became available, typically when the procedure associated with the observation was completed For some observations this is identical to the phenomenonTime. However, there are important cases where they differ.[O&amp;M]</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>observation result time</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Observation#Observation</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observationSamplingTime -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#observationSamplingTime">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasRegion"/>
+        <dc:source>http://www.opengeospatial.org/standards/om</dc:source>
+        <rdfs:comment>Rebadged as phenomenon time in [O&amp;M]. The phenomenon time shall describe the time that the result applies to the property of the feature-of-interest. This is often the time of interaction by a sampling procedure or observation procedure with a real-world feature.</rdfs:comment>
+        <rdfs:comment>The sampling time is the time that the result applies to the feature-of-interest. This is the time usually required for geospatial analysis of the result.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>observation sampling time</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Observation#Observation</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observedBy -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#observedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#includesObject"/>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observedProperty -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#observedProperty">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isSettingFor"/>
+        <dc:source>skos:exactMatch &apos;observedProperty&apos; [O&amp;M - ISO/DIS 19156] 
+		                    http://portal.opengeospatial.org/files/?artifact_id=41579</dc:source>
+        <rdfs:comment>Relation linking an Observation to the Property that was observed.  The observedProperty should be a Property (hasProperty) of the FeatureOfInterest (linked by featureOfInterest) of this observation.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>observed property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observes -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#observes">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.oclc.org/NET/ssnx/ssn#hasMeasurementCapability"/>
+            <rdf:Description rdf:about="http://purl.oclc.org/NET/ssnx/ssn#forProperty"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.oclc.org/NET/ssnx/ssn#madeObservation"/>
+            <rdf:Description rdf:about="http://purl.oclc.org/NET/ssnx/ssn#observedProperty"/>
+        </owl:propertyChainAxiom>
+        <rdfs:comment>Relation between a Sensor and a Property that the sensor can observe.
+
+Note that, given the DUL modelling of Qualities, a sensor defined with &apos;observes only Windspeed&apos; technically links the sensor to particular instances of Windspeed, not to the concept itself - OWL can&apos;t express concept-concept relations, only individual-individual.  The property composition ensures that if an observation is made of a particular quality then one can infer that the sensor observes that quality.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>observes</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#Measuring</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#ofFeature -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#ofFeature">
+        <rdfs:comment>A relation between some aspect of a sensing entity and a feature.  For example, from a sensor to the features it can observe properties of, or from a deployment to the features it was installed to observe.  Also from a measurement capability to the feature the capability is described for.  (Used in conjunction with forProperty).</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>of feature</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#onPlatform -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#onPlatform">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasLocation"/>
+        <rdfs:comment>Relation between a System (e.g., a Sensor) and a Platform.  The relation locates the sensor relative to other described entities entities: i.e., the Sensor s1&apos;s location is Platform p1.  More precise locations for sensors in space (relative to other entities, where attached to another entity, or in 3D space) are made using DOLCE&apos;s Regions (SpaceRegion).</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>on platform</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#PlatformSite</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#qualityOfObservation -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#qualityOfObservation">
+        <rdfs:subPropertyOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+        <dc:source>skos:exactMatch &apos;resultQuality&apos; [O&amp;M - ISO/DIS 19156] 
+		                    http://portal.opengeospatial.org/files/?artifact_id=41579</dc:source>
+        <rdfs:comment>Relation linking an Observation to the adjudged quality of the result.  This is of course complimentary to the MeasurementCapability information recorded for the Sensor that made the Observation.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>quality of observation</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Observation#Observation</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#sensingMethodUsed -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#sensingMethodUsed">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#satisfies"/>
+        <dc:source>http://www.bipm.org/en/committees/jc/jcgm/wg2.html</dc:source>
+        <rdfs:comment>A (measurement) procedure is a detailed description of a measurement according to one or more measurement principles and to a given measurement method, based on a measurement model and including any calculation to obtain a measurement result [VIM 2.6]</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>sensing method used</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#startTime -->
+
+    <owl:ObjectProperty rdf:about="http://purl.oclc.org/NET/ssnx/ssn#startTime">
+        <rdfs:subPropertyOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#hasRegion"/>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>start time</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Base#Time</rdfs:seeAlso>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#describes -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#describes"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#hasLocation -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#hasLocation"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#hasPart -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#hasPart"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#hasParticipant -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#hasParticipant"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#hasQuality -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#hasQuality"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#hasRegion -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#hasRegion"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#includesEvent -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#includesEvent"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#includesObject -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#includesObject"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#isDescribedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#isDescribedBy"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#isLocationOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#isLocationOf"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#isObjectIncludedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#isObjectIncludedIn"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#isParticipantIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#isParticipantIn"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#isQualityOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#isQualityOf"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#isRegionFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#isRegionFor"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#isSettingFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#isSettingFor"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#satisfies -->
+
+    <owl:ObjectProperty rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#satisfies"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Accuracy -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Accuracy">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;measurement accuracy/accuracy&apos; [VIM 2.13] 
+		                    http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>The closeness of agreement between the value of an observation and the true value of the observed quality.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Accuracy</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#BatteryLifetime -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#BatteryLifetime">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#SurvivalProperty"/>
+        <rdfs:comment>Total useful life of a battery.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Battery Lifetime</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Energy#EnergyRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Condition -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Condition">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+        <rdfs:comment>Used to specify ranges for qualities that act as conditions on a system/sensor&apos;s operation.  For example, wind speed of 10-60m/s is expressed as a condition linking a quality, wind speed, a unit of measurement, metres per second, and a set of values, 10-60, and may be used as the condition on a MeasurementProperty, for example, to state that a sensor has a particular accuracy in that condition.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Condition</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Base#ConstraintBlock</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Deployment -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Deployment">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#DeploymentRelatedProcess"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#deployedOnPlatform"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Platform"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#deployedSystem"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#System"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:closeMatch &apos;Deployment&apos; [MMI Dev]
+                                 http://marinemetadata.org/community/teams/ontdevices</dc:source>
+        <rdfs:comment>The ongoing Process of Entities (for the purposes of this ontology, mainly sensors) deployed for a particular purpose.  For example, a particular Sensor deployed on a Platform, or a whole network of Sensors deployed for an observation campaign.  The deployment may have sub processes, such as installation, maintenance, addition, and decomissioning and removal.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Deployment</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#Deployment</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#DeploymentRelatedProcess -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#DeploymentRelatedProcess">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#Process"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#deploymentProcessPart"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#DeploymentRelatedProcess"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>Place to group all the various Processes related to Deployment.  For example, as well as Deplyment, installation, maintenance, deployment of further sensors and the like would all be classified under DeploymentRelatedProcess.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Deployment-related Process</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#Deployment</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#DetectionLimit -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#DetectionLimit">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;detection limit&apos; [VIM 4.18] 
+                                 http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>An observed value for which the probability of falsely claiming the absence of a component in a material is Î², given a probability Î± of falsely claiming its presence.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>detection limit</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Device -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Device">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#System"/>
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#DesignedArtifact"/>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>A device is a physical piece of technology - a system in a box. Devices may of course be built of smaller devices and software components (i.e. systems have components).</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Device</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Device#Device</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Drift -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Drift">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;instrumental drift&apos; [VIM 4.21]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>A, continuous or incremental, change in the reported values of observations over time for an unchanging quality.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Drift</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#FeatureOfInterest -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#FeatureOfInterest">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Event"/>
+                    <rdf:Description rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Object"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasProperty"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:exactMatch &apos;feature&apos; [O&amp;M] 
+		                    http://www.opengeospatial.org/standards/om</dc:source>
+        <rdfs:comment>A feature is an abstraction of real world phenomena (thing, person, event, etc).</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Feature of Interest</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Frequency -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Frequency">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <rdfs:comment>The smallest possible time between one observation and the next.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Frequency</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Input -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Input">
+        <owl:disjointWith rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Output"/>
+        <dc:source>http://marinemetadata.org/community/teams/ontdevices</dc:source>
+        <rdfs:comment>Any information that is provided to a process for its use [MMI OntDev]</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Input</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#Process</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Latency -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Latency">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <rdfs:comment>The time between a request for an observation and the sensor providing a result.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Latency</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#MaintenanceSchedule -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#MaintenanceSchedule">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#OperatingProperty"/>
+        <rdfs:comment>Schedule of maintenance for a system/sensor in the specified conditions.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Maintenance Schedule</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#MeasurementCapability -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#MeasurementCapability">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#forProperty"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasMeasurementProperty"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#inCondition"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Condition"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>Similar idea to MeasurementCapability in MMI Device Ontology
+                                  http://marinemetadata.org/community/teams/ontdevices
+
+But the the two express the relationship between constraints and multiple measurement properties differently.
+
+The conditions linked to a MeasurementCapability are skos:exactMatch to &apos;influence quantity&apos; [VIM 2.52]
+http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>Collects together measurement properties (accuracy, range, precision, etc) and the environmental conditions in which those properties hold, representing a specification of a sensor&apos;s capability in those conditions.
+
+The conditions specified here are those that affect the measurement properties, while those in OperatingRange represent the sensor&apos;s standard operating conditions, including conditions that don&apos;t affect the observations.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Measurement Capability</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+        <rdfs:comment>An identifiable and observable characteristic of a sensor&apos;s observations or ability to make observations.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Measurement  Property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#MeasurementRange -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#MeasurementRange">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;measuring interval/measurement range&apos; [VIM 4.7]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>The set of values that the sensor can return as the result of an observation under the defined conditions with the defined measurement properties.  (If no conditions are specified or the conditions do not specify a range for the observed qualities, the measurement range is to be taken as the condition for the observed qualities.)</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Measurement  Range</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Observation -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Observation">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#Situation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#includesEvent"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Stimulus"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#featureOfInterest"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#FeatureOfInterest"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observationResult"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#SensorOutput"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observedBy"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Sensor"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observedProperty"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#sensingMethodUsed"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Sensing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observationResultTime"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observationSamplingTime"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#qualityOfObservation"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#featureOfInterest"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#FeatureOfInterest"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observedBy"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Sensor"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observedProperty"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#sensingMethodUsed"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Sensing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:closeMatch &apos;observation&apos; [O&amp;M] 
+		                    http://www.opengeospatial.org/standards/om 
+
+Observation in this ontology and O&amp;M are described differently (O&amp;M records an observation as an act/event), but they record the same thing and are essentially interchangeable.  The difference is in the ontological structure of the two, not the data or use.
+
+Observation here records a Situation (the estimation of the value of a Property) and a description of the method that was used (along with the participants), while O&amp;M interprets an Observation as the event itself; there must, however, have been an event that lead to our situation, so both are records of events.  The distinction is between the event itself and the record of what happened in that event.
+
+
+skos:closeMatch &apos;measurement result&apos; [VIM 2.9] http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf
+
+Measurement result in VIM is the measured value plus any other relevant information, which means that measurement result and observation will often be associated to the same data (a value, a time, a property, etc.).</dc:source>
+        <rdfs:comment>An Observation is a Situation in which a Sensing method has been used to estimate or calculate a value of a Property of a FeatureOfInterest.  Links to Sensing and Sensor describe what made the Observation and how; links to Property and Feature detail what was sensed; the result is the output of a Sensor; other metadata details times etc.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Observation</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#ObservationValue -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#ObservationValue">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#Region"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#isRegionFor"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#SensorOutput"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:exactMatch &apos;measured quantity value&apos; [VIM 2.10]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf
+
+skos:exactMatch &apos;observed value&apos; [SensorML OGC-0700]
+http://www.opengeospatial.org/standards/sensorml 
+
+skos:closeMatch &apos;observation result&apos; [O&amp;M]
+http://www.opengeospatial.org/standards/om 
+
+O&amp;M conflates what we have as SensorOutput and ObservationValue into observation result, though the OGC standard does say &quot;result contains a value&quot; and &quot;a result which has a value&quot;, which fits naturally with the model here.</dc:source>
+        <rdfs:comment>The value of the result of an Observation.  An Observation has a result which is the output of some sensor, the result is an information object that encodes some value for a Feature.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Observation Value</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Base#Data</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#OperatingPowerRange -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#OperatingPowerRange">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#OperatingProperty"/>
+        <rdfs:comment>Power range in which system/sensor is expected to operate.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Operating Power Range</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Energy#EnergyRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#OperatingProperty -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#OperatingProperty">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+        <rdfs:comment>An identifiable characteristic of the environmental and other conditions in which the sensor is intended to operate.  May include power ranges, power sources, standard configurations, attachments and the like.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Operating Property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#OperatingRange -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#OperatingRange">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasOperatingProperty"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#OperatingProperty"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#inCondition"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Condition"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:broaderMatch &apos;reference operating condition&apos; [VIM 4.11]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf
+
+The difference is that here we also allow for qualities that aren&apos;t VIM influence quantities [VIM 2.52] - for example, a quantity that alters the power requirements, but doesn&apos;t affect the measurement properties - conditions specified in MeasurementCapability should be influence quantities.</dc:source>
+        <rdfs:comment>The environmental conditions and characteristics of a system/sensor&apos;s normal operating environment.  Can be used to specify for example the standard environmental conditions in which the sensor is expected to operate (a Condition with no OperatingProperty), or how the environmental and other operating properties relate: i.e., that the maintenance schedule or power requirements differ according to the conditions.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Operating Range</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Output -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Output">
+        <dc:source>http://marinemetadata.org/community/teams/ontdevices</dc:source>
+        <rdfs:comment>Any information that is reported from a process. [MMI OntDev]</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Output</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#Process</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Platform -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Platform">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#PhysicalObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#attachedSystem"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#System"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#inDeployment"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Deployment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:exactMatch &apos;platform&apos; [SensorML OGC-0700]
+                                  http://www.opengeospatial.org/standards/sensorml</dc:source>
+        <rdfs:comment>An Entity to which other Entities can be attached - particuarly Sensors and other Platforms.  For example, a post might act as the Platform, a bouy might act as a Platform, or a fish might act as a Platform for an attached sensor.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Platform</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#PlatformSite</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Precision -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Precision">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;measurement precision/precision&apos; [VIM 2.15]
+                                   http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>The closeness of agreement between replicate observations on an unchanged or similar quality value: i.e., a measure of a sensor&apos;s ability to consitently reproduce an observation.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Precision</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Process -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Process">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#Method"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasOutput"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Output"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasInput"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Input"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasOutput"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Output"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>A process has an output and possibly inputs and, for a composite process, describes the temporal and dataflow dependencies and relationships amongst its parts. [SSN XG]</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Process</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#Process</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Property -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Property">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#Quality"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#isPropertyOf"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#FeatureOfInterest"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:exactMatch &apos;property&apos; [O&amp;M] 
+		                    http://www.opengeospatial.org/standards/om</dc:source>
+        <rdfs:comment>An observable Quality of an Event or Object.  That is, not a quality of an abstract entity as is also allowed by DUL&apos;s Quality, but rather an aspect of an entity that is intrinsic to and cannot exist without the entity and is observable by a sensor.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Resolution -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Resolution">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;resolution&apos; [VIM 4.14]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>The smallest difference in the value of a quality being observed that would result in perceptably different values of observation results.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Resolution</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#ResponseTime -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#ResponseTime">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;step response time&apos; [VIM 4.23]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>The time between a (step) change inthe value of an observed quality and a sensor (possibly with specified error) &apos;settling&apos; on an observed value.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Response time</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Selectivity -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Selectivity">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;selectivity&apos; [VIM 4.13]
+                                 http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>Selectivity is a property of a sensor whereby it provides observed values for one or more qualities such that the values of each quality are independent of other qualities in the phenomenon, body, or substance being investigated.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Selectivity</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Sensing -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Sensing">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Process"/>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>Sensing is a process that results in the estimation, or calculation, of the value of a phenomenon.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Sensing</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#SensingDevice -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#SensingDevice">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Device"/>
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Sensor"/>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>A sensing device is a device that implements sensing.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Sensing Device</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#Measuring</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Sensitivity -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Sensitivity">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementProperty"/>
+        <dc:source>skos:exactMatch &apos;sensitivity&apos; [VIM 4.12]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>Sensitivity is the quotient of the change in a result of sensor and the corresponding change in a value of a quality being observed.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Sensitivity</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#MeasuringCapability</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Sensor -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Sensor">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#PhysicalObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#implements"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Sensing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#detects"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Stimulus"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasMeasurementCapability"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#MeasurementCapability"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#observes"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:exactMatch &apos;sensor&apos; [SensorML OGC-0700]
+		                    http://www.opengeospatial.org/standards/sensorml 
+
+                                skos:closeMatch &apos;observation procedure&apos; [O&amp;M] 
+                                http://www.opengeospatial.org/standards/om 
+
+O&amp;M allows sensors, methods, instruments, systems, algorithms and process chains as the processUsed of an observation; this ontology allows a similar range of things (any thing that can do sensing), just they are all grouped under the term sensor (which is thus wider than the O&amp;M concept).</dc:source>
+        <rdfs:comment>A sensor can do (implements) sensing: that is, a sensor is any entity that can follow a sensing method and thus observe some Property of a FeatureOfInterest.  Sensors may be physical devices, computational methods, a laboratory setup with a person following a method, or any other thing that can follow a Sensing Method to observe a Property.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Sensor</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#SensorDataSheet -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#SensorDataSheet">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#InformationObject"/>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>A data sheet records properties of a sensor.  A data sheet might describe for example the accuracy in various conditions, the power use, the types of connectors that the sensor has, etc.  
+
+Generally a sensor&apos;s properties are recorded directly (with hasMeasurementCapability, for example), but the data sheet can be used for example to record the manufacturers specifications verses observed capabilites, or if more is known than the manufacturer specifies, etc.  The data sheet is an information object about the sensor&apos;s properties, rather than a direct link to the actual properties themselves.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Sensor Data Sheet</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#Measuring</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#SensorInput -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#SensorInput">
+        <owl:equivalentClass rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Stimulus"/>
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#Event"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#isProxyFor"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>An Event in the real world that &apos;triggers&apos; the sensor.  The properties associated to the stimulus may be different to eventual observed property.  It is the event, not the object that triggers the sensor.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Sensor Input</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#SensorOutput -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#SensorOutput">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#InformationObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasValue"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#ObservationValue"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#isProducedBy"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Sensor"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/
+
+                                  skos:closeMatch &apos;observation result&apos; [O&amp;M] 
+                                  http://www.opengeospatial.org/standards/om 
+
+See comments at ObservationValue.</dc:source>
+        <rdfs:comment>A sensor outputs a piece of information (an observed value), the value itself being represented by an ObservationValue.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Sensor Output</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Stimulus -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#Stimulus">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#Event"/>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>An Event in the real world that &apos;triggers&apos; the sensor.  The properties associated to the stimulus may be different to eventual observed property.  It is the event, not the object that triggers the sensor.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Stimulus</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#SurvivalProperty -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#SurvivalProperty">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+        <rdfs:comment>An identifiable characteristic that represents the extent of the sensors useful life.  Might include for example total battery life or number of recharges, or, for sensors that are used only a fixed number of times, the number of observations that can be made before the sensing capability is depleted.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Survival Property</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#SurvivalRange -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#SurvivalRange">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Property"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasSurvivalProperty"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#SurvivalProperty"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#inCondition"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Condition"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>skos:narrowerMatch &apos;limiting operating condition&apos; [VIM 4.10]
+                                  http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2008.pdf</dc:source>
+        <rdfs:comment>The conditions a sensor can be exposed to without damage: i.e., the sensor continues to operate as defined using MeasurementCapability.  If, however, the SurvivalRange is exceeded, the sensor is &apos;damaged&apos; and MeasurementCapability specifications may no longer hold.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>Survival Range</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#System -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#System">
+        <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DUL.owl#PhysicalObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasSubSystem"/>
+                <owl:someValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#System"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasDeployment"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Deployment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasOperatingRange"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#OperatingRange"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasSubSystem"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#System"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#hasSurvivalRange"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#SurvivalRange"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#onPlatform"/>
+                <owl:allValuesFrom rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#Platform"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:source>http://www.w3.org/2005/Incubator/ssn/</dc:source>
+        <rdfs:comment>System is a unit of abstraction for pieces of infrastructure (and we largely care that they are) for sensing. A system has components, its subsystems, which are other systems.</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>System</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#System</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#SystemLifetime -->
+
+    <owl:Class rdf:about="http://purl.oclc.org/NET/ssnx/ssn#SystemLifetime">
+        <rdfs:subClassOf rdf:resource="http://purl.oclc.org/NET/ssnx/ssn#SurvivalProperty"/>
+        <rdfs:comment>Total useful life of a sensor/system (expressed as total life since manufacture, time in use, number of operations, etc.).</rdfs:comment>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:label>System Lifetime</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#OperatingRestriction</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#DesignedArtifact -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#DesignedArtifact"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#Event -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Event"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#InformationObject -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#InformationObject"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#Method -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Method"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#Object -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Object"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#PhysicalObject -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#PhysicalObject"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#Process -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Process"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#Quality -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Quality"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#Region -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Region"/>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#Situation -->
+
+    <owl:Class rdf:about="http://www.loa-cnr.it/ontologies/DUL.owl#Situation"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
+

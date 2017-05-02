@@ -1,0 +1,291 @@
+@prefix : <http://linked.earth/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://linked.earth/ontology#> a owl:Ontology ;
+	owl:versionIRI <http://linked.earth/ontology/inferredVariable/1.0.0> ;
+	dcterms:creator <http://earth.usc.edu/~khider/> ;
+	dcterms:contributor <http://w3id.org/people/dgarijo> ;
+	dcterms:creator <http://www.cefns.nau.edu/~npm4/> ;
+	owl:versionInfo "1.0.0"@en ;
+	vann:preferredNamespacePrefix "le" ;
+	dcterms:contributor <http://www.isi.edu/~gil/> ;
+	dcterms:creator <http://orcid.org/0000-0001-5920-4751> ;
+	vann:preferredNamespaceUri "http://linked.earth/ontology#" ;
+	dcterms:title "The Inferred Variable Ontology"@en ;
+	dcterms:license <http://creativecommons.org/licenses/by/2.0/> .
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://linked.earth/ontology#AtmosphericChemistry
+
+:AtmosphericChemistry a owl:Class ;
+	rdfs:subClassOf :InferredVariable ;
+	rdfs:label "Atmospheric chemistry"@en .
+# 
+# http://linked.earth/ontology#ClimateIndex
+
+:ClimateIndex a owl:Class ;
+	rdfs:subClassOf :InferredVariable ;
+	rdfs:label "Climate index"@en .
+# 
+# http://linked.earth/ontology#ElNinoIndex
+
+:ElNinoIndex a owl:Class ;
+	rdfs:subClassOf :ClimateIndex .
+# 
+# http://linked.earth/ontology#Hydrology
+
+:Hydrology a owl:Class ;
+	rdfs:subClassOf :InferredVariable ;
+	rdfs:label "Hydrology"@en .
+# 
+# http://linked.earth/ontology#InferredVariable
+
+:InferredVariable a owl:Class ;
+	rdfs:isDefinedBy <http://linked.earth/ontology/core/1.2.0> ;
+	rdfs:label "Inferred variable"@en .
+# 
+# http://linked.earth/ontology#IsotopicComposition
+
+:IsotopicComposition a owl:Class ;
+	rdfs:subClassOf _:genid1 .
+
+_:genid1 a owl:Class ;
+	owl:unionOf _:genid3 .
+
+_:genid3 a rdf:List ;
+	rdf:first :Hydrology ;
+	rdf:rest _:genid2 .
+
+_:genid2 a rdf:List ;
+	rdf:first :OceanChemistry ;
+	rdf:rest rdf:nil .
+
+:IsotopicComposition rdfs:label "Isotopic composition"@en .
+# 
+# http://linked.earth/ontology#OceanChemistry
+
+:OceanChemistry a owl:Class ;
+	rdfs:subClassOf :InferredVariable ;
+	rdfs:label "Ocean chemistry"@en .
+# 
+# http://linked.earth/ontology#Precipitation
+
+:Precipitation a owl:Class ;
+	rdfs:subClassOf :Hydrology ;
+	rdfs:label "Precipitation"@en .
+# 
+# http://linked.earth/ontology#Temperature
+
+:Temperature a owl:Class ;
+	rdfs:subClassOf :InferredVariable ;
+	rdfs:comment "Thermodynamic property allowing to quantitatively measure how warm or cold a material, fluid is."@en ;
+	rdfs:label "Temperature"@en .
+# 
+# http://linked.earth/ontology#Time
+
+:Time a owl:Class ;
+	rdfs:subClassOf :InferredVariable ;
+	rdfs:label "Time"@en .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# http://linked.earth/ontology#CarbonateIonConcentration
+
+:CarbonateIonConcentration a owl:NamedIndividual , :OceanChemistry ;
+	rdfs:label "Carbonate ion concentration"@en .
+# 
+# http://linked.earth/ontology#Nino1Plus2
+
+:Nino1Plus2 a owl:NamedIndividual , :ElNinoIndex ;
+	rdfs:label "Nino 1+2"@en .
+# 
+# http://linked.earth/ontology#age
+
+:age a owl:NamedIndividual , :Time ;
+	rdfs:comment "The age of a sample"@en ;
+	rdfs:label "Age"@en .
+# 
+# http://linked.earth/ontology#arcticOscillation
+
+:arcticOscillation a owl:NamedIndividual , :ClimateIndex ;
+	rdfs:label "Arctic Oscillation (AO, AAO)"@en .
+# 
+# http://linked.earth/ontology#atlanticMultiDecadalOscillation
+
+:atlanticMultiDecadalOscillation a owl:NamedIndividual , :ClimateIndex ;
+	rdfs:label "Atlantic Multi-decadal Oscillation (AMO)"@en .
+# 
+# http://linked.earth/ontology#bottomWaterTemperature
+
+:bottomWaterTemperature a owl:NamedIndividual , :Temperature ;
+	rdfs:label "Bottom water temperature"@en .
+# 
+# http://linked.earth/ontology#carbonDioxideConcentration
+
+:carbonDioxideConcentration a owl:NamedIndividual , :AtmosphericChemistry ;
+	rdfs:label "Carbon dioxide concentration"@en .
+# 
+# http://linked.earth/ontology#carbonateSaturation
+
+:carbonateSaturation a owl:NamedIndividual , :OceanChemistry ;
+	rdfs:label "Carbonate saturation"@en .
+# 
+# http://linked.earth/ontology#d180
+
+:d180 a owl:NamedIndividual , :IsotopicComposition ;
+	rdfs:label "d180"@en .
+# 
+# http://linked.earth/ontology#dD
+
+:dD a owl:NamedIndividual , :IsotopicComposition ;
+	rdfs:label "DD"@en .
+# 
+# http://linked.earth/ontology#deuteriumExcess
+
+:deuteriumExcess a owl:NamedIndividual , :IsotopicComposition ;
+	rdfs:label "Deuterium excess (excessD)"@en .
+# 
+# http://linked.earth/ontology#freeOxygenLevels
+
+:freeOxygenLevels a owl:NamedIndividual , :AtmosphericChemistry ;
+	rdfs:label "Free oxygen levels"@en .
+# 
+# http://linked.earth/ontology#julianDay
+
+:julianDay a owl:NamedIndividual , :Time ;
+	rdfs:label "Julian day"@en .
+# 
+# http://linked.earth/ontology#methaneConcentration
+
+:methaneConcentration a owl:NamedIndividual , :AtmosphericChemistry ;
+	rdfs:label "Methane concentration"@en .
+# 
+# http://linked.earth/ontology#moistureContent
+
+:moistureContent a owl:NamedIndividual , :Hydrology ;
+	rdfs:label "Moisture content"@en .
+# 
+# http://linked.earth/ontology#nino1
+
+:nino1 a owl:NamedIndividual , :ElNinoIndex ;
+	rdfs:label "Nino 1"@en .
+# 
+# http://linked.earth/ontology#nino2
+
+:nino2 a owl:NamedIndividual , :ElNinoIndex ;
+	rdfs:label "Nino 2"@en .
+# 
+# http://linked.earth/ontology#nino3
+
+:nino3 a owl:NamedIndividual , :ElNinoIndex ;
+	rdfs:label "Nino 3"@en .
+# 
+# http://linked.earth/ontology#nino3_4
+
+:nino3_4 a owl:NamedIndividual , :ElNinoIndex ;
+	rdfs:label "Nino 3.4"@en .
+# 
+# http://linked.earth/ontology#nino4
+
+:nino4 a owl:NamedIndividual , :ElNinoIndex ;
+	rdfs:label "Nino 4"@en .
+# 
+# http://linked.earth/ontology#nitrousOxideConcentration
+
+:nitrousOxideConcentration a owl:NamedIndividual , :AtmosphericChemistry ;
+	rdfs:label "Nitrous oxide concentration"@en .
+# 
+# http://linked.earth/ontology#northAtlanticOscillation
+
+:northAtlanticOscillation a owl:NamedIndividual , :ClimateIndex ;
+	rdfs:label "North Atlantic Oscillation (NAO)"@en .
+# 
+# http://linked.earth/ontology#oceanMixedLayerTemperature
+
+:oceanMixedLayerTemperature a owl:NamedIndividual , :Temperature ;
+	rdfs:label "Ocean mixed layer temperature"@en .
+# 
+# http://linked.earth/ontology#pH
+
+:pH a owl:NamedIndividual , :OceanChemistry ;
+	rdfs:label "PH"@en .
+# 
+# http://linked.earth/ontology#palmerDroughtIndex
+
+:palmerDroughtIndex a owl:NamedIndividual , :ClimateIndex ;
+	owl:sameAs :palmerDroughtSeverityIndex ;
+	rdfs:label "Palmer Drought Index"@en .
+# 
+# http://linked.earth/ontology#palmerDroughtSeverityIndex
+
+:palmerDroughtSeverityIndex a owl:NamedIndividual , :ClimateIndex , :Hydrology ;
+	rdfs:label "Palmer Drought Severity Index (PDSI)"@en .
+# 
+# http://linked.earth/ontology#precipitationAmount
+
+:precipitationAmount a owl:NamedIndividual , :Precipitation ;
+	rdfs:label "Precipitation amount"@en .
+# 
+# http://linked.earth/ontology#radiocarbonAge
+
+:radiocarbonAge a owl:NamedIndividual , :Time ;
+	rdfs:label "Radiocarbon age"@en .
+# 
+# http://linked.earth/ontology#salinity
+
+:salinity a owl:NamedIndividual , :OceanChemistry ;
+	rdfs:label "Salinity"@en .
+# 
+# http://linked.earth/ontology#seaSurfaceTemperature
+
+:seaSurfaceTemperature a owl:NamedIndividual , :Temperature ;
+	rdfs:comment "The temperature close to the ocean's surface"@en ;
+	rdfs:label "Sea surface temperature"@en .
+# 
+# http://linked.earth/ontology#southernAnnularMode
+
+:southernAnnularMode a owl:NamedIndividual , :ClimateIndex ;
+	rdfs:label "Southern Annular Mode (SAM)"@en .
+# 
+# http://linked.earth/ontology#southernOscillationIndex
+
+:southernOscillationIndex a owl:NamedIndividual , :ElNinoIndex ;
+	rdfs:label "Southern oscillation index (SOI)"@en .
+# 
+# http://linked.earth/ontology#surfaceAirTemperature
+
+:surfaceAirTemperature a owl:NamedIndividual , :Temperature ;
+	rdfs:label "Surface air temperature"@en .
+# 
+# http://linked.earth/ontology#temperature
+
+:temperature a owl:NamedIndividual , :Temperature ;
+	rdfs:comment "Thermodynamic property which quantifies how cold or warm an object, a fluid, or a substance is."@en ;
+	rdfs:label "Temperature"@en .
+# 
+# http://linked.earth/ontology#year
+
+:year a owl:NamedIndividual , :Time ;
+	rdfs:label "Year"@en .
+# 
+# Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

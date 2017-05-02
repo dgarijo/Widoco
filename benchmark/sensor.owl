@@ -1,0 +1,259 @@
+@prefix : <http://linked.earth/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://linked.earth/ontology#> .
+
+<http://linked.earth/ontology#> rdf:type owl:Ontology ;
+                                
+                                dcterms:license "http://creativecommons.org/licenses/by-nc-sa/2.0/" ;
+                                
+                                dcterms:title "The Proxy Sensor Ontology"@en ;
+                                
+                                vann:preferredNamespacePrefix "le" ;
+                                
+                                vann:preferredNamespaceUri "http://linked.earth/ontology#" ;
+                                
+                                owl:versionInfo "0.0.1"@en ;
+                                
+                                dcterms:creator <http://earth.usc.edu/~khider/> ;
+                                
+                                owl:versionIRI <http://linked.earth/ontology/sensor> ;
+                                
+                                dcterms:creator <http://orcid.org/0000-0001-5920-4751> ;
+                                
+                                dcterms:contributor <http://w3id.org/people/dgarijo> ;
+                                
+                                dcterms:creator <http://www.cefns.nau.edu/~npm4/> ;
+                                
+                                dcterms:contributor <http://www.isi.edu/~gil/> .
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://linked.earth/ontology#Archea
+
+:Archea rdf:type owl:Class ;
+        
+        rdfs:label "Archea"@en ;
+        
+        rdfs:subClassOf :OrganicSensor .
+
+
+
+###  http://linked.earth/ontology#Bivalves
+
+:Bivalves rdf:type owl:Class ;
+          
+          rdfs:label "Bivalves"@en ;
+          
+          rdfs:subClassOf :Mollusk .
+
+
+
+###  http://linked.earth/ontology#Chironomids
+
+:Chironomids rdf:type owl:Class ;
+             
+             rdfs:label "Chironomids"@en ;
+             
+             rdfs:subClassOf :OrganicSensor .
+
+
+
+###  http://linked.earth/ontology#Coccolithophores
+
+:Coccolithophores rdf:type owl:Class ;
+                  
+                  rdfs:label "Coccolithophores"@en ;
+                  
+                  rdfs:subClassOf :OrganicSensor .
+
+
+
+###  http://linked.earth/ontology#Foraminifera
+
+:Foraminifera rdf:type owl:Class ;
+              
+              rdfs:label "Foraminifera"@en ;
+              
+              rdfs:subClassOf :OrganicSensor ;
+              
+              rdfs:comment """Because of their population size, foraminifera produce a significant amount of oceanic carbonate, making them a valuable source of paleoceanographic information.
+
+The following parameters are used in paleoceanographic applications:
+
+* Faunal Assemblage
+* Geochemical measurements:
+**  Isotopes
+** Stable oxygen isotopes
+** Stable carbon isotopes
+** Radiocarbon
+* Trace Elements"""@en ;
+              
+              rdfs:isDefinedBy <http://wiki.linked.earth/Foraminifera> .
+
+
+
+###  http://linked.earth/ontology#Gastropods
+
+:Gastropods rdf:type owl:Class ;
+            
+            rdfs:label "Gastropods"@en ;
+            
+            rdfs:subClassOf :Mollusk .
+
+
+
+###  http://linked.earth/ontology#IceSheet
+
+:IceSheet rdf:type owl:Class ;
+          
+          rdfs:label "Ice sheet"@en ;
+          
+          rdfs:subClassOf :InorganicSensor .
+
+
+
+###  http://linked.earth/ontology#InorganicSensor
+
+:InorganicSensor rdf:type owl:Class ;
+                 
+                 rdfs:label "Inorganic sensor"@en ;
+                 
+                 rdfs:subClassOf :ProxySensor ;
+                 
+                 owl:disjointWith :OrganicSensor ;
+                 
+                 rdfs:comment "An inorganic sensor. Examples of inorganic sensors include: karst, snow, watershed, ice sheet, etc."@en .
+
+
+
+###  http://linked.earth/ontology#Karst
+
+:Karst rdf:type owl:Class ;
+       
+       rdfs:label "Karst"@en ;
+       
+       rdfs:subClassOf :InorganicSensor .
+
+
+
+###  http://linked.earth/ontology#Mollusk
+
+:Mollusk rdf:type owl:Class ;
+         
+         rdfs:label "Mollusk"@en ;
+         
+         rdfs:subClassOf :OrganicSensor .
+
+
+
+###  http://linked.earth/ontology#OrganicSensor
+
+:OrganicSensor rdf:type owl:Class ;
+               
+               rdfs:label "Organic sensor"@en ;
+               
+               rdfs:subClassOf :ProxySensor ;
+               
+               rdfs:comment "An organic sensor. Examples of organic sensors include: foraminifera, trees, mollusks, polyps, etc."@en .
+
+
+
+###  http://linked.earth/ontology#Ostracods
+
+:Ostracods rdf:type owl:Class ;
+           
+           rdfs:label "Ostracods"@en ;
+           
+           rdfs:subClassOf :Mollusk .
+
+
+
+###  http://linked.earth/ontology#Polyp
+
+:Polyp rdf:type owl:Class ;
+       
+       rdfs:label "Polyp"@en ;
+       
+       rdfs:subClassOf :OrganicSensor .
+
+
+
+###  http://linked.earth/ontology#ProxySensor
+
+:ProxySensor rdf:type owl:Class ;
+             
+             rdfs:label "Proxy sensor"@en ;
+             
+             rdfs:comment "The sensor comprises physical, chemical, and/or biological components that react to environmental conditions. Sensors often respond to more than one environmental variable, and may have complex responses to the environment they sense, including thresholds (record only part of the range of environmental conditions), seasonal biases (record environmental conditions over a few months of the year), and/or nonlinear responses (Evans et al. (2013))"@en ;
+             
+             rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> .
+
+
+
+###  http://linked.earth/ontology#Rock
+
+:Rock rdf:type owl:Class ;
+      
+      rdfs:label "Rock"@en ;
+      
+      rdfs:subClassOf :InorganicSensor .
+
+
+
+###  http://linked.earth/ontology#Snow
+
+:Snow rdf:type owl:Class ;
+      
+      rdfs:label "Snow"@en ;
+      
+      rdfs:subClassOf :InorganicSensor .
+
+
+
+###  http://linked.earth/ontology#Tree
+
+:Tree rdf:type owl:Class ;
+      
+      rdfs:label "Tree"@en ;
+      
+      rdfs:subClassOf :OrganicSensor ;
+      
+      rdfs:isDefinedBy <http://wiki.linked.earth/Tree> .
+
+
+
+###  http://linked.earth/ontology#Vegetation
+
+:Vegetation rdf:type owl:Class ;
+            
+            rdfs:label "Vegetation"@en ;
+            
+            rdfs:subClassOf :OrganicSensor .
+
+
+
+###  http://linked.earth/ontology#Watershed
+
+:Watershed rdf:type owl:Class ;
+           
+           rdfs:label "Watershed"@en ;
+           
+           rdfs:subClassOf :InorganicSensor .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+

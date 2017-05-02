@@ -85,7 +85,10 @@ public class CreateDocInThreadTest {
         System.out.println("Testing Ontology: BNE");
         try{
             String pathToOnto = "test\\bne.ttl";
+            c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
             fail("Error while running test "+e.getMessage());
@@ -100,7 +103,10 @@ public class CreateDocInThreadTest {
         System.out.println("Testing Ontology: coil.owl");
         try{
             String pathToOnto = "test\\coil.owl";
+            c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
             fail("Error while running test "+e.getMessage());
@@ -115,7 +121,10 @@ public class CreateDocInThreadTest {
         System.out.println("Testing Ontology: observation.owl");
         try{
             String pathToOnto = "test\\observation.owl";
+            c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
             fail("Error while running test "+e.getMessage());
@@ -130,7 +139,10 @@ public class CreateDocInThreadTest {
         System.out.println("Testing Ontology: otalex.owl");
         try{
             String pathToOnto = "test\\otalex.owl";
+            c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
             fail("Error while running test "+e.getMessage());
@@ -148,7 +160,10 @@ public class CreateDocInThreadTest {
         try{
             String pathToOnto = "http://www.w3.org/ns/prov-o";
             String aux = c.getTmpFile().getAbsolutePath()+File.separator+"auxOntology";
-            WidocoUtils.downloadOntology(pathToOnto, aux);
+            c.setFromFile(false);
+            this.c.setOntologyURI(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
             this.c.setOntologyPath(aux);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
@@ -165,7 +180,10 @@ public class CreateDocInThreadTest {
 //        System.out.println("Testing Ontology: IFC4_ADD1.ttl");
 //        try{
 //            String pathToOnto = "test\\IFC4_ADD1.ttl";
+//            c.setFromFile(true);
 //            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+//            WidocoUtils.loadModelToDocument(c);
 //            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
 //        }catch(Exception e){
 //            fail("Error while running test "+e.getMessage());
@@ -182,7 +200,10 @@ public class CreateDocInThreadTest {
         System.out.println("Testing Ontology: geolinkeddata.owl");
         try{
             String pathToOnto = "test\\geolinkeddata.owl";
+            c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
             fail("Error while running test "+e.getMessage());

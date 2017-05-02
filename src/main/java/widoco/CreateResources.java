@@ -30,6 +30,11 @@ import java.util.HashMap;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
+import org.semanticweb.owlapi.formats.N3DocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -103,23 +108,30 @@ public class CreateResources {
         DiagramGeneration.generateOntologyDiagram(folderOut, c);
     
         //serialize the model in different serializations.
-        HashMap<String,String> s = c.getMainOntology().getSerializations();
-        for(String serialization:s.keySet()){
-            OutputStream out = null;
-            String sValue = s.get(serialization);
-            if(sValue.startsWith("ontology")){
-                try {
-                    out = new FileOutputStream(folderOut+File.separator+sValue);
-                    c.getMainOntology().getMainModel().write(out,serialization);
-                    out.close();
-                } catch (Exception ex) {
-                    System.out.println("Error while writing the model to file "+ex.getMessage());
-                    if(out!=null){
-                        out.close();
-                    }
-                }
-            }
-        }
+        OWLOntologyManager om = c.getMainOntology().getOWLAPIOntologyManager();
+        OWLOntology o = c.getMainOntology().getOWLAPIModel();
+        WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut+File.separator+"ontology.xml");
+        WidocoUtils.writeModel(om, o, new TurtleDocumentFormat(), folderOut+File.separator+"ontology.ttl");
+        WidocoUtils.writeModel(om, o, new N3DocumentFormat(), folderOut+File.separator+"ontology.n3");
+        
+//        HashMap<String,String> s = c.getMainOntology().getSerializations();
+//        for(String serialization:s.keySet()){
+//            OutputStream out = null;
+//            String sValue = s.get(serialization);
+//            if(sValue.startsWith("ontology")){
+//                try {
+//                    out = new FileOutputStream(folderOut+File.separator+sValue);
+//                    //c.getMainOntology().getMainModel().write(out,serialization);
+//                    c.getMainOntology().getOWLAPIOntologyManager().saveOntology(c.getMainOntology().getOWLAPIModel(), owldf, out);
+//                    out.close();
+//                } catch (Exception ex) {
+//                    System.out.println("Error while writing the model to file "+ex.getMessage());
+//                    if(out!=null){
+//                        out.close();
+//                    }
+//                }
+//            }
+//        }
         if(c.isIncludeIndex()){
             createIndexDocument(folderOut,c, lode, languageFile);
         }
@@ -175,7 +187,7 @@ public class CreateResources {
             System.out.println("Attempting to generate an automated changelog\nDownloading old ontology "+c.getMainOntology().getPreviousVersion());
             String oldVersionPath = c.getTmpFile().getAbsolutePath()+File.separator+"OLDOntology";
             WidocoUtils.downloadOntology(c.getMainOntology().getPreviousVersion(), oldVersionPath);
-            CompareOntologies comparison = new CompareOntologies(oldVersionPath, c.getOntologyPath());
+            CompareOntologies comparison = new CompareOntologies(oldVersionPath, c);
             saveDocument(path+File.separator+"changelog-"+c.getCurrentLanguage()+".html", Constants.getChangeLogSection(c, comparison, lang),c);
             System.out.println("Changelog successfully created");
         }catch(Exception e){

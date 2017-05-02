@@ -1,0 +1,214 @@
+@prefix : <http://linked.earth/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://linked.earth/ontology#> a owl:Ontology ;
+	owl:versionIRI <http://linked.earth/ontology/instrument/1.0.0> ;
+	dcterms:creator <http://earth.usc.edu/~khider/> ;
+	dcterms:contributor <http://w3id.org/people/dgarijo> ;
+	dcterms:creator <http://www.cefns.nau.edu/~npm4/> ;
+	owl:versionInfo "1.0.0"@en ;
+	dcterms:title "The Linked Earth Instrument Ontology"@en ;
+	vann:preferredNamespacePrefix "le" ;
+	dcterms:contributor <http://www.isi.edu/~gil/> ;
+	dcterms:creator <http://orcid.org/0000-0001-5920-4751> ;
+	vann:preferredNamespaceUri "http://linked.earth/ontology#" ;
+	dcterms:license <http://creativecommons.org/licenses/by/2.0/> .
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://linked.earth/ontology#AcceleratorMassSpectrometer
+
+:AcceleratorMassSpectrometer a owl:Class ;
+	rdfs:subClassOf :MassSpectrometer ;
+	rdfs:label "Accelerator mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#AcceleratorMassSpectrometerInstrument
+
+:AcceleratorMassSpectrometerInstrument a owl:Class ;
+	rdfs:subClassOf :AcceleratorMassSpectrometer ;
+	rdfs:label "Accelerator mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#BinocularMicroscope
+
+:BinocularMicroscope a owl:Class ;
+	rdfs:subClassOf :Microscope ;
+	rdfs:label "Binocular microscope"@en .
+# 
+# http://linked.earth/ontology#CFAMS
+
+:CFAMS a owl:Class ;
+	rdfs:subClassOf :AcceleratorMassSpectrometer ;
+	rdfs:label "Continuous-flow AMS system"@en .
+# 
+# http://linked.earth/ontology#CRDS
+
+:CRDS a owl:Class ;
+	rdfs:subClassOf :Spectroscope ;
+	rdfs:label "Cavity Ring-Down Spectroscopy"@en .
+# 
+# http://linked.earth/ontology#EnergyDispersiveSpectrometer
+
+:EnergyDispersiveSpectrometer a owl:Class ;
+	rdfs:subClassOf :Spectrometer ;
+	rdfs:label "Energy dispersive spectrometer"@en .
+# 
+# http://linked.earth/ontology#GC-IR-MS
+
+:GC-IR-MS a owl:Class ;
+	rdfs:subClassOf :GasChromatographyMassSpectrometer ;
+	rdfs:label "Gas Chromatography - Isotope ratio -Mass Spectrometer"@en .
+# 
+# http://linked.earth/ontology#GCMS
+
+:GCMS a owl:Class ;
+	rdfs:subClassOf :GasChromatographyMassSpectrometer ;
+	rdfs:label "Gas chromatography mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#GasChromatograph
+
+:GasChromatograph a owl:Class ;
+	rdfs:subClassOf :Instrument ;
+	rdfs:label "Gas chromatograph"@en .
+# 
+# http://linked.earth/ontology#GasChromatographyMassSpectrometer
+
+:GasChromatographyMassSpectrometer a owl:Class ;
+	rdfs:subClassOf :MassSpectrometer ;
+	rdfs:label "Gas chromatography - mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#ICP-AES
+
+:ICP-AES a owl:Class ;
+	owl:equivalentClass :ICP-OES ;
+	rdfs:subClassOf :Spectroscope ;
+	rdfs:comment "Inductively coupled plasma atomic emission spectroscopy (ICP-AES), also referred to as inductively coupled plasma optical emission spectrometry (ICP-OES), is an analytical technique used for the detection of trace metals."@en ;
+	rdfs:label "Inductively coupled plasma atomic emission spectroscope"@en .
+# 
+# http://linked.earth/ontology#ICP-MS
+
+:ICP-MS a owl:Class ;
+	rdfs:subClassOf :IsotopeRatioMassSpectrometer ;
+	rdfs:label "Inductively coupled plasma mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#ICP-OES
+
+:ICP-OES a owl:Class ;
+	rdfs:subClassOf :Spectroscope ;
+	rdfs:label "Inductively coupled plasma optical emission spectrometry"@en .
+# 
+# http://linked.earth/ontology#IRMS
+
+:IRMS a owl:Class ;
+	rdfs:subClassOf :IsotopeRatioMassSpectrometer ;
+	rdfs:comment "An <b>isotope-ration mass spectrometer</b> measures the relative abundance of isotopes in a given sample."@en ;
+	rdfs:label "Isotope ratio mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#Instrument
+
+:Instrument a owl:Class ;
+	rdfs:isDefinedBy <http://linked.earth/ontology/core/1.2.0> ;
+	rdfs:label "Instrument"@en .
+# 
+# http://linked.earth/ontology#IsotopeRatioMassSpectrometer
+
+:IsotopeRatioMassSpectrometer a owl:Class ;
+	rdfs:subClassOf :MassSpectrometer ;
+	rdfs:label "Isotope ratio mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#LA-ICP-MS
+
+:LA-ICP-MS a owl:Class ;
+	rdfs:subClassOf :IsotopeRatioMassSpectrometer ;
+	rdfs:label "Laser-ablation (LA) Inductively coupled plasma mass spectrometry (ICP-MS)"@en .
+# 
+# http://linked.earth/ontology#MC-ICP-MS
+
+:MC-ICP-MS a owl:Class ;
+	rdfs:subClassOf :IsotopeRatioMassSpectrometer ;
+	rdfs:label "Multi-collector (MC) Inductively coupled plasma mass spectrometry (ICPMS)"@en .
+# 
+# http://linked.earth/ontology#MassSpectrometer
+
+:MassSpectrometer a owl:Class ;
+	rdfs:subClassOf :Spectrometer ;
+	rdfs:label "Mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#MassSpectrometerInstrument
+
+:MassSpectrometerInstrument a owl:Class ;
+	rdfs:subClassOf :MassSpectrometer ;
+	rdfs:label "Mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#Microscope
+
+:Microscope a owl:Class ;
+	rdfs:subClassOf :Instrument ;
+	rdfs:label "Microscope"@en .
+# 
+# http://linked.earth/ontology#NOSAMSTandetron
+
+:NOSAMSTandetron a owl:Class ;
+	rdfs:subClassOf :AcceleratorMassSpectrometer ;
+	rdfs:label "NOSAMS tandetron"@en .
+# 
+# http://linked.earth/ontology#RockHammer
+
+:RockHammer a owl:Class ;
+	rdfs:subClassOf :Instrument ;
+	rdfs:label "Rock hammer"@en .
+# 
+# http://linked.earth/ontology#SHRIMP
+
+:SHRIMP a owl:Class ;
+	rdfs:subClassOf :SecondaryIonMassSpectrometer ;
+	rdfs:label "Sensitive high-resolution ion microprobe"@en .
+# 
+# http://linked.earth/ontology#SIMS
+
+:SIMS a owl:Class ;
+	rdfs:subClassOf :SecondaryIonMassSpectrometer ;
+	rdfs:label "Secondary ion mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#SecondaryIonMassSpectrometer
+
+:SecondaryIonMassSpectrometer a owl:Class ;
+	rdfs:subClassOf :MassSpectrometer ;
+	rdfs:label "Secondary ion mass spectrometer"@en .
+# 
+# http://linked.earth/ontology#Spectrometer
+
+:Spectrometer a owl:Class ;
+	rdfs:subClassOf :Instrument ;
+	rdfs:label "Spectrometer"@en .
+# 
+# http://linked.earth/ontology#Spectroscope
+
+:Spectroscope a owl:Class ;
+	rdfs:subClassOf :Instrument ;
+	rdfs:label "Spectroscope"@en .
+# 
+# http://linked.earth/ontology#WavelengthDispersiveSpectrometer
+
+:WavelengthDispersiveSpectrometer a owl:Class ;
+	rdfs:subClassOf :Spectrometer ;
+	rdfs:label "Wavelength dispersive spectrometry"@en .
+# 
+# http://linked.earth/ontology#ZeissPetrographicMicroscope
+
+:ZeissPetrographicMicroscope a owl:Class ;
+	rdfs:subClassOf :Microscope ;
+	rdfs:label "Zeiss petrographic microscope"@en .
+# 
+# Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi
