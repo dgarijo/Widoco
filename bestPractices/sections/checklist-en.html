@@ -44,7 +44,12 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespaceURI</a></li>
 </ul>
 
+<h4>Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone referring to it in the same way.</p>
 
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespacePrefix</a></li>
+</ul>
 
 <h3 id="goals" class="list">Vocabulary goals and description</h3>
 <p>Once your vocabulary can be properly identified, it is important to describe what it does without forcing users to explore it thoroughly. For this purpose, the following properties are recommended:</p>
@@ -73,12 +78,7 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 <li><a target="_blank" href="http://purl.org/dc/terms/abstract">dcterms:abstract</a></li>
 </ul>
 
-<h4>Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
-<p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone referring to it in the same way.</p>
 
-<ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespacePrefix</a></li>
-</ul>
 
 <h4>Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
@@ -109,16 +109,25 @@ It is important to provide details about the version being handled. For example,
 <h3 id="prov" class="list">Vocabulary provenance</h3>
 backwardCompatibility, replaces, source, etc.
 
+
 all the dates come here: created, modified, issued, 
+
+isDefinedBy (para cuando reutilizas)
+
+seeAlso?
 
 <h3 id="cite" class="list">Vocabulary citation</h3>
 DOI, cite as, bibliographicCitation
 
 <h3 id="credit" class="list">Vocabulary attribution</h3>
 creator, contributor, curator.
+publisher?
 
 <h3 id="credit" class="list">Vocabulary license</h3>
 license, rights.
+
+from licensius (in oops documentation, I don't know whether it has evolved)
+dc:rights, dcterms:rights, dcterms:license,  cc:license or xhv:license
 
 <h3 id="image" class="list">Vocabulary images</h3>
 foaf:logo, schema:logo, etc.
@@ -133,12 +142,22 @@ These terms should appear for every class and property:
 
 <h3 id="label" class="list">Term readable label</h3>
 
+rdfs:label, skos:prefLabel, skos:altLabel
+
 <h3 id="def" class="list">Term definition</h3>
+
+rdfs:comment, skos:definition
 
 <h3 id="example" class="list">Term example</h3>
 
 <h3 id="status" class="list">Term status</h3>
 
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="TO DO">sw:term_status</a></li>
+</ul>
+
 <h3 id="rationale" class="list">Term rationale</h3>
 
 <h3 id="source" class="list">Term source</h3>
+
+rdfs:isDefinedby ?
