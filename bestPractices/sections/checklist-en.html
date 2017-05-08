@@ -104,24 +104,26 @@ It is important to provide details about the version being handled. For example,
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionInfo">owl:versionInfo</a></li>
 </ul>
 
-
+TO ADD: 
+schema:schemaVersion, pav: hasEarlierVersion, pav:previousVersion
 
 <h3 id="prov" class="list">Vocabulary provenance</h3>
-backwardCompatibility, replaces, source, etc.
+owl:backwardCompatibility, dc:replaces, dc:source, owl:priorVersion, prov:wasRevisionOf, owl:incompatibleWith
 
 
-all the dates come here: created, modified, issued, 
+all the dates come here: dc:created, dc:modified, dc:issued, schema:dateCrated, schema:dateModified, prov:generatedAtTime, pav:createdOn
 
-isDefinedBy (para cuando reutilizas)
-
-seeAlso?
+isDefinedBy (para cuando reutilizas). Esto se usa mas a nivel de termino, no de vocabulario. Pero la podemos dejar
 
 <h3 id="cite" class="list">Vocabulary citation</h3>
-DOI, cite as, bibliographicCitation
+bibo:doi, dc:bibliographicCitation, schema:citation
 
 <h3 id="credit" class="list">Vocabulary attribution</h3>
-creator, contributor, curator.
-publisher?
+dc:creator, dc:contributor, pav:curator, prov:wasAttributedTo, pav:createdBy, 
+
+schema:publisher, dc:publisher
+
+(some from dcterms might be missing)
 
 <h3 id="credit" class="list">Vocabulary license</h3>
 license, rights.
@@ -129,20 +131,22 @@ license, rights.
 from licensius (in oops documentation, I don't know whether it has evolved)
 dc:rights, dcterms:rights, dcterms:license,  cc:license or xhv:license
 
+See https://www.w3.org/Submission/ccREL/
+
 <h3 id="image" class="list">Vocabulary images</h3>
 foaf:logo, schema:logo, etc.
 
 foaf:diagram -> if you want certain diagrams to be included in your ontology.
 
 <h3 id="similar" class="list">Similar resources</h3>
-foaf:logo, schema:logo, etc.
+rdfs:seeAlso
 
 <h2 id="desc-term" class="list">Term checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 These terms should appear for every class and property:
 
 <h3 id="label" class="list">Term readable label</h3>
 
-rdfs:label, skos:prefLabel, skos:altLabel
+rdfs:label, skos:prefLabel, obo:IAO_0000118  skos:altLabel --> PrefLabel Ok, altLabel I don't think it's appropriate, they are alternatives. We want people to give one label.
 
 <h3 id="def" class="list">Term definition</h3>
 
@@ -150,7 +154,15 @@ rdfs:comment, skos:definition
 
 <h3 id="example" class="list">Term example</h3>
 
+vann:example, skos:example
+
 <h3 id="status" class="list">Term status</h3>
+
+owl:deprecated 
+
+http://www.w3.org/2003/06/sw-vocab-status/ns#term_status 
+
+IAO_0000114 (hasCurationStatus. Uses values from http://purl.obolibrary.org/obo/IAO_0000078)
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="TO DO">sw:term_status</a></li>
@@ -158,6 +170,8 @@ rdfs:comment, skos:definition
 
 <h3 id="rationale" class="list">Term rationale</h3>
 
+vaem:rationale
+
 <h3 id="source" class="list">Term source</h3>
 
-rdfs:isDefinedby ?
+rdfs:isDefinedby, dcterms:source 
