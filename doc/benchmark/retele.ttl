@@ -1,0 +1,225 @@
+@prefix :        <http://linguistic.linkeddata.es/def/retele-share#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:     <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/net/def/metashare#accessTool>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#documentation>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#languageVarietyInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageInfo> .
+
+<http://purl.org/net/def/metashare#LanguageInfo>
+      a       owl:Class ;
+      rdfs:comment "Groups information on the languages represented in the resource"@en .
+
+<http://purl.org/net/def/metashare#samplesLocation>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://linguistic.linkeddata.es/def/retele-share>
+      a       owl:Ontology .
+
+<http://purl.org/net/def/metashare#updateFrequency>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#Organization>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#metadataSource>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#LanguageDescription>
+      a       owl:Class ;
+      rdfs:subClassOf <http://purl.org/net/def/metashare#LanguageResource> ;
+      owl:equivalentClass
+              [ a       owl:Restriction ;
+                owl:onProperty <http://purl.org/net/def/metashare#languageDescriptionInfo> ;
+                owl:someValuesFrom <http://purl.org/net/def/metashare#LanguageDescriptionInfo>
+              ] .
+
+<http://purl.org/net/def/metashare#Person>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#LexicalConceptualResource>
+      a       owl:Class ;
+      rdfs:subClassOf <http://purl.org/net/def/metashare#LanguageResource> ;
+      owl:equivalentClass
+              [ a       owl:Restriction ;
+                owl:onProperty <http://purl.org/net/def/metashare#lexicalConceptualResourceInfo> ;
+                owl:someValuesFrom <http://purl.org/net/def/metashare#LexicalConceptualResourceInfo>
+              ] .
+
+<http://purl.org/net/def/metashare#LanguageDescriptionInfo>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#relationInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#resourceShortName>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#CorpusInfo>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#lexicalConceptualResourceInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#resourceAssociatedWith>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#creationStartDate>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#ToolServiceInfo>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#LanguageResource>
+      a       owl:Class ;
+      rdfs:label "recurso lingüístico"@es ;
+      owl:equivalentClass <http://www.w3.org/ns/dcat#Dataset> .
+
+<http://purl.org/net/def/metashare#metaShareId>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://www.w3.org/ns/dcat#Dataset>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#languageInfo>
+      a       owl:ObjectProperty ;
+      rdfs:range
+              [ a       owl:Class ;
+                owl:unionOf (<http://purl.org/net/def/metashare#LanguageInfo>)
+              ] .
+
+<http://purl.org/net/def/metashare#languageDescriptionInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#distributionAccessMedium>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#revision>
+      a       owl:DatatypeProperty ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (<http://purl.org/net/def/metashare#LanguageResource> <http://purl.org/net/def/metashare#MetadataInfo>)
+              ] .
+
+<http://purl.org/net/def/metashare#toolServiceInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#LexicalConceptualResourceInfo>
+      a       owl:Class .
+
+:ISLRN
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> ;
+      rdfs:range rdfs:Literal .
+
+<http://purl.org/net/def/metashare#url>
+      a       owl:DatatypeProperty ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (<http://purl.org/net/def/metashare#LanguageResource> <http://purl.org/net/def/metashare#Organization> <http://purl.org/net/def/metashare#Person> <http://purl.org/net/def/metashare#Project>)
+              ] .
+
+<http://purl.org/net/def/metashare#languageName>
+      a       owl:DatatypeProperty ;
+      rdfs:comment "A human understandable name of the language that is used in the resource or supported by the tool/service; an autocompletion mechanism with values from the ISO 639 is provided in the editor, but the values can be subsequently edited for further specification (according to the IETF BCP47 guidelines)"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (<http://purl.org/net/def/metashare#DocumentInfo> <http://purl.org/net/def/metashare#InputInfo> <http://purl.org/net/def/metashare#LanguageInfo> <http://purl.org/net/def/metashare#MetadataInfo> <http://purl.org/net/def/metashare#OutputInfo>)
+              ] ;
+      rdfs:range xsd:string .
+
+<http://purl.org/net/def/metashare#InputInfo>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#MetadataInfo>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#languageScript>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageInfo> .
+
+<http://purl.org/net/def/metashare#Corpus>
+      a       owl:Class ;
+      rdfs:subClassOf <http://purl.org/net/def/metashare#LanguageResource> ;
+      owl:equivalentClass
+              [ a       owl:Restriction ;
+                owl:onProperty <http://purl.org/net/def/metashare#corpusInfo> ;
+                owl:someValuesFrom <http://purl.org/net/def/metashare#CorpusInfo>
+              ] .
+
+<http://purl.org/net/def/metashare#actualUseInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#ToolService>
+      a       owl:Class ;
+      rdfs:subClassOf <http://purl.org/net/def/metashare#LanguageResource> ;
+      owl:equivalentClass
+              [ a       owl:Restriction ;
+                owl:onProperty <http://purl.org/net/def/metashare#toolServiceInfo> ;
+                owl:someValuesFrom <http://purl.org/net/def/metashare#ToolServiceInfo>
+              ] .
+
+<http://purl.org/net/def/metashare#fundingProject>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#corpusInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#Project>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#OutputInfo>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#validationInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#sizePerLanguage>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageInfo> .
+
+<http://purl.org/net/def/metashare#foreseenUseInfo>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#userManual>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#toolDocumentationType>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .
+
+<http://purl.org/net/def/metashare#DocumentInfo>
+      a       owl:Class .
+
+<http://purl.org/net/def/metashare#creationEndDate>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://purl.org/net/def/metashare#LanguageResource> .

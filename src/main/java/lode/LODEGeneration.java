@@ -36,15 +36,13 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.FileDocumentSource;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import widoco.Configuration;
@@ -64,27 +62,43 @@ public class LODEGeneration {
                     lang = "en";
             }
             //we have stored the ontology locally
-            content = parseWithOWLAPI(c.getOntologyPath(), c.isUseImported());
+            content = parseImports(c.isUseImported(), c.getMainOntology().getOWLAPIOntologyManager(), c.getMainOntology().getOWLAPIModel());
             content = applyXSLTTransformation(content, c.getOntologyURI(), lang, lodeResources);
             return(content);
         }
-        catch (Exception e) {
+        catch (OWLOntologyCreationException e) {
+            System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
+            throw e;
+        } catch (OWLOntologyStorageException e) {
+            System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
+            throw e;
+        } catch (URISyntaxException e) {
+            System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
+            throw e;
+        } catch (TransformerException e) {
+            System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
+            throw e;
+        } catch (UnsupportedEncodingException e) {
             System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
             throw e;
         } 
     }
-	
-	private static String parseWithOWLAPI(
-			String ontologyURL,
-                        boolean considerImportedOntologies) 
+	/**
+         * Method that uses the loaded ontology and parses it in case there are imports that have not been considered
+         * @param considerImportedOntologies
+         * @param manager
+         * @param ontology
+         * @return
+         * @throws OWLOntologyCreationException
+         * @throws OWLOntologyStorageException
+         * @throws URISyntaxException 
+         */
+	private static String parseImports(
+                        boolean considerImportedOntologies, 
+                        OWLOntologyManager manager,
+                        OWLOntology ontology) 
 	throws OWLOntologyCreationException, OWLOntologyStorageException, URISyntaxException {
             String result = "";
-            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
-            loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
-            OWLOntology ontology;
-//            ontology = manager.loadOntologyFromOntologyDocument(new OWLOntologyDocumentSource, config)
-            ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(ontologyURL)),loadingConfig);
             if (considerImportedOntologies) {
                 //considerImportedClosure || //<- removed for the moment
                 Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();
@@ -96,9 +110,8 @@ public class LODEGeneration {
                         manager.addAxioms(ontology, importedOntology.getAxioms());
                 }
             }
-
             OWLOntologyDocumentTarget parsedOntology = new StringDocumentTarget();
-            manager.saveOntology(ontology, new RDFXMLOntologyFormat(), parsedOntology);
+            manager.saveOntology(ontology,new RDFXMLDocumentFormat(), parsedOntology);//new RDFXMLOntologyFormat()
             result = parsedOntology.toString();
 //		}
 

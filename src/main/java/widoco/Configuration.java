@@ -351,6 +351,9 @@ public class Configuration {
         }
     }
     
+    //EntitySearcher.getAnnotations
+    //Note: to load Main onto URI, I should list classes, props and dataprops and get the most common URI
+    //(IF the main URI is not known). Then, I should use the entity searcher for the rest.
     public void loadPropertiesFromOntology(OntModel m){
         //maybe there are some properties regarding the version of the uri that I am missing...
         if(m == null){

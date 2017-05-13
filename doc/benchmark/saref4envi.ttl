@@ -1,0 +1,957 @@
+@prefix : <https://w3id.org/def/saref4envi#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix saref: <https://w3id.org/saref#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <https://w3id.org/def/saref4envi> .
+
+<https://w3id.org/def/saref4envi> rdf:type owl:Ontology ;
+                                   owl:versionIRI <https://w3id.org/def/v1/saref4envi> ;
+                                   dcterms:creator <http://purl.org/net/mpoveda> ;
+                                   vann:preferredNamespaceUri "https://w3id.org/def/saref4envi#" ;
+                                   rdfs:comment "This ontology extends the SAREF ontology for the environment domain, specifically for the light pollution domain, including concepts like photometers, light, etc."@en ;
+                                   dc:title "SAREF extension for environment"@en ;
+                                   dcterms:creator <http://www.garcia-castro.com/foaf.rdf#me> ;
+                                   vann:preferredNamespacePrefix "s4envi" ;
+                                   dcterms:license <http://purl.org/NET/rdflicense/cc-by4.0> ;
+                                   owl:versionInfo "1.0" ;
+                                   dc:publisher <http://www.oeg-upm.net/> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#location
+geo:location rdf:type owl:ObjectProperty ;
+             rdfs:comment "The relation between something and the point,  or other geometrical thing in space, where it is.  For example, the realtionship between a radio tower and a Point with a given lat and long. Or a relationship between a park and its outline as a closed arc of points, or a road and its location as a arc (a sequence of points). Clearly in practice there will be limit to the accuracy of any such statement, but one would expect an accuracy appropriate for the size of the object and uses such as mapping ."@en ;
+             rdfs:isDefinedBy geo: ;
+             rdfs:label "location"@en .
+
+
+###  https://w3id.org/def/saref4envi#affectsProperty
+:affectsProperty rdf:type owl:ObjectProperty ;
+                 rdfs:comment "A relation between an actuator with the property or properties it can act on"@en ;
+                 rdfs:label "affects property"@en .
+
+
+###  https://w3id.org/def/saref4envi#contains
+:contains rdf:type owl:ObjectProperty ;
+          owl:inverseOf :isContainedIn ;
+          rdfs:comment "A relation between a physical object and the physical objects that can be contained in it."@en ;
+          rdfs:label "contains"@en .
+
+
+###  https://w3id.org/def/saref4envi#encapsulates
+:encapsulates rdf:type owl:ObjectProperty ;
+              owl:inverseOf :hasDigitalRepresentation ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:comment "A relation between a digital representation and the physical objects it represents."@en ;
+              rdfs:label "encapsulates"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasColor
+:hasColor rdf:type owl:ObjectProperty ;
+          rdfs:comment "A relation between a light emitted and its color."@en ;
+          rdfs:label "has color"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasComponent
+:hasComponent rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isComponentOf ;
+              rdf:type owl:TransitiveProperty ;
+              rdfs:comment "A relation between a system and the system in which it might be decomposed."@en ;
+              rdfs:label "has component"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasDigitalRepresentation
+:hasDigitalRepresentation rdf:type owl:ObjectProperty ,
+                                   owl:InverseFunctionalProperty ;
+                          rdfs:comment "A relation between a physical object and the digital representation in which it is encapsulated."@en ;
+                          rdfs:label "has digital representation"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasFrequencyMeasurement
+:hasFrequencyMeasurement rdf:type owl:ObjectProperty ;
+                         rdfs:comment "The relation between a device and the frequency in which it makes measurements."@en ;
+                         rdfs:label "has frequency measurement"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasGeometry
+:hasGeometry rdf:type owl:ObjectProperty ;
+             rdfs:comment "A relation between a light emitted and the shape it is projected in."@en ;
+             rdfs:label "has geometry"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasLightPoint
+:hasLightPoint rdf:type owl:ObjectProperty ;
+               rdfs:comment "A relation between a lamppost and its light points"@en ;
+               rdfs:label "has light point"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasTransmissionPeriod
+:hasTransmissionPeriod rdf:type owl:ObjectProperty ;
+                       rdfs:comment "The relation between a device and the period in which it transmit information."@en ;
+                       rdfs:label "has transmission period"@en .
+
+
+###  https://w3id.org/def/saref4envi#isAccesibleThrough
+:isAccesibleThrough rdf:type owl:ObjectProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:comment "The relation between a digital representation and the service which it is accesible through."@en ;
+                    rdfs:label "is accesible through"@en .
+
+
+###  https://w3id.org/def/saref4envi#isComponentOf
+:isComponentOf rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty ;
+               rdfs:comment "A relation between a system and the system it belongs to as a component."@en ;
+               rdfs:label "is component of"@en .
+
+
+###  https://w3id.org/def/saref4envi#isConnectedTo
+:isConnectedTo rdf:type owl:ObjectProperty ,
+                        owl:SymmetricProperty ;
+               rdfs:comment "A relation between a system and the system to which it is connected."@en ;
+               rdfs:label "is connected to"@en .
+
+
+###  https://w3id.org/def/saref4envi#isContainedIn
+:isContainedIn rdf:type owl:ObjectProperty ;
+               rdfs:comment "A relation between a physical object and the physical object in which it might be contained."@en ;
+               rdfs:label "is contained in"@en .
+
+
+###  https://w3id.org/def/saref4envi#isProjectedFromHeight
+:isProjectedFromHeight rdf:type owl:ObjectProperty ;
+                       rdfs:comment "A relation between a light and the height measurement from which it is projected."@en ;
+                       rdfs:label "is projected from height"@en .
+
+
+###  https://w3id.org/def/saref4envi#isProjectedInDirection
+:isProjectedInDirection rdf:type owl:ObjectProperty ;
+                        rdfs:comment "A relation between a light and the direction in which it is projected."@en ;
+                        rdfs:label "is projected in direction"@en .
+
+
+###  https://w3id.org/def/saref4envi#projectsLight
+:projectsLight rdf:type owl:ObjectProperty ;
+               rdfs:comment "A relation between a lamppost or a light point and the light (or lights) they might project."@en ;
+               rdfs:label "projects light"@en .
+
+
+###  https://w3id.org/def/saref4envi#usesCommunicationInterface
+:usesCommunicationInterface rdf:type owl:ObjectProperty ;
+                            rdfs:comment "A relation between a system and the communication interface it uses."@en ;
+                            rdfs:label "uses communication interface"@en .
+
+
+###  https://w3id.org/def/saref4envi#usesCommunicationProtocol
+:usesCommunicationProtocol rdf:type owl:ObjectProperty ;
+                           rdfs:comment "A relation between a system and the communication protocol it uses."@en ;
+                           rdfs:label "uses communication protocol"@en .
+
+
+###  https://w3id.org/saref#isMeasuredIn
+saref:isMeasuredIn rdf:type owl:ObjectProperty ;
+                   rdfs:comment "A relation between a measurement and the unit of measure in which the measurement value is expressed."@en ,
+                                "is measured in"@en ;
+                   rdfs:isDefinedBy "https://w3id.org/saref#" .
+
+
+###  https://w3id.org/saref#makesMeasurement
+saref:makesMeasurement rdf:type owl:ObjectProperty ;
+                       rdfs:comment "A relation between a sensor and the measurements it makes. Such measurement will link together the valur of the measurement, its unit of measure and the property to which it relates."@en ;
+                       rdfs:isDefinedBy "https://w3id.org/saref#" ;
+                       rdfs:label "makes measurement"@en .
+
+
+###  https://w3id.org/saref#measuresProperty
+saref:measuresProperty rdf:type owl:ObjectProperty ;
+                       rdfs:comment "A relation between a sensor and the property o properties it can take measurement about."@en ;
+                       rdfs:isDefinedBy "https://w3id.org/saref#" ;
+                       rdfs:label "measures property"@en .
+
+
+###  https://w3id.org/saref#relatesToProperty
+saref:relatesToProperty rdf:type owl:ObjectProperty ;
+                        rdfs:comment "A relation between a measurement and the property such measurement is about."@en ;
+                        rdfs:isDefinedBy "https://w3id.org/saref#" ;
+                        rdfs:label "relates to property"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://w3id.org/def/saref4envi#hasCreationDate
+:hasCreationDate rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:range xsd:dateTime ;
+                 rdfs:comment "A relationship defining the creation date of an entity (e.g., a digital representation)."@en ;
+                 rdfs:label "has creation date"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasFlash
+:hasFlash rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:range xsd:boolean ;
+          rdfs:comment "A relationship stating whether a light has flash."@en ;
+          rdfs:label "has flash"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasIdentifier
+:hasIdentifier rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:string ;
+               rdfs:comment "A relationship providing the identifier of an entity (e.g., digital representation)"@en ;
+               rdfs:label "has identifier"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasProjectionAngle
+:hasProjectionAngle rdf:type owl:DatatypeProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:range xsd:float ;
+                    rdfs:comment "A relationship defining the projection angle of an entity (e.g., a light)."@en ;
+                    rdfs:label "has projection angle"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasRevisionNumber
+:hasRevisionNumber rdf:type owl:DatatypeProperty ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "A relationship defining the revision number of a certain entity (e.g., a device)"@en ;
+                   rdfs:label "has revision number"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasShield
+:hasShield rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:range xsd:boolean ;
+           rdfs:comment "A relationship stating whether a lamppost has a shield."@en ;
+           rdfs:label "has shield"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasTag
+:hasTag rdf:type owl:DatatypeProperty ;
+        rdfs:range xsd:string ;
+        rdfs:comment "A relationship stating the tags that can be assigned to an entity (e.g., a digital representation)."@en ;
+        rdfs:label "has tag"@en .
+
+
+###  https://w3id.org/def/saref4envi#hasVersion
+:hasVersion rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:range xsd:string ;
+            rdfs:comment "A relationship defining the version  of a certain entity (e.g., a device)"@en ;
+            rdfs:label "has version"@en .
+
+
+###  https://w3id.org/saref#hasDescription
+saref:hasDescription rdf:type owl:DatatypeProperty ;
+                     rdfs:comment "A relationship providing a description of an entity (e.g., device)"@en ;
+                     rdfs:isDefinedBy saref: ;
+                     rdfs:label "has description"@en .
+
+
+###  https://w3id.org/saref#hasManufacturer
+saref:hasManufacturer rdf:type owl:DatatypeProperty ;
+                      rdfs:comment "A relationship identifying the manufacturer of an entity (e.g., device)"@en ;
+                      rdfs:isDefinedBy saref: ;
+                      rdfs:label "has manufacturer"@en .
+
+
+###  https://w3id.org/saref#hasName
+saref:hasName rdf:type owl:DatatypeProperty ;
+              rdfs:comment "A relationship providing the name of an entity (e.g., device)"@en ;
+              rdfs:isDefinedBy saref: ;
+              rdfs:label "has name"@en .
+
+
+###  https://w3id.org/saref#hasTimestamp
+saref:hasTimestamp rdf:type owl:DatatypeProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:range xsd:dateTime ;
+                   rdfs:comment "A relationship stating the timestamp of an entity (e.g. a measurement)."@en ;
+                   rdfs:isDefinedBy "https://w3id.org/saref#" ;
+                   rdfs:label "has timestamp"@en .
+
+
+###  https://w3id.org/saref#hasValue
+saref:hasValue rdf:type owl:DatatypeProperty ;
+               rdfs:comment "A relationship defining the value of a certain property, e.g., energy or power"@en ;
+               rdfs:isDefinedBy saref: ;
+               rdfs:label "has value"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#Point
+geo:Point rdf:type owl:Class ;
+          rdfs:comment "A point, typically described using a coordinate system relative to Earth, such as WGS84. Uniquely identified by lat/long/alt. i.e. spaciallyIntersects(P1, P2) :- lat(P1, LAT), long(P1, LONG), alt(P1, ALT), at(P2, LAT), long(P2, LONG), alt(P2, ALT). sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P2)."@en ;
+          rdfs:isDefinedBy geo: ;
+          rdfs:label "Point"@en .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing
+geo:SpatialThing rdf:type owl:Class ;
+                 owl:disjointWith :Color ,
+                                  :CommunicationInterface ,
+                                  :CommunicationProtocol ,
+                                  :CompassDirection ,
+                                  :DigitalRepresentation ,
+                                  :Geometry ,
+                                  saref:Measurement ,
+                                  saref:Service ;
+                 rdfs:comment "Anything with spatial extent, i.e. size, shape, or position. e.g. people, places, bowling balls, as well as abstract areas like cubes."@en ;
+                 rdfs:isDefinedBy geo: ;
+                 rdfs:label "Spatial thing"@en .
+
+
+###  http://www.w3.org/2006/time#TemporalUnit
+time:TemporalUnit rdf:type owl:Class ;
+                  rdfs:subClassOf saref:UnitOfMeasure ;
+                  rdfs:comment "A temporal unit of measure, which provides a scale factor for a time quantity."@en ;
+                  rdfs:isDefinedBy time: ;
+                  rdfs:label "Temporal unit"@en .
+
+
+###  https://w3id.org/def/saref4envi#Actuator
+:Actuator rdf:type owl:Class ;
+          rdfs:subClassOf :Device ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :affectsProperty ;
+                            owl:allValuesFrom saref:Property
+                          ] ;
+          rdfs:comment "Device that can act over at least one property."@en ;
+          rdfs:label "Actuator"@en .
+
+
+###  https://w3id.org/def/saref4envi#Color
+:Color rdf:type owl:Class ;
+       owl:disjointWith :CommunicationInterface ,
+                        :CommunicationProtocol ,
+                        :CompassDirection ,
+                        :DigitalRepresentation ,
+                        :Geometry ,
+                        :Light ,
+                        saref:Service ,
+                        saref:UnitOfMeasure ;
+       rdfs:comment "Color of the emitted light. It might be indicated by named colors or using other type of color values like hexadecimal for RGB, color temperature, etc."@en ;
+       rdfs:label "Color"@en .
+
+
+###  https://w3id.org/def/saref4envi#CommunicationInterface
+:CommunicationInterface rdf:type owl:Class ;
+                        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                          owl:onProperty :hasVersion ;
+                                          owl:allValuesFrom xsd:string
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :hasVersion ;
+                                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange xsd:string
+                                        ] ;
+                        owl:disjointWith :CommunicationProtocol ,
+                                         :CompassDirection ,
+                                         :DigitalRepresentation ,
+                                         :Geometry ,
+                                         :Light ,
+                                         saref:Measurement ,
+                                         saref:Property ,
+                                         saref:UnitOfMeasure ;
+                        rdfs:comment "An interface defines which primitive operations and services the lower layer makes available to the upper one, when referring to network layers. (Definition adapted from \"Tanenbaum, A. S. (2003). Computer networks, 4-th edition. ed: Prentice Hall.\")"@en ;
+                        rdfs:label "Communication interface"@en .
+
+
+###  https://w3id.org/def/saref4envi#CommunicationProtocol
+:CommunicationProtocol rdf:type owl:Class ;
+                       owl:disjointWith :CompassDirection ,
+                                        :DigitalRepresentation ,
+                                        :Geometry ,
+                                        :Light ,
+                                        saref:Measurement ,
+                                        saref:Property ,
+                                        saref:Service ,
+                                        saref:UnitOfMeasure ;
+                       rdfs:comment "A protocol is an agreement between the communicating parties on how communication is to proceed. (Definition taken from \"Tanenbaum, A. S. (2003). Computer networks, 4-th edition. ed: Prentice Hall.\")"@en ;
+                       rdfs:label "Communication protocol"@en .
+
+
+###  https://w3id.org/def/saref4envi#CompassDirection
+:CompassDirection rdf:type owl:Class ;
+                  owl:disjointWith :DigitalRepresentation ,
+                                   :Geometry ,
+                                   :Light ,
+                                   saref:Measurement ,
+                                   saref:Property ,
+                                   saref:Service ,
+                                   saref:UnitOfMeasure ;
+                  rdfs:comment "The four cardinal directions or cardinal points are the directions of north, east, south, and west, commonly denoted by their initials: N, E, S, W. East and west are at right angles to north and south, with east being in the clockwise direction of rotation from north and west being directly opposite east. Intermediate points between the four cardinal directions form the points of the compass. (definition taken from https://en.wikipedia.org/wiki/Cardinal_direction)"@en ;
+                  rdfs:label "Compass direction"@en .
+
+
+###  https://w3id.org/def/saref4envi#Device
+:Device rdf:type owl:Class ;
+        rdfs:subClassOf :System ,
+                        saref:Device ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasFrequencyMeasurement ;
+                          owl:allValuesFrom :FrequencyMeasurement
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasTransmissionPeriod ;
+                          owl:allValuesFrom :PeriodMeasurement
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :isContainedIn ;
+                          owl:allValuesFrom :PhysicalObject
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasRevisionNumber ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasVersion ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty saref:hasManufacturer ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasRevisionNumber ;
+                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasVersion ;
+                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] ;
+        rdfs:comment "A thing made or adapted for a particular purpose, especially a piece of mechanical or electronic equipment. For example ‘a measuring device’ (definition taken from https://en.oxforddictionaries.com/definition/device). In this ontology it refers to the devices for environmental purposes."@en ;
+        rdfs:label "Device"@en .
+
+
+###  https://w3id.org/def/saref4envi#DigitalRepresentation
+:DigitalRepresentation rdf:type owl:Class ;
+                       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                         owl:onProperty :encapsulates ;
+                                         owl:allValuesFrom :PhysicalObject
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :isAccesibleThrough ;
+                                         owl:allValuesFrom saref:Service
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasCreationDate ;
+                                         owl:allValuesFrom xsd:dateTime
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasIdentifier ;
+                                         owl:allValuesFrom xsd:string
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasTag ;
+                                         owl:allValuesFrom xsd:string
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty saref:hasDescription ;
+                                         owl:allValuesFrom xsd:string
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty saref:hasName ;
+                                         owl:allValuesFrom xsd:string
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasCreationDate ;
+                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onDataRange xsd:dateTime
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasIdentifier ;
+                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onDataRange xsd:string
+                                       ] ;
+                       owl:disjointWith :Geometry ,
+                                        :Light ,
+                                        saref:Measurement ,
+                                        saref:UnitOfMeasure ;
+                       rdfs:comment "A digital representation encapsulates a physical object accessible via Web services"@en ;
+                       rdfs:label "Digital representation"@en .
+
+
+###  https://w3id.org/def/saref4envi#FrequencyMeasurement
+:FrequencyMeasurement rdf:type owl:Class ;
+                      rdfs:subClassOf saref:Measurement ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty saref:relatesToProperty ;
+                                        owl:hasValue :Frequency
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty saref:isMeasuredIn ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :FrequencyUnit
+                                      ] ;
+                      rdfs:comment "Represents the measured value made over a frequency property. It is also linked to the frequency unit of measure in which the value is expressed and the timestamp of the measurement."@en ;
+                      rdfs:label "Frequency measurement"@en .
+
+
+###  https://w3id.org/def/saref4envi#FrequencyUnit
+:FrequencyUnit rdf:type owl:Class ;
+               rdfs:subClassOf saref:UnitOfMeasure ;
+               rdfs:comment "Unit of measure for the quantity frequency."@en ;
+               rdfs:label "Frequency unit"@en .
+
+
+###  https://w3id.org/def/saref4envi#Geometry
+:Geometry rdf:type owl:Class ;
+          owl:disjointWith :Light ,
+                           saref:Measurement ,
+                           saref:Property ,
+                           saref:Service ,
+                           saref:UnitOfMeasure ;
+          rdfs:comment "Represents the shape of the light emission. It might be instantiated by individuals like \"spherical\", \"cylindrical\", etc. even though it is open to more comples representation of geometries using other vocabularies."@en ;
+          rdfs:label "Geometry"@en .
+
+
+###  https://w3id.org/def/saref4envi#HeightMeasurement
+:HeightMeasurement rdf:type owl:Class ;
+                   rdfs:subClassOf saref:Measurement ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty saref:relatesToProperty ;
+                                     owl:hasValue :Height
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty saref:isMeasuredIn ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :LengthUnit
+                                   ] ;
+                   rdfs:comment "Represents the measured value made over a height property. It is also linked to the height unit of measure in which the value is expressed and the timestamp of the measurement."@en ;
+                   rdfs:label "Height measurement"@en .
+
+
+###  https://w3id.org/def/saref4envi#Lamppost
+:Lamppost rdf:type owl:Class ;
+          rdfs:subClassOf :Device ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasLightPoint ;
+                            owl:allValuesFrom :LightPoint
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :projectsLight ;
+                            owl:allValuesFrom :Light
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasShield ;
+                            owl:allValuesFrom xsd:boolean
+                          ] ;
+          rdfs:comment "A tall pole with a light at the top."@en ;
+          rdfs:label "Lamppost"@en .
+
+
+###  https://w3id.org/def/saref4envi#LengthUnit
+:LengthUnit rdf:type owl:Class ;
+            rdfs:subClassOf saref:UnitOfMeasure ;
+            rdfs:comment "Unit of measure for the quantity lenght."@en ;
+            rdfs:label "Length unit"@en .
+
+
+###  https://w3id.org/def/saref4envi#Light
+:Light rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasColor ;
+                         owl:allValuesFrom :Color
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasGeometry ;
+                         owl:allValuesFrom :Geometry
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :isProjectedFromHeight ;
+                         owl:allValuesFrom :HeightMeasurement
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :isProjectedInDirection ;
+                         owl:allValuesFrom :CompassDirection
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasFlash ;
+                         owl:allValuesFrom xsd:boolean
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasProjectionAngle ;
+                         owl:allValuesFrom xsd:float
+                       ] ;
+       owl:disjointWith saref:Measurement ,
+                        saref:Property ,
+                        saref:Service ,
+                        saref:UnitOfMeasure ;
+       rdfs:comment "A light source, which may be a lantern, a street light, a floodlight, a signal lamp or any other device whose primary purpose is the generation of light. (Definition taken from http://wiki.openstreetmap.org/wiki/Proposed_features/Key:light_source#Description)"@en ;
+       rdfs:label "Light"@en .
+
+
+###  https://w3id.org/def/saref4envi#LightPoint
+:LightPoint rdf:type owl:Class ;
+            rdfs:subClassOf geo:Point ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty geo:location ;
+                              owl:allValuesFrom geo:SpatialThing
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :projectsLight ;
+                              owl:allValuesFrom :Light
+                            ] ;
+            rdfs:comment "An spatial point from where a light is projected. It might belong to a lamppost."@en ;
+            rdfs:label "Light point"@en .
+
+
+###  https://w3id.org/def/saref4envi#LightProperty
+:LightProperty rdf:type owl:Class ;
+               rdfs:subClassOf saref:Property ;
+               rdfs:comment "An aspect of light that can be observable by a sensor."@en ;
+               rdfs:label "Light property"@en .
+
+
+###  https://w3id.org/def/saref4envi#PeriodMeasurement
+:PeriodMeasurement rdf:type owl:Class ;
+                   rdfs:subClassOf saref:Measurement ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty saref:relatesToProperty ;
+                                     owl:hasValue :Period
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty saref:isMeasuredIn ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass time:TemporalUnit
+                                   ] ;
+                   rdfs:comment "Represents the measured value over a period property. It is also linked to the period unit of measure in which the value is expressed and the timestamp of the measurement."@en ;
+                   rdfs:label "Period measurement"@en .
+
+
+###  https://w3id.org/def/saref4envi#Photometer
+:Photometer rdf:type owl:Class ;
+            rdfs:subClassOf saref:Sensor ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty saref:measuresProperty ;
+                              owl:someValuesFrom :LightProperty
+                            ] ;
+            rdfs:comment "A photometer, generally, is an instrument that measures light intensity or optical properties of solutions or surfaces."@en ;
+            rdfs:label "Photometer"@en .
+
+
+###  https://w3id.org/def/saref4envi#PhysicalObject
+:PhysicalObject rdf:type owl:Class ;
+                rdfs:subClassOf geo:SpatialThing ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty geo:location ;
+                                  owl:allValuesFrom geo:SpatialThing
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :contains ;
+                                  owl:allValuesFrom :PhysicalObject
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasDigitalRepresentation ;
+                                  owl:allValuesFrom :DigitalRepresentation
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isContainedIn ;
+                                  owl:allValuesFrom :PhysicalObject
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty saref:hasDescription ;
+                                  owl:allValuesFrom xsd:string
+                                ] ;
+                rdfs:comment "Any Object that has a proper space region.  (Definition extracted from DUL ontology)"@en ;
+                rdfs:label "Physical object"@en .
+
+
+###  https://w3id.org/def/saref4envi#System
+:System rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalObject ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasComponent ;
+                          owl:allValuesFrom :System
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :isComponentOf ;
+                          owl:allValuesFrom :System
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :isConnectedTo ;
+                          owl:allValuesFrom :System
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :usesCommunicationInterface ;
+                          owl:allValuesFrom :CommunicationInterface
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :usesCommunicationProtocol ;
+                          owl:allValuesFrom :CommunicationProtocol
+                        ] ;
+        rdfs:comment "A group of related hardware units or programs or both, especially when dedicated to a single application. (Definition taken from https://en.oxforddictionaries.com/definition/system)"@en ;
+        rdfs:label "System"@en .
+
+
+###  https://w3id.org/def/saref4envi#TESS
+:TESS rdf:type owl:Class ;
+      rdfs:subClassOf :Photometer ;
+      rdfs:comment "The Telescope Encoder and Sky Sensor (TESS) is a Sky Brightness and Cloud detector developed as a device for a remote observatory. A TESS can observe the light magnitude and other properties as ambient temperature and sky temperature."@en ;
+      rdfs:label "TESS (Telescope Encoder and Sky Sensor)"@en .
+
+
+###  https://w3id.org/saref#Device
+saref:Device rdf:type owl:Class ;
+             rdfs:comment "A tangible object designed to accomplish a particular task in households, common public buildings or offices. In order to accomplish this task, the device performs one or more functions. For example, a washing machine is designed to wash (task) and to accomplish this task it performs the start and stop function."@en ;
+             rdfs:isDefinedBy saref: ;
+             rdfs:label "Device"@en .
+
+
+###  https://w3id.org/saref#Measurement
+saref:Measurement rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty saref:isMeasuredIn ;
+                                    owl:allValuesFrom saref:UnitOfMeasure
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty saref:relatesToProperty ;
+                                    owl:allValuesFrom saref:Property
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty saref:isMeasuredIn ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass saref:UnitOfMeasure
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty saref:relatesToProperty ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass saref:Property
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty saref:hasTimestamp ;
+                                    owl:allValuesFrom xsd:dateTime
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty saref:hasValue ;
+                                    owl:allValuesFrom xsd:float
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty saref:hasValue ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onDataRange xsd:float
+                                  ] ;
+                  owl:disjointWith saref:Property ,
+                                   saref:Service ,
+                                   saref:UnitOfMeasure ;
+                  rdfs:comment "Represents the measured value made over a property. It is also linked to the unit of measure in which the value is expressed and the timestamp of the measurement."@en ;
+                  rdfs:label "Measurement"@en .
+
+
+###  https://w3id.org/saref#Property
+saref:Property rdf:type owl:Class ;
+               owl:disjointWith saref:Service ,
+                                saref:UnitOfMeasure ;
+               rdfs:comment "An aspect of an entity that can be observable by a sensor."@en ;
+               rdfs:label "Property"@en .
+
+
+###  https://w3id.org/saref#Sensor
+saref:Sensor rdf:type owl:Class ;
+             rdfs:subClassOf saref:Device ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty saref:makesMeasurement ;
+                               owl:allValuesFrom saref:Measurement
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty saref:measuresProperty ;
+                               owl:allValuesFrom saref:Property
+                             ] ;
+             rdfs:comment """A device that detects and responds to events or changes in the physical environment such as light, motion, or temperature changes.
+A device that has category saref:Sensor and performs a saref:SensingFunction."""@en ;
+             rdfs:isDefinedBy saref: ;
+             rdfs:label "Sensor"@en .
+
+
+###  https://w3id.org/saref#Service
+saref:Service rdf:type owl:Class ;
+              owl:disjointWith saref:UnitOfMeasure ;
+              rdfs:comment "A service is a representation of a function to a network that makes the function discoverable, registerable, remotely controllable by other devices in the network. A service can represent one or more functions. A Service is offered by a device that wants (a certain set of) its function(s) to be discoverable, registerable, remotely controllable by other devices in the network. A Service must specify the device that is offering the service, the function(s) to be represented, and the (input and output) parameters necessary to operate the service."@en ;
+              rdfs:isDefinedBy saref: ;
+              rdfs:label "Service"@en .
+
+
+###  https://w3id.org/saref#UnitOfMeasure
+saref:UnitOfMeasure rdf:type owl:Class ;
+                    rdfs:comment "The unit of measure is a standard for measurement of a quantity, such as a Property. For example,  Power is a property and Watt is a unit of power that represents a definite predetermined power: when we say 10 Watt, we actually mean 10 times the definite predetermined power called \"watt\". Our definition is based on the definition of unit of measure in the Ontology of units of Measure (OM). We propose here a list of some units of measure that are relevant for the purpose of the Smart Appliances ontology, but this list can be extended."@en ;
+                    rdfs:isDefinedBy saref: ;
+                    rdfs:label "Unit of measure"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/centimetre
+<http://www.wurvoc.org/vocabularies/om-1.8/centimetre> rdf:type owl:NamedIndividual ,
+                                                                :LengthUnit ;
+                                                       rdfs:label "Centimetre"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/decametre
+<http://www.wurvoc.org/vocabularies/om-1.8/decametre> rdf:type owl:NamedIndividual ,
+                                                               :LengthUnit ;
+                                                      rdfs:label "Decametre"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/decimetre
+<http://www.wurvoc.org/vocabularies/om-1.8/decimetre> rdf:type owl:NamedIndividual ,
+                                                               :LengthUnit ;
+                                                      rdfs:label "Decimetre"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/hectometre
+<http://www.wurvoc.org/vocabularies/om-1.8/hectometre> rdf:type owl:NamedIndividual ,
+                                                                :LengthUnit ;
+                                                       rdfs:label "Hectometre"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/hertz
+<http://www.wurvoc.org/vocabularies/om-1.8/hertz> rdf:type owl:NamedIndividual ,
+                                                           :FrequencyUnit ;
+                                                  rdfs:label "Hertz"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/kilometre
+<http://www.wurvoc.org/vocabularies/om-1.8/kilometre> rdf:type owl:NamedIndividual ,
+                                                               :LengthUnit ;
+                                                      rdfs:label "Kilometre"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/metre
+<http://www.wurvoc.org/vocabularies/om-1.8/metre> rdf:type owl:NamedIndividual ,
+                                                           :LengthUnit ;
+                                                  rdfs:label "Metre"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/millimetre
+<http://www.wurvoc.org/vocabularies/om-1.8/millimetre> rdf:type owl:NamedIndividual ,
+                                                                :LengthUnit ;
+                                                       rdfs:label "Milimetre"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_day
+<http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_day> rdf:type owl:NamedIndividual ,
+                                                                    :FrequencyUnit ;
+                                                           rdfs:label "Reciprocal day"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_hour
+<http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_hour> rdf:type owl:NamedIndividual ,
+                                                                     :FrequencyUnit ;
+                                                            rdfs:label "Reciprocal hour"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_second-time
+<http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_second-time> rdf:type owl:NamedIndividual ,
+                                                                            :FrequencyUnit ;
+                                                                   rdfs:label "Reciprocal second"@en .
+
+
+###  http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_year
+<http://www.wurvoc.org/vocabularies/om-1.8/reciprocal_year> rdf:type owl:NamedIndividual ,
+                                                                     :FrequencyUnit ;
+                                                            rdfs:label "Reciprocal year"@en .
+
+
+###  https://w3id.org/def/saref4envi#Fluorescence
+:Fluorescence rdf:type owl:NamedIndividual ,
+                       :LightProperty ;
+              rdfs:comment "An individual representing the light property fluorescence."@en ;
+              rdfs:label "Fluorescence"@en .
+
+
+###  https://w3id.org/def/saref4envi#Frequency
+:Frequency rdf:type owl:NamedIndividual ,
+                    saref:Property ;
+           rdfs:comment "An individual representing the property frequency."@en ;
+           rdfs:label "Frequency"@en .
+
+
+###  https://w3id.org/def/saref4envi#Height
+:Height rdf:type owl:NamedIndividual ,
+                 saref:Property ;
+        rdfs:comment "An individual representing the property height."@en ;
+        rdfs:label "Height"@en .
+
+
+###  https://w3id.org/def/saref4envi#Illuminance
+:Illuminance rdf:type owl:NamedIndividual ,
+                      :LightProperty ;
+             rdfs:comment "An individual representing the light property illuminance."@en ;
+             rdfs:label "Illuminance"@en .
+
+
+###  https://w3id.org/def/saref4envi#Irradiance
+:Irradiance rdf:type owl:NamedIndividual ,
+                     :LightProperty ;
+            rdfs:comment "An individual representing the light property irradiance."@en ;
+            rdfs:label "Irradiance"@en .
+
+
+###  https://w3id.org/def/saref4envi#LightAbsorption
+:LightAbsorption rdf:type owl:NamedIndividual ,
+                          :LightProperty ;
+                 rdfs:comment "An individual representing the light property light absorption."@en ;
+                 rdfs:label "Light absorption"@en .
+
+
+###  https://w3id.org/def/saref4envi#LightMagnitude
+:LightMagnitude rdf:type owl:NamedIndividual ,
+                         :LightProperty ;
+                rdfs:comment "An individual representing the light property light magnitude."@en ;
+                rdfs:label "Light magnitude"@en .
+
+
+###  https://w3id.org/def/saref4envi#Luminiscence
+:Luminiscence rdf:type owl:NamedIndividual ,
+                       :LightProperty ;
+              rdfs:comment "An individual representing the light property luminiscence."@en ;
+              rdfs:label "Luminiscence"@en .
+
+
+###  https://w3id.org/def/saref4envi#Period
+:Period rdf:type owl:NamedIndividual ,
+                 saref:Property ;
+        rdfs:comment "An individual representing the property period."@en ;
+        rdfs:label "Period"@en .
+
+
+###  https://w3id.org/def/saref4envi#Phosphorescence
+:Phosphorescence rdf:type owl:NamedIndividual ,
+                          :LightProperty ;
+                 rdfs:comment "An individual representing the light property phosphorescence."@en ;
+                 rdfs:label "Phosphorescence"@en .
+
+
+###  https://w3id.org/def/saref4envi#ReflectionOfLight
+:ReflectionOfLight rdf:type owl:NamedIndividual ,
+                            :LightProperty ;
+                   rdfs:comment "An individual representing the light property reflection of light."@en ;
+                   rdfs:label "Reflection of light"@en .
+
+
+###  https://w3id.org/def/saref4envi#ScatteringOfLight
+:ScatteringOfLight rdf:type owl:NamedIndividual ,
+                            :LightProperty ;
+                   rdfs:comment "An individual representing the light property scattering of light."@en ;
+                   rdfs:label "Scattering of light"@en .
+
+
+###  Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi

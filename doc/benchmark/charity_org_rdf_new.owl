@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#"
+     xml:base="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization"
+     xmlns:ns="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:org="http://www.w3.org/ns/org#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:wot="http://xmlns.com/wot/0.1/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization">
+        <owl:imports rdf:resource="http://www.w3.org/ns/org#"/>
+        <owl:imports rdf:resource="http://xmlns.com/foaf/0.1/"/>
+        <rdfs:comment xml:lang="en">Ontology about charity organization in Indonesia</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#carry_out -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#carry_out">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#CharityOrganization"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#channeled_through -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#channeled_through">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#contribute_to -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#contribute_to">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Beneficiary"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#distribute_to -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#distribute_to">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Target"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#donate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#donate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#forProgram -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#forProgram">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#generate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#generate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#FinancialReport"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#getNotification -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#getNotification">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#MemberNotification"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#given_to -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#given_to">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#FinancialReport"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#hasFinancialReport -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#hasFinancialReport">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#FinancialReport"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#hasStoryBoard -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#hasStoryBoard">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#StoryBoard"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#partOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#partOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Expense"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Income"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#FinancialReport"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#relatedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#relatedWith">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#MemberNotification"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#amount -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#amount">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#total -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#total">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://owl.man.ac.uk/2006/07/sssw/people#Person -->
+
+    <owl:Class rdf:about="http://owl.man.ac.uk/2006/07/sssw/people#Person">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Beneficiary -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Beneficiary">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Target"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#CharityOrganization -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#CharityOrganization">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#FormalOrganization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#ContinousProgram -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#ContinousProgram">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor"/>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#EventualProgram -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#EventualProgram">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Expense -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Expense">
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Income"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#FinancialReport -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#FinancialReport"/>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Income -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Income"/>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#IndividualBeneficiary -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#IndividualBeneficiary">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Beneficiary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#InstitutionalBeneficiary -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#InstitutionalBeneficiary">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Beneficiary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Item -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Item">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#MemberNotification -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#MemberNotification"/>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Money -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Money">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#PeriodicProgram -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#PeriodicProgram">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Product -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Product">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Target"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Program">
+        <rdfs:comment>Program yang dibuat oleh Charity Organisation, seperti Program santunan anak yatim.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#StoryBoard -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#StoryBoard"/>
+    
+
+
+    <!-- http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Target -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Target"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Organization -->
+
+    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Organization">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#Donor"/>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#ContinousProgram"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#EventualProgram"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/bravyto/ontologies/2016/9/Charity-Organization#PeriodicProgram"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
+

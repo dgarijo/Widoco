@@ -1,0 +1,1062 @@
+@prefix :        <http://linked.earth/ontology#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+
+:takenAtDepth
+      a       owl:ObjectProperty ;
+      rdfs:comment "Depth result at which the observation is taken"@en ;
+      rdfs:domain :Variable ;
+      rdfs:label "taken at depth"@en ;
+      rdfs:range :Variable .
+
+:publicationYear
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Year when the publication was published. The literal is a numeric value in the format yyyy"@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "publication year"@en ;
+      rdfs:range xsd:int ;
+      rdfs:subPropertyOf dcterms:created .
+
+:CalibrationModel
+      a       owl:Class ;
+      rdfs:comment "Metadata about how the variable was calibrated to reflect an environmental variable"@en ;
+      rdfs:label "Calibration model"@en ;
+      rdfs:subClassOf :Model .
+
+:calibrationReferences
+      a       owl:ObjectProperty ;
+      rdfs:comment "The publication that describes the calibration. The string should follow the model set in the publication class"@en ;
+      rdfs:domain :CalibrationModel ;
+      rdfs:label "calibration references"@en ;
+      rdfs:range :Publication ;
+      rdfs:subPropertyOf dcterms:references .
+
+<http://www.opengis.net/ont/geosparql#hasGeometry>
+      a       owl:ObjectProperty ;
+      rdfs:domain <http://www.opengis.net/ont/geosparql#Feature> ;
+      rdfs:isDefinedBy <http://www.opengis.net/spec/geosparql/1.0> ;
+      rdfs:range <http://www.opengis.net/ont/geosparql#Geometry> .
+
+<http://purl.oclc.org/NET/ssnx/ssn#observedProperty>
+      a       owl:ObjectProperty ;
+      rdfs:isDefinedBy <http://purl.oclc.org/NET/ssnx/ssn#> .
+
+:ProxyArchiveModel
+      a       owl:Class ;
+      rdfs:comment "A simplified description of how the sensor either creates or emplaces the signal into the archive. sensu Evans et al. 2013."@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy archive model"@en ;
+      rdfs:subClassOf :Model .
+
+:InorganicSensor
+      a       owl:Class ;
+      rdfs:comment "An inorganic sensor. Examples of inorganic sensors include: karst, snow, watershed, ice sheet, etc."@en ;
+      rdfs:label "Inorganic sensor"@en ;
+      rdfs:subClassOf :ProxySensor ;
+      owl:disjointWith :OrganicSensor .
+
+:UncertaintyModel
+      a       owl:Class ;
+      rdfs:comment "A formalization of the way the uncertainty is accounted for"@en ;
+      rdfs:label "Uncertainty model"@en ;
+      rdfs:subClassOf :Model .
+
+:measuredOn
+      a       owl:ObjectProperty ;
+      rdfs:comment "On what Archive were the Observations measured on?"@en ;
+      rdfs:domain :MeasuredVariable ;
+      rdfs:label "measured on"@en ;
+      rdfs:range :ProxyArchive ;
+      rdfs:subPropertyOf owl:topObjectProperty .
+
+rdfs:Literal
+      owl:equivalentClass xsd:string .
+
+:ClimateProxy
+      a       owl:Class ;
+      rdfs:comment "Climate observations prior to the instrumental era are necessarily indirect. These observations are made on climate proxies in various geological (e.g. lake or marine sediments, living or fossil coral reefs, cave deposits), glaciological (ice cores or snow pits) or biological (trees) archives. Many types of measurements can be made on each archives, each sensing a different aspect of the environment (sometimes, several aspects at once). A paleoclimate dataset is a set of observations made on an archive."@en ;
+      rdfs:label "Climate proxy"@en ;
+      rdfs:subClassOf :ProxySystem .
+
+<http://www.opengis.net/ont/geosparql#Feature>
+      a       owl:Class ;
+      rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> .
+
+:fundedBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that indicated the funding which made the dataset possible"@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "funded by"@en ;
+      rdfs:range :Funding .
+
+:DistributionTable
+      a       owl:Class ;
+      rdfs:comment "Table that contains the probability on the inferred variables"@en ;
+      rdfs:label "Distribution table"@en ;
+      rdfs:subClassOf :DataTable .
+
+:hasProxyObservation
+      a       owl:ObjectProperty ;
+      rdfs:comment "Type of proxy observation associtated with the proxy system (e.g, Mg/Ca)"@en ;
+      rdfs:domain :ProxySystem ;
+      rdfs:label "has proxy observation"@en ;
+      rdfs:range :ProxyObservation ;
+      rdfs:subPropertyOf dcterms:hasPart .
+
+<http://xmlns.com/foaf/0.1/Person>
+      a       owl:Class ;
+      rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+
+:InferredVariable
+      a       owl:Class ;
+      rdfs:comment "Is the variable inferred from a measured variable?"@en ;
+      rdfs:label "Inferred variable"@en ;
+      rdfs:subClassOf :Variable ;
+      owl:disjointWith :MeasuredVariable .
+
+<http://www.opengis.net/ont/geosparql#Geometry>
+      a       owl:Class ;
+      rdfs:isDefinedBy <http://www.opengis.net/spec/geosparql/1.0> .
+
+:author
+      a       owl:ObjectProperty ;
+      rdfs:comment "Author of the resource"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:Dataset :Publication)
+              ] ;
+      rdfs:label "author"@en ;
+      rdfs:range :Person ;
+      rdfs:subPropertyOf dcterms:creator .
+
+:Person
+      a       owl:Class ;
+      rdfs:comment "A person that has participated directly or indirectly in the authoring or contribution of any resources in Linked Earth."@en ;
+      rdfs:label "Person"@en ;
+      owl:equivalentClass <http://xmlns.com/foaf/0.1/Person> .
+
+<http://earth.usc.edu/~khider/>
+      a       owl:NamedIndividual .
+
+:hasUncertainty
+      a       owl:ObjectProperty ;
+      rdfs:comment "What is the Uncertainty associated with the Observations, Model, and Calibration?"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:CalibrationModel :Instrument :Model :Variable)
+              ] ;
+      rdfs:label "has uncertainty"@en ;
+      rdfs:range :Uncertainty .
+
+:principalInvestigator
+      a       owl:ObjectProperty ;
+      rdfs:comment "Who is the PrincipalInvestigator of the Funding grant?"@en ;
+      rdfs:domain :Funding ;
+      rdfs:label "principal investigator"@en ;
+      rdfs:range :Person .
+
+:ProxySystem
+      a       owl:Class ;
+      rdfs:comment """Climate monitoring prior to the instrumental era are necessarily indirect. 
+This indirect assessment is made on proxies. According to Evans et al. (2013), a proxy system is comprised of three components:
+- A ProxySensor
+- A ProxyArchive
+- A ProxyObservation"""@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy system"@en .
+
+:MeasurementTable
+      a       owl:Class ;
+      rdfs:comment "Table that contains the measuredVariables made on the Archive"@en ;
+      rdfs:label "Measurement table"@en ;
+      rdfs:subClassOf :DataTable .
+
+:Data
+      a       owl:Class ;
+      rdfs:comment "An aggregation of DataTables and supporting information regarging the paleoenvironmental and/or chronological interpretation "@en ;
+      rdfs:label "Data"@en .
+
+:sensorGenus
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The Genus of the sensor" ;
+      rdfs:domain :OrganicSensor ;
+      rdfs:label "sensor genus"@en ;
+      rdfs:range xsd:string .
+
+:equation
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The mathematical statement used to describe the model."@en ;
+      rdfs:domain :Model ;
+      rdfs:label "equation"@en ;
+      rdfs:range xsd:string .
+
+:ProxyObservation
+      a       owl:Class ;
+      rdfs:comment "The type of measurements made on the archives, whether chemical (e.g., Mg/Ca, d18O, TEX86, Sr/Ca....), physical (e.g. density, layer thickness) or biological (e.g. species abundance)."@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy observation"@en .
+
+:foundInMeasurementTable
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that indicates that a variable was found in a measurement table"@en ;
+      rdfs:domain :Data ;
+      rdfs:label "found in measurement table"@en ;
+      rdfs:range :MeasurementTable ;
+      rdfs:subPropertyOf :foundInTable .
+
+:hasCode
+      a       owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:comment "What is the mathematical formulation that describes the Model?"@en ;
+      rdfs:domain :Model ;
+      rdfs:label "has code"@en ;
+      rdfs:range :SoftwareCode .
+
+:standard
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The standard against which the observations are reported (for instance, VSMOW or VPDB)"@en ;
+      rdfs:domain :MeasuredVariable ;
+      rdfs:label "standard"@en .
+
+:foundInEnsembleTable
+      a       owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:comment "Property that indicates that the data or variable described was found in an ensemble table"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:ChronModel :PaleoModel)
+              ] ;
+      rdfs:label "found in ensemble table"@en ;
+      rdfs:range :EnsembleTable ;
+      rdfs:subPropertyOf :foundInTable .
+
+:journal
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Property that indicated the journal in which the publication has been published"@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "journal"@en ;
+      rdfs:range xsd:string .
+
+:Funding
+      a       owl:Class ;
+      rdfs:comment "A source of funding for the creation of the Dataset"@en ;
+      rdfs:label "Funding"@en .
+
+:modelReferences
+      a       owl:ObjectProperty ;
+      rdfs:comment "The publication that describes the model. "@en ;
+      rdfs:domain :Model ;
+      rdfs:label "model references"@en ;
+      rdfs:range :Publication ;
+      rdfs:subPropertyOf dcterms:references .
+
+:method
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Method used to obtain the information from the resource"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:MeasuredVariable :Model :ProxyArchive)
+              ] ;
+      rdfs:label "method"@en ;
+      rdfs:range xsd:string .
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing>
+      a       owl:Class ;
+      rdfs:isDefinedBy <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+:uncertaintyLevel
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Quantile or number of standard deviations along a probability distribution of a Variable." ;
+      rdfs:domain :Uncertainty ;
+      rdfs:label "uncertainty level"@en ;
+      rdfs:range xsd:string .
+
+:orcidNumber
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "The ORCID number of the Person" ;
+      rdfs:domain :Person ;
+      rdfs:label "orcid number"@en ;
+      rdfs:range xsd:string .
+
+:ProxySystemModel
+      a       owl:Class ;
+      rdfs:comment "In the Evans et al. (2013) framework, this is the combination of sensor, archive and observation models . \"A generalized proxy system model encapuslates a simplified representation of prior physical, chemical, biological, and/or geological understanding of the ways in which environmental variation ultimately results in the observations used to retrieve paleoclimatic information.\""@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy system model"@en ;
+      rdfs:subClassOf :Model .
+
+<http://purl.oclc.org/NET/ssnx/ssn#observedBy>
+      a       owl:ObjectProperty ;
+      rdfs:isDefinedBy <http://purl.oclc.org/NET/ssnx/ssn#> .
+
+:Interpretation
+      a       owl:Class ;
+      rdfs:comment "A suite of metadata that describe how a variable is interpreted to reflect past variability, including environmental variability"@en ;
+      rdfs:label "Interpretation"@en .
+
+:Location
+      a       owl:Class ;
+      rdfs:comment "The geographic data and metadata for the dataset"@en ;
+      rdfs:label "Location"@en ;
+      rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> , <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> .
+
+:contributor
+      a       owl:ObjectProperty ;
+      rdfs:comment "Contributor of the resource (dataset, publication, etc.)"@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "contributor"@en ;
+      rdfs:range :Person ;
+      rdfs:subPropertyOf dcterms:contributor .
+
+:citation
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Sentence indicating how a paper should be published"@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "citation"@en ;
+      rdfs:range rdfs:Literal ;
+      rdfs:subPropertyOf dcterms:bibliographicCitation .
+
+:hasRank
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Describes the importance of the ClimateInterpretation. For instance, d18Ocalcite is influenced by both temperature and d18Osw. If temperature is the dominant influence, then its rank is 1." ;
+      rdfs:domain :Interpretation ;
+      rdfs:label "has rank"@en ;
+      rdfs:range xsd:int .
+
+:pages
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "The page range for the article."@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "pages"@en ;
+      rdfs:range xsd:string .
+
+:OrganicSensor
+      a       owl:Class ;
+      rdfs:comment "An organic sensor. Examples of organic sensors include: foraminifera, trees, mollusks, polyps, etc."@en ;
+      rdfs:label "Organic sensor"@en ;
+      rdfs:subClassOf :ProxySensor .
+
+<http://w3id.org/people/dgarijo>
+      a       owl:NamedIndividual .
+
+:hasProxyObservationModel
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that links to the proxy observation model included in the proxy system model"@en ;
+      rdfs:domain :ProxySystemModel ;
+      rdfs:label "has proxy observation model"@en ;
+      rdfs:range :ProxyObservationModel ;
+      rdfs:subPropertyOf dcterms:hasPart .
+
+:hasISSN
+      a       owl:DatatypeProperty ;
+      rdfs:comment "8-digit code used to udentify publications"@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "has ISSN"@en ;
+      rdfs:range xsd:string ;
+      rdfs:subPropertyOf dcterms:identifier .
+
+dcterms:created
+      a       owl:DatatypeProperty ;
+      rdfs:isDefinedBy dcterms: .
+
+<http://purl.oclc.org/NET/ssnx/ssn#Observation>
+      a       owl:Class ;
+      rdfs:comment "The class ssn:Observation provides the structure to represent a single observation. An observation is a situation that describes an observed feature, an observed property, a sensor and method of sensing used and a value observed for the property: that is, an observation describes a single value attributed to a single property by a particular sensor. Observations of multiple features or multiple properties of the one feature should be represented as either compound properties, features and values or as multiple observations, grouped in some appropriate structure."@en ;
+      rdfs:isDefinedBy <http://purl.oclc.org/NET/ssnx/ssn> .
+
+:Instrument
+      a       owl:Class ;
+      rdfs:comment "A tool or implement used to produce MeasuredVariables"@en ;
+      rdfs:label "Instrument"@en .
+
+:hasDOI
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "As Digital Object Identifier for a given resource. For example: \"oi:10.1191/095968301673881493\""@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:Dataset :Publication :SoftwareCode)
+              ] ;
+      rdfs:label "has DOI"@en ;
+      rdfs:range xsd:string ;
+      rdfs:subPropertyOf dcterms:identifier .
+
+:hasUnits
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "units in which a resource is measured The resource can be a Variable, an Observation, a Resolution, or an Uncertainty"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:MeasuredVariable :Resolution :Uncertainty :Variable)
+              ] ;
+      rdfs:label "has units"@en ;
+      rdfs:range xsd:string .
+
+:foundInSummaryTable
+      a       owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:comment "Property that indicates that the describer data or variable was found in a summary table"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:ChronModel :PaleoModel)
+              ] ;
+      rdfs:label "found in summary table"@en ;
+      rdfs:range :SummaryTable ;
+      rdfs:subPropertyOf :foundInTable .
+
+:onProxyObservationProperty
+      a       owl:ObjectProperty ;
+      rdfs:comment "Link to the proxy observation property observed in the current measured variable. For example, the observation \"A\" observed the proxy observation property \"Mg/Ca\""@en ;
+      rdfs:domain :MeasuredVariable ;
+      rdfs:label "on proxy observation property"@en ;
+      rdfs:range :ProxyObservation ;
+      rdfs:subPropertyOf <http://purl.oclc.org/NET/ssnx/ssn#observedProperty> .
+
+:DataTable
+      a       owl:Class ;
+      rdfs:comment "A set of Variables organized in columns"@en ;
+      rdfs:label "Data table"@en .
+
+:PaleoDataTable
+      a       owl:Class ;
+      rdfs:comment "DataTable containig PaleoData Variables"@en ;
+      rdfs:label "PaleoData table"@en ;
+      rdfs:subClassOf :DataTable .
+
+:publishedIn
+      a       owl:ObjectProperty ;
+      rdfs:comment "Where was the Dataset published? Property that relates a dataset to the publication where it was published."@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "published in"@en ;
+      rdfs:range :Publication .
+
+:ProxyObservationModel
+      a       owl:Class ;
+      rdfs:comment "The simplified representation of the way in which observations are made on the archive. sensu Evans et al. 2013."@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy observation model"@en ;
+      rdfs:subClassOf :Model .
+
+:PeerReviewedPublication
+      a       owl:Class ;
+      rdfs:comment "A publication that has undergone a formal peer-reviewed process."@en ;
+      rdfs:label "Peer reviewed publication"@en ;
+      rdfs:subClassOf :Publication .
+
+:SoftwareCode
+      a       owl:Class ;
+      rdfs:comment "A script that describes the model, in any programming language (e.g., Excel, Matlab, Python, R)"@en ;
+      rdfs:label "Software code"@en .
+
+:SummaryTable
+      a       owl:Class ;
+      rdfs:label "Summary table"@en , "Table containing relevant statistics from the ensemble table"@en ;
+      rdfs:subClassOf :DataTable .
+
+:volume
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "The volume number in which the publication appeared."@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "volume"@en ;
+      rdfs:range xsd:string .
+
+:notes
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Notes regarding the cells in the DataTable"@en ;
+      rdfs:domain :Dataset , :Variable , :Model ;
+      rdfs:label "notes"@en ;
+      rdfs:range xsd:string .
+
+:inferredFrom
+      a       owl:ObjectProperty ;
+      rdfs:comment "From which measured variable is the current inferred variable obtained?"@en ;
+      rdfs:domain :InferredVariable ;
+      rdfs:label "inferred from"@en ;
+      rdfs:range :MeasuredVariable .
+
+:fundingCountry
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Country which awarded the funding for the dataset"@en ;
+      rdfs:domain :Funding ;
+      rdfs:label "funding country"@en .
+
+:hasProxyArchive
+      a       owl:ObjectProperty ;
+      rdfs:comment "Archive associated with the proxy system"@en ;
+      rdfs:domain :ProxySystem ;
+      rdfs:label "has proxy archive"@en ;
+      rdfs:range :ProxyArchive ;
+      rdfs:subPropertyOf dcterms:hasPart .
+
+:NonPeerReviewedPublication
+      a       owl:Class ;
+      rdfs:comment "A publication that has not undergone a formal review process; for instance, a Dataset attached to a dissertation."@en ;
+      rdfs:label "Non peer reviewed publication"@en ;
+      rdfs:subClassOf :Publication ;
+      owl:disjointWith :PeerReviewedPublication .
+
+:modeledBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "How was the process modeled?"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:Data :ProxySystem)
+              ] ;
+      rdfs:label "modeled by"@en ;
+      rdfs:range :Model .
+
+dcterms:contributor
+      a       owl:ObjectProperty ;
+      rdfs:isDefinedBy dcterms: .
+
+:chronModeledBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "How was the chron data modeled?"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:ChronData)
+              ] ;
+      rdfs:label "chron modeled by"@en ;
+      rdfs:range :ChronModel ;
+      rdfs:subPropertyOf :modeledBy .
+
+:ChronDataTable
+      a       owl:Class ;
+      rdfs:comment "DataTable containing the Chronology Variables"@en ;
+      rdfs:label "Chron data table"@en ;
+      rdfs:subClassOf :DataTable ;
+      owl:disjointWith :PaleoDataTable .
+
+:interpretedAs
+      a       owl:ObjectProperty ;
+      rdfs:comment "how is the variable interpreted?"@en ;
+      rdfs:domain :Variable ;
+      rdfs:label "interpreted as"@en ;
+      rdfs:range :Interpretation .
+
+:hasExecutionCommand
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The execution command needed to run the script or software"@en ;
+      rdfs:domain :SoftwareCode ;
+      rdfs:label "has execution command"@en ;
+      rdfs:range xsd:string .
+
+:PaleoModel
+      a       owl:Class ;
+      rdfs:comment "Model describing how the measuredVariables are transformed into inferredVariables"@en ;
+      rdfs:label "Paleo model"@en ;
+      rdfs:subClassOf :Model .
+
+dcterms:identifier
+      a       owl:DatatypeProperty ;
+      rdfs:isDefinedBy dcterms: .
+
+:datasetVersion
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "The version of the dataset. It should follow the x.y.z notation where x refers to changes in metadata and data following a publication (for instance, the creation of a new age model using a different code), y refers to changes to the data following a publication (for instance, adding data further back in time without changing the model underlying the interpretation), and z refers to changes not associated with a publication (for instance, typos)."@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "dataset version"@en .
+
+:hasISBN
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Identifier used commonly to refer to publications."@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "has ISBN"@en ;
+      rdfs:range xsd:string ;
+      rdfs:subPropertyOf dcterms:identifier .
+
+<http://www.cefns.nau.edu/~npm4/>
+      a       owl:NamedIndividual .
+
+:     a       owl:Ontology , owl:NamedIndividual ;
+      rdfs:comment "The Linked Earth Ontology aims to provide a common vocabulary for annotating paleoclimatology data"@en ;
+      dcterms:contributor <http://www.isi.edu/~gil/> , <http://w3id.org/people/dgarijo> ;
+      dcterms:creator <http://orcid.org/0000-0001-5920-4751> , <http://www.cefns.nau.edu/~npm4/> , <http://earth.usc.edu/~khider/> ;
+      dcterms:description "The Linked Earth Ontology aims to provide a common vocabulary for annotating paleoclimatology data"@en ;
+      dcterms:license "http://creativecommons.org/licenses/by-nc-sa/2.0/" ;
+      dcterms:title "The Linked Earth Ontology"@en , "The Linked Earth Ontology" ;
+      vann:preferredNamespacePrefix
+              "le" ;
+      vann:preferredNamespaceUri
+              "http://linked.earth/ontology#" ;
+      owl:versionIRI <http://linked.earth/ontology/core1.1.0> ;
+      owl:versionInfo "1.1.0"@en .
+
+:ChronProxy
+      a       owl:Class ;
+      rdfs:comment "The data and metadata associated with how the chronology information was obtained."@en ;
+      rdfs:label "Chron proxy"@en ;
+      rdfs:subClassOf :ProxySystem .
+
+:paleoModeledBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "How was the paleoData modeled?"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:PaleoData)
+              ] ;
+      rdfs:label "paleo modeled by"@en ;
+      rdfs:range :PaleoModel ;
+      rdfs:subPropertyOf :modeledBy .
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#lat>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> ;
+      rdfs:isDefinedBy <http://www.w3.org/2003/01/geo/wgs84_pos#> ;
+      rdfs:range xsd:string .
+
+<http://schema.org/name>
+      a       owl:DatatypeProperty ;
+      rdfs:domain owl:Thing ;
+      rdfs:isDefinedBy <http://schema.org/> ;
+      rdfs:range xsd:string .
+
+:isLocal
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Whether the influence on the MeasuredVariable (and therefore the Interpretation) is local or far-field. The literal is a string." ;
+      rdfs:domain :Interpretation ;
+      rdfs:label "is local"@en ;
+      rdfs:range xsd:string .
+
+:sensingWith
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that links the proxy archive to the target proxy sensor. This property determines how the archive senses the environment"@en ;
+      rdfs:domain :ProxyArchive ;
+      rdfs:label "sensing with"@en ;
+      rdfs:range :ProxySensor ;
+      rdfs:subPropertyOf owl:topObjectProperty .
+
+:includesVariable
+      a       owl:ObjectProperty ;
+      rdfs:comment "What are the Variables included in the DataTable?"@en ;
+      rdfs:domain :DataTable ;
+      rdfs:label "includes variable"@en ;
+      rdfs:range :Variable .
+
+:issue
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "The issue number for the publication"@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "issue"@en ;
+      rdfs:range xsd:int .
+
+:fundingAgency
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "The agency that funded the development of the Dataset"@en ;
+      rdfs:domain :Funding ;
+      rdfs:label "funding agency"@en ;
+      rdfs:range xsd:string .
+
+:hasProxyArchiveModel
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that links to the proxy archive model included in the proxy system model"@en ;
+      rdfs:domain :ProxySystemModel ;
+      rdfs:label "has proxy archive model"@en ;
+      rdfs:range :ProxyArchiveModel ;
+      rdfs:subPropertyOf dcterms:hasPart .
+
+:interpretationReferences
+      a       owl:ObjectProperty ;
+      rdfs:comment "Describes the basis by which the proxy variable is interpreted in terms of climate. "@en ;
+      rdfs:domain :Interpretation ;
+      rdfs:label "interpretation references"@en ;
+      rdfs:range :Publication ;
+      rdfs:subPropertyOf dcterms:references .
+
+:Publication
+      a       owl:Class ;
+      rdfs:comment "A document that serves as reference for a Dataset or its components"@en ;
+      rdfs:label "Publication"@en .
+
+:description
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The description of a resource. This property may be used to provide further details on instrument descriptions, uncertainty description,etc."@en ;
+      rdfs:label "description"@en ;
+      rdfs:range xsd:string .
+
+:Variable
+      a       owl:Class ;
+      rdfs:comment "Quantities which can be measured or inferred independently in an experiment"@en ;
+      rdfs:label "Variable"@en .
+
+:Model
+      a       owl:Class ;
+      rdfs:comment "Any system that is at least partially isomorphic to some target system and used to derive information about the structure and/or dynamics of the target system."@en ;
+      rdfs:label "Model"@en .
+
+:hasID
+      a       owl:DatatypeProperty ;
+      rdfs:comment "ID for a variable in a table"@en ;
+      rdfs:domain :Variable ;
+      rdfs:label "has ID"@en ;
+      rdfs:range xsd:string .
+
+:foundInDistributionTable
+      a       owl:FunctionalProperty , owl:ObjectProperty ;
+      rdfs:comment "Property that indicates that a variable or data is found in a distribution table"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:ChronModel :PaleoModel)
+              ] ;
+      rdfs:label "found in distribution table"@en ;
+      rdfs:range :DistributionTable ;
+      rdfs:subPropertyOf :foundInTable .
+
+:Uncertainty
+      a       owl:Class ;
+      rdfs:comment "A state of incomplete knowledge that can result from a lack of information or from disagreement about what is known or  even knowable. Uncertainty may come from many sources, from imprecision in the data to ambigously defined concepts or terminology, or uncertain projections of human bahavior. Uncertainty can be represented by quantitative measures (e.g., probability density function) or by qualitative statement (e.g., reflecting the judgement of a team of experts. Sensu IPCC AR5"@en ;
+      rdfs:isDefinedBy <https://www.ipcc.ch/pdf/assessment-report/ar5/wg1/WG1AR5_AnnexIII_FINAL.pdf> ;
+      rdfs:label "Uncertainty"@en .
+
+:warnings
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Warnings of the variable or dataset being annotated"@en ;
+      rdfs:domain :Dataset , :Variable ;
+      rdfs:label "warnings"@en ;
+      rdfs:range rdfs:Literal ;
+      rdfs:subPropertyOf :notes .
+
+:book
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Book in which the publication was published"@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "book"@en ;
+      rdfs:range xsd:string .
+
+:sensorSpecies
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The species of the sensor" ;
+      rdfs:domain :OrganicSensor ;
+      rdfs:label "sensor species"@en ;
+      rdfs:range xsd:string .
+
+:ProxyArchive
+      a       owl:Class ;
+      rdfs:comment """The medium in which the response of a sensor to environmental forcing is recorded. Sensu Evans et al. (2013).
+
+Examples of archives include: marine sediments, corals, wood, lake sediments, speleothems, glacier ice, etc."""@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy archive"@en .
+
+:PaleoData
+      a       owl:Class ;
+      rdfs:comment "The Data pertaining to past environmental variability"@en ;
+      rdfs:label "Paleo data"@en ;
+      rdfs:subClassOf :Data .
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#long>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> ;
+      rdfs:isDefinedBy <http://www.w3.org/2003/01/geo/wgs84_pos#> ;
+      rdfs:range xsd:string .
+
+dcterms:bibliographicCitation
+      a       owl:DatatypeProperty ;
+      rdfs:isDefinedBy dcterms: .
+
+:IsotopeInterpretation
+      a       owl:Class ;
+      rdfs:comment "A suite of metadata that describe how a MeasuredVariable with instance Isotope is interpreted to reflect past variability, including environmental variability" ;
+      rdfs:label "Isotope interpretation"@en ;
+      rdfs:subClassOf :Interpretation .
+
+:hasLink
+      a       owl:DatatypeProperty ;
+      rdfs:comment "A downloadable link of a resource"@en ;
+      rdfs:label "has link"@en ;
+      rdfs:range xsd:anyURI .
+
+:MeasuredVariable
+      a       owl:Class ;
+      rdfs:comment "A measured variable represents the values of a column in a data table. Measured variables are ssn:Observations. Measured variable observe Proxy Observation properties"@en ;
+      rdfs:label "Measured variable"@en ;
+      rdfs:subClassOf
+              [ a       owl:Class ;
+                owl:intersectionOf (:Variable <http://purl.oclc.org/NET/ssnx/ssn#Observation>)
+              ] .
+
+dcterms:references
+      a       owl:ObjectProperty ;
+      rdfs:isDefinedBy dcterms: .
+
+:IntegrationTime
+      a       owl:Class ;
+      rdfs:comment "The integration time of the Archive or the Sensor" ;
+      rdfs:label "Integration time"@en ;
+      rdfs:subClassOf :ProxyArchiveModel , :ProxySensorModel .
+
+:ProxySensorModel
+      a       owl:Class ;
+      rdfs:comment "A formalization of the behavior of the sensor in response to environmental forcing. Sensu Evans et al. 2013."@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy sensor model"@en ;
+      rdfs:subClassOf :Model .
+
+:hasExecutionEnvironment
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Execution environment of the code"@en ;
+      rdfs:domain :SoftwareCode ;
+      rdfs:label "has execution environment"@en ;
+      rdfs:range xsd:string .
+
+:datasetDate
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Date when the dataset was published. "@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "dataset date"@en ;
+      rdfs:range xsd:dateTime ;
+      rdfs:subPropertyOf dcterms:created .
+
+:EnsembleTable
+      a       owl:Class ;
+      rdfs:comment "Table containing possible series of age models or proxy variability"@en ;
+      rdfs:label "Ensemble table"@en ;
+      rdfs:subClassOf :DataTable .
+
+:collectedFrom
+      a       owl:ObjectProperty ;
+      rdfs:comment "Where was the data in the dataset collected from? Generally, this is the site where the archive was collected. "@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "collected from"@en ;
+      rdfs:range :Location .
+
+:hasColumnNumber
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The table column number associated to  a variable"@en ;
+      rdfs:domain :Variable ;
+      rdfs:label "has column number"@en ;
+      rdfs:range xsd:integer .
+
+:calibratedFrom
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that indicates how the measured variable was calibrated"@en ;
+      rdfs:domain :MeasuredVariable ;
+      rdfs:label "calibrated from"@en ;
+      rdfs:range :CalibrationModel .
+
+:includesChronData
+      a       owl:ObjectProperty ;
+      rdfs:comment "Pointer to the chron data included in the dataset"@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "includes chron data"@en ;
+      rdfs:range :ChronData ;
+      rdfs:subPropertyOf :includesData .
+
+:measuredBy
+      a       owl:ObjectProperty ;
+      rdfs:comment "What Instrument was used to obtain the MeasuredVariables and Observations?"@en ;
+      rdfs:domain :MeasuredVariable ;
+      rdfs:label "measured by"@en ;
+      rdfs:range :Instrument ;
+      rdfs:subPropertyOf <http://purl.oclc.org/NET/ssnx/ssn#observedBy> .
+
+:grantNumber
+      a       owl:DatatypeProperty ;
+      rdfs:comment "The grant number associated with the development of the Dataset?"@en ;
+      rdfs:domain :Funding ;
+      rdfs:label "grant number"@en ;
+      rdfs:range xsd:string .
+
+:seasonality
+      a       owl:DatatypeProperty ;
+      rdfs:comment "fluctuating or restricted according to the season or time of year"@en ;
+      rdfs:domain :ProxySensor , :Interpretation ;
+      rdfs:label "seasonality"@en ;
+      rdfs:range xsd:string .
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#alt>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> ;
+      rdfs:isDefinedBy <http://www.w3.org/2003/01/geo/wgs84_pos#> ;
+      rdfs:range xsd:string ;
+      rdfs:subPropertyOf owl:topDataProperty .
+
+:hasResolution
+      a       owl:ObjectProperty ;
+      rdfs:comment "What is the Resolution of the Archive?" ;
+      rdfs:domain :ProxyArchive ;
+      rdfs:label "has resolution"@en ;
+      rdfs:range :Resolution .
+
+:hasProxySensor
+      a       owl:ObjectProperty ;
+      rdfs:comment "Sensor associated with the proxy system"@en ;
+      rdfs:domain :ProxySystem ;
+      rdfs:label "has proxy sensor"@en ;
+      rdfs:range :ProxySensor ;
+      rdfs:subPropertyOf dcterms:hasPart .
+
+:includesPaleoData
+      a       owl:ObjectProperty ;
+      rdfs:comment "The paleo data included as part of a dataset"@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "includes paleo data"@en ;
+      rdfs:range :PaleoData ;
+      rdfs:subPropertyOf :includesData .
+
+:ChronModel
+      a       owl:Class ;
+      rdfs:comment "Model used to obtain the chronology"@en ;
+      rdfs:label "Chron model"@en ;
+      rdfs:subClassOf :Model .
+
+:ChronData
+      a       owl:Class ;
+      rdfs:comment "The Data pertaining to chronological information"@en ;
+      rdfs:label "Crhon data"@en ;
+      rdfs:subClassOf :Data .
+
+:calibratedWith
+      a       owl:ObjectProperty ;
+      rdfs:comment "How was the variable calibrated to represent climate or chronology?"@en ;
+      rdfs:domain :InferredVariable ;
+      rdfs:label "calibrated with"@en ;
+      rdfs:range :CalibrationModel .
+
+:ProxySensor
+      a       owl:Class ;
+      rdfs:comment "The sensor comprises physical, chemical, and/or biological components that react to environmental conditions. Sensors often respond to more than one environmental variable, and may have complex responses to the environment they sense, including thresholds (record only part of the range of environmental conditions), seasonal biases (record environmental conditions over a few months of the year), and/or nonlinear responses (Evans et al. (2013))"@en ;
+      rdfs:isDefinedBy <http://www.sciencedirect.com/science/article/pii/S0277379113002011> ;
+      rdfs:label "Proxy sensor"@en .
+
+:Dataset
+      a       owl:Class ;
+      rdfs:comment "A structured collection of related information, including - but not limited to - geographical, chronological, and measured or modeled paleoenvironmental data"@en ;
+      rdfs:label "Dataset"@en .
+
+:Resolution
+      a       owl:Class ;
+      rdfs:comment "Refers to the distance (physical or temporal) between each point on the archive. May or May not be related to sampling. Value with units"@en ;
+      rdfs:label "Resolution"@en .
+
+<http://www.opengis.net/ont/geosparql#asWKT>
+      a       owl:DatatypeProperty ;
+      rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
+      rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql#> ;
+      rdfs:range rdfs:Literal .
+
+dcterms:hasPart
+      a       owl:ObjectProperty .
+
+dcterms:title
+      a       owl:DatatypeProperty ;
+      rdfs:isDefinedBy dcterms: .
+
+:hasProxySystem
+      a       owl:ObjectProperty ;
+      rdfs:comment "Proxy system associated to the measured variable"@en ;
+      rdfs:domain :MeasuredVariable ;
+      rdfs:label "has proxy system"@en ;
+      rdfs:range :ProxySystem .
+
+:detail
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Answers the \"of what\" question for a Variable."@en ;
+      rdfs:domain :Interpretation ;
+      rdfs:label "detail"@en ;
+      rdfs:range xsd:string .
+
+:relevantQuote
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Relevant summary or preferably quotation from the referenced Publication" ;
+      rdfs:label "relevant quote"@en ;
+      rdfs:range xsd:string ;
+      rdfs:subPropertyOf :description .
+
+:hasMissingValue
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Indicates how the missing values are flagged in a dataset"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:Uncertainty :Variable)
+              ] ;
+      rdfs:label "has missing value"@en ;
+      rdfs:range xsd:string ;
+      owl:propertyDisjointWith
+              :hasValue .
+
+<http://www.isi.edu/~gil/>
+      a       owl:NamedIndividual .
+
+:email
+      a       owl:DatatypeProperty ;
+      rdfs:comment "email of an author or contributor"@en ;
+      rdfs:domain :Person ;
+      rdfs:label "email"@en ;
+      rdfs:range xsd:string .
+
+dcterms:creator
+      a       owl:ObjectProperty ;
+      rdfs:isDefinedBy dcterms: .
+
+:ClimateInterpretation
+      a       owl:Class ;
+      rdfs:comment "A suite of metadata that describe how a variable is interpreted to reflect past environmental variability" ;
+      rdfs:label "Climate interpretation"@en ;
+      rdfs:subClassOf :Interpretation .
+
+:hasProxySensorModel
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that links to the proxy sensor model included in the proxy system model"@en ;
+      rdfs:domain :ProxySystemModel ;
+      rdfs:label "has proxy sensor model"@en ;
+      rdfs:range :ProxySensorModel ;
+      rdfs:subPropertyOf dcterms:hasPart .
+
+:hasValue
+      a       owl:DatatypeProperty ;
+      rdfs:comment "A column of values for the variable. The literal can be in the form of a vector of values (for instance d18O PaleoObservations),  a vector of strings (for instance different paleoArchiveNames),  a matrix or both"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:Uncertainty :Variable)
+              ] ;
+      rdfs:label "has value"@en ;
+      rdfs:range xsd:string .
+
+<http://orcid.org/0000-0001-5920-4751>
+      a       owl:NamedIndividual .
+
+:hasFileName
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Name of the CSV file containing the data table"@en ;
+      rdfs:domain :DataTable ;
+      rdfs:label "has file name"@en ;
+      rdfs:range xsd:string .
+
+:includesData
+      a       owl:ObjectProperty ;
+      rdfs:comment "What are the paleoenvironmental and chronological Data included in the Dataset?"@en ;
+      rdfs:domain :Dataset ;
+      rdfs:label "includes data"@en ;
+      rdfs:range :Data .
+
+:foundInTable
+      a       owl:ObjectProperty ;
+      rdfs:comment "Property that indicated the table where the described data can be found"@en ;
+      rdfs:domain
+              [ a       owl:Class ;
+                owl:unionOf (:Data :Model :Variable)
+              ] ;
+      rdfs:label "found in table"@en ;
+      rdfs:range :DataTable .
+
+:name
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Name of the described resource"@en ;
+      rdfs:label "name"@en ;
+      rdfs:range xsd:string ;
+      rdfs:subPropertyOf <http://schema.org/name> .
+
+:interpretationDirection
+      a       owl:DatatypeProperty , owl:FunctionalProperty ;
+      rdfs:comment "Describes whether the interpreted environmental variable increases (positive) or decreases (negative) as the paleoDataVariableValue increases. The literal is a string , either \"positive\" or \"negative\""@en ;
+      rdfs:domain :Interpretation ;
+      rdfs:label "interpretation direction"@en ;
+      rdfs:range xsd:string .
+
+:title
+      a       owl:DatatypeProperty ;
+      rdfs:comment "Title of a publication"@en ;
+      rdfs:domain :Publication ;
+      rdfs:label "title"@en ;
+      rdfs:range xsd:string ;
+      rdfs:subPropertyOf dcterms:title .

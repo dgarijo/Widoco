@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:vann="http://purl.org/vocab/vann/">
+    <Ontology rdf:about="https://w3id.org/games/spec/coil#">
+        <terms:description xml:lang="en">Extension of the video game ontology to represent the main concepts of the game Coil</terms:description>
+        <versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</versionInfo>
+        <vann:preferredNamespaceUri rdf:resource="https://w3id.org/games/spec/coil#"/>
+        <rdfs:label xml:lang="en">Coil Ontology</rdfs:label>
+        <rdfs:comment xml:lang="en">Extension of the video game ontology to represent the main concepts of the game Coil</rdfs:comment>
+        <terms:contributor rdf:resource="http://delicias.dia.fi.upm.es/members/DGarijo/#me"/>
+        <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">02-13-2015</terms:created>
+        <terms:creator rdf:resource="http://www.mendeley.com/profiles/janne-parkkila/"/>
+        <terms:license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/"/>
+        <terms:title xml:lang="en">Coil Videogame Ontology</terms:title>
+        <vann:preferredNamespacePrefix>coil</vann:preferredNamespacePrefix>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#deletedProperty -->
+
+    <ObjectProperty rdf:about="https://w3id.org/games/spec/coil#deletedProperty"/>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#oldProp2 -->
+
+    <ObjectProperty rdf:about="https://w3id.org/games/spec/coil#oldProp2">
+        <rdfs:comment>In this case, only the comment will change in the new one. It will be deleted</rdfs:comment>
+    </ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#oldProperty -->
+
+    <ObjectProperty rdf:about="https://w3id.org/games/spec/coil#oldProperty"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#oldProp -->
+
+    <DatatypeProperty rdf:about="https://w3id.org/games/spec/coil#oldProp"/>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#propToChange -->
+
+    <DatatypeProperty rdf:about="https://w3id.org/games/spec/coil#propToChange">
+        <rdfs:comment xml:lang="en">old comment</rdfs:comment>
+    </DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/net/VideoGameOntology#Achievement -->
+
+    <Class rdf:about="http://purl.org/net/VideoGameOntology#Achievement"/>
+    
+
+
+    <!-- http://purl.org/net/VideoGameOntology#GameEvent -->
+
+    <Class rdf:about="http://purl.org/net/VideoGameOntology#GameEvent">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#InstantaneousEvent"/>
+    </Class>
+    
+
+
+    <!-- http://purl.org/net/VideoGameOntology#Genre -->
+
+    <Class rdf:about="http://purl.org/net/VideoGameOntology#Genre"/>
+    
+
+
+    <!-- http://purl.org/net/VideoGameOntology#HardMode -->
+
+    <Class rdf:about="http://purl.org/net/VideoGameOntology#HardMode">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#Achievement"/>
+    </Class>
+    
+
+
+    <!-- http://purl.org/net/VideoGameOntology#InstantaneousEvent -->
+
+    <Class rdf:about="http://purl.org/net/VideoGameOntology#InstantaneousEvent"/>
+    
+
+
+    <!-- http://purl.org/net/VideoGameOntology#Tutorial -->
+
+    <Class rdf:about="http://purl.org/net/VideoGameOntology#Tutorial">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#Achievement"/>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Arcade -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Arcade">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#Genre"/>
+        <rdfs:comment xml:lang="en">An arcade type of game</rdfs:comment>
+        <rdfs:label xml:lang="en">Arcade</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Bomb_Die_Of_Age -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Bomb_Die_Of_Age">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#GameEvent"/>
+        <rdfs:comment xml:lang="en">An event of bomb dying of age</rdfs:comment>
+        <rdfs:label xml:lang="en">Bomb Die of Age</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Circle_10_In_A_Row -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Circle_10_In_A_Row">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#HardMode"/>
+        <rdfs:comment xml:lang="en">An achievement given for circling 10 enemies at a same time</rdfs:comment>
+        <rdfs:label xml:lang="en">Circle 10 in a Row</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Enclose_Bomb -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Enclose_Bomb">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#GameEvent"/>
+        <rdfs:comment xml:lang="en">An event of player enclosing a bomb</rdfs:comment>
+        <rdfs:label xml:lang="en">Enclose Bomb</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Enclose_Enemy -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Enclose_Enemy">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#GameEvent"/>
+        <rdfs:comment xml:lang="en">An event of player enclosing an enemy</rdfs:comment>
+        <rdfs:label xml:lang="en">Enclose Enemy</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Enemy_Die_Of_Age -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Enemy_Die_Of_Age">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#GameEvent"/>
+        <rdfs:comment xml:lang="en">An event of enemy dying of age</rdfs:comment>
+        <rdfs:label xml:lang="en">Enemy Die of Age</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Fail_Circling -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Fail_Circling">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#Tutorial"/>
+        <rdfs:comment xml:lang="en">An achievement given for failing in circling an enemy</rdfs:comment>
+        <rdfs:label xml:lang="en">Fail Circling</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Game_Over -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Game_Over">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#GameEvent"/>
+        <rdfs:comment xml:lang="en">A Game Over event</rdfs:comment>
+        <rdfs:label xml:lang="en">Game Over</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_Learn_To_Circle -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_Learn_To_Circle">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#Tutorial"/>
+        <rdfs:comment xml:lang="en">An achievement given for learning to circle</rdfs:comment>
+        <rdfs:label xml:lang="en">Learn to Circle</rdfs:label>
+    </Class>
+    
+
+
+    <!-- https://w3id.org/games/spec/coil#Coil_New_Game -->
+
+    <Class rdf:about="https://w3id.org/games/spec/coil#Coil_New_Game">
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/VideoGameOntology#GameEvent"/>
+        <rdfs:comment xml:lang="en">A New Game Event</rdfs:comment>
+        <rdfs:label xml:lang="en">New Game</rdfs:label>
+    </Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
+
