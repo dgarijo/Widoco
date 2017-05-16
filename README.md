@@ -31,7 +31,7 @@ Features of WIDOCO:
 * Separation of the sections of your html page so you can write them independently and replace only those needed.
 * Content negotiation and serialization of your ontology according to W3C best practices
 
-[See some examples](http://dgarijo.github.io/WIDOCO/doc/gallery/)
+[See some examples](http://dgarijo.github.io/Widoco/doc/gallery/)
 
 The structure of the template is as follows:
 
