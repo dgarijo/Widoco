@@ -16,11 +16,11 @@ Explain here that the terms have been defined in two groups: recommended and opt
 Summary of <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> properties
 <ul class="hlist">
 	<li><a href="#namespaceURI">namespace URI</a></li>
-	<li><a href="#namespaceURI">title</a></li>
-	<li><a href="#namespaceURI">description</a></li>
-	<li><a href="#namespaceURI">prefix</a></li>
-	<li><a href="#namespaceURI">version IRI</a></li>
-	<li><a href="#namespaceURI">version info</a></li>
+	<li><a href="#title">title</a></li>
+	<li><a href="#description">description</a></li>
+	<li><a href="#prefix">prefix</a></li>
+	<li><a href="#versionIRI">version IRI</a></li>
+	<li><a href="#versionInfo">version info</a></li>
 	<li><a href="#namespaceURI">TO CONTINUE</a></li>
 </ul>
 
@@ -44,7 +44,7 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespaceURI</a></li>
 </ul>
 
-<h4>Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<h4 id="prefix">Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone referring to it in the same way.</p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -53,14 +53,14 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 
 <h3 id="goals" class="list">Vocabulary goals and description</h3>
 <p>Once your vocabulary can be properly identified, it is important to describe what it does without forcing users to explore it thoroughly. For this purpose, the following properties are recommended:</p>
-<h4>Title [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<h4 id="title">Title [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>If you were writing a paper describing your ontology, what would be the title?</p>
 <ul class="hlist"><strong>Terms you may use</strong>: 
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/title">dc:title</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/terms/title">terms:title</a></li>
 	<li><a target="_blank" href="http://schema.org/name">schema:name</a></li>
 </ul>
-<h4>Description [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<h4 id="description">Description [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>A small paragraph indicating what the ontology does and why should some one use it</p>
 <ul class="hlist"><strong>Terms you may use</strong>: 
 <li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:description</a></li>
@@ -78,54 +78,157 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 <li><a target="_blank" href="http://purl.org/dc/terms/abstract">dcterms:abstract</a></li>
 </ul>
 
-
-
-<h4>Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<h4 id="status">Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
 Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
+</p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="TO DO">bibo:status</a></li>
 </ul>
 
 <h3 id="version" class="list">Vocabulary version</h3>
-<p>Your vocabulary may evolve and be released several time. Knowing which version of the vocabulary is the one being operated with may help debugging and solving compatibility issues. </p>
+<p>Your vocabulary may evolve and go through several releases. Knowing which version of the vocabulary is the one being operated with may help debugging and solving compatibility issues. </p>
 
-<h4>Version IRI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>version iri
-The IRI that identifies this version of your vocabulary.
+<h4 id="versionIRI">Version IRI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>The IRI that identifies this version of your vocabulary.</p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionIRI">owl:versionIRI</a></li>
 </ul>
 
-<h4>Version info [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
-It is important to provide details about the version being handled. For example, the version number. 
+<h4 id="versionInfo">Version info [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>
+Details about the version being handled. We recommend to include, for example, the version number of the ontology (e.g., 1.0.1).
+</p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionInfo">owl:versionInfo</a></li>
+	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
 
-TO ADD: 
-schema:schemaVersion, pav: hasEarlierVersion, pav:previousVersion
+<h4 id="backwardCompatibility">Backward compatibility [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
+Property useful to determine whether this version of the vocabulary is compatible with a previous one.
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/issued">owl:backwardCompatibility</a></li>
+</ul>
+
+<h4 id="incompatibility">Incompatibility [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
+Property useful to let a potential reuser that this version of the vocabulary is not compatible with a previous (or future) version.
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/issued">owl:incompatibleWith</a></li>
+</ul>
 
 <h3 id="prov" class="list">Vocabulary provenance</h3>
-owl:backwardCompatibility, dc:replaces, dc:source, owl:priorVersion, prov:wasRevisionOf, owl:incompatibleWith
+<p>
+Several aspects of the vocabulary's provenance may be very useful to gather insight from the vocabulary. We describe them in this section.
+</p>
 
+<h4 id="previousVersion">Previous version [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>
+Adding a link to a previous version helps to see how the vocabulary has changed from one to the other. Thanks to this relationship, tools like WIDOCO may create automated changelog sections in the documentation of an ontology.
+</p>
 
-all the dates come here: dc:created, dc:modified, dc:issued, schema:dateCrated, schema:dateModified, prov:generatedAtTime, pav:createdOn
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#priorVersion">owl:priorVersion</a></li>
+	<li><a target="_blank" href="http://purl.org/pav/previousVersion">pav:previousVersion</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/replaces">terms:replaces</a></li>
+	<li><a target="_blank" href="http://www.w3.org/ns/prov#wasRevisionOf">prov:wasRevisionOf</a></li>
+</ul>
 
-isDefinedBy (para cuando reutilizas). Esto se usa mas a nivel de termino, no de vocabulario. Pero la podemos dejar
+<h4 id="creationDate">Creation date [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>
+Date when the vocabulary was created. There are different ways in which the date may be represented, but typically is with an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTime">xsd:dateTime</a> literal. Note that some vocabularies, like schema.org, define their own object as range for the date property. We advise to look at the respective vocabulary specifications for more information.
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/created">terms:created</a></li>
+	<li><a target="_blank" href="http://schema.org/dateCreated">schema:dateCrated</a></li>
+	<li><a target="_blank" href="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></li>
+	<li><a target="_blank" href="http://purl.org/pav/createdOn">pav:createdOn</a></li>
+</ul>
+
+<h4 id="modificationDate">Modification date [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
+Date when your vocabulary was modified. If you review several times a vocabulary, it would be advisable to know when it was last reviewed.
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/modified">terms:modified</a></li>
+	<li><a target="_blank" href="http://schema.org/dateModified">schema:dateModified</a></li>
+</ul>
+
+<h4 id="issuedDate">Issued date [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
+Date of formal issuance, like publication. It may be useful to distinguish between the date of creation versus the official date of publication of your vocabulary.
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/issued">terms:issued</a></li>
+	<li><a target="_blank" href="http://schema.org/dateIssued">schema:dateIssued</a></li>
+</ul>
+
+<h4 id="source">Source [<em class="rfc2119" title="OPTIONAL">OPTIONAl</em>]</h4>
+<p>Property indicating where the terms of your vocabulary come from. For example, if your vocabulary implements an existing non-RDF standard, or if there is an active discussion of the terms in a separate collaborative wiki, you may want to add a pointer to them in your vocabulary.
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/source">dc:source</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">terms:source</a></li>
+	<li><a target="_blank" href="http://www.w3.org/ns/prov#hadPrimarySource">prov:hadPrimarySource</a></li>
+</ul>
+
+<h3 id="credit" class="list">Vocabulary attribution</h3>
+[DEF credit]
+
+<h4 id="creators">Creators [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>
+[DEF]
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/creator">terms:creator</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/creator">dc:creator</a></li>
+	<li><a target="_blank" href="http://schema.org/creator">schema:creator</a></li>
+	<li><a target="_blank" href="http://purl.org/pav/createdBy">pav:createdBy</a></li>
+	<li><a target="_blank" href="http://www.w3.org/ns/prov#wasAttributedTo">prov:wasAttributedTo</a></li>
+</ul>
+
+<h4 id="contributors">Contributors [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>
+[DEF]
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/creator">terms:creator</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/creator">dc:creator</a></li>
+	<li><a target="_blank" href="http://schema.org/contributor">schema:contributor</a></li>
+	<li><a target="_blank" href="http://purl.org/pav/contributedBy">schema:contributedBy</a></li>
+</ul>
+
+<h4 id="publisher">Publisher [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
+[DEF]
+</p>
+
+<ul class="hlist"><strong>Terms you may use</strong>:  
+	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">terms:publisher</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/publisher">dc:publisher</a></li>
+	<li><a target="_blank" href="http://schema.org/publisher">schema:publisher</a></li>
+</ul>
+
 
 <h3 id="cite" class="list">Vocabulary citation</h3>
 bibo:doi, dc:bibliographicCitation, schema:citation
 
-<h3 id="credit" class="list">Vocabulary attribution</h3>
-dc:creator, dc:contributor, pav:curator, prov:wasAttributedTo, pav:createdBy, 
 
-schema:publisher, dc:publisher
-
-(some from dcterms might be missing)
-
-<h3 id="credit" class="list">Vocabulary license</h3>
+<h3 id="lic" class="list">Vocabulary license</h3>
 license, rights.
 
 from licensius (in oops documentation, I don't know whether it has evolved)
@@ -133,7 +236,7 @@ dc:rights, dcterms:rights, dcterms:license,  cc:license or xhv:license
 
 See https://www.w3.org/Submission/ccREL/
 
-<h3 id="image" class="list">Vocabulary images</h3>
+<h3 id="image" class="list">Vocabulary visualization</h3>
 foaf:logo, schema:logo, etc.
 
 foaf:diagram -> if you want certain diagrams to be included in your ontology.
