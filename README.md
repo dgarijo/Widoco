@@ -80,11 +80,11 @@ There are two ways for making WIDOCO get your vocabulary metadata annotations an
 * Add them in your OWL file. For guidelines on which ones to include, follow our [Best Practices document](https://w3id.org/widoco/bestPractices), which indicates which ones we recommend.
 * Edit the project properties of /config/config.properties. This is a key-value pair file with metadata properties. Some people consider it easier than adding the property annotations to the OWL file, although I recommmend doing the former option. Note that the character ";" is used for lists (for instance first author; second author; third author).
 
-Browser problems
+Browser issues
 ==========
-The result of executing WIDOCO is an html file. We have tested it in Mozilla, IE and Chrome, and when the page is stored in a server all the browsers work correctly. If you view the file locally, we recommend you to use Mozilla Firefox or Safari (or Internet Explorer, if you must). Google Chrome will not show the contents correctly, as it doesn't allow  XMLHttpRequest without HTTP. If you want to view the page locally with Google Chrome you have two possibilities:
+The result of executing WIDOCO is an HTML file. We have successfully tested it in Mozilla, IE, Safari and Chrome.  **When the page is stored in a server, WIDOCO's HTML  works correctly in all browsers**. If you view the file **on your local browser**, we recommend you to use Mozilla Firefox, Safari or Internet Explorer. Google Chrome will not show the contents correctly, as it doesn't allow  XMLHttpRequest without HTTP. If you want to view the page locally with Google Chrome you have two possibilities:
 
-a) Place the file in a server and access it via its URL (for example, put it in dropbox and access through its public url).
+a) Place the file in a server and access it via its URL (for example, put it in dropbox and access through its public url, or on a Github page).
 
 b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Carrera):
 
