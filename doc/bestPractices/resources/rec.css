@@ -35,9 +35,11 @@ th, td { /* ns 4 */
 
 h1, h2, h3, h4, h5, h6 { text-align: left }
 h2.list{counter-reset:subsection }
+h3.list{counter-reset:subsubsection }
 h2.list:before{counter-increment:section;content: counter(section) ". ";}
 h3.list:before{counter-increment:subsection;content: counter(section) "." counter(subsection) ". ";
 	}
+h4.list:before{counter-increment:subsubsection;content: counter(section) "." counter(subsection) "." counter(subsubsection) ". ";}
 h3.list{margin-top: 20px;
 	border-bottom: 0px; }
 /* background should be transparent, but WebTV has a bug */

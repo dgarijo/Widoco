@@ -20,12 +20,16 @@ function loadHash() {
 }
 function loadTOC(){
 	//process toc dynamically
-	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;k=0;
 	  jQuery(".list").each(function(){
 		if(jQuery(this).is('h2')){
 			if(j>0){
 				t+='</ul>';
 				j=0;
+				if(k>0){
+					t+='</ul>';
+					k=0;
+				}
 			}
 			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
 			i++;
@@ -34,8 +38,19 @@ function loadTOC(){
 			if(j==0){
 				t+='<ul>';
 			}
+			if(k>0){
+				t+='</ul>';
+				k=0;
+			}
 			j++;
 			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
+		}
+		if(jQuery(this).is('h4')){
+			if(k==0){
+				t+='<ul>';
+			}
+			k++;
+			t+= '<li>'+(i-1)+'.'+(j)+'.'+k+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
 		}
 		t = t.replace(' back to ToC','');
 	  });
@@ -68,7 +83,7 @@ function loadTOC(){
 <img src="http://i.creativecommons.org/l/by/2.0/88x31.png" style="border-width:0" alt="License"></img>
 </a>
 <br/></dd></dl><dl><dt>Cite as:</dt>
-<dd>Daniel Garijo and María Poveda-Villalón. A checklist for complete vocabulary metadata</dd>
+<dd>Daniel Garijo and María Poveda-Villalón. A checklist for complete vocabulary metadata. URL: <a href="https://w3id.org/widoco/bestPractices">https://w3id.org/widoco/bestPractices</a></dd>
 </dl>
 <hr/>
 </div>
