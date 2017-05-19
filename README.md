@@ -41,10 +41,6 @@ How to use WIDOCO
 ==========
 Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
 
-For customizing the metadata of your ontology, edit the project properties of /config/config.properties. 
-
-The character ";" is used for lists (for instance first author; second author; third author).
-
 Now you can execute WIDOCO through the console. Usage:
 
 	java -jar WIDOCO.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals]
@@ -76,6 +72,13 @@ The -webVowl flag provides a link to a visualization based on WebVowl (http://vo
 The -licensius flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the -getOntologyMetadata flag is enabled.
 
 The -ignoreIndividuals allows you to ignore the named individuals in the ontology.
+
+How can I make WIDOCO automatically recognize my vocabulary annotations?
+==========
+There are two ways for making WIDOCO get your vocabulary metadata annotations and use them automatically to document the ontology. 
+
+* Add them in your OWL file. For guidelines on which ones to include, follow our [Best Practices document](https://w3id.org/widoco/bestPractices), which indicates which ones we recommend.
+* Edit the project properties of /config/config.properties. This is a key-value pair file with metadata properties. Some people consider it easier than adding the property annotations to the OWL file, although I recommmend doing the former option. Note that the character ";" is used for lists (for instance first author; second author; third author).
 
 Browser problems
 ==========
