@@ -1,33 +1,51 @@
 <h2 id="desc" class="list">Vocabulary checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
-<p>When creating vocabularies, people often ask which are the metadata properties that they should include, because they don't know where to start from. The truth is that starting from scratch may not be an easy task, as there are plenty of ontologies that define properties to describe other vocabularies or ontologies. For example, initiatives like <a href="https://htmlpreview.github.io/?https://github.com/agroportal/documentation/blob/master/metadata/Metadata%20for%20AgroPortal.html#">Agrovoc</a> have collected over 120 terms from different vocabularies! Others may be found in metadata repositories like <a href="http://lov.okfn.org/">LOV</a>, but one has to know what to look for</p> 
+<p>In this section we list the metadata terms we consider relevant for describing a vocabulary. A summary of the recommended and optional terms for the vocabulary description (e.g., title, creator, etc.) and for classes and properties description (e.g., label, definition, etc.) can  be seen in the tables below:</p>
 
-<p>
-In this section I address this issue by describing the metadata properties that you should include when releasing an ontology or vocabulary. I expand on previous recommendations for vocabulary design [<a href="">CITE</a>], explaining why they should be included and which properties from other vocabularies you could reuse.
-</p>
-
-<p>
-Explain here that the terms have been defined in two groups: recommended and optional
-</p>
-
-<p>
-<strong>All the reused metadata properties described in this document are supported by <a href="https://w3id.org/widoco">Widoco</a></strong>, a tool for building ontology documentation automatically. Therefore, an immediate benefit of adding them is that you will get more complete documentations automatically.
-</p>
-
-Summary of <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> properties
-<ul class="hlist">
+Summary of <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> properties for <strong>vocabularies</strong>
+<ul class="hlist" id="rec">
 	<li><a href="#namespaceURI">namespace URI</a></li>
+	<li><a href="#prefix">prefix</a></li>
 	<li><a href="#title">title</a></li>
 	<li><a href="#description">description</a></li>
-	<li><a href="#prefix">prefix</a></li>
 	<li><a href="#versionIRI">version IRI</a></li>
 	<li><a href="#versionInfo">version info</a></li>
-	<li><a href="#namespaceURI">TO CONTINUE</a></li>
+	<li><a href="#previousVersion">previous version</a></li>
+	<li><a href="#creationDate">creation date</a></li>
+	<li><a href="#creators">creator</a></li>
+	<li><a href="#contributors">contributor</a></li>
+	<li><a href="#lic">license</a></li>
 </ul>
 
-Summary of <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> properties
-<ul class="hlist">
+Summary of <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> properties for <strong>vocabularies</strong>
+<ul class="hlist" id="opt">
 	<li><a href="#abs">abstract</a></li>
-	<li><a href="#namespaceURI">TO CONTINUE</a></li>
+	<li><a href="#status">status</a></li>
+	<li><a href="#backwardCompatibility">backward compatibility</a></li>
+	<li><a href="#incompatibility">incompatibility</a></li>
+	<li><a href="#modificationDate">modification Date</a></li>
+	<li><a href="#issuedDate">issued date</a></li>
+	<li><a href="#source">source</a></li>
+	<li><a href="#publisher">publisher</a></li>
+	<li><a href="#doi">DOI</a></li>
+	<li><a href="#biblio">bibliographic Citation</a></li>
+	<li><a href="#logo">logo</a></li>
+	<li><a href="#diagram">diagram</a></li>
+	<li><a href="#similar">see also</a></li>
+</ul>
+
+Summary of <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> properties for <strong>classes and properties</strong>
+<ul class="hlist" id="rec">
+	<li><a href="#label">label</a></li>
+	<li><a href="#def">definition</a></li>
+</ul>
+
+Summary of <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> properties for <strong>classes and properties</strong>
+<ul class="hlist" id="opt">
+	<li><a href="#example">example</a></li>
+	<li><a href="#deprecation">deprecation</a></li>
+	<li><a href="#status1">status</a></li>
+	<li><a href="#rationale">rationale</a></li>
+	<li><a href="#osource">source</a></li>
 </ul>
 
 <h3 id="access" class="list">Vocabulary access</h3>
@@ -189,7 +207,7 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 
 <h4 class="list" id="creators">Creators [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
-[DEF]
+People who created the vocabulary. Adding this metadata property is critical for other potential reusers to provide accurate credit and know who to contact in case of questions.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -202,7 +220,7 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 
 <h4 class="list" id="contributors">Contributors [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
-[DEF]
+People who contributed to the development of the vocabulary. Even if contributors may not play a critical role in the vocabulary development, it is important to acknowledge their contribution as well. 
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -214,7 +232,7 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 
 <h4 class="list" id="publisher">Publisher [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-[DEF]
+Organization responsible for publishing the vocabulary. This property is optional, as there are many cases where no organization is involved when publishing a vocabulary.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -225,19 +243,20 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 
 
 <h3 id="cite" class="list">Vocabulary citation</h3>
-[DEF]
+<p>Ontologies are considered software, and should be cited as such [CITE]. However, researchers reusing the ontology may not the correct citation associated to it. Adding metadata to help them would address this issue, granting you the appropriate credit for your work.</p>
+
 <h4 class="list" id="doi">DOI [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-[DEF]
+Digital Object Identifier associated to the vocabulary.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">bibo:doi</a></li>
 </ul>
 
-<h4 class="list" id="doi">Bibliographic citation [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<h4 class="list" id="biblio">Bibliographic citation [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-[DEF]
+Property indicating the text with the citation itself.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -246,14 +265,9 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 </ul>
 
 
-<h3 id="lic" class="list">Vocabulary license</h3>
+<h3 id="lic" class="list">Vocabulary license [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
 <p>
-[DEF]
-</p>
-
-<h4 class="list" id="doi">License [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
-<p>
-[DEF]
+Adding a license to your vocabulary is very important, since it tells potential reusers under which terms the ontology may be used, how they should provide attribution to the original author and under which terms they have to license their own work as well.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -267,11 +281,11 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 
 
 <h3 id="image" class="list">Vocabulary visualization</h3>
-<p>[DEF]</p>
+<p>Existing tools like <a href="http://vowl.visualdataweb.org/webvowl/">WebVowl</a> create excellent interactive diagrams of ontologies, but sometimes the authors may want to simplify them. You may use some of the properties below to associate different types of images to the vocabulary documentation.</p>
 
-<h4 class="list" id="doi">Vocabulary logo [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<h4 class="list" id="logo">Vocabulary logo [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-[DEF]
+A logo that represents the vocabulary and helps people quickly identify it.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -279,9 +293,9 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 	<li><a target="_blank" href="http://schema.org/logo">schema:logo</a></li>
 </ul>
 
-<h4 class="list" id="doi">Vocabulary diagram [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<h4 class="list" id="diagram">Vocabulary diagram [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-[DEF]
+A visualization of the vocabulary.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -290,14 +304,9 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 </ul>
 
 
-<h3 id="similar" class="list">Similar resources </h3>
+<h3 id="similar" class="list">Similar resources (See also) [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
 <p>
-[DEF]
-</p>
-
-<h4 class="list" id="doi">See also [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
-<p>
-[DEF]
+Property used to add pointers to similar resources. It may be helpful for the reader, in order to read related state of the art.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -306,11 +315,11 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 
 
 <h2 id="desc-term" class="list">Term checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
-These terms should appear for every class and property:
+These metadata terms are targeted towards describing the classes, properties and data properties of the ontology. Adding them as part of the ontology is crucial for potential reusers:
 
-<h3 id="label" class="list">Term label [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3> 
+<h3 id="label" class="list">Label [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3> 
 <p>
-[DEF]
+A human readable label of the term. 
 </p>
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a></li>
@@ -321,17 +330,17 @@ These terms should appear for every class and property:
 
 <h3 id="def" class="list">Term definition [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
 <p>
-[DEF]
+Definition of the term. We recommend it to be as precise as possible, in order to avoid possible misunderstandings when reusing the ontology.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:seeAlso</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/definition#">skos:definition</a></li>
 </ul>
 
 <h3 id="example" class="list">Term example [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
 <p>
-[DEF]
+It is always helpful to add examples on the intended usages of the ontology. Pointers to real examples are also valuable.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
@@ -339,43 +348,42 @@ These terms should appear for every class and property:
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#example">skos:example</a></li>
 </ul>
 
-<h3 id="status" class="list">Term usability</h3>
+<h3 id="use" class="list">Term usability</h3>
 <p>
-[DEF]
+Different versions of the vocabulary may lead to remove or add new terms. In some cases, old terms are left with a "deprecated" tag for legacy purposes. New terms may have different status (e.g., testing), depending on the maturity of the vocabulary. The metadata terms below are typically used for this purpose.
 </p>
 
-<h4 class="list" id="doi">Deprecation [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<h4 class="list" id="deprecation">Deprecation [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-[DEF]
+Boolean property that indicates whether a term has been deprecated or not.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#deprecated">owl:deprecated </a></li>
 </ul>
-owl:deprecated 
 
-<h4 class="list" id="doi">Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<h4 class="list" id="status1">Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-[DEF]
+Property indicating the usage status of the term. For example, whether the term is mature enough, whether it is has been deprecated, curated, etc. Note that some of the properties proposed below, such as obo:IAO_0000114, have as range a set of fixed values.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://www.w3.org/2003/06/sw-vocab-status/ns#">sw:term_status</a></li>
-	<li><a target="_blank" href="http://purl.obolibrary.org/obo/IAO_0000078">obo:IAO_0000114 (hasCurationStatus)</a></li>
+	<li><a target="_blank" href="http://purl.obolibrary.org/obo/IAO_0000114">obo:IAO_0000114</a></li>
 </ul>
 
 <h3 id="rationale" class="list">Term rationale [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
 <p>
-[DEF]
+A sentence or paragraph explaining why the term was added to the vocabulary. This is key in standard vocabularies, where there is a lot of discussion, because it may record the conclusion of a discussion that led to the addition of the term.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://www.linkedmodel.org/schema/vaem#rationale">vaem:rationale</a></li>
 </ul>
 
-<h3 id="source" class="list">Term original source [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
+<h3 id="osource" class="list">Term original source [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
 <p>
-[DEF]
+Source used to define the ontology term.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
