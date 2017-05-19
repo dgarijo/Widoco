@@ -2,9 +2,11 @@ WIzard for DOCumenting Ontologies (WIDOCO)
 ===================
 [![DOI](https://zenodo.org/badge/11427075.svg)](https://zenodo.org/badge/latestdoi/11427075)
 
-Author: Daniel Garijo Verdejo
+![Logo](src/main/resources/logo/logo2.png)
 
-Contributors: Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
+**Author**: Daniel Garijo Verdejo
+
+**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
 
 Download the executable
 ===================
@@ -31,34 +33,9 @@ Features of WIDOCO:
 * Separation of the sections of your html page so you can write them independently and replace only those needed.
 * Content negotiation and serialization of your ontology according to W3C best practices
 
-[See some examples](http://dgarijo.github.io/Widoco/doc/gallery/)
-
-The structure of the template is as follows:
-
-	* Basic Metadata: 
-		* Title and release
-		* Current version of the ontology  
-		* Latest version of the ontology
-		* Previous version of the ontology
-		* Revision number
-		* Authors
-		* Contributors
-		* Imported Ontologies
-		* Extended Ontologies
-		* Ontology serializations
-		* License
-		* Diagram
-	* Abstract
-	* Table of Contents
-	* 1. Introduction
-		* 1.1 Namespace declarations
-	* 2. Ontology overview
-	* 3. Ontology description
-	* 4. Cross reference section (Using LODE)
-	* 5. References
-	* 6. Changelog
-	* 7. Acknowledgements
-	
+Examples
+==========
+Examples of the features of WIDOCO can be seen on [the gallery](http://dgarijo.github.io/Widoco/doc/gallery/)	
 	
 How to use WIDOCO
 ==========
