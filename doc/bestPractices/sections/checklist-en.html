@@ -1,52 +1,5 @@
 <h2 id="desc" class="list">Vocabulary checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
-<p>In this section we list the metadata terms we consider relevant for describing a vocabulary. A summary of the recommended and optional terms for the vocabulary description (e.g., title, creator, etc.) and for classes and properties description (e.g., label, definition, etc.) can  be seen in the tables below:</p>
-
-Summary of <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> properties for <strong>vocabularies</strong>
-<ul class="hlist" id="rec">
-	<li><a href="#namespaceURI">namespace URI</a></li>
-	<li><a href="#prefix">prefix</a></li>
-	<li><a href="#title">title</a></li>
-	<li><a href="#description">description</a></li>
-	<li><a href="#versionIRI">version IRI</a></li>
-	<li><a href="#versionInfo">version info</a></li>
-	<li><a href="#previousVersion">previous version</a></li>
-	<li><a href="#creationDate">creation date</a></li>
-	<li><a href="#creators">creator</a></li>
-	<li><a href="#contributors">contributor</a></li>
-	<li><a href="#lic">license</a></li>
-</ul>
-
-Summary of <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> properties for <strong>vocabularies</strong>
-<ul class="hlist" id="opt">
-	<li><a href="#abs">abstract</a></li>
-	<li><a href="#status">status</a></li>
-	<li><a href="#backwardCompatibility">backward compatibility</a></li>
-	<li><a href="#incompatibility">incompatibility</a></li>
-	<li><a href="#modificationDate">modification Date</a></li>
-	<li><a href="#issuedDate">issued date</a></li>
-	<li><a href="#source">source</a></li>
-	<li><a href="#publisher">publisher</a></li>
-	<li><a href="#doi">DOI</a></li>
-	<li><a href="#biblio">bibliographic Citation</a></li>
-	<li><a href="#logo">logo</a></li>
-	<li><a href="#diagram">diagram</a></li>
-	<li><a href="#similar">see also</a></li>
-</ul>
-
-Summary of <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> properties for <strong>classes and properties</strong>
-<ul class="hlist" id="rec">
-	<li><a href="#label">label</a></li>
-	<li><a href="#def">definition</a></li>
-</ul>
-
-Summary of <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> properties for <strong>classes and properties</strong>
-<ul class="hlist" id="opt">
-	<li><a href="#example">example</a></li>
-	<li><a href="#deprecation">deprecation</a></li>
-	<li><a href="#status1">status</a></li>
-	<li><a href="#rationale">rationale</a></li>
-	<li><a href="#osource">source</a></li>
-</ul>
+In this section we list the metadata terms we consider relevant for describing a vocabulary. 
 
 <h3 id="access" class="list">Vocabulary access</h3>
 <p>
@@ -75,14 +28,14 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 <p>If you were writing a paper describing your ontology, what would be the title?</p>
 <ul class="hlist"><strong>Terms you may use</strong>: 
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/title">dc:title</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/terms/title">terms:title</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/title">dcterms:title</a></li>
 	<li><a target="_blank" href="http://schema.org/name">schema:name</a></li>
 </ul>
 <h4 class="list" id="description">Description [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>A small paragraph indicating what the ontology does and why should some one use it</p>
 <ul class="hlist"><strong>Terms you may use</strong>: 
 <li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:description</a></li>
-<li><a target="_blank" href="http://purl.org/dc/terms/description">terms:description</a></li>
+<li><a target="_blank" href="http://purl.org/dc/terms/description">dcterms:description</a></li>
 <li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
 <li><a target="_blank" href="http://schema.org/description">schema:description</a></li>
 <li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#note">skos:note</a></li>
@@ -156,7 +109,7 @@ Adding a link to a previous version helps to see how the vocabulary has changed 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#priorVersion">owl:priorVersion</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/previousVersion">pav:previousVersion</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/terms/replaces">terms:replaces</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/replaces">dcterms:replaces</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#wasRevisionOf">prov:wasRevisionOf</a></li>
 </ul>
 
@@ -166,7 +119,7 @@ Date when the vocabulary was created. There are different ways in which the date
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/dc/terms/created">terms:created</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/created">dcterms:created</a></li>
 	<li><a target="_blank" href="http://schema.org/dateCreated">schema:dateCrated</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/createdOn">pav:createdOn</a></li>
@@ -178,7 +131,7 @@ Date when your vocabulary was modified. If you review several times a vocabulary
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/dc/terms/modified">terms:modified</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/modified">dcterms:modified</a></li>
 	<li><a target="_blank" href="http://schema.org/dateModified">schema:dateModified</a></li>
 </ul>
 
@@ -188,7 +141,7 @@ Date of formal issuance, like publication. It may be useful to distinguish betwe
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/dc/terms/issued">terms:issued</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/issued">dcterms:issued</a></li>
 	<li><a target="_blank" href="http://schema.org/dateIssued">schema:dateIssued</a></li>
 </ul>
 
@@ -198,7 +151,7 @@ Date of formal issuance, like publication. It may be useful to distinguish betwe
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://purl.org/dc/terms/source">dc:source</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">terms:source</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dcterms:source</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#hadPrimarySource">prov:hadPrimarySource</a></li>
 </ul>
 
@@ -211,7 +164,7 @@ People who created the vocabulary. Adding this metadata property is critical for
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/dc/terms/creator">terms:creator</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/creator">dcterms:creator</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/creator">dc:creator</a></li>
 	<li><a target="_blank" href="http://schema.org/creator">schema:creator</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/createdBy">pav:createdBy</a></li>
@@ -224,7 +177,7 @@ People who contributed to the development of the vocabulary. Even if contributor
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/dc/terms/creator">terms:creator</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/creator">dcterms:creator</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/creator">dc:creator</a></li>
 	<li><a target="_blank" href="http://schema.org/contributor">schema:contributor</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/contributedBy">schema:contributedBy</a></li>
@@ -236,7 +189,7 @@ Organization responsible for publishing the vocabulary. This property is optiona
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">terms:publisher</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">dcterms:publisher</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/publisher">dc:publisher</a></li>
 	<li><a target="_blank" href="http://schema.org/publisher">schema:publisher</a></li>
 </ul>
@@ -260,7 +213,7 @@ Property indicating the text with the citation itself.
 </p>
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/dc/terms/bibliographicCitation">terms:bibliographicCitation</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/bibliographicCitation">dcterms:bibliographicCitation</a></li>
 	<li><a target="_blank" href="http://schema.org/citation">schema:citation</a></li>
 </ul>
 
@@ -272,7 +225,7 @@ Adding a license to your vocabulary is very important, since it tells potential 
 
 <ul class="hlist"><strong>Terms you may use</strong>:  
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/rights">dc:rights</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/terms/license">terms:license</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/license">dcterms:license</a></li>
 	<li><a target="_blank" href="http://schema.org/license">schema:license</a></li>
 	<li><a target="_blank" href="http://creativecommons.org/ns#">cc:license</a></li>
 </ul>
