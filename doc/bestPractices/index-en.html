@@ -20,12 +20,16 @@ function loadHash() {
 }
 function loadTOC(){
 	//process toc dynamically
-	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;k=0;
 	  jQuery(".list").each(function(){
 		if(jQuery(this).is('h2')){
 			if(j>0){
 				t+='</ul>';
 				j=0;
+				if(k>0){
+					t+='</ul>';
+					k=0;
+				}
 			}
 			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
 			i++;
@@ -34,8 +38,19 @@ function loadTOC(){
 			if(j==0){
 				t+='<ul>';
 			}
+			if(k>0){
+				t+='</ul>';
+				k=0;
+			}
 			j++;
 			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
+		}
+		if(jQuery(this).is('h4')){
+			if(k==0){
+				t+='<ul>';
+			}
+			k++;
+			t+= '<li>'+(i-1)+'.'+(j)+'.'+k+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';
 		}
 		t = t.replace(' back to ToC','');
 	  });
@@ -56,7 +71,7 @@ function loadTOC(){
 <h2>25 April 2017</h2>
 <dl>
 <dt>This version:</dt>
-<dd><a href="https://w3id.org/widoco/best-practices">https://w3id.org/widoco/best-practices</a></dd>
+<dd><a href="https://w3id.org/widoco/bestPractices">https://w3id.org/widoco/bestPractices</a></dd>
 </dl>
 <dt>Revision:</dt>
 <dd>1.0.0</dd>
@@ -68,7 +83,7 @@ function loadTOC(){
 <img src="http://i.creativecommons.org/l/by/2.0/88x31.png" style="border-width:0" alt="License"></img>
 </a>
 <br/></dd></dl><dl><dt>Cite as:</dt>
-<dd>Daniel Garijo and María Poveda-Villalón. A checklist for complete vocabulary metadata. DOI TO DO </dd>
+<dd>Daniel Garijo and María Poveda-Villalón. A checklist for complete vocabulary metadata. URL: <a href="https://w3id.org/widoco/bestPractices">https://w3id.org/widoco/bestPractices</a></dd>
 </dl>
 <hr/>
 </div>
@@ -81,23 +96,27 @@ function loadTOC(){
 	<div id="introduction"></div>
      <div id="overview"></div>
      <div id="checklist"></div>
-<div id="References">
+<div id="references">
 	<h2 id="ref" class="list">References <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
-	http://lov.okfn.org/Recommendations_Vocabulary_Design.pdf
-	
-	http://www.essepuntato.it/lode
-	
-	https://htmlpreview.github.io/?https://github.com/agroportal/documentation/blob/master/metadata/Metadata%20for%20AgroPortal.html#usageNote
+	<ul>
+	<li id="AGROVOC"><strong>[AGROPORTAL]</strong>: Agroportal web page. Accessible from <a href="https://htmlpreview.github.io/?https://github.com/agroportal/documentation/blob/master/metadata/Metadata%20for%20AgroPortal.html">https://htmlpreview.github.io/?https://github.com/agroportal/documentation/blob/master/metadata/Metadata%20for%20AgroPortal.html</a></li>
+	<li id="smart"><strong>[Garc&iacute;a-Castro et al 2015]</strong>: Ra&uacute;l Garc&iacute;a-Castro (UPM), Mar&iacute;a Poveda-Villal&oacute;n (UPM), Filip Radulovic (UPM), Asunci&oacute;n G&oacute;mez-P&eacute;rez (UPM) and  Jérome Euzenat. Deliverable D3.1: Strategy for Energy Measurement and Interoperability. Acessible from <a href="ftp://ftp.inrialpes.fr/pub/exmo/reports/r4sc-31.pdf">ftp://ftp.inrialpes.fr/pub/exmo/reports/r4sc-31.pdf</a></li>
+	<li id="LODE"><strong>[LODE]</strong>: Silvio Peroni. Live OWL Documentation Environment web page. Accessible from <a href="http://www.essepuntato.it/lode">http://www.essepuntato.it/lode</a></li>
+	<li id="soft"><strong>[Smith et al 2016]</strong>: Smith AM, Katz DS, Niemeyer KE, FORCE11 Software Citation Working Group. (2016) Software Citation Principles. PeerJ Computer Science 2:e86. DOI: 10.7717/peerj-cs.86</li>
+	<li id="LOV"><strong>[Vandenbussche and Batant 2012]</strong>: Pierre-Yves Vandenbussche  and Bernard Vatant. Metadata Recommendations For Linked Open Data Vocabularies. Accessible from <a href="http://lov.okfn.org/Recommendations_Vocabulary_Design.pdf">http://lov.okfn.org/Recommendations_Vocabulary_Design.pdf</a> </li>
+	</ul>
+
 </div>
 <div id="feedback">
 <h2 id="missing" class="list">Feedback <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 <p>
-Do you think Widoco should support other metadata properties when generating documentation? Open an issue on <a href="https://github.com/dgarijo/Widoco/issues">Widoco's Github repository</a> and we will implement it soon.
+Do you think we should list other key metadata properties when generating documentation? Let us know! Open an issue on <a href="https://github.com/dgarijo/Widoco/issues">WIDOCO's Github repository</a> and we will assess the candidate property to be part of our best practices. In addition, we will make WIDOCO recognize it too.
 </p>
 </div>
+<!--
 <div id="acknowledgements">
 <h2 id="ack" class="list">Acknowledgements <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
-<p>Ack should include: María Poveda Villalón, Agrovoc and LOV + best practices that they already have, READY4SmartCities guidelines????.</p>
-</div>
+<p>Ack should include: Agrovoc and LOV + best practices that they already have, READY4SmartCities guidelines????.</p>
+</div>-->
 </body> 
 </html>

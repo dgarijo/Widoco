@@ -8,22 +8,25 @@
   
   
   <properties>
+      <ver.log4j>1.2.16</ver.log4j>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
         <jena.version>2.11.1</jena.version>
         <jena-sdb.version>1.3.6</jena-sdb.version>
         <jena-tdb.version>0.10.1</jena-tdb.version>
         <jena-iri.version>0.9.6</jena-iri.version>
         <jena-fuseki.version>0.2.7</jena-fuseki.version>
-        <ver.log4j>1.2.16</ver.log4j>
-    </properties>
+        
+    <!-- -->
+  </properties>
   
   <dependencies>
 
-      <!--This increases the size 25 MB-->
         <dependency>
             <groupId>org.visualdataweb.vowl.owl2vowl</groupId>
             <artifactId>OWL2VOWL</artifactId>
-            <version>0.3.0</version>
+            <version>0.3.2-SNAPSHOT</version><!--new version, doesnt save logs as files-->
         </dependency>
         
         <dependency>
@@ -58,16 +61,17 @@
            </exclusions> 
         </dependency>
 		
-
+        <!-- We use "provided" scope because we are exporting the contents of these libraries, and we don't want our
+                bundle consumers to see and be confused by these additional copies of the classes, as transitive
+                dependencies.  "provided" prevents that from happening.
+            -->
+        
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>apache-jena-libs</artifactId>
             <type>pom</type>
             <version>${jena.version}</version>
-            <!-- We use "provided" scope because we are exporting the contents of these libraries, and we don't want our
-                bundle consumers to see and be confused by these additional copies of the classes, as transitive
-                dependencies.  "provided" prevents that from happening.
-            -->
+            
             <scope>provided</scope>
             <exclusions>                
                 <exclusion>
@@ -151,21 +155,22 @@
         <version>${jena-sdb.version}</version>
         <scope>provided</scope>            
      </dependency>
-     
+    <!--to do: remove Jena deps -->
+    
+    
      <dependency>
 	<groupId>net.sf.saxon</groupId>
 	<artifactId>Saxon-HE</artifactId>
 	<version>9.4</version>
      </dependency>
+     
     
-    <!-- This is included already in the owltovowl dependency
     <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>owlapi-distribution</artifactId>
             
-            <version>5.0.3</version>
-    </dependency>-->
-    <!--<version>3.5.0</version>-->
+            <version>5.1.0</version>
+    </dependency>
     
     <dependency>
         <groupId>com.googlecode.json-simple </groupId>
