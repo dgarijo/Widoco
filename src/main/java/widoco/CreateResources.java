@@ -31,6 +31,7 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
 import org.semanticweb.owlapi.formats.N3DocumentFormat;
+import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -104,34 +105,16 @@ public class CreateResources {
                 System.out.println("No previous version provided. No changelog produced!");
             }
         }
-        //diagram creation
-        DiagramGeneration.generateOntologyDiagram(folderOut, c);
-    
+        if(c.isCreateWebVowlVisualization()){
+            DiagramGeneration.generateOntologyDiagram(folderOut, c);
+        }
+        
         //serialize the model in different serializations.
         OWLOntologyManager om = c.getMainOntology().getOWLAPIOntologyManager();
         OWLOntology o = c.getMainOntology().getOWLAPIModel();
         WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut+File.separator+"ontology.xml");
         WidocoUtils.writeModel(om, o, new TurtleDocumentFormat(), folderOut+File.separator+"ontology.ttl");
-        WidocoUtils.writeModel(om, o, new N3DocumentFormat(), folderOut+File.separator+"ontology.n3");
-        
-//        HashMap<String,String> s = c.getMainOntology().getSerializations();
-//        for(String serialization:s.keySet()){
-//            OutputStream out = null;
-//            String sValue = s.get(serialization);
-//            if(sValue.startsWith("ontology")){
-//                try {
-//                    out = new FileOutputStream(folderOut+File.separator+sValue);
-//                    //c.getMainOntology().getMainModel().write(out,serialization);
-//                    c.getMainOntology().getOWLAPIOntologyManager().saveOntology(c.getMainOntology().getOWLAPIModel(), owldf, out);
-//                    out.close();
-//                } catch (Exception ex) {
-//                    System.out.println("Error while writing the model to file "+ex.getMessage());
-//                    if(out!=null){
-//                        out.close();
-//                    }
-//                }
-//            }
-//        }
+        WidocoUtils.writeModel(om, o, new NTriplesDocumentFormat(), folderOut+File.separator+"ontology.nt");
         if(c.isIncludeIndex()){
             createIndexDocument(folderOut,c, lode, languageFile);
         }
@@ -212,7 +195,7 @@ public class CreateResources {
         if((c.getIntroductionPath()!=null) && (!"".equals(c.getIntroductionPath()))){
             WidocoUtils.copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction-"+c.getCurrentLanguage()+".html"));
         }else{
-            String introSectionText = Constants.getIntroductionSection(c, lang);
+            String introSectionText = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
             if(nsDecl!=null && !nsDecl.isEmpty()){
                 introSectionText += Constants.getNameSpaceDeclaration(nsDecl, lang);
                 //small fix: use prefix selected by user.
@@ -229,7 +212,7 @@ public class CreateResources {
         if((c.getOverviewPath()!=null) && (!"".equals(c.getOverviewPath()))){
             WidocoUtils.copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview-"+c.getCurrentLanguage()+".html"));
         }else{
-            String overViewSection = Constants.getOverviewSection(c, lang);
+            String overViewSection = Constants.getOverviewSectionTitleAndPlaceHolder(c, lang);
             if(!"".equals(classesList) && classesList!=null){
                 overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_CLASSES)+"</h4>\n");
                 overViewSection+=(classesList);
@@ -250,8 +233,10 @@ public class CreateResources {
                 overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_NAMED_INDIV)+"</h4>");
                 overViewSection+=(namedIndividuals);
             }
-            //add the webvowl diagram
-            overViewSection +="<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html#ontology\"></iframe> ";
+            //add the webvowl diagram, if selected
+            if(c.isCreateWebVowlVisualization()){
+                overViewSection +="<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html#ontology\"></iframe> ";
+            }
             saveDocument(path+File.separator+"overview-"+c.getCurrentLanguage()+".html", overViewSection,c);
         }
     }
@@ -260,13 +245,13 @@ public class CreateResources {
         if((c.getDescriptionPath()!=null) && (!"".equals(c.getDescriptionPath()))){
             WidocoUtils.copyExternalResource(c.getDescriptionPath(), new File(path+File.separator+"description-"+c.getCurrentLanguage()+".html"));
         }else{
-            saveDocument(path+File.separator+"description-"+c.getCurrentLanguage()+".html",Constants.getDescriptionSection(c,lang),c);
+            saveDocument(path+File.separator+"description-"+c.getCurrentLanguage()+".html",Constants.getDescriptionSectionTitleAndPlaceHolder(c,lang),c);
         }
     }
     
     private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c, Properties lang){
         //cross reference section has to be included always.
-        String crossRef = Constants.getCrossReferenceSection(c, lang);
+        String crossRef = Constants.getCrossReferenceSectionTitleAndPlaceHolder(c, lang);
         String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList(),
                 annotationPropList = lodeParser.getAnnotationPropList(), namedIndividualList = lodeParser.getNamedIndividualList();
         if(classesList!=null && !"".equals(classesList)){
@@ -340,7 +325,6 @@ public class CreateResources {
         File img = new File(s+File.separator+"img");
         File provenance = new File(s+File.separator+"provenance");
         File resources = new File(s+File.separator+"resources");
-        File webvowl = new File(s+File.separator+"webvowl");
         if(!f.exists()){
             f.mkdirs();
         }else{
@@ -356,7 +340,6 @@ public class CreateResources {
             //do all provenance related stuff here
         }
         resources.mkdir();
-        webvowl.mkdir();
         //copy jquery
         WidocoUtils.copyLocalResource("/lode/jquery.js",new File(resources.getAbsolutePath()+File.separator+"jquery.js"));
         WidocoUtils.copyLocalResource("/lode/marked.min.js",new File(resources.getAbsolutePath()+File.separator+"marked.min.js"));
@@ -370,12 +353,16 @@ public class CreateResources {
             WidocoUtils.copyLocalResource("/lode/bootstrap-yeti.css", new File(resources.getAbsolutePath()+File.separator+"yeti.css"));
             WidocoUtils.copyLocalResource("/lode/site.css", new File(resources.getAbsolutePath()+File.separator+"site.css"));
         }
-        //diagram information
-        WidocoUtils.unZipIt(Constants.WEBVOWL_RESOURCES, webvowl.getAbsolutePath());
         //copy widoco readme
         WidocoUtils.copyLocalResource("/widoco/readme.md", new File(f.getAbsolutePath()+File.separator+"readme.md"));
         if(c.isCreateHTACCESS()){
             create406Page(s+File.separator+"406.html",c,lang);
+        }
+        //diagram information
+        if(c.isCreateWebVowlVisualization()){
+            File webvowl = new File(s+File.separator+"webvowl");
+            webvowl.mkdir();
+            WidocoUtils.unZipIt(Constants.WEBVOWL_RESOURCES, webvowl.getAbsolutePath());
         }
     }
 

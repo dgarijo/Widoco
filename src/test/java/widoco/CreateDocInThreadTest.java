@@ -80,7 +80,7 @@ public class CreateDocInThreadTest {
     /**
      * Test ontology in TTL. BNE
      */
-    @org.junit.Test
+//    @org.junit.Test
     public void testOntoInTTL() {
         System.out.println("Testing Ontology: BNE");
         try{

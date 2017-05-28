@@ -81,4 +81,6 @@
 	<category>Categoria</category>
 	<isrequired>Necessario</isrequired>
 	<source>Fonte</source>
+	<termStatus>A lungo termine</termStatus>
+	<deprecated>Is deprecato</deprecated>
 </labels>

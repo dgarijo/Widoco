@@ -15,7 +15,7 @@
  */
 package widoco.entities;
 
-import com.hp.hpl.jena.ontology.OntModel;
+//import com.hp.hpl.jena.ontology.OntModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -87,7 +87,7 @@ public class Ontology {
     /**
      * OntModel of the ontology being documented. 
      */
-    private OntModel mainOntologyModel;
+//    private OntModel mainOntologyModel;
     /**
      * In-Memory representation of the ontology being documented (OWLAPI)
      */
@@ -296,13 +296,13 @@ public class Ontology {
      * THESE TWO METHODS BELOW SHOULD BE REMOVED
      */
     
-    public OntModel getMainModel() {
-        return mainOntologyModel;
-    }
-
-    public void setMainModel(OntModel model) {
-        this.mainOntologyModel = model;
-    }
+//    public OntModel getMainModel() {
+//        return mainOntologyModel;
+//    }
+//
+//    public void setMainModel(OntModel model) {
+//        this.mainOntologyModel = model;
+//    }
     
     /**
      * 

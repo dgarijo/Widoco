@@ -23,7 +23,7 @@
     <symmetric>symmetric</symmetric>
     <asymmetric>asymmetric</asymmetric>
     <transitive>transitive</transitive>
-    <isdefinedby>is defined by</isdefinedby>
+    <isdefinedby>Is defined by</isdefinedby>
     <belongsto>belongs to</belongsto>
     <issameas>is same as</issameas>
     <isalsodefinedas>is also defined as</isalsodefinedas>
@@ -81,4 +81,6 @@
 	<category>Category</category>
 	<isrequired>Is required</isrequired>
 	<source>Source</source>
+	<termStatus>Term status</termStatus>
+	<deprecated>Is deprecated</deprecated>
 </labels>

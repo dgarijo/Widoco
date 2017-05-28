@@ -49,29 +49,20 @@ public class CompareOntologies {
     /**
      * @param oldOntologyLocation     location of the first ontology to be compared (the older ontology in most cases)
      * @param c     Configuration where the information of the current ontology is loaded
+     * @throws java.lang.Exception if the ontology could not be loaded
      */
-    public CompareOntologies(String oldOntologyLocation, Configuration c) {
+    public CompareOntologies(String oldOntologyLocation, Configuration c) throws Exception {
         //Create 2 OWLOntologyManager which manages a set of ontologies
         OWLOntologyManager manager1 = OWLManager.createOWLOntologyManager();
         OWLOntology ontology1;
-
         try {
             ontology1= manager1.loadOntologyFromOntologyDocument(new File(oldOntologyLocation));
+            System.out.println("old ontology version loaded");
+            doFindAllChanges(ontology1, c.getMainOntology().getOWLAPIModel());
         } catch (Exception e) {
-            System.err.println("Error while loading the first ontology");
-            return;
+            System.err.println("Error while loading the older version of the ontology");
+            throw e;
         }
-        System.out.println("loading ontology 1 complete");
-
-//        try {
-//            ontology2= manager2.loadOntologyFromOntologyDocument(new File(ontology2Location));
-//        } catch (Exception e) {
-//            System.err.println("Error while loading the second ontology");
-//            return;
-//        }
-//        System.out.println("loading ontology 2 complete");
-
-        this.doFindAllChanges(ontology1, c.getMainOntology().getOWLAPIModel());
     }
 
 

@@ -42,9 +42,90 @@ public class Constants {
     
     public static final String[] POSSIBLE_VOCAB_SERIALIZATIONS = {"application/rdf+xml","text/turtle","text/n3"};
     
-    public static final String VOWL_LOGS = "owl2vowl_logs";
     //this is left because in the json-ld schema there must be an image url.
     public static final String WEBVOWL_SERVICE="http://vowl.visualdataweb.org/webvowl/#iri=";
+    
+    /**
+     * Constants for loading metadata properties from the ontology
+     */
+    
+    public static final String NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#";
+    public static final String NS_SCHEMA = "http://schema.org/";
+    public static final String NS_DC = "http://purl.org/dc/elements/1.1/";
+    public static final String NS_DCTERMS = "http://purl.org/dc/terms/";
+    public static final String NS_OWL = "http://www.w3.org/2002/07/owl#";
+    public static final String NS_VANN = "http://purl.org/vocab/vann/";
+//    public static final String NS_VAEM = "http://www.linkedmodel.org/schema/vaem#";
+    public static final String NS_PROV = "http://www.w3.org/ns/prov#";
+    public static final String NS_BIBO = "http://purl.org/ontology/bibo/";
+    public static final String NS_SKOS = "http://www.w3.org/2004/02/skos/core#";
+    public static final String NS_PAV = "http://purl.org/pav/";
+    
+    public static final String PROP_RDFS_LABEL = NS_RDFS+"label";
+    public static final String PROP_RDFS_COMMENT = NS_RDFS+"comment";
+    
+    public static final String PROP_SCHEMA_NAME = NS_SCHEMA+"name";
+    public static final String PROP_SCHEMA_CREATOR = NS_SCHEMA+"creator";
+    public static final String PROP_SCHEMA_LICENSE = NS_SCHEMA+"license";
+    public static final String PROP_SCHEMA_CONTRIBUTOR = NS_SCHEMA+"contributor";
+    public static final String PROP_SCHEMA_DESCRIPTION = NS_SCHEMA+"description";
+    public static final String PROP_SCHEMA_CITATION = NS_SCHEMA+"citation";
+    public static final String PROP_SCHEMA_DATE_CREATED = NS_SCHEMA+"dateCreated";
+    public static final String PROP_SCHEMA_DATE_MODIFIED = NS_SCHEMA+"dateModified";
+    public static final String PROP_SCHEMA_PUBLISER = NS_SCHEMA+"publisher";
+    public static final String PROP_SCHEMA_SCHEMA_VERSION = NS_SCHEMA+"schemaVersion";
+    
+    public static final String PROP_OWL_VERSION_INFO = NS_OWL+"versionInfo";
+    public static final String PROP_OWL_PRIOR_VERSION = NS_OWL+"priorVersion";
+    public static final String PROP_OWL_BACKWARDS_COMPATIBLE = NS_OWL+"backwardCompatibleWith";
+    
+    public static final String PROP_DC_TITLE = NS_DC+"title";
+    public static final String PROP_DC_RIGHTS = NS_DC+"rights";
+    public static final String PROP_DC_ABSTRACT = NS_DC+"abstract";
+    public static final String PROP_DC_DESCRIPTION = NS_DC+"description";
+    public static final String PROP_DC_CREATOR = NS_DC+"creator";
+    public static final String PROP_DC_REPLACES = NS_DC+"replaces";
+    public static final String PROP_DC_CONTRIBUTOR = NS_DC+"contributor";
+    public static final String PROP_DC_PUBLISHER = NS_DC+"publisher";
+    
+    public static final String PROP_DCTERMS_REPLACES = NS_DCTERMS+"replaces";    
+    public static final String PROP_DCTERMS_DESCRIPTION = NS_DCTERMS+"description";
+    public static final String PROP_DCTERMS_LICENSE = NS_DCTERMS+"license";
+    public static final String PROP_DCTERMS_TITLE = NS_DCTERMS+"title";
+    public static final String PROP_DCTERMS_ABSTRACT = NS_DCTERMS+"abstract";    
+    public static final String PROP_DCTERMS_CREATOR = NS_DCTERMS+"creator";    
+    public static final String PROP_DCTERMS_CONTRIBUTOR = NS_DCTERMS+"contributor";    
+    public static final String PROP_DCTERMS_PUBLISHER = NS_DCTERMS+"publisher";
+    public static final String PROP_DCTERMS_CREATED = NS_DCTERMS+"created";
+    public static final String PROP_DCTERMS_MODIFIED = NS_DCTERMS+"modified";
+    public static final String PROP_DCTERMS_BIBLIOGRAPHIC_CIT = NS_DCTERMS+"bibliographicCitation";
+    
+    public static final String PROP_BIBO_DOI = NS_BIBO+"doi";
+    public static final String PROP_BIBO_STATUS = NS_BIBO+"status";
+    
+    public static final String PROP_PROV_WAS_REVISION_OF = NS_PROV+"wasRevisionOf";
+    public static final String PROP_PROV_GENERATED_AT_TIME = NS_PROV+"generatedAtTime";
+    public static final String PROP_PROV_ATTRIBUTED_TO = NS_PROV+"wasAttributedTo";//attribution only considered for authors
+    
+    public static final String PROP_VANN_PREFIX= NS_VANN+"preferredNamespacePrefix";
+    public static final String PROP_VANN_URI= NS_VANN+"preferredNamespaceURI";
+    
+    public static final String PROP_SKOS_NOTE= NS_SKOS+"note";
+    
+    public static final String PROP_PAV_CREATED_BY =  NS_PAV+"createdBy";
+    public static final String PROP_PAV_CREATED_ON =  NS_PAV+"createdOn";
+    //public static final String PROP_PAV_CURRENT_VERSION =  NS_PAV+"hasCurrentVersion";//we just extract the URI as the latest
+    public static final String PROP_PAV_PREVIOUS_VERSION =  NS_PAV+"previousVersion";
+    public static final String PROP_PAV_CONTRIBUTED_BY =  NS_PAV+"contributedBy";
+    
+    public static final String PROP_CC_LICENSE = "http://creativecommons.org/ns#license";
+    
+    //The following properties need additional support (future release)
+    //SEE_ALSO (NEEDED INTERFACE UPDATE)
+        //OWL:incompatibleWith 
+        //foaf: logo schema:logo, foaf:depiction, schema:image
+        //issue date
+        //source for the vocab
     
     /**
      * Constants for the property file with the ontology metadata
@@ -174,13 +255,14 @@ public class Constants {
     
     
     public static String  getAbstractSection(String abstractContent, Configuration c, Properties langFile){
-        String abstractSection = "<h2>"+langFile.getProperty(LANG_ABSTRACT)+"</h2><p>";
+        String abstractSection = "<h2>"+langFile.getProperty(LANG_ABSTRACT)+"</h2><span class=\"markdown\">\n";
         if(abstractContent!=null && !"".equals(abstractContent)){
             abstractSection+=abstractContent;
         }
         else{
             abstractSection+=langFile.getProperty(LANG_ABSTRACT_PLACEHOLDER);
         }
+        abstractSection+="</span>\n";
         return abstractSection;
     }
     
@@ -199,7 +281,7 @@ public class Constants {
         return html;
     }
             
-    public static String getIntroductionSection(Configuration c, Properties lang){
+    public static String getIntroductionSectionTitleAndPlaceHolder(Configuration c, Properties lang){
         String s = "<h2 id=\"intro\" class=\"list\">"+lang.getProperty(LANG_INTRO_PLACEHODER);
         return s;
     }
@@ -605,15 +687,15 @@ public class Constants {
         return head;
     }
     
-    public static String getOverviewSection(Configuration c, Properties lang){
+    public static String getOverviewSectionTitleAndPlaceHolder(Configuration c, Properties lang){
         return "<h2 id=\"overv\" class=\"list\">"+c.getMainOntology().getName()+": "+lang.getProperty(LANG_OVERVIEW_PLACEHOLDER);
     }
     
-    public static String getDescriptionSection(Configuration c, Properties lang){
+    public static String getDescriptionSectionTitleAndPlaceHolder(Configuration c, Properties lang){
         return "<h2 id=\"desc\" class=\"list\">"+c.getMainOntology().getName()+": "+lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER);
     }
     
-    public static String getCrossReferenceSection(Configuration c, Properties lang){
+    public static String getCrossReferenceSectionTitleAndPlaceHolder(Configuration c, Properties lang){
         return "<h2  id=\"crossreference\" class=\"list\">"+lang.getProperty(LANG_CROSS_REF_TITLE)+" "+c.getMainOntology().getName()+" "+lang.getProperty(LANG_CROSS_REF_TITLE2)+"</h2>"+"\n" +
                lang.getProperty(LANG_CROSS_REF_PLACEHOLDER)+c.getMainOntology().getName()+".\n";
     }

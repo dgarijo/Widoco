@@ -36,10 +36,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -111,7 +109,7 @@ public class LODEGeneration {
                 }
             }
             OWLOntologyDocumentTarget parsedOntology = new StringDocumentTarget();
-            manager.saveOntology(ontology,new RDFXMLDocumentFormat(), parsedOntology);//new RDFXMLOntologyFormat()
+            manager.saveOntology(ontology,new RDFXMLDocumentFormat(), parsedOntology);
             result = parsedOntology.toString();
 //		}
 

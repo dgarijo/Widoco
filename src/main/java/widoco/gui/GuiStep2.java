@@ -21,11 +21,13 @@
  */
 package widoco.gui;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -85,10 +87,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.tableProperties.setEnabled(false);
         this.loadMetadataFromOnto.setEnabled(false);
         this.loadMetadataFromDefaultConfigFile.setEnabled(false);
-        this.cancelLoadingProperties.setVisible(false);
         this.useLicensiusWSCheckBox.setEnabled(false);
         this.useLicensiusWSCheckBox.setSelected(conf.isUseLicensius());
-        this.cancelLoadingProperties.setVisible(true);
         
 //        properties = g.getEditableProperties();
 //        refreshTable();
@@ -155,7 +155,6 @@ public final class GuiStep2 extends javax.swing.JFrame {
         this.loadMetadataFromOnto.setEnabled(true);
         this.loadMetadataFromDefaultConfigFile.setEnabled(true);
         this.useLicensiusWSCheckBox.setEnabled(true);
-        this.cancelLoadingProperties.setVisible(false);
         
     }
     
@@ -328,8 +327,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         labelCurrentLanguage1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cancelLoadingProperties = new javax.swing.JToggleButton();
         useLicensiusWSCheckBox = new javax.swing.JCheckBox();
+        checkListLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 2: Load the metadata");
@@ -367,7 +366,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
         jScrollPane1.setViewportView(textPaneSteps);
 
         labelTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelTitle.setText("Step 2: Load the metadata. Complete the metadata properties");
+        labelTitle.setText("Step 2: Load and comple the metadata properties of your vocabulary. ");
 
         labelSteps.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelSteps.setText("Steps");
@@ -468,18 +467,24 @@ public final class GuiStep2 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Select the languages in which the documentation will be generated");
 
-        cancelLoadingProperties.setText("Cancel loading");
-        cancelLoadingProperties.setToolTipText("");
-        cancelLoadingProperties.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelLoadingPropertiesActionPerformed(evt);
-            }
-        });
-
         useLicensiusWSCheckBox.setText("Use Licensius WS");
         useLicensiusWSCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useLicensiusWSCheckBoxActionPerformed(evt);
+            }
+        });
+
+        checkListLabel.setForeground(new java.awt.Color(0, 0, 255));
+        checkListLabel.setText("Check out our proposed metadata properties for reference");
+        checkListLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkListLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                checkListLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                checkListLabelMouseExited(evt);
             }
         });
 
@@ -492,6 +497,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(checkListLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -535,10 +542,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
                                                     .addComponent(useLicensiusWSCheckBox)))
                                             .addComponent(loadMetadataFromDefaultConfigFile, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(labelStatusReading, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cancelLoadingProperties))))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addComponent(labelStatusReading, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 23, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -578,7 +583,6 @@ public final class GuiStep2 extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(loadMetadataFromOnto)
-                            .addComponent(cancelLoadingProperties)
                             .addComponent(useLicensiusWSCheckBox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -591,7 +595,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextButton)
                     .addComponent(backButton)
-                    .addComponent(cancelButton))
+                    .addComponent(cancelButton)
+                    .addComponent(checkListLabel))
                 .addContainerGap())
         );
 
@@ -627,7 +632,6 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 this.nextButton.setEnabled(false);
                 this.languageButton.setEnabled(false);
                 useLicensiusWSCheckBox.setEnabled(true);
-                this.cancelLoadingProperties.setVisible(true);
             }else{
                 loadMetadataFromOnto.setSelected(false);
                 useLicensiusWSCheckBox.setEnabled(false);
@@ -704,7 +708,6 @@ public final class GuiStep2 extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMetadataButtonActionPerformed
 
     public void refreshLanguages(){
-        //refresh current language
         this.labelCurrentLanguage.setText(conf.getCurrentLanguage());
         //refresh all the available languages to generate
         ArrayList<String> remainingLangs = conf.getRemainingToGenerateDoc();
@@ -714,15 +717,14 @@ public final class GuiStep2 extends javax.swing.JFrame {
             aux+=it.next()+";";
         }
         this.labelCurrentLanguage1.setText(aux);
+        //if the language changes, we might want to reload the properties accordingly.
+        this.conf.loadPropertiesFromOntology(conf.getMainOntology().getOWLAPIModel());
+        this.refreshPropertyTable();
     }
     private void languageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageButtonActionPerformed
         SelectLanguage s = new SelectLanguage(this,conf);
         s.setVisible(true);
     }//GEN-LAST:event_languageButtonActionPerformed
-
-    private void cancelLoadingPropertiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelLoadingPropertiesActionPerformed
-        g.switchState("finishedLoading");
-    }//GEN-LAST:event_cancelLoadingPropertiesActionPerformed
 
     private void useLicensiusWSCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useLicensiusWSCheckBoxActionPerformed
         if(useLicensiusWSCheckBox.isSelected()){
@@ -732,6 +734,21 @@ public final class GuiStep2 extends javax.swing.JFrame {
             conf.setUseLicensius(false);
         }
     }//GEN-LAST:event_useLicensiusWSCheckBoxActionPerformed
+
+    private void checkListLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkListLabelMouseClicked
+        try {
+            g.openBrowser(new URI("https://w3id.org/widoco/bestPractices"));
+        } catch (URISyntaxException ex) {
+        }
+    }//GEN-LAST:event_checkListLabelMouseClicked
+
+    private void checkListLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkListLabelMouseEntered
+        setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_checkListLabelMouseEntered
+
+    private void checkListLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkListLabelMouseExited
+        setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_checkListLabelMouseExited
 
     /**
      * @param args the command line arguments
@@ -772,7 +789,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JProgressBar barStatus;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JToggleButton cancelLoadingProperties;
+    private javax.swing.JLabel checkListLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

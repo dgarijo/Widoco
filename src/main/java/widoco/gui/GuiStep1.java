@@ -25,6 +25,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -367,12 +370,12 @@ public class GuiStep1 extends javax.swing.JFrame {
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
         JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int returnVal = chooser.showSaveDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        chooser.setDialogTitle("Select a folder");
+        chooser.setApproveButtonText("Select");
+        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
            this.folderPath = chooser.getSelectedFile().getAbsolutePath();
            //test if the selected file actually exist
-           File f = new File(folderPath);
-           if (!f.exists()){
+           if (Files.notExists(Paths.get(folderPath))){
                JOptionPane.showMessageDialog(this, "The selected folder does not exist! Please select a folder");
                return;
            }

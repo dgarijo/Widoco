@@ -22,31 +22,31 @@ import widoco.gui.GuiController;
  * Class designed to load all properties from an ontology in a separate thread.
  * @author Daniel Garijo
  */
-public class LoadOntologyPropertiesInThread implements Runnable{
+public class LoadOntologyInThread implements Runnable{
     private final Configuration c;
     private final GuiController pointerToMain;
     private final boolean showGui;
     
-    public LoadOntologyPropertiesInThread(Configuration c, GuiController g, boolean showgui){
+    public LoadOntologyInThread(Configuration c, GuiController g, boolean showgui){
         this.c = c;
         this.pointerToMain = g;
         this.showGui = showgui;
     }
 
+    @Override
     public void run() {
-        //once it is loaded, load the properties in the config
         try{
             WidocoUtils.loadModelToDocument(c);
-            c.loadPropertiesFromOntology(c.getMainOntology().getMainModel());
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
             if(showGui){
                 pointerToMain.switchState("finishedLoading");
             }
-            System.out.println("Properties loaded successfully from the ontology");
-        }catch(Exception e){
+            System.out.println("Ontology loaded successfully");
+        }catch(Throwable e){
             if(showGui){
                 pointerToMain.switchState("error");
             }
-            System.out.println("Error while loading properties: "+e.getMessage());
+            System.out.println("Error while loading the ontology: "+e.getMessage());
         }
     }
     

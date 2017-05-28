@@ -15,9 +15,6 @@
  */
 package widoco;
 
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntResource;
-import com.hp.hpl.jena.rdf.model.Statement;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,12 +28,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
-import licensius.GetLicense;
+import org.semanticweb.owlapi.model.OWLOntology;
 import widoco.entities.Agent;
 import widoco.entities.License;
 import widoco.entities.Ontology;
 import widoco.gui.GuiController;
+import licensius.GetLicense;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.search.EntitySearcher;
 
 /**
  * class for storing all the details to generate the ontology.
@@ -198,7 +202,7 @@ public class Configuration {
         //add default serializations: rdf/xml, n3 and turtle
         mainOntologyMetadata.addSerialization("RDF/XML", "ontology.xml");
         mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
-        mainOntologyMetadata.addSerialization("N-Triples", "ontology.n3");
+        mainOntologyMetadata.addSerialization("N-Triples", "ontology.nt");
         mainOntologyMetadata.setCreators(new ArrayList<Agent>());
         mainOntologyMetadata.setContributors(new ArrayList<Agent>());
         mainOntologyMetadata.setCiteAs("");
@@ -351,131 +355,41 @@ public class Configuration {
         }
     }
     
-    //EntitySearcher.getAnnotations
-    //Note: to load Main onto URI, I should list classes, props and dataprops and get the most common URI
-    //(IF the main URI is not known). Then, I should use the entity searcher for the rest.
-    public void loadPropertiesFromOntology(OntModel m){
-        //maybe there are some properties regarding the version of the uri that I am missing...
-        if(m == null){
-            System.err.println("The ontology could not be read...");
+    
+    /**
+     * Method that given an ontology retrieves the main metadata properties into the configuration.
+     * @param o 
+     */
+    public void loadPropertiesFromOntology(OWLOntology o){
+        if(o == null){
+            //System.err.println("The ontology is not loaded. Aborting loading metadata...");
             return;
         }
         initializeOntology();
-        this.mainOntologyMetadata.setName("[Ontology Name]");
         this.mainOntologyMetadata.setNamespacePrefix("[Ontology NS Prefix]");
-        this.mainOntologyMetadata.setNamespaceURI("[Ontology URI]");
-        //we assume only one ontology per file.
+        String uri;
         try{
-            OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
-            this.mainOntologyMetadata.setNamespaceURI(onto.getURI());
-            this.mainOntologyMetadata.setName(onto.getLocalName());
-            Iterator it = onto.listProperties();
-            String propertyName, value;
-            while(it.hasNext()){
-                Statement s = (Statement) it.next();
-                propertyName = s.getPredicate().getLocalName();
-                try{
-                    value = s.getObject().asLiteral().getString();
-                }catch(Exception e){
-                    value = s.getObject().asResource().getURI();
-                }
-    //            System.out.println(propertyName + " " + value);
-                // fill in the properties here.
-                if(propertyName.equals("label")){
-                    this.mainOntologyMetadata.setName(value);
-                }else
-                if(propertyName.equals("abstract")){
-                    this.abstractSection = value;
-                }else
-                if(propertyName.equals("title")){
-                    mainOntologyMetadata.setTitle(value);
-                }else
-                if(propertyName.equals("replaces")||propertyName.equals("wasRevisionOf")||propertyName.equals("priorVersion")){
-                    mainOntologyMetadata.setPreviousVersion(value);
-                }else
-                if(propertyName.equals("versionInfo")){
-                    mainOntologyMetadata.setRevision(value);
-                }else
-                if(propertyName.equals("versionIRI")){
-                    mainOntologyMetadata.setThisVersion(value);
-                }else
-                if(propertyName.equals("preferredNamespacePrefix")){
-                    this.mainOntologyMetadata.setNamespacePrefix(value);
-                }else
-                if(propertyName.equals("preferredNamespaceUri")){
-                    this.mainOntologyMetadata.setNamespaceURI(value);                
-                }else
-                //we deal with the license by invoking the licensius service
-                //(only if we cannot find it)
-                if(propertyName.equals("license")){
-                    License l = new License();
-                    if(isURL(value)){
-                        l.setUrl(value);
-                    }else{
-                        l.setName(value);
-                    }
-                    mainOntologyMetadata.setLicense(l);
-                }else
-                if(propertyName.equals("creator")||propertyName.equals("contributor")
-                        ||propertyName.equals("publisher")){
-                    Agent g = new Agent();
-                    if(isURL(value)){
-                        g.setURL(value);
-                        g.setName(value);
-                    }else{
-                        g.setName(value);
-                        g.setURL("");
-                    }
-                    if(propertyName.equals("creator")){
-                        mainOntologyMetadata.getCreators().add(g);
-                    }else if (propertyName.equals("contributor")){
-                        mainOntologyMetadata.getContributors().add(g);
-                    }else{
-                        mainOntologyMetadata.setPublisher(g);
-                    }
-                }else
-                if(propertyName.equals("created")){
-                    if(mainOntologyMetadata.getReleaseDate()==null || "".equals(mainOntologyMetadata.getReleaseDate())){
-                        mainOntologyMetadata.setReleaseDate(value);
-                    }
-                }else
-                if(propertyName.equals("modified")){
-                    mainOntologyMetadata.setReleaseDate(value);
-                }else
-                if(propertyName.equals("bibliographicCitation")){
-                    mainOntologyMetadata.setCiteAs(value);
-                }else
-                if(propertyName.equals("doi")||propertyName.equals("hasDOI")){
-                    mainOntologyMetadata.setDoi(value);
-                }else
-                if(propertyName.equals("backwardsCompatibleWith")){
-                    mainOntologyMetadata.setBackwardsCompatibleWith(value);
-                }else
-                if(propertyName.equals("status")){
-                    mainOntologyMetadata.setStatus(value);
-                }else
-                if(propertyName.equals("imports")){
-                    Ontology o = new Ontology();
-                    if(isURL(value)){
-                        o.setNamespaceURI(value);
-                        o.setName(value);
-                    }else{
-                        o.setName(value);
-                        o.setNamespaceURI("");
-                    }
-                    mainOntologyMetadata.getImportedOntologies().add(o);
-                }
-                //to do: if property is comment and abstract is null, then complete abstract.
-            }
-        if(this.mainOntologyMetadata.getName()==null || this.mainOntologyMetadata.getName().equals("")){
-            this.mainOntologyMetadata.setName(mainOntologyMetadata.getTitle());
+            uri = o.getOntologyID().getOntologyIRI().get().toString();
+        }catch( Exception e){
+            uri = "[Ontology URI]";
         }
-        if(mainOntologyMetadata.getStatus()==null || mainOntologyMetadata.getStatus().equals("")){
-            mainOntologyMetadata.setStatus("Ontology Specification Draft");
+        this.mainOntologyMetadata.setNamespaceURI(uri);
+        String versionUri = null;
+        try{
+            versionUri = o.getOntologyID().getVersionIRI().get().toString();
+        }catch( Exception e){
+            //versionUri = "[Version URI not provided]"; // if it is not present, do not show it
         }
-        }catch(Exception e){
-            System.err.println("No ontology declared. Ignoring properties");
-        }
+        //imports of the ontology.
+        o.imports().forEach(i->{
+            //get name, get URI, add to the config
+            Ontology ont = new Ontology();
+            ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
+            ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm());
+            mainOntologyMetadata.getImportedOntologies().add(ont);
+        });
+        this.mainOntologyMetadata.setThisVersion(versionUri);
+        o.annotations().forEach(a-> completeMetadata(a));
         if(isUseLicensius()){
             String licName;
             String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
@@ -486,9 +400,298 @@ public class Configuration {
                 mainOntologyMetadata.getLicense().setName(licName);
             }
         }
-        
-        System.out.println("Loaded properties from ontology");
+        if(this.mainOntologyMetadata.getName()==null || this.mainOntologyMetadata.getName().equals("")){
+            this.mainOntologyMetadata.setName(mainOntologyMetadata.getTitle());
+        }
+        if(mainOntologyMetadata.getStatus()==null || mainOntologyMetadata.getStatus().equals("")){
+            mainOntologyMetadata.setStatus("Ontology Specification Draft");
+        }
+        //default name if no annotations are found
+        if(mainOntologyMetadata.getName()==null || mainOntologyMetadata.getName().equals("")){
+            this.mainOntologyMetadata.setName("[Ontology Name]");
+        }
     }
+    private void completeMetadata(OWLAnnotation a){            
+    //this.currentLanguage
+        System.out.println(a.toString());
+        String propertyName = a.getProperty().getIRI().getIRIString();
+        String value;
+        String valueLanguage;
+        switch (propertyName){
+            case Constants.PROP_RDFS_LABEL: 
+                try{
+                    valueLanguage = a.getValue().asLiteral().get().getLang();
+                    value = a.getValue().asLiteral().get().getLiteral();
+                    if(this.currentLanguage.equals(valueLanguage)||
+                            (mainOntologyMetadata.getName()==null || "".equals(mainOntologyMetadata.getName()))){
+                        this.mainOntologyMetadata.setName(value);
+                    }                            
+                }catch(Exception e){
+                    System.err.println("Error while getting ontology label. No literal provided");
+                }                        
+                break;
+            case Constants.PROP_DC_TITLE: case Constants.PROP_DCTERMS_TITLE: case Constants.PROP_SCHEMA_NAME:
+                try{
+                    valueLanguage = a.getValue().asLiteral().get().getLang();
+                    value = a.getValue().asLiteral().get().getLiteral();
+                    if(this.currentLanguage.equals(valueLanguage)||
+                            (mainOntologyMetadata.getTitle()==null || "".equals(mainOntologyMetadata.getTitle()))){
+                        this.mainOntologyMetadata.setTitle(value);
+                    }                            
+                }catch(Exception e){
+                    System.err.println("Error while getting ontology title. No literal provided");
+                }                        
+                break;
+            case Constants.PROP_DCTERMS_ABSTRACT: case Constants.PROP_DC_ABSTRACT: 
+                case Constants.PROP_DCTERMS_DESCRIPTION: case Constants.PROP_DC_DESCRIPTION: 
+                    case Constants.PROP_SCHEMA_DESCRIPTION: case Constants.PROP_SKOS_NOTE:
+                try{
+                    valueLanguage = a.getValue().asLiteral().get().getLang();
+                    value = a.getValue().asLiteral().get().getLiteral();
+                    if(this.currentLanguage.equals(valueLanguage)||
+                            (abstractSection==null || "".equals(abstractSection))){
+                        abstractSection = value;
+                    }                            
+                }catch(Exception e){
+                    System.err.println("Error while getting ontology abstract. No literal provided");
+                }                        
+                break;
+            case Constants.PROP_DCTERMS_REPLACES: case Constants.PROP_DC_REPLACES: 
+                case Constants.PROP_PROV_WAS_REVISION_OF: case Constants.PROP_OWL_PRIOR_VERSION:
+                case Constants.PROP_PAV_PREVIOUS_VERSION:
+                    value = WidocoUtils.getValueAsLiteralOrURI(a.getValue()); 
+                    mainOntologyMetadata.setPreviousVersion(value);
+                break;
+            case Constants.PROP_OWL_VERSION_INFO: case Constants.PROP_SCHEMA_SCHEMA_VERSION:
+                try{
+                    value = a.getValue().asLiteral().get().getLiteral();
+                    mainOntologyMetadata.setRevision(value);
+                }catch(Exception e){
+                    System.err.println("Error while getting ontology abstract. No literal provided");
+                }
+                break;
+            case Constants.PROP_VANN_PREFIX:
+                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue()); 
+                mainOntologyMetadata.setNamespacePrefix(value);
+                break; 
+            case Constants.PROP_VANN_URI:
+                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue()); 
+                mainOntologyMetadata.setNamespaceURI(value);
+                break;
+            case Constants.PROP_DCTERMS_LICENSE: case Constants.PROP_DC_RIGHTS: 
+                case Constants.PROP_SCHEMA_LICENSE: case Constants.PROP_CC_LICENSE:
+                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+                License l = new License();
+                if(isURL(value)){
+                    l.setUrl(value);
+                }else{
+                    l.setName(value);
+                }
+                mainOntologyMetadata.setLicense(l);
+                break;
+            case Constants.PROP_DC_CONTRIBUTOR: case Constants.PROP_DCTERMS_CONTRIBUTOR: 
+            case Constants.PROP_SCHEMA_CONTRIBUTOR: case Constants.PROP_PAV_CONTRIBUTED_BY:
+                case Constants.PROP_DC_CREATOR: case Constants.PROP_DCTERMS_CREATOR: case Constants.PROP_SCHEMA_CREATOR: 
+                case Constants.PROP_PAV_CREATED_BY: case Constants.PROP_PROV_ATTRIBUTED_TO:
+                    case Constants.PROP_DC_PUBLISHER: case Constants.PROP_DCTERMS_PUBLISHER:
+                    case Constants.PROP_SCHEMA_PUBLISER:
+                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+                Agent g = new Agent();
+                if(isURL(value)){
+                    g.setURL(value);
+                    g.setName(value);
+                }else{
+                    g.setName(value);
+                    g.setURL("");
+                }
+                switch (propertyName) {
+                    case Constants.PROP_DC_CONTRIBUTOR: case Constants.PROP_DCTERMS_CONTRIBUTOR:
+                    case Constants.PROP_SCHEMA_CONTRIBUTOR: case Constants.PROP_PAV_CONTRIBUTED_BY:
+                        mainOntologyMetadata.getContributors().add(g);
+                        break;
+                    case Constants.PROP_DC_CREATOR: case Constants.PROP_DCTERMS_CREATOR:
+                    case Constants.PROP_PAV_CREATED_BY: case Constants.PROP_PROV_ATTRIBUTED_TO:
+                    case Constants.PROP_SCHEMA_CREATOR:
+                        mainOntologyMetadata.getCreators().add(g);
+                        break;
+                    default:
+                        mainOntologyMetadata.setPublisher(g);
+                        break;
+                }
+                break;
+            case Constants.PROP_DCTERMS_CREATED: case Constants.PROP_SCHEMA_DATE_CREATED:
+                case Constants.PROP_PROV_GENERATED_AT_TIME: case Constants.PROP_PAV_CREATED_ON:
+                if(mainOntologyMetadata.getReleaseDate()==null || "".equals(mainOntologyMetadata.getReleaseDate())){
+                    value = a.getValue().asLiteral().get().getLiteral();
+                    mainOntologyMetadata.setReleaseDate(value);
+                }
+                break;
+            case Constants.PROP_DCTERMS_MODIFIED: case Constants.PROP_SCHEMA_DATE_MODIFIED:
+                value = a.getValue().asLiteral().get().getLiteral();
+                mainOntologyMetadata.setReleaseDate(value);
+                break;
+            case Constants.PROP_DCTERMS_BIBLIOGRAPHIC_CIT: case Constants.PROP_SCHEMA_CITATION:
+                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+                mainOntologyMetadata.setCiteAs(value);
+                break;
+            case Constants.PROP_BIBO_DOI:
+                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+                mainOntologyMetadata.setDoi(value);
+                break;
+            case Constants.PROP_BIBO_STATUS:
+                try{
+                    valueLanguage = a.getValue().asLiteral().get().getLang();
+                    value = a.getValue().asLiteral().get().getLiteral();
+                    if(this.currentLanguage.equals(valueLanguage)||
+                            (abstractSection==null || "".equals(abstractSection))){
+                        abstractSection = value;
+                    }
+                    mainOntologyMetadata.setStatus(value);
+                }catch(Exception e){
+                    System.err.println("Error while getting the status. No literal provided");
+                }
+                break;
+            case Constants.PROP_OWL_BACKWARDS_COMPATIBLE:
+                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+                mainOntologyMetadata.setBackwardsCompatibleWith(value);
+                break;
+        }
+    }
+//    public void loadPropertiesFromOntology(OntModel m){
+//        //maybe there are some properties regarding the version of the uri that I am missing...
+//        if(m == null){
+//            System.err.println("The ontology could not be read...");
+//            return;
+//        }
+//        initializeOntology();
+//        this.mainOntologyMetadata.setName("[Ontology Name]");
+//        this.mainOntologyMetadata.setNamespacePrefix("[Ontology NS Prefix]");
+//        this.mainOntologyMetadata.setNamespaceURI("[Ontology URI]");
+//        //we assume only one ontology per file.
+//        try{
+//            OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
+//            this.mainOntologyMetadata.setNamespaceURI(onto.getURI());
+//            this.mainOntologyMetadata.setName(onto.getLocalName());
+//            Iterator it = onto.listProperties();
+//            String propertyName, value;
+//            while(it.hasNext()){
+//                Statement s = (Statement) it.next();
+//                propertyName = s.getPredicate().getLocalName();
+//                try{
+//                    value = s.getObject().asLiteral().getString();
+//                }catch(Exception e){
+//                    value = s.getObject().asResource().getURI();
+//                }
+//    //            System.out.println(propertyName + " " + value);
+//                // fill in the properties here.
+//                if(propertyName.equals("label")){
+//                    this.mainOntologyMetadata.setName(value);
+//                }else
+//                if(propertyName.equals("abstract")){
+//                    this.abstractSection = value;
+//                }else
+//                if(propertyName.equals("title")){
+//                    mainOntologyMetadata.setTitle(value);
+//                }else
+//                if(propertyName.equals("replaces")||propertyName.equals("wasRevisionOf")||propertyName.equals("priorVersion")){
+//                    mainOntologyMetadata.setPreviousVersion(value);
+//                }else
+//                if(propertyName.equals("versionInfo")){
+//                    mainOntologyMetadata.setRevision(value);
+//                }else
+//                if(propertyName.equals("versionIRI")){
+//                    mainOntologyMetadata.setThisVersion(value);
+//                }else
+//                if(propertyName.equals("preferredNamespacePrefix")){
+//                    this.mainOntologyMetadata.setNamespacePrefix(value);
+//                }else
+//                if(propertyName.equals("preferredNamespaceUri")){
+//                    this.mainOntologyMetadata.setNamespaceURI(value);                
+//                }else
+//                //we deal with the license by invoking the licensius service
+//                //(only if we cannot find it)
+//                if(propertyName.equals("license")){
+//                    License l = new License();
+//                    if(isURL(value)){
+//                        l.setUrl(value);
+//                    }else{
+//                        l.setName(value);
+//                    }
+//                    mainOntologyMetadata.setLicense(l);
+//                }else
+//                if(propertyName.equals("creator")||propertyName.equals("contributor")
+//                        ||propertyName.equals("publisher")){
+//                    Agent g = new Agent();
+//                    if(isURL(value)){
+//                        g.setURL(value);
+//                        g.setName(value);
+//                    }else{
+//                        g.setName(value);
+//                        g.setURL("");
+//                    }
+//                    if(propertyName.equals("creator")){
+//                        mainOntologyMetadata.getCreators().add(g);
+//                    }else if (propertyName.equals("contributor")){
+//                        mainOntologyMetadata.getContributors().add(g);
+//                    }else{
+//                        mainOntologyMetadata.setPublisher(g);
+//                    }
+//                }else
+//                if(propertyName.equals("created")){
+//                    if(mainOntologyMetadata.getReleaseDate()==null || "".equals(mainOntologyMetadata.getReleaseDate())){
+//                        mainOntologyMetadata.setReleaseDate(value);
+//                    }
+//                }else
+//                if(propertyName.equals("modified")){
+//                    mainOntologyMetadata.setReleaseDate(value);
+//                }else
+//                if(propertyName.equals("bibliographicCitation")){
+//                    mainOntologyMetadata.setCiteAs(value);
+//                }else
+//                if(propertyName.equals("doi")||propertyName.equals("hasDOI")){
+//                    mainOntologyMetadata.setDoi(value);
+//                }else
+//                if(propertyName.equals("backwardsCompatibleWith")){
+//                    mainOntologyMetadata.setBackwardsCompatibleWith(value);
+//                }else
+//                if(propertyName.equals("status")){
+//                    mainOntologyMetadata.setStatus(value);
+//                }else
+//                if(propertyName.equals("imports")){
+//                    Ontology o = new Ontology();
+//                    if(isURL(value)){
+//                        o.setNamespaceURI(value);
+//                        o.setName(value);
+//                    }else{
+//                        o.setName(value);
+//                        o.setNamespaceURI("");
+//                    }
+//                    mainOntologyMetadata.getImportedOntologies().add(o);
+//                }
+//                //to do: if property is comment and abstract is null, then complete abstract.
+//            }
+//        if(this.mainOntologyMetadata.getName()==null || this.mainOntologyMetadata.getName().equals("")){
+//            this.mainOntologyMetadata.setName(mainOntologyMetadata.getTitle());
+//        }
+//        if(mainOntologyMetadata.getStatus()==null || mainOntologyMetadata.getStatus().equals("")){
+//            mainOntologyMetadata.setStatus("Ontology Specification Draft");
+//        }
+//        }catch(Exception e){
+//            System.err.println("No ontology declared. Ignoring properties");
+//        }
+//        if(isUseLicensius()){
+//            String licName;
+//            String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
+//            if (!lic.isEmpty()&& !lic.equals("unknown"))
+//            {
+//                mainOntologyMetadata.getLicense().setUrl(lic);
+//                licName = GetLicense.getTitle(lic);
+//                mainOntologyMetadata.getLicense().setName(licName);
+//            }
+//        }
+//        
+//        System.out.println("Loaded properties from ontology");
+//    }
     
     private boolean isURL(String s){
         try{
