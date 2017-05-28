@@ -5,7 +5,6 @@
  */
 package diagram;
 
-import static com.hp.hpl.jena.rdf.model.impl.RDFDefaultErrorHandler.logger;
 import de.uni_stuttgart.vis.vowl.owl2vowl.Owl2Vowl;
 import java.io.File;
 import widoco.Configuration;
@@ -25,8 +24,7 @@ public class DiagramGeneration {
 //            converter.convert();
 //            converter.export(new FileExporter(new File(outFolder+File.separator+"webvowl"+File.separator+"data"+File.separator+"ontology.json")));    
         } catch (Exception e) {
-            logger.error("FAILED TO LOAD " + e.getMessage());
-            System.err.println(e.getMessage());
+            System.err.println("FAILED TO LOAD " + e.getMessage());
         }
     }
     

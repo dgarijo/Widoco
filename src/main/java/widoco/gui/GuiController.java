@@ -30,7 +30,7 @@ import widoco.Configuration;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
-import widoco.LoadOntologyPropertiesInThread;
+import widoco.LoadOntologyInThread;
 import widoco.Constants;
 import widoco.WidocoUtils;
 
@@ -66,94 +66,90 @@ public final class GuiController {
      * @param args 
      */
     public GuiController(String[] args){
-        System.out.println("\n\n--WIzard for DOCumenting Ontologies-- Powered by LODE.\n");
-//        System.out.println("Usage: java -jar [-ontFile file] or [-ontURI uri] -outFolder folderName [-confFile propertiesFile] \n");
-        config = new Configuration();
+        System.out.println("\n\n--WIzard for DOCumenting Ontologies (WIDOCO).\n https://w3id.org/widoco/\n"); 
         //get the arguments
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
-        boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = false, useW3Cstyle = true,
+        boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = true, useW3Cstyle = true,
                 includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false,
                 generateOnlyCrossRef = false, includeNamedIndividuals=true;
+        String confPath="";
         String[] languages = null;
         int i=0;
         while(i< args.length){
             String s = args[i];
-            if(s.equals("-confFile")){
-                try{
-                    //reloadConfiguration(args[i+1]);
-                    this.config.reloadPropertyFile(args[i+1]);
+            switch (s) {
+                case "-confFile":
+                    confPath = args[i+1];
+                    getOntoMetadata = false;
                     i++;
-                }catch(Exception e){
-                    System.out.println("Configuration file could not be loaded: "+e.getMessage());
+                    break;
+                case "-outFolder":
+                    outFolder = args[i+1];
+                    i++;
+                    break;
+                case "-ontFile":
+                    ontology = args[i+1];
+                    isFromFile = true;
+                    i++;
+                    break;
+                case "-ontURI":
+                    ontology = args[i+1];
+                    i++;
+                    break;
+                case "-oops":
+                    oops=true;
+                    break;
+                case "-rewriteAll":
+                    rewriteAll = true;
+                    break;
+                case "-crossRef":
+                    generateOnlyCrossRef = true;
+                    break;
+                case "-getOntologyMetadata":
+                    getOntoMetadata = true;
+                    break;//left for legacy, but now this is the behavior by default
+                case "-saveConfig":
+                    configOutFile = args[i+1];
+                    i++;
+                    break;
+                case "-useCustomStyle":
+                    useW3Cstyle = false;
+                    break;
+                case "-includeImportedOntologies":
+                    includeImportedOntologies = true;
+                    break;
+                case "-htaccess":
+                    htAccess = true;
+                    break;
+                case "-lang":
+                    languages = args[i+1].replace(" ","").split("-");
+                    i++;
+                    break;
+                case "-webVowl":
+                    webVowl = true;
+                    break;
+                case "-licensius":
+                    licensius = true;
+                    break;
+                case "-ignoreIndividuals":
+                    includeNamedIndividuals=false;
+                    i++;
+                    break;
+                default:
+                    System.out.println("Command"+s+" not recognized.");
+                    System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals]\n");
                     return;
-                }
-            }
-            else if(s.equals("-outFolder")){
-                outFolder = args[i+1];
-                i++;
-            }
-            else if(s.equals("-ontFile")){
-                ontology = args[i+1];
-                isFromFile = true;
-                i++;
-            }
-            else if(s.equals("-ontURI")){
-                ontology = args[i+1];
-                i++;
-            }
-            else  if(s.equals("-oops")){
-                oops=true;
-            }
-            else if(s.equals("-rewriteAll")){
-                rewriteAll = true;
-            }
-            else if(s.equals("-crossRef")){
-                generateOnlyCrossRef = true;
-            }
-            else if(s.equals("-getOntologyMetadata")){
-                getOntoMetadata = true;
-            }
-            else if(s.equals("-saveConfig")){
-                configOutFile = args[i+1];
-                i++;
-            }
-            else if(s.equals("-useCustomStyle")){
-                useW3Cstyle = false;
-            }
-            else if(s.equals("-includeImportedOntologies")){
-                includeImportedOntologies = true;
-            }
-            else if(s.equals("-htaccess")){
-                htAccess = true;
-            }
-            else if(s.equals("-lang")){
-                languages = args[i+1].replace(" ","").split("-");
-                i++;
-            }
-            else if(s.equals("-webVowl")){
-                webVowl = true;
-            }
-            else if (s.equals("-licensius")){
-                licensius = true;
-            }
-            else if(s.equals("-ignoreIndividuals")){
-                includeNamedIndividuals=false;
-                i++;
-            }
-            else{
-                System.out.println("Command"+s+" not recognized.");
-                System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-ignoreIndividuals]\n");
-                return;
             }
             i++;
-        }        
-        try {
-            //CreateResources.copyResourceFolder(TextConstants.lodeResources, tmpFile.getName());
-            WidocoUtils.unZipIt(Constants.LODE_RESOURCES, config.getTmpFile().getName());
-        } catch (Exception ex) {
-            System.err.println("Error while creating the temporal files");
-            errors=true;
         }
+        //this creates the tmp files
+        config = new Configuration();
+        try{
+            this.config.reloadPropertyFile(confPath);
+        }catch(Exception e){
+            System.out.println("Configuration file could not be loaded: "+e.getMessage());
+            return;
+        }            
         if(generateOnlyCrossRef){
             this.config.setIncludeIndex(false);
             this.config.setIncludeAbstract(false);
@@ -183,9 +179,13 @@ public final class GuiController {
         }
         if(!isFromFile)this.config.setOntologyURI(ontology);
         //we load the model locally so we can use it.
-        WidocoUtils.loadModelToDocument(config);
+        try{
+            WidocoUtils.loadModelToDocument(config);
+        }catch(Exception e){
+            System.err.println("Could not load the ontology");
+        }
         if(getOntoMetadata){
-            config.loadPropertiesFromOntology(config.getMainOntology().getMainModel());
+            config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
         }
         try{
             for (String l : config.getLanguagesToGenerateDoc()) {
@@ -213,7 +213,6 @@ public final class GuiController {
         //delete temp files
         try{
             FileUtils.deleteDirectory(config.getTmpFile());
-            FileUtils.deleteDirectory(new File(Constants.VOWL_LOGS));
         }catch(Exception e){
             System.err.println("could not delete temporal folder: "+ e.getMessage());
         }
@@ -251,8 +250,8 @@ public final class GuiController {
         new Thread(r).start();
     }
     
-    private void startLoadingPropertiesFromOntology(boolean showGui){
-        Runnable r = new LoadOntologyPropertiesInThread(this.config, this, showGui);
+    private void startLoadingOntology(boolean showGui){
+        Runnable r = new LoadOntologyInThread(this.config, this, showGui);
         new Thread(r).start();
     }
     
@@ -265,7 +264,6 @@ public final class GuiController {
         this.gui.dispose();
         try{
             FileUtils.deleteDirectory(config.getTmpFile());
-            FileUtils.deleteDirectory(new File(Constants.VOWL_LOGS));
         }catch(Exception e){
             System.err.println("could not delete temporal folder: "+ e.getMessage());
         }
@@ -302,7 +300,7 @@ public final class GuiController {
                 }else{
                     if(input.equals("loadOntologyProperties")){    
                         state = State.loadingConfig;
-                        this.startLoadingPropertiesFromOntology(true);                    
+                        this.startLoadingOntology(true);                    
                     }else if(input.equals("next")){//next
                         state = State.sections;
                         this.gui.dispose();
@@ -312,13 +310,18 @@ public final class GuiController {
                 }
                 break;
             case loadingConfig:
-                state = State.metadata;
                 if(input.equals("finishedLoading")){
+                    state = State.metadata;
                     ((GuiStep2)gui).refreshPropertyTable();
                     ((GuiStep2)gui).stopLoadingAnimation();
                 }else if(input.equals("error")){
-                    JOptionPane.showMessageDialog(gui, "Error while loading the ontology\n Please check the URI");
+                    state = State.initial;
                     ((GuiStep2)gui).stopLoadingAnimation();
+                    JOptionPane.showMessageDialog(gui, "The ontology could not be loaded. Please check the following:\n1) The URI/file is correct and passes a syntax check\n2) All the imported ontologies resolve");
+                    state = State.initial;
+                    this.gui.dispose();
+                    gui = new GuiStep1(this);
+                    gui.setVisible(true);
                 }
             break;
             case sections:

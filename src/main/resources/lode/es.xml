@@ -23,7 +23,7 @@
     <symmetric>simetrica</symmetric>
     <asymmetric>asimetrica</asymmetric>
     <transitive>transitiva</transitive>
-    <isdefinedby>definida por</isdefinedby>
+    <isdefinedby>Definida por</isdefinedby>
     <belongsto>pertenece a</belongsto>
     <issameas>igual a</issameas>
     <isalsodefinedas>también definida por</isalsodefinedas>
@@ -81,4 +81,6 @@
 	<category>Categoría</category>
 	<isrequired>Requerido</isrequired>
 	<source>Fuente</source>
+	<termStatus>Estado</termStatus>
+	<deprecated>Depecreado</deprecated>
 </labels>

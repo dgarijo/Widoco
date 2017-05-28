@@ -17,7 +17,7 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xd dc rdfs swrl owl2xml owl xsd swrlb rdf f dcterms vaem osw vann prov obo skos"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xd dc rdfs swrl owl2xml owl xsd swrlb rdf f dcterms vaem osw vann prov obo skos sw"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" version="2.0"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -35,6 +35,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:prov="http://www.w3.org/ns/prov#"
     xmlns:obo="http://purl.obolibrary.org/obo/"
     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:sw="http://www.w3.org/2003/06/sw-vocab-status/ns#"
     xmlns="http://www.w3.org/1999/xhtml">
      
     <xsl:include href="swrl-module.xsl" />
@@ -141,7 +142,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                     <xsl:apply-templates select="$titles" mode="head" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="rdfs:label" mode="head" />
+                    <xsl:apply-templates select="rdfs:label|skos:prefLabel|obo:IAO_0000118" mode="head" />
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates mode="head" />
@@ -154,7 +155,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                         <xsl:apply-templates select="$titles" mode="ontology" />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="rdfs:label" mode="ontology" />
+                        <xsl:apply-templates select="rdfs:label|skos:prefLabel|obo:IAO_0000118" mode="ontology" />
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:call-template name="get.ontology.url" />
@@ -243,7 +244,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template match="rdfs:comment[f:isInLanguage(.)] | prov:definition[f:isInLanguage(.)] | skos:definition[f:isInLanguage(.)] |obo:IAO_0000115[f:isInLanguage(.)]">
-    <!--<xsl:template match="prov:definition">-->
         <div class="comment">
             <xsl:call-template name="get.content" />
         </div>
@@ -261,7 +261,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </h1>
     </xsl:template>
     
-    <xsl:template match="rdfs:label[f:isInLanguage(.)]" mode="ontology">
+    <xsl:template match="rdfs:label[f:isInLanguage(.)] | skos:prefLabel[f:isInLanguage(.)] | obo:IAO_0000118[f:isInLanguage(.)]" mode="ontology">
         <h1>
             <xsl:call-template name="get.title" />
         </h1>
@@ -343,7 +343,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <title><xsl:value-of select="tokenize(.//text(),$n)[1]" /></title>
     </xsl:template>
     
-    <xsl:template match="rdfs:label[f:isInLanguage(.)]" mode="head">
+    <xsl:template match="rdfs:label[f:isInLanguage(.)] | skos:prefLabel[f:isInLanguage(.)] | obo:IAO_0000118[f:isInLanguage(.)]" mode="head">
         <title><xsl:value-of select="tokenize(.//text(),$n)[1]" /></title>
     </xsl:template>
     
@@ -424,7 +424,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:apply-templates select="@*:resource" />
     </xsl:template>
     
-    <xsl:template match="rdfs:label[f:isInLanguage(.)]">
+    <xsl:template match="rdfs:label[f:isInLanguage(.)] | skos:prefLabel[f:isInLanguage(.)] | obo:IAO_0000118[f:isInLanguage(.)]">
         <h3>
             <xsl:apply-templates />
             <xsl:call-template name="get.entity.type.descriptor">
@@ -442,8 +442,8 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <li>
             <a href="#{generate-id()}" title="{@*:about|@*:ID}">
                 <xsl:choose>
-                    <xsl:when test="exists(rdfs:label)">
-                        <xsl:value-of select="rdfs:label[f:isInLanguage(.)]" />
+                    <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                        <xsl:value-of select="rdfs:label[f:isInLanguage(.)] | skos:prefLabel[f:isInLanguage(.)] | obo:IAO_0000118[f:isInLanguage(.)]" />
                     </xsl:when>
                     <xsl:otherwise>
                         <span>
@@ -565,10 +565,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:function name="f:getLabel" as="xs:string">
         <xsl:param name="iri" as="xs:string" />
         
-        <xsl:variable name="node" select="$root//rdf:RDF/element()[(@*:about = $iri or @*:ID = $iri) and exists(rdfs:label)][1]" as="element()*" />
+        <xsl:variable name="node" select="$root//rdf:RDF/element()[(@*:about = $iri or @*:ID = $iri) and exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)][1]" as="element()*" />
         <xsl:choose>
-            <xsl:when test="exists($node/rdfs:label)">
-                <xsl:value-of select="$node/rdfs:label[f:isInLanguage(.)]" />
+            <xsl:when test="exists($node/rdfs:label|$node/skos:prefLabel|$node/obo:IAO_0000118)">
+                <xsl:value-of select="$node/rdfs:label[f:isInLanguage(.)] | $node/skos:prefLabel[f:isInLanguage(.)] | $node/obo:IAO_0000118[f:isInLanguage(.)]" />
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="localName" as="xs:string?">
@@ -878,6 +878,8 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:call-template name="get.author" />
         <xsl:call-template name="get.original.source" />
         <xsl:call-template name="get.source" />
+		<xsl:call-template name="get.termStatus" />
+		<xsl:call-template name="get.deprecated" />
     </xsl:template>
     
     <xsl:template name="get.original.source">
@@ -1351,8 +1353,8 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         	<a name="{substring-after($url, '#')}" />
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="exists(rdfs:label)">
-                <xsl:apply-templates select="rdfs:label" />
+            <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                <xsl:apply-templates select="rdfs:label|skos:prefLabel|obo:IAO_0000118" />
             </xsl:when>
             <xsl:otherwise>
                 <h3>
@@ -1816,16 +1818,18 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.example">
-        <xsl:if test="exists(vann:example | obo:IAO_0000112)">
+        <xsl:if test="exists(vann:example | obo:IAO_0000112 | skos:example)">
             <dl>
                 <dt>
                     <xsl:value-of select="f:getDescriptionLabel('example')" />
                 </dt>
-                <xsl:for-each select="vann:example | obo:IAO_0000112">
+                <xsl:for-each select="vann:example | obo:IAO_0000112 | skos:example">
                     <dd>
                         <xsl:choose>
                             <xsl:when test="normalize-space(@*:resource) = ''">
+								<pre>
                                 <xsl:value-of select="text()" />
+								</pre>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{@*:resource}">
@@ -1845,9 +1849,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <dt><xsl:value-of select="f:getDescriptionLabel('source')" /></dt>
                 <xsl:for-each select="dcterms:source | obo:IAO_0000119">
                     <dd>
-                        <xsl:choose>
+						<xsl:choose>
                             <xsl:when test="normalize-space(@*:resource) = ''">
-                                <xsl:value-of select="text()" />
+								<xsl:value-of select="text()" />
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{@*:resource}">
@@ -1860,24 +1864,57 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
             </dl>
         </xsl:if>
     </xsl:template>
+	
+	<xsl:template name="get.termStatus">
+        <xsl:if test="exists(sw:term_status | obo:IAO_0000114)">
+            <dl>
+                <dt><xsl:value-of select="f:getDescriptionLabel('termStatus')" /></dt>
+				<xsl:for-each select="sw:term_status | obo:IAO_0000114">
+					<dd>
+						<xsl:choose>
+							<xsl:when test="normalize-space(@*:resource) = ''">
+								<xsl:value-of select="text()" />
+							</xsl:when>
+							<xsl:otherwise>
+								<a href="{@*:resource}">
+									<xsl:value-of select="@*:resource" />
+								</a>
+							</xsl:otherwise>
+						</xsl:choose>
+					</dd>
+				</xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+	
+	<xsl:template name="get.deprecated">
+        <xsl:if test="exists(owl:deprecated)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('deprecated')" />
+                </dt>                
+				<dd><xsl:value-of select="owl:deprecated"/></dd>                
+            </dl>
+        </xsl:if>
+    </xsl:template>
     
     <!-- ADDED BY VARUN RATNAKAR FOR EXTRA PROPERTY ANNOTATIONS-->
     <xsl:template name="get.custom.annotations">
-            <xsl:if test="exists(osw:category | osw:isRequired)">
-                <br />
-                <dt><xsl:value-of select="f:getDescriptionLabel('propertyannotation')" />:</dt>
-                <div class="description">
-                    <dl>
-                    <xsl:if test="exists(osw:category)">
-                            <dt><xsl:value-of select="f:getDescriptionLabel('category')" /></dt>
-                            <xsl:apply-templates select="osw:category" />
-                    </xsl:if>
-                    <xsl:if test="exists(osw:isRequired)">
-                            <dt><xsl:value-of select="f:getDescriptionLabel('isrequired')" /></dt>
-                            <dd><xsl:value-of select="osw:isRequired" /></dd>
-                    </xsl:if>
-                    </dl>
-                </div>
-            </xsl:if>
+		<xsl:if test="exists(osw:category | osw:isRequired)">
+			<br />
+			<dt><xsl:value-of select="f:getDescriptionLabel('propertyannotation')" />:</dt>
+			<div class="description">
+				<dl>
+				<xsl:if test="exists(osw:category)">
+						<dt><xsl:value-of select="f:getDescriptionLabel('category')" /></dt>
+						<xsl:apply-templates select="osw:category" />
+				</xsl:if>
+				<xsl:if test="exists(osw:isRequired)">
+						<dt><xsl:value-of select="f:getDescriptionLabel('isrequired')" /></dt>
+						<dd><xsl:value-of select="osw:isRequired" /></dd>
+				</xsl:if>
+				</dl>
+			</div>
+		</xsl:if>
     </xsl:template> 
 </xsl:stylesheet>

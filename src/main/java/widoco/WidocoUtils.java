@@ -32,6 +32,7 @@ import java.util.zip.ZipInputStream;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -46,8 +47,9 @@ public class WidocoUtils {
     /**
      * Method that will download the ontology to document with Widoco.
      * @param c Widoco configuration object.
+     * @throws java.lang.Exception
      */
-    public static void loadModelToDocument(Configuration c){
+    public static void loadModelToDocument(Configuration c) throws Exception{
         if(!c.isFromFile()){
             String newOntologyPath = c.getTmpFile().getAbsolutePath()+File.separator+"Ontology";
             downloadOntology(c.getOntologyURI(), newOntologyPath);
@@ -62,16 +64,9 @@ public class WidocoUtils {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
         loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
-        OWLOntology ontology;
-        try{
-            ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(c.getOntologyPath())),loadingConfig);
-            c.getMainOntology().setMainOntology(ontology);
-            c.getMainOntology().setMainOntologyManager(manager);
-            System.out.println("Ontology loaded successfully");
-        }catch(OWLOntologyCreationException e){
-            System.err.println("Could not open the ontology: "+e.getMessage());
-        } 
-        
+        OWLOntology ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(c.getOntologyPath())),loadingConfig);
+        c.getMainOntology().setMainOntology(ontology);
+        c.getMainOntology().setMainOntologyManager(manager);
     }
     
     /**
@@ -281,6 +276,15 @@ public class WidocoUtils {
         finally {
             if(is!=null)is.close();
             if(os!=null)os.close();
+        }
+    }
+    
+    public static String getValueAsLiteralOrURI(OWLAnnotationValue v){
+        try{
+            return  v.asIRI().get().getIRIString();
+        }catch(Exception e){
+            //instead of a resource, it was added as a String
+            return v.asLiteral().get().getLiteral();
         }
     }
 
