@@ -104,4 +104,5 @@ For a complete list, check the project open issues.
 
 Requirements
 ==========
-Java 1.8
+You will need Java 1.8 or higher (SDK 1.8 or JRE 8) for WIDOCO to work
+Otherwise, you will probably experience an "Unsupported major.minor version 52.0" exception when executing the JAR file.
