@@ -8,18 +8,18 @@ Properties designed to tell anyone how to access your vocabulary. It is true tha
 
 <h4 class="list" id="namespaceURI">Vocabulary namespace URI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4> 
 <p>
-Property defining the main URI of your vocabulary. This becomes important in cases when you use permanent URLs: the vocabulary local URI hosting the file may not be the main URI you want people to access when resolving it. The vann vocabulary is has a very nice property for describing this, and it is encouraged by the LOV best practices [CITE].
+Property defining the main URI of your vocabulary. This becomes important in cases when you use permanent URLs: the vocabulary local URI hosting the file may not be the main URI you want people to access when resolving it. The vann vocabulary has a very nice property for describing this, and it is encouraged by the LOV best practices [<a href="#LOV">Vandenbussche and Batant 2012</a>]. Please note that <strong>the value must be a literal, not a resource (URL)</strong>.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>: 
-	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespaceURI</a></li>
+	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespaceUri">vann:preferredNamespaceUri</a></li>
 </ul>
 
 <h4 class="list" id="prefix">Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
-<p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone referring to it in the same way.</p>
+<p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone to refer to it in the same way.</p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:  
-	<li><a target="_blank" href="http://purl.org/vocab/vann">vann:namespacePrefix</a></li>
+	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespacePrefix">vann:preferredNamespacePrefix</a></li>
 </ul>
 
 <h3 id="goals" class="list">Vocabulary goals and description</h3>
@@ -66,6 +66,7 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 
 <ul class="hlist"><strong>Properties you may use</strong>:  
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionIRI">owl:versionIRI</a></li>
+	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
 
 <h4 class="list" id="versionInfo">Version info [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
@@ -120,7 +121,7 @@ Date when the vocabulary was created. There are different ways in which the date
 
 <ul class="hlist"><strong>Properties you may use</strong>:  
 	<li><a target="_blank" href="http://purl.org/dc/terms/created">dcterms:created</a></li>
-	<li><a target="_blank" href="http://schema.org/dateCreated">schema:dateCrated</a></li>
+	<li><a target="_blank" href="http://schema.org/dateCreated">schema:dateCreated</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/createdOn">pav:createdOn</a></li>
 </ul>
@@ -196,7 +197,7 @@ Organization responsible for publishing the vocabulary. This property is optiona
 
 
 <h3 id="cite" class="list">Vocabulary citation</h3>
-<p>Ontologies are considered software, and should be cited as such [CITE]. However, researchers reusing the ontology may not the correct citation associated to it. Adding metadata to help them would address this issue, granting you the appropriate credit for your work.</p>
+<p>Ontologies are considered software, and should be cited as such [<a href="#soft">Smith et al 2016</a>]. However, researchers reusing the ontology may not refer to the correct citation associated to it. Adding metadata to help them would address this issue, granting you the appropriate credit for your work.</p>
 
 <h4 class="list" id="doi">DOI [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -291,6 +292,16 @@ Definition of the term. We recommend it to be as precise as possible, in order t
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/definition#">skos:definition</a></li>
 </ul>
 
+<h3 id="osource" class="list">Term original source [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
+<p>
+Source used to define the ontology term. This property is also used for crawlers, in order to refer to the ontology document in case they stumble upon a term. 
+</p>
+
+<ul class="hlist"><strong>Properties you may use</strong>:  
+	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#isDefinedby">rdfs:isDefinedBy</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dc:source</a></li>
+</ul>
+
 <h3 id="example" class="list">Term example [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
 <p>
 It is always helpful to add examples on the intended usages of the ontology. Pointers to real examples are also valuable.
@@ -332,14 +343,4 @@ A sentence or paragraph explaining why the term was added to the vocabulary. Thi
 
 <ul class="hlist"><strong>Properties you may use</strong>:  
 	<li><a target="_blank" href="http://www.linkedmodel.org/schema/vaem#rationale">vaem:rationale</a></li>
-</ul>
-
-<h3 id="osource" class="list">Term original source [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
-<p>
-Source used to define the ontology term.
-</p>
-
-<ul class="hlist"><strong>Properties you may use</strong>:  
-	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#isDefinedby">rdfs:isDefinedBy</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dc:source</a></li>
 </ul>
