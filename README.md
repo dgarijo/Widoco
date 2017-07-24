@@ -8,28 +8,25 @@ WIzard for DOCumenting Ontologies (WIDOCO)
 
 **Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
 
-Download the executable
+**Citing WIDOCO**: Please cite the latest version of WIDOCO in Zenodo: https://zenodo.org/badge/latestdoi/11427075.
+
+Downloading the executable
 ===================
 
-To download WIDOCO JAR, check the latest release (https://github.com/dgarijo/WIDOCO/releases/latest).
-
-Citing WIDOCO
-===================
-
-Please cite the latest version of WIDOCO in Zenodo: https://zenodo.org/badge/latestdoi/11427075
+To download WIDOCO, you need to download a JAR executable file. Check the latest release for more details: (https://github.com/dgarijo/WIDOCO/releases/latest).
 
 Description
 ==========
 WIDOCO helps you to publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
 
 Features of WIDOCO:
-* Automatic documentation of the terms in your ontology (based on LODE)
+* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/))
 * Automatic annotation in JSON-LD snippets of the html produced.
 * Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).
 * Metadata extraction from the ontology plus the means to complete it on the fly when generating your ontology. Check the [best practice document](http://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) to know more about the terms recognized by WIDOCO.
 * Guidelines on the main sections that your document should have and how to complete them.
-* Integration with diagram creators (WebVOWL).
-* Automatic changelog of differences between the actual and the previous version of the ontology.
+* Integration with diagram creators ([WebVOWL](http://vowl.visualdataweb.org/webvowl/)).
+* Automatic changelog of differences between the actual and the previous version of the ontology (based on [Bubastis](http://www.ebi.ac.uk/efo/bubastis/)).
 * Separation of the sections of your html page so you can write them independently and replace only those needed.
 * Content negotiation and serialization of your ontology according to W3C best practices
 
@@ -100,7 +97,7 @@ We are working on the following features:
 * Means to add examples to your ontology terms.
 * Previsualization of the terms that will be generated.
 
-For a complete list, check the project open issues.
+For a complete list, check the [project open issues](https://github.com/dgarijo/Widoco/issues).
 
 Requirements
 ==========
