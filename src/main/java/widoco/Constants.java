@@ -342,16 +342,16 @@ public class Constants {
         return agents;
     }
     private static String getAuthors(ArrayList<Agent> auth, Properties l) {
-        String a="<dl><dt>"+l.getProperty(LANG_AUTHORS)+"</dt>\n";
+        String a="<dt>"+l.getProperty(LANG_AUTHORS)+"</dt>\n";
         //the same amount of names and institutions is assumed.
         a+=getAgents(auth);
-        return a +"</dl>\n";                   
+        return a +"\n";                   
     }
     
     private static String getContributors(ArrayList<Agent> contrib, Properties l) {
-        String c="<dl><dt>"+l.getProperty(LANG_CONTRIBUTORS)+"</dt>\n";
+        String c="<dt>"+l.getProperty(LANG_CONTRIBUTORS)+"</dt>\n";
         c+=getAgents(contrib);
-        return c +"</dl>\n";                   
+        return c +"\n";                   
     }
     
     private static String getPublisher (Agent publisher, Properties l){
@@ -360,11 +360,11 @@ public class Constants {
             if(publisher.getName()==null && "".equals(publisher.getName())){
                 publisher.setName(publisher.getURL());
             }
-            String c="<dl><dt>"+l.getProperty(LANG_PUBLISHER)+"</dt>\n";
+            String c="<dt>"+l.getProperty(LANG_PUBLISHER)+"</dt>\n";
             ArrayList<Agent> p = new ArrayList<Agent>();
             p.add(publisher);
             c+=getAgents(p);
-            return c +"</dl>\n";                   
+            return c +"\n";                   
         }
         return "";
     }
@@ -391,16 +391,16 @@ public class Constants {
         return ontologies;
     }
     private static String getImports(ArrayList<Ontology> ontos, Properties l) {
-        String imports= "<dl><dt>"+l.getProperty(LANG_IMPORTED)+"</dt>\n";
+        String imports= "<dt>"+l.getProperty(LANG_IMPORTED)+"</dt>\n";
         imports+= getOntologies(ontos);
-        return imports+"</dl>\n";
+        return imports+"\n";
     }
 
     private static String getExtends(ArrayList<Ontology> ontos, Properties l) {
-        String extended= "<dl><dt>"+l.getProperty(LANG_EXTENDED)+"</dt>\n";   
+        String extended= "<dt>"+l.getProperty(LANG_EXTENDED)+"</dt>\n";   
         extended += getOntologies(ontos);
         extended = extended.replace("owl:imports",""); //to remove the import annotation
-        return extended+"</dl>\n";
+        return extended+"\n";
     }
     
     public static String getNameSpaceDeclaration(HashMap<String,String> namesp, Properties lang){
@@ -624,25 +624,22 @@ public class Constants {
             head+="<h1>"+c.getMainOntology().getTitle()+"</h1>\n";
         if(c.getMainOntology().getReleaseDate()!=null && !"".equals(c.getMainOntology().getReleaseDate()))
             head+="<h2>"+l.getProperty(LANG_DATE)+" "+c.getMainOntology().getReleaseDate()+"</h2>\n";
+        
+        // start definition list
+        head += "\n\n<dl>\n";
+        
         if(c.getMainOntology().getThisVersion()!=null && !"".equals(c.getMainOntology().getThisVersion()))
-            head+="<dl>\n"+
-                    "<dt>"+l.getProperty(LANG_THIS_VERSION)+"</dt>\n"+
-                    "<dd><a href=\""+c.getMainOntology().getThisVersion()+"\">"+c.getMainOntology().getThisVersion()+"</a></dd>\n"+
-                    "</dl>";
+            head+="<dt>"+l.getProperty(LANG_THIS_VERSION)+"</dt>\n"+
+                    "<dd><a href=\""+c.getMainOntology().getThisVersion()+"\">"+c.getMainOntology().getThisVersion()+"</a></dd>\n";
         if(c.getMainOntology().getLatestVersion()!=null && !"".equals(c.getMainOntology().getLatestVersion()))
-            head+="<dl><dt>"+l.getProperty(LANG_LATEST_VERSION)+"</dt>\n"+
-                    "<dd><a href=\""+c.getMainOntology().getLatestVersion()+"\">"+c.getMainOntology().getLatestVersion()+"</a></dd>\n"+
-                    "</dl>";
+            head+="<dt>"+l.getProperty(LANG_LATEST_VERSION)+"</dt>\n"+
+                    "<dd><a href=\""+c.getMainOntology().getLatestVersion()+"\">"+c.getMainOntology().getLatestVersion()+"</a></dd>\n";
         if(c.getMainOntology().getPreviousVersion()!=null && !"".equals(c.getMainOntology().getPreviousVersion()))
-            head+= "<dl>\n"+
-                    "<dt>"+l.getProperty(LANG_PREVIOUS_VERSION)+"</dt>\n"+
-                    "<dd><a href=\""+c.getMainOntology().getPreviousVersion()+"\">"+c.getMainOntology().getPreviousVersion()+"</a></dd>\n"+
-                    "</dl>\n";
+            head+= "<dt>"+l.getProperty(LANG_PREVIOUS_VERSION)+"</dt>\n"+
+                    "<dd><a href=\""+c.getMainOntology().getPreviousVersion()+"\">"+c.getMainOntology().getPreviousVersion()+"</a></dd>\n";
         if(c.getMainOntology().getRevision()!=null && !"".equals(c.getMainOntology().getRevision()))
-            head +="<dl>\n"+
-              			"<dt>"+l.getProperty(LANG_REVISION)+"</dt>\n"+
-                    "<dd>"+c.getMainOntology().getRevision()+"</dd>\n"+
-                    "</dl>\n";
+            head +="<dt>"+l.getProperty(LANG_REVISION)+"</dt>\n"+
+                    "<dd>"+c.getMainOntology().getRevision()+"</dd>\n";
         if(!c.getMainOntology().getCreators().isEmpty())
             head += getAuthors(c.getMainOntology().getCreators(),l)+"\n";
         if(!c.getMainOntology().getContributors().isEmpty())
@@ -656,46 +653,49 @@ public class Constants {
             head += getExtends(c.getMainOntology().getExtendedOntologies(),l)+"\n";
         
         HashMap<String,String> availableSerializations = c.getMainOntology().getSerializations();
-        head+="<dl><dt>"+l.getProperty(LANG_SERIALIZATION)+"</dt><dd>";
+        head+="<dt>"+l.getProperty(LANG_SERIALIZATION)+"</dt><dd>";
         for(String serialization:availableSerializations.keySet()){
             head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\" alt=\""+serialization+"\" /></a> </span>";
         }
+        head+="</dd>";
         
-        head+="</dd></dl>";
         if(c.getMainOntology().getLicense()!=null){
             String lname = c.getMainOntology().getLicense().getName();//"license name goes here";
             String licenseURL = c.getMainOntology().getLicense().getUrl();//"http://insertlicenseURIhere.org";
             if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty(LANG_LICENSE_URL_IF_NULL);
             if(lname == null || "".equals(lname)) lname = l.getProperty(LANG_LICENSE_IF_NULL);
-            head+="<dl><dt>"+l.getProperty(LANG_LICENSE)+"</dt><dd>"
+            head+="<dt>"+l.getProperty(LANG_LICENSE)+"</dt><dd>"
                     + "<a href=\""+licenseURL+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/License-"+lname.replace("-", "_").replace (" ", "%20")+"-blue.svg\" alt=\""+licenseURL+"\" /></a>\n";
             if(c.getMainOntology().getLicense().getIcon()!=null && !"".equals(c.getMainOntology().getLicense().getIcon())){
                 head+="<a href=\""+licenseURL+"\" rel=\"license\" target=\"_blank\">\n" +
                 "<img src=\""+c.getMainOntology().getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\" />\n" +
                 "</a>\n<br/>";
             }
-            head+="</dd></dl>";
+            head+="</dd>";
         }
         //add lang tags here
         if(c.isCreateWebVowlVisualization()){
-            head+="<dl><dt>"+l.getProperty(LANG_VISUALIZATION)+"</dt>"
+            head+="<dt>"+l.getProperty(LANG_VISUALIZATION)+"</dt>"
                 + "<dd>"
 //                + "<a href=\"webvowl/index.html#ontology"+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
                     + "<a href=\"webvowl/index.html#ontology\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
-                + "</dd>"
-                + "</dl>\n";
+                + "</dd>\n";
         }
         if(!"".equals(c.getMainOntology().getCiteAs()) && c.getMainOntology().getCiteAs()!=null){
-            head+="<dl><dt>"+l.getProperty(LANG_CITE_AS)+"</dt>\n<dd>"+c.getMainOntology().getCiteAs()+"</dd>\n</dl>\n";
+            head+="<dt>"+l.getProperty(LANG_CITE_AS)+"</dt>\n<dd>"+c.getMainOntology().getCiteAs()+"</dd>\n";
         }
         if(!"".equals(c.getMainOntology().getDoi()) && c.getMainOntology().getDoi()!=null){
             //doi is common for all languages
-            head+="<dl><dt>DOI:</dt>\n<dd><a href=\"http://dx.doi.org/"+c.getMainOntology().getDoi()+"\"><img src =\"https://img.shields.io/badge/DOI-"+c.getMainOntology().getDoi()+"-blue.svg\" alt=\""+c.getMainOntology().getDoi()+"\" /></a></dd>\n</dl>\n";
+            head+="<dt>DOI:</dt>\n<dd><a href=\"http://dx.doi.org/"+c.getMainOntology().getDoi()+"\"><img src =\"https://img.shields.io/badge/DOI-"+c.getMainOntology().getDoi()+"-blue.svg\" alt=\""+c.getMainOntology().getDoi()+"\" /></a></dd>\n";
         }
         if(!"".equals(c.getMainOntology().getBackwardsCompatibleWith()) && c.getMainOntology().getBackwardsCompatibleWith()!=null){
             //doi is common for all languages
-            head+="<dl><dt>"+l.getProperty(LANG_COMPATIBLE)+":</dt>\n<dd>"+c.getMainOntology().getBackwardsCompatibleWith()+"</dd>\n</dl>\n";
+            head+="<dt>"+l.getProperty(LANG_COMPATIBLE)+":</dt>\n<dd>"+c.getMainOntology().getBackwardsCompatibleWith()+"</dd>\n";
         }
+        
+        // end definition list
+        head += "</dl>\n\n";
+        
         if(c.isPublishProvenance()){
             head+="<a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\" target=\"_blank\">"+l.getProperty(LANG_PRPOV_HEAD)+"</a>";
         }
