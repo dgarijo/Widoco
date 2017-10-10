@@ -663,7 +663,7 @@ public class Constants {
             if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty(LANG_LICENSE_URL_IF_NULL);
             if(lname == null || "".equals(lname)) lname = l.getProperty(LANG_LICENSE_IF_NULL);
             head+="<dl><dt>"+l.getProperty(LANG_LICENSE)+"</dt><dd>"
-                    + "<a href=\""+licenseURL+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\" alt=\""+licenseURL+"\" /></a>\n";
+                    + "<a href=\""+licenseURL+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/License-"+lname.replace("-", "_").replace (" ", "%20")+"-blue.svg\" alt=\""+licenseURL+"\" /></a>\n";
             if(c.getMainOntology().getLicense().getIcon()!=null && !"".equals(c.getMainOntology().getLicense().getIcon())){
                 head+="<a href=\""+licenseURL+"\" rel=\"license\" target=\"_blank\">\n" +
                 "<img src=\""+c.getMainOntology().getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\" />\n" +
