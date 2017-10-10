@@ -586,6 +586,9 @@ public class Constants {
                      "  </head> \n" +
                      "\n" +
                     "<body>\n";
+        
+        // here starts the actual document content
+        document += "<div class=\"container\">\n";
         document += getHeadSection(c, lang);
         document += getStatus(c);
         if(c.isIncludeAbstract()) document += "     <div id=\"abstract\"></div>\n";
@@ -600,14 +603,16 @@ public class Constants {
                 &&!"".equals(c.getMainOntology().getPreviousVersion())) {
             document += "     <div id=\"changelog\"></div>\n";
         }
+        document += "</div>\n"; // closing .container
         document+= getAcknowledgementsSection(c, lang)+"</body> \n" +
                   "</html>";
+        // document done
+        
         return document;
     }
     
     public static String getHeadSection(Configuration c, Properties l){
-        String head = "<div class=\"container\">"
-                + "<div class=\"head\">\n";
+        String head = "<div class=\"head\">\n";
         head+="<div style=\"float:right\">language ";
         Iterator <String> lang = c.getLanguagesToGenerateDoc().iterator();
         while(lang.hasNext()){
