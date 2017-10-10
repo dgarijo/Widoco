@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politï¿½cnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -131,7 +131,7 @@ public class LODEParser {
                 if(attrID.equals("classes")){
                     classList = getTermList(html.item(i));
                     classes = nodeToString(html.item(i));
-                    classes = classes.replace("<h2>"+langFile.getProperty(Constants.LANG_CLASSES)+"</h2>", "<h3 id=\"classes\" class=\"list\">"+langFile.getProperty(Constants.LANG_CLASSES)+"</h3>");
+                    classes = classes.replace("<h2>"+langFile.getProperty(Constants.LANG_CLASSES)+"</h2>", "<h3 id=\"classes-headline\" class=\"list\">"+langFile.getProperty(Constants.LANG_CLASSES)+"</h3>");
                 }
                 else if(attrID.equals("objectproperties")){
                     propertyList =getTermList(html.item(i));
