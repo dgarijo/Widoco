@@ -603,9 +603,9 @@ public class Constants {
                 &&!"".equals(c.getMainOntology().getPreviousVersion())) {
             document += "     <div id=\"changelog\"></div>\n";
         }
+        document += getAcknowledgementsSection(c, lang) + "\n";
         document += "</div>\n"; // closing .container
-        document+= getAcknowledgementsSection(c, lang)+"</body> \n" +
-                  "</html>";
+        document += "</body>\n</html>"; // end of page
         // document done
         
         return document;
