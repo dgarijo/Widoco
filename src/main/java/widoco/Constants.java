@@ -653,7 +653,7 @@ public class Constants {
         HashMap<String,String> availableSerializations = c.getMainOntology().getSerializations();
         head+="<dl><dt>"+l.getProperty(LANG_SERIALIZATION)+"</dt><dd>";
         for(String serialization:availableSerializations.keySet()){
-            head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\" alt=\""+serialization+"\"></img></a> </span>";
+            head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\" alt=\""+serialization+"\" /></a> </span>";
         }
         
         head+="</dd></dl>";
@@ -663,10 +663,10 @@ public class Constants {
             if(licenseURL == null || "".equals(licenseURL))licenseURL = l.getProperty(LANG_LICENSE_URL_IF_NULL);
             if(lname == null || "".equals(lname)) lname = l.getProperty(LANG_LICENSE_IF_NULL);
             head+="<dl><dt>"+l.getProperty(LANG_LICENSE)+"</dt><dd>"
-                    + "<a href=\""+licenseURL+"\" target=\"_blank\"><img src =\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\" alt=\""+licenseURL+"\"></img></a>\n";
+                    + "<a href=\""+licenseURL+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/License-"+lname.replace("-", "_")+"-blue.svg\" alt=\""+licenseURL+"\" /></a>\n";
             if(c.getMainOntology().getLicense().getIcon()!=null && !"".equals(c.getMainOntology().getLicense().getIcon())){
                 head+="<a href=\""+licenseURL+"\" rel=\"license\" target=\"_blank\">\n" +
-                "<img src=\""+c.getMainOntology().getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\"></img>\n" +
+                "<img src=\""+c.getMainOntology().getLicense().getIcon()+"\" style=\"border-width:0\" alt=\"License\" />\n" +
                 "</a>\n<br/>";
             }
             head+="</dd></dl>";
@@ -675,8 +675,8 @@ public class Constants {
         if(c.isCreateWebVowlVisualization()){
             head+="<dl><dt>"+l.getProperty(LANG_VISUALIZATION)+"</dt>"
                 + "<dd>"
-//                + "<a href=\"webvowl/index.html#ontology"+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
-                    + "<a href=\"webvowl/index.html#ontology\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\"></img></a>"
+//                + "<a href=\"webvowl/index.html#ontology"+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
+                    + "<a href=\"webvowl/index.html#ontology\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
                 + "</dd>"
                 + "</dl>\n";
         }
@@ -685,7 +685,7 @@ public class Constants {
         }
         if(!"".equals(c.getMainOntology().getDoi()) && c.getMainOntology().getDoi()!=null){
             //doi is common for all languages
-            head+="<dl><dt>DOI:</dt>\n<dd><a href=\"http://dx.doi.org/"+c.getMainOntology().getDoi()+"\"><img src =\"https://img.shields.io/badge/DOI-"+c.getMainOntology().getDoi()+"-blue.svg\" alt=\""+c.getMainOntology().getDoi()+"\"></img></a></dd>\n</dl>\n";
+            head+="<dl><dt>DOI:</dt>\n<dd><a href=\"http://dx.doi.org/"+c.getMainOntology().getDoi()+"\"><img src =\"https://img.shields.io/badge/DOI-"+c.getMainOntology().getDoi()+"-blue.svg\" alt=\""+c.getMainOntology().getDoi()+"\" /></a></dd>\n</dl>\n";
         }
         if(!"".equals(c.getMainOntology().getBackwardsCompatibleWith()) && c.getMainOntology().getBackwardsCompatibleWith()!=null){
             //doi is common for all languages
