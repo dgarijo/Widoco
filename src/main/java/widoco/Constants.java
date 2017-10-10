@@ -697,7 +697,7 @@ public class Constants {
             head+="<dl><dt>"+l.getProperty(LANG_COMPATIBLE)+":</dt>\n<dd>"+c.getMainOntology().getBackwardsCompatibleWith()+"</dd>\n</dl>\n";
         }
         if(c.isPublishProvenance()){
-            head+="<dl><a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\" target=\"_blank\">"+l.getProperty(LANG_PRPOV_HEAD)+"</a></dl>";
+            head+="<a href=\"provenance/provenance-"+c.getCurrentLanguage()+".html\" target=\"_blank\">"+l.getProperty(LANG_PRPOV_HEAD)+"</a>";
         }
         head+= "<hr/>\n"+
                 "</div>\n";
