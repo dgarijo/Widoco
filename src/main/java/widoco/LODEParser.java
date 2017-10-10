@@ -141,7 +141,7 @@ public class LODEParser {
                 else if(attrID.equals("dataproperties")){
                     dataPropList = (getTermList(html.item(i)));
                     dataProp = (nodeToString(html.item(i)));
-                    dataProp = dataProp.replace("<h2>"+langFile.getProperty(Constants.LANG_DATA_PROP)+"</h2>", "<h3 id=\"dataproperties\" class=\"list\">"+langFile.getProperty(Constants.LANG_DATA_PROP)+"</h3>");
+                    dataProp = dataProp.replace("<h2>"+langFile.getProperty(Constants.LANG_DATA_PROP)+"</h2>", "<h3 id=\"dataproperties-headline\" class=\"list\">"+langFile.getProperty(Constants.LANG_DATA_PROP)+"</h3>");
                 }
                 else if(attrID.equals("annotationproperties")){
                     annotationPropList = (getTermList(html.item(i)));
