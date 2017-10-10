@@ -42,33 +42,33 @@ Now you can execute WIDOCO through the console. Usage:
 
 	java -jar WIDOCO.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals]
 
-The ontFile and ontURI options allow you to choose the ontology file or ontology URI of your ontology.
+The `ontFile` and `ontURI` options allow you to choose the ontology file or ontology URI of your ontology.
 
-The -outFolder option specifies where you want to place the output.
+The `-outFolder` option specifies where you want to place the output.
 
-The -confFile allows you to choose your own configuration file for the ontology metadata. However you can tell WIDOCO to try to extract some of the metadata from the ontology with getOntologyMetadata.
+The `-confFile` allows you to choose your own configuration file for the ontology metadata. However you can tell WIDOCO to try to extract some of the metadata from the ontology with getOntologyMetadata.
 
-The -oops flag creates an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
+The `-oops` flag creates an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
 
-The -rewriteAll option will tell WIDOCO to rewrite files if the new generate files are replacing existing files. Otherwise the tool will promt a window asking the user.
+The `-rewriteAll` option will tell WIDOCO to rewrite files if the new generate files are replacing existing files. Otherwise the tool will promt a window asking the user.
 
-The -crossRef option will ONLY generate the overview and cross reference sections. The index document will NOT be generated. The htaccess, provenance page, etc., will not be generated unless requested by other flags. This flag in intended to be used only after a first version of the documentation exists.
+The `-crossRef` option will ONLY generate the overview and cross reference sections. The index document will NOT be generated. The htaccess, provenance page, etc., will not be generated unless requested by other flags. This flag in intended to be used only after a first version of the documentation exists.
 
-The -saveConfig option allows you to save a configuration file on the "configOutFile" route with the properties of a given ontology.
+The `-saveConfig` option allows you to save a configuration file on the "configOutFile" route with the properties of a given ontology.
 
-The -useCustomStyle option allows exporting the documentation using alternate css files (thanks to Daniel Vila).
+The `-useCustomStyle` option allows exporting the documentation using alternate css files (thanks to Daniel Vila).
 
-The -lang option allows showing the languages in which the documentation will be published (separated by "-"). Note that if the language is not supported, the system will load the labels in english. For example: en-pt-es
+The `-lang` option allows showing the languages in which the documentation will be published (separated by "-"). Note that if the language is not supported, the system will load the labels in english. For example: en-pt-es
 
-The -includeImportedOntologies flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
+The `-includeImportedOntologies` flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
 
-The -htaccess flag creates a bundle for publication ready to be deployed on your apache server.
+The `-htaccess` flag creates a bundle for publication ready to be deployed on your apache server.
 
-The -webVowl flag provides a link to a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#).
+The `-webVowl` flag provides a link to a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#).
 
-The -licensius flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the -getOntologyMetadata flag is enabled.
+The `-licensius` flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the `-getOntologyMetadata` flag is enabled.
 
-The -ignoreIndividuals allows you to ignore the named individuals in the ontology.
+The `-ignoreIndividuals` allows you to ignore the named individuals in the ontology.
 
 How can I make WIDOCO automatically recognize my vocabulary annotations?
 ==========
