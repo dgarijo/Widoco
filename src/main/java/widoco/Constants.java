@@ -634,8 +634,10 @@ public class Constants {
                     "<dd><a href=\""+c.getMainOntology().getPreviousVersion()+"\">"+c.getMainOntology().getPreviousVersion()+"</a></dd>\n"+
                     "</dl>\n";
         if(c.getMainOntology().getRevision()!=null && !"".equals(c.getMainOntology().getRevision()))
-            head +="<dt>"+l.getProperty(LANG_REVISION)+"</dt>\n"+
-                    "<dd>"+c.getMainOntology().getRevision()+"</dd>\n";
+            head +="<dl>\n"+
+              			"<dt>"+l.getProperty(LANG_REVISION)+"</dt>\n"+
+                    "<dd>"+c.getMainOntology().getRevision()+"</dd>\n"+
+                    "</dl>\n";
         if(!c.getMainOntology().getCreators().isEmpty())
             head += getAuthors(c.getMainOntology().getCreators(),l)+"\n";
         if(!c.getMainOntology().getContributors().isEmpty())
