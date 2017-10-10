@@ -84,7 +84,7 @@ public class CreateDocInThreadTest {
     public void testOntoInTTL() {
         System.out.println("Testing Ontology: BNE");
         try{
-            String pathToOnto = "test\\bne.ttl";
+            String pathToOnto = "test" + File.separator + "bne.ttl";
             c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
             //read the model from file
@@ -102,7 +102,7 @@ public class CreateDocInThreadTest {
     public void testOntoOWLXML() {
         System.out.println("Testing Ontology: coil.owl");
         try{
-            String pathToOnto = "test\\coil.owl";
+            String pathToOnto = "test" + File.separator + "coil.owl";
             c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
             //read the model from file
@@ -120,7 +120,7 @@ public class CreateDocInThreadTest {
     public void testOntologySmall() {
         System.out.println("Testing Ontology: observation.owl");
         try{
-            String pathToOnto = "test\\observation.owl";
+            String pathToOnto = "test" + File.separator + "observation.owl";
             c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
             //read the model from file
@@ -138,7 +138,7 @@ public class CreateDocInThreadTest {
     public void testOntologyMedium() {
         System.out.println("Testing Ontology: otalex.owl");
         try{
-            String pathToOnto = "test\\otalex.owl";
+            String pathToOnto = "test" + File.separator + "otalex.owl";
             c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
             //read the model from file
@@ -179,7 +179,7 @@ public class CreateDocInThreadTest {
 //    public void testBigOntology() {
 //        System.out.println("Testing Ontology: IFC4_ADD1.ttl");
 //        try{
-//            String pathToOnto = "test\\IFC4_ADD1.ttl";
+//            String pathToOnto = "test" + File.separator + "IFC4_ADD1.ttl";
 //            c.setFromFile(true);
 //            this.c.setOntologyPath(pathToOnto);
             //read the model from file
@@ -199,7 +199,7 @@ public class CreateDocInThreadTest {
     public void testOntologyInLanguage() {
         System.out.println("Testing Ontology: geolinkeddata.owl");
         try{
-            String pathToOnto = "test\\geolinkeddata.owl";
+            String pathToOnto = "test" + File.separator + "geolinkeddata.owl";
             c.setFromFile(true);
             this.c.setOntologyPath(pathToOnto);
             //read the model from file
