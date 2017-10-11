@@ -562,7 +562,7 @@ public class Constants {
                     "			j++;\n" +
                     "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';\n" +
                     "		}\n" +
-                    "		t = t.replace(' "+lang.getProperty(LANG_BACK3).replace("&iacute;", "�")+"','');\n" +//back to ToC
+                    "		t = t.replace(' "+lang.getProperty(LANG_BACK3).replace("&iacute;", "í")+"','');\n" +//back to ToC
                     "	  });\n" +
                     "	  t+='</ul>';\n" +
                     "	  $(\"#toc\").html(t); \n" +
