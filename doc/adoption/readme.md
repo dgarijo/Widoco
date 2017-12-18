@@ -16,5 +16,5 @@ WIDOCO has been used to document **more than a hundred ontologies from different
 
 ## Tools that include Widoco
 
-* [OnToology](http://ontoology.linkeddata.es/), a tool for automatically pushing documentaiton, diagrams and possible issues of a repository of ontologies while keeping version control. Ontoology uses WIDOCO to document the ontologies. More than **one hundred repositories** have been registered in OnToology. A list of these repositories is [accessible online](OnToologyRepositories.txt).
+* [OnToology](http://ontoology.linkeddata.es/), a tool for automatically pushing documentaiton, diagrams and possible issues of a repository of ontologies while keeping version control. Ontoology uses WIDOCO to document the ontologies. More than **one hundred repositories** have been registered in OnToology. A list of these repositories is [accessible online](http://ontoology.github.io/OnToology/journalofwebsemantics/#ontologies).
 * [VoCol](http://vocol.iais.fraunhofer.de/), a framework for documenting, editing and validating ontologies while doing version control. There are at least **[ten projects](http://vocol.iais.fraunhofer.de/#projects)** that report its use. 
