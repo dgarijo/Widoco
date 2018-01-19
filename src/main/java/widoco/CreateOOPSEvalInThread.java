@@ -48,9 +48,15 @@ public class CreateOOPSEvalInThread implements Runnable{
             String evaluation;
             OOPSevaluation eval;
             
+            String ontologyXMLPath = c.getDocumentationURI();                          
+            if(!c.getMainOntology().isHashOntology()){
+                ontologyXMLPath+=File.separator+"doc";
+            }
+            ontologyXMLPath +=File.separator+"ontology.xml";
+            
             //read file
             String content=null;
-            BufferedReader br = new BufferedReader(new FileReader(c.getOntologyPath()));
+            BufferedReader br = new BufferedReader(new FileReader(ontologyXMLPath));
             try {
                 StringBuilder sb = new StringBuilder();
                 String line = br.readLine();

@@ -60,7 +60,7 @@ public class OOPSevaluation {
                 }
                 request+="</OntologyUrl><OntologyContent>";
                 if(content!=null &&!"".equals(content)){
-                    request+=content;
+                    request+="<![CDATA[ "+content+" ]]>";
                 }
                 request+="</OntologyContent>"+
                     "<Pitfalls></Pitfalls>" +
