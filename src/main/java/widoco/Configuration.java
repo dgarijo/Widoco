@@ -484,6 +484,7 @@ public class Configuration {
                 License l = new License();
                 if(isURL(value)){
                     l.setUrl(value);
+                    l.setName(value);
                 }else{
                     l.setName(value);
                 }
@@ -540,12 +541,7 @@ public class Configuration {
                 break;
             case Constants.PROP_BIBO_STATUS:
                 try{
-                    valueLanguage = a.getValue().asLiteral().get().getLang();
                     value = a.getValue().asLiteral().get().getLiteral();
-                    if(this.currentLanguage.equals(valueLanguage)||
-                            (abstractSection==null || "".equals(abstractSection))){
-                        abstractSection = value;
-                    }
                     mainOntologyMetadata.setStatus(value);
                 }catch(Exception e){
                     System.err.println("Error while getting the status. No literal provided");
