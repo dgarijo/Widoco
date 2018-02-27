@@ -484,6 +484,7 @@ public class Configuration {
                 License l = new License();
                 if(isURL(value)){
                     l.setUrl(value);
+                    l.setName(value);
                 }else{
                     l.setName(value);
                 }
