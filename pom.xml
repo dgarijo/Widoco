@@ -28,7 +28,8 @@
         <dependency>
             <groupId>org.visualdataweb.vowl.owl2vowl</groupId>
             <artifactId>OWL2VOWL</artifactId>
-            <version>0.3.2-SNAPSHOT</version><!--new version, doesnt save logs as files-->
+            <version>0.3.1</version>
+            <!--0.3.2-SNAPSHOT is a new version, that doesnt save logs as files, but it's not available anymore -->
         </dependency>
         
         <dependency>
