@@ -41,7 +41,7 @@ Download all the files of the "JAR" folder into the same folder. Then just doubl
 
 Now you can execute WIDOCO through the console. Usage:
 
-	java -jar WIDOCO.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals]
+	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals]
 
 The `ontFile` and `ontURI` options allow you to choose the ontology file or ontology URI of your ontology.
 
