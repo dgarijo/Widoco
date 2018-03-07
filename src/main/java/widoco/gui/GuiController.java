@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad PolitÃ©cnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -221,6 +221,7 @@ public final class GuiController {
             System.exit(1);
         }else{
             System.out.println("Documentation generated successfully");
+            System.exit(0);
         }
     }
 
