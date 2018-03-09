@@ -1,23 +1,76 @@
-
-title=This version:
-name=Latest version:
-ontologyPrefix=Previous version:
-ontologyNamespaceURI=Revision:
-dateOfRelease= Authors:
-thisVersion=Contributors:
-latestVersion=Extended Ontologies:
-previousVersion=Imported Ontologies:
-revision=1.0
-authors=First Author;Second Author
-authorURL=http://example.org/author1;http://example.org/author2
-authorInstitution=First author institution;Second author institution
-contributors=First contributor;Second contributor
-contributorsURL=http://example.org/contributor1;http://example.org/contributor2
-contributorsInstitution=First contributor institution;Second contributor institution
-importsNames=Imported Ontology 1; Imported Ontology 2
-importsURLs=http://example.org/test11; http://example.org/test22
-extendsNames=test1; test2
-extendsURLS=http://example.org/test1; http://example.org/test2
-license=License name. E.g.: Creative Commons Attribution-NonCommercial-ShareAlike 2.0 Generic License
-licenseURL=http://creativecommons.org/licenses/by-nc-sa/2.0/
-licenseIconURL=http://i.creativecommons.org/l/by-nc-sa/2.0/88x31.png
+thisVersion=Cette version:
+latestVersion=Dernière version:
+previousVersion=Précédente version:
+revision=Révision:
+date=Release 
+authors= Auteurs:
+contributors=Contributeurs:
+extended=Ontologies étendues:
+imported=Ontologies importées:
+abstract=Résumé
+abstractPlaceHolder=Ceci est un résumé automatique . Le résumé doit contenir quelques phrases qui résument l'ontologie et son utilité.
+license=Licence: 
+licenseIfNull=nom de la licence
+licenseURLIfNull=http://URIdelalicence.org
+toc=Sommaire
+ns=Espaces de noms déclarés
+nsText=</h3>\n<div id=\"ns\" align=\"center\">\n<table>\n<caption> <a href=\"#ns\"> Table 1</a>: Espaces de noms utilisés dans ce document </caption>\n<tbody>\n
+introTitle=Introduction
+introPlaceHolder=Introduction <span class=\"backlink\"> retour au <a href=\"#toc\">sommaire</a></span></h2>\n<span class=\"markdown\">\nCeci est une introduction automatique. L'introduction doit décrire brièvement l'ontologie, motiver son développement, l'état de l'art, les objectifs.</span>\n
+namespace=Déclarations d'espaces de noms
+overviewTitle=Aperçu
+overviewPlaceHolder=Aperçu <span class=\"backlink\"> retour au <a href=\"#toc\">sommaire</a></span></h2>\n<span class=\"markdown\">\nCette ontologie a les classes et propriétés suivantes.</span>\n
+descriptionTitle=Description
+descriptionPlaceHolder=Description <span class=\"backlink\"> retour au <a href=\"#toc\">sommaire</a></span></h2>\n<span class=\"markdown\">\nCeci est une description automatique pour l'ontologie. La description doit comprendre un texte explicatif ainsi que des diagrammes illustrant comment les classes sont liées, des exemples d'utilisation, etc.</span>\n
+crossRefTitle=Réference croisée pour
+crossRefTitle2=classes, propriétés et data-propriétés <span class=\"backlink\"> retour au <a href=\"#toc\">sommaire</a></span>
+crossRefPlaceHolder=Cette section donne les détails de chaque classe et propriété définie par 
+classes=Classes
+objProp=Object Properties
+dataProp=Data Properties
+annProp=Annotation Properties
+namedIndiv=Individus nommés
+referencesTitle=Références
+referencesPlaceHolder=Références <span class=\"backlink\"> retour au <a href=\"#toc\">sommaire</a></span></h2>\n<span class=\"markdown\">\nAjoutez vos références ici. Il est recommandé de les avoir sous forme de liste.</span>\n
+ackTitle=Remerciements
+ackText=Remerciements <span class=\"backlink\"> retour au <a href=\"#toc\">sommaire</a></span></h2>\n<p>\nLes auteurs voudraient remercier <a href=\"http://www.essepuntato.it/\">Silvio Peroni</a> pour le développement de <a href=\"http://www.essepuntato.it/lode\">LODE</a>, a Live OWL Documentation Environment, qui est utilisé pour représenter les sections de Référencement croisé dans ce document, et <a href=\"https://w3id.org/people/dgarijo\">Daniel Garijo</a> pour le développement de <a href=\"https://github.com/dgarijo/Widoco\">Widoco</a>, le programme utilisé pour créer le template de cette documentation.</p>\n</div>\n
+prov1=Provenance pour
+prov2=Documentation
+createdBy=Ontologie créée par:
+contribBy=Contributeurs: 
+spec=est une spécialisation de l'URI générique
+rev=est une révision de la version précédente
+result=La documentation de l'ontologie résulte de l'utilisation de <a href=\"https://github.com/dgarijo/Widoco\">Widoco tool</a> (qui utilise <a href=\"http://www.essepuntato.it/lode/\">LODE</a> pour générer les sections de référencement croisé).</li>\n
+generated=Cette documentation a été générée le (à)
+changeLog=<div id=\"changelog\"><h2>Changements depuis la dernière publication <span class=\"backlink\"> retour au <a href=\"#toc\">sommaire</a></span></h2><p>Ceci est le journal de changements. Cette section est optionnelle, mais recommandée</p></div>
+citeAs=Citer en tant que:
+back=Retour 
+back1=documentation
+back2=format TTL
+back3=retour au sommaire
+provHead=Provenance de cette page
+serialization=Télécharger sérialisation:
+notAccPage=<title>406 Not Acceptable</title>\n</head>\n<body>\n<h1>Not Acceptable</h1>\n<p>Une représentation adéquate de cette resource n'a pas pu être trouvée sur le serveur.</p>\n Variantes disponibles:
+visualization=Visualisation:
+publisher=Editeur:
+changelogHead=Changements depuis la dernière précédente
+addedClass=Classes ajoutées
+modifiedClass=Classes modifiées
+deletedClass=Classes supprimées
+addedProp=Propriétés ajoutées
+modifiedProp=Propriétés modifiées
+deletedProp=Propriétés supprimées
+modifiedDataProp=Data properties ajoutées
+addedDataProp=Data properties ajoutées
+deletedDataProp=Data properties supprimées
+added=Ajouté
+deleted=Supprimé
+subClassOf=Sous-classe de 
+subPropOf=Sous-propriété de
+domain=Domaine
+range=Co-domaine
+unionOf=Union de
+intersectionOf=Intersection de
+tableOfContents=Sommaire
+compatible=Compatible avec
+legend=Légende
