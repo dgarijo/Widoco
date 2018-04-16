@@ -167,10 +167,10 @@ public class Configuration {
         includeIndex = true;
         includeChangeLog = true;
         if(languages==null){
-            currentLanguage = "en";
             languages = new HashMap<String, Boolean>();
-            languages.put("en", false);
         }
+        currentLanguage = "en";
+        languages.put("en", false);
         useW3CStyle = true;//by default
         error = "";
         addImportedOntologies = false;
@@ -199,10 +199,11 @@ public class Configuration {
         License l = new License();
         mainOntologyMetadata.setLicense(l);
         mainOntologyMetadata.setSerializations(new HashMap<String, String>());
-        //add default serializations: rdf/xml, n3 and turtle
+        //add default serializations: rdf/xml, n3, turtle and json-ld
         mainOntologyMetadata.addSerialization("RDF/XML", "ontology.xml");
         mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
         mainOntologyMetadata.addSerialization("N-Triples", "ontology.nt");
+        mainOntologyMetadata.addSerialization("JSON-LD", "ontology.json");
         mainOntologyMetadata.setCreators(new ArrayList<Agent>());
         mainOntologyMetadata.setContributors(new ArrayList<Agent>());
         mainOntologyMetadata.setCiteAs("");
@@ -385,7 +386,8 @@ public class Configuration {
             //get name, get URI, add to the config
             Ontology ont = new Ontology();
             ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
-            ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm());
+            ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm().replace("<", "&lt;").replace(">", "&gt;"));
+            //added replacements so they will be shown in html
             mainOntologyMetadata.getImportedOntologies().add(ont);
         });
         this.mainOntologyMetadata.setThisVersion(versionUri);
@@ -479,49 +481,57 @@ public class Configuration {
                 mainOntologyMetadata.setNamespaceURI(value);
                 break;
             case Constants.PROP_DCTERMS_LICENSE: case Constants.PROP_DC_RIGHTS: 
-                case Constants.PROP_SCHEMA_LICENSE: case Constants.PROP_CC_LICENSE:
-                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
-                License l = new License();
-                if(isURL(value)){
-                    l.setUrl(value);
-                    l.setName(value);
-                }else{
-                    l.setName(value);
+            case Constants.PROP_SCHEMA_LICENSE: case Constants.PROP_CC_LICENSE:
+                try{
+                    value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+                    License l = new License();
+                    if(isURL(value)){
+                        l.setUrl(value);
+                        l.setName(value);
+                    }else{
+                        l.setName(value);
+                    }
+                    mainOntologyMetadata.setLicense(l);
+                }catch(Exception e){
+                    System.err.println("Could not retrieve license. Please avoid using blank nodes...");
                 }
-                mainOntologyMetadata.setLicense(l);
                 break;
             case Constants.PROP_DC_CONTRIBUTOR: case Constants.PROP_DCTERMS_CONTRIBUTOR: 
             case Constants.PROP_SCHEMA_CONTRIBUTOR: case Constants.PROP_PAV_CONTRIBUTED_BY:
-                case Constants.PROP_DC_CREATOR: case Constants.PROP_DCTERMS_CREATOR: case Constants.PROP_SCHEMA_CREATOR: 
-                case Constants.PROP_PAV_CREATED_BY: case Constants.PROP_PROV_ATTRIBUTED_TO:
-                    case Constants.PROP_DC_PUBLISHER: case Constants.PROP_DCTERMS_PUBLISHER:
-                    case Constants.PROP_SCHEMA_PUBLISER:
-                value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
-                Agent g = new Agent();
-                if(isURL(value)){
-                    g.setURL(value);
-                    g.setName(value);
-                }else{
-                    g.setName(value);
-                    g.setURL("");
-                }
-                switch (propertyName) {
-                    case Constants.PROP_DC_CONTRIBUTOR: case Constants.PROP_DCTERMS_CONTRIBUTOR:
-                    case Constants.PROP_SCHEMA_CONTRIBUTOR: case Constants.PROP_PAV_CONTRIBUTED_BY:
-                        mainOntologyMetadata.getContributors().add(g);
-                        break;
-                    case Constants.PROP_DC_CREATOR: case Constants.PROP_DCTERMS_CREATOR:
-                    case Constants.PROP_PAV_CREATED_BY: case Constants.PROP_PROV_ATTRIBUTED_TO:
-                    case Constants.PROP_SCHEMA_CREATOR:
-                        mainOntologyMetadata.getCreators().add(g);
-                        break;
-                    default:
-                        mainOntologyMetadata.setPublisher(g);
-                        break;
+            case Constants.PROP_DC_CREATOR: case Constants.PROP_DCTERMS_CREATOR: case Constants.PROP_SCHEMA_CREATOR: 
+            case Constants.PROP_PAV_CREATED_BY: case Constants.PROP_PROV_ATTRIBUTED_TO:
+            case Constants.PROP_DC_PUBLISHER: case Constants.PROP_DCTERMS_PUBLISHER:
+            case Constants.PROP_SCHEMA_PUBLISER:
+                try{
+                    value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+                    Agent g = new Agent();
+                    if(isURL(value)){
+                        g.setURL(value);
+                        g.setName(value);
+                    }else{
+                        g.setName(value);
+                        g.setURL("");
+                    }
+                    switch (propertyName) {
+                        case Constants.PROP_DC_CONTRIBUTOR: case Constants.PROP_DCTERMS_CONTRIBUTOR:
+                        case Constants.PROP_SCHEMA_CONTRIBUTOR: case Constants.PROP_PAV_CONTRIBUTED_BY:
+                            mainOntologyMetadata.getContributors().add(g);
+                            break;
+                        case Constants.PROP_DC_CREATOR: case Constants.PROP_DCTERMS_CREATOR:
+                        case Constants.PROP_PAV_CREATED_BY: case Constants.PROP_PROV_ATTRIBUTED_TO:
+                        case Constants.PROP_SCHEMA_CREATOR:
+                            mainOntologyMetadata.getCreators().add(g);
+                            break;
+                        default:
+                            mainOntologyMetadata.setPublisher(g);
+                            break;
+                    }
+                }catch(Exception e){
+                    System.err.println("Could not retrieve cretor/contirbutor. Please avoid using blank nodes...");
                 }
                 break;
             case Constants.PROP_DCTERMS_CREATED: case Constants.PROP_SCHEMA_DATE_CREATED:
-                case Constants.PROP_PROV_GENERATED_AT_TIME: case Constants.PROP_PAV_CREATED_ON:
+            case Constants.PROP_PROV_GENERATED_AT_TIME: case Constants.PROP_PAV_CREATED_ON:
                 if(mainOntologyMetadata.getReleaseDate()==null || "".equals(mainOntologyMetadata.getReleaseDate())){
                     value = a.getValue().asLiteral().get().getLiteral();
                     mainOntologyMetadata.setReleaseDate(value);

@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 import lode.LODEGeneration;
 import org.semanticweb.owlapi.formats.N3DocumentFormat;
 import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -46,7 +47,7 @@ import widoco.entities.Ontology;
  */
 public class CreateResources {
     
-    //to do: analyze if this is the right name for the class. Maybe "generate" is better
+    
     public static void generateDocumentation(String outFolder, Configuration c, File lodeResources) throws Exception{
         String lodeContent;
         String folderOut = outFolder;
@@ -115,6 +116,7 @@ public class CreateResources {
         WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut+File.separator+"ontology.xml");
         WidocoUtils.writeModel(om, o, new TurtleDocumentFormat(), folderOut+File.separator+"ontology.ttl");
         WidocoUtils.writeModel(om, o, new NTriplesDocumentFormat(), folderOut+File.separator+"ontology.nt");
+        WidocoUtils.writeModel(om, o, new RDFJsonLDDocumentFormat(), folderOut+File.separator+"ontology.json");
         if(c.isIncludeIndex()){
             createIndexDocument(folderOut,c, lode, languageFile);
         }

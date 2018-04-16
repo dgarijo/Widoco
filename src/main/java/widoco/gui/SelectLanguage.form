@@ -5,6 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Languages..."/>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -33,9 +34,9 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pt" min="-2" max="-2" attributes="0"/>
+                          <Component id="en" min="-2" max="-2" attributes="0"/>
                           <Component id="fr" min="-2" max="-2" attributes="0"/>
                           <Component id="es" min="-2" max="-2" attributes="0"/>
-                          <Component id="en" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="de" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -53,7 +54,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Component id="en" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="es" min="-2" max="-2" attributes="0"/>
@@ -97,37 +98,36 @@
     </Component>
     <Component class="javax.swing.JTextField" name="otherText">
     </Component>
-    <Component class="javax.swing.JRadioButton" name="en">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="en (default)"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="es">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="es"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JRadioButton" name="it">
       <Properties>
         <Property name="text" type="java.lang.String" value="it (coming soon)"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="fr">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="fr (coming soon)"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="pt">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="pt"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JRadioButton" name="de">
       <Properties>
         <Property name="text" type="java.lang.String" value="de (coming soon)"/>
         <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="en">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="en (default)"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fr">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="fr"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="es">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="es"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="pt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="pt"/>
       </Properties>
     </Component>
   </SubComponents>
