@@ -158,11 +158,12 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                         <xsl:apply-templates select="rdfs:label|skos:prefLabel|obo:IAO_0000118" mode="ontology" />
                     </xsl:otherwise>
                 </xsl:choose>
+<!--            Not needed as WIDOCO does this    
                 <xsl:call-template name="get.ontology.url" />
                 <xsl:call-template name="get.version" />
                 <xsl:call-template name="get.author" />
                 <xsl:call-template name="get.publisher" />
-                <xsl:call-template name="get.imports" />
+                <xsl:call-template name="get.imports" />-->
                 <dl>
                     <dt><xsl:value-of select="f:getDescriptionLabel('visualisation')" />:</dt>
                     <dd>

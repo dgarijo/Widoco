@@ -6,7 +6,7 @@ WIzard for DOCumenting Ontologies (WIDOCO)
 
 **Author**: Daniel Garijo Verdejo
 
-**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila and Sergio Barrio.
+**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois.
 
 **Citing WIDOCO**: Please cite the latest version of WIDOCO in Zenodo: https://zenodo.org/badge/latestdoi/11427075.
 Also see our ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
@@ -70,6 +70,8 @@ The `-webVowl` flag provides a link to a visualization based on WebVowl (http://
 The `-licensius` flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the `-getOntologyMetadata` flag is enabled.
 
 The `-ignoreIndividuals` allows you to ignore the named individuals in the ontology.
+
+The `-includeAnnotationProperties` will include annotation properties defined in your ontology (by default they are not included)
 
 How can I make WIDOCO automatically recognize my vocabulary annotations?
 ==========

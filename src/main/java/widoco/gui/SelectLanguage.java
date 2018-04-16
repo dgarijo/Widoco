@@ -25,7 +25,7 @@ private final String previousLang;//an auxiliar param to knw if the text field i
      */
     public SelectLanguage(GuiStep2 g, Configuration c) {
         initComponents();
-        
+        this.setIconImage(c.getWidocoLogoMini());
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         // Determine the new location of the window
         int w = this.getSize().width;
@@ -51,7 +51,11 @@ private final String previousLang;//an auxiliar param to knw if the text field i
             }
             else if(nextL.contains("pt")){
                 pt.setSelected(true);
-            }else{
+            }
+            else if(nextL.contains("fr")){
+                fr.setSelected(true);
+            }
+            else{
                 otherText.setText(nextL);
                 lang = nextL;
             }
@@ -73,16 +77,17 @@ private final String previousLang;//an auxiliar param to knw if the text field i
         doneButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         otherText = new javax.swing.JTextField();
-        en = new javax.swing.JRadioButton();
-        es = new javax.swing.JRadioButton();
         it = new javax.swing.JRadioButton();
-        fr = new javax.swing.JRadioButton();
-        pt = new javax.swing.JRadioButton();
         de = new javax.swing.JRadioButton();
+        en = new javax.swing.JCheckBox();
+        fr = new javax.swing.JCheckBox();
+        es = new javax.swing.JCheckBox();
+        pt = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Languages...");
         setAlwaysOnTop(true);
+        setResizable(false);
 
         jLabel1.setText("Select languages from the following list:");
 
@@ -95,20 +100,19 @@ private final String previousLang;//an auxiliar param to knw if the text field i
 
         jLabel2.setText("Other (will select labels in that lang):");
 
-        en.setText("en (default)");
-
-        es.setText("es");
-
         it.setText("it (coming soon)");
         it.setEnabled(false);
 
-        fr.setText("fr (coming soon)");
-        fr.setEnabled(false);
-
-        pt.setText("pt");
-
         de.setText("de (coming soon)");
         de.setEnabled(false);
+
+        en.setText("en (default)");
+
+        fr.setText("fr");
+
+        es.setText("es");
+
+        pt.setText("pt");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,9 +126,9 @@ private final String previousLang;//an auxiliar param to knw if the text field i
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pt)
+                            .addComponent(en)
                             .addComponent(fr)
                             .addComponent(es)
-                            .addComponent(en)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(de)
@@ -137,7 +141,7 @@ private final String previousLang;//an auxiliar param to knw if the text field i
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(9, 9, 9)
                 .addComponent(en)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(es)
@@ -178,6 +182,11 @@ private final String previousLang;//an auxiliar param to knw if the text field i
        }else{
            this.c.removeLanguageToGenerate("pt");       
        }
+       if(fr.isSelected()){
+           this.c.addLanguageToGenerate("fr");
+       }else{
+           this.c.removeLanguageToGenerate("fr");       
+       }
        String otherL = otherText.getText();
        if(!"".equals(otherL)){
            this.c.addLanguageToGenerate(otherL);
@@ -200,13 +209,13 @@ private final String previousLang;//an auxiliar param to knw if the text field i
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton de;
     private javax.swing.JButton doneButton;
-    private javax.swing.JRadioButton en;
-    private javax.swing.JRadioButton es;
-    private javax.swing.JRadioButton fr;
+    private javax.swing.JCheckBox en;
+    private javax.swing.JCheckBox es;
+    private javax.swing.JCheckBox fr;
     private javax.swing.JRadioButton it;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField otherText;
-    private javax.swing.JRadioButton pt;
+    private javax.swing.JCheckBox pt;
     // End of variables declaration//GEN-END:variables
 }
