@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import org.semanticweb.owlapi.model.OWLOntology;
 import widoco.entities.Agent;
@@ -36,11 +35,7 @@ import widoco.entities.License;
 import widoco.entities.Ontology;
 import widoco.gui.GuiController;
 import licensius.GetLicense;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.search.EntitySearcher;
 
 /**
  * class for storing all the details to generate the ontology.
@@ -83,6 +78,7 @@ public class Configuration {
     private String overviewPath;
     private String descriptionPath;
     private String referencesPath;
+    private String googleAnalyticsCode = null;
     
     /**
      * Property for including an ontology diagram (future work)
@@ -192,20 +188,20 @@ public class Configuration {
         mainOntologyMetadata.setLatestVersion("");
         mainOntologyMetadata.setRevision("");
         mainOntologyMetadata.setPublisher(new Agent());
-        mainOntologyMetadata.setImportedOntologies(new ArrayList<Ontology>());
-        mainOntologyMetadata.setExtendedOntologies(new ArrayList<Ontology>());
+        mainOntologyMetadata.setImportedOntologies(new ArrayList<>());
+        mainOntologyMetadata.setExtendedOntologies(new ArrayList<>());
         mainOntologyMetadata.setName("");
         mainOntologyMetadata.setNamespacePrefix("");
         License l = new License();
         mainOntologyMetadata.setLicense(l);
-        mainOntologyMetadata.setSerializations(new HashMap<String, String>());
+        mainOntologyMetadata.setSerializations(new HashMap<>());
         //add default serializations: rdf/xml, n3, turtle and json-ld
         mainOntologyMetadata.addSerialization("RDF/XML", "ontology.xml");
         mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
         mainOntologyMetadata.addSerialization("N-Triples", "ontology.nt");
         mainOntologyMetadata.addSerialization("JSON-LD", "ontology.json");
-        mainOntologyMetadata.setCreators(new ArrayList<Agent>());
-        mainOntologyMetadata.setContributors(new ArrayList<Agent>());
+        mainOntologyMetadata.setCreators(new ArrayList<>());
+        mainOntologyMetadata.setContributors(new ArrayList<>());
         mainOntologyMetadata.setCiteAs("");
         mainOntologyMetadata.setDoi("");
         mainOntologyMetadata.setStatus("");
@@ -351,6 +347,7 @@ public class Configuration {
             if(!"".equals(serializationJSONLD)){
                 mainOntologyMetadata.addSerialization("JSON-LD", serializationJSONLD);
             }
+            this.googleAnalyticsCode = propertyFile.getProperty("GoogleAnalyticsCode");
     	} catch (Exception ex) {
             System.err.println("Error while reading configuration properties "+ex.getMessage());
         }
@@ -563,141 +560,6 @@ public class Configuration {
                 break;
         }
     }
-//    public void loadPropertiesFromOntology(OntModel m){
-//        //maybe there are some properties regarding the version of the uri that I am missing...
-//        if(m == null){
-//            System.err.println("The ontology could not be read...");
-//            return;
-//        }
-//        initializeOntology();
-//        this.mainOntologyMetadata.setName("[Ontology Name]");
-//        this.mainOntologyMetadata.setNamespacePrefix("[Ontology NS Prefix]");
-//        this.mainOntologyMetadata.setNamespaceURI("[Ontology URI]");
-//        //we assume only one ontology per file.
-//        try{
-//            OntResource onto = m.getOntClass("http://www.w3.org/2002/07/owl#Ontology").listInstances().next();
-//            this.mainOntologyMetadata.setNamespaceURI(onto.getURI());
-//            this.mainOntologyMetadata.setName(onto.getLocalName());
-//            Iterator it = onto.listProperties();
-//            String propertyName, value;
-//            while(it.hasNext()){
-//                Statement s = (Statement) it.next();
-//                propertyName = s.getPredicate().getLocalName();
-//                try{
-//                    value = s.getObject().asLiteral().getString();
-//                }catch(Exception e){
-//                    value = s.getObject().asResource().getURI();
-//                }
-//    //            System.out.println(propertyName + " " + value);
-//                // fill in the properties here.
-//                if(propertyName.equals("label")){
-//                    this.mainOntologyMetadata.setName(value);
-//                }else
-//                if(propertyName.equals("abstract")){
-//                    this.abstractSection = value;
-//                }else
-//                if(propertyName.equals("title")){
-//                    mainOntologyMetadata.setTitle(value);
-//                }else
-//                if(propertyName.equals("replaces")||propertyName.equals("wasRevisionOf")||propertyName.equals("priorVersion")){
-//                    mainOntologyMetadata.setPreviousVersion(value);
-//                }else
-//                if(propertyName.equals("versionInfo")){
-//                    mainOntologyMetadata.setRevision(value);
-//                }else
-//                if(propertyName.equals("versionIRI")){
-//                    mainOntologyMetadata.setThisVersion(value);
-//                }else
-//                if(propertyName.equals("preferredNamespacePrefix")){
-//                    this.mainOntologyMetadata.setNamespacePrefix(value);
-//                }else
-//                if(propertyName.equals("preferredNamespaceUri")){
-//                    this.mainOntologyMetadata.setNamespaceURI(value);                
-//                }else
-//                //we deal with the license by invoking the licensius service
-//                //(only if we cannot find it)
-//                if(propertyName.equals("license")){
-//                    License l = new License();
-//                    if(isURL(value)){
-//                        l.setUrl(value);
-//                    }else{
-//                        l.setName(value);
-//                    }
-//                    mainOntologyMetadata.setLicense(l);
-//                }else
-//                if(propertyName.equals("creator")||propertyName.equals("contributor")
-//                        ||propertyName.equals("publisher")){
-//                    Agent g = new Agent();
-//                    if(isURL(value)){
-//                        g.setURL(value);
-//                        g.setName(value);
-//                    }else{
-//                        g.setName(value);
-//                        g.setURL("");
-//                    }
-//                    if(propertyName.equals("creator")){
-//                        mainOntologyMetadata.getCreators().add(g);
-//                    }else if (propertyName.equals("contributor")){
-//                        mainOntologyMetadata.getContributors().add(g);
-//                    }else{
-//                        mainOntologyMetadata.setPublisher(g);
-//                    }
-//                }else
-//                if(propertyName.equals("created")){
-//                    if(mainOntologyMetadata.getReleaseDate()==null || "".equals(mainOntologyMetadata.getReleaseDate())){
-//                        mainOntologyMetadata.setReleaseDate(value);
-//                    }
-//                }else
-//                if(propertyName.equals("modified")){
-//                    mainOntologyMetadata.setReleaseDate(value);
-//                }else
-//                if(propertyName.equals("bibliographicCitation")){
-//                    mainOntologyMetadata.setCiteAs(value);
-//                }else
-//                if(propertyName.equals("doi")||propertyName.equals("hasDOI")){
-//                    mainOntologyMetadata.setDoi(value);
-//                }else
-//                if(propertyName.equals("backwardsCompatibleWith")){
-//                    mainOntologyMetadata.setBackwardsCompatibleWith(value);
-//                }else
-//                if(propertyName.equals("status")){
-//                    mainOntologyMetadata.setStatus(value);
-//                }else
-//                if(propertyName.equals("imports")){
-//                    Ontology o = new Ontology();
-//                    if(isURL(value)){
-//                        o.setNamespaceURI(value);
-//                        o.setName(value);
-//                    }else{
-//                        o.setName(value);
-//                        o.setNamespaceURI("");
-//                    }
-//                    mainOntologyMetadata.getImportedOntologies().add(o);
-//                }
-//                //to do: if property is comment and abstract is null, then complete abstract.
-//            }
-//        if(this.mainOntologyMetadata.getName()==null || this.mainOntologyMetadata.getName().equals("")){
-//            this.mainOntologyMetadata.setName(mainOntologyMetadata.getTitle());
-//        }
-//        if(mainOntologyMetadata.getStatus()==null || mainOntologyMetadata.getStatus().equals("")){
-//            mainOntologyMetadata.setStatus("Ontology Specification Draft");
-//        }
-//        }catch(Exception e){
-//            System.err.println("No ontology declared. Ignoring properties");
-//        }
-//        if(isUseLicensius()){
-//            String licName;
-//            String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
-//            if (!lic.isEmpty()&& !lic.equals("unknown"))
-//            {
-//                mainOntologyMetadata.getLicense().setUrl(lic);
-//                licName = GetLicense.getTitle(lic);
-//                mainOntologyMetadata.getLicense().setName(licName);
-//            }
-//        }
-//        
-//        System.out.println("Loaded properties from ontology");
-//    }
     
     private boolean isURL(String s){
         try{
@@ -711,6 +573,14 @@ public class Configuration {
         }
     }
 
+    public String getGoogleAnalyticsCode() {
+        return googleAnalyticsCode;
+    }
+
+    public void setGoogleAnalyticsCode(String googleAnalyticsCode) {
+        this.googleAnalyticsCode = googleAnalyticsCode;
+    }
+    
     public void setOverwriteAll(boolean s){
         this.overwriteAll = s;
     }

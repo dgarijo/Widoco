@@ -78,6 +78,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         checkBoxHTAccess.setSelected(true);
         checkBoxWebVowl.setSelected(true);
         checkBoxAutomatedChangeLog.setSelected(true);
+        if(g.getConfig().getGoogleAnalyticsCode()!=null)analyticsField.setText(g.getConfig().getGoogleAnalyticsCode());
     }
 
     /** This method is called from within the constructor to
@@ -122,6 +123,8 @@ public class GuiStep3 extends javax.swing.JFrame {
         checkBoxHTAccess = new javax.swing.JCheckBox();
         checkBoxWebVowl = new javax.swing.JCheckBox();
         checkBoxAutomatedChangeLog = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        analyticsField = new javax.swing.JTextField();
         labelDescription = new javax.swing.JLabel();
         widocoLogo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -264,6 +267,8 @@ public class GuiStep3 extends javax.swing.JFrame {
 
         checkBoxAutomatedChangeLog.setText("Include change log from last version");
 
+        jLabel3.setText("Google analytics code");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -271,18 +276,6 @@ public class GuiStep3 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(addImportedOntologiesCheckBox)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(checkBoxHTAccess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(checkBoxProv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(checkBoxWebVowl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(219, 219, 219))
-                            .addComponent(checkBoxAutomatedChangeLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(104, 104, 104))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkBoxRefs)
@@ -308,14 +301,30 @@ public class GuiStep3 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(includeAnnProps)
-                            .addComponent(includeIndividuals)
+                            .addComponent(includeIndividuals))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(w3C)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(customRadioButton)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(customRadioButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(analyticsField))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(addImportedOntologiesCheckBox)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(checkBoxHTAccess, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkBoxProv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(checkBoxWebVowl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(219, 219, 219))
+                            .addComponent(checkBoxAutomatedChangeLog, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(104, 104, 104))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +370,9 @@ public class GuiStep3 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(w3C)
                     .addComponent(customRadioButton)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(analyticsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -491,6 +502,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         g.getConfig().setCreateHTACCESS(checkBoxHTAccess.isSelected());
         g.getConfig().setCreateWebVowlVisualization(checkBoxWebVowl.isSelected());
         g.getConfig().setIncludeChangeLog(checkBoxAutomatedChangeLog.isSelected());
+        g.getConfig().setGoogleAnalyticsCode(analyticsField.getText());
     }
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -580,6 +592,7 @@ public class GuiStep3 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abstractSectionButton;
     private javax.swing.JCheckBox addImportedOntologiesCheckBox;
+    private javax.swing.JTextField analyticsField;
     private javax.swing.JButton backButton;
     private javax.swing.JProgressBar barStatus;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -600,6 +613,7 @@ public class GuiStep3 extends javax.swing.JFrame {
     private javax.swing.JButton introductionSectionButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

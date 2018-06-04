@@ -69,9 +69,11 @@ The `-webVowl` flag provides a link to a visualization based on WebVowl (http://
 
 The `-licensius` flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the `-getOntologyMetadata` flag is enabled.
 
-The `-ignoreIndividuals` allows you to ignore the named individuals in the ontology.
+The `-ignoreIndividuals` flag allows you to ignore the named individuals in the ontology.
 
-The `-includeAnnotationProperties` will include annotation properties defined in your ontology (by default they are not included)
+The `-includeAnnotationProperties` flag will include annotation properties defined in your ontology (by default they are not included)
+
+The `-analytics` flag will add a code snippet for Google analytics to track your page. You need to add your code next to it. For example: UA-1234
 
 How can I make WIDOCO automatically recognize my vocabulary annotations?
 ==========
