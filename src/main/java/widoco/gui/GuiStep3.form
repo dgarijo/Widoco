@@ -205,22 +205,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="checkBoxHTAccess" alignment="0" max="32767" attributes="1"/>
-                              <Component id="checkBoxProv" alignment="0" max="32767" attributes="1"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="checkBoxWebVowl" max="32767" attributes="1"/>
-                                  <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="checkBoxAutomatedChangeLog" alignment="0" max="32767" attributes="1"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="checkBoxRefs" min="-2" max="-2" attributes="0"/>
                               <Component id="checkBoxDescription" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="checkBoxOverview" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -251,15 +235,35 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="includeAnnProps" min="-2" max="-2" attributes="0"/>
                               <Component id="includeIndividuals" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="w3C" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="customRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="analyticsField" max="32767" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="checkBoxHTAccess" alignment="0" max="32767" attributes="1"/>
+                              <Component id="checkBoxProv" alignment="0" max="32767" attributes="1"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="checkBoxWebVowl" max="32767" attributes="1"/>
+                                  <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="checkBoxAutomatedChangeLog" alignment="0" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -317,6 +321,8 @@
                       <Component id="w3C" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="customRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="analyticsField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               </Group>
@@ -474,6 +480,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Include change log from last version"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Google analytics code"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="analyticsField">
         </Component>
       </SubComponents>
     </Container>

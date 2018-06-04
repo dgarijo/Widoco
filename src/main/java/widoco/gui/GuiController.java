@@ -73,6 +73,7 @@ public final class GuiController {
                 includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false,
                 generateOnlyCrossRef = false, includeNamedIndividuals=true, includeAnnotationProperties = false;
         String confPath="";
+        String code=null;//for tracking analytics.
         String[] languages = null;
         int i=0;
         while(i< args.length){
@@ -125,6 +126,10 @@ public final class GuiController {
                     languages = args[i+1].replace(" ","").split("-");
                     i++;
                     break;
+                case "-analytics":
+                    code = args[i+1];
+                    i++;
+                    break;
                 case "-webVowl":
                     webVowl = true;
                     break;
@@ -139,7 +144,7 @@ public final class GuiController {
                     break;
                 default:
                     System.out.println("Command"+s+" not recognized.");
-                    System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals] [-includeAnnotationProperties]\n");
+                    System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode]\n");
                     return;
             }
             i++;
@@ -174,6 +179,9 @@ public final class GuiController {
         this.config.setUseLicensius(licensius);
         this.config.setIncludeNamedIndividuals(includeNamedIndividuals);
         this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
+        if(code!=null){
+            this.config.setGoogleAnalyticsCode(code);
+        }
         if(languages!=null){
             config.removeLanguageToGenerate("en");//default
             for (String language : languages) {
