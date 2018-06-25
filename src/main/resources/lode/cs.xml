@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <ontology>Ontologie</ontology>
+    <ontologysource>Zdroj ontologie</ontologysource>
+    <visualisation>Jiná vizualizace</visualisation>
+    <visualiseitwith>vizualizuj pomocí</visualiseitwith>
+    <date>Datum</date>
+    <currentversion>Aktuální verze</currentversion>
+    <previousversion>Předchozí verze</previousversion>
+    <backwardcompatiblewith>Zpětně kompatibilní s</backwardcompatiblewith>
+    <incompatibleWith>Nekompatibilní s</incompatibleWith>
+    <abstract>Abstrakt</abstract>
+    <introduction>Úvod</introduction>
+    <disjointclasses>Všechny disjunktní třídy</disjointclasses>
+    <subclassdefinition>Definice obecné podtřídy</subclassdefinition>
+    <equivalentdefinition>Definice obecné ekvivalentní třídy</equivalentdefinition>
+    <issubclassof>je podtřídou</issubclassof>
+    <isequivalentto>je ekvivalentní s</isequivalentto>
+    <functional>funcionální</functional>
+    <inversefunctional>inverzně funkcionální</inversefunctional>
+    <reflexive>reflexivní</reflexive>
+    <irreflexive>irreflexivní</irreflexive>
+    <symmetric>symetrická</symmetric>
+    <asymmetric>asymetrická</asymmetric>
+    <transitive>tranzitivní</transitive>
+    <isdefinedby>je definována</isdefinedby>
+    <belongsto>patří</belongsto>
+    <issameas>je stejná jako</issameas>
+    <isalsodefinedas>je též definována jako</isalsodefinedas>
+    <isdisjointwith>je disjunktní s</isdisjointwith>
+    <haskeys>má klíče</haskeys>
+    <hassuperclasses>má nadtřídy</hassuperclasses>
+    <hassubclasses>má podtřídy</hassubclasses>
+    <isindomainof>je v doméně vlastnosti</isindomainof>
+    <isinrangeof>je v oboru hodnot vlastnosti</isinrangeof>
+    <hasmembers>má členy</hasmembers>
+    <isinverseof>je inverzní k</isinverseof>
+    <hassubpropertychains>má řetezce vlastností</hassubpropertychains>
+    <hasequivalentproperties>má ekvivalentní vlastnosti</hasequivalentproperties>
+    <hassuperproperties>má nadvlastnosti</hassuperproperties>
+    <hassubproperties>má podvlastnosti</hassubproperties>
+    <hasdomain>má doménu</hasdomain>
+    <hasrange>má obor hodnot</hasrange>
+    <importedontologies>Importované ontologie</importedontologies>
+    <individualassertions>má fakta</individualassertions>
+    <authors>Authoři</authors>
+    <contributors>Přispěvatelé</contributors>
+    <publisher>Publikátor</publisher>
+    <toc>Obsah</toc>
+    <tocabbr>Obsah</tocabbr>
+    <backto>zpět k</backto>
+    <class>třída</class>
+    <classes>Třídy</classes>
+    <objectproperty>objektová vlastnost</objectproperty>
+    <objectproperties>Objektové vlastnosti</objectproperties>
+    <dataproperty>datová vlastnost</dataproperty>
+    <dataproperties>Datové vlastnosti</dataproperties>
+    <namedindividual>pojmenovaný individuál</namedindividual>
+    <namedindividuals>Pojmenované individuály</namedindividuals>
+    <annotationproperty>anotační vlastnosti</annotationproperty>
+    <annotationproperties>Anotační vlastnosti</annotationproperties>
+    <datarange>obor hodnot</datarange>
+    <dataranges>Obory hodnot</dataranges>
+    <generalaxioms>Obecné axiomy</generalaxioms>
+    <rule>pravidlo</rule>
+    <rules>SWRL Pravidla</rules>
+    <namespace>defaultní jmenný prostor</namespace>
+    <namespaces>Deklarace jmenných prostorů</namespaces>
+    <endnote>Tento HTML dokument byl vytvořen transformací OWL ontologie pomocí</endnote>
+    <developedby>vyvinuto</developedby>
+    <or>nebo</or>
+    <classtoc>Obsah tříd</classtoc>
+    <objectpropertytoc>Obsah objektových vlastností</objectpropertytoc>
+    <datapropertytoc>Obsah datových vlastností</datapropertytoc>
+    <annotationpropertytoc>Obsah anotačních vlastností</annotationpropertytoc>
+    <namedindividualtoc>Obsah pojmenovaných individuálů</namedindividualtoc>
+    <hascharacteristics>má charakteristiky</hascharacteristics>
+	<rationale>Odůvodnění pojmu</rationale>
+	<example>Příklad</example>
+	<propertyannotation>Anotace vlastnosti</propertyannotation>
+	<category>Kategorie</category>
+	<isrequired>Je požadován</isrequired>
+	<source>Zdroj</source>
+  <termStatus>Stav pojmu</termStatus>
+	<deprecated>Je zastaralý</deprecated>
+</labels>
