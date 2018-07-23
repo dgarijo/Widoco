@@ -656,12 +656,14 @@ public class Constants {
         if(!c.getMainOntology().getExtendedOntologies().isEmpty())
             head += getExtends(c.getMainOntology().getExtendedOntologies(),l)+"\n";
         
-        HashMap<String,String> availableSerializations = c.getMainOntology().getSerializations();
-        head+="<dt>"+l.getProperty(LANG_SERIALIZATION)+"</dt><dd>";
-        for(String serialization:availableSerializations.keySet()){
-            head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\" alt=\""+serialization+"\" /></a> </span>";
+        if(c.isDisplaySerializations()){
+            HashMap<String,String> availableSerializations = c.getMainOntology().getSerializations();
+            head+="<dt>"+l.getProperty(LANG_SERIALIZATION)+"</dt><dd>";
+            for(String serialization:availableSerializations.keySet()){
+                head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\" alt=\""+serialization+"\" /></a> </span>";
+            }
+            head+="</dd>";
         }
-        head+="</dd>";
         
         if(c.getMainOntology().getLicense()!=null){
             String lname = c.getMainOntology().getLicense().getName();//"license name goes here";

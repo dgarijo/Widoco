@@ -75,6 +75,8 @@ The `-includeAnnotationProperties` flag will include annotation properties defin
 
 The `-analytics` flag will add a code snippet for Google analytics to track your page. You need to add your code next to it. For example: UA-1234
 
+The `-doNotDisplaySerializations` flag allows not displaying available serializations of the ontology.
+
 How can I make WIDOCO automatically recognize my vocabulary annotations?
 ==========
 There are two ways for making WIDOCO get your vocabulary metadata annotations and use them automatically to document the ontology. 
