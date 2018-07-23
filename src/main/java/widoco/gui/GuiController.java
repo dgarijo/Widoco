@@ -71,7 +71,8 @@ public final class GuiController {
         String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = true, useW3Cstyle = true,
                 includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false,
-                generateOnlyCrossRef = false, includeNamedIndividuals=true, includeAnnotationProperties = false;
+                generateOnlyCrossRef = false, includeNamedIndividuals=true, includeAnnotationProperties = false, 
+                displaySerializations = true;
         String confPath="";
         String code=null;//for tracking analytics.
         String[] languages = null;
@@ -142,6 +143,9 @@ public final class GuiController {
                 case "-includeAnnotationProperties":
                     includeAnnotationProperties = true;
                     break;
+                case "-doNotDisplaySerializations":
+                    displaySerializations = false;
+                    break;
                 default:
                     System.out.println("Command"+s+" not recognized.");
                     System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode]\n");
@@ -179,6 +183,7 @@ public final class GuiController {
         this.config.setUseLicensius(licensius);
         this.config.setIncludeNamedIndividuals(includeNamedIndividuals);
         this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
+        this.config.setDisplaySerializations(displaySerializations);
         if(code!=null){
             this.config.setGoogleAnalyticsCode(code);
         }

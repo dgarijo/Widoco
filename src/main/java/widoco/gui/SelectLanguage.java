@@ -55,6 +55,9 @@ private final String previousLang;//an auxiliar param to knw if the text field i
             else if(nextL.contains("fr")){
                 fr.setSelected(true);
             }
+            else if(nextL.contains("cs")){
+                cs.setSelected(true);
+            }
             else{
                 otherText.setText(nextL);
                 lang = nextL;
@@ -83,6 +86,7 @@ private final String previousLang;//an auxiliar param to knw if the text field i
         fr = new javax.swing.JCheckBox();
         es = new javax.swing.JCheckBox();
         pt = new javax.swing.JCheckBox();
+        cs = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Languages...");
@@ -114,6 +118,8 @@ private final String previousLang;//an auxiliar param to knw if the text field i
 
         pt.setText("pt");
 
+        cs.setText("cs");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,6 +131,7 @@ private final String previousLang;//an auxiliar param to knw if the text field i
                     .addComponent(otherText)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cs)
                             .addComponent(pt)
                             .addComponent(en)
                             .addComponent(fr)
@@ -150,16 +157,17 @@ private final String previousLang;//an auxiliar param to knw if the text field i
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fr)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cs)
+                .addGap(6, 6, 6)
                 .addComponent(it)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(de)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(otherText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(doneButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(doneButton))
         );
 
         pack();
@@ -187,6 +195,11 @@ private final String previousLang;//an auxiliar param to knw if the text field i
        }else{
            this.c.removeLanguageToGenerate("fr");       
        }
+       if(cs.isSelected()){
+           this.c.addLanguageToGenerate("cs");
+       }else{
+           this.c.removeLanguageToGenerate("cs");       
+       }
        String otherL = otherText.getText();
        if(!"".equals(otherL)){
            this.c.addLanguageToGenerate(otherL);
@@ -207,6 +220,7 @@ private final String previousLang;//an auxiliar param to knw if the text field i
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cs;
     private javax.swing.JRadioButton de;
     private javax.swing.JButton doneButton;
     private javax.swing.JCheckBox en;

@@ -114,6 +114,7 @@ public class Configuration {
     private boolean createHTACCESS;
     private boolean createWebVowlVisualization;
     private boolean useLicensius;//optional usage of Licensius service.
+    private boolean displaySerializations;//in case someone does not want serializations in their page
     
     /**
      * Variable to keep track of possible errors in the changelog. If there are errors, the 
@@ -172,6 +173,7 @@ public class Configuration {
         addImportedOntologies = false;
         createHTACCESS = false;
         useLicensius = false;
+        displaySerializations = true;
         initializeOntology();
     }
     
@@ -970,8 +972,18 @@ public class Configuration {
     public void setUseLicensius(boolean useLicensius) {
         this.useLicensius = useLicensius;
     }
-    
-    
+
+    /**
+     * True if serializations of the ontology will be displayed.
+     * @return 
+     */
+    public boolean isDisplaySerializations() {
+        return displaySerializations;
+    }
+
+    public void setDisplaySerializations(boolean displaySerializations) {
+        this.displaySerializations = displaySerializations;
+    }
     
     
 }
