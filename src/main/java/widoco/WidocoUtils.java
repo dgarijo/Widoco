@@ -67,6 +67,7 @@ public class WidocoUtils {
         OWLOntology ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(c.getOntologyPath())),loadingConfig);
         c.getMainOntology().setMainOntology(ontology);
         c.getMainOntology().setMainOntologyManager(manager);
+        c.getMainOntology().getOWLAPIModel().setOWLOntologyManager(manager);
     }
     
     /**
