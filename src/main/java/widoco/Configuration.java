@@ -115,6 +115,7 @@ public class Configuration {
     private boolean createWebVowlVisualization;
     private boolean useLicensius;//optional usage of Licensius service.
     private boolean displaySerializations;//in case someone does not want serializations in their page
+    private boolean displayDirectImportsOnly;//in case someone does not want serializations in their page
     
     /**
      * Variable to keep track of possible errors in the changelog. If there are errors, the 
@@ -174,6 +175,7 @@ public class Configuration {
         createHTACCESS = false;
         useLicensius = false;
         displaySerializations = true;
+        displayDirectImportsOnly = false;
         initializeOntology();
     }
     
@@ -380,15 +382,27 @@ public class Configuration {
         }catch( Exception e){
             //versionUri = "[Version URI not provided]"; // if it is not present, do not show it
         }
-        //imports of the ontology.
-        o.imports().forEach(i->{
-            //get name, get URI, add to the config
-            Ontology ont = new Ontology();
-            ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
-            ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm().replace("<", "&lt;").replace(">", "&gt;"));
-            //added replacements so they will be shown in html
-            mainOntologyMetadata.getImportedOntologies().add(ont);
-        });
+        if(isDisplayDirectImportsOnly()) {
+            //imports of the ontology.
+            o.directImports().forEach(i -> {
+                //get name, get URI, add to the config
+                Ontology ont = new Ontology();
+                ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
+                ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm().replace("<", "&lt;").replace(">", "&gt;"));
+                //added replacements so they will be shown in html
+                mainOntologyMetadata.getImportedOntologies().add(ont);
+            });
+        }else{
+            //imports of the ontology.
+            o.imports().forEach(i -> {
+                //get name, get URI, add to the config
+                Ontology ont = new Ontology();
+                ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
+                ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm().replace("<", "&lt;").replace(">", "&gt;"));
+                //added replacements so they will be shown in html
+                mainOntologyMetadata.getImportedOntologies().add(ont);
+            });
+        }
         this.mainOntologyMetadata.setThisVersion(versionUri);
         o.annotations().forEach(a-> completeMetadata(a));
         if(isUseLicensius()){
@@ -983,6 +997,18 @@ public class Configuration {
 
     public void setDisplaySerializations(boolean displaySerializations) {
         this.displaySerializations = displaySerializations;
+    }
+
+    /**
+     * True if only the direct imports will be displayed.
+     * @return
+     */
+    public boolean isDisplayDirectImportsOnly(){
+        return displayDirectImportsOnly;
+    }
+
+    public void setDisplayDirectImportsOnly(boolean displayDirectImportsOnly) {
+        this.displayDirectImportsOnly = displayDirectImportsOnly;
     }
     
     
