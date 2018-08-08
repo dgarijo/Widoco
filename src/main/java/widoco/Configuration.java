@@ -115,7 +115,7 @@ public class Configuration {
     private boolean createWebVowlVisualization;
     private boolean useLicensius;//optional usage of Licensius service.
     private boolean displaySerializations;//in case someone does not want serializations in their page
-    private boolean displayDirectImportsOnly;//in case someone does not want serializations in their page
+    private boolean displayDirectImportsOnly;//in case someone wants only the direct imports on their page
     
     /**
      * Variable to keep track of possible errors in the changelog. If there are errors, the 
