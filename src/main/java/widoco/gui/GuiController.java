@@ -151,7 +151,7 @@ public final class GuiController {
                     break;
                 default:
                     System.out.println("Command"+s+" not recognized.");
-                    System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode]\n");
+                    System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-displayDirectImportsOnly]\n");
                     return;
             }
             i++;

@@ -41,7 +41,7 @@ Download all the files of the "JAR" folder into the same folder. Then just doubl
 
 Now you can execute WIDOCO through the console. Usage:
 
-	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals]
+	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals] [-analytics analyticsCode] [-doNotDisplaySerializations][-displayDirectImportsOnly]
 
 The `ontFile` and `ontURI` options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -77,12 +77,14 @@ The `-analytics` flag will add a code snippet for Google analytics to track your
 
 The `-doNotDisplaySerializations` flag allows not displaying available serializations of the ontology.
 
+The `-displayDirectImportsOnly` flag allows displaying only those imported ontologies that are directly imported in the ontology being documented.
+
 How can I make WIDOCO automatically recognize my vocabulary annotations?
 ==========
 There are two ways for making WIDOCO get your vocabulary metadata annotations and use them automatically to document the ontology. 
 
 * Add them in your OWL file. For guidelines on which ones to include, follow our [Best Practices document](https://w3id.org/widoco/bestPractices), which indicates which ones we recommend.
-* Edit the project properties of /config/config.properties. This is a key-value pair file with metadata properties. Some people consider it easier than adding the property annotations to the OWL file, although I recommmend doing the former option. Note that the character ";" is used for lists (for instance first author; second author; third author).
+* Edit the project properties of /config/config.properties. This is a key-value pair file with metadata properties. Some people consider it easier than adding the property annotations to the OWL file, although I recommend doing the former option. Note that the character ";" is used for lists (for instance first author; second author; third author).
 
 Browser issues
 ==========

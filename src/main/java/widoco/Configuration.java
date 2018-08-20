@@ -385,22 +385,12 @@ public class Configuration {
         if(isDisplayDirectImportsOnly()) {
             //imports of the ontology.
             o.directImports().forEach(i -> {
-                //get name, get URI, add to the config
-                Ontology ont = new Ontology();
-                ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
-                ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm().replace("<", "&lt;").replace(">", "&gt;"));
-                //added replacements so they will be shown in html
-                mainOntologyMetadata.getImportedOntologies().add(ont);
+                initializeImportedOntology(i);
             });
         }else{
             //imports of the ontology.
             o.imports().forEach(i -> {
-                //get name, get URI, add to the config
-                Ontology ont = new Ontology();
-                ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
-                ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm().replace("<", "&lt;").replace(">", "&gt;"));
-                //added replacements so they will be shown in html
-                mainOntologyMetadata.getImportedOntologies().add(ont);
+                initializeImportedOntology(i);
             });
         }
         this.mainOntologyMetadata.setThisVersion(versionUri);
@@ -1009,6 +999,15 @@ public class Configuration {
 
     public void setDisplayDirectImportsOnly(boolean displayDirectImportsOnly) {
         this.displayDirectImportsOnly = displayDirectImportsOnly;
+    }
+
+    private void initializeImportedOntology(OWLOntology i) {
+        //get name, get URI, add to the config
+        Ontology ont = new Ontology();
+        ont.setNamespaceURI(i.getOntologyID().getOntologyIRI().get().toString());
+        ont.setName(i.getOntologyID().getOntologyIRI().get().getShortForm().replace("<", "&lt;").replace(">", "&gt;"));
+        //added replacements so they will be shown in html
+        mainOntologyMetadata.getImportedOntologies().add(ont);
     }
     
     
