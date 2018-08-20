@@ -72,7 +72,7 @@ public final class GuiController {
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = true, useW3Cstyle = true,
                 includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false,
                 generateOnlyCrossRef = false, includeNamedIndividuals=true, includeAnnotationProperties = false, 
-                displaySerializations = true;
+                displaySerializations = true, displayDirectImportsOnly=false;
         String confPath="";
         String code=null;//for tracking analytics.
         String[] languages = null;
@@ -146,6 +146,9 @@ public final class GuiController {
                 case "-doNotDisplaySerializations":
                     displaySerializations = false;
                     break;
+                case "-displayDirectImportsOnly":
+                    displayDirectImportsOnly = true;
+                    break;
                 default:
                     System.out.println("Command"+s+" not recognized.");
                     System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode]\n");
@@ -184,6 +187,7 @@ public final class GuiController {
         this.config.setIncludeNamedIndividuals(includeNamedIndividuals);
         this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
         this.config.setDisplaySerializations(displaySerializations);
+        this.config.setDisplayDirectImportsOnly(displayDirectImportsOnly);
         if(code!=null){
             this.config.setGoogleAnalyticsCode(code);
         }
