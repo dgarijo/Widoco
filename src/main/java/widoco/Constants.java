@@ -997,7 +997,7 @@ public class Constants {
                 }else if(serialization.equals("N-Triples")){
                     htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
                 }else if (serialization.equals("JSON-LD")){
-                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/ld+json\n";
+                    htAccessFile+="RewriteCond %{HTTP_ACCEPT} application/ld\\+json\n";
                 }
                 htAccessFile +="RewriteRule ^$ "+serializations.get(serialization)+" [R=303,L]\n\n";
             }
