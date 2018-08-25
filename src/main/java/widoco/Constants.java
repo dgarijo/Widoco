@@ -403,13 +403,25 @@ public class Constants {
         return extended+"\n";
     }
     
-    public static String getNameSpaceDeclaration(HashMap<String,String> namesp, Properties lang){
+    public static String getNameSpaceDeclaration(HashMap<String,String> namesp,Configuration c, Properties lang){
     	String ns="<div id=\"namespacedeclarations\">\n"+
         "<h3 id=\"ns\" class=\"list\">"+lang.getProperty(LANG_NS)+lang.getProperty(LANG_NS_TEXT) ;
         Iterator<String> keys = namesp.keySet().iterator();
+        String nsPrefix = c.getMainOntology().getNamespacePrefix();
+        String nsURI =c.getMainOntology().getNamespaceURI();
+        ns+="<tr><td><b>"+nsPrefix+"</b></td><td>&lt;"+nsURI+"&gt;</td></tr>\n";
         while(keys.hasNext()){
             String current = keys.next();
-            ns+="<tr><td><b>"+current+"</b></td><td>&lt;"+namesp.get(current)+"&gt;</td></tr>\n";
+            String currValue = namesp.get(current);
+            //remove # and last / to avoid ns duplication
+            if(currValue.endsWith("/")){
+                currValue = currValue.substring(0, currValue.length()-1);
+            }
+            currValue = currValue.replace("#","");
+            //only add the ns if it's not equal to the main ontology one (already added)
+            if(!currValue.equals(nsURI)){
+                ns+="<tr><td><b>"+current+"</b></td><td>&lt;"+currValue+"&gt;</td></tr>\n";
+            }
         }
         ns+="</tbody>\n"+
           "</table>\n"+

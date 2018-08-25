@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import static widoco.Constants.LANG_NS;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -199,12 +200,8 @@ public class CreateResources {
         }else{
             String introSectionText = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
             if(nsDecl!=null && !nsDecl.isEmpty()){
-                introSectionText += Constants.getNameSpaceDeclaration(nsDecl, lang);
-                //small fix: use prefix selected by user.
-                if(c.getMainOntology().getNamespacePrefix()!=null && !"".equals(c.getMainOntology().getNamespacePrefix()))
-                    introSectionText = introSectionText.replace("default namespace", c.getMainOntology().getNamespacePrefix());
+                introSectionText += Constants.getNameSpaceDeclaration(nsDecl,c, lang);
             }
-            //introSection += TextConstants.getNamespaceDeclarations(c, lodeInput);
             saveDocument(path+File.separator+"introduction-"+c.getCurrentLanguage()+".html", introSectionText,c);
         }
     }
