@@ -695,8 +695,7 @@ public class Constants {
         if(c.isCreateWebVowlVisualization()){
             head+="<dt>"+l.getProperty(LANG_VISUALIZATION)+"</dt>"
                 + "<dd>"
-//                + "<a href=\"webvowl/index.html#ontology"+WEBVOWL_SERVICE+c.getMainOntology().getNamespaceURI()+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
-                    + "<a href=\"webvowl/index.html#ontology\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
+                + "<a href=\"webvowl/index.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
                 + "</dd>\n";
         }
         if(!"".equals(c.getMainOntology().getCiteAs()) && c.getMainOntology().getCiteAs()!=null){
