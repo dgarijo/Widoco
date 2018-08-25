@@ -41,7 +41,7 @@ Download all the files of the "JAR" folder into the same folder. Then just doubl
 
 Now you can execute WIDOCO through the console. Usage:
 
-	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals] [-analytics analyticsCode] [-doNotDisplaySerializations][-displayDirectImportsOnly]
+	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals] [-analytics analyticsCode] [-doNotDisplaySerializations][-displayDirectImportsOnly] [-rewriteBase rewriteBasePath]
 
 The `ontFile` and `ontURI` options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -78,6 +78,8 @@ The `-analytics` flag will add a code snippet for Google analytics to track your
 The `-doNotDisplaySerializations` flag allows not displaying available serializations of the ontology.
 
 The `-displayDirectImportsOnly` flag allows displaying only those imported ontologies that are directly imported in the ontology being documented.
+
+The `-rewriteBase` flag allows changing the default rewrite base path (until the documentation folder). By default it is "/".
 
 How can I make WIDOCO automatically recognize my vocabulary annotations?
 ==========

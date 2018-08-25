@@ -974,7 +974,7 @@ public class Constants {
         "# Rewrite engine setup\n" +
         "RewriteEngine On\n"+
         "#Change the path to the folder here\n"+
-        "RewriteBase /"+projectFolder+" \n\n";
+        "RewriteBase "+c.getRewriteBase()+projectFolder+" \n\n";
         
         htAccessFile+="# Rewrite rule to serve HTML content from the vocabulary URI if requested\n" +
         "RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n" +

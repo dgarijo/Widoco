@@ -68,7 +68,7 @@ public final class GuiController {
     public GuiController(String[] args){
         System.out.println("\n\n--WIzard for DOCumenting Ontologies (WIDOCO).\n https://w3id.org/widoco/\n"); 
         //get the arguments
-        String outFolder="myDocumentation"+(new Date().getTime()), ontology="", configOutFile=null;
+        String outFolder="myDocumentation"+(new Date().getTime()), ontology="", rb=null,configOutFile=null;
         boolean  isFromFile=false, oops = false, rewriteAll=false, getOntoMetadata = true, useW3Cstyle = true,
                 includeImportedOntologies = false, htAccess = false, webVowl=false, errors = false, licensius = false,
                 generateOnlyCrossRef = false, includeNamedIndividuals=true, includeAnnotationProperties = false, 
@@ -149,9 +149,16 @@ public final class GuiController {
                 case "-displayDirectImportsOnly":
                     displayDirectImportsOnly = true;
                     break;
+                case "-rewriteBase":
+                    rb = args[i+1];
+                    i++;
+                    break;
                 default:
                     System.out.println("Command"+s+" not recognized.");
-                    System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] [-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]\n");
+                    System.out.println("Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
+                            + "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
+                            + "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
+                            + "[-rewriteBase rewriteBasePath]\n");
                     return;
             }
             i++;
@@ -190,6 +197,9 @@ public final class GuiController {
         this.config.setDisplayDirectImportsOnly(displayDirectImportsOnly);
         if(code!=null){
             this.config.setGoogleAnalyticsCode(code);
+        }
+        if(rb!=null){
+            this.config.setRewriteBase(rb);
         }
         if(languages!=null){
             config.removeLanguageToGenerate("en");//default

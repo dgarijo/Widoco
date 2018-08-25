@@ -255,7 +255,6 @@
                                   <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="checkBoxHTAccess" alignment="0" max="32767" attributes="1"/>
                               <Component id="checkBoxProv" alignment="0" max="32767" attributes="1"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="checkBoxWebVowl" max="32767" attributes="1"/>
@@ -265,6 +264,12 @@
                               <Component id="checkBoxDisplaySerialization" alignment="0" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="checkBoxHTAccess" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonRewriteBase" min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -312,14 +317,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxProv" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="checkBoxHTAccess" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="checkBoxHTAccess" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonRewriteBase" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxWebVowl" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxAutomatedChangeLog" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxDisplaySerialization" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="5" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="w3C" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="customRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -498,6 +506,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDisplaySerializationActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonRewriteBase">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Set base path"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRewriteBaseActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

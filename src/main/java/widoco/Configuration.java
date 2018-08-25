@@ -116,6 +116,7 @@ public class Configuration {
     private boolean useLicensius;//optional usage of Licensius service.
     private boolean displaySerializations;//in case someone does not want serializations in their page
     private boolean displayDirectImportsOnly;//in case someone wants only the direct imports on their page
+    private String rewriteBase;//rewrite base path for content negotiation (.htaccess)
     
     /**
      * Variable to keep track of possible errors in the changelog. If there are errors, the 
@@ -176,6 +177,7 @@ public class Configuration {
         useLicensius = false;
         displaySerializations = true;
         displayDirectImportsOnly = false;
+        rewriteBase = "/";
         initializeOntology();
     }
     
@@ -572,9 +574,7 @@ public class Configuration {
             URL url = new URL(s);
             url.toURI();
             return true;
-        }catch(MalformedURLException e){
-            return false;
-        } catch (URISyntaxException e) {
+        }catch(MalformedURLException | URISyntaxException e){
             return false;
         }
     }
@@ -1000,6 +1000,23 @@ public class Configuration {
     public void setDisplayDirectImportsOnly(boolean displayDirectImportsOnly) {
         this.displayDirectImportsOnly = displayDirectImportsOnly;
     }
+
+    /**
+     * returns the rewrite base path for .htaccess files (content negotiation)
+     * @return 
+     */
+    public String getRewriteBase() {
+        return rewriteBase;
+    }
+
+    public void setRewriteBase(String rewriteBase) {
+        if(!rewriteBase.endsWith("/")){
+            rewriteBase += "/";
+        }
+        this.rewriteBase = rewriteBase;
+    }
+    
+    
 
     private void initializeImportedOntology(OWLOntology i) {
         //get name, get URI, add to the config
