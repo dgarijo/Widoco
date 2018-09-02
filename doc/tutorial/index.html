@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WIDOCO Tutorial</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
+  </head>
+  <style>
+body, html {
+    height: 100%;
+    line-height: 1.8;
+   /* background: #edf5fa;*/
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+nav[data-toggle='toc'] {
+  margin-top: 100px;
+  position: fixed;
+  width:20%;
+}
+
+/* small screens */
+@media (max-width: 768px) {
+  /* override the Affix plugin so that the navigation isn't sticky */
+  nav.affix[data-toggle='toc'] {
+    position: static;
+    width:100%;
+  }
+
+  /* don't expand nested items, which pushes down the rest of the page when navigating */
+  nav[data-toggle='toc'] .nav .active .nav {
+    display: none;
+  }
+}
+.affix {
+    position: fixed;    
+}
+</style>
+  <body data-spy="scroll" data-target="#toc">
+
+<!-- add after bootstrap.min.js -->
+    <div class="container">
+    <div class="row">
+      <!-- sidebar, which will move to the top on a small screen -->
+      <div class="col-sm-3">
+        <nav id="toc" data-spy="affix" data-toggle="toc"></nav>
+      </div>
+
+      <div class="col-sm-9">
+          <h1 data-toc-text="WIDOCO" id="widoco_intro">WIDOCO: A WIzard for DOCumenting Ontologies</h1>
+          <p>
+           WIDOCO helps you publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard or through the command line. In this tutorial you will learn how to use WIDOCO and all of its functionalities.
+          </p>
+          
+          <h1 data-toc-text="1. Download" id="download">1: Download WIDOCO</h1>
+            <p>
+            The easiest way of obtaining  WIDOCO is to download one of its released JARs. You can obtain them in the <a href="https://github.com/dgarijo/Widoco/releases">release page</a> of the project. I recommend downloading the latest release.
+            </p>
+          <!-- Here will go other features like generating landing pages -->
+          
+          <h1 data-toc-text="2. Project setup" id="setUp">2: Setting up your project</h1>      
+            <p>When you double click on a WIDOCO executable, you will see a window such as the one in the image below (without the red numbers):</p>
+             <div class="row">
+                <img src="images/step1.png" width="600px"></img>
+             </div>
+            <p>
+            Before doing anything else, it is advisable that you select where do you want to save your project outcomes. You can do this by writing your project name (by default it is "myDocumentation") in the "Project name" field on the bottom (red number 4 in the image). You can also change the folder where your project will be saved by clicking on the "Browse" button next to the previous field. This will change the "Project export location" path below the project name field.
+            </p>
+            <p>
+            At this point, you have two options:
+            </p>
+            
+            <h2 id="selectOntology">2.1. Select the target ontology </h2>
+            <p>
+            If you have your ontology saved as a file in your computer, click on "create template documentation from ontology file" (red number 1 in the image above) and select the file within your system. By default, WIDOCO will look for ontology files saved as .rdf, .xml, .ttl or .owl. If you have saved the ontology in another format (e.g., .txt) then select the option "All files" in the "Files of type" option of the file chooser window.
+            </p>
+            <p>
+            If your file is available on the web under a URI, then click on "create template documentation from ontology file" (red number 2 in the image) and add the ontology URI. You don't need to worry about redirections or content negotiation, as WIDOCO will handle the ontology appropriately and will download it.  
+            </p>
+            
+            <h2 id="skeleton">2.2. Generate an empty skeleton</h2>
+            <p>
+            If you are just interested in generating an empty skeleton for your documentation, then click on "Create empty skeleton" (red number 3). This will produce a skeleton documentation with default metadata, but will not generate a cross reference section with the terms of any ontology. The figure below shows an example of an empty skeleton:
+            </p>
+            <div class="row">
+                <img src="images/skeleton.png" height="600px"></img>
+             </div>
+            
+          <h1 data-toc-text="3. Ontology metadata and language" id="metadata">3: Loading Ontology Metadata and selecting Language</h1>
+            <h2 id="config">3.1 Use a configuration file</h2>
+            <h2 id="loadMetadataFromOntology">2.2 Load metadata from the ontology itself</h2>
+            <h2 id="languages">3.3 Generating Documentation in Several Languages</h2>
+            <h2 id="licensius">3.4 Autocompleting License Metadata</h2>
+            <p>Best practices go here</p>
+            
+          <h1 data-toc-text="4. Configuring your Documentation" id="configDocumentation">4: Setting up Documentation Options</h1>
+            <h2 id="sections">4.1 Selecting Documentation Sections</h2>
+            <h2 id="provenance">4.2 Documentation Provenance</h2>
+            <h2 id="negotiation">4.3 Content Negotiation</h2>
+            <h2 id="visualization">4.4 Visualization</h2>
+            <h2 id="changelog">4.5 Generating an automated Changelog</h2>
+                <p>Note here that you have to add a previous version or else it won't work</p>
+            <h2 id="style">4.6 Changing default documentation style</h2>
+            <h2 id="analytics">4.7 Documentation Analytics</h2>
+            
+          <h1 id="viewAndEvaluation">5. View and Evaluate your Ontology</h1>
+            <h2 id="evaluation">5.1 Evaluating your ontology</h2>
+            <h2 id="results">5.2 Generated resources</h2>
+          
+          <h1 id="commandLine">6. WIDOCO through command line</h1>
+          
+          <p>
+          This tutorial has been written by Daniel Garijo.
+          </p>
+            
+      </div>
+    </div>
+    </div>
+</body>
+</html>
