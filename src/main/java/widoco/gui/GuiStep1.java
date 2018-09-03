@@ -425,6 +425,7 @@ public class GuiStep1 extends javax.swing.JFrame {
                     }
                     return f.getName().endsWith(".owl")||
                             f.getName().endsWith(".rdf")||
+                            f.getName().endsWith(".json")||
                             f.getName().endsWith(".ttl");
                 }
 

@@ -40,7 +40,7 @@ public class Constants {
     public static final int OOPS_TIME_OUT = 30000;
     
     
-    public static final String[] POSSIBLE_VOCAB_SERIALIZATIONS = {"application/rdf+xml","text/turtle","text/n3"};
+    public static final String[] POSSIBLE_VOCAB_SERIALIZATIONS = {"application/rdf+xml","text/turtle","text/n3","application/ld+json"};
     
     //this is left because in the json-ld schema there must be an image url.
     public static final String WEBVOWL_SERVICE="http://vowl.visualdataweb.org/webvowl/#iri=";
