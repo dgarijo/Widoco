@@ -70,7 +70,7 @@ nav[data-toggle='toc'] {
           <h1 data-toc-text="2. Project setup" id="setUp">2: Setting up your project</h1>      
             <p>When you double click on a WIDOCO executable, you will see a window such as the one in the image below (without the red numbers):</p>
              <div class="row">
-                <img src="images/step1.png" width="600px"></img>
+                <img src="images/step1.png" width="70%"></img>
              </div>
             <p>
             Before doing anything else, it is advisable that you select where do you want to save your project outcomes. You can do this by writing your project name (by default it is "myDocumentation") in the "Project name" field on the bottom (red number 4 in the image). You can also change the folder where your project will be saved by clicking on the "Browse" button next to the previous field. This will change the "Project export location" path below the project name field.
@@ -86,37 +86,126 @@ nav[data-toggle='toc'] {
             <p>
             If your file is available on the web under a URI, then click on "create template documentation from ontology file" (red number 2 in the image) and add the ontology URI. You don't need to worry about redirections or content negotiation, as WIDOCO will handle the ontology appropriately and will download it.  
             </p>
+            <p>
+            Click on "Next" to continue to the <a href="#metadata">next step</a> (Section 3).
+            </p>
             
             <h2 id="skeleton">2.2. Generate an empty skeleton</h2>
             <p>
             If you are just interested in generating an empty skeleton for your documentation, then click on "Create empty skeleton" (red number 3). This will produce a skeleton documentation with default metadata, but will not generate a cross reference section with the terms of any ontology. The figure below shows an example of an empty skeleton:
             </p>
             <div class="row">
-                <img src="images/skeleton.png" height="600px"></img>
+                <img src="images/skeleton.png" width="50%"></img>
              </div>
             
           <h1 data-toc-text="3. Ontology metadata and language" id="metadata">3: Loading Ontology Metadata and selecting Language</h1>
-            <h2 id="config">3.1 Use a configuration file</h2>
-            <h2 id="loadMetadataFromOntology">2.2 Load metadata from the ontology itself</h2>
+            <p>The next step in the ontology documentation is selecting the right metadata. This step is very important, as it will be the first thing anyone sees when browsing your ontology documentation.</p>
+             <div class="row" id="step2">
+                <img src="images/step2.png" width="70%"></img>
+             </div>
+             <br/>
+            <p> 
+                This step presents several options, further described below. Once you think you have described your ontology enough, press the "Next" button.
+            </p>
+            
+            <h2 id="loadMetadataFromOntology">3.1 Load metadata from the ontology itself</h2>
+            <p>
+            By default, WIDOCO will attempt to explore your ontology and browse its metadata. If you have declared any metadata properties, WIDOCO will likely recognize them. See <a href="http://w3id.org/widoco/bestPractices">our best practice document</a> (available in number 8 in red) to better understand which metadata properties are recognize by  WIDOCO. 
+            </p>
+            <p>
+            Annotating your ontology is very simple. For example, if you want to annotate who has created your ontology, you may use the property "creator" from the <a href="http://purl.org/dc/terms/creator">Dublin Core vocabulary</a>. In order to add the annotation to your ontology, just do something like:
+            </p>
+            <pre>
+&lt;YOUR ONTOLOGY URI&gt; rdf:type owl:Ontology ;
+      &lt;http://purl.org/dc/terms/creator&gt; "John Doe"^^xsd:string.
+            </pre>
+            <p>
+            As seen in the figure above, all the metadata found by WIDOCO will be loaded on the table shown in the GUI (number 4 in red). You may then complete any of the fields by just clicking and typing. Remember to press "enter" after finishing writing, otherwise your metadata won't be saved.
+            </p>
+            <h2 id="config">3.2 Use a configuration file</h2>
+            <p>
+            If you click on the "Load from config file..." option (number 2 in red in the figure), you will see a menu to select a property file with the metadata fields you want to load. This is convenient when you haven't annotated your ontology with metadata properties. 
+            </p>
+            <p>
+            A sample property file can be found in the following <a href="config.properties">link</a>. If you want to give it a try, just download it, edit it and try it on WIDOCO.
+            </p>
+            <p>
+            Note that when you load a property file, it will overwrite any properties loaded from the ontology automatically before.
+            </p>
+            <p>
+            You can edit all values for properties shown in the table (highlited by <a href="#step2">number 4 in red in the figure</a>). Once you are done, you can save everything by pressing the "Save as config file" button (number 3 in red). As a result, a new .properties file will be saved in your computer in the location where you choose to.
+            </p>
+            
             <h2 id="languages">3.3 Generating Documentation in Several Languages</h2>
+            
+            <p>
+            WIDOCO can be configured to generate documentation in different languages. By default, it will just generate it in English (<a href="#step2">see default selected language in 1</a>). In order to generate documentation in different languages, you have to follow the steps below:
+            </p>
+            <ol>
+                <li>Click on "Add language ..." (number 5 in the figure). You will see the following menu:</li>
+                    <div class="row" id="step2">
+                        <img src="images/language.png" width="20%"></img>
+                     </div>
+                <li>Select any of the supported languages you want to generate the documentation in. Note that if a language is not supported, the titles of the sections of the document will be in English. Similarly, if you select a language but the ontology does not have labels for it, it will show them in whatever language is the default (English, most likely).</li>
+                <li>Click on "Done"</li>
+            </ol>
+            <p>
+                As a result, you should see on the interface the selected languages as in the image below: 
+            </p>
+            <div class="row" id="step2">
+                <img src="images/langGeneration.png" width="50%"></img>
+             </div>
+             
+             <p>
+             WIDOCO generates a documentation for each language, and it will prompt each time whether you want to edit the loaded metadata or not. The language for which the documentation is being generated is shown on top, highlighted with <a href="#step2">number 1</a> in red.
+             </p>
+            
             <h2 id="licensius">3.4 Autocompleting License Metadata</h2>
-            <p>Best practices go here</p>
+            <p>If you have included a license in your metadata but WIDOCO has not recognized it yet, you may try to use this feature (<a href="#step2">number 6</a> in red). When you click on the "Use Licensius WS" box, WIDOCO will invoke the <a href="http://www.licensius.com/">Licensius</a> web service to try and find any license metadata. If found, your license URL and name will be completed in the metadata table.  </p>
+            
             
           <h1 data-toc-text="4. Configuring your Documentation" id="configDocumentation">4: Setting up Documentation Options</h1>
+          
+              <p>
+              After clicking on "Next", you will see the final configuration window for WIDOCO: 
+              </p>
+          
+            <div class="row" id="step2">
+                <img src="images/step3.png" width="70%"></img>
+             </div>
+             
+             <p>
+             A description of the options is listed below. Once you are done with your selection, click on the "Generate!" button to produce your documentation. 
+             </p>
+             
             <h2 id="sections">4.1 Selecting Documentation Sections</h2>
+                <p>
+                    You can configure which sections you want to include in your document by clicking on the check boxes shown in the figure above (red number 1). You may also load your own HTML if you prefer, by clicking on the "Load..." button that appears next to each section. Don't worry about the styles! Everything will be formatted with a consistent layout.
+                </p>
+                <p>
+                    The sections to include (abstract, introduction, overview, description and references) will include a placeholder text that you can later edit easily. The "Include annotation properties" option, however, will search your ontology for any metadata annotation properties that may  have been defined; and the "include named individuals" option will list in the documentation any named individual found. This is  particularly useful when you have a few individuals as examples of your ontology terms. However, <strong>we discourage choosing this option when a high number of individuals is present in the ontology</strong>, as the resultant HTML would be too big.
+                </p>
             <h2 id="provenance">4.2 Documentation Provenance</h2>
+                <p></p>
             <h2 id="negotiation">4.3 Content Negotiation</h2>
+                <p></p>
             <h2 id="visualization">4.4 Visualization</h2>
+                <p></p>
             <h2 id="changelog">4.5 Generating an automated Changelog</h2>
                 <p>Note here that you have to add a previous version or else it won't work</p>
             <h2 id="style">4.6 Changing default documentation style</h2>
+                <p></p>
             <h2 id="analytics">4.7 Documentation Analytics</h2>
+                <p></p>
             
-          <h1 id="viewAndEvaluation">5. View and Evaluate your Ontology</h1>
+          <h1 id="viewAndEvaluation">5. View, Explore and Evaluate your Ontology Documentation</h1>
             <h2 id="evaluation">5.1 Evaluating your ontology</h2>
-            <h2 id="results">5.2 Generated resources</h2>
+                <p></p>
+            <h2 id="results">5.2 Exploring generated resources</h2>
+                <p></p>
           
           <h1 id="commandLine">6. WIDOCO through command line</h1>
+            <p></p>
           
           <p>
           This tutorial has been written by Daniel Garijo.
