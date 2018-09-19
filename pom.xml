@@ -3,7 +3,7 @@
   <groupId>es.oeg</groupId>
   <artifactId>widoco</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.2</version>
+  <version>1.4.6</version>
   <name>Widoco</name>
   
   
@@ -26,11 +26,11 @@
   <dependencies>
 
         <dependency>
-            <groupId>org.visualdataweb.vowl.owl2vowl</groupId>
-            <artifactId>OWL2VOWL</artifactId>
-            <version>0.3.1</version>
-            <!--0.3.2-SNAPSHOT is a new version, that doesnt save logs as files, but it's not available anymore -->
-        </dependency>
+	    <groupId>com.github.VisualDataWeb</groupId>
+	    <artifactId>OWL2VOWL</artifactId>
+	    <version>0.3.4</version>
+	</dependency>
+
         
         <dependency>
                 <groupId>org.restlet.jse</groupId>
@@ -173,7 +173,7 @@
             <artifactId>owlapi-distribution</artifactId>
             <!--<artifactId>owlapi-osgidistribution</artifactId>
             5.1.0 was the previous one. Test to align to webVowl-->
-            <version>5.1.0</version>
+            <version>5.1.7</version>
     </dependency>
     
     <!--<dependency>
@@ -205,6 +205,11 @@
         <artifactId>jackson-mapper-asl</artifactId>
         <version>1.9.13</version>
     </dependency>
+   <dependency>
+    <groupId>unknown.binary</groupId>
+    <artifactId>AbsoluteLayout</artifactId>
+    <version>SNAPSHOT</version>
+   </dependency>
   </dependencies>
   
   <dependencyManagement> 	
@@ -287,7 +292,17 @@
   		<name>Restlet Framework repository</name>
   		<url>http://maven.restlet.org</url>
   	</repository>
-  	
-  </repositories>
+        
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+        
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+ </repositories>
   
 </project>

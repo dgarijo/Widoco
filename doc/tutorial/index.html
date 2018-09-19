@@ -185,10 +185,16 @@ nav[data-toggle='toc'] {
                 <p>
                     The sections to include (abstract, introduction, overview, description and references) will include a placeholder text that you can later edit easily. The "Include annotation properties" option, however, will search your ontology for any metadata annotation properties that may  have been defined; and the "include named individuals" option will list in the documentation any named individual found. This is  particularly useful when you have a few individuals as examples of your ontology terms. However, <strong>we discourage choosing this option when a high number of individuals is present in the ontology</strong>, as the resultant HTML would be too big.
                 </p>
+                
             <h2 id="provenance">4.2 Documentation Provenance</h2>
-                <p></p>
+                <p>
+                    Provenance is a record of how things have changed. When this option is selected, WIDOCO lists who have been responsible for the creation of the documentation of your ontology (together with a few other details such as the license, creation date, etc.). By default, WIDOCO will take the authors and contributors of the ontology as responsible agents for the document. An additional document with an RDF representation of the provenance record will also be exported.
+                </p>
+                
             <h2 id="negotiation">4.3 Content Negotiation</h2>
-                <p></p>
+                <p>
+                    If you plan to publish an ontology in your own server, you should select the option "Create an .htaccess file". Content negotiation enables serving multiple serializations of a resource depending of what a user requests. For example, imagine that you want to access the documentation of your ontology from a browser. Since you are a human, you are expecting to see something that you can read about your ontology. However, if you are a computer program you may want the RDF/XML representation of the ontology, or maybe a JSON-LD one.
+                </p>
             <h2 id="visualization">4.4 Visualization</h2>
                 <p></p>
             <h2 id="changelog">4.5 Generating an automated Changelog</h2>
