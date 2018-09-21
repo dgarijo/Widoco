@@ -18,7 +18,7 @@ To download WIDOCO, you need to download a JAR executable file. Check the latest
 
 Description
 ==========
-WIDOCO helps you publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
+WIDOCO helps you to publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
 
 Features of WIDOCO:
 * Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/))
@@ -35,6 +35,10 @@ Examples
 ==========
 Examples of the features of WIDOCO can be seen on [the gallery](http://dgarijo.github.io/Widoco/doc/gallery/)	
 	
+Tutorial
+==========
+A tutorial explaining the main features of the GUI can be found [here](http://dgarijo.github.io/Widoco/doc/tutorial/)    
+    
 How to use WIDOCO
 ==========
 Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
@@ -114,3 +118,7 @@ Requirements
 ==========
 You will need Java 1.8 or higher (SDK 1.8 or JRE 8) for WIDOCO to work
 Otherwise, you will probably experience an "Unsupported major.minor version 52.0" exception when executing the JAR file.
+
+Contribution guidelines
+==========
+Contributions to address any of the current issues are welcome. In order to push your contribution, just **push your pull request to the develop branch**. The master branch has only the code associated to the latest release. 
