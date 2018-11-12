@@ -255,14 +255,14 @@ public class Constants {
     
     
     public static String  getAbstractSection(String abstractContent, Configuration c, Properties langFile){
-        String abstractSection = "<h2>"+langFile.getProperty(LANG_ABSTRACT)+"</h2><span class=\"markdown\">\n";
+        String abstractSection = "<html>\n<h2>"+langFile.getProperty(LANG_ABSTRACT)+"</h2><span class=\"markdown\">\n";
         if(abstractContent!=null && !"".equals(abstractContent)){
             abstractSection+=abstractContent;
         }
         else{
             abstractSection+=langFile.getProperty(LANG_ABSTRACT_PLACEHOLDER);
         }
-        abstractSection+="</span>\n";
+        abstractSection+="</span>\n</html>\n";
         return abstractSection;
     }
     
@@ -287,19 +287,21 @@ public class Constants {
     }
     
     public static String getReferencesSection(Configuration c, Properties lang){
-        String s ="<h2 id=\"ref\" class=\"list\">"+lang.getProperty(LANG_REFERENCES_PLACEHOLDER);
+        String s ="<html>\n<h2 id=\"ref\" class=\"list\">"+lang.getProperty(LANG_REFERENCES_PLACEHOLDER)+"\n</html>\n";
         return s;
     }
+    
     public static String getAcknowledgementsSection(Configuration c, Properties lang){
-        String s = "<div id=\"acknowledgements\">\n"+
-                    "<h2 id=\"ack\" class=\"list\">"+lang.getProperty(LANG_AC_TEXT);
+        String s = "<html>\n<div id=\"acknowledgements\">\n"+
+                    "<h2 id=\"ack\" class=\"list\">"+lang.getProperty(LANG_AC_TEXT)+"\n</html>\n";
         return s;
     }
+    
     public static String getChangeLogSection(Configuration c, CompareOntologies comp, Properties lang){
-        String s = "<div id=\"changelog\">\n"+
+        String s = "<html>\n<div id=\"changelog\">\n"+
                     "<h2 id=\"changes\" class=\"list\">"+lang.getProperty(LANG_CHANGELOG_HEAD)+"</h2>\n";
         s+=OntologyDifferencesRenderer.differencesToHTML(comp, c.getMainOntology().getNamespaceURI(), lang);
-        s+="</div>";
+        s+="</div>\n<html>\n";
         //return lang.getProperty("changeLog");
         return s;
     }
@@ -568,7 +570,7 @@ public class Constants {
                     "				t+='</ul>';\n" +
                     "				j=0;\n" +
                     "			}\n" +
-                    "			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';\n" +
+                    "			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore(\"span\").text()+'</a></li>';\n" +
                     "			i++;\n" +
                     "		}\n" +
                     "		if(jQuery(this).is('h3')){\n" +
@@ -576,13 +578,15 @@ public class Constants {
                     "				t+='<ul>';\n" +
                     "			}\n" +
                     "			j++;\n" +
-                    "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).text()+'</a></li>';\n" +
+                    "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore(\"span\").text()+'</a></li>';\n" +
                     "		}\n" +
-                    "		t = t.replace(' "+lang.getProperty(LANG_BACK3).replace("&iacute;", "í")+"','');\n" +//back to ToC
                     "	  });\n" +
                     "	  t+='</ul>';\n" +
                     "	  $(\"#toc\").html(t); \n" +
                     "}\n"+
+                    " $.fn.ignore = function(sel){\n" +
+                    "        return this.clone().find(sel||\">*\").remove().end();\n" +
+                    " };"+
                      "    $(function(){\n";
         //the script for loading the table is called after loading everything else, after the loadHash function
         if(c.isIncludeAbstract()) document += "      $(\"#abstract\").load(\"sections/abstract-"+c.getCurrentLanguage()+".html\"); \n";
@@ -726,11 +730,11 @@ public class Constants {
     }
     
     public static String getDescriptionSectionTitleAndPlaceHolder(Configuration c, Properties lang){
-        return "<h2 id=\"desc\" class=\"list\">"+c.getMainOntology().getName()+": "+lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER);
+        return "<html>\n<h2 id=\"desc\" class=\"list\">"+c.getMainOntology().getName()+": "+lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER)+"\n</html>\n";
     }
     
     public static String getCrossReferenceSectionTitleAndPlaceHolder(Configuration c, Properties lang){
-        return "<h2  id=\"crossreference\" class=\"list\">"+lang.getProperty(LANG_CROSS_REF_TITLE)+" "+c.getMainOntology().getName()+" "+lang.getProperty(LANG_CROSS_REF_TITLE2)+"</h2>"+"\n" +
+        return "<h2 id=\"crossreference\" class=\"list\">"+lang.getProperty(LANG_CROSS_REF_TITLE)+" "+c.getMainOntology().getName()+" "+lang.getProperty(LANG_CROSS_REF_TITLE2)+"</h2>"+"\n" +
                lang.getProperty(LANG_CROSS_REF_PLACEHOLDER)+c.getMainOntology().getName()+".\n";
     }
     

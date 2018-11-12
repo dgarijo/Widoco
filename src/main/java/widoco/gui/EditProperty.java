@@ -82,7 +82,7 @@ public class EditProperty extends javax.swing.JFrame {
                 this.setTitle("Editing Imported Ontologies");
                 this.addRowButton.setText("Add ontology...");
                 this.deleteRowButton.setText("Delete ontology...");
-                createTable(new String[]{"Extended Ontology Name","Extended Ontology URI"});
+                createTable(new String[]{"Imported Ontology Name","Imported Ontology URI"});
                 loadOntologies(c.getMainOntology().getImportedOntologies());
                 break;
             case license:

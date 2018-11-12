@@ -3,7 +3,7 @@
   <groupId>es.oeg</groupId>
   <artifactId>widoco</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.6</version>
+  <version>1.4.7</version>
   <name>Widoco</name>
   
   
@@ -30,13 +30,6 @@
 	    <artifactId>OWL2VOWL</artifactId>
 	    <version>0.3.4</version>
 	</dependency>
-
-        
-        <dependency>
-                <groupId>org.restlet.jse</groupId>
-                <artifactId>org.restlet</artifactId>
-                <version>2.2.0</version>
-        </dependency>
 	  	
 	 
         <dependency>
@@ -171,16 +164,8 @@
     <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>owlapi-distribution</artifactId>
-            <!--<artifactId>owlapi-osgidistribution</artifactId>
-            5.1.0 was the previous one. Test to align to webVowl-->
             <version>5.1.7</version>
     </dependency>
-    
-    <!--<dependency>
-        <groupId>org.openrdf.sesame</groupId>
-        <artifactId>sesame-rio-ntriples</artifactId>
-        <version>2.7.12</version>
-    </dependency>-->
     
     <dependency>
         <groupId>com.googlecode.json-simple </groupId>
@@ -205,11 +190,6 @@
         <artifactId>jackson-mapper-asl</artifactId>
         <version>1.9.13</version>
     </dependency>
-   <dependency>
-    <groupId>unknown.binary</groupId>
-    <artifactId>AbsoluteLayout</artifactId>
-    <version>SNAPSHOT</version>
-   </dependency>
   </dependencies>
   
   <dependencyManagement> 	
@@ -218,31 +198,6 @@
   <build>
   	  
     <plugins>
-       <!--     <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.4.1</version>
-        <configuration>
-          <outputDirectory>jar/</outputDirectory>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <archive>
-            <manifest>
-              <mainClass>widoco.gui.GuiController</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id> 
-            <phase>package</phase> 
-            <goals>
-              <goal>simple</goal>
-            </goals>
-          </execution>
-        </executions>
-        </plugin>-->
-     <!-- Previous plugin was replaced becaude it didin't pack sesame jars correctly-->   
     <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-shade-plugin</artifactId>

@@ -198,10 +198,11 @@ public class CreateResources {
         if((c.getIntroductionPath()!=null) && (!"".equals(c.getIntroductionPath()))){
             WidocoUtils.copyExternalResource(c.getIntroductionPath(),new File(path+File.separator+"introduction-"+c.getCurrentLanguage()+".html"));
         }else{
-            String introSectionText = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
+            String introSectionText = "<html>"+Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
             if(nsDecl!=null && !nsDecl.isEmpty()){
                 introSectionText += Constants.getNameSpaceDeclaration(nsDecl,c, lang);
             }
+            introSectionText+="</html>";
             saveDocument(path+File.separator+"introduction-"+c.getCurrentLanguage()+".html", introSectionText,c);
         }
     }
@@ -211,7 +212,7 @@ public class CreateResources {
         if((c.getOverviewPath()!=null) && (!"".equals(c.getOverviewPath()))){
             WidocoUtils.copyExternalResource(c.getOverviewPath(), new File(path+File.separator+"overview-"+c.getCurrentLanguage()+".html"));
         }else{
-            String overViewSection = Constants.getOverviewSectionTitleAndPlaceHolder(c, lang);
+            String overViewSection = "<html>"+Constants.getOverviewSectionTitleAndPlaceHolder(c, lang);
             if(!"".equals(classesList) && classesList!=null){
                 overViewSection+=("<h4>"+lang.getProperty(Constants.LANG_CLASSES)+"</h4>\n");
                 overViewSection+=(classesList);
@@ -236,6 +237,7 @@ public class CreateResources {
             if(c.isCreateWebVowlVisualization()){
                 overViewSection +="<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html#\"></iframe> ";
             }
+            overViewSection+="</html>\n";
             saveDocument(path+File.separator+"overview-"+c.getCurrentLanguage()+".html", overViewSection,c);
         }
     }
@@ -250,7 +252,7 @@ public class CreateResources {
     
     private static void createCrossReferenceSection(String path,LODEParser lodeParser, Configuration c, Properties lang){
         //cross reference section has to be included always.
-        String crossRef = Constants.getCrossReferenceSectionTitleAndPlaceHolder(c, lang);
+        String crossRef = "<html>"+Constants.getCrossReferenceSectionTitleAndPlaceHolder(c, lang);
         String classesList = lodeParser.getClassList(),propList = lodeParser.getPropertyList(), dataPropList = lodeParser.getDataPropList(),
                 annotationPropList = lodeParser.getAnnotationPropList(), namedIndividualList = lodeParser.getNamedIndividualList();
         if(classesList!=null && !"".equals(classesList)){
@@ -269,7 +271,7 @@ public class CreateResources {
             crossRef += lodeParser.getNamedIndividuals();
         }
         //add legend
-        crossRef+=Constants.getLegend(lang);
+        crossRef+=Constants.getLegend(lang)+"\n</html>\n";
         saveDocument(path+File.separator+"crossref-"+c.getCurrentLanguage()+".html", crossRef,c);
     }
     

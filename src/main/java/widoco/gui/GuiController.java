@@ -52,12 +52,20 @@ public final class GuiController {
     public GuiController() {
         this.state = State.initial;  
         config = new Configuration();
+        System.out.println("\n\n--WIzard for DOCumenting Ontologies (WIDOCO).\n https://w3id.org/widoco/\n");
+        System.out.println("\nYou are launching WIDOCO GUI\n");
+        System.out.println("\nTo use WIDOCO through the command line please do:\n");
+        System.out.println("java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
+                            + "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
+                            + "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
+                            + "[-rewriteBase rewriteBasePath]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
         //read logo
-        gui = new GuiStep1(this);
-        gui.setVisible(true);
         try { 
+            gui = new GuiStep1(this);
+            gui.setVisible(true);
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
+            System.out.println("Error while launching the GUI"+e.getMessage());
         }
     }
     

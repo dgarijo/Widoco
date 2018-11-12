@@ -85,7 +85,6 @@ public class TestInterface extends javax.swing.JFrame {
 
         backgroundPanel.setBackground(new java.awt.Color(204, 204, 204));
         backgroundPanel.setPreferredSize(new java.awt.Dimension(1000, 500));
-        backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidePanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -263,10 +262,24 @@ public class TestInterface extends javax.swing.JFrame {
                 .addGap(102, 102, 102))
         );
 
-        backgroundPanel.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
-
         labelChangeAtTheEnd.setText("Change to white at the end");
-        backgroundPanel.add(labelChangeAtTheEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 450, -1, -1));
+
+        javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
+        backgroundPanel.setLayout(backgroundPanelLayout);
+        backgroundPanelLayout.setHorizontalGroup(
+            backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(340, 340, 340)
+                .addComponent(labelChangeAtTheEnd))
+        );
+        backgroundPanelLayout.setVerticalGroup(
+            backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addGap(450, 450, 450)
+                .addComponent(labelChangeAtTheEnd))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

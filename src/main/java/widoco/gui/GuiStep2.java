@@ -159,7 +159,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
     }
     
     private void refreshTable(){
-        String authors="", contributors="", imported="", extended="";
+        String authors="", contributors="", imported="", extended="", publisher="";
         for(Agent a: conf.getMainOntology().getCreators()){
             if(a.getName()==null || a.getName().equals("")){
                 authors+="creator; ";
@@ -192,6 +192,13 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 extended+=a.getName()+"; ";
             }
         }
+        Agent p = conf.getMainOntology().getPublisher();
+        if(p.getName()==null || p.getName().equals("")){
+                publisher+="publisherName ";
+            }
+        else{
+            publisher+=p.getName();
+        }
         tableProperties.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"abstract", conf.getAbstractSection()},
@@ -206,7 +213,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
                 {"ontology revision", conf.getMainOntology().getRevision()},
                 {"authors", authors},
                 {"contributors", contributors},
-                {"publisher", conf.getMainOntology().getPublisher().getURL()},
+                {"publisher", publisher},
                 {"imported ontologies", imported},
                 {"extended ontologies", extended},
                 {"license", conf.getMainOntology().getLicense().getUrl()},

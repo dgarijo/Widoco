@@ -194,7 +194,9 @@ public class CreateDocInThreadTest {
      * An ontology written in a language that is NOT English: geolinkeddata.owl
      * This ontology is an ontology network 
      * (needs internet connection to work)
-     */
+     * 
+     * TEST COMMENTED OUT BECAUSE IMPORTING THE ONTOLOGIES IS SLOW
+     
     @org.junit.Test
     public void testOntologyInLanguage() {
         System.out.println("Testing Ontology: geolinkeddata.owl");
@@ -208,7 +210,7 @@ public class CreateDocInThreadTest {
         }catch(Exception e){
             fail("Error while running test "+e.getMessage());
         }
-    }
+    }*/
     
     
     

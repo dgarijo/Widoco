@@ -92,7 +92,6 @@ public class TestStep0 extends javax.swing.JFrame {
 
         backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
         backgroundPanel.setPreferredSize(new java.awt.Dimension(1000, 500));
-        backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         leftPanel.setBackground(new java.awt.Color(255, 255, 255));
         leftPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -143,8 +142,6 @@ public class TestStep0 extends javax.swing.JFrame {
                 .addGap(89, 89, 89))
         );
 
-        backgroundPanel.add(leftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 270, 410));
-
         panelTitle.setBackground(new java.awt.Color(255, 255, 255));
 
         widocoLogo.setText("LOGO");
@@ -165,8 +162,6 @@ public class TestStep0 extends javax.swing.JFrame {
                 .addComponent(widocoLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        backgroundPanel.add(panelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 90));
 
         rightPanel.setBackground(new java.awt.Color(255, 255, 255));
         rightPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -195,14 +190,14 @@ public class TestStep0 extends javax.swing.JFrame {
             rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDescriptionRight)
+                    .addComponent(labelDescriptionRight, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                     .addGroup(rightPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(rightPanelLayout.createSequentialGroup()
-                                .addGap(0, 39, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
-                                .addGap(0, 39, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(labelPicRight, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -218,7 +213,24 @@ public class TestStep0 extends javax.swing.JFrame {
                 .addGap(87, 87, 87))
         );
 
-        backgroundPanel.add(rightPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 300, 410));
+        javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
+        backgroundPanel.setLayout(backgroundPanelLayout);
+        backgroundPanelLayout.setHorizontalGroup(
+            backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        backgroundPanelLayout.setVerticalGroup(
+            backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
