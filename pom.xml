@@ -164,7 +164,7 @@
     <dependency>
       <groupId>net.sourceforge.owlapi</groupId>
       <artifactId>owlapi-distribution</artifactId>
-      <version>5.1.7</version>
+      <version>5.1.9</version>
     </dependency>
 
     <dependency>
