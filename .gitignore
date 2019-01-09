@@ -32,7 +32,10 @@ local.properties
 ## IntelliJ IDEA
 #################
 .idea/
-widoco.iml
+*.iml
+target/
+lib/
+jar/
 
 #################
 ## Visual Studio
@@ -218,5 +221,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-/target
-JAR
+
