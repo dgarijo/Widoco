@@ -36,6 +36,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -50,6 +52,8 @@ import widoco.Configuration;
  * @author Silvio Peroni, adpated to Widoco (and modified) by Daniel Garijo
  */
 public class LODEGeneration {
+
+    final static Logger logger = Logger.getLogger(LODEGeneration.class);
     
     public static String getLODEhtml(Configuration c, File lodeResources) throws Exception {
         try {
@@ -105,6 +109,7 @@ public class LODEGeneration {
 //                        setOfImportedOntologies.addAll(ontology.getImportsClosure());
 //                }
                 for (OWLOntology importedOntology : setOfImportedOntologies) {
+                        logger.info("Found imported ontology: " + importedOntology.toString());
                         manager.addAxioms(ontology, importedOntology.getAxioms());
                 }
             }
