@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
+import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.formats.N3DocumentFormat;
 import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
@@ -47,8 +48,9 @@ import widoco.entities.Ontology;
  * @author Daniel Garijo
  */
 public class CreateResources {
-    
-    
+
+    final static Logger logger = Logger.getLogger(CreateResources.class);
+
     public static void generateDocumentation(String outFolder, Configuration c, File lodeResources) throws Exception{
         String lodeContent;
         String folderOut = outFolder;
@@ -65,7 +67,9 @@ public class CreateResources {
                 System.out.println("Error while reading the language file: "+e1.getMessage());
             }
         }
-        lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);    
+        logger.info("Generate documentation in " + outFolder);
+        logger.info("- ontology IRI: " + c.getOntologyURI());
+        lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);
         LODEParser lode = new LODEParser(lodeContent,c,languageFile);
         if(c.isCreateHTACCESS()){
             File f = new File (folderOut);

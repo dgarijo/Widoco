@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politï¿½cnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import widoco.Configuration;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
@@ -42,7 +43,8 @@ import widoco.WidocoUtils;
  */
 public final class GuiController {
 
-    
+    final static Logger logger = Logger.getLogger(GuiController.class);
+
     public enum State{initial, metadata, loadingConfig, sections, loading, generated, evaluating, exit};
     private State state;
     private JFrame gui;
@@ -216,18 +218,25 @@ public final class GuiController {
             }
         }
         if(!isFromFile)this.config.setOntologyURI(ontology);
+
+        logger.info("Processed configuration, loading ontology now. isFromFile=" + (isFromFile ? "true" : "false"));
+
         //we load the model locally so we can use it.
         try{
             WidocoUtils.loadModelToDocument(config);
         }catch(Exception e){
-            System.err.println("Could not load the ontology");
+            logger.error("Could not load the ontology " + e.getMessage(), e);
+            return;
         }
         if(getOntoMetadata){
+            logger.info("Load properties from the ontology");
             config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
         }
         try{
+            // This loop doesn't seem to make sense since l is not used by generateDocumentation() but it seems that
+            // the Configuration object has mutable state that points to the "currentLanguage".
             for (String l : config.getLanguagesToGenerateDoc()) {
-                System.out.println("Generating documentation for "+ontology+ " in lang " +l);
+                logger.info("Generating documentation for " + ontology + " in lang " + l);
                 CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
                 config.vocabularySuccessfullyGenerated();
             }
