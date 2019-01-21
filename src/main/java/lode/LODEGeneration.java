@@ -67,14 +67,7 @@ public class LODEGeneration {
             content = parseImports(c.isUseImported(), c.getMainOntology().getOWLAPIOntologyManager(), c.getMainOntology().getOWLAPIModel());
             content = applyXSLTTransformation(content, c.getOntologyURI(), lang, lodeResources);
             return(content);
-        }
-        catch (OWLOntologyCreationException e) {
-            System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
-            throw e;
         } catch (OWLOntologyStorageException e) {
-            System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
-            throw e;
-        } catch (URISyntaxException e) {
             System.err.println("Error while applying LODE. Error while applying the XLS file: "+e.getMessage());
             throw e;
         } catch (TransformerException e) {
@@ -98,27 +91,26 @@ public class LODEGeneration {
 	private static String parseImports(
                         boolean considerImportedOntologies, 
                         OWLOntologyManager manager,
-                        OWLOntology ontology) 
-	throws OWLOntologyCreationException, OWLOntologyStorageException, URISyntaxException {
-            String result = "";
-            if (considerImportedOntologies) {
-                //considerImportedClosure || //<- removed for the moment
-                Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();
-                setOfImportedOntologies.addAll(ontology.getDirectImports());
+                        OWLOntology ontology) throws OWLOntologyStorageException {
+        String result = "";
+        if (considerImportedOntologies) {
+            //considerImportedClosure || //<- removed for the moment
+            Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();
+            setOfImportedOntologies.addAll(ontology.getDirectImports());
 //                else {
 //                        setOfImportedOntologies.addAll(ontology.getImportsClosure());
 //                }
-                for (OWLOntology importedOntology : setOfImportedOntologies) {
-                        logger.info("Found imported ontology: " + importedOntology.toString());
-                        manager.addAxioms(ontology, importedOntology.getAxioms());
-                }
+            for (OWLOntology importedOntology : setOfImportedOntologies) {
+                logger.info("Found imported ontology: " + importedOntology.getOntologyID().getOntologyIRI().toString());
+                manager.addAxioms(ontology, importedOntology.getAxioms());
             }
-            OWLOntologyDocumentTarget parsedOntology = new StringDocumentTarget();
-            manager.saveOntology(ontology,new RDFXMLDocumentFormat(), parsedOntology);
-            result = parsedOntology.toString();
+        }
+        OWLOntologyDocumentTarget parsedOntology = new StringDocumentTarget();
+        manager.saveOntology(ontology,new RDFXMLDocumentFormat(), parsedOntology);
+        result = parsedOntology.toString();
 //		}
 
-            return result;
+        return result;
 	}
 	
 //	private String addImportedAxioms(String result, List<String> removed) {
