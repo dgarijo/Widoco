@@ -1,0 +1,57 @@
+<?xml version='1.0'?>
+
+<!DOCTYPE rdf:RDF [
+    <!--
+
+    NOTE that we're using the old namespace here for jena, hpl.hp.com, not apache.org.
+    See this line:
+
+    https://github.com/apache/jena/blob/69571e7ebc3bfde6ec3bc4e96d136428d7f7378e/
+    jena-core/src/main/java/org/apache/jena/vocabulary/OntDocManagerVocab.java#L39
+
+    -->
+    <!ENTITY jena    'http://jena.hpl.hp.com/schemas/'>
+    <!ENTITY rdf     'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs    'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY xsd     'http://www.w3.org/2001/XMLSchema#'>
+    <!ENTITY base    '&jena;2003/03/ont-manager'>
+    <!ENTITY ont     '&base;#'>
+]>
+
+<rdf:RDF
+  xmlns:rdf ="&rdf;"
+  xmlns:rdfs="&rdfs;"
+  xmlns     ="&ont;"
+  xml:base  ="&base;"
+>
+  <DocumentManagerPolicy>
+    <!-- policy for controlling the document manager's behaviour -->
+    <!--
+      Switching the processImports value from false to true will cause tools like SPIN
+      to import everything where many ontologies will be downloaded from the web.
+      If the "\-\-network none" option is given when starting the container (check docker-run.sh)
+      then all these external HTTP GET requests will fail, but nevertheless its important to
+      understand the impact of the value below.
+    -->
+    <processImports rdf:datatype="&xsd;boolean">false</processImports>
+    <cacheModels rdf:datatype="&xsd;boolean">true</cacheModels>
+  </DocumentManagerPolicy>
+
+  <OntologySpec>
+      <!-- local version of the OWL language ontology (in OWL) -->
+      <publicURI rdf:resource="http://www.w3.org/2002/07/owl" />
+      <altURL    rdf:resource="file:///test/lib/ontologies/w3c/owl.owl" />
+      <language  rdf:resource="http://www.w3.org/2002/07/owl" />
+      <prefix    rdf:datatype="&xsd;string">owl</prefix>
+  </OntologySpec>
+
+  <OntologySpec>
+      <!-- local version of the RDFS vocabulary -->
+      <publicURI rdf:resource="http://www.w3.org/2000/01/rdf-schema" />
+      <altURL    rdf:resource="file:///test/lib/ontologies/w3c/rdf-schema.rdf" />
+      <language  rdf:resource="http://www.w3.org/2000/01/rdf-schema" />
+      <prefix    rdf:datatype="&xsd;string">rdfs</prefix>
+  </OntologySpec>
+
+</rdf:RDF>
+

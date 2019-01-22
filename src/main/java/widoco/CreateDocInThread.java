@@ -16,6 +16,8 @@
 package widoco;
 
 import java.io.File;
+
+import org.apache.log4j.Logger;
 import widoco.gui.GuiController;
 
 /**
@@ -26,7 +28,9 @@ public class CreateDocInThread implements Runnable{
     private final Configuration c;
     private final GuiController pointerToMain;
     private final File tmpFile;
-    
+
+    final static Logger logger = Logger.getLogger(CreateDocInThread.class);
+
     public CreateDocInThread(Configuration c, GuiController g, File lodeTmpResources){
         this.c = c;
         this.pointerToMain = g;
@@ -36,11 +40,11 @@ public class CreateDocInThread implements Runnable{
     public void run() {
         //use config to create doc. If null, return error.
         try{
-            System.out.println("Generating doc. "+ c.getMainOntology().getNamespaceURI());
+            logger.info("Generating documentation for "+ c.getMainOntology().getNamespaceURI());
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, tmpFile);
             this.pointerToMain.switchState("next");
         }catch(Exception e){
-            System.err.println("Error while generating the documentation " +e.getMessage());
+            logger.error("Error while generating the documentation " +e.getMessage(), e);
             c.setError("An error occurred while generating the documentation. Please check that the ontology opens with Protege and that there are not empty metadata fields");
             this.pointerToMain.switchState("error");
         }        
