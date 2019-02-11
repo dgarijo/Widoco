@@ -29,21 +29,20 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
-import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Some useful methods reused across different classes
  * @author Daniel Garijo
  */
 public class WidocoUtils {
+
+    final static Logger logger = Logger.getLogger(WidocoUtils.class);
+
     /**
      * Method that will download the ontology to document with Widoco.
      * @param c Widoco configuration object.
@@ -60,10 +59,14 @@ public class WidocoUtils {
 //        OntModel model = ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();        
 //        readOntModel(model, c);
 //        c.getMainOntology().setMainModel(model);
-        
+
+        logger.info("Load ontology " + c.getOntologyPath());
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyIRIMapper jenaCatalogMapper = new JenaCatalogIRIMapper();
+        manager.getIRIMappers().add(jenaCatalogMapper);
+        ((JenaCatalogIRIMapper) jenaCatalogMapper).printMap();
         OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
-        loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
+        loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.THROW_EXCEPTION);
         OWLOntology ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(c.getOntologyPath())),loadingConfig);
         c.getMainOntology().setMainOntology(ontology);
         c.getMainOntology().setMainOntologyManager(manager);

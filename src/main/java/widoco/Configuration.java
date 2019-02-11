@@ -417,6 +417,28 @@ public class Configuration {
         if(mainOntologyMetadata.getName()==null || mainOntologyMetadata.getName().equals("")){
             this.mainOntologyMetadata.setName("[Ontology Name]");
         }
+        //default citation if none is given
+        if (mainOntologyMetadata.getCiteAs()== null || mainOntologyMetadata.getCiteAs().isEmpty()){
+            String cite ="";
+            for(Agent a:mainOntologyMetadata.getCreators()){
+                cite += a.getName()+",";
+            }
+            if(cite.length()>1){
+                //remove the last ","
+                cite = cite.substring(0, cite.length()-1);
+                cite += ". ";
+            }
+            if(mainOntologyMetadata.getTitle()!=null && !mainOntologyMetadata.getTitle().equals("")){
+                cite +=mainOntologyMetadata.getTitle()+".";
+            }
+            if(mainOntologyMetadata.getRevision()!=null && !mainOntologyMetadata.getRevision().equals("")){
+                cite += "Revision: "+mainOntologyMetadata.getRevision()+".";
+            }
+            if(mainOntologyMetadata.getThisVersion()!=null && !mainOntologyMetadata.getThisVersion().equals("")){
+                cite += mainOntologyMetadata.getThisVersion();
+            }
+            mainOntologyMetadata.setCiteAs(cite);
+        }
     }
     private void completeMetadata(OWLAnnotation a){            
     //this.currentLanguage
@@ -532,7 +554,7 @@ public class Configuration {
                             break;
                     }
                 }catch(Exception e){
-                    System.err.println("Could not retrieve cretor/contirbutor. Please avoid using blank nodes...");
+                    System.err.println("Could not retrieve cretor/contributor. Please avoid using blank nodes...");
                 }
                 break;
             case Constants.PROP_DCTERMS_CREATED: case Constants.PROP_SCHEMA_DATE_CREATED:

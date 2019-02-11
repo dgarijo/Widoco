@@ -194,8 +194,10 @@ public final class GuiStep2 extends javax.swing.JFrame {
         }
         Agent p = conf.getMainOntology().getPublisher();
         if(p.getName()==null || p.getName().equals("")){
+            if(p.getURL()!=null){
                 publisher+="publisherName ";
             }
+        }
         else{
             publisher+=p.getName();
         }
