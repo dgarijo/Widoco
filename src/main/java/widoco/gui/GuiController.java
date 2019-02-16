@@ -17,7 +17,6 @@
 package widoco.gui;
 
 import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Date;
@@ -32,7 +31,6 @@ import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
 import widoco.LoadOntologyInThread;
-import widoco.Constants;
 import widoco.WidocoUtils;
 
 
@@ -397,7 +395,6 @@ public final class GuiController {
                         gui.setVisible(true);
                         switchState("loadOntologyProperties");
                         break;
-//                        probar si esto itera bien
                     }
                 }
                 state = State.generated;
