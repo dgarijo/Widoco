@@ -53,7 +53,7 @@ public class JenaCatalogIRIMapper implements OWLOntologyIRIMapper {
 
     JenaCatalogIRIMapper() {
 
-        logger.info("Creating JenaCatalogIRIMapper");
+        logger.debug("Creating JenaCatalogIRIMapper");
 
         ontologyDocumentSource()
             .map(Optional::of)
@@ -64,7 +64,7 @@ public class JenaCatalogIRIMapper implements OWLOntologyIRIMapper {
 
     public void printMap() {
         ontologyIRI2AltIRImap.forEach((key, value) ->
-            logger.info(key + " -> " + value)
+            logger.debug(key + " -> " + value)
         );
     }
 
@@ -160,7 +160,7 @@ public class JenaCatalogIRIMapper implements OWLOntologyIRIMapper {
 
     private OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource) {
         try {
-            logger.info("Loading 3 " + documentSource.getDocumentIRI());
+            logger.debug("Loading 3 " + documentSource.getDocumentIRI());
             return manager.loadOntologyFromOntologyDocument(documentSource);
         } catch (OWLOntologyCreationException e_) {
             logger.error("Could not load ont-policy " + e_.getMessage(), e_);
