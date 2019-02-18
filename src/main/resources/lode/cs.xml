@@ -81,6 +81,8 @@
 	<category>Kategorie</category>
 	<isrequired>Je požadován</isrequired>
 	<source>Zdroj</source>
-  <termStatus>Stav pojmu</termStatus>
+    <termStatus>Stav pojmu</termStatus>
 	<deprecated>Je zastaralý</deprecated>
+    <domainIncludes>domain includes</domainIncludes>
+    <rangeIncludes>range includes</rangeIncludes>
 </labels>

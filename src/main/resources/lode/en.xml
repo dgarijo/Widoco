@@ -83,4 +83,6 @@
 	<source>Source</source>
 	<termStatus>Term status</termStatus>
 	<deprecated>Is deprecated</deprecated>
+    <domainIncludes>domain includes</domainIncludes>
+    <rangeIncludes>range includes</rangeIncludes>
 </labels>

@@ -83,4 +83,6 @@
 	<source>Fuente</source>
 	<termStatus>Estado</termStatus>
 	<deprecated>Depecreado</deprecated>
+    <domainIncludes>el dominio incluye</domainIncludes>
+    <rangeIncludes>el rango incluye</rangeIncludes>
 </labels>

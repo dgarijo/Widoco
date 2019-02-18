@@ -84,4 +84,6 @@
 	<source>La source</source>
 	<termStatus>Statut</termStatus>
 	<deprecated>Obsolète</deprecated>
+    <domainIncludes>domaine comprend</domainIncludes>
+    <rangeIncludes>cible comprend</rangeIncludes>
 </labels>
