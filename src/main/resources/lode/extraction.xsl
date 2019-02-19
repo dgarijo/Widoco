@@ -383,11 +383,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </div>
     </xsl:template>
     
-    <xsl:template match="owl:ObjectProperty | rdf:Property | owl:DatatypeProperty | owl:AnnotationProperty">
+    <xsl:template match="owl:ObjectProperty | owl:DatatypeProperty | owl:AnnotationProperty">
         <div id="{generate-id()}" class="entity">
             <xsl:call-template name="get.entity.name">
-                <xsl:with-param name="toc" select="if (self::owl:ObjectProperty) then 'objectproperties' else if (self::rdf:Property) then 'objectproperties' else if (self::owl:AnnotationProperty) then 'annotationproperties' else 'dataproperties'" tunnel="yes" as="xs:string" />
-                <xsl:with-param name="toc.string" select="if (self::owl:ObjectProperty) then f:getDescriptionLabel('objectpropertytoc') else if (self::rdf:Property) then f:getDescriptionLabel('objectpropertytoc') else if (self::owl:AnnotationProperty) then f:getDescriptionLabel('annotationpropertytoc') else f:getDescriptionLabel('datapropertytoc')" tunnel="yes" as="xs:string" />
+                <xsl:with-param name="toc" select="if (self::owl:ObjectProperty) then 'objectproperties' else if (self::owl:AnnotationProperty) then 'annotationproperties' else 'dataproperties'" tunnel="yes" as="xs:string" />
+                <xsl:with-param name="toc.string" select="if (self::owl:ObjectProperty) then f:getDescriptionLabel('objectpropertytoc') else if (self::owl:AnnotationProperty) then f:getDescriptionLabel('annotationpropertytoc') else f:getDescriptionLabel('datapropertytoc')" tunnel="yes" as="xs:string" />
             </xsl:call-template>
             <xsl:call-template name="get.entity.url" />
             <xsl:apply-templates select="rdfs:comment|prov:definition|skos:definition|obo:IAO_0000115" />
@@ -930,7 +930,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.individual.description">
-        <xsl:variable name="hasAssertions" select="some $el in element() satisfies (some $prop in (/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty)/(@*:about|@*:ID)) satisfies $prop = concat(namespace-uri($el),local-name($el)))" as="xs:boolean" />
+        <xsl:variable name="hasAssertions" select="some $el in element() satisfies (some $prop in (/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty)/(@*:about|@*:ID)) satisfies $prop = concat(namespace-uri($el),local-name($el)))" as="xs:boolean" />
         <xsl:if test="exists(rdf:type) or f:hasDisjoints(.) or f:hasSameAs(.) or $hasAssertions or f:hasPunning(.)">
             <dl class="description">
                 <xsl:call-template name="get.entity.type" />
@@ -1010,7 +1010,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
             <assertions>
                 <xsl:for-each select="element()">
                     <xsl:variable name="currentURI" select="concat(namespace-uri(.),local-name(.))" as="xs:string" />
-                    <xsl:if test="some $prop in (/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty)/(@*:about|@*:ID)) satisfies $prop = $currentURI">
+                    <xsl:if test="some $prop in (/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty)/(@*:about|@*:ID)) satisfies $prop = $currentURI">
                         <assertion rdf:about="{$currentURI}">
                             <xsl:choose>
                                 <xsl:when test="@*:resource">
@@ -1444,7 +1444,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:if test="exists(/rdf:RDF/(owl:Class|rdfs:Class)/element())">
                     <li><a href="#classes"><xsl:value-of select="f:getDescriptionLabel('classes')" /></a></li>
                 </xsl:if>
-                <xsl:if test="exists(//owl:ObjectProperty/element()|//rdf:Property/element())">
+                <xsl:if test="exists(//owl:ObjectProperty/element())">
                     <li><a href="#objectproperties"><xsl:value-of select="f:getDescriptionLabel('objectproperties')" /></a></li>
                 </xsl:if>
                 <xsl:if test="exists(//owl:DatatypeProperty/element())">
@@ -1563,11 +1563,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.objectproperties">
-        <xsl:if test="exists(//owl:ObjectProperty/element()|//rdf:Property/element())">
+        <xsl:if test="exists(//owl:ObjectProperty/element())">
             <div id="objectproperties">
                 <h2><xsl:value-of select="f:getDescriptionLabel('objectproperties')" /></h2>
                 <xsl:call-template name="get.objectproperties.toc" />
-                <xsl:apply-templates select="/rdf:RDF/(owl:ObjectProperty|rdf:Property)[exists(element())]">
+                <xsl:apply-templates select="/rdf:RDF/(owl:ObjectProperty)[exists(element())]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                         order="ascending" data-type="text" />
                     <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'property'" />
@@ -1578,7 +1578,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:template name="get.objectproperties.toc">
         <ul class="hlist">
-            <xsl:apply-templates select="/rdf:RDF/(owl:ObjectProperty|rdf:Property)[exists(element())]" mode="toc">
+            <xsl:apply-templates select="/rdf:RDF/(owl:ObjectProperty)[exists(element())]" mode="toc">
                 <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                     order="ascending" data-type="text" />
                 <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'annotation'" />
@@ -1642,7 +1642,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
             <xsl:when test="($type = '' or $type = 'class') and ($el[self::owl:Class] or $el[self::rdfs:Class] or $iri = 'http://www.w3.org/2002/07/owl#Thing')">
                 <sup title="{f:getDescriptionLabel('class')}" class="type-c">c</sup>
             </xsl:when>
-            <xsl:when test="($type = '' or $type = 'property') and ($el[self::owl:ObjectProperty] or $el[self::rdf:Property])">
+            <xsl:when test="($type = '' or $type = 'property') and ($el[self::owl:ObjectProperty])">
                 <sup title="{f:getDescriptionLabel('objectproperty')}" class="type-op">op</sup>
             </xsl:when>
             <xsl:when test="($type = '' or $type = 'property') and $el[self::owl:DatatypeProperty]">
@@ -1766,18 +1766,18 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:function name="f:isInRange" as="xs:boolean">
         <xsl:param name="el" as="element()" />
-        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
+        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
     </xsl:function>
     
     <xsl:function name="f:isInDomain" as="xs:boolean">
         <xsl:param name="el" as="element()" />
-        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
+        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
     </xsl:function>
     
     <xsl:function name="f:hasSubproperties" as="xs:boolean">
         <xsl:param name="el" as="element()" />
         <xsl:variable name="type" select="if ($el/self::owl:AnnotationProperty) then 'annotation' else 'property'" as="xs:string" />
-        <xsl:value-of select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty | rdf:Property else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
+        <xsl:value-of select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
     </xsl:function>
     
     <xsl:function name="f:getType" as="xs:string?">
