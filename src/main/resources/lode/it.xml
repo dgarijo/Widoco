@@ -83,4 +83,6 @@
 	<source>Fonte</source>
 	<termStatus>A lungo termine</termStatus>
 	<deprecated>Is deprecato</deprecated>
+    <domainIncludes>dominio include</domainIncludes>
+    <rangeIncludes>codominio include</rangeIncludes>
 </labels>

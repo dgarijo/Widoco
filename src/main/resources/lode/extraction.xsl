@@ -17,10 +17,11 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xd dc rdfs swrl owl2xml owl xsd swrlb rdf f dcterms vaem osw vann prov obo skos sw"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xd dc rdfs schema swrl owl2xml owl xsd swrlb rdf f dcterms vaem osw vann prov obo skos sw"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" version="2.0"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:schema="http://schema.org/"
     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -352,7 +353,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:template match="element()" mode="ontology" />
     <xsl:template match="element()|text()[normalize-space() = '']" />
     
-    <xsl:template match="owl:Class">
+    <xsl:template match="owl:Class|rdfs:Class">
         <div id="{generate-id()}" class="entity">
             <xsl:call-template name="get.entity.name">
                 <xsl:with-param name="toc" select="'classes'" tunnel="yes" as="xs:string" />
@@ -398,7 +399,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </div>
     </xsl:template>
     
-    <xsl:template match="rdfs:range | rdfs:domain">
+    <xsl:template match="rdfs:domain|schema:domainIncludes | rdfs:range|schema:rangeIncludes">
         <dd>
             <xsl:apply-templates select="@*:resource | element()">
                 <xsl:with-param name="type" select="'class'" as="xs:string" tunnel="yes" />
@@ -606,7 +607,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </xsl:choose>
     </xsl:function>
     
-    <xsl:template match="owl:Class[not(parent::rdf:RDF)] | rdfs:Datatype[not(parent::rdf:RDF)] | owl:DataRange[not(parent::rdf:RDF)]">
+    <xsl:template match="owl:Class[not(parent::rdf:RDF)] | rdfs:Class[not(parent::rdf:RDF)] | rdfs:Datatype[not(parent::rdf:RDF)] | owl:DataRange[not(parent::rdf:RDF)]">
         <xsl:apply-templates />
     </xsl:template>
     
@@ -703,7 +704,8 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:apply-templates select="owl:onClass" />
     </xsl:template>
     
-    <xsl:template match="/rdf:RDF/owl:Class[empty(@*:about | @*:ID) and exists(rdfs:subClassOf)]">
+    <xsl:template match="/rdf:RDF/owl:Class [empty(@*:about | @*:ID) and exists(rdfs:subClassOf)] |
+                         /rdf:RDF/rdfs:Class[empty(@*:about | @*:ID) and exists(rdfs:subClassOf)]">
         <div id="{generate-id()}" class="entity">
             <h3><xsl:value-of select="f:getDescriptionLabel('subclassdefinition')" /><xsl:text> </xsl:text><xsl:call-template name="get.backlink" /></h3>
             <p>
@@ -718,7 +720,8 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </div>
     </xsl:template>
     
-    <xsl:template match="/rdf:RDF/owl:Class[empty(@*:about | @*:ID) and exists(owl:equivalentClass)]">
+    <xsl:template match="/rdf:RDF/owl:Class [empty(@*:about | @*:ID) and exists(owl:equivalentClass)] |
+                         /rdf:RDF/rdfs:Class[empty(@*:about | @*:ID) and exists(owl:equivalentClass)]">
         <div id="{generate-id()}" class="entity">
             <h3><xsl:value-of select="f:getDescriptionLabel('equivalentdefinition')" /><xsl:text> </xsl:text><xsl:call-template name="get.backlink" /></h3>
             <p>
@@ -1095,13 +1098,21 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:template name="get.class.superclasses">
         <xsl:if test="exists(rdfs:subClassOf)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hassuperclasses')" /></dt>
-            <xsl:apply-templates select="rdfs:subClassOf" />
+            <dd>
+                <xsl:for-each select="rdfs:subClassOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about)">
+                    <xsl:sort select="f:getLabel(.)" data-type="text" order="ascending" />
+                    <xsl:apply-templates select="." />
+                    <xsl:if test="position() != last()">
+                        <xsl:text>, </xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
+            </dd>
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="get.class.subclasses">
         <xsl:variable name="about" select="@*:about|@*:ID" as="xs:string" />
-        <xsl:variable name="sub-classes" as="attribute()*" select="/rdf:RDF/owl:Class[some $res in rdfs:subClassOf/@*:resource satisfies $res = $about]/(@*:about|@*:ID)" />
+        <xsl:variable name="sub-classes" as="attribute()*" select="/rdf:RDF/(owl:Class|rdfs:Class)[some $res in rdfs:subClassOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)" />
         <xsl:if test="exists($sub-classes)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hassubclasses')" /></dt>
             <dd>
@@ -1118,7 +1129,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:template name="get.class.indomain">
         <xsl:variable name="about" select="@*:about|@*:ID" as="xs:string" />
-        <xsl:variable name="properties" as="attribute()*" select="/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:domain/@*:resource satisfies $res = $about]/(@*:about|@*:ID)" />
+        <xsl:variable name="properties" as="attribute()*" select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)" />
         <xsl:if test="exists($properties)">
             <dt><xsl:value-of select="f:getDescriptionLabel('isindomainof')" /></dt>
             <dd>
@@ -1137,7 +1148,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:template name="get.class.inrange">
         <xsl:variable name="about" select="(@*:about|@*:ID)" as="xs:string" />
-        <xsl:variable name="properties" as="attribute()*" select="/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:range/@*:resource satisfies $res = $about]/(@*:about|@*:ID)" />
+        <xsl:variable name="properties" as="attribute()*" select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)" />
         <xsl:if test="exists($properties)">
             <dt><xsl:value-of select="f:getDescriptionLabel('isinrangeof')" /></dt>
             <dd>
@@ -1156,7 +1167,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:template name="get.class.members">
         <xsl:variable name="about" select="(@*:about|@*:ID)" as="xs:string" />
-        <xsl:variable name="members" as="attribute()*" select="/rdf:RDF/owl:NamedIndividual[some $res in rdf:type/@*:resource satisfies $res = $about]/(@*:about|@*:ID)" />
+        <xsl:variable name="members" as="attribute()*" select="/rdf:RDF/owl:NamedIndividual[some $res in rdf:type/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)" />
         <xsl:if test="exists($members)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hasmembers')" /></dt>
             <dd>
@@ -1174,7 +1185,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.property.description">
-        <xsl:if test="exists(rdfs:subPropertyOf | rdfs:domain | rdfs:range | owl:propertyChainAxiom) or f:hasSubproperties(.) or f:hasInverseOf(.) or f:hasDisjoints(.) or f:hasEquivalent(.) or f:hasSameAs(.) or f:hasPunning(.)">
+        <xsl:if test="exists(rdfs:subPropertyOf | (rdfs:domain|schema:domainIncludes) | (rdfs:range|schema:rangeIncludes) | owl:propertyChainAxiom) or f:hasSubproperties(.) or f:hasInverseOf(.) or f:hasDisjoints(.) or f:hasEquivalent(.) or f:hasSameAs(.) or f:hasPunning(.)">
             <div class="description">
                 <xsl:call-template name="get.characteristics" />
                 <dl>
@@ -1182,7 +1193,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                     <xsl:call-template name="get.property.superproperty" />
                     <xsl:call-template name="get.property.subproperty" />
                     <xsl:call-template name="get.property.domain" />
+                    <xsl:call-template name="get.property.domainIncludes" />
                     <xsl:call-template name="get.property.range" />
+                    <xsl:call-template name="get.property.rangeIncludes" />
                     <xsl:call-template name="get.property.inverse">
                         <xsl:with-param name="type" select="'property'" tunnel="yes" as="xs:string" />
                     </xsl:call-template>
@@ -1240,14 +1253,22 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:template name="get.property.superproperty">
         <xsl:if test="exists(rdfs:subPropertyOf)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hassuperproperties')" /></dt>
-            <xsl:apply-templates select="rdfs:subPropertyOf" />
+            <dd>
+                <xsl:for-each select="rdfs:subPropertyOf/(@*:resource|(rdf:Property|owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)/@*:about)">
+                    <xsl:sort select="f:getLabel(.)" data-type="text" order="ascending" />
+                    <xsl:apply-templates select="." />
+                    <xsl:if test="position() != last()">
+                        <xsl:text>, </xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
+            </dd>
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="get.property.subproperty">
         <xsl:variable name="type" select="if (self::owl:AnnotationProperty) then 'annotation' else 'property'" as="xs:string" />
         <xsl:variable name="about" select="(@*:about|@*:ID)" as="xs:string" />
-        <xsl:variable name="sub-properties" as="attribute()*" select="/rdf:RDF/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/@*:resource satisfies $res = $about]/(@*:about|@*:ID)" />
+         <xsl:variable name="sub-properties" as="attribute()*" select="/rdf:RDF/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty | rdf:Property else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)" />
         <xsl:if test="exists($sub-properties)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hassubproperties')" /></dt>
             <dd>
@@ -1269,10 +1290,24 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </xsl:if>
     </xsl:template>
     
+    <xsl:template name="get.property.domainIncludes">
+        <xsl:if test="exists(schema:domainIncludes)">
+            <dt><xsl:value-of select="f:getDescriptionLabel('domainIncludes')" /></dt>
+            <xsl:apply-templates select="schema:domainIncludes" />
+        </xsl:if>
+    </xsl:template>
+    
     <xsl:template name="get.property.range">
         <xsl:if test="exists(rdfs:range)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hasrange')" /></dt>
             <xsl:apply-templates select="rdfs:range" />
+        </xsl:if>
+    </xsl:template>
+    
+     <xsl:template name="get.property.rangeIncludes">
+        <xsl:if test="exists(schema:rangeIncludes)">
+            <dt><xsl:value-of select="f:getDescriptionLabel('rangeIncludes')" /></dt>
+            <xsl:apply-templates select="schema:rangeIncludes" />
         </xsl:if>
     </xsl:template>
     
@@ -1406,7 +1441,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:if test="exists(//owl:Ontology/dc:description[normalize-space() != ''])">
                     <li><a href="#introduction"><xsl:value-of select="f:getDescriptionLabel('introduction')" /></a></li>
                 </xsl:if>
-                <xsl:if test="exists(/rdf:RDF/owl:Class/element())">
+                <xsl:if test="exists(/rdf:RDF/(owl:Class|rdfs:Class)/element())">
                     <li><a href="#classes"><xsl:value-of select="f:getDescriptionLabel('classes')" /></a></li>
                 </xsl:if>
                 <xsl:if test="exists(//owl:ObjectProperty/element())">
@@ -1421,7 +1456,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:if test="exists(//owl:AnnotationProperty)">
                     <li><a href="#annotationproperties"><xsl:value-of select="f:getDescriptionLabel('annotationproperties')" /></a></li>
                 </xsl:if>
-                <xsl:if test="exists(//rdf:Description[exists(rdf:type[@*:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]) or exists(/rdf:RDF/(owl:Class|owl:Restriction)[empty(@*:about | @*:ID) and exists(rdfs:subClassOf|owl:equivalentClass)])">
+                <xsl:if test="exists(//rdf:Description[exists(rdf:type[@*:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]) or exists(/rdf:RDF/(owl:Class|rdfs:Class|owl:Restriction)[empty(@*:about | @*:ID) and exists(rdfs:subClassOf|owl:equivalentClass)])">
                     <li><a href="#generalaxioms"><xsl:value-of select="f:getDescriptionLabel('generalaxioms')" /></a></li>
                 </xsl:if>
                 <xsl:if test="exists(/rdf:RDF/(swrl:Imp | rdf:Description[rdf:type[@*:resource = 'http://www.w3.org/2003/11/swrl#Imp']]))">
@@ -1441,10 +1476,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.generalaxioms">
-        <xsl:if test="exists(/rdf:RDF/rdf:Description[exists(rdf:type[@*:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]) or exists(/rdf:RDF/(owl:Class|owl:Restriction)[empty(@*:ID | @*:about) and exists(rdfs:subClassOf|owl:equivalentClass)])">
+        <xsl:if test="exists(/rdf:RDF/rdf:Description[exists(rdf:type[@*:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]) or exists(/rdf:RDF/(owl:Class|rdfs:Class|owl:Restriction)[empty(@*:ID | @*:about) and exists(rdfs:subClassOf|owl:equivalentClass)])">
             <div id="generalaxioms">
                 <h2><xsl:value-of select="f:getDescriptionLabel('generalaxioms')" /></h2>
-                <xsl:apply-templates select="/rdf:RDF/(rdf:Description[exists(rdf:type[@*:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]|(owl:Class|owl:Restriction)[empty(@*:ID | @*:about) and exists(rdfs:subClassOf|owl:equivalentClass)])" />
+                <xsl:apply-templates select="/rdf:RDF/(rdf:Description[exists(rdf:type[@*:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]|(owl:Class|rdfs:Class|owl:Restriction)[empty(@*:ID | @*:about) and exists(rdfs:subClassOf|owl:equivalentClass)])" />
             </div>
         </xsl:if>
     </xsl:template>
@@ -1480,11 +1515,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.classes">
-        <xsl:if test="exists(/rdf:RDF/owl:Class/element())">
+        <xsl:if test="exists(/rdf:RDF/(owl:Class|rdfs:Class)/element())">
             <div id="classes">
                 <h2><xsl:value-of select="f:getDescriptionLabel('classes')" /></h2>
                 <xsl:call-template name="get.classes.toc" />
-                <xsl:apply-templates select="/rdf:RDF/owl:Class[exists(element()) and exists(@*:about|@*:ID)]">
+                <xsl:apply-templates select="/rdf:RDF/(owl:Class|rdfs:Class)[exists(element()) and exists(@*:about|@*:ID)]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                         order="ascending" data-type="text" />
                     <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'class'" />
@@ -1495,7 +1530,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:template name="get.classes.toc">
         <ul class="hlist">
-            <xsl:apply-templates select="/rdf:RDF/owl:Class[exists(element()) and exists(@*:about|@*:ID)]" mode="toc">
+            <xsl:apply-templates select="/rdf:RDF/(owl:Class|rdfs:Class)[exists(element()) and exists(@*:about|@*:ID)]" mode="toc">
                 <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                     order="ascending" data-type="text" />
                 <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'class'" />
@@ -1532,7 +1567,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
             <div id="objectproperties">
                 <h2><xsl:value-of select="f:getDescriptionLabel('objectproperties')" /></h2>
                 <xsl:call-template name="get.objectproperties.toc" />
-                <xsl:apply-templates select="/rdf:RDF/owl:ObjectProperty[exists(element())]">
+                <xsl:apply-templates select="/rdf:RDF/(owl:ObjectProperty)[exists(element())]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                         order="ascending" data-type="text" />
                     <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'property'" />
@@ -1543,7 +1578,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:template name="get.objectproperties.toc">
         <ul class="hlist">
-            <xsl:apply-templates select="/rdf:RDF/owl:ObjectProperty[exists(element())]" mode="toc">
+            <xsl:apply-templates select="/rdf:RDF/(owl:ObjectProperty)[exists(element())]" mode="toc">
                 <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                     order="ascending" data-type="text" />
                 <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'annotation'" />
@@ -1604,10 +1639,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:param name="type" as="xs:string" select="''" tunnel="yes" />
         <xsl:variable name="el" select="$root/rdf:RDF/element()[@*:about = $iri or @*:ID = $iri]" as="element()*" />
         <xsl:choose>
-            <xsl:when test="($type = '' or $type = 'class') and ($el[self::owl:Class] or $iri = 'http://www.w3.org/2002/07/owl#Thing')">
+            <xsl:when test="($type = '' or $type = 'class') and ($el[self::owl:Class] or $el[self::rdfs:Class] or $iri = 'http://www.w3.org/2002/07/owl#Thing')">
                 <sup title="{f:getDescriptionLabel('class')}" class="type-c">c</sup>
             </xsl:when>
-            <xsl:when test="($type = '' or $type = 'property') and $el[self::owl:ObjectProperty]">
+            <xsl:when test="($type = '' or $type = 'property') and ($el[self::owl:ObjectProperty])">
                 <sup title="{f:getDescriptionLabel('objectproperty')}" class="type-op">op</sup>
             </xsl:when>
             <xsl:when test="($type = '' or $type = 'property') and $el[self::owl:DatatypeProperty]">
@@ -1721,7 +1756,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:function name="f:hasSubclasses" as="xs:boolean">
         <xsl:param name="el" as="element()" />
-        <xsl:value-of select="exists($rdf/owl:Class[some $res in rdfs:subClassOf/@*:resource satisfies $res = $el/(@*:about|@*:ID)])" />
+        <xsl:value-of select="exists($rdf/(owl:Class|rdfs:Class)[some $res in rdfs:subClassOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
     </xsl:function>
     
     <xsl:function name="f:hasMembers" as="xs:boolean">
@@ -1731,18 +1766,18 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     
     <xsl:function name="f:isInRange" as="xs:boolean">
         <xsl:param name="el" as="element()" />
-        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:range/@*:resource satisfies $res = $el/(@*:about|@*:ID)])" />
+        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
     </xsl:function>
     
     <xsl:function name="f:isInDomain" as="xs:boolean">
         <xsl:param name="el" as="element()" />
-        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:domain/@*:resource satisfies $res = $el/(@*:about|@*:ID)])" />
+        <xsl:value-of select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
     </xsl:function>
     
     <xsl:function name="f:hasSubproperties" as="xs:boolean">
         <xsl:param name="el" as="element()" />
         <xsl:variable name="type" select="if ($el/self::owl:AnnotationProperty) then 'annotation' else 'property'" as="xs:string" />
-        <xsl:value-of select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/@*:resource satisfies $res = $el/(@*:about|@*:ID)])" />
+        <xsl:value-of select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])" />
     </xsl:function>
     
     <xsl:function name="f:getType" as="xs:string?">
