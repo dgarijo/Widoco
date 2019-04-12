@@ -20,8 +20,6 @@
 		<jena-tdb.version>0.10.1</jena-tdb.version>
 		<jena-iri.version>0.9.6</jena-iri.version>
 		<jena-fuseki.version>0.2.7</jena-fuseki.version>
-
-		<!-- -->
 	</properties>
 
 	<dependencies>
