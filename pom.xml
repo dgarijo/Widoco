@@ -28,7 +28,7 @@
     <dependency>
       <groupId>com.github.VisualDataWeb</groupId>
       <artifactId>OWL2VOWL</artifactId>
-      <version>0.3.4</version>
+      <version>0.3.5</version>
     </dependency>
 
 
@@ -111,6 +111,10 @@
           <artifactId>log4j</artifactId>
           <groupId>log4j</groupId>
         </exclusion>
+        <exclusion>
+          <artifactId>xercesImpl</artifactId>
+          <groupId>xerces</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -158,6 +162,12 @@
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
       <version>9.4</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>xercesImpl</artifactId>
+          <groupId>xerces</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
