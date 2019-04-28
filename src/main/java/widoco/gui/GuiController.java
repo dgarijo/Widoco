@@ -239,7 +239,7 @@ public final class GuiController {
                 config.vocabularySuccessfullyGenerated();
             }
         }catch(Exception e){
-            System.err.println("Error while generating the documentation " +e.getMessage());
+            logger.error("Error while generating the documentation: " +e.getMessage(), e);
             errors = true;
         }
         
