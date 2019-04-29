@@ -7,7 +7,7 @@
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politecnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.

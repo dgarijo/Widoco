@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politecnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -79,6 +79,7 @@ public class Configuration {
     private String descriptionPath;
     private String referencesPath;
     private String googleAnalyticsCode = null;
+    private String contextURI; //not added with an ontology because it's independent
     
     /**
      * Property for including an ontology diagram (future work)
@@ -178,6 +179,7 @@ public class Configuration {
         displaySerializations = true;
         displayDirectImportsOnly = false;
         rewriteBase = "/";
+        contextURI ="";
         initializeOntology();
     }
     
@@ -221,6 +223,7 @@ public class Configuration {
             propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
             //We try to load from the configuration file. If it fails, then we should try to load from the ontology. Then, if it fails, we should ask the user.
             abstractSection = propertyFile.getProperty(Constants.ABSTRACT_SECTION_CONTENT);
+            contextURI = propertyFile.getProperty(Constants.CONTEXT_URI, "");
             mainOntologyMetadata.setTitle (propertyFile.getProperty(Constants.ONT_TITLE,"Title goes here"));
             mainOntologyMetadata.setReleaseDate(propertyFile.getProperty(Constants.DATE_OF_RELEASE, "Date of release"));
             mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.PREVIOUS_VERSION));
@@ -1037,6 +1040,12 @@ public class Configuration {
         }
         this.rewriteBase = rewriteBase;
     }
+
+    public String getContextURI() {
+        return contextURI;
+    }
+    
+    
     
     
 

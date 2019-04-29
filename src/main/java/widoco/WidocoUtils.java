@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politecnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ public class WidocoUtils {
         manager.getIRIMappers().add(jenaCatalogMapper);
         ((JenaCatalogIRIMapper) jenaCatalogMapper).printMap();
         OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
-        loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.THROW_EXCEPTION);
+        loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
         OWLOntology ontology= manager.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(c.getOntologyPath())),loadingConfig);
         c.getMainOntology().setMainOntology(ontology);
         c.getMainOntology().setMainOntologyManager(manager);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politecnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -72,15 +72,15 @@ public class CreateResources {
         lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);
         LODEParser lode = new LODEParser(lodeContent,c,languageFile);
         if(c.isCreateHTACCESS()){
-            File f = new File (folderOut);
-            if(!f.exists()){
-                f.mkdir();
+            File fOut = new File(folderOut);
+            if(!fOut.exists()){
+                fOut.mkdirs();
             }
             createHTACCESSFile(folderOut+File.separator+".htaccess",c);
-            //slash ontologies require a special type of redirection
-            if(!c.getMainOntology().isHashOntology()){
-                folderOut+=File.separator+"doc";
-            }
+        }
+        //slash ontologies require a special type of redirection
+        if(!c.getMainOntology().isHashOntology()){
+            folderOut+=File.separator+"doc";
         }
         createFolderStructure(folderOut,c,languageFile);
         if(c.isIncludeAbstract()){

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politecnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -239,7 +239,7 @@ public final class GuiController {
                 config.vocabularySuccessfullyGenerated();
             }
         }catch(Exception e){
-            System.err.println("Error while generating the documentation " +e.getMessage());
+            logger.error("Error while generating the documentation: " +e.getMessage(), e);
             errors = true;
         }
         

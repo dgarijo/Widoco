@@ -132,6 +132,7 @@ public class Constants {
      */
     
     public static final String ABSTRACT_SECTION_CONTENT="abstract";
+    public static final String CONTEXT_URI="contextURI";
     public static final String ONT_TITLE="ontologyTitle";
     public static final String ONT_NAME="ontologyName";
     public static final String ONT_PREFIX="ontologyPrefix";
@@ -680,6 +681,10 @@ public class Constants {
             }
             head+="</dd>";
         }
+        String context= c.getContextURI();
+        if(context!=null && !context.equals("")){
+            head+="<dt>JSON-LD Context</dt><dd><a href=\""+context+"\">"+context+"</a></dd>";
+        }
         
         if(c.getMainOntology().getLicense()!=null){
             String lname = c.getMainOntology().getLicense().getName();//"license name goes here";
@@ -851,7 +856,7 @@ public class Constants {
      
     public static final String LODE_RESOURCES= "/lode.zip";
     public static final String OOPS_RESOURCES = "/oops.zip";
-    public static final String WEBVOWL_RESOURCES = "/webvowl.zip";
+    public static final String WEBVOWL_RESOURCES = "/webvowl_1.1.4_patched.zip";
     
     public static final String CONFIG_PATH = "config"+File.separator+"config.properties";
     
