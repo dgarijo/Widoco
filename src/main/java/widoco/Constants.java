@@ -132,6 +132,7 @@ public class Constants {
      */
     
     public static final String ABSTRACT_SECTION_CONTENT="abstract";
+    public static final String CONTEXT_URI="contextURI";
     public static final String ONT_TITLE="ontologyTitle";
     public static final String ONT_NAME="ontologyName";
     public static final String ONT_PREFIX="ontologyPrefix";
@@ -679,6 +680,10 @@ public class Constants {
                 head+="<span><a href=\""+availableSerializations.get(serialization)+"\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Format-"+serialization.replace("-", "_")+"-blue.svg\" alt=\""+serialization+"\" /></a> </span>";
             }
             head+="</dd>";
+        }
+        String context= c.getContextURI();
+        if(context!=null && !context.equals("")){
+            head+="<dt>JSON-LD Context</dt><dd><a href=\""+context+"\">"+context+"</a></dd>";
         }
         
         if(c.getMainOntology().getLicense()!=null){

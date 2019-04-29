@@ -3,14 +3,14 @@
   <groupId>es.oeg</groupId>
   <artifactId>widoco</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.9</version>
+  <version>1.4.10</version>
   <name>Widoco</name>
 
 
 
   <properties>
     <ver.log4j>1.2.16</ver.log4j>
-    <project.build.sourceEncoding>CP1252</project.build.sourceEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <java.version>1.8</java.version>
@@ -19,8 +19,6 @@
     <jena-tdb.version>0.10.1</jena-tdb.version>
     <jena-iri.version>0.9.6</jena-iri.version>
     <jena-fuseki.version>0.2.7</jena-fuseki.version>
-
-    <!-- -->
   </properties>
 
   <dependencies>
@@ -111,10 +109,6 @@
           <artifactId>log4j</artifactId>
           <groupId>log4j</groupId>
         </exclusion>
-        <exclusion>
-          <artifactId>xercesImpl</artifactId>
-          <groupId>xerces</groupId>
-        </exclusion>
       </exclusions>
     </dependency>
 
@@ -162,12 +156,6 @@
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
       <version>9.4</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>xercesImpl</artifactId>
-          <groupId>xerces</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     
     <dependency>
@@ -207,6 +195,7 @@
   <build>
 
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>

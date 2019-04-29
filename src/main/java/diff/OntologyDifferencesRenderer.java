@@ -267,65 +267,65 @@ public class OntologyDifferencesRenderer {
         if(changesInClasses>0){
             changelog+="<h3 id=\"changeClass\" class=\"list\">"+language.getProperty(Constants.LANG_CLASSES)+"</h3>\n";//this will be on the lang file later
             if(!c.getModifiedClasses().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_MODIFIED_CLASS)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_MODIFIED_CLASS)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getModifiedClasses(), ontologyNamepsace, true, true, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
             if(!c.getNewClasses().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_ADDED_CLASS)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_ADDED_CLASS)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getNewClasses(), ontologyNamepsace, true, false, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
             if(!c.getDeletedClasses().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_DELETED_CLASS)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_DELETED_CLASS)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getDeletedClasses(), ontologyNamepsace, false, false, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
             
         }
         if(changesInProps>0){
             changelog+="<h3 id=\"changeProp\" class=\"list\">"+language.getProperty(Constants.LANG_OBJ_PROP)+"</h3>\n";
             if(!c.getModifiedProperties().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_MODIFIED_PROP)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_MODIFIED_PROP)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getModifiedProperties(), ontologyNamepsace, true, true, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
             if(!c.getNewProperties().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_ADDED_PROP)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_ADDED_PROP)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getNewProperties(), ontologyNamepsace, true, false, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
             if(!c.getDeletedProperties().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_DELETED_PROP)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_DELETED_PROP)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getDeletedProperties(), ontologyNamepsace, false, false, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
         }
         if(changesInDataProps>0){
             changelog+="<h3 id=\"changeDataProp\" class=\"list\">"+language.getProperty(Constants.LANG_DATA_PROP)+"</h3>\n";
             if(!c.getModifiedDataProperties().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_MODIFIED_DATA_PROP)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_MODIFIED_DATA_PROP)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getModifiedDataProperties(), ontologyNamepsace, true, true, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
             if(!c.getNewDataProperties().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_ADDED_DATA_PROP)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_ADDED_DATA_PROP)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getNewDataProperties(), ontologyNamepsace, true, false, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
             if(!c.getDeletedDataProperties().isEmpty()){
-                changelog+="<p><u>"+language.getProperty(Constants.LANG_DELETED_DATA_PROP)+"</u></p>\n";
+                changelog+="<details><summary><u>"+language.getProperty(Constants.LANG_DELETED_DATA_PROP)+"</u></summary>\n";
                 changelog+="<ul>";
                 changelog += axiomInfoSetToHTML(c.getDeletedDataProperties(), ontologyNamepsace, false, false, language);
-                changelog+="</ul>";
+                changelog+="</ul></details>";
             }
         }
         return changelog;

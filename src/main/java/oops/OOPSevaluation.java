@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Ontology Engineering Group, Universidad Politécnica de Madrid, Spain
+ * Copyright 2012-2013 Ontology Engineering Group, Universidad Politecnica de Madrid, Spain
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -199,7 +199,7 @@ public class OOPSevaluation {
             //    				title = ind.getPropertyValue(hasTitleDTP).asLiteral().getString();
             //    			}
 
-                                    // c—digo y titulo
+                                    // codigo y titulo
                                     evaluationOutput = evaluationOutput + "<div class=\"panel panel-default\">\n";
                                     evaluationOutput = evaluationOutput + "<div class=\"panel-heading\">\n";
                                     evaluationOutput = evaluationOutput + "<h4 class=\"panel-title\">\n";
@@ -246,7 +246,7 @@ public class OOPSevaluation {
                                     evaluationOutput = evaluationOutput + "</div>\n";
                                     evaluationOutput = evaluationOutput + "<div id=\"collapse"+i+"\" class=\"panel-collapse collapse\">\n";
                                     evaluationOutput = evaluationOutput + "<div class=\"panel-body\">\n";
-                                    //descripci—n
+                                    //descripcion
                                     evaluationOutput = evaluationOutput + "<p>" +  description + "</p>";
 
                                     // affected elements
