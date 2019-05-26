@@ -180,7 +180,7 @@ public class OntologyDifferencesRenderer {
 			}
 			v += "</li>\n";
 		}
-		return v;
+		return v.replace("##", "#");//avoiding potential errors.
 	}
 
 	private static String axiomSetToHTML(Set<Object> set, boolean isAddition, Properties lang) {
@@ -240,7 +240,7 @@ public class OntologyDifferencesRenderer {
 
 		}
 
-		return v;
+		return v.replace("##", "#");
 	}
 
 	/**

@@ -311,7 +311,7 @@ public class CreateResources {
 	private static void createReferencesSection(String path, Configuration c, Properties lang) {
 		if ((c.getReferencesPath() != null) && (!"".equals(c.getReferencesPath()))) {
 			WidocoUtils.copyExternalResource(c.getReferencesPath(),
-					new File(path + File.separator + "overview-" + c.getCurrentLanguage() + ".html"));
+					new File(path + File.separator + "references-" + c.getCurrentLanguage() + ".html"));
 		} else {
 			saveDocument(path + File.separator + "references-" + c.getCurrentLanguage() + ".html",
 					Constants.getReferencesSection(c, lang), c);

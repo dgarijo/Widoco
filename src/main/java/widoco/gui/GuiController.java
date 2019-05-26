@@ -25,6 +25,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import widoco.Configuration;
 import widoco.CreateDocInThread;
@@ -60,7 +62,10 @@ public final class GuiController {
 						+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
 						+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
 						+ "[-rewriteBase rewriteBasePath]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
-		// read logo
+                //configure logger.
+                Logger.getRootLogger().setLevel(Level.INFO);
+                BasicConfigurator.configure();
+                // read logo
 		try {
 			gui = new GuiStep1(this);
 			gui.setVisible(true);
