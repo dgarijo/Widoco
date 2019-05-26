@@ -16,40 +16,45 @@
 
 package widoco;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import widoco.gui.GuiController;
 
 /**
  * Class designed to load all properties from an ontology in a separate thread.
+ * 
  * @author Daniel Garijo
  */
-public class LoadOntologyInThread implements Runnable{
-    private final Configuration c;
-    private final GuiController pointerToMain;
-    private final boolean showGui;
-    
-    public LoadOntologyInThread(Configuration c, GuiController g, boolean showgui){
-        this.c = c;
-        this.pointerToMain = g;
-        this.showGui = showgui;
-    }
+public class LoadOntologyInThread implements Runnable {
 
-    @Override
-    public void run() {
-        try{
-            WidocoUtils.loadModelToDocument(c);
-            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
-            if(showGui){
-                pointerToMain.switchState("finishedLoading");
-            }
-            System.out.println("Ontology loaded successfully");
-        }catch(Throwable e){
-            if(showGui){
-                pointerToMain.switchState("error");
-            }
-            System.out.println("Error while loading the ontology: "+e.getMessage());
-        }
-    }
-    
-    
+	private static final Logger logger = LoggerFactory.getLogger(LoadOntologyInThread.class);
+
+	private final Configuration c;
+	private final GuiController pointerToMain;
+	private final boolean showGui;
+
+	public LoadOntologyInThread(Configuration c, GuiController g, boolean showgui) {
+		this.c = c;
+		this.pointerToMain = g;
+		this.showGui = showgui;
+	}
+
+	@Override
+	public void run() {
+		try {
+			WidocoUtils.loadModelToDocument(c);
+			c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+			if (showGui) {
+				pointerToMain.switchState("finishedLoading");
+			}
+			logger.info("Ontology loaded successfully");
+		} catch (Throwable e) {
+			if (showGui) {
+				pointerToMain.switchState("error");
+			}
+			logger.error("Error while loading the ontology: " + e.getMessage());
+		}
+	}
 
 }

@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import widoco.Configuration;
 
 
@@ -30,6 +33,8 @@ import widoco.Configuration;
  * Original bubastis code has been obtained from: https://github.com/EBISPOT/bubastis
  */
 public class CompareOntologies {
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //classes
     private ArrayList<OWLAxiomInfo> modifiedClasses = new ArrayList<OWLAxiomInfo>();
@@ -57,10 +62,10 @@ public class CompareOntologies {
         OWLOntology ontology1;
         try {
             ontology1= manager1.loadOntologyFromOntologyDocument(new File(oldOntologyLocation));
-            System.out.println("old ontology version loaded");
+            logger.info("old ontology version loaded");
             doFindAllChanges(ontology1, c.getMainOntology().getOWLAPIModel());
         } catch (Exception e) {
-            System.err.println("Error while loading the older version of the ontology");
+            logger.error("Error while loading the older version of the ontology");
             throw e;
         }
     }
