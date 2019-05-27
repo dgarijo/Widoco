@@ -6,7 +6,7 @@ WIzard for DOCumenting Ontologies (WIDOCO)
 
 **Author**: Daniel Garijo Verdejo
 
-**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois.
+**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini.
 
 **Citing WIDOCO**: Please cite the latest version of WIDOCO in Zenodo: https://zenodo.org/badge/latestdoi/11427075.
 Also see our ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
