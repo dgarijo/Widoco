@@ -61,7 +61,7 @@ public final class GuiController {
 				"java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
 						+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
 						+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-						+ "[-rewriteBase rewriteBasePath]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
+						+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
                 //configure logger.
                 Logger.getRootLogger().setLevel(Level.INFO);
                 BasicConfigurator.configure();
@@ -88,7 +88,7 @@ public final class GuiController {
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
 				includeImportedOntologies = false, htAccess = false, webVowl = false, errors = false, licensius = false,
 				generateOnlyCrossRef = false, includeNamedIndividuals = true, includeAnnotationProperties = false,
-				displaySerializations = true, displayDirectImportsOnly = false;
+				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false;
 		String confPath = "";
 		String code = null;// for tracking analytics.
 		String[] languages = null;
@@ -169,13 +169,16 @@ public final class GuiController {
 				rb = args[i + 1];
 				i++;
 				break;
+			case "-excludeIntroduction":
+				excludeIntroduction = true;
+				break;
 			default:
 				System.out.println("Command" + s + " not recognized.");
 				System.out.println(
 						"Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
 								+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
 								+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-								+ "[-rewriteBase rewriteBasePath]\n");
+								+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction]\n");
 				return;
 			}
 			i++;
@@ -188,6 +191,7 @@ public final class GuiController {
 			System.out.println("Configuration file could not be loaded: " + e.getMessage());
 			return;
 		}
+
 		if (generateOnlyCrossRef) {
 			this.config.setIncludeIndex(false);
 			this.config.setIncludeAbstract(false);
@@ -212,6 +216,9 @@ public final class GuiController {
 		this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
 		this.config.setDisplaySerializations(displaySerializations);
 		this.config.setDisplayDirectImportsOnly(displayDirectImportsOnly);
+		if (excludeIntroduction) {
+			this.config.setIncludeIntroduction(false);
+		}
 		if (code != null) {
 			this.config.setGoogleAnalyticsCode(code);
 		}

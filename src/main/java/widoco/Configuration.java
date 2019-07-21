@@ -160,7 +160,7 @@ public class Configuration {
 		abstractSection = "";
 		publishProvenance = true;
 		includeAbstract = true;
-		includeIntroduction = false;
+		includeIntroduction = true;
 		includeOverview = true;
 		includeDescription = true;
 		includeReferences = true;
