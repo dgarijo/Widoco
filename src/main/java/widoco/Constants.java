@@ -187,7 +187,7 @@ public class Constants {
 	// This way, if refactoring is needed we only have to change it here.
 	public static final String LANG_ABSTRACT = "abstract";
 	public static final String LANG_ABSTRACT_PLACEHOLDER = "abstractPlaceHolder";
-	public static final String LANG_INTRO_PLACEHODER = "introPlaceHolder";
+	public static final String LANG_INTRO_PLACEHOLDER = "introPlaceHolder";
 	public static final String LANG_REFERENCES_PLACEHOLDER = "referencesPlaceHolder";
 	public static final String LANG_AUTHORS = AUTHORS;
 	public static final String LANG_CONTRIBUTORS = CONTRIBUTORS;
@@ -291,7 +291,7 @@ public class Constants {
 	}
 
 	public static String getIntroductionSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
-		String s = "<h2 id=\"intro\" class=\"list\">" + lang.getProperty(LANG_INTRO_PLACEHODER);
+		String s = "<h2 id=\"intro\" class=\"list\">" + lang.getProperty(LANG_INTRO_PLACEHOLDER);
 		return s;
 	}
 
