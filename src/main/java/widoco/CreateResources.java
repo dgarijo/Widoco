@@ -264,7 +264,7 @@ public class CreateResources {
 			}
 			// add the webvowl diagram, if selected
 			if (c.isCreateWebVowlVisualization()) {
-				overViewSection += "<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html#\"></iframe> ";
+				overViewSection += "<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html\"></iframe> ";
 			}
 			overViewSection += "</html>\n";
 			saveDocument(path + File.separator + "overview-" + c.getCurrentLanguage() + ".html", overViewSection, c);
