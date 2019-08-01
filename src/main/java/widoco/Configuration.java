@@ -444,19 +444,23 @@ public class Configuration {
 			if (cite.length() > 1) {
 				// remove the last ","
 				cite = cite.substring(0, cite.length() - 1);
-				cite += ". ";
+				cite += ".";
 			}
-			if (mainOntologyMetadata.getTitle() != null && !mainOntologyMetadata.getTitle().equals("")) {
-				cite += mainOntologyMetadata.getTitle() + ".";
-			}
-			if (mainOntologyMetadata.getRevision() != null && !mainOntologyMetadata.getRevision().equals("")) {
-				cite += "Revision: " + mainOntologyMetadata.getRevision() + ".";
-			}
-			if (mainOntologyMetadata.getThisVersion() != null && !mainOntologyMetadata.getThisVersion().equals("")) {
-				cite += mainOntologyMetadata.getThisVersion();
-			}
+
+			cite += appendDetails(mainOntologyMetadata.getTitle(), " ", true);
+			cite += appendDetails(mainOntologyMetadata.getRevision(), " Revision: ", true);
+			cite += appendDetails(mainOntologyMetadata.getThisVersion(), " Retrieved from: ", false);
+
 			mainOntologyMetadata.setCiteAs(cite);
 		}
+	}
+
+	private String appendDetails(final String detail, final String prefix, final boolean useFullStop) {
+		if (detail == null || detail.equals("")) {
+			return "";
+		}
+
+		return (prefix + detail + (useFullStop ? "." : ""));
 	}
 
 	private void completeMetadata(OWLAnnotation a) {
