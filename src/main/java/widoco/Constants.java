@@ -775,21 +775,36 @@ public class Constants {
 		}
 		provhtml += "<ul>\n";
 		if (!c.getMainOntology().getCreators().isEmpty()) {
-			provhtml += "	<li>" + lang.getProperty(LANG_CREATED_BY) + " :\n";
+			provhtml += "	<li>" + lang.getProperty(LANG_CREATED_BY);
 			Iterator<Agent> creators = c.getMainOntology().getCreators().iterator();
 			while (creators.hasNext()) {
 				Agent currCreator = creators.next();
-				provhtml += " " + currCreator.getName() + " (" + currCreator.getInstitutionName() + "),";
+				provhtml += " " + currCreator.getName();
+				if (currCreator.getInstitutionName() != null) {
+					provhtml += " (" + currCreator.getInstitutionName() + ")";
+				}
+
+				if (creators.hasNext()) {
+					provhtml += ",";
+				}
 			}
 			provhtml += "</li>";
 		}
 		if (!c.getMainOntology().getContributors().isEmpty()) {
-			provhtml += "	<li>" + lang.getProperty(LANG_CONTRIBUTED_BY) + ":\n";
+			provhtml += "	<li>" + lang.getProperty(LANG_CONTRIBUTED_BY);
 			Iterator<Agent> contrib = c.getMainOntology().getContributors().iterator();
 			while (contrib.hasNext()) {
 				Agent currContrib = contrib.next();
-				provhtml += " " + currContrib.getName() + " (" + currContrib.getInstitutionName() + "),";
+				provhtml += " " + currContrib.getName();
+				if (currContrib.getInstitutionName() != null) {
+					provhtml += " (" + currContrib.getInstitutionName() + ")";
+				}
+
+				if (contrib.hasNext()) {
+					provhtml += ",";
+				}
 			}
+
 			provhtml += "</li>\n";
 		}
 		if (c.getMainOntology().getLatestVersion() != null && !"".equals(c.getMainOntology().getLatestVersion())) {
