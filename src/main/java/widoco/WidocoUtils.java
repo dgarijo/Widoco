@@ -122,7 +122,9 @@ public class WidocoUtils {
 				break; // if the vocabulary is downloaded, then we don't download it for the other
 						// serializations
 			} catch (Exception e) {
-				logger.error("Failed to download vocabulary in " + serialization);
+				final String message = "Failed to download vocabulary in RDF format [" + serialization +"]: ";
+				logger.error(message + e.toString());
+				throw new RuntimeException(message, e);
 			}
 		}
 	}

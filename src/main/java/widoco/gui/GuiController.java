@@ -28,6 +28,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import widoco.Configuration;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
@@ -240,39 +241,51 @@ public final class GuiController {
 		try {
 			WidocoUtils.loadModelToDocument(config);
 		} catch (Exception e) {
-			logger.error("Could not load the ontology " + e.getMessage(), e);
-			return;
-		}
-		if (getOntoMetadata) {
-			logger.info("Load properties from the ontology");
-			config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
-		}
-		try {
-			// This loop doesn't seem to make sense since l is not used by
-			// generateDocumentation() but it seems that
-			// the Configuration object has mutable state that points to the
-			// "currentLanguage".
-			for (String l : config.getLanguagesToGenerateDoc()) {
-				logger.info("Generating documentation for " + ontology + " in lang " + l);
-				CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
-				config.vocabularySuccessfullyGenerated();
-			}
-		} catch (Exception e) {
-			logger.error("Error while generating the documentation: " + e.getMessage(), e);
+			final String errorMessage = "Could not load the ontology [" + config.getInputOntology() + "]: " + e.getMessage();
+			logger.error(errorMessage, e);
+
+			// In case logging isn't running (e.g. log4j.properties file
+			// wasn't found on startup), always report this error to let
+			// the user know what went wrong.
+			System.out.println(errorMessage);
+
 			errors = true;
 		}
 
-		if (oops) {
+		if (!errors && getOntoMetadata) {
+			logger.info("Load properties from the ontology");
+			config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
+		}
+
+		if (!errors) {
+			try {
+				// This loop doesn't seem to make sense since l is not used by
+				// generateDocumentation() but it seems that
+				// the Configuration object has mutable state that points to the
+				// "currentLanguage".
+				for (String l : config.getLanguagesToGenerateDoc()) {
+					logger.info("Generating documentation for " + ontology + " in lang " + l);
+					CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
+					config.vocabularySuccessfullyGenerated();
+				}
+			} catch (Exception e) {
+				logger.error("Error while generating the documentation: " + e.getMessage(), e);
+				errors = true;
+			}
+		}
+
+		if (!errors && oops) {
 			System.out.println("Generating the OOPS evaluation of the ontology...");
 			startEvaluation(false);
 			// Since it is a user thread it will remain alive even after the main thread
 			// ends.
 		}
-		if (configOutFile != null) {
+
+		if (!errors && (configOutFile != null)) {
 			try {
 				CreateResources.saveConfigFile(configOutFile, config);
 			} catch (IOException e) {
-				System.err.println("Error while saving the configuraiton file: " + e.getMessage());
+				System.err.println("Error while saving configuration file [" + configOutFile + "]: " + e.getMessage());
 			}
 		}
 		// delete temp files
@@ -327,7 +340,10 @@ public final class GuiController {
 	}
 
 	private void exit() {
-		this.gui.dispose();
+		if (this.gui != null) {
+			this.gui.dispose();
+		}
+
 		try {
 			FileUtils.deleteDirectory(config.getTmpFile());
 		} catch (Exception e) {
