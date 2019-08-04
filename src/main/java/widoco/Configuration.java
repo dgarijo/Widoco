@@ -147,7 +147,7 @@ public class Configuration {
 			String path = (new File(root.toURI())).getParentFile().getPath();
 			loadPropertyFile(path + File.separator + Constants.CONFIG_PATH);
 		} catch (URISyntaxException | IOException e) {
-			logger.error("Error while loading the default property file: " + e.getMessage());
+			logger.warn("Error while loading the default property file: " + e.getMessage());
 		}
 	}
 
@@ -366,7 +366,8 @@ public class Configuration {
 			this.googleAnalyticsCode = propertyFile.getProperty("GoogleAnalyticsCode");
 
 		} catch (IOException ex) {
-			logger.error("Error while reading configuration properties " + ex.getMessage());
+			// Only a warning, as we can continue safely without a property file.
+			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
 			throw ex;
 		}
 		// } catch (Exception ex) {
@@ -673,7 +674,8 @@ public class Configuration {
 		try {
 			this.loadPropertyFile(path);
 		} catch (IOException ex) {
-			logger.error("Error while reading configuration properties " + ex.getMessage());
+			// Only a warning, as we can continue safely without a property file.
+			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
 		}
 	}
 
@@ -688,6 +690,10 @@ public class Configuration {
 
 	public Ontology getMainOntology() {
 		return mainOntologyMetadata;
+	}
+
+	public String getInputOntology() {
+		return ((this.isFromFile() ? "File: " : "URI: ") + getOntologyPath());
 	}
 
 	public String getOntologyPath() {
