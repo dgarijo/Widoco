@@ -233,6 +233,16 @@ public class WidocoUtils {
 			logger.error("Exception while copying " + path + e.getMessage());
 		}
 	}
+        
+        public static String readExternalResource(String path) {
+            String content = "";
+            try{
+                content = new String ( Files.readAllBytes( Paths.get(path) ) );
+            }catch (IOException e){
+                logger.error("Exception while copying " + path + e.getMessage());
+            }
+            return content;
+	}
 
 	/**
 	 * Code to unzip a file. Inspired from

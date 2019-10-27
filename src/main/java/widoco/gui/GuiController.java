@@ -28,7 +28,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import widoco.Configuration;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
@@ -62,7 +61,7 @@ public final class GuiController {
 				"java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
 						+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
 						+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-						+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
+						+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
                 //configure logger.
                 Logger.getRootLogger().setLevel(Level.INFO);
                 BasicConfigurator.configure();
@@ -89,7 +88,7 @@ public final class GuiController {
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
 				includeImportedOntologies = false, htAccess = false, webVowl = false, errors = false, licensius = false,
 				generateOnlyCrossRef = false, includeNamedIndividuals = true, includeAnnotationProperties = false,
-				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false;
+				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, uniteSections = false;
 		String confPath = "";
 		String code = null;// for tracking analytics.
 		String[] languages = null;
@@ -173,13 +172,16 @@ public final class GuiController {
 			case "-excludeIntroduction":
 				excludeIntroduction = true;
 				break;
+                        case "-uniteSections":
+				uniteSections = true;
+				break;        
 			default:
 				System.out.println("Command" + s + " not recognized.");
 				System.out.println(
 						"Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
 								+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
 								+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-								+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction]\n");
+								+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]\n");
 				return;
 			}
 			i++;
@@ -217,6 +219,7 @@ public final class GuiController {
 		this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
 		this.config.setDisplaySerializations(displaySerializations);
 		this.config.setDisplayDirectImportsOnly(displayDirectImportsOnly);
+                this.config.setIncludeAllSectionsInOneDocument(uniteSections);
 		if (excludeIntroduction) {
 			this.config.setIncludeIntroduction(false);
 		}

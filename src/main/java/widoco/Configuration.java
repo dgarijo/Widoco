@@ -18,10 +18,8 @@ package widoco;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -123,6 +121,7 @@ public class Configuration {
 	private boolean displaySerializations;// in case someone does not want serializations in their page
 	private boolean displayDirectImportsOnly;// in case someone wants only the direct imports on their page
 	private String rewriteBase;// rewrite base path for content negotiation (.htaccess)
+        private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
 
 	/**
 	 * Variable to keep track of possible errors in the changelog. If there are
@@ -183,6 +182,8 @@ public class Configuration {
 		displayDirectImportsOnly = false;
 		rewriteBase = "/";
 		contextURI = "";
+                //BY DEFAULT SHOULD BE FALSE
+                includeAllSectionsInOneDocument = true;
 		initializeOntology();
 	}
 
@@ -1101,4 +1102,14 @@ public class Configuration {
 		mainOntologyMetadata.getImportedOntologies().add(ont);
 	}
 
+    public boolean isIncludeAllSectionsInOneDocument() {
+        return includeAllSectionsInOneDocument;
+    }
+
+    public void setIncludeAllSectionsInOneDocument(boolean includeAllSectionsInOneDocument) {
+        this.includeAllSectionsInOneDocument = includeAllSectionsInOneDocument;
+    }
+
+    
+        
 }

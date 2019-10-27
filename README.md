@@ -4,9 +4,9 @@ WIzard for DOCumenting Ontologies (WIDOCO)
 
 ![Logo](src/main/resources/logo/logo2.png)
 
-**Author**: Daniel Garijo Verdejo
+**Author**: Daniel Garijo Verdejo (@dgarijo)
 
-**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini.
+**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk.
 
 **Citing WIDOCO**: Please cite the latest version of WIDOCO in Zenodo: https://zenodo.org/badge/latestdoi/11427075.
 Also see our ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
@@ -45,7 +45,7 @@ Download all the files of the "JAR" folder into the same folder. Then just doubl
 
 Now you can execute WIDOCO through the console. Usage:
 
-	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals] [-analytics analyticsCode] [-doNotDisplaySerializations][-displayDirectImportsOnly] [-rewriteBase rewriteBasePath] [-excludeIntroduction]
+	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals] [-analytics analyticsCode] [-doNotDisplaySerializations][-displayDirectImportsOnly] [-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]
 
 The `ontFile` and `ontURI` options allow you to choose the ontology file or ontology URI of your ontology.
 
@@ -84,8 +84,10 @@ The `-doNotDisplaySerializations` flag allows not displaying available serializa
 The `-displayDirectImportsOnly` flag allows displaying only those imported ontologies that are directly imported in the ontology being documented.
 
 The `-rewriteBase` flag allows changing the default rewrite base path (until the documentation folder). By default it is "/".
- 
-The `-excludeIntroduction` flag allows us exclude the introduction section altogether (currently we only provide a placeholder there anyway).
+
+The `-excludeIntroduction` flag skips adding an introduction section.
+
+The `-uniteSections` includes all sections in the same HTML document.
 
 How can I make WIDOCO automatically recognize my vocabulary annotations?
 ==========
@@ -94,7 +96,7 @@ There are two ways for making WIDOCO get your vocabulary metadata annotations an
 * Add them in your OWL file. For guidelines on which ones to include, follow our [Best Practices document](https://w3id.org/widoco/bestPractices), which indicates which ones we recommend.
 * Edit the project properties of /config/config.properties. This is a key-value pair file with metadata properties. Some people consider it easier than adding the property annotations to the OWL file, although I recommend doing the former option. Note that the character ";" is used for lists (for instance first author; second author; third author).
 
-Browser issues
+Browser issues (Why can't I see the generated documentation / visualization?)
 ==========
 The result of executing WIDOCO is an HTML file. We have successfully tested it in Mozilla, IE, Safari and Chrome.  **When the page is stored in a server, WIDOCO's HTML  works correctly in all browsers**. If you view the file **on your local browser**, we recommend you to use Mozilla Firefox, Safari or Internet Explorer. Google Chrome will not show the contents correctly, as it doesn't allow  XMLHttpRequest without HTTP. If you want to view the page locally with Google Chrome you have two possibilities:
 
