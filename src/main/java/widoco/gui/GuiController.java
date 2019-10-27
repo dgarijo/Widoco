@@ -61,7 +61,7 @@ public final class GuiController {
 				"java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
 						+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
 						+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-						+ "[-rewriteBase rewriteBasePath]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
+						+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
                 //configure logger.
                 Logger.getRootLogger().setLevel(Level.INFO);
                 BasicConfigurator.configure();
@@ -88,7 +88,7 @@ public final class GuiController {
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
 				includeImportedOntologies = false, htAccess = false, webVowl = false, errors = false, licensius = false,
 				generateOnlyCrossRef = false, includeNamedIndividuals = true, includeAnnotationProperties = false,
-				displaySerializations = true, displayDirectImportsOnly = false;
+				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, uniteSections = false;
 		String confPath = "";
 		String code = null;// for tracking analytics.
 		String[] languages = null;
@@ -169,13 +169,19 @@ public final class GuiController {
 				rb = args[i + 1];
 				i++;
 				break;
+			case "-excludeIntroduction":
+				excludeIntroduction = true;
+				break;
+                        case "-uniteSections":
+				uniteSections = true;
+				break;        
 			default:
 				System.out.println("Command" + s + " not recognized.");
 				System.out.println(
 						"Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
 								+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
 								+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-								+ "[-rewriteBase rewriteBasePath]\n");
+								+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]\n");
 				return;
 			}
 			i++;
@@ -188,6 +194,7 @@ public final class GuiController {
 			System.out.println("Configuration file could not be loaded: " + e.getMessage());
 			return;
 		}
+
 		if (generateOnlyCrossRef) {
 			this.config.setIncludeIndex(false);
 			this.config.setIncludeAbstract(false);
@@ -212,6 +219,10 @@ public final class GuiController {
 		this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
 		this.config.setDisplaySerializations(displaySerializations);
 		this.config.setDisplayDirectImportsOnly(displayDirectImportsOnly);
+                this.config.setIncludeAllSectionsInOneDocument(uniteSections);
+		if (excludeIntroduction) {
+			this.config.setIncludeIntroduction(false);
+		}
 		if (code != null) {
 			this.config.setGoogleAnalyticsCode(code);
 		}
@@ -233,39 +244,51 @@ public final class GuiController {
 		try {
 			WidocoUtils.loadModelToDocument(config);
 		} catch (Exception e) {
-			logger.error("Could not load the ontology " + e.getMessage(), e);
-			return;
-		}
-		if (getOntoMetadata) {
-			logger.info("Load properties from the ontology");
-			config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
-		}
-		try {
-			// This loop doesn't seem to make sense since l is not used by
-			// generateDocumentation() but it seems that
-			// the Configuration object has mutable state that points to the
-			// "currentLanguage".
-			for (String l : config.getLanguagesToGenerateDoc()) {
-				logger.info("Generating documentation for " + ontology + " in lang " + l);
-				CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
-				config.vocabularySuccessfullyGenerated();
-			}
-		} catch (Exception e) {
-			logger.error("Error while generating the documentation: " + e.getMessage(), e);
+			final String errorMessage = "Could not load the ontology [" + config.getInputOntology() + "]: " + e.getMessage();
+			logger.error(errorMessage, e);
+
+			// In case logging isn't running (e.g. log4j.properties file
+			// wasn't found on startup), always report this error to let
+			// the user know what went wrong.
+			System.out.println(errorMessage);
+
 			errors = true;
 		}
 
-		if (oops) {
+		if (!errors && getOntoMetadata) {
+			logger.info("Load properties from the ontology");
+			config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
+		}
+
+		if (!errors) {
+			try {
+				// This loop doesn't seem to make sense since l is not used by
+				// generateDocumentation() but it seems that
+				// the Configuration object has mutable state that points to the
+				// "currentLanguage".
+				for (String l : config.getLanguagesToGenerateDoc()) {
+					logger.info("Generating documentation for " + ontology + " in lang " + l);
+					CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
+					config.vocabularySuccessfullyGenerated();
+				}
+			} catch (Exception e) {
+				logger.error("Error while generating the documentation: " + e.getMessage(), e);
+				errors = true;
+			}
+		}
+
+		if (!errors && oops) {
 			System.out.println("Generating the OOPS evaluation of the ontology...");
 			startEvaluation(false);
 			// Since it is a user thread it will remain alive even after the main thread
 			// ends.
 		}
-		if (configOutFile != null) {
+
+		if (!errors && (configOutFile != null)) {
 			try {
 				CreateResources.saveConfigFile(configOutFile, config);
 			} catch (IOException e) {
-				System.err.println("Error while saving the configuraiton file: " + e.getMessage());
+				System.err.println("Error while saving configuration file [" + configOutFile + "]: " + e.getMessage());
 			}
 		}
 		// delete temp files
@@ -320,7 +343,10 @@ public final class GuiController {
 	}
 
 	private void exit() {
-		this.gui.dispose();
+		if (this.gui != null) {
+			this.gui.dispose();
+		}
+
 		try {
 			FileUtils.deleteDirectory(config.getTmpFile());
 		} catch (Exception e) {

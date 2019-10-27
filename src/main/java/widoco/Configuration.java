@@ -18,10 +18,8 @@ package widoco;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -123,6 +121,7 @@ public class Configuration {
 	private boolean displaySerializations;// in case someone does not want serializations in their page
 	private boolean displayDirectImportsOnly;// in case someone wants only the direct imports on their page
 	private String rewriteBase;// rewrite base path for content negotiation (.htaccess)
+        private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
 
 	/**
 	 * Variable to keep track of possible errors in the changelog. If there are
@@ -147,7 +146,7 @@ public class Configuration {
 			String path = (new File(root.toURI())).getParentFile().getPath();
 			loadPropertyFile(path + File.separator + Constants.CONFIG_PATH);
 		} catch (URISyntaxException | IOException e) {
-			logger.error("Error while loading the default property file: " + e.getMessage());
+			logger.warn("Error while loading the default property file: " + e.getMessage());
 		}
 	}
 
@@ -183,6 +182,8 @@ public class Configuration {
 		displayDirectImportsOnly = false;
 		rewriteBase = "/";
 		contextURI = "";
+                //BY DEFAULT SHOULD BE FALSE
+                includeAllSectionsInOneDocument = true;
 		initializeOntology();
 	}
 
@@ -366,7 +367,8 @@ public class Configuration {
 			this.googleAnalyticsCode = propertyFile.getProperty("GoogleAnalyticsCode");
 
 		} catch (IOException ex) {
-			logger.error("Error while reading configuration properties " + ex.getMessage());
+			// Only a warning, as we can continue safely without a property file.
+			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
 			throw ex;
 		}
 		// } catch (Exception ex) {
@@ -444,19 +446,23 @@ public class Configuration {
 			if (cite.length() > 1) {
 				// remove the last ","
 				cite = cite.substring(0, cite.length() - 1);
-				cite += ". ";
+				cite += ".";
 			}
-			if (mainOntologyMetadata.getTitle() != null && !mainOntologyMetadata.getTitle().equals("")) {
-				cite += mainOntologyMetadata.getTitle() + ".";
-			}
-			if (mainOntologyMetadata.getRevision() != null && !mainOntologyMetadata.getRevision().equals("")) {
-				cite += "Revision: " + mainOntologyMetadata.getRevision() + ".";
-			}
-			if (mainOntologyMetadata.getThisVersion() != null && !mainOntologyMetadata.getThisVersion().equals("")) {
-				cite += mainOntologyMetadata.getThisVersion();
-			}
+
+			cite += appendDetails(mainOntologyMetadata.getTitle(), " ", true);
+			cite += appendDetails(mainOntologyMetadata.getRevision(), " Revision: ", true);
+			cite += appendDetails(mainOntologyMetadata.getThisVersion(), " Retrieved from: ", false);
+
 			mainOntologyMetadata.setCiteAs(cite);
 		}
+	}
+
+	private String appendDetails(final String detail, final String prefix, final boolean useFullStop) {
+		if (detail == null || detail.equals("")) {
+			return "";
+		}
+
+		return (prefix + detail + (useFullStop ? "." : ""));
 	}
 
 	private void completeMetadata(OWLAnnotation a) {
@@ -669,7 +675,8 @@ public class Configuration {
 		try {
 			this.loadPropertyFile(path);
 		} catch (IOException ex) {
-			logger.error("Error while reading configuration properties " + ex.getMessage());
+			// Only a warning, as we can continue safely without a property file.
+			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
 		}
 	}
 
@@ -684,6 +691,10 @@ public class Configuration {
 
 	public Ontology getMainOntology() {
 		return mainOntologyMetadata;
+	}
+
+	public String getInputOntology() {
+		return ((this.isFromFile() ? "File: " : "URI: ") + getOntologyPath());
 	}
 
 	public String getOntologyPath() {
@@ -1091,4 +1102,14 @@ public class Configuration {
 		mainOntologyMetadata.getImportedOntologies().add(ont);
 	}
 
+    public boolean isIncludeAllSectionsInOneDocument() {
+        return includeAllSectionsInOneDocument;
+    }
+
+    public void setIncludeAllSectionsInOneDocument(boolean includeAllSectionsInOneDocument) {
+        this.includeAllSectionsInOneDocument = includeAllSectionsInOneDocument;
+    }
+
+    
+        
 }

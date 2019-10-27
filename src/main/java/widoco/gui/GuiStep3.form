@@ -32,38 +32,31 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="1" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="widocoLogo" max="32767" attributes="0"/>
+                  <Component id="labelSteps" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel2" alignment="1" pref="484" max="32767" attributes="0"/>
+                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="labelTitle" alignment="0" min="-2" pref="326" max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" pref="473" max="-2" attributes="1"/>
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jSeparator2" pref="1" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="widocoLogo" max="32767" attributes="0"/>
-                                          <Component id="labelSteps" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane1" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="labelTitle" alignment="0" min="-2" pref="326" max="-2" attributes="0"/>
-                                          <Component id="jPanel1" min="-2" pref="473" max="-2" attributes="1"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="labelDescription" min="-2" pref="548" max="-2" attributes="1"/>
-                                      <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jSeparator2" pref="7" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelDescription" min="-2" pref="548" max="-2" attributes="1"/>
+                      <EmptySpace min="0" pref="101" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelStatus" min="-2" pref="80" max="-2" attributes="0"/>
@@ -75,9 +68,10 @@
                       <Component id="nextButton" min="-2" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="cancelButton" min="-2" pref="85" max="-2" attributes="1"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="8" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -94,20 +88,20 @@
                   <Component id="widocoLogo" min="-2" pref="63" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="labelSteps" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jSeparator1" min="-2" pref="17" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jPanel1" min="-2" pref="401" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" pref="427" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
+              <Component id="jSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jSeparator2" min="-2" pref="15" max="-2" attributes="0"/>
@@ -123,7 +117,7 @@
                   <Component id="barStatus" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="labelStatus" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -204,43 +198,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="checkBoxRefs" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxDescription" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxOverview" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxIntro" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxAbstract" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="abstractSectionButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="labelTitle1" min="-2" pref="72" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="introductionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="overviewSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="referencesSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="descriptionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="labelLode" min="-2" pref="73" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="includeAnnProps" min="-2" max="-2" attributes="0"/>
-                              <Component id="includeIndividuals" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="checkBoxAllInOneDoc" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="w3C" min="-2" max="-2" attributes="0"/>
@@ -257,19 +220,54 @@
                               </Group>
                               <Component id="checkBoxProv" alignment="0" max="32767" attributes="1"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="checkBoxWebVowl" max="32767" attributes="1"/>
+                                  <Component id="checkBoxWebVowl" pref="230" max="32767" attributes="1"/>
                                   <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
                               </Group>
                               <Component id="checkBoxAutomatedChangeLog" alignment="0" max="32767" attributes="1"/>
                               <Component id="checkBoxDisplaySerialization" alignment="0" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="checkBoxDescription" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxOverview" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxIntro" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxAbstract" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxRefs" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="abstractSectionButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="labelTitle1" min="-2" pref="72" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="introductionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="overviewSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="descriptionSectionButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="referencesSectionButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="labelLode" min="-2" pref="73" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
                           <Component id="checkBoxHTAccess" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonRewriteBase" min="-2" pref="121" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="includeAnnProps" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="includeIndividuals" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -285,7 +283,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Component id="labelLode" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="checkBoxIntro" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="introductionSectionButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -306,11 +305,12 @@
                               <Component id="checkBoxRefs" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="labelLode" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="checkBoxAllInOneDoc" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="includeAnnProps" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace pref="2" max="32767" attributes="0"/>
                   <Component id="includeIndividuals" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="addImportedOntologiesCheckBox" min="-2" max="-2" attributes="0"/>
@@ -327,7 +327,7 @@
                   <Component id="checkBoxAutomatedChangeLog" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxDisplaySerialization" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="w3C" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="customRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -335,7 +335,7 @@
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="analyticsField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -515,6 +515,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRewriteBaseActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkBoxAllInOneDoc">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add all sections in a single document"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

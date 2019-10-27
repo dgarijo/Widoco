@@ -84,26 +84,29 @@ public class CreateResources {
 			folderOut += File.separator + "doc";
 		}
 		createFolderStructure(folderOut, c, languageFile);
+                //the text of the sections is kept in case users choose to save in the same document
+                String abs="",intro="",overview="",description="",crossref="",ref="",changeLog="";
 		if (c.isIncludeAbstract()) {
-			createAbstractSection(folderOut + File.separator + "sections", c, languageFile);
+			abs = createAbstractSection(folderOut + File.separator + "sections", c, languageFile);
 		}
 		if (c.isIncludeIntroduction()) {
-			createIntroductionSection(folderOut + File.separator + "sections", lode.getNamespaceDeclarations(), c,
+                    //to do
+			intro = createIntroductionSection(folderOut + File.separator + "sections", lode.getNamespaceDeclarations(), c,
 					languageFile);
 		}
 		if (c.isIncludeOverview()) {
-			createOverviewSection(folderOut + File.separator + "sections", c, lode.getClassList(),
-					lode.getPropertyList(), lode.getDataPropList(), lode.getAnnotationPropList(),
-					lode.getNamedIndividualList(), languageFile);
+			overview = createOverviewSection(folderOut + File.separator + "sections", c, lode.getClassList(),
+                                lode.getPropertyList(), lode.getDataPropList(), lode.getAnnotationPropList(),
+                                lode.getNamedIndividualList(), languageFile);
 		}
 		if (c.isIncludeDescription()) {
-			createDescriptionSection(folderOut + File.separator + "sections", c, languageFile);
+			description = createDescriptionSection(folderOut + File.separator + "sections", c, languageFile);
 		}
 		if (c.isIncludeCrossReferenceSection()) {
-			createCrossReferenceSection(folderOut + File.separator + "sections", lode, c, languageFile);
+			crossref = createCrossReferenceSection(folderOut + File.separator + "sections", lode, c, languageFile);
 		}
 		if (c.isIncludeReferences()) {
-			createReferencesSection(folderOut + File.separator + "sections", c, languageFile);
+			ref = createReferencesSection(folderOut + File.separator + "sections", c, languageFile);
 		}
 		if (c.isPublishProvenance()) {
 			createProvenancePage(folderOut + File.separator + "provenance", c, languageFile);
@@ -111,7 +114,7 @@ public class CreateResources {
 		if (c.isIncludeChangeLog()) {
 			if (c.getMainOntology().getPreviousVersion() != null
 					&& !"".equals(c.getMainOntology().getPreviousVersion())) {
-				createChangeLog(folderOut + File.separator + "sections", c, languageFile);
+				changeLog = createChangeLog(folderOut + File.separator + "sections", c, languageFile);
 			} else {
 				System.out.println("No previous version provided. No changelog produced!");
 			}
@@ -128,7 +131,11 @@ public class CreateResources {
 		WidocoUtils.writeModel(om, o, new NTriplesDocumentFormat(), folderOut + File.separator + "ontology.nt");
 		WidocoUtils.writeModel(om, o, new RDFJsonLDDocumentFormat(), folderOut + File.separator + "ontology.json");
 		if (c.isIncludeIndex()) {
-			createIndexDocument(folderOut, c, lode, languageFile);
+                    if(c.isIncludeAllSectionsInOneDocument()){
+                        createUnifiedIndexDocument(abs,intro,overview,description,crossref,ref,changeLog, folderOut, c, lode, languageFile);
+                    }else{
+                        createIndexDocument(folderOut, c, lode, languageFile);
+                    }
 		}
 	}
 
@@ -188,134 +195,158 @@ public class CreateResources {
 	 * @param c
 	 * @param lang
 	 */
-	private static void createChangeLog(String path, Configuration c, Properties lang) {
-		try {
-			logger.info("Attempting to generate an automated changelog\nDownloading old ontology "
-					+ c.getMainOntology().getPreviousVersion());
-			String oldVersionPath = c.getTmpFile().getAbsolutePath() + File.separator + "OLDOntology";
-			WidocoUtils.downloadOntology(c.getMainOntology().getPreviousVersion(), oldVersionPath);
-			CompareOntologies comparison = new CompareOntologies(oldVersionPath, c);
-			saveDocument(path + File.separator + "changelog-" + c.getCurrentLanguage() + ".html",
-					Constants.getChangeLogSection(c, comparison, lang), c);
-			logger.info("Changelog successfully created");
-		} catch (Exception e) {
-			c.setChangeLogSuccessfullyCreated(false);
-			logger.error("Could not generate changelog: " + e.getMessage());
-		}
+	private static String createChangeLog(String path, Configuration c, Properties lang) {
+            String textToWrite = null;
+            try {
+                logger.info("Attempting to generate an automated changelog\nDownloading old ontology "
+                                + c.getMainOntology().getPreviousVersion());
+                String oldVersionPath = c.getTmpFile().getAbsolutePath() + File.separator + "OLDOntology";
+                WidocoUtils.downloadOntology(c.getMainOntology().getPreviousVersion(), oldVersionPath);
+                CompareOntologies comparison = new CompareOntologies(oldVersionPath, c);
+                textToWrite = Constants.getChangeLogSection(c, comparison, lang);
+                if(!c.isIncludeAllSectionsInOneDocument()){
+                    saveDocument(path + File.separator + "changelog-" + c.getCurrentLanguage() + ".html",
+                                textToWrite, c);
+                }
+                logger.info("Changelog successfully created");
+            } catch (Exception e) {
+                c.setChangeLogSuccessfullyCreated(false);
+                logger.error("Could not generate changelog: " + e.getMessage());
+            }
+            return textToWrite;
 	}
 
 	/**
 	 * Sections of the document. Each section will be a separate html file
 	 */
-	private static void createAbstractSection(String path, Configuration c, Properties languageFile) {
+	private static String createAbstractSection(String path, Configuration c, Properties languageFile) {
+            String textToWrite;
 		if ((c.getAbstractPath() != null) && (!"".equals(c.getAbstractPath()))) {
-			WidocoUtils.copyExternalResource(c.getAbstractPath(),
-					new File(path + File.separator + "abstract-" + c.getCurrentLanguage() + ".html"));
+                    textToWrite = WidocoUtils.readExternalResource(c.getAbstractPath());
 		} else {
+                    textToWrite = Constants.getAbstractSection(c.getAbstractSection(), c, languageFile);
+                    if(!c.isIncludeAllSectionsInOneDocument()){
 			saveDocument(path + File.separator + "abstract-" + c.getCurrentLanguage() + ".html",
-					Constants.getAbstractSection(c.getAbstractSection(), c, languageFile), c);
+					textToWrite, c);
+                    }
 		}
-
+            return textToWrite;
 	}
 
-	private static void createIntroductionSection(String path, HashMap<String, String> nsDecl, Configuration c,
+	private static String createIntroductionSection(String path, HashMap<String, String> nsDecl, Configuration c,
 			Properties lang) {
-		if ((c.getIntroductionPath() != null) && (!"".equals(c.getIntroductionPath()))) {
-			WidocoUtils.copyExternalResource(c.getIntroductionPath(),
-					new File(path + File.separator + "introduction-" + c.getCurrentLanguage() + ".html"));
-		} else {
-			String introSectionText = "<html>" + Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
-			if (nsDecl != null && !nsDecl.isEmpty()) {
-				introSectionText += Constants.getNameSpaceDeclaration(nsDecl, c, lang);
-			}
-			introSectionText += "</html>";
-			saveDocument(path + File.separator + "introduction-" + c.getCurrentLanguage() + ".html", introSectionText,
-					c);
-		}
+            String textToWrite;
+            if ((c.getIntroductionPath() != null) && (!"".equals(c.getIntroductionPath()))) {
+                textToWrite = WidocoUtils.readExternalResource(c.getIntroductionPath());
+            } else {
+                textToWrite = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
+                if (nsDecl != null && !nsDecl.isEmpty()) {
+                    textToWrite += Constants.getNameSpaceDeclaration(nsDecl, c, lang);
+                }
+                //only save if separating sections
+                if(!c.isIncludeAllSectionsInOneDocument()){
+                    saveDocument(path + File.separator + "introduction-" + c.getCurrentLanguage() + ".html", textToWrite,c);
+                }
+            }
+            return textToWrite;
 	}
 
 	// the lists passed onto this method are the fixed lists
-	private static void createOverviewSection(String path, Configuration c, String classesList, String propList,
-			String dataPropList, String annotationProps, String namedIndividuals, Properties lang) {
-		if ((c.getOverviewPath() != null) && (!"".equals(c.getOverviewPath()))) {
-			WidocoUtils.copyExternalResource(c.getOverviewPath(),
-					new File(path + File.separator + "overview-" + c.getCurrentLanguage() + ".html"));
-		} else {
-			String overViewSection = "<html>" + Constants.getOverviewSectionTitleAndPlaceHolder(c, lang);
-			if (!"".equals(classesList) && classesList != null) {
-				overViewSection += ("<h4>" + lang.getProperty(Constants.LANG_CLASSES) + "</h4>\n");
-				overViewSection += (classesList);
-			}
-			if (!"".equals(propList) && propList != null) {
-				overViewSection += ("<h4>" + lang.getProperty(Constants.LANG_OBJ_PROP) + "</h4>");
-				overViewSection += (propList);
-			}
-			if (!"".equals(dataPropList) && dataPropList != null) {
-				overViewSection += ("<h4>" + lang.getProperty(Constants.LANG_DATA_PROP) + "</h4>");
-				overViewSection += (dataPropList);
-			}
-			if (!"".equals(annotationProps) && annotationProps != null && c.isIncludeAnnotationProperties()) {
-				overViewSection += ("<h4>" + lang.getProperty(Constants.LANG_ANN_PROP) + "</h4>");
-				overViewSection += (annotationProps);
-			}
-			if (!"".equals(namedIndividuals) && namedIndividuals != null && c.isIncludeNamedIndividuals()) {
-				overViewSection += ("<h4>" + lang.getProperty(Constants.LANG_NAMED_INDIV) + "</h4>");
-				overViewSection += (namedIndividuals);
-			}
-			// add the webvowl diagram, if selected
-			if (c.isCreateWebVowlVisualization()) {
-				overViewSection += "<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html#\"></iframe> ";
-			}
-			overViewSection += "</html>\n";
-			saveDocument(path + File.separator + "overview-" + c.getCurrentLanguage() + ".html", overViewSection, c);
-		}
+	private static String createOverviewSection(String path, Configuration c, String classesList, String propList,
+            String dataPropList, String annotationProps, String namedIndividuals, Properties lang) {
+            String textToWrite = "";
+            if ((c.getOverviewPath() != null) && (!"".equals(c.getOverviewPath()))) {
+                textToWrite = WidocoUtils.readExternalResource(c.getOverviewPath());
+            } else {
+                textToWrite = Constants.getOverviewSectionTitleAndPlaceHolder(c, lang);
+                if (!"".equals(classesList) && classesList != null) {
+                        textToWrite += ("<h4>" + lang.getProperty(Constants.LANG_CLASSES) + "</h4>\n");
+                        textToWrite += (classesList);
+                }
+                if (!"".equals(propList) && propList != null) {
+                        textToWrite += ("<h4>" + lang.getProperty(Constants.LANG_OBJ_PROP) + "</h4>");
+                        textToWrite += (propList);
+                }
+                if (!"".equals(dataPropList) && dataPropList != null) {
+                        textToWrite += ("<h4>" + lang.getProperty(Constants.LANG_DATA_PROP) + "</h4>");
+                        textToWrite += (dataPropList);
+                }
+                if (!"".equals(annotationProps) && annotationProps != null && c.isIncludeAnnotationProperties()) {
+                        textToWrite += ("<h4>" + lang.getProperty(Constants.LANG_ANN_PROP) + "</h4>");
+                        textToWrite += (annotationProps);
+                }
+                if (!"".equals(namedIndividuals) && namedIndividuals != null && c.isIncludeNamedIndividuals()) {
+                        textToWrite += ("<h4>" + lang.getProperty(Constants.LANG_NAMED_INDIV) + "</h4>");
+                        textToWrite += (namedIndividuals);
+                }
+                // add the webvowl diagram, if selected
+                if (c.isCreateWebVowlVisualization()) {
+                        textToWrite += "<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html\"></iframe> ";
+                }
+                textToWrite += "\n";
+                if(!c.isIncludeAllSectionsInOneDocument()){
+                    saveDocument(path + File.separator + "overview-" + c.getCurrentLanguage() + ".html", textToWrite, c);
+                }
+            }
+            return textToWrite;
 	}
 
-	private static void createDescriptionSection(String path, Configuration c, Properties lang) {
-		if ((c.getDescriptionPath() != null) && (!"".equals(c.getDescriptionPath()))) {
-			WidocoUtils.copyExternalResource(c.getDescriptionPath(),
-					new File(path + File.separator + "description-" + c.getCurrentLanguage() + ".html"));
-		} else {
-			saveDocument(path + File.separator + "description-" + c.getCurrentLanguage() + ".html",
-					Constants.getDescriptionSectionTitleAndPlaceHolder(c, lang), c);
-		}
+	private static String createDescriptionSection(String path, Configuration c, Properties lang) {
+            String textToWrite;
+            if ((c.getDescriptionPath() != null) && (!"".equals(c.getDescriptionPath()))) {
+                textToWrite = WidocoUtils.readExternalResource(c.getDescriptionPath());
+            } else {
+                textToWrite = Constants.getDescriptionSectionTitleAndPlaceHolder(c, lang);
+                if(!c.isIncludeAllSectionsInOneDocument()){
+                    saveDocument(path + File.separator + "description-" + c.getCurrentLanguage() + ".html",
+                                    textToWrite, c);
+                }
+            }
+            return textToWrite;
 	}
 
-	private static void createCrossReferenceSection(String path, LODEParser lodeParser, Configuration c,
+	private static String createCrossReferenceSection(String path, LODEParser lodeParser, Configuration c,
 			Properties lang) {
-		// cross reference section has to be included always.
-		String crossRef = "<html>" + Constants.getCrossReferenceSectionTitleAndPlaceHolder(c, lang);
-		String classesList = lodeParser.getClassList(), propList = lodeParser.getPropertyList(),
-				dataPropList = lodeParser.getDataPropList(), annotationPropList = lodeParser.getAnnotationPropList(),
-				namedIndividualList = lodeParser.getNamedIndividualList();
-		if (classesList != null && !"".equals(classesList)) {
-			crossRef += lodeParser.getClasses();
-		}
-		if (propList != null && !"".equals(propList)) {
-			crossRef += lodeParser.getProperties();
-		}
-		if (dataPropList != null && !"".equals(dataPropList)) {
-			crossRef += lodeParser.getDataProp();
-		}
-		if (c.isIncludeAnnotationProperties() && annotationPropList != null && !"".equals(annotationPropList)) {
-			crossRef += lodeParser.getAnnotationProp();
-		}
-		if (c.isIncludeNamedIndividuals() && namedIndividualList != null && !"".equals(namedIndividualList)) {
-			crossRef += lodeParser.getNamedIndividuals();
-		}
-		// add legend
-		crossRef += Constants.getLegend(lang) + "\n</html>\n";
-		saveDocument(path + File.separator + "crossref-" + c.getCurrentLanguage() + ".html", crossRef, c);
+            // cross reference section has to be included always.
+            String textToWrite = Constants.getCrossReferenceSectionTitleAndPlaceHolder(c, lang);
+            String classesList = lodeParser.getClassList(), propList = lodeParser.getPropertyList(),
+                            dataPropList = lodeParser.getDataPropList(), annotationPropList = lodeParser.getAnnotationPropList(),
+                            namedIndividualList = lodeParser.getNamedIndividualList();
+            if (classesList != null && !"".equals(classesList)) {
+                    textToWrite += lodeParser.getClasses();
+            }
+            if (propList != null && !"".equals(propList)) {
+                    textToWrite += lodeParser.getProperties();
+            }
+            if (dataPropList != null && !"".equals(dataPropList)) {
+                    textToWrite += lodeParser.getDataProp();
+            }
+            if (c.isIncludeAnnotationProperties() && annotationPropList != null && !"".equals(annotationPropList)) {
+                    textToWrite += lodeParser.getAnnotationProp();
+            }
+            if (c.isIncludeNamedIndividuals() && namedIndividualList != null && !"".equals(namedIndividualList)) {
+                    textToWrite += lodeParser.getNamedIndividuals();
+            }
+            // add legend
+            textToWrite += Constants.getLegend(lang) + "\n";
+            if(!c.isIncludeAllSectionsInOneDocument()){
+                saveDocument(path + File.separator + "crossref-" + c.getCurrentLanguage() + ".html", textToWrite, c);
+            }
+            return textToWrite;
 	}
 
-	private static void createReferencesSection(String path, Configuration c, Properties lang) {
-		if ((c.getReferencesPath() != null) && (!"".equals(c.getReferencesPath()))) {
-			WidocoUtils.copyExternalResource(c.getReferencesPath(),
-					new File(path + File.separator + "references-" + c.getCurrentLanguage() + ".html"));
-		} else {
-			saveDocument(path + File.separator + "references-" + c.getCurrentLanguage() + ".html",
-					Constants.getReferencesSection(c, lang), c);
-		}
+	private static String createReferencesSection(String path, Configuration c, Properties lang) {
+            String textToWrite;
+            if ((c.getReferencesPath() != null) && (!"".equals(c.getReferencesPath()))) {
+                textToWrite = WidocoUtils.readExternalResource(c.getReferencesPath());
+            } else {
+                textToWrite =  Constants.getReferencesSection(c, lang);
+                if(!c.isIncludeAllSectionsInOneDocument()){
+                    saveDocument(path + File.separator + "references-" + c.getCurrentLanguage() + ".html",
+                                   textToWrite, c);
+                }
+            }
+            return textToWrite;
 	}
 
 	/**
@@ -325,6 +356,17 @@ public class CreateResources {
 	private static void createIndexDocument(String path, Configuration c, LODEParser l, Properties lang) {
 		// the boolean valuas come from the configuration.
 		String textToWrite = Constants.getIndexDocument("resources", c, l, lang);
+		saveDocument(path + File.separator + "index-" + c.getCurrentLanguage() + ".html", textToWrite, c);
+	}
+        
+                
+        private static void createUnifiedIndexDocument(String abstractText,
+                String introText, String overviewText, String descriptionText,
+                String crossrefText,String refText,String changeLogText,
+                String path, Configuration c, LODEParser l, Properties lang) {
+		// the boolean valuas come from the configuration.
+		String textToWrite = Constants.getUnifiedIndexDocument("resources", c, l, lang,abstractText,introText,
+                        overviewText,descriptionText,refText,changeLogText,crossrefText);
 		saveDocument(path + File.separator + "index-" + c.getCurrentLanguage() + ".html", textToWrite, c);
 	}
 
@@ -361,9 +403,11 @@ public class CreateResources {
 	}
 
 	private static void createFolderStructure(String s, Configuration c, Properties lang) {
-
 		File f = new File(s);
-		File sections = new File(s + File.separator + "sections");
+                if(!c.isIncludeAllSectionsInOneDocument()){
+                    File sections = new File(s + File.separator + "sections");
+                    sections.mkdir();
+                }
 		File img = new File(s + File.separator + "img");
 		File provenance = new File(s + File.separator + "provenance");
 		File resources = new File(s + File.separator + "resources");
@@ -375,7 +419,6 @@ public class CreateResources {
 				// throw appropriate exceptions here
 			}
 		}
-		sections.mkdir();
 		if (c.isIncludeDiagram())
 			img.mkdir();
 		if (c.isPublishProvenance()) {

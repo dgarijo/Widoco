@@ -4,7 +4,7 @@
 	<groupId>es.oeg</groupId>
 	<artifactId>widoco</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4.11</version>
+	<version>1.4.12</version>
 	<name>Widoco</name>
 
 	<properties>
@@ -115,7 +115,7 @@
 		<dependency>
 			<groupId>net.sourceforge.owlapi</groupId>
 			<artifactId>owlapi-distribution</artifactId>
-			<version>5.1.9</version>
+			<version>5.1.11</version>
 		</dependency>
 
 		<dependency>
