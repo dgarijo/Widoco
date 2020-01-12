@@ -84,38 +84,42 @@ public class CreateOOPSEvalInThread implements Runnable {
 				br.close();
 			}
 			if (content != null && !content.equals("")) {
-				File evalFolder = new File(c.getDocumentationURI() + File.separator + "OOPSevaluation");
-				// for the css etc.
-				File evalResourcesFolder = new File(evalFolder.getAbsolutePath() + File.separator + "evaluation");
-				if (!evalFolder.exists())
-					evalFolder.mkdir();
-				evalResourcesFolder.mkdir();
-				// CreateResources.copyResourceFolder(TextConstants.oopsResources,
-				// evalResourcesFolder.getAbsolutePath());
-				WidocoUtils.unZipIt(Constants.OOPS_RESOURCES, evalResourcesFolder.getAbsolutePath());
-				eval = new OOPSevaluation("", content);
-				// eval = new OOPSevaluation(c.getMainOntology().getNamespaceURI(),"");
-				evaluation = eval.printEvaluation();
-				// SAVE File
-				if (showGui) {
-					this.pointerToMain.switchState("savingResponse");
-				}
-				logger.info("Saving response...");
-				CreateResources.saveDocument(evalFolder.getAbsolutePath() + File.separator + "oopsEval.html",
-						Constants.getEvaluationText(evaluation, c), c);
-                                //edit html file with the right pointer to the evaluation. For all languages
-                                for (String lang: c.getLanguagesToGenerateDoc()){
-                                    Path path = Paths.get(c.getDocumentationURI()+File.separator+"index-"+lang+".html");
-                                    Charset charset = StandardCharsets.UTF_8;
-                                    String htmlContent = new String(Files.readAllBytes(path), charset);
-                                    content = htmlContent.replace("<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->",
-                                            "<dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd>");
-                                    Files.write(path, content.getBytes(charset));
-                                }
-				if (showGui) {
-					pointerToMain.openBrowser(
-							new File(evalFolder.getAbsolutePath() + File.separator + "oopsEval.html").toURI());
-				}
+                            String pathOut = c.getDocumentationURI();
+                            if (!c.getMainOntology().isHashOntology()) {
+                                    pathOut += File.separator + "doc";
+                            }
+                            File evalFolder = new File(pathOut + File.separator + "OOPSevaluation");
+                            // for the css etc.
+                            File evalResourcesFolder = new File(evalFolder.getAbsolutePath() + File.separator + "evaluation");
+                            if (!evalFolder.exists())
+                                    evalFolder.mkdir();
+                            evalResourcesFolder.mkdir();
+                            // CreateResources.copyResourceFolder(TextConstants.oopsResources,
+                            // evalResourcesFolder.getAbsolutePath());
+                            WidocoUtils.unZipIt(Constants.OOPS_RESOURCES, evalResourcesFolder.getAbsolutePath());
+                            eval = new OOPSevaluation("", content);
+                            // eval = new OOPSevaluation(c.getMainOntology().getNamespaceURI(),"");
+                            evaluation = eval.printEvaluation();
+                            // SAVE File
+                            if (showGui) {
+                                    this.pointerToMain.switchState("savingResponse");
+                            }
+                            logger.info("Saving response...");
+                            CreateResources.saveDocument(evalFolder.getAbsolutePath() + File.separator + "oopsEval.html",
+                                            Constants.getEvaluationText(evaluation, c), c);
+                            //edit html file with the right pointer to the evaluation. For all languages
+                            for (String lang: c.getLanguagesToGenerateDoc()){    
+                                Path path = Paths.get(pathOut+File.separator+"index-"+lang+".html");
+                                Charset charset = StandardCharsets.UTF_8;
+                                String htmlContent = new String(Files.readAllBytes(path), charset);
+                                content = htmlContent.replace("<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->",
+                                        "<dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd>");
+                                Files.write(path, content.getBytes(charset));
+                            }
+                            if (showGui) {
+                                    pointerToMain.openBrowser(
+                                                    new File(evalFolder.getAbsolutePath() + File.separator + "oopsEval.html").toURI());
+                            }
 			} else {
 				throw new Exception("OOPS server did not return an evaluation report");
 			}
