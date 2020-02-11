@@ -208,7 +208,7 @@
 		<repository>
 			<id>maven-restlet</id>
 			<name>Restlet Framework repository</name>
-			<url>http://maven.restlet.org</url>
+			<url>https://maven.restlet.org</url>
 		</repository>
 
 		<repository>
