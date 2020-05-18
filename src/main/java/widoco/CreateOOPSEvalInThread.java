@@ -94,11 +94,9 @@ public class CreateOOPSEvalInThread implements Runnable {
                             if (!evalFolder.exists())
                                     evalFolder.mkdir();
                             evalResourcesFolder.mkdir();
-                            // CreateResources.copyResourceFolder(TextConstants.oopsResources,
-                            // evalResourcesFolder.getAbsolutePath());
                             WidocoUtils.unZipIt(Constants.OOPS_RESOURCES, evalResourcesFolder.getAbsolutePath());
-                            eval = new OOPSevaluation("", content);
-                            // eval = new OOPSevaluation(c.getMainOntology().getNamespaceURI(),"");
+                            //eval = new OOPSevaluation("", content);
+                            eval = new OOPSevaluation(content);
                             evaluation = eval.printEvaluation();
                             // SAVE File
                             if (showGui) {
