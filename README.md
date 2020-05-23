@@ -49,8 +49,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
 </repositories>
 ```
 
-Description
-==========
+## Description
 WIDOCO helps you to publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
 
 Features of WIDOCO:
@@ -64,16 +63,13 @@ Features of WIDOCO:
 * Separation of the sections of your html page so you can write them independently and replace only those needed.
 * Content negotiation and serialization of your ontology according to W3C best practices
 
-Examples
-==========
+## Examples
 Examples of the features of WIDOCO can be seen on [the gallery](http://dgarijo.github.io/Widoco/doc/gallery/)	
 	
-Tutorial
-==========
+## Tutorial
 A tutorial explaining the main features of the GUI can be found [here](http://dgarijo.github.io/Widoco/doc/tutorial/)    
     
-How to use WIDOCO
-==========
+## How to use WIDOCO
 Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
 
 Now you can execute WIDOCO through the console. Usage:
@@ -122,15 +118,13 @@ The `-excludeIntroduction` flag skips adding an introduction section.
 
 The `-uniteSections` includes all sections in the same HTML document.
 
-How can I make WIDOCO automatically recognize my vocabulary annotations?
-==========
+## How can I make WIDOCO automatically recognize my vocabulary annotations?
 There are two ways for making WIDOCO get your vocabulary metadata annotations and use them automatically to document the ontology. 
 
 * Add them in your OWL file. For guidelines on which ones to include, follow our [Best Practices document](https://w3id.org/widoco/bestPractices), which indicates which ones we recommend.
 * Edit the project properties of /config/config.properties. This is a key-value pair file with metadata properties. Some people consider it easier than adding the property annotations to the OWL file, although I recommend doing the former option. Note that the character ";" is used for lists (for instance first author; second author; third author).
 
-Browser issues (Why can't I see the generated documentation / visualization?)
-==========
+## Browser issues (Why can't I see the generated documentation / visualization?)
 The result of executing WIDOCO is an HTML file. We have successfully tested it in Mozilla, IE, Safari and Chrome.  **When the page is stored in a server, WIDOCO's HTML  works correctly in all browsers**. If you view the file **on your local browser**, we recommend you to use Mozilla Firefox, Safari or Internet Explorer. Google Chrome will not show the contents correctly, as it doesn't allow  XMLHttpRequest without HTTP. If you want to view the page locally with Google Chrome you have two possibilities:
 
 a) Place the file in a server and access it via its URL (for example, put it in dropbox and access through its public url, or on a Github page).
@@ -143,19 +137,16 @@ b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Car
 
 (UNX) /usr/bin/google-chrome --allow-file-access-from-files
 	
-Current improvements
-==========
+## Current improvements
 We are working on the following features:
 * Means to add examples to your ontology terms.
 * Previsualization of the terms that will be generated.
 
 For a complete list, check the [project open issues](https://github.com/dgarijo/Widoco/issues).
 
-Requirements
-==========
+## Requirements
 You will need Java 1.8 or higher (SDK 1.8 or JRE 8) for WIDOCO to work
 Otherwise, you will probably experience an "Unsupported major.minor version 52.0" exception when executing the JAR file.
 
-Contribution guidelines
-==========
+## Contribution guidelines
 Contributions to address any of the current issues are welcome. In order to push your contribution, just **push your pull request to the develop branch**. The master branch has only the code associated to the latest release. 
