@@ -7,8 +7,7 @@
 
 **Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk.
 
-**Citing WIDOCO**: Please cite the latest version of WIDOCO in Zenodo: https://zenodo.org/badge/latestdoi/11427075.
-ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
+**Citing WIDOCO**: If you used WIDOCO in your work, please cite the ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
 
 ```bib
 @inproceedings{garijo2017widoco,
@@ -23,6 +22,8 @@ ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
   url={http://dgarijo.com/papers/widoco-iswc2017.pdf}
 }
 ```
+If you want to cite the latest version of the software, you can do so by using: https://zenodo.org/badge/latestdoi/11427075.
+
 ## Downloading the executable
 
 To download WIDOCO, you need to download a JAR executable file. Check the latest release for more details: (https://github.com/dgarijo/WIDOCO/releases/latest).
