@@ -10,7 +10,7 @@
 **Citing WIDOCO**: Please cite the latest version of WIDOCO in Zenodo: https://zenodo.org/badge/latestdoi/11427075.
 ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
 
-```
+```bib
 @inproceedings{garijo2017widoco,
   title={WIDOCO: a wizard for documenting ontologies},
   author={Garijo, Daniel},
