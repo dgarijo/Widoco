@@ -138,11 +138,7 @@ b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Car
 (UNX) /usr/bin/google-chrome --allow-file-access-from-files
 	
 ## Current improvements
-We are working on the following features:
-* Means to add examples to your ontology terms.
-* Previsualization of the terms that will be generated.
-
-For a complete list, check the [project open issues](https://github.com/dgarijo/Widoco/issues).
+For a complete list of the current improvements and next features, check the [project open issues](https://github.com/dgarijo/Widoco/issues) and [milestones](https://github.com/dgarijo/Widoco/milestones) in the repository.
 
 ## Requirements
 You will need Java 1.8 or higher (SDK 1.8 or JRE 8) for WIDOCO to work
