@@ -51,24 +51,21 @@ public class OOPSevaluation {
 
 	public boolean error = false;
 	public OntModel model = null;
-
-	private String uriOnto = null;
-
-	public OOPSevaluation(String uriOnto, String content) throws IOException {
-		this.uriOnto = uriOnto;
-
+        private int pitfallNumber;
+        
+        
+	public OOPSevaluation(String content) throws IOException {
+                //always query by content
+		pitfallNumber = 0;
 		String request = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<OOPSRequest><OntologyUrl>";
-		if (uriOnto != null & !"".equals(uriOnto)) {
-			request += uriOnto;
-		}
 		request += "</OntologyUrl><OntologyContent>";
 		if (content != null && !"".equals(content)) {
 			request += "<![CDATA[ " + content + " ]]>";
+                        //request += content ;
 		}
 		request += "</OntologyContent>" + "<Pitfalls></Pitfalls>" + "<OutputFormat>RDF/XML</OutputFormat>"
 				+ "</OOPSRequest>";
-
-		String uri = "http://oops-ws.oeg-upm.net/rest";
+		String uri = Constants.OOPS_SERVICE_URL;
 		URL url = new URL(uri);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setConnectTimeout(Constants.OOPS_TIME_OUT);
@@ -86,7 +83,7 @@ public class OOPSevaluation {
 
 		OntModelSpec s = new OntModelSpec(OntModelSpec.OWL_MEM);
 		this.model = ModelFactory.createOntologyModel(s);
-		this.model.read(in, "http://myevaluation.com#");
+		this.model.read(in, "http://myevaluation.org#");
 
 		URL url2 = new URL(uri);
 		HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
@@ -98,18 +95,6 @@ public class OOPSevaluation {
 		wr2.write(request);
 		wr2.flush();
 		InputStream in2 = (InputStream) connection2.getInputStream();
-		// String line;
-		// BufferedReader reader = new BufferedReader(
-		// new InputStreamReader(in2));
-		// PrintStream ps = new PrintStream(new BufferedOutputStream(new
-		// FileOutputStream(new File("output/web/ws/"+uriOnto.replace("/",
-		// "")+".txt"))), true);
-		//
-		// while ((line = reader.readLine()) != null) {
-		// ps.println(line);
-		// }
-		// ps.close();
-		// reader.close();
 		in2.close();
 		wr2.close();
 
@@ -117,28 +102,32 @@ public class OOPSevaluation {
 		wr.close();
 
 		connection.disconnect();
+                try{
+                    OntClass pitfallClass = model.createClass(Constants.OOPS_NS + "pitfall");
+                    this.pitfallNumber = model.listIndividuals(pitfallClass).toList().size();
+                }catch(Exception e){
+                    logger.warn("Could not extract the number of pitfalls from response");
+                }
 	}
 
 	public String printEvaluation() {
 
-		String oops = "http://www.oeg-upm.net/oops#";
-
 		String evaluationOutput = "";
 
-		OntClass pitfallClass = model.createClass(oops + "pitfall");
-		DatatypeProperty hasCodeDTP = model.createDatatypeProperty(oops + "hasCode");
+		OntClass pitfallClass = model.createClass(Constants.OOPS_NS + "pitfall");
+		DatatypeProperty hasCodeDTP = model.createDatatypeProperty(Constants.OOPS_NS + "hasCode");
 		// DatatypeProperty hasTitleDTP = model.createDatatypeProperty( oops +
 		// "hasTitle");
-		DatatypeProperty hasNameDTP = model.createDatatypeProperty(oops + "hasName");
-		DatatypeProperty hasDescriptionDTP = model.createDatatypeProperty(oops + "hasDescription");
-		DatatypeProperty hasImportanceLevelDTP = model.createDatatypeProperty(oops + "hasImportanceLevel");
-		DatatypeProperty hasFrequencyDTP = model.createDatatypeProperty(oops + "hasNumberAffectedElements");
-		ObjectProperty hasAffectedElement = model.createObjectProperty(oops + "hasAffectedElement");
-		ObjectProperty mightNotBeInverseOf = model.createObjectProperty(oops + "mightNotBeInverseOf");
-		ObjectProperty hasEquivalentClass = model.createObjectProperty(oops + "hasEquivalentClass");
-		ObjectProperty hasWrongEquivalentClass = model.createObjectProperty(oops + "hasWrongEquivalentClass");
-		ObjectProperty noSuggestion = model.createObjectProperty(oops + "noSuggestion");
-		ObjectProperty haveSameLabel = model.createObjectProperty(oops + "haveSameLabel");
+		DatatypeProperty hasNameDTP = model.createDatatypeProperty(Constants.OOPS_NS + "hasName");
+		DatatypeProperty hasDescriptionDTP = model.createDatatypeProperty(Constants.OOPS_NS + "hasDescription");
+		DatatypeProperty hasImportanceLevelDTP = model.createDatatypeProperty(Constants.OOPS_NS + "hasImportanceLevel");
+		DatatypeProperty hasFrequencyDTP = model.createDatatypeProperty(Constants.OOPS_NS + "hasNumberAffectedElements");
+		ObjectProperty hasAffectedElement = model.createObjectProperty(Constants.OOPS_NS + "hasAffectedElement");
+		ObjectProperty mightNotBeInverseOf = model.createObjectProperty(Constants.OOPS_NS + "mightNotBeInverseOf");
+		ObjectProperty hasEquivalentClass = model.createObjectProperty(Constants.OOPS_NS + "hasEquivalentClass");
+		ObjectProperty hasWrongEquivalentClass = model.createObjectProperty(Constants.OOPS_NS + "hasWrongEquivalentClass");
+		ObjectProperty noSuggestion = model.createObjectProperty(Constants.OOPS_NS + "noSuggestion");
+		ObjectProperty haveSameLabel = model.createObjectProperty(Constants.OOPS_NS + "haveSameLabel");
 
 		ExtendedIterator<Individual> p = model.listIndividuals(pitfallClass);
 		List<Individual> plist = p.toList();
@@ -160,17 +149,9 @@ public class OOPSevaluation {
 
 			Collections.sort(codesL);
 
-			// int l=0;
-			// for(String temp: codesL){
-			// System.out.println("fruits " + ++l + " : " + temp);
-			// }
-
-			// end order list
-
 			evaluationOutput = evaluationOutput + "<h2>Evaluation results</h2>\n";
 			evaluationOutput = evaluationOutput + "<div class=\"panel-group\" id=\"accordion\">\n";
 
-			// for (int i = 0; i < plist.size(); i++){
 			int i = 0;
 			for (String temp : codesL) {
 				// Individual ind = plist.get(i);
@@ -179,11 +160,6 @@ public class OOPSevaluation {
 				if (resources.hasNext()) {
 					Individual ind = resources.next().as(Individual.class);
 
-					// Iterator a = ind.listProperties();
-					// while (a.hasNext()){
-					// System.out.println(a.next().toString());
-					//
-					// }
 
 					String title = ind.getPropertyValue(hasNameDTP).asLiteral().getString();
 					String code = ind.getPropertyValue(hasCodeDTP).asLiteral().getString();
@@ -197,11 +173,6 @@ public class OOPSevaluation {
 						frequency = ind.getPropertyValue(hasFrequencyDTP).asLiteral().getInt();
 					}
 
-					// if(ind.hasProperty(hasTitleDTP)){
-					// title = ind.getPropertyValue(hasTitleDTP).asLiteral().getString();
-					// }
-
-					// codigo y titulo
 					evaluationOutput = evaluationOutput + "<div class=\"panel panel-default\">\n";
 					evaluationOutput = evaluationOutput + "<div class=\"panel-heading\">\n";
 					evaluationOutput = evaluationOutput + "<h4 class=\"panel-title\">\n";
@@ -261,40 +232,10 @@ public class OOPSevaluation {
 								+ " might be replaced by an ontology language predicate as for example "
 								+ "\"rdf:type\" or \"rdfs:subclassOf\" or  \"owl:sameAs\"" + "</p>";
 					}
-					// else if (code.contentEquals("P05")){
-					// //special output. P05. Defining wrong inverse relationships
-					// evaluationOutput = evaluationOutput + "<p>" +
-					// "This pitfall affects to the following ontology elements: " +
-					// "</p>";
-					// NodeIterator elements= ind.listPropertyValues(hasAffectedElement);
-					//
-					// evaluationOutput = evaluationOutput + "<ul>";
-					//
-					// while (elements.hasNext()){
-					// RDFNode nextNode = elements.next();
-					//
-					//
-					// if (nextNode.isLiteral()){
-					// System.out.println("This should be an instance in OOPSevaluation");
-					// }
-					// else if (nextNode.isURIResource()){
-					// // for each accepted element get the wrong inverse
-					// ObjectProperty mightBeEquivalentProperty = model.createObjectProperty(oops +
-					// "mightBeEquivalentProperty");
-					// Resource pairs = nextNode.asResource().
-					// }
-					// else{
-					// System.out.println("Can't act as Individual in OOPSevaluation");
-					// }
-					//
-					// }
-					// evaluationOutput = evaluationOutput + "</ul>";
-					//
-					// }
 					else if (code.contentEquals("P36")) {
 						evaluationOutput = evaluationOutput + "<p>"
-								+ "*This pitfall applies to the ontology in general instead of specific elements and it appears in the ontology URI: "
-								+ "<a href=\"" + this.uriOnto + "\" target=\"_blank\">" + this.uriOnto + "</a>"
+								+ "*This pitfall applies to the ontology in general instead of specific elements and it appears in the ontology URI."
+							//	+ "<a href=\"" + this.uriOnto + "\" target=\"_blank\">" + this.uriOnto + "</a>"
 								+ "</p>";
 					}
 
@@ -446,5 +387,11 @@ public class OOPSevaluation {
 		return evaluationOutput;
 
 	}
+
+    public int getPitfallNumber() {
+        return pitfallNumber;
+    }
+        
+        
 
 }

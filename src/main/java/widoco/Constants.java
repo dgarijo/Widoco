@@ -44,6 +44,8 @@ public class Constants {
 	public static final int LICENSIUS_TIME_OUT = 10000;
 
 	public static final int OOPS_TIME_OUT = 30000;
+        public static final String OOPS_SERVICE_URL = "http://oops.linkeddata.es/rest";
+        public static final String OOPS_NS = "http://oops.linkeddata.es/def#";
 
 	public static final String[] POSSIBLE_VOCAB_SERIALIZATIONS = { "application/rdf+xml", "text/turtle", "text/n3",
 			"application/ld+json" };
