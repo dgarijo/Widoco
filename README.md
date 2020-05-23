@@ -23,10 +23,31 @@ ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
   url={http://dgarijo.com/papers/widoco-iswc2017.pdf}
 }
 ```
-Downloading the executable
-===================
+## Downloading the executable
 
 To download WIDOCO, you need to download a JAR executable file. Check the latest release for more details: (https://github.com/dgarijo/WIDOCO/releases/latest).
+
+## Importing WIDOCO as a dependency
+Just add the dependency and repository to your `pom.xml` file as follows. See the [JitPack](https://jitpack.io/#dgarijo/Widoco) page to find alternative means to incorporate WIDOCO to your project.
+
+```
+<dependencies>
+  <dependency>
+      <groupId>com.github.dgarijo</groupId>
+      <artifactId>Widoco</artifactId>
+      <version>v1.4.9</version>
+  </dependency>
+</dependencies>
+
+[ ... ]
+
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+```
 
 Description
 ==========
