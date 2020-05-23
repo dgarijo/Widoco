@@ -1,6 +1,5 @@
-WIzard for DOCumenting Ontologies (WIDOCO)
-===================
-[![DOI](https://zenodo.org/badge/11427075.svg)](https://zenodo.org/badge/latestdoi/11427075)
+# WIzard for DOCumenting Ontologies (WIDOCO)
+[![DOI](https://zenodo.org/badge/11427075.svg)](https://zenodo.org/badge/latestdoi/11427075) [![](https://jitpack.io/v/dgarijo/Widoco.svg)](https://jitpack.io/#dgarijo/Widoco)
 
 ![Logo](src/main/resources/logo/logo2.png)
 
