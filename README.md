@@ -74,50 +74,56 @@ A tutorial explaining the main features of the GUI can be found [here](http://dg
 Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
 
 Now you can execute WIDOCO through the console. Usage:
+```bash
+java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]
+```
 
-	java -jar widoco-VERSION-jar-with-dependencies.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] or [-getOntologyMetadata] [-oops] [-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-useCustomStyle] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-webVowl] [-licensius] [-ignoreIndividuals] [-analytics analyticsCode] [-doNotDisplaySerializations][-displayDirectImportsOnly] [-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]
+**OPTIONS**:
 
-The `ontFile` and `ontURI` options allow you to choose the ontology file or ontology URI of your ontology.
+`-ontFile PATH`  [required (unless -ontURI is used)]: Load a local ontology file (from PATH) to document. This option is incompatible with -ontURI
 
-The `-outFolder` option specifies where you want to place the output.
+`-ontURI  URI`   [required (unless -ontFile is used)]: Load an ontology to document from its URI. This option is incompatible with -ontFile
 
-The `-confFile` allows you to choose your own configuration file for the ontology metadata. However you can tell WIDOCO to try to extract some of the metadata from the ontology with getOntologyMetadata.
+`-outFolder folderName`: Specifies the name of the folder where to save the documentation. By default is 'myDocumentation'
 
-The `-oops` flag creates an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
+`-confFile PATH`: Load your own configuration file for the ontology metadata. Incompatible with -getOntologyMetadata
 
-The `-rewriteAll` option will tell WIDOCO to rewrite files if the new generate files are replacing existing files. Otherwise the tool will promt a window asking the user.
+`-getOntologyMetadata`: Extract ontology metadata from the given ontology 
+-oops: Create an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
 
-The `-crossRef` option will ONLY generate the overview and cross reference sections. The index document will NOT be generated. The htaccess, provenance page, etc., will not be generated unless requested by other flags. This flag in intended to be used only after a first version of the documentation exists.
+`-rewriteAll`: Replace any existing files when documenting an ontology (e.g., from a previous execution)
 
-The `-saveConfig` option allows you to save a configuration file on the "configOutFile" route with the properties of a given ontology.
+`-crossRef`: ONLY generate the overview and cross reference sections. The index document will NOT be generated. The htaccess, provenance page, etc., will not be generated unless requested by other flags. This flag is intended to be used only after a first version of the documentation exists.
 
-The `-useCustomStyle` option allows exporting the documentation using alternate css files (thanks to Daniel Vila).
+`-saveConfig PATH`: Save a configuration file on PATH with the properties of a given ontology
 
-The `-lang` option allows showing the languages in which the documentation will be published (separated by "-"). Note that if the language is not supported, the system will load the labels in english. For example: en-pt-es
+`-useCustomStyle`: Export the documentation using alternate css files (by Daniel Vila).
 
-The `-includeImportedOntologies` flag indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
+`-lang LANG1-LANG2`: Generate documentation in multiple languages (separated by "-"). Note that if the language is not supported, the system will load the labels in english. For example: en-pt-es
 
-The `-htaccess` flag creates a bundle for publication ready to be deployed on your apache server.
+`-includeImportedOntologies`: Indicates whether the terms of the imported ontologies of the current ontology should be documented as well or not.
+-htaccess: Create a bundle for publication ready to be deployed on your Apache server.
 
-The `-webVowl` flag provides a link to a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#).
+`-webVowl`: Create a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#) in the documentation.
 
-The `-licensius` flag uses the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the `-getOntologyMetadata` flag is enabled.
+`-licensius`: Use the Licensius web services (http://licensius.com/apidoc/index.html) to retrieve license metadata. Only works if the -getOntologyMetadata  flag is enabled.
 
-The `-ignoreIndividuals` flag allows you to ignore the named individuals in the ontology.
+`-ignoreIndividuals`: Individuals will not be included in the documentation.
+-includeAnnotationProperties: Include annotation properties defined in your ontology in the documentation (by default they are not included)
 
-The `-includeAnnotationProperties` flag will include annotation properties defined in your ontology (by default they are not included)
+`-analytics CODE`: Add a code snippet for Google analytics to track your HTML documentation. You need to add your CODE next to the flag. For example: UA-1234
 
-The `-analytics` flag will add a code snippet for Google analytics to track your page. You need to add your code next to it. For example: UA-1234
+`-doNotDisplaySerializations`: The serializations of the ontology will not be displayed.
 
-The `-doNotDisplaySerializations` flag allows not displaying available serializations of the ontology.
+`-displayDirectImportsOnly`: Only those imported ontologies that are directly imported in the ontology being documented.
 
-The `-displayDirectImportsOnly` flag allows displaying only those imported ontologies that are directly imported in the ontology being documented.
+`-rewriteBase PATH`: Change the default rewrite base path. The default value is "/". This flag can only be used with the htaccess option.
 
-The `-rewriteBase` flag allows changing the default rewrite base path (until the documentation folder). By default it is "/".
+`-excludeIntroduction`: Skip the introduction section in the documentation. 
+-uniteSections: Write all HTML sections into a single HTML document. 
 
-The `-excludeIntroduction` flag skips adding an introduction section.
+`-- help`: Shows a help message and exits.
 
-The `-uniteSections` includes all sections in the same HTML document.
 
 ## How can I make WIDOCO automatically recognize my vocabulary annotations?
 There are two ways for making WIDOCO get your vocabulary metadata annotations and use them automatically to document the ontology. 
