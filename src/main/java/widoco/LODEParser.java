@@ -21,8 +21,6 @@ import java.io.StringWriter;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Properties;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -225,13 +223,9 @@ public class LODEParser {
 		} catch (DOMException ex) {
 			logger.error("Exception interpreting the resource: " + ex.getMessage());
 		} catch (SAXException ex) {
-			// moving to SLF4J
 			logger.error(MarkerFactory.getMarker("FATAL"), ex.getMessage());
-			// Logger.getLogger(LODEParser.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
-			// moving to SLF4J
 			logger.error(MarkerFactory.getMarker("FATAL"), ex.getMessage());
-			// Logger.getLogger(LODEParser.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 

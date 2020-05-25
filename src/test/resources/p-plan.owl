@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY prov "http://www.w3.org/ns/prov#" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://purl.org/net/p-plan#"
+     xml:base="http://purl.org/net/p-plan"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:vann="http://purl.org/vocab/vann/">
+    <owl:Ontology rdf:about="http://purl.org/net/p-plan#">
+        <terms:created rdf:datatype="&xsd;date">2012-11-10</terms:created>
+        <terms:modified rdf:datatype="&xsd;date">2014-03-12</terms:modified>
+        <terms:creator rdf:datatype="&xsd;anyURI">http://delicias.dia.fi.upm.es/members/DGarijo#me</terms:creator>
+        <terms:creator rdf:datatype="&xsd;anyURI">http://www.isi.edu/~gil/</terms:creator>
+        <owl:versionInfo>1.3</owl:versionInfo>
+        <rdfs:comment>PROV extension for linking Plans and parts of plans to their respective executions. Created by Daniel Garijo and Yolanda Gil</rdfs:comment>
+        <terms:title xml:lang="en">The P-Plan ontology</terms:title>
+        <vann:preferredNamespaceUri>http://purl.org/net/p-plan#</vann:preferredNamespaceUri>
+        <terms:description xml:lang="en">PROV extension for linking Plans and parts of plans to their respective executions.</terms:description>
+        <vann:preferredNamespacePrefix>p-plan</vann:preferredNamespacePrefix>
+        <terms:license>http://creativecommons.org/licenses/by-nc-sa/2.0/</terms:license>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+    <owl:AnnotationProperty rdf:about="&terms;created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:AnnotationProperty rdf:about="&terms;description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/modified -->
+
+    <owl:AnnotationProperty rdf:about="&terms;modified"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:AnnotationProperty rdf:about="&terms;title"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespacePrefix -->
+
+    <owl:AnnotationProperty rdf:about="&vann;preferredNamespacePrefix"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespaceUri -->
+
+    <owl:AnnotationProperty rdf:about="&vann;preferredNamespaceUri"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#definition -->
+
+    <owl:AnnotationProperty rdf:about="&prov;definition"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/net/p-plan#correspondsToStep -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#correspondsToStep">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">correspondsToStep</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:correspondsToStep links a p-plan:Activity to its planned p-plan:Step</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Activity"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Step"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#correspondsToVariable -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#correspondsToVariable">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">correspondsToVariable</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:correspondsToVariable binds a p-plan:Entity (used by a p-plan:Activity in the execution of a plan) to the p-plan:Variable it represented it in the p-plan:Plan.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Entity"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Variable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#hasInputVar -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#hasInputVar">
+        <rdfs:label xml:lang="en">hasInputVar</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:hasInputVar binds a p-plan:Step to the p-plan:Variable that takes as input for the planned execution</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Step"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Variable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#hasOutputVar -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#hasOutputVar">
+        <rdfs:label xml:lang="en">hasOutputVar</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:hasOutputVar binds a p-plan:Step to the p-plan:Variable that will be produced as output in the planned execution</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Step"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Variable"/>
+        <owl:inverseOf rdf:resource="http://purl.org/net/p-plan#isOutputVarOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#isDecomposedAsPlan -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#isDecomposedAsPlan">
+        <rdfs:label xml:lang="en">isDecomposedAsPlan</rdfs:label>
+        <prov:definition xml:lang="en">The p-plan:isDecomposedAsPlan relationship binds a p-plan:MultiStep to the p-plan:Plan holding the definition of that step. That is, p-plan:isDecomposedAsPlan links the MultiStep to the Plan sptecification where it is decomposed.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#MultiStep"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Plan"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#isInputVarOf -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#isInputVarOf">
+        <rdfs:label xml:lang="en">isInputVarOf</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:isInputVarOf links an input variable of a step to the step.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Step"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Variable"/>
+        <owl:inverseOf rdf:resource="http://purl.org/net/p-plan#hasInputVar"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#isOutputVarOf -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#isOutputVarOf">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">isOutputVarOf</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:isOutputVarOf is intended to link an output variable of a step to the step.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Step"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Variable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#isPrecededBy -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#isPrecededBy">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">isPrecededBy</rdfs:label>
+        <rdfs:comment xml:lang="en">Property that asserts which Step preceeds the current one. </rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Step"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Step"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#isStepOfPlan -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#isStepOfPlan">
+        <rdfs:label xml:lang="en">isStepOfPlan</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:isStepOfPlan links a p-plan:Step to the p-plan:Plan which it corresponds to.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Plan"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Step"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#isSubPlanOfPlan -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#isSubPlanOfPlan">
+        <rdfs:label xml:lang="en">isSubPlanOfPlan</rdfs:label>
+        <prov:definition xml:lang="en">A p-plan:Plan may be a subplan of another bigger p-plan:Plan. p-plan:isSubPlanOfPlan is used to state the link among the two different plans. Note that if p1 is a p-plan:subPlan of p2, p1will not necessarily be a step of p2. A multistep will represent p1 in p2, and link to p1 with the p-plan.hasStepDecomposition relationship.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Plan"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Plan"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/net/p-plan#isVariableOfPlan -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/net/p-plan#isVariableOfPlan">
+        <rdfs:label xml:lang="en">isVariableofPlan</rdfs:label>
+        <prov:definition xml:lang="en">p-plan:IsVariableOfPlan binds a p-plan:Variable to the p-plan:Plan it corresponds to.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+        <rdfs:range rdf:resource="http://purl.org/net/p-plan#Plan"/>
+        <rdfs:domain rdf:resource="http://purl.org/net/p-plan#Variable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#used -->
+
+    <owl:ObjectProperty rdf:about="&prov;used">
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/prov#"/>
+        <rdfs:domain rdf:resource="&prov;Activity"/>
+        <rdfs:range rdf:resource="&prov;Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasDerivedFrom -->
+
+    <owl:ObjectProperty rdf:about="&prov;wasDerivedFrom">
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/prov#"/>
+        <rdfs:domain rdf:resource="&prov;Entity"/>
+        <rdfs:range rdf:resource="&prov;Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasGeneratedBy -->
+
+    <owl:ObjectProperty rdf:about="&prov;wasGeneratedBy">
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/prov#"/>
+        <rdfs:range rdf:resource="&prov;Activity"/>
+        <rdfs:domain rdf:resource="&prov;Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/net/p-plan#Activity -->
+
+    <owl:Class rdf:about="http://purl.org/net/p-plan#Activity">
+        <rdfs:label xml:lang="en">Activity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Activity"/>
+        <rdfs:comment xml:lang="en">A p-plan:Activity represents the execution process planned in a p-plan:Step</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/p-plan#Bundle -->
+
+    <owl:Class rdf:about="http://purl.org/net/p-plan#Bundle">
+        <rdfs:label xml:lang="en">Bundle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/p-plan#Entity"/>
+        <rdfs:subClassOf rdf:resource="&prov;Bundle"/>
+        <prov:definition xml:lang="en">A p-plan:Bundle is a specific type of prov:Bundle that contains the provenance assertions of the execution of a p-plan:Plan</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/p-plan#Entity -->
+
+    <owl:Class rdf:about="http://purl.org/net/p-plan#Entity">
+        <rdfs:label xml:lang="en">Entity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <prov:definition xml:lang="en">A p-plan:Entity represents the input of the execution of a p-plan:Activity. It corresponds to a p-plan:Variable.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/p-plan#MultiStep -->
+
+    <owl:Class rdf:about="http://purl.org/net/p-plan#MultiStep">
+        <rdfs:label xml:lang="en">MultiStep</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/p-plan#Plan"/>
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/p-plan#Step"/>
+        <prov:definition xml:lang="en">A multi step is the representation of a plan that appears as a step of another plan.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/p-plan#Plan -->
+
+    <owl:Class rdf:about="http://purl.org/net/p-plan#Plan">
+        <rdfs:label xml:lang="en">Plan</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.org/net/p-plan#Entity"/>
+        <rdfs:subClassOf rdf:resource="&prov;Plan"/>
+        <prov:definition xml:lang="en">A p-plan:Plan is a specific type of prov:Plan. It is composed of smaller steps that use and produce Variables.</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/p-plan#Step -->
+
+    <owl:Class rdf:about="http://purl.org/net/p-plan#Step">
+        <rdfs:label xml:lang="en">Step</rdfs:label>
+        <prov:definition xml:lang="en">A p-plan:Step represents the planned execution activity</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/net/p-plan#Variable -->
+
+    <owl:Class rdf:about="http://purl.org/net/p-plan#Variable">
+        <rdfs:label xml:lang="en">Variable</rdfs:label>
+        <prov:definition xml:lang="en">A p-plan:Variable represents a description of the input of the planned Activity (p-plan:Step)</prov:definition>
+        <rdfs:isDefinedBy rdf:resource="http://purl.org/net/p-plan#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Activity -->
+
+    <owl:Class rdf:about="&prov;Activity">
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/prov#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Bundle -->
+
+    <owl:Class rdf:about="&prov;Bundle">
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/prov#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Entity -->
+
+    <owl:Class rdf:about="&prov;Entity">
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/prov#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Plan -->
+
+    <owl:Class rdf:about="&prov;Plan">
+        <rdfs:subClassOf rdf:resource="&prov;Entity"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/prov#"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/net/p-plan# -->
+
+    <owl:Thing rdf:about="http://purl.org/net/p-plan#">
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.w3.org/ns/prov# -->
+
+    <owl:Thing rdf:about="http://www.w3.org/ns/prov#">
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

@@ -25,10 +25,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import widoco.Configuration;
+import widoco.Constants;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
@@ -41,7 +41,7 @@ import widoco.WidocoUtils;
  */
 public final class GuiController {
 
-	final static Logger logger = Logger.getLogger(GuiController.class);
+	private static final Logger logger = LoggerFactory.getLogger(GuiController.class);
 
 	public enum State {
 		initial, metadata, loadingConfig, sections, loading, generated, evaluating, exit
@@ -56,15 +56,9 @@ public final class GuiController {
 		config = new Configuration();
 		System.out.println("\n\n--WIzard for DOCumenting Ontologies (WIDOCO).\n https://w3id.org/widoco/\n");
 		System.out.println("\nYou are launching WIDOCO GUI\n");
-		System.out.println("\nTo use WIDOCO through the command line please do:\n");
-		System.out.println(
-				"java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
-						+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
-						+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-						+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
-                //configure logger.
-                Logger.getRootLogger().setLevel(Level.INFO);
-                BasicConfigurator.configure();
+		System.out.println("\nTo use WIDOCO through the command line please type:\n");
+		System.out.println(Constants.HELP_TEXT);
+                
                 // read logo
 		try {
 			gui = new GuiStep1(this);
@@ -174,14 +168,13 @@ public final class GuiController {
 				break;
                         case "-uniteSections":
 				uniteSections = true;
-				break;        
+				break;
+                        case "--help":
+                            System.out.println(Constants.HELP_TEXT);
+                            return;
 			default:
 				System.out.println("Command" + s + " not recognized.");
-				System.out.println(
-						"Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
-								+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
-								+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-								+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction] [-uniteSections]\n");
+				System.out.println(Constants.HELP_TEXT);
 				return;
 			}
 			i++;

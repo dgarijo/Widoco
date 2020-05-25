@@ -87,6 +87,7 @@ public class Constants {
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
 	public static final String PROP_OWL_BACKWARDS_COMPATIBLE = NS_OWL + "backwardCompatibleWith";
+        public static final String PROP_OWL_INCOMPATIBLE = NS_OWL + "incompatibleWith";
 
 	public static final String PROP_DC_TITLE = NS_DC + "title";
 	public static final String PROP_DC_RIGHTS = NS_DC + "rights";
@@ -236,6 +237,7 @@ public class Constants {
 	public static final String LANG_NAMED_INDIV = "namedIndiv";
 	public static final String LANG_TABLE_OF_CONTENTS = "tableOfContents";
 	public static final String LANG_COMPATIBLE = "compatible";
+        public static final String LANG_INCOMPATIBLE = "incompatible";
 	public static final String LANG_LEGEND = "legend";
 
 	// labels for the changelog
@@ -257,6 +259,45 @@ public class Constants {
 	public static final String LANG_RANGE = "range";
 	public static final String LANG_UNION = "unionOf";
 	public static final String LANG_INTERSECTION = "intersectionOf";
+        public static final String HELP_TEXT ="java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]\n" +
+"\n" +
+"OPTIONS:\n" +
+"    -ontFile PATH  [required (unless -ontURI is used)]: Load a local ontology file (from PATH) to document.\n "
+                + "        This option is incompatible with -ontURI\n" +
+"    -ontURI  URI   [required (unless -ontFile is used)]: Load an ontology to document from its URI.\n"
+                + "        This option is incompatible with -ontFile\n" +
+"    -outFolder folderName: Specifies the name of the folder where to save the documentation.\n"
+                + "        Default name is 'myDocumentation'\n" +
+"    -confFile PATH: Load your own configuration file for the ontology metadata.\n"
+                + "        Incompatible with -getOntologyMetadata\n" +
+"    -getOntologyMetadata: Extract ontology metadata from the given ontology \n" +
+"    -oops: Create an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)\n" +
+"    -rewriteAll: Replace any existing files when documenting an ontology (e.g., from a previous execution)\n" +
+"    -crossRef: ONLY generate the overview and cross reference sections. The index document will NOT be generated.\n"
+                + "        The htaccess, provenance page, etc., will not be generated unless requested by other flags.\n"
+                + "        This flag is intended to be used only after a first version of the documentation exists.\n" +
+"    -saveConfig PATH: Save a configuration file on PATH with the properties of a given ontology\n" +
+"    -useCustomStyle: Export the documentation using alternate css files (by Daniel Vila).\n" +
+"    -lang LANG1-LANG2: Generate documentation in multiple languages (separated by \"-\").\n"
+                + "        Note that if the language is not supported, the system will load the labels in english.\n"
+                + "        Usage example: en-pt-es\n" +
+"    -includeImportedOntologies: Indicates whether the terms of the imported ontologies of the current ontology\n"
+                + "        should be documented as well or not.\n" +
+"    -htaccess: Create a bundle for publication ready to be deployed on your Apache server.\n" +
+"    -webVowl: Create a visualization based on WebVowl in the documentation.\n" +
+"    -licensius: Use the Licensius web services to retrieve license metadata.\n"
+                + "        Only works if the -getOntologyMetadata flag is enabled.\n" +
+"    -ignoreIndividuals: Individuals will not be included in the documentation.\n" +
+"    -includeAnnotationProperties: Include annotation properties in the documentation\n" +
+"    -analytics CODE: Add a code snippet for Google analytics to track your HTML documentation.\n"
+                + "        You need to add your CODE next to the flag. For example: UA-1234\n" +
+"    -doNotDisplaySerializations: The serializations of the ontology will not be displayed.\n" +
+"    -displayDirectImportsOnly: Include direct imports of the ontology in your documentation.\n" +
+"    -rewriteBase PATH: Change the default rewrite base path. The default value is \"/\".\n"
+                + "        This flag can only be used with the htaccess option.\n" +
+"    -excludeIntroduction: Skip the introduction section in the documentation. \n" +
+"    -uniteSections: Write all HTML sections into a single HTML document. \n" +
+"    -- help: Shows this message and exit.\n";  
 
 	/**
 	 * Head section of the HTML document.
@@ -833,6 +874,12 @@ public class Constants {
 			head += "<dt>" + l.getProperty(LANG_COMPATIBLE) + ":</dt>\n<dd>"
 					+ c.getMainOntology().getBackwardsCompatibleWith() + "</dd>\n";
 		}
+                if (!"".equals(c.getMainOntology().getIncompatibleWith())
+				&& c.getMainOntology().getIncompatibleWith() != null) {
+			// doi is common for all languages
+			head += "<dt>" + l.getProperty(LANG_INCOMPATIBLE) + ":</dt>\n<dd>"
+					+ c.getMainOntology().getIncompatibleWith() + "</dd>\n";
+		}
 
 		// end definition list
 		head += "</dl>\n\n";
@@ -927,7 +974,9 @@ public class Constants {
 			provURI = "..\\index-" + c.getCurrentLanguage() + ".html";
 		}
 		String provrdf = "@prefix prov: <http://www.w3.org/ns/prov#> .\n"
-				+ "@prefix dc: <http://purl.org/dc/terms/> .\n" + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
+				+ "@prefix dc: <http://purl.org/dc/terms/> .\n" 
+                                + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n"
+                                + "@prefix : <> .\n";
 		provrdf += "<" + provURI + "> a prov:Entity;\n";
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle())) {
 			provrdf += "\t dc:title \"" + c.getMainOntology().getTitle() + "\";\n";

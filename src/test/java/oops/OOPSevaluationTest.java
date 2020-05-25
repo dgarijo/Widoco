@@ -26,7 +26,7 @@ public class OOPSevaluationTest {
     @Test
     public void testPrintEvaluation()  {
         try{
-        System.out.println("printEvaluation");
+        System.out.println("printEvaluation with alo");
         String content = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/alo.owl")));
         try {
@@ -44,8 +44,36 @@ public class OOPSevaluationTest {
         }
         // The ontology has 6 pitfalls
         OOPSevaluation instance = new OOPSevaluation(content);
-        //instance.printEvaluation();        
+        instance.printEvaluation();        
         assertEquals(6, instance.getPitfallNumber());
+        }catch(IOException e){
+            fail("Error in test "+e.getMessage());
+        }
+    }
+    
+    @Test
+    public void testPrintEvaluation2()  {
+        try{
+        System.out.println("printEvaluation with p-plan");
+        String content = null;
+        BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/p-plan.owl")));
+        try {
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+
+                while (line != null) {
+                        sb.append(line);
+                        sb.append(System.lineSeparator());
+                        line = br.readLine();
+                }
+                content = sb.toString();
+        } finally {
+                br.close();
+        }
+        // The ontology has 6 pitfalls
+        OOPSevaluation instance = new OOPSevaluation(content);
+        instance.printEvaluation();        
+        assertEquals(3, instance.getPitfallNumber());
         }catch(IOException e){
             fail("Error in test "+e.getMessage());
         }

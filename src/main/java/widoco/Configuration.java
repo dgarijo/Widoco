@@ -371,10 +371,6 @@ public class Configuration {
 			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
 			throw ex;
 		}
-		// } catch (Exception ex) {
-		// logger.error("Error while reading configuration properties " +
-		// ex.getMessage());
-		// }
 	}
 
 	/**
@@ -466,8 +462,6 @@ public class Configuration {
 	}
 
 	private void completeMetadata(OWLAnnotation a) {
-		// this.currentLanguage
-		// System.out.println(a.toString());
 		String propertyName = a.getProperty().getIRI().getIRIString();
 		String value;
 		String valueLanguage;
@@ -503,6 +497,7 @@ public class Configuration {
 		case Constants.PROP_DCTERMS_DESCRIPTION:
 		case Constants.PROP_DC_DESCRIPTION:
 		case Constants.PROP_SCHEMA_DESCRIPTION:
+                case Constants.PROP_RDFS_COMMENT:
 		case Constants.PROP_SKOS_NOTE:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
@@ -636,6 +631,10 @@ public class Configuration {
 		case Constants.PROP_OWL_BACKWARDS_COMPATIBLE:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setBackwardsCompatibleWith(value);
+			break;
+		case Constants.PROP_OWL_INCOMPATIBLE:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.setIncompatibleWith(value);
 			break;
 		}
 	}
