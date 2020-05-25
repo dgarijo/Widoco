@@ -33,13 +33,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Daniel Garijo
  */
 public class GuiStep1 extends javax.swing.JFrame {
-
+    
+        private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private GuiController g;// pointer to be able to save and go to the next state.
 	private String folderPath;
 
@@ -461,12 +464,12 @@ public class GuiStep1 extends javax.swing.JFrame {
 			// chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int returnVal = chooser.showOpenDialog(this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				System.out.println("You chose to save this file: " + chooser.getSelectedFile().getName());
+				logger.info("You chose to save this file: " + chooser.getSelectedFile().getName());
 				this.textFieldPath.setText(chooser.getSelectedFile().getAbsolutePath());
 			}
 		}
 
-	}// GEN-LAST:event_option1ItemStateChanged
+	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton browseButton;

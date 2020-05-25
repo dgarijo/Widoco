@@ -1,6 +1,7 @@
 package widoco;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -21,15 +22,15 @@ import java.util.stream.Stream;
  * read all OntologySpec elements and add their publicURI and altURL to a map which is then used to do the conversion
  * from ontologyIRI or versionIRI to documentIRI.
  *
- * Using OWLAPI to read one XML file is overkill but we do it anyway because it could then support any serialisation
+ * Using OWLAPI to read one XML file is overkill but we do it anyway because it could then support any serialization
  * format, not only ont-policy.rdf but also .ttl etc. And we didn't want to do it with Jena because that dependency
  * should not be part of widoco in a future version (perhaps?)
  *
  * @author Jacobus Geluk, agnos.ai
  */
-public class JenaCatalogIRIMapper implements OWLOntologyIRIMapper {
+public class CatalogIRIMapper implements OWLOntologyIRIMapper {
 
-    final static Logger logger = Logger.getLogger(JenaCatalogIRIMapper.class);
+    private static final Logger logger = LoggerFactory.getLogger(CatalogIRIMapper.class);
 
     //
     // Some static variables that have been copied straight from the Jena code that deals with ont-policy.rdf
@@ -51,7 +52,7 @@ public class JenaCatalogIRIMapper implements OWLOntologyIRIMapper {
 
     private OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
-    JenaCatalogIRIMapper() {
+    CatalogIRIMapper() {
 
         logger.info("Creating JenaCatalogIRIMapper");
 
@@ -142,7 +143,7 @@ public class JenaCatalogIRIMapper implements OWLOntologyIRIMapper {
             .filter(annotationAssertionAxiom ->
                 AxiomSubjectProviderEx.getSubject(annotationAssertionAxiom).isIndividual()
             )
-            .filter(JenaCatalogIRIMapper::isMappingIRI)
+            .filter(CatalogIRIMapper::isMappingIRI)
 //          .peek(axiom -> logger.info("Axiom " + axiom.toString() + " type " + axiom.getAxiomType().getName()))
             .forEach(annotationAssertionAxiom ->
                 getIdOfAxiom(annotationAssertionAxiom).ifPresent(axiomId ->
@@ -170,7 +171,7 @@ public class JenaCatalogIRIMapper implements OWLOntologyIRIMapper {
 
     private static Optional<OWLOntologyDocumentSource> ontologyDocumentSource() {
         return ontPolicyLocations()
-            .filter(JenaCatalogIRIMapper::fileExists)
+            .filter(CatalogIRIMapper::fileExists)
             .peek(fileName -> logger.info("Loading 1 " + fileName))
             .map(fileName -> new File(fileName))
             .findFirst()

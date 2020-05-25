@@ -27,11 +27,4 @@ public class DiagramGeneration {
 			logger.error("FAILED TO LOAD " + e.getMessage());
 		}
 	}
-
-	// public static void main(String[] args){
-	// File webvowl = new File("mydoc"+File.separator+"webvowl");
-	// boolean t = webvowl.mkdirs();
-	// WidocoUtils.unZipIt(Constants.WEBVOWL_RESOURCES, webvowl.getAbsolutePath());
-	// }
-
 }

@@ -121,6 +121,11 @@ public class Ontology {
      * Compatible with
      */
     private String backwardsCompatibleWith;
+    
+    /**
+     * owl:incompatibleWith
+     */
+    private String incompatibleWith;
 
     public Ontology() {
     }
@@ -291,26 +296,7 @@ public class Ontology {
         this.status = status;
     }
     
-    /**
-     * 
-     * THESE TWO METHODS BELOW SHOULD BE REMOVED
-     */
-    
-//    public OntModel getMainModel() {
-//        return mainOntologyModel;
-//    }
-//
-//    public void setMainModel(OntModel model) {
-//        this.mainOntologyModel = model;
-//    }
-    
-    /**
-     * 
-     * THESE TWO METHODS ABOVE SHOULD BE REMOVED
-     */
-    
-    //Should have getManager and getOWLOntology.
-    //In the ontology creation, should load the imports only when generating the doc (if necessary).
+   
     /**
      * Getter for the in-memory ontology representation.
      * @return 
@@ -346,6 +332,12 @@ public class Ontology {
     public void setBackwardsCompatibleWith(String backwardsCompatibleWith) {
         this.backwardsCompatibleWith = backwardsCompatibleWith;
     }
-    
-    
+
+    public String getIncompatibleWith() {
+        return incompatibleWith;
+    }
+
+    public void setIncompatibleWith(String incompatibleWith) {
+        this.incompatibleWith = incompatibleWith;
+    }
 }

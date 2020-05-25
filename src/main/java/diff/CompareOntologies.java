@@ -37,17 +37,17 @@ public class CompareOntologies {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //classes
-    private ArrayList<OWLAxiomInfo> modifiedClasses = new ArrayList<OWLAxiomInfo>();
-    private ArrayList<OWLAxiomInfo> newClasses = new ArrayList<OWLAxiomInfo>();
-    private ArrayList<OWLAxiomInfo> deletedClasses = new ArrayList<OWLAxiomInfo>();
+    private ArrayList<OWLAxiomInfo> modifiedClasses = new ArrayList<>();
+    private ArrayList<OWLAxiomInfo> newClasses = new ArrayList<>();
+    private ArrayList<OWLAxiomInfo> deletedClasses = new ArrayList<>();
     //properties
-    private ArrayList<OWLAxiomInfo> modifiedProperties = new ArrayList<OWLAxiomInfo>();
-    private ArrayList<OWLAxiomInfo> newProperties = new ArrayList<OWLAxiomInfo>();
-    private ArrayList<OWLAxiomInfo> deletedProperties = new ArrayList<OWLAxiomInfo>();
+    private ArrayList<OWLAxiomInfo> modifiedProperties = new ArrayList<>();
+    private ArrayList<OWLAxiomInfo> newProperties = new ArrayList<>();
+    private ArrayList<OWLAxiomInfo> deletedProperties = new ArrayList<>();
     //data properties
-    private ArrayList<OWLAxiomInfo> modifiedDataProperties = new ArrayList<OWLAxiomInfo>();
-    private ArrayList<OWLAxiomInfo> newDataProperties = new ArrayList<OWLAxiomInfo>();
-    private ArrayList<OWLAxiomInfo> deletedDataProperties = new ArrayList<OWLAxiomInfo>();
+    private ArrayList<OWLAxiomInfo> modifiedDataProperties = new ArrayList<>();
+    private ArrayList<OWLAxiomInfo> newDataProperties = new ArrayList<>();
+    private ArrayList<OWLAxiomInfo> deletedDataProperties = new ArrayList<>();
     
     private String oldVersion, newVersion;
 

@@ -29,7 +29,8 @@ import java.util.HashMap;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 import lode.LODEGeneration;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -47,7 +48,7 @@ import widoco.entities.Ontology;
  */
 public class CreateResources {
 
-	final static Logger logger = Logger.getLogger(CreateResources.class);
+	private static final Logger logger = LoggerFactory.getLogger(CreateResources.class);
 
 	public static void generateDocumentation(String outFolder, Configuration c, File lodeResources) throws Exception {
 		String lodeContent;
@@ -113,7 +114,7 @@ public class CreateResources {
 					&& !"".equals(c.getMainOntology().getPreviousVersion())) {
 				changeLog = createChangeLog(folderOut + File.separator + "sections", c, languageFile);
 			} else {
-				System.out.println("No previous version provided. No changelog produced!");
+                                logger.info("No previous version provided. No changelog produced!");
 			}
 		}
 		if (c.isCreateWebVowlVisualization()) {

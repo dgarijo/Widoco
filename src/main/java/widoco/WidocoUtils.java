@@ -30,7 +30,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.model.*;
@@ -42,13 +43,12 @@ import org.semanticweb.owlapi.model.*;
  */
 public class WidocoUtils {
 
-	final static Logger logger = Logger.getLogger(WidocoUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(WidocoUtils.class);
 
 	/**
 	 * Method that will download the ontology to document with Widoco.
 	 * 
-	 * @param c
-	 *            Widoco configuration object.
+	 * @param c Widoco configuration object.
 	 * @throws java.lang.Exception
 	 */
 	public static void loadModelToDocument(Configuration c) throws Exception {
@@ -58,17 +58,12 @@ public class WidocoUtils {
 			c.setFromFile(true);
 			c.setOntologyPath(newOntologyPath);
 		}
-		// reding the model with Jena (deprecated)
-		// OntModel model =
-		// ModelFactory.createOntologyModel();//ModelFactory.createDefaultModel();
-		// readOntModel(model, c);
-		// c.getMainOntology().setMainModel(model);
 
 		logger.info("Load ontology " + c.getOntologyPath());
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		OWLOntologyIRIMapper jenaCatalogMapper = new JenaCatalogIRIMapper();
+		OWLOntologyIRIMapper jenaCatalogMapper = new CatalogIRIMapper();
 		manager.getIRIMappers().add(jenaCatalogMapper);
-		((JenaCatalogIRIMapper) jenaCatalogMapper).printMap();
+		((CatalogIRIMapper) jenaCatalogMapper).printMap();
 		OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
 		loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
 		OWLOntology ontology = manager
