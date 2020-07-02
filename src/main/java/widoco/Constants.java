@@ -345,7 +345,7 @@ public class Constants {
 	}
 
 	public static String getAcknowledgementsSection(Configuration c, Properties lang) {
-		String s = "<div id=\"acknowledgements\">\n" + "<h2 id=\"ack\" class=\"list\">"
+		String s = "<div id=\"acknowledgments\">\n" + "<h2 id=\"ack\" class=\"list\">"
 				+ lang.getProperty(LANG_AC_TEXT) + "\n";
 		return s;
 	}
