@@ -89,7 +89,8 @@ java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]
 `-confFile PATH`: Load your own configuration file for the ontology metadata. Incompatible with -getOntologyMetadata
 
 `-getOntologyMetadata`: Extract ontology metadata from the given ontology 
--oops: Create an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
+
+`-oops`: Create an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)
 
 `-rewriteAll`: Replace any existing files when documenting an ontology (e.g., from a previous execution)
 
@@ -122,7 +123,7 @@ java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]
 `-excludeIntroduction`: Skip the introduction section in the documentation. 
 -uniteSections: Write all HTML sections into a single HTML document. 
 
-`-- help`: Shows a help message and exits.
+`--help`: Shows a help message and exits.
 
 
 ## How can I make WIDOCO automatically recognize my vocabulary annotations?
@@ -134,15 +135,11 @@ There are two ways for making WIDOCO get your vocabulary metadata annotations an
 ## Browser issues (Why can't I see the generated documentation / visualization?)
 The result of executing WIDOCO is an HTML file. We have successfully tested it in Mozilla, IE, Safari and Chrome.  **When the page is stored in a server, WIDOCO's HTML  works correctly in all browsers**. If you view the file **on your local browser**, we recommend you to use Mozilla Firefox, Safari or Internet Explorer. Google Chrome will not show the contents correctly, as it doesn't allow  XMLHttpRequest without HTTP. If you want to view the page locally with Google Chrome you have two possibilities:
 
-a) Place the file in a server and access it via its URL (for example, put it in dropbox and access through its public url, or on a Github page).
-
-b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Carrera):
-
-(WIN) chrome.exe --allow-file-access-from-files,
-
-(OSX) open /Applications/Google\ Chrome.app/ --args --allow-file-access-from-files
-
-(UNX) /usr/bin/google-chrome --allow-file-access-from-files
+* a) Place the file in a server and access it via its URL (for example, put it in dropbox and access through its public url, or on a Github page).
+* b) Execute Chrome with the following commands (Thanks to Alejandro Fernandez Carrera):
+  * (WIN) `chrome.exe --allow-file-access-from-files`
+  * (OSX) `open /Applications/Google\ Chrome.app/ --args --allow-file-access-from-files`
+  * (UNX) `/usr/bin/google-chrome --allow-file-access-from-files`
 	
 ## Current improvements
 For a complete list of the current improvements and next features, check the [project open issues](https://github.com/dgarijo/Widoco/issues) and [milestones](https://github.com/dgarijo/Widoco/milestones) in the repository.
