@@ -297,7 +297,7 @@ public class Constants {
                 + "        This flag can only be used with the htaccess option.\n" +
 "    -excludeIntroduction: Skip the introduction section in the documentation. \n" +
 "    -uniteSections: Write all HTML sections into a single HTML document. \n" +
-"    -- help: Shows this message and exit.\n";  
+"    --help: Shows this message and exit.\n";  
 
 	/**
 	 * Head section of the HTML document.
