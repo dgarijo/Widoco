@@ -70,11 +70,12 @@ public class CreateResources {
 		logger.info("- ontology IRI: " + c.getOntologyURI());
 		lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);
 		LODEParser lode = new LODEParser(lodeContent, c, languageFile);
+                
 		if (c.isCreateHTACCESS()) {
-			File fOut = new File(folderOut);
-			if (!fOut.exists()) {
-				fOut.mkdirs();
-			}
+                        File fOut = new File(folderOut);
+                        if (!fOut.exists()) {
+                                fOut.mkdirs();
+                        }
 			createHTACCESSFile(folderOut + File.separator + ".htaccess", c);
 		}
 		// slash ontologies require a special type of redirection
@@ -88,7 +89,6 @@ public class CreateResources {
 			abs = createAbstractSection(folderOut + File.separator + "sections", c, languageFile);
 		}
 		if (c.isIncludeIntroduction()) {
-                    //to do
 			intro = createIntroductionSection(folderOut + File.separator + "sections", lode.getNamespaceDeclarations(), c,
 					languageFile);
 		}
@@ -404,7 +404,7 @@ public class CreateResources {
 		File f = new File(s);
                 if(!c.isIncludeAllSectionsInOneDocument()){
                     File sections = new File(s + File.separator + "sections");
-                    sections.mkdir();
+                    sections.mkdirs();
                 }
 		File img = new File(s + File.separator + "img");
 		File provenance = new File(s + File.separator + "provenance");
