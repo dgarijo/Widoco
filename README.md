@@ -71,9 +71,9 @@ Examples of the features of WIDOCO can be seen on [the gallery](http://dgarijo.g
 A tutorial explaining the main features of the GUI can be found [here](http://dgarijo.github.io/Widoco/doc/tutorial/)    
     
 ## How to use WIDOCO
-Download all the files of the "JAR" folder into the same folder. Then just double click the .jar file.
+Download the latest `.jar` [WIDOCO available release](https://github.com/dgarijo/WIDOCO/releases/latest) (it will be something like `widoco-VERSION-jar-with-dependencies.jar`). Then just double click the `.jar` file.
 
-Now you can execute WIDOCO through the console. Usage:
+You may also execute WIDOCO through the command line. Usage:
 ```bash
 java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]
 ```
