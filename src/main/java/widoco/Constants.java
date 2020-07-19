@@ -58,7 +58,7 @@ public class Constants {
 	 */
 
 	public static final String NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#";
-	public static final String NS_SCHEMA = "http://schema.org/";
+	public static final String NS_SCHEMA = "https://schema.org/";
 	public static final String NS_DC = "http://purl.org/dc/elements/1.1/";
 	public static final String NS_DCTERMS = "http://purl.org/dc/terms/";
 	public static final String NS_OWL = "http://www.w3.org/2002/07/owl#";
@@ -297,7 +297,7 @@ public class Constants {
                 + "        This flag can only be used with the htaccess option.\n" +
 "    -excludeIntroduction: Skip the introduction section in the documentation. \n" +
 "    -uniteSections: Write all HTML sections into a single HTML document. \n" +
-"    -- help: Shows this message and exit.\n";  
+"    --help: Shows this message and exit.\n";  
 
 	/**
 	 * Head section of the HTML document.
@@ -345,7 +345,7 @@ public class Constants {
 	}
 
 	public static String getAcknowledgementsSection(Configuration c, Properties lang) {
-		String s = "<div id=\"acknowledgements\">\n" + "<h2 id=\"ack\" class=\"list\">"
+		String s = "<div id=\"acknowledgments\">\n" + "<h2 id=\"ack\" class=\"list\">"
 				+ lang.getProperty(LANG_AC_TEXT) + "\n";
 		return s;
 	}
@@ -496,7 +496,7 @@ public class Constants {
 	 */
 	public static String getJSONLDSnippet(Configuration c) {
 		Ontology o = c.getMainOntology();
-		String metadata = "\n\n<!-- SCHEMA.ORG METADATA -->\n<script type=\"application/ld+json\">{\"@context\":\"http://schema.org\",\"@type\":\"TechArticle\","
+		String metadata = "\n\n<!-- SCHEMA.ORG METADATA -->\n<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\","
 				+ "\"url\":\"" + o.getNamespaceURI() + "\"," + "\"image\":\"" + WEBVOWL_SERVICE
 				+ c.getMainOntology().getNamespaceURI() + "\",";
 		// name (mandatory)
@@ -509,7 +509,7 @@ public class Constants {
 		// headline (mandatory)
 		metadata += ", \"headline\":";
 		if (c.getAbstractSection() != null && !"".equals(c.getAbstractSection())) {
-			metadata += "\"" + c.getAbstractSection() + "\"";
+			metadata += "\"" + c.getAbstractSection().replace("\n", "").trim() + "\"";
 		} else {
 			metadata += "\"Document describing the ontology " + o.getNamespaceURI() + "\"";
 		}
@@ -743,6 +743,9 @@ public class Constants {
 				+ "				t+='<ul>';\n" + "			}\n" + "			j++;\n"
 				+ "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore(\"span\").text()+'</a></li>';\n"
 				+ "		}\n" + "	  });\n" + "	  t+='</ul>';\n" + "	  $(\"#toc\").html(t); \n" + "}\n"
+                                + "$(function(){\n" 
+                                + "    loadHash();\n" 
+                                + "});"
 				+ " $.fn.ignore = function(sel){\n" + "        return this.clone().find(sel||\">*\").remove().end();\n"
 				+ " };" + " \n";
 		document += "   </script> \n" + "  </head> \n" + "\n" + "<body>\n";

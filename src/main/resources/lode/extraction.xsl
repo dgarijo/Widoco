@@ -497,9 +497,15 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:variable name="label" select="f:getLabel(.)" as="xs:string" />
         <xsl:choose>
             <xsl:when test="$anchor = ''">
+                <!-- Change to make the external links open in a new window 
+                instead of being dotted
                 <span class="dotted" title="{.}">
                     <xsl:value-of select="$label" />
                 </span>
+                -->
+                <a href="{.}" title="{.}" target="_blank">
+                    <xsl:value-of select="$label" />
+                </a>
             </xsl:when>
             <xsl:otherwise>
                 <a href="#{$anchor}" title="{.}">
