@@ -121,7 +121,8 @@ java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]
 `-rewriteBase PATH`: Change the default rewrite base path. The default value is "/". This flag can only be used with the htaccess option.
 
 `-excludeIntroduction`: Skip the introduction section in the documentation. 
--uniteSections: Write all HTML sections into a single HTML document. 
+
+`-uniteSections`: Write all HTML sections into a single HTML document. 
 
 `--help`: Shows a help message and exits.
 
