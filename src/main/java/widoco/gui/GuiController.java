@@ -281,19 +281,20 @@ public final class GuiController {
 			try {
 				CreateResources.saveConfigFile(configOutFile, config);
 			} catch (IOException e) {
-				System.err.println("Error while saving configuration file [" + configOutFile + "]: " + e.getMessage());
+				logger.error("Error while saving configuration file [" + configOutFile + "]: " + e.getMessage());
 			}
 		}
 		// delete temp files
 		try {
 			FileUtils.deleteDirectory(config.getTmpFile());
 		} catch (Exception e) {
-			System.err.println("could not delete temporal folder: " + e.getMessage());
+			logger.error("Could not delete temporal folder: " + e.getMessage());
 		}
 		if (errors) {
 			// error code for notifying that there were errors.
 			System.exit(1);
 		} else {
+			//logger.info("Documentation generated successfully");
 			System.out.println("Documentation generated successfully");
 		}
 	}

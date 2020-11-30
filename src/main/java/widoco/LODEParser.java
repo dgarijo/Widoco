@@ -306,7 +306,7 @@ public class LODEParser {
 			}
 			return nodeToFix;
 		} catch (DOMException ex) {
-			System.err.println("Could not fix node");
+			logger.error("Could not fix node");
 			return nodeToFix;
 		}
 	}
