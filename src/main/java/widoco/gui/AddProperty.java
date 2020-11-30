@@ -1,7 +1,11 @@
 package widoco.gui;
 
+import java.awt.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 
 /**
  *
@@ -34,85 +38,109 @@ public class AddProperty extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // Generated using JFormDesigner Evaluation license - unknown
     private void initComponents() {
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        valueField = new JTextField();
+        properties = new JComboBox<>();
+        cancelButton = new JButton();
+        okButton = new JButton();
+        jLabel3 = new JLabel();
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        valueField = new javax.swing.JTextField();
-        properties = new javax.swing.JComboBox();
-        cancelButton = new javax.swing.JButton();
-        okButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        //======== this ========
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
-        setName("Add property"); // NOI18N
+        setName("Add property");
+        Container contentPane = getContentPane();
 
+        //---- jLabel1 ----
         jLabel1.setText("Property");
 
+        //---- jLabel2 ----
         jLabel2.setText("Value");
 
-        properties.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "abstract", "ontologyTitle", "ontologyName", "ontologyPrefix", "ontologyNamespaceURI", "dateOfRelease", "thisVersionURI", "latestVersionURI", "previousVersionURI", "ontologyRevisionNumber", "authors", "authorsURI", "authorsInstitution", "contributors", "contributorsURI", "contributorsInstitution", "importedOntologyNames", "importedOntologyURIs", "extendedOntologyNames", "extendedOntologyURIs", "licenseName", "licenseURI", "licenseIconURL" }));
+        //---- properties ----
+        properties.setModel(new DefaultComboBoxModel<>(new String[] {
+            "abstract",
+            "ontologyTitle",
+            "ontologyName",
+            "ontologyPrefix",
+            "ontologyNamespaceURI",
+            "dateOfRelease",
+            "thisVersionURI",
+            "latestVersionURI",
+            "previousVersionURI",
+            "ontologyRevisionNumber",
+            "authors",
+            "authorsURI",
+            "authorsInstitution",
+            "contributors",
+            "contributorsURI",
+            "contributorsInstitution",
+            "importedOntologyNames",
+            "importedOntologyURIs",
+            "extendedOntologyNames",
+            "extendedOntologyURIs",
+            "licenseName",
+            "licenseURI",
+            "licenseIconURL"
+        }));
 
+        //---- cancelButton ----
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
+        cancelButton.addActionListener(e -> cancelButtonActionPerformed(e));
 
+        //---- okButton ----
         okButton.setText("Ok");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
-            }
-        });
+        okButton.addActionListener(e -> okButtonActionPerformed(e));
 
+        //---- jLabel3 ----
         jLabel3.setText("To add more than one creator, contributor, etc. separate them with \";\"");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(jLabel3)
+                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addComponent(okButton, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                    .addComponent(jLabel1)
+                                    .addComponent(properties, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                    .addComponent(jLabel2)
+                                    .addComponent(valueField, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE)))))
+                    .addContainerGap(28, Short.MAX_VALUE))
+        );
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2, GroupLayout.Alignment.TRAILING))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(valueField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(properties, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(41, 41, 41)
-                            .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(properties, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(valueField, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(okButton)
+                        .addComponent(cancelButton))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(valueField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(properties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(okButton)
-                    .addComponent(cancelButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         pack();
+        setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -163,12 +191,13 @@ public class AddProperty extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton okButton;
-    private javax.swing.JComboBox properties;
-    private javax.swing.JTextField valueField;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JTextField valueField;
+    private JComboBox<String> properties;
+    private JButton cancelButton;
+    private JButton okButton;
+    private JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

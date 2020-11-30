@@ -875,13 +875,15 @@ public class Constants {
 				&& c.getMainOntology().getBackwardsCompatibleWith() != null) {
 			// doi is common for all languages
 			head += "<dt>" + l.getProperty(LANG_COMPATIBLE) + ":</dt>\n<dd>"
-					+ c.getMainOntology().getBackwardsCompatibleWith() + "</dd>\n";
+					+ "<a href=\""+c.getMainOntology().getBackwardsCompatibleWith()+"\">"
+					+ c.getMainOntology().getBackwardsCompatibleWith() +"</a>" + "</dd>\n";
 		}
                 if (!"".equals(c.getMainOntology().getIncompatibleWith())
 				&& c.getMainOntology().getIncompatibleWith() != null) {
 			// doi is common for all languages
 			head += "<dt>" + l.getProperty(LANG_INCOMPATIBLE) + ":</dt>\n<dd>"
-					+ c.getMainOntology().getIncompatibleWith() + "</dd>\n";
+					+ "<a href=\""+c.getMainOntology().getIncompatibleWith()+"\">"
+					+ c.getMainOntology().getIncompatibleWith() +"</a>" + "</dd>\n";
 		}
 
 		// end definition list
@@ -1083,40 +1085,40 @@ public class Constants {
 				"<p>References:</p>\n" + 
 				"    <ul>\n" + 
                 "<li>\n"+
-                    [1] Aguado-De Cea, G., Montiel-Ponsoda, E., Poveda-Villalón, M., and Giraldo-Pasmin, O.X. (2015). Lexicalizing Ontologies: The issues behind the labels. In Multimodal communication in the 21st century: Professional and academic challenges. 33rd Conference of the Spanish Association of Applied Linguistics (AESLA), XXXIII AESLA.
+				"    [1] Aguado-De Cea, G., Montiel-Ponsoda, E., Poveda-Villalón, M., and Giraldo-Pasmin, O.X. (2015). Lexicalizing Ontologies: The issues behind the labels. In Multimodal communication in the 21st century: Professional and academic challenges. 33rd Conference of the Spanish Association of Applied Linguistics (AESLA), XXXIII AESLA." +
                 "</li>\n"+
                 "<li>\n"+
-                [2] Noy, N. F., McGuinness, D. L., et al. (2001). Ontology development 101: A guide to creating your first ontology.
+				"	[2] Noy, N. F., McGuinness, D. L., et al. (2001). Ontology development 101: A guide to creating your first ontology."+
                 "</li>\n"+
                 "<li>\n"+
-                [3] Gómez-Pérez, A. (1999). Evaluation of Taxonomic Knowledge in Ontologies and Knowledge Bases. Proceedings of the Banff Knowledge Acquisition for Knowledge-Based Systems Workshop. Alberta, Canada.
+                "	[3] Gómez-Pérez, A. (1999). Evaluation of Taxonomic Knowledge in Ontologies and Knowledge Bases. Proceedings of the Banff Knowledge Acquisition for Knowledge-Based Systems Workshop. Alberta, Canada."+
                 "</li>\n"+
                 "<li>\n"+
-                [4] Montiel-Ponsoda, E., Vila Suero, D., Villazón-Terrazas, B., Dunsire, G., Escolano Rodríguez, E., Gómez-Pérez, A. (2011). Style guidelines for naming and labeling ontologies in the multilingual web.
+				"	[4] Montiel-Ponsoda, E., Vila Suero, D., Villazón-Terrazas, B., Dunsire, G., Escolano Rodríguez, E., Gómez-Pérez, A. (2011). Style guidelines for naming and labeling ontologies in the multilingual web."+
                 "</li>\n"+
                 "<li>\n"+
-                [5] Vrandecic, D. (2010). Ontology Evaluation. PhD thesis.
+				"	[5] Vrandecic, D. (2010). Ontology Evaluation. PhD thesis."+
                 "</li>\n"+
                 "<li>\n"+
-                [6] Gómez-Pérez, A. (2004). Ontology evaluation. In Handbook on ontologies, pages 251-273. Springer.
+				"	[6] Gómez-Pérez, A. (2004). Ontology evaluation. In Handbook on ontologies, pages 251-273. Springer."+
                 "</li>\n"+
                 "<li>\n"+
-                [7] Rector, A., Drummond, N., Horridge, M., Rogers, J., Knublauch, H., Stevens, R., Wang, H., and Wroe, C. (2004). Owl pizzas: Practical experience of teaching owl-dl: Common errors &amp; common patterns. In Engineering Knowledge in the Age of the Semantic Web, pages 63-81. Springer.
+				"	[7] Rector, A., Drummond, N., Horridge, M., Rogers, J., Knublauch, H., Stevens, R., Wang, H., and Wroe, C. (2004). Owl pizzas: Practical experience of teaching owl-dl: Common errors &amp; common patterns. In Engineering Knowledge in the Age of the Semantic Web, pages 63-81. Springer."+
                 "</li>\n"+
                 "<li>\n"+
-                [8] Hogan, A., Harth, A., Passant, A., Decker, S., and Polleres, A. (2010). Weaving the pedantic web. In Proceedings of the WWW2010 Workshop on Linked Data on the Web, LDOW 2010, Raleigh, USA, April 27, 2010.
+				"	[8] Hogan, A., Harth, A., Passant, A., Decker, S., and Polleres, A. (2010). Weaving the pedantic web. In Proceedings of the WWW2010 Workshop on Linked Data on the Web, LDOW 2010, Raleigh, USA, April 27, 2010."+
                 "</li>\n"+
                 "<li>\n"+
-                [9] Archer, P., Goedertier, S., and Loutas, N. (2012). D7. 1.3-study on persistent URIs, with identification of best practices and recommendations on the topic for the Mss and the EC. PwC EU Services.
+				"	[9] Archer, P., Goedertier, S., and Loutas, N. (2012). D7. 1.3-study on persistent URIs, with identification of best practices and recommendations on the topic for the Mss and the EC. PwC EU Services."+
                 "</li>\n"+
                 "<li>\n"+
-                [10] Bernes-Lee Tim. (2006). “Linked Data - Design issues”. http://www.w3.org/DesignIssues/LinkedData.html
+				"	[10] Bernes-Lee Tim. (2006). “Linked Data - Design issues”. http://www.w3.org/DesignIssues/LinkedData.html"+
                 "</li>\n"+
                 "<li>\n"+
-                [11] Heath, T. and Bizer, C. (2011). Linked Data: Evolving the Web into a Global Data Space. Morgan &amp; Claypool, 1st edition.
+				"	[11] Heath, T. and Bizer, C. (2011). Linked Data: Evolving the Web into a Global Data Space. Morgan &amp; Claypool, 1st edition."+
                 "</li>\n"+
                 "<li>\n"+
-                [12] Vatant, B. (2012). Is your linked data vocabulary 5-star?. http://bvatant.blogspot.fr/2012/02/is-your-linked-data-vocabulary-5-star_9588.html
+				"	[12] Vatant, B. (2012). Is your linked data vocabulary 5-star?. http://bvatant.blogspot.fr/2012/02/is-your-linked-data-vocabulary-5-star_9588.html"+
                 "</li>\n"+
 				  "    </ul>\n" +
 				// copy footer here
