@@ -43,7 +43,7 @@ public class Constants {
 	public static final String LICENSIUS_URI_SEVICE_LICENSE_INFO = "http://www.licensius.com/api/license/getlicenseinfo?uri=";// "http://licensius.appspot.com/getLicenseTitle?content=";
 	public static final int LICENSIUS_TIME_OUT = 10000;
 
-	public static final int OOPS_TIME_OUT = 30000;
+	public static final int OOPS_TIME_OUT = 10000;
         public static final String OOPS_SERVICE_URL = "http://oops.linkeddata.es/rest";
         public static final String OOPS_NS = "http://oops.linkeddata.es/def#";
 

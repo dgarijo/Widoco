@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -89,7 +90,7 @@ public class CreateResources {
 			abs = createAbstractSection(folderOut + File.separator + "sections", c, languageFile);
 		}
 		if (c.isIncludeIntroduction()) {
-			intro = createIntroductionSection(folderOut + File.separator + "sections", lode.getNamespaceDeclarations(), c,
+			intro = createIntroductionSection(folderOut + File.separator + "sections", c,
 					languageFile);
 		}
 		if (c.isIncludeOverview()) {
@@ -114,7 +115,7 @@ public class CreateResources {
 					&& !"".equals(c.getMainOntology().getPreviousVersion())) {
 				changeLog = createChangeLog(folderOut + File.separator + "sections", c, languageFile);
 			} else {
-                                logger.info("No previous version provided. No changelog produced!");
+            	logger.info("No previous version provided. No changelog produced!");
 			}
 		}
 		if (c.isCreateWebVowlVisualization()) {
@@ -144,7 +145,7 @@ public class CreateResources {
 		c.setUseW3CStyle(true);
 		createFolderStructure(folderOut, c, l);
 		createAbstractSection(folderOut + File.separator + "sections", c, l);
-		createIntroductionSection(folderOut + File.separator + "sections", null, c, l);
+		createIntroductionSection(folderOut + File.separator + "sections", c, l);
 		createDescriptionSection(folderOut + File.separator + "sections", c, l);
 		createReferencesSection(folderOut + File.separator + "sections", c, l);
 		createIndexDocument(folderOut, c, null, l);
@@ -231,9 +232,9 @@ public class CreateResources {
             return textToWrite;
 	}
 
-	private static String createIntroductionSection(String path, HashMap<String, String> nsDecl, Configuration c,
-			Properties lang) {
+	private static String createIntroductionSection(String path, Configuration c,Properties lang) {
             String textToWrite;
+            HashMap<String,String> nsDecl = c.getNamespaceDeclarations();
             if ((c.getIntroductionPath() != null) && (!"".equals(c.getIntroductionPath()))) {
                 textToWrite = WidocoUtils.readExternalResource(c.getIntroductionPath());
             } else {

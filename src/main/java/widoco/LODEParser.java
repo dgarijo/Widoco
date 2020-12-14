@@ -63,7 +63,6 @@ public class LODEParser {
 	private String annotationPropList;
 	private String namedIndividuals;
 	private String namedIndividualList;
-	private final HashMap<String, String> namespaceDeclarations;
 	Configuration c;
 
 	/**
@@ -79,7 +78,6 @@ public class LODEParser {
 	 */
 	public LODEParser(String lodeContent, Configuration c, Properties langFile) {
 		replacements = new HashMap<String, String>();
-		namespaceDeclarations = new HashMap<String, String>();
 		this.c = c;
 		parse(lodeContent, langFile);
 	}
@@ -106,10 +104,6 @@ public class LODEParser {
 
 	public String getPropertyList() {
 		return propertyList;
-	}
-
-	public HashMap<String, String> getNamespaceDeclarations() {
-		return namespaceDeclarations;
 	}
 
 	public String getAnnotationProp() {
@@ -171,29 +165,6 @@ public class LODEParser {
 							"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
 							"<h3 id=\"namedindividuals\" class=\"list\">"
 									+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
-				} else if (attrID.equals("namespacedeclarations")) {
-					Node namespace = html.item(i);
-					// <dt> prefix </dt> <dd>namespace</dd>
-					try {
-						NodeList dl = namespace.getChildNodes().item(1).getChildNodes();// first node is h2. second is
-																						// dl
-						int j = 0;
-						while (j < dl.getLength()) {
-							String key = dl.item(j).getTextContent();
-							if (dl.item(j).getNodeName().equals("dt")) {
-								String value = dl.item(j + 1).getTextContent();
-								// System.out.println(key+","+value);
-								// there might be duplicate ns. Don't add them
-								if (!namespaceDeclarations.containsValue(value)) {
-									namespaceDeclarations.put(key, value);
-								}
-							}
-							j++;
-						}
-					} catch (Exception e) {
-						logger.error("Error while retrieving the namespaces from LODE");
-					}
-
 				}
 			}
 			// fix ids
