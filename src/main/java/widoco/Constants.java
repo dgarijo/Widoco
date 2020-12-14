@@ -1037,7 +1037,7 @@ public class Constants {
 
 	public static final String LODE_RESOURCES = "/lode.zip";
 	public static final String OOPS_RESOURCES = "/oops.zip";
-	public static final String WEBVOWL_RESOURCES = "/webvowl_1.1.4_patched.zip";
+	public static final String WEBVOWL_RESOURCES = "/webvowl_1.1.7_patched.zip";
 
 	public static final String CONFIG_PATH = "config" + File.separator + "config.properties";
 
