@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -121,7 +122,8 @@ public class Configuration {
 	private boolean displaySerializations;// in case someone does not want serializations in their page
 	private boolean displayDirectImportsOnly;// in case someone wants only the direct imports on their page
 	private String rewriteBase;// rewrite base path for content negotiation (.htaccess)
-        private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
+    private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
+	private HashMap<String, String> namespaceDeclarations; //Namespace declarations to be included in the documentation.
 
 	/**
 	 * Variable to keep track of possible errors in the changelog. If there are
@@ -219,6 +221,7 @@ public class Configuration {
 		mainOntologyMetadata.setDoi("");
 		mainOntologyMetadata.setStatus("");
 		mainOntologyMetadata.setBackwardsCompatibleWith("");
+		this.namespaceDeclarations = new HashMap<>();
 	}
 
 	private void loadPropertyFile(String path) throws IOException {
@@ -381,8 +384,6 @@ public class Configuration {
 	 */
 	public void loadPropertiesFromOntology(OWLOntology o) {
 		if (o == null) {
-			// logger.error("The ontology is not loaded. Aborting loading
-			// metadata...");
 			return;
 		}
 		initializeOntology();
@@ -450,6 +451,17 @@ public class Configuration {
 			cite += appendDetails(mainOntologyMetadata.getThisVersion(), " Retrieved from: ", false);
 
 			mainOntologyMetadata.setCiteAs(cite);
+		}
+		//load all namespaces in the ontology document.
+		this.namespaceDeclarations = new HashMap<>();
+		OWLOntologyXMLNamespaceManager nsManager = new OWLOntologyXMLNamespaceManager(o, o.getFormat());
+		for (String prefix : nsManager.getPrefixes()) {
+			String namespaceURI = nsManager.getNamespaceForPrefix(prefix);
+			if ("".equals(prefix) || namespaceURI.equals(mainOntologyMetadata.getNamespaceURI())){
+				namespaceDeclarations.put(mainOntologyMetadata.getNamespacePrefix(),namespaceURI);
+			}else{
+				namespaceDeclarations.put(prefix,nsManager.getNamespaceForPrefix(prefix));
+			}
 		}
 	}
 
@@ -1090,6 +1102,10 @@ public class Configuration {
 
 	public String getContextURI() {
 		return contextURI;
+	}
+
+	public HashMap<String,String> getNamespaceDeclarations(){
+		return namespaceDeclarations;
 	}
 
 	private void initializeImportedOntology(OWLOntology i) {

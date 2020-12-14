@@ -152,8 +152,8 @@ public class OntologyDifferencesRenderer {
 	 * added classes and properties.
 	 * 
 	 * @param set
-	 * @param initialMessage
-	 * @param printDetails
+	 * @param ns
+	 * @param showAdditions
 	 *            true if the goal is to print more details about the changes, e.g.,
 	 *            modification of a term
 	 * @return

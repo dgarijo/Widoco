@@ -51,7 +51,7 @@ import widoco.Configuration;
 
 /**
  *
- * @author Silvio Peroni, adpated to Widoco (and modified) by Daniel Garijo
+ * @author Silvio Peroni, adpated for WIDOCO (and modified) by Daniel Garijo
  */
 public class LODEGeneration {
         private static final Logger logger = LoggerFactory.getLogger(LODEGeneration.class);

@@ -19,8 +19,7 @@ public class DiagramGeneration {
 	public static void generateOntologyDiagram(String outFolder, Configuration c) {
 		try {
 			// extract resource to target folder
-			Owl2Vowl o = new Owl2Vowl(c.getMainOntology().getOWLAPIModel()); // TO DO: Use this function instead of
-																				// reading the ontology again
+			Owl2Vowl o = new Owl2Vowl(c.getMainOntology().getOWLAPIModel());
 			o.writeToFile(new File(outFolder + File.separator + "webvowl" + File.separator + "data" + File.separator
 					+ "ontology.json"));
 		} catch (Exception e) {
