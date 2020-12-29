@@ -612,7 +612,7 @@ public class Constants {
 
 		// JSON-LD snippet
 		document += getJSONLDSnippet(c);
-		document += "<script src=\"" + resourcesFolderName + "/jquery.js\"></script> \n" + "<script src=\""
+		document += "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.9/jstree.min.js\"></script><script src=\"" + resourcesFolderName + "/classtree.js\"></script><script src=\"" + resourcesFolderName + "/jquery.js\"></script> \n" + "<script src=\""
 				+ resourcesFolderName + "/marked.min.js\"></script> \n" + "    <script> \n" + "function loadHash() {\n"
 				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});\n"
 				+ "	var hash = location.hash;\n" + "	if($(hash).offset()!=null){\n"

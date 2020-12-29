@@ -16,9 +16,11 @@
 
 package widoco;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,6 +35,7 @@ import java.util.zip.ZipInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.model.*;
 
@@ -315,6 +318,22 @@ public class WidocoUtils {
 		} catch (Exception e) {
 			// instead of a resource, it was added as a String
 			return v.asLiteral().get().getLiteral();
+		}
+	}
+
+	public static void writeClassTreeJSON(OWLOntology o,String outPath) {
+		try {
+			FileWriter writer=new FileWriter(new File(outPath));
+			writer.write("function createClassTreeFromJSON(json){"+System.lineSeparator()
+					+ "	classTree={\"plugins\": [\"search\", \"types\",\"sort\",\"state\",\"wholerow\"],\"search\": {\"case_sensitive\": false,\"show_only_matches\": true}, \"core\": { \"data\" :[]}}"+System.lineSeparator()
+					+ "	classTree[\"core\"][\"data\"]=json"+System.lineSeparator()
+					+ "	return classTree"+System.lineSeparator()
+					+ "}"+System.lineSeparator());
+			writer.write("var treedata="+ClassTreeParser.getClassHierarchyTree(o).toString(2));
+			writer.close();		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
