@@ -1,52 +1,24 @@
 package widoco;
 
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedList;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.Queue;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
-public class ClassTreeParser {
-
-		static BufferedWriter logwriter=null;
-		
-		/**The filepath to the icon of a class.*/
-		public static String classimg="class.gif";	
-		/**The filepath to the icon of a dataproperty.*/
-		public static String datapropertyimg=".";
-		/**The filepath to the icon of an objectproperty.*/	
-		public static String objpropertyimg=".";
-		
+public class ClassTreeParser {	
 		
 		static JSONObject getClassHierarchyTree( final OWLOntology model) {
 		        Set<String> seenResources=new TreeSet<String>();
@@ -303,14 +275,5 @@ public class ClassTreeParser {
 	    workedResources.clear();
 	    	return result;
 		   }
-	 
-	 public static void main(String[] args) throws OWLOntologyCreationException {
-		 OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-
-		 File file = new File("testont.ttl");
-
-		 OWLOntology localAcademic = manager.loadOntologyFromOntologyDocument(file);
-		 getClassHierarchyTree(localAcademic);
-	 }
 		
 }
