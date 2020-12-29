@@ -3,7 +3,7 @@
     <ontology>Ontologia</ontology>
     <ontologysource>Sorgente dell'ontologia</ontologysource>
     <visualisation>Altre visualizzazioni</visualisation>
-    <visualiseitwith>Visualizzala con</visualiseitwith>
+    <visualiseitwith>Visualizza con</visualiseitwith>
     <date>Data</date>
     <currentversion>Versione corrente</currentversion>
     <previousversion>Versione precedente</previousversion>
@@ -35,7 +35,7 @@
     <isinverseof>è l'inversa di</isinverseof>
     <hassubpropertychains>ha come catene di sotto-proprietà</hassubpropertychains>
     <hasequivalentproperties>ha come proprietà equivalenti</hasequivalentproperties>
-    <hassuperproperties>ha come super-propietà</hassuperproperties>
+    <hassuperproperties>ha come super-proprietà</hassuperproperties>
     <hassubproperties>ha come sotto-proprietà</hassubproperties>
     <hasdomain>ha come dominio</hasdomain>
     <hasrange>ha come codominio</hasrange>
@@ -82,7 +82,7 @@
 	<isrequired>Necessario</isrequired>
 	<source>Fonte</source>
 	<termStatus>A lungo termine</termStatus>
-	<deprecated>Is deprecato</deprecated>
+	<deprecated>Deprecato</deprecated>
     <domainIncludes>dominio include</domainIncludes>
     <rangeIncludes>codominio include</rangeIncludes>
 </labels>

@@ -25,11 +25,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import widoco.Configuration;
+import widoco.Constants;
 import widoco.CreateDocInThread;
 import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
@@ -42,7 +41,7 @@ import widoco.WidocoUtils;
  */
 public final class GuiController {
 
-	final static Logger logger = Logger.getLogger(GuiController.class);
+	private static final Logger logger = LoggerFactory.getLogger(GuiController.class);
 
 	public enum State {
 		initial, metadata, loadingConfig, sections, loading, generated, evaluating, exit
@@ -57,15 +56,9 @@ public final class GuiController {
 		config = new Configuration();
 		System.out.println("\n\n--WIzard for DOCumenting Ontologies (WIDOCO).\n https://w3id.org/widoco/\n");
 		System.out.println("\nYou are launching WIDOCO GUI\n");
-		System.out.println("\nTo use WIDOCO through the command line please do:\n");
-		System.out.println(
-				"java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
-						+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
-						+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-						+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction]. \nSee more information in https://github.com/dgarijo/Widoco/#how-to-use-widoco\n");
-                //configure logger.
-                Logger.getRootLogger().setLevel(Level.INFO);
-                BasicConfigurator.configure();
+		System.out.println("\nTo use WIDOCO through the command line please type:\n");
+		System.out.println(Constants.HELP_TEXT);
+                
                 // read logo
 		try {
 			gui = new GuiStep1(this);
@@ -89,7 +82,7 @@ public final class GuiController {
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
 				includeImportedOntologies = false, htAccess = false, webVowl = false, errors = false, licensius = false,
 				generateOnlyCrossRef = false, includeNamedIndividuals = true, includeAnnotationProperties = false,
-				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false;
+				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, uniteSections = false;
 		String confPath = "";
 		String code = null;// for tracking analytics.
 		String[] languages = null;
@@ -173,13 +166,15 @@ public final class GuiController {
 			case "-excludeIntroduction":
 				excludeIntroduction = true;
 				break;
+                        case "-uniteSections":
+				uniteSections = true;
+				break;
+                        case "--help":
+                            System.out.println(Constants.HELP_TEXT);
+                            return;
 			default:
 				System.out.println("Command" + s + " not recognized.");
-				System.out.println(
-						"Usage: java -jar widoco.jar [-ontFile file] or [-ontURI uri] [-outFolder folderName] [-confFile propertiesFile] [-getOntologyMetadata] [-oops] "
-								+ "[-rewriteAll] [-crossRef] [-saveConfig configOutFile] [-lang lang1-lang2] [-includeImportedOntologies] [-htaccess] [-licensius] [-webVowl] "
-								+ "[-ignoreIndividuals] [-includeAnnotationProperties] [-analytics analyticsCode] [-doNotDisplaySerializations] [-displayDirectImportsOnly]"
-								+ "[-rewriteBase rewriteBasePath] [-excludeIntroduction]\n");
+				System.out.println(Constants.HELP_TEXT);
 				return;
 			}
 			i++;
@@ -217,6 +212,7 @@ public final class GuiController {
 		this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
 		this.config.setDisplaySerializations(displaySerializations);
 		this.config.setDisplayDirectImportsOnly(displayDirectImportsOnly);
+                this.config.setIncludeAllSectionsInOneDocument(uniteSections);
 		if (excludeIntroduction) {
 			this.config.setIncludeIntroduction(false);
 		}
@@ -285,19 +281,20 @@ public final class GuiController {
 			try {
 				CreateResources.saveConfigFile(configOutFile, config);
 			} catch (IOException e) {
-				System.err.println("Error while saving configuration file [" + configOutFile + "]: " + e.getMessage());
+				logger.error("Error while saving configuration file [" + configOutFile + "]: " + e.getMessage());
 			}
 		}
 		// delete temp files
 		try {
 			FileUtils.deleteDirectory(config.getTmpFile());
 		} catch (Exception e) {
-			System.err.println("could not delete temporal folder: " + e.getMessage());
+			logger.error("Could not delete temporal folder: " + e.getMessage());
 		}
 		if (errors) {
 			// error code for notifying that there were errors.
 			System.exit(1);
 		} else {
+			//logger.info("Documentation generated successfully");
 			System.out.println("Documentation generated successfully");
 		}
 	}
@@ -488,11 +485,17 @@ public final class GuiController {
 
 	public static void main(String[] args) {
 		GuiController guiController;
-		if (args.length > 0) {
-			guiController = new GuiController(args);
-		} else {
-			guiController = new GuiController();
-		}
+                try{
+                    if (args.length > 0) {
+                            guiController = new GuiController(args);
+                    } else {
+                           guiController = new GuiController();
+                    }
+                }catch(Exception e){
+                    logger.error("It looks like WIDOCO could not run in your machine. "
+                            + "Please check that your Java version is 1.8 or higher. "
+                            + "Java version found: "+System.getProperty("java.version"));
+                }
 	}
 
 }

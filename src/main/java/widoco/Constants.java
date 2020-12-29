@@ -43,7 +43,9 @@ public class Constants {
 	public static final String LICENSIUS_URI_SEVICE_LICENSE_INFO = "http://www.licensius.com/api/license/getlicenseinfo?uri=";// "http://licensius.appspot.com/getLicenseTitle?content=";
 	public static final int LICENSIUS_TIME_OUT = 10000;
 
-	public static final int OOPS_TIME_OUT = 30000;
+	public static final int OOPS_TIME_OUT = 10000;
+        public static final String OOPS_SERVICE_URL = "http://oops.linkeddata.es/rest";
+        public static final String OOPS_NS = "http://oops.linkeddata.es/def#";
 
 	public static final String[] POSSIBLE_VOCAB_SERIALIZATIONS = { "application/rdf+xml", "text/turtle", "text/n3",
 			"application/ld+json" };
@@ -56,7 +58,7 @@ public class Constants {
 	 */
 
 	public static final String NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#";
-	public static final String NS_SCHEMA = "http://schema.org/";
+	public static final String NS_SCHEMA = "https://schema.org/";
 	public static final String NS_DC = "http://purl.org/dc/elements/1.1/";
 	public static final String NS_DCTERMS = "http://purl.org/dc/terms/";
 	public static final String NS_OWL = "http://www.w3.org/2002/07/owl#";
@@ -85,6 +87,7 @@ public class Constants {
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
 	public static final String PROP_OWL_BACKWARDS_COMPATIBLE = NS_OWL + "backwardCompatibleWith";
+        public static final String PROP_OWL_INCOMPATIBLE = NS_OWL + "incompatibleWith";
 
 	public static final String PROP_DC_TITLE = NS_DC + "title";
 	public static final String PROP_DC_RIGHTS = NS_DC + "rights";
@@ -234,6 +237,7 @@ public class Constants {
 	public static final String LANG_NAMED_INDIV = "namedIndiv";
 	public static final String LANG_TABLE_OF_CONTENTS = "tableOfContents";
 	public static final String LANG_COMPATIBLE = "compatible";
+        public static final String LANG_INCOMPATIBLE = "incompatible";
 	public static final String LANG_LEGEND = "legend";
 
 	// labels for the changelog
@@ -255,6 +259,45 @@ public class Constants {
 	public static final String LANG_RANGE = "range";
 	public static final String LANG_UNION = "unionOf";
 	public static final String LANG_INTERSECTION = "intersectionOf";
+        public static final String HELP_TEXT ="java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]\n" +
+"\n" +
+"OPTIONS:\n" +
+"    -ontFile PATH  [required (unless -ontURI is used)]: Load a local ontology file (from PATH) to document.\n "
+                + "        This option is incompatible with -ontURI\n" +
+"    -ontURI  URI   [required (unless -ontFile is used)]: Load an ontology to document from its URI.\n"
+                + "        This option is incompatible with -ontFile\n" +
+"    -outFolder folderName: Specifies the name of the folder where to save the documentation.\n"
+                + "        Default name is 'myDocumentation'\n" +
+"    -confFile PATH: Load your own configuration file for the ontology metadata.\n"
+                + "        Incompatible with -getOntologyMetadata\n" +
+"    -getOntologyMetadata: Extract ontology metadata from the given ontology \n" +
+"    -oops: Create an html page with the evaluation from the OOPS service (http://oops.linkeddata.es/)\n" +
+"    -rewriteAll: Replace any existing files when documenting an ontology (e.g., from a previous execution)\n" +
+"    -crossRef: ONLY generate the overview and cross reference sections. The index document will NOT be generated.\n"
+                + "        The htaccess, provenance page, etc., will not be generated unless requested by other flags.\n"
+                + "        This flag is intended to be used only after a first version of the documentation exists.\n" +
+"    -saveConfig PATH: Save a configuration file on PATH with the properties of a given ontology\n" +
+"    -useCustomStyle: Export the documentation using alternate css files (by Daniel Vila).\n" +
+"    -lang LANG1-LANG2: Generate documentation in multiple languages (separated by \"-\").\n"
+                + "        Note that if the language is not supported, the system will load the labels in english.\n"
+                + "        Usage example: en-pt-es\n" +
+"    -includeImportedOntologies: Indicates whether the terms of the imported ontologies of the current ontology\n"
+                + "        should be documented as well or not.\n" +
+"    -htaccess: Create a bundle for publication ready to be deployed on your Apache server.\n" +
+"    -webVowl: Create a visualization based on WebVowl in the documentation.\n" +
+"    -licensius: Use the Licensius web services to retrieve license metadata.\n"
+                + "        Only works if the -getOntologyMetadata flag is enabled.\n" +
+"    -ignoreIndividuals: Individuals will not be included in the documentation.\n" +
+"    -includeAnnotationProperties: Include annotation properties in the documentation\n" +
+"    -analytics CODE: Add a code snippet for Google analytics to track your HTML documentation.\n"
+                + "        You need to add your CODE next to the flag. For example: UA-1234\n" +
+"    -doNotDisplaySerializations: The serializations of the ontology will not be displayed.\n" +
+"    -displayDirectImportsOnly: Include direct imports of the ontology in your documentation.\n" +
+"    -rewriteBase PATH: Change the default rewrite base path. The default value is \"/\".\n"
+                + "        This flag can only be used with the htaccess option.\n" +
+"    -excludeIntroduction: Skip the introduction section in the documentation. \n" +
+"    -uniteSections: Write all HTML sections into a single HTML document. \n" +
+"    --help: Shows this message and exit.\n";  
 
 	/**
 	 * Head section of the HTML document.
@@ -264,14 +307,14 @@ public class Constants {
 	// missing specialization. Missing alternate
 
 	public static String getAbstractSection(String abstractContent, Configuration c, Properties langFile) {
-		String abstractSection = "<html>\n<h2>" + langFile.getProperty(LANG_ABSTRACT)
+		String abstractSection = "<h2>" + langFile.getProperty(LANG_ABSTRACT)
 				+ "</h2><span class=\"markdown\">\n";
 		if (abstractContent != null && !"".equals(abstractContent)) {
 			abstractSection += abstractContent;
 		} else {
 			abstractSection += langFile.getProperty(LANG_ABSTRACT_PLACEHOLDER);
 		}
-		abstractSection += "</span>\n</html>\n";
+		abstractSection += "</span>\n";
 		return abstractSection;
 	}
 
@@ -296,22 +339,22 @@ public class Constants {
 	}
 
 	public static String getReferencesSection(Configuration c, Properties lang) {
-		String s = "<html>\n<h2 id=\"ref\" class=\"list\">" + lang.getProperty(LANG_REFERENCES_PLACEHOLDER)
-				+ "\n</html>\n";
+		String s = "\n<h2 id=\"ref\" class=\"list\">" + lang.getProperty(LANG_REFERENCES_PLACEHOLDER)
+				+ "\n";
 		return s;
 	}
 
 	public static String getAcknowledgementsSection(Configuration c, Properties lang) {
-		String s = "<html>\n<div id=\"acknowledgements\">\n" + "<h2 id=\"ack\" class=\"list\">"
-				+ lang.getProperty(LANG_AC_TEXT) + "\n</html>\n";
+		String s = "<div id=\"acknowledgments\">\n" + "<h2 id=\"ack\" class=\"list\">"
+				+ lang.getProperty(LANG_AC_TEXT) + "\n";
 		return s;
 	}
 
 	public static String getChangeLogSection(Configuration c, CompareOntologies comp, Properties lang) {
-		String s = "<html>\n<div id=\"changelog\">\n" + "<h2 id=\"changes\" class=\"list\">"
+		String s = "<div id=\"changelog\">\n" + "<h2 id=\"changes\" class=\"list\">"
 				+ lang.getProperty(LANG_CHANGELOG_HEAD) + "</h2>\n";
 		s += OntologyDifferencesRenderer.differencesToHTML(comp, c.getMainOntology().getNamespaceURI(), lang);
-		s += "</div>\n<html>\n";
+		s += "</div>\n";
 		// return lang.getProperty("changeLog");
 		return s;
 	}
@@ -453,7 +496,7 @@ public class Constants {
 	 */
 	public static String getJSONLDSnippet(Configuration c) {
 		Ontology o = c.getMainOntology();
-		String metadata = "\n\n<!-- SCHEMA.ORG METADATA -->\n<script type=\"application/ld+json\">{\"@context\":\"http://schema.org\",\"@type\":\"TechArticle\","
+		String metadata = "\n\n<!-- SCHEMA.ORG METADATA -->\n<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\","
 				+ "\"url\":\"" + o.getNamespaceURI() + "\"," + "\"image\":\"" + WEBVOWL_SERVICE
 				+ c.getMainOntology().getNamespaceURI() + "\",";
 		// name (mandatory)
@@ -466,7 +509,7 @@ public class Constants {
 		// headline (mandatory)
 		metadata += ", \"headline\":";
 		if (c.getAbstractSection() != null && !"".equals(c.getAbstractSection())) {
-			metadata += "\"" + c.getAbstractSection() + "\"";
+			metadata += "\"" + c.getAbstractSection().replace("\n", "").trim() + "\"";
 		} else {
 			metadata += "\"Document describing the ontology " + o.getNamespaceURI() + "\"";
 		}
@@ -532,7 +575,15 @@ public class Constants {
 		// note to self: should clean up to avoid doing the same loop twice.
 	}
 
-	public static String getIndexDocument(String resourcesFolderName, Configuration c, LODEParser l, Properties lang) {
+	/**
+         * Function that creates an index document assuming sections have been created separately
+         * @param resourcesFolderName folder with the css and js
+         * @param c WIDOCO configuration
+         * @param l lode parser
+         * @param lang language file
+         * @return document to be generated
+         */
+        public static String getIndexDocument(String resourcesFolderName, Configuration c, LODEParser l, Properties lang) {
 		String document = OPENING;
 		/* Style selection */
 		if (c.isUseW3CStyle()) {
@@ -634,6 +685,97 @@ public class Constants {
 
 		return document;
 	}
+        
+        /**
+         * Function that includes all the sections as part of the index document.
+         * This makes the documentation more difficult to edit, but simpler for production
+         * @param resourcesFolderName folder with the css and js
+         * @param c WIDOCO configuration
+         * @param l lode parser
+         * @param lang language file
+         * @param abs abstract section
+         * @param intro introduction section
+         * @param overview overview section
+         * @param des description section 
+         * @param references references section
+         * @param changelog changelog section
+         * @param crossRef cross reference section
+         * @return string document to be generated
+         */
+        public static String getUnifiedIndexDocument(String resourcesFolderName, Configuration c, LODEParser l, Properties lang, String abs,
+                String intro, String overview, String des, String references, String changelog, String crossRef) {
+		String document = OPENING;
+		/* Style selection */
+		if (c.isUseW3CStyle()) {
+			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/primer.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/rec.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/extra.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/owl.css\" media=\"screen\" />   ";
+		} else {
+			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   "
+					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />";
+		}
+		// add a title to the document
+		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))
+			document += " <title>" + c.getMainOntology().getTitle() + "</title>\n";
+		else
+			document += " <title>Ontology Documentation generated by WIDOCO</title>\n";
+		// Google analytics code
+		String analyticsCode = c.getGoogleAnalyticsCode();
+		if (analyticsCode != null && !analyticsCode.isEmpty()) {
+			document += getAnalyticsCode(c.getGoogleAnalyticsCode());
+		}
+		// JSON-LD snippet
+		document += getJSONLDSnippet(c);
+		document += "<script src=\"" + resourcesFolderName + "/jquery.js\"></script> \n" + "<script src=\""
+				+ resourcesFolderName + "/marked.min.js\"></script> \n" + "    "
+                        + "<script> \n" + "function loadHash() {\n"
+				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});\n"
+				+ "	var hash = location.hash;\n" + "	if($(hash).offset()!=null){\n"
+				+ "	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" + "}\n" + "	loadTOC();\n"
+				+ "}\n" + "function loadTOC(){\n" + "	//process toc dynamically\n" + "	  var t='<h2>"
+				+ lang.getProperty(LANG_TABLE_OF_CONTENTS) + "</h2><ul>';i = 1;j=0;\n"
+				+ "	  jQuery(\".list\").each(function(){\n" + "		if(jQuery(this).is('h2')){\n"
+				+ "			if(j>0){\n" + "				t+='</ul>';\n" + "				j=0;\n" + "			}\n"
+				+ "			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore(\"span\").text()+'</a></li>';\n"
+				+ "			i++;\n" + "		}\n" + "		if(jQuery(this).is('h3')){\n" + "			if(j==0){\n"
+				+ "				t+='<ul>';\n" + "			}\n" + "			j++;\n"
+				+ "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore(\"span\").text()+'</a></li>';\n"
+				+ "		}\n" + "	  });\n" + "	  t+='</ul>';\n" + "	  $(\"#toc\").html(t); \n" + "}\n"
+                                + "$(function(){\n" 
+                                + "    loadHash();\n" 
+                                + "});"
+				+ " $.fn.ignore = function(sel){\n" + "        return this.clone().find(sel||\">*\").remove().end();\n"
+				+ " };" + " \n";
+		document += "   </script> \n" + "  </head> \n" + "\n" + "<body>\n";
+		// here starts the actual document content
+		document += "<div class=\"container\">\n";
+		document += getHeadSection(c, lang);
+		document += getStatus(c);
+		if (c.isIncludeAbstract())
+			document += "     <div id=\"abstract\">"+abs+"</div>\n";
+		document += "<div id=\"toc\"></div>";
+		if (c.isIncludeIntroduction())
+			document += " \n\n<!--INTRODUCTION SECTION-->\n    <div id=\"introduction\">"+intro+"</div>\n";
+		// else document += "<div id=\"namespacedeclaration\"></div>\n";
+		if (c.isIncludeOverview())
+			document += "  \n\n<!--OVERVIEW SECTION-->\n    <div id=\"overview\">"+overview+"</div>\n";
+		if (c.isIncludeDescription())
+			document += "  \n\n<!--DESCRIPTION SECTION-->\n    <div id=\"description\">"+des+"</div>\n";
+		if (c.isIncludeCrossReferenceSection())
+			document += "   \n\n<!--CROSSREF SECTION-->\n   <div id=\"crossref\">"+crossRef+"</div>\n";
+		if (c.isIncludeReferences())
+			document += "    \n\n<!--REFERENCES SECTION-->\n  <div id=\"references\">"+references+"</div>\n";
+		if (c.isIncludeChangeLog() && c.getMainOntology().getPreviousVersion() != null
+				&& !"".equals(c.getMainOntology().getPreviousVersion())) {
+			document += "   \n\n<!--CHANGELOG SECTION-->\n   <div id=\"changelog\">"+changelog+"</div>\n";
+		}
+		document += getAcknowledgementsSection(c, lang) + "\n";
+		document += "</div>\n"; // closing .container
+		document += "</body>\n</html>"; // end of page
+		return document;
+	}
 
 	public static String getHeadSection(Configuration c, Properties l) {
 		String head = "<div class=\"head\">\n";
@@ -718,6 +860,8 @@ public class Constants {
 					+ "<a href=\"webvowl/index.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg\" alt=\"Visualize with WebVowl\" /></a>"
 					+ "</dd>\n";
 		}
+                //add commented a reference in case the evaluation is to be included
+                head+="<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->";
 		if (!"".equals(c.getMainOntology().getCiteAs()) && c.getMainOntology().getCiteAs() != null) {
 			head += "<dt>" + l.getProperty(LANG_CITE_AS) + "</dt>\n<dd>" + c.getMainOntology().getCiteAs() + "</dd>\n";
 		}
@@ -731,7 +875,15 @@ public class Constants {
 				&& c.getMainOntology().getBackwardsCompatibleWith() != null) {
 			// doi is common for all languages
 			head += "<dt>" + l.getProperty(LANG_COMPATIBLE) + ":</dt>\n<dd>"
-					+ c.getMainOntology().getBackwardsCompatibleWith() + "</dd>\n";
+					+ "<a href=\""+c.getMainOntology().getBackwardsCompatibleWith()+"\">"
+					+ c.getMainOntology().getBackwardsCompatibleWith() +"</a>" + "</dd>\n";
+		}
+                if (!"".equals(c.getMainOntology().getIncompatibleWith())
+				&& c.getMainOntology().getIncompatibleWith() != null) {
+			// doi is common for all languages
+			head += "<dt>" + l.getProperty(LANG_INCOMPATIBLE) + ":</dt>\n<dd>"
+					+ "<a href=\""+c.getMainOntology().getIncompatibleWith()+"\">"
+					+ c.getMainOntology().getIncompatibleWith() +"</a>" + "</dd>\n";
 		}
 
 		// end definition list
@@ -751,8 +903,8 @@ public class Constants {
 	}
 
 	public static String getDescriptionSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
-		return "<html>\n<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": "
-				+ lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER) + "\n</html>\n";
+		return "<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": "
+				+ lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER) + "\n";
 	}
 
 	public static String getCrossReferenceSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
@@ -827,7 +979,9 @@ public class Constants {
 			provURI = "..\\index-" + c.getCurrentLanguage() + ".html";
 		}
 		String provrdf = "@prefix prov: <http://www.w3.org/ns/prov#> .\n"
-				+ "@prefix dc: <http://purl.org/dc/terms/> .\n" + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
+				+ "@prefix dc: <http://purl.org/dc/terms/> .\n" 
+                                + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n"
+                                + "@prefix : <> .\n";
 		provrdf += "<" + provURI + "> a prov:Entity;\n";
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle())) {
 			provrdf += "\t dc:title \"" + c.getMainOntology().getTitle() + "\";\n";
@@ -883,7 +1037,7 @@ public class Constants {
 
 	public static final String LODE_RESOURCES = "/lode.zip";
 	public static final String OOPS_RESOURCES = "/oops.zip";
-	public static final String WEBVOWL_RESOURCES = "/webvowl_1.1.4_patched.zip";
+	public static final String WEBVOWL_RESOURCES = "/webvowl_1.1.7_patched.zip";
 
 	public static final String CONFIG_PATH = "config" + File.separator + "config.properties";
 
@@ -928,19 +1082,45 @@ public class Constants {
 				+ "<dt><span class=\"label label-minor\">Minor</span></dt> <dd>It is not really a problem, but by correcting it we will make the ontology nicer.</dd>\n"
 				+ "</dl>" + evaluationContent +
 				// references
-				"<p>References:</p>\n" + "    <ul>\n" + "    <li>\n"
-				+ "    [1] G&oacute;mez-P&oacute;rez, A. Ontology Evaluation. Handbook on Ontologies. S. Staab and R. Studer Editors. Springer. International Handbooks on Information Systems. Pp: 251-274. 2004.\n"
-				+ "    </li> \n" + "    <li>\n"
-				+ "    [2] Noy, N.F., McGuinness. D. L. Ontology development 101: A guide to creating your first ontology. Technical Report SMI-2001-0880, Standford Medical Informatics. 2001.\n"
-				+ "    </li> \n" + "    <li>\n"
-				+ "    [3] Rector, A., Drummond, N., Horridge, M., Rogers, J., Knublauch, H., Stevens, R.,; Wang, H., Wroe, C. ''Owl pizzas: Practical experience of teaching owl-dl: Common errors and common patterns''. In Proc. of EKAW 2004, pp: 63-81. Springer. 2004.\n"
-				+ "    </li>\n" + "    <li>\n"
-				+ "    [4] Hogan, A., Harth, A., Passant, A., Decker, S., Polleres, A. Weaving the Pedantic Web. Linked Data on the Web Workshop LDOW2010 at WWW2010 (2010).\n"
-				+ "    </li>\n" + "     <li>\n"
-				+ "    [5] Archer, P., Goedertier, S., and Loutas, N. D7.1.3 - Study on persistent URIs, with identification of best practices and recommendations on the topic for the MSs and the EC. Deliverable. December 17, 2012.\n"
-				+ "    </li>\n" + "    <li>\n"
-				+ "    [6] Heath, T., Bizer, C.: Linked data: Evolving the Web into a global data space (1st edition). Morgan &amp; Claypool (2011).\n"
-				+ "    </li>\n" + "    </ul>\n" +
+				"<p>References:</p>\n" + 
+				"    <ul>\n" + 
+                "<li>\n"+
+				"    [1] Aguado-De Cea, G., Montiel-Ponsoda, E., Poveda-Villalón, M., and Giraldo-Pasmin, O.X. (2015). Lexicalizing Ontologies: The issues behind the labels. In Multimodal communication in the 21st century: Professional and academic challenges. 33rd Conference of the Spanish Association of Applied Linguistics (AESLA), XXXIII AESLA." +
+                "</li>\n"+
+                "<li>\n"+
+				"	[2] Noy, N. F., McGuinness, D. L., et al. (2001). Ontology development 101: A guide to creating your first ontology."+
+                "</li>\n"+
+                "<li>\n"+
+                "	[3] Gómez-Pérez, A. (1999). Evaluation of Taxonomic Knowledge in Ontologies and Knowledge Bases. Proceedings of the Banff Knowledge Acquisition for Knowledge-Based Systems Workshop. Alberta, Canada."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[4] Montiel-Ponsoda, E., Vila Suero, D., Villazón-Terrazas, B., Dunsire, G., Escolano Rodríguez, E., Gómez-Pérez, A. (2011). Style guidelines for naming and labeling ontologies in the multilingual web."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[5] Vrandecic, D. (2010). Ontology Evaluation. PhD thesis."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[6] Gómez-Pérez, A. (2004). Ontology evaluation. In Handbook on ontologies, pages 251-273. Springer."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[7] Rector, A., Drummond, N., Horridge, M., Rogers, J., Knublauch, H., Stevens, R., Wang, H., and Wroe, C. (2004). Owl pizzas: Practical experience of teaching owl-dl: Common errors &amp; common patterns. In Engineering Knowledge in the Age of the Semantic Web, pages 63-81. Springer."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[8] Hogan, A., Harth, A., Passant, A., Decker, S., and Polleres, A. (2010). Weaving the pedantic web. In Proceedings of the WWW2010 Workshop on Linked Data on the Web, LDOW 2010, Raleigh, USA, April 27, 2010."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[9] Archer, P., Goedertier, S., and Loutas, N. (2012). D7. 1.3-study on persistent URIs, with identification of best practices and recommendations on the topic for the Mss and the EC. PwC EU Services."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[10] Bernes-Lee Tim. (2006). “Linked Data - Design issues”. http://www.w3.org/DesignIssues/LinkedData.html"+
+                "</li>\n"+
+                "<li>\n"+
+				"	[11] Heath, T. and Bizer, C. (2011). Linked Data: Evolving the Web into a Global Data Space. Morgan &amp; Claypool, 1st edition."+
+                "</li>\n"+
+                "<li>\n"+
+				"	[12] Vatant, B. (2012). Is your linked data vocabulary 5-star?. http://bvatant.blogspot.fr/2012/02/is-your-linked-data-vocabulary-5-star_9588.html"+
+                "</li>\n"+
+				  "    </ul>\n" +
 				// copy footer here
 				"<footer>\n" + "            <div class=\"row\">\n" + "    	<div class=\"col-md-7\">\n"
 				+ "    		Developed by 	        <a href = \"http://delicias.dia.fi.upm.es/members/mpoveda/\" target=\"_blank\">Mar&iacutea Poveda</a>\n"

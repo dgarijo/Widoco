@@ -21,8 +21,6 @@ import java.io.StringWriter;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Properties;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -65,7 +63,6 @@ public class LODEParser {
 	private String annotationPropList;
 	private String namedIndividuals;
 	private String namedIndividualList;
-	private final HashMap<String, String> namespaceDeclarations;
 	Configuration c;
 
 	/**
@@ -81,7 +78,6 @@ public class LODEParser {
 	 */
 	public LODEParser(String lodeContent, Configuration c, Properties langFile) {
 		replacements = new HashMap<String, String>();
-		namespaceDeclarations = new HashMap<String, String>();
 		this.c = c;
 		parse(lodeContent, langFile);
 	}
@@ -108,10 +104,6 @@ public class LODEParser {
 
 	public String getPropertyList() {
 		return propertyList;
-	}
-
-	public HashMap<String, String> getNamespaceDeclarations() {
-		return namespaceDeclarations;
 	}
 
 	public String getAnnotationProp() {
@@ -173,29 +165,6 @@ public class LODEParser {
 							"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
 							"<h3 id=\"namedindividuals\" class=\"list\">"
 									+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
-				} else if (attrID.equals("namespacedeclarations")) {
-					Node namespace = html.item(i);
-					// <dt> prefix </dt> <dd>namespace</dd>
-					try {
-						NodeList dl = namespace.getChildNodes().item(1).getChildNodes();// first node is h2. second is
-																						// dl
-						int j = 0;
-						while (j < dl.getLength()) {
-							String key = dl.item(j).getTextContent();
-							if (dl.item(j).getNodeName().equals("dt")) {
-								String value = dl.item(j + 1).getTextContent();
-								// System.out.println(key+","+value);
-								// there might be duplicate ns. Don't add them
-								if (!namespaceDeclarations.containsValue(value)) {
-									namespaceDeclarations.put(key, value);
-								}
-							}
-							j++;
-						}
-					} catch (Exception e) {
-						logger.error("Error while retrieving the namespaces from LODE");
-					}
-
 				}
 			}
 			// fix ids
@@ -225,13 +194,9 @@ public class LODEParser {
 		} catch (DOMException ex) {
 			logger.error("Exception interpreting the resource: " + ex.getMessage());
 		} catch (SAXException ex) {
-			// moving to SLF4J
 			logger.error(MarkerFactory.getMarker("FATAL"), ex.getMessage());
-			// Logger.getLogger(LODEParser.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
-			// moving to SLF4J
 			logger.error(MarkerFactory.getMarker("FATAL"), ex.getMessage());
-			// Logger.getLogger(LODEParser.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -312,7 +277,7 @@ public class LODEParser {
 			}
 			return nodeToFix;
 		} catch (DOMException ex) {
-			System.err.println("Could not fix node");
+			logger.error("Could not fix node");
 			return nodeToFix;
 		}
 	}

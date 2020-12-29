@@ -4,20 +4,14 @@
 	<groupId>es.oeg</groupId>
 	<artifactId>widoco</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4.11</version>
+	<version>1.4.14</version>
 	<name>Widoco</name>
 
 	<properties>
-		<ver.log4j>1.2.16</ver.log4j>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
-		<jena.version>2.11.1</jena.version>
-		<jena-sdb.version>1.3.6</jena-sdb.version>
-		<jena-tdb.version>0.10.1</jena-tdb.version>
-		<jena-iri.version>0.9.6</jena-iri.version>
-		<jena-fuseki.version>0.2.7</jena-fuseki.version>
 	</properties>
 
 	<dependencies>
@@ -28,84 +22,22 @@
 			<version>0.3.5</version>
 		</dependency>
 
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${ver.log4j}</version>
-			<exclusions>
-				<!-- Exclude things that don't resolve in some versions of log4j -->
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.mail</groupId>
-					<artifactId>mail</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <version>1.7.30</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                    <version>1.7.30</version>
+                </dependency>
 
 		<!-- We use "provided" scope because we are exporting the contents of these 
 			libraries, and we don't want our bundle consumers to see and be confused 
 			by these additional copies of the classes, as transitive dependencies. "provided" 
-			prevents that from happening. -->
-
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>apache-jena-libs</artifactId>
-			<type>pom</type>
-			<version>${jena.version}</version>
-
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>lucene-core</artifactId>
-					<groupId>org.apache.lucene</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>stax-api</artifactId>
-					<groupId>stax</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>wstx-asl</artifactId>
-					<groupId>org.codehaus.woodstox</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>icu4j</artifactId>
-					<groupId>com.ibm.icu</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>slf4j-log4j12</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-core</artifactId>
-			<version>${jena.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
+                        prevents that from happening. 
+                -->
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
@@ -115,7 +47,7 @@
 		<dependency>
 			<groupId>net.sourceforge.owlapi</groupId>
 			<artifactId>owlapi-distribution</artifactId>
-			<version>5.1.9</version>
+			<version>5.1.14</version>
 		</dependency>
 
 		<dependency>
@@ -126,7 +58,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -136,11 +68,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<dependencyManagement>
@@ -205,11 +137,11 @@
 	<!-- Environment settings -->
 	<repositories>
 
-		<repository>
+		<!--<repository>
 			<id>maven-restlet</id>
 			<name>Restlet Framework repository</name>
 			<url>http://maven.restlet.org</url>
-		</repository>
+		</repository>-->
 
 		<repository>
 			<id>jitpack.io</id>

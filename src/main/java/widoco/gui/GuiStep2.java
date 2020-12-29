@@ -209,14 +209,15 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				{ "ontology ns URI", conf.getMainOntology().getNamespaceURI() },
 				{ "date of release", conf.getMainOntology().getReleaseDate() },
 				{ "this version URI", conf.getMainOntology().getThisVersion() },
-				{ "latest version URI", conf.getMainOntology().getLatestVersion() },
+				{ "latest version URI", conf.getMainOntology().getNamespaceURI() },
 				{ "previous version URI", conf.getMainOntology().getPreviousVersion() },
 				{ "ontology revision", conf.getMainOntology().getRevision() }, { "authors", authors },
 				{ "contributors", contributors }, { "publisher", publisher }, { "imported ontologies", imported },
 				{ "extended ontologies", extended }, { "license", conf.getMainOntology().getLicense().getUrl() },
 				{ "cite as", conf.getMainOntology().getCiteAs() }, { "doi", conf.getMainOntology().getDoi() },
 				{ "status", conf.getMainOntology().getStatus() },
-				{ "backwards compatible with", conf.getMainOntology().getBackwardsCompatibleWith() } },
+				{ "backwards compatible with", conf.getMainOntology().getBackwardsCompatibleWith() },
+                                { "incompatible with", conf.getMainOntology().getIncompatibleWith()} },
 				new String[] { "Property", "Value" }) {
 			Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
 			boolean[] canEdit = new boolean[] { false, true };
@@ -284,6 +285,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				conf.getMainOntology().setStatus(value);
 			} else if (prop.equals("backwards compatible with")) {
 				conf.getMainOntology().setBackwardsCompatibleWith(value);
+			} else if (prop.equals("incompatible with")) {
+				conf.getMainOntology().setIncompatibleWith(value);
 			}
 			// }
 		}

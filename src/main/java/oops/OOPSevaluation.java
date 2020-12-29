@@ -21,430 +21,394 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hp.hpl.jena.ontology.DatatypeProperty;
-import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.ObjectProperty;
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntModelSpec;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.NodeIterator;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.search.EntitySearcher;
 import widoco.Constants;
 
 /**
- * 
- * @author Maria Poveda. Integrated by Daniel Garijo.
+ * @author Maria Poveda Villalon. 
+ * Integrated by Daniel Garijo.
  */
 public class OOPSevaluation {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public boolean error = false;
-	public OntModel model = null;
-
-	private String uriOnto = null;
-
-	public OOPSevaluation(String uriOnto, String content) throws IOException {
-		this.uriOnto = uriOnto;
-
-		String request = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<OOPSRequest><OntologyUrl>";
-		if (uriOnto != null & !"".equals(uriOnto)) {
-			request += uriOnto;
-		}
-		request += "</OntologyUrl><OntologyContent>";
-		if (content != null && !"".equals(content)) {
-			request += "<![CDATA[ " + content + " ]]>";
-		}
-		request += "</OntologyContent>" + "<Pitfalls></Pitfalls>" + "<OutputFormat>RDF/XML</OutputFormat>"
-				+ "</OOPSRequest>";
-
-		String uri = "http://oops-ws.oeg-upm.net/rest";
-		URL url = new URL(uri);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setConnectTimeout(Constants.OOPS_TIME_OUT);
-		connection.setRequestMethod("POST");
-		connection.setDoOutput(true);
-		connection.setRequestProperty("Connection", "Keep-Alive");
-		connection.setRequestProperty("Accept", "application/xml");
-
-		OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
-		wr.write(request);
-
-		wr.flush();
-
-		InputStream in = (InputStream) connection.getInputStream();
-
-		OntModelSpec s = new OntModelSpec(OntModelSpec.OWL_MEM);
-		this.model = ModelFactory.createOntologyModel(s);
-		this.model.read(in, "http://myevaluation.com#");
-
-		URL url2 = new URL(uri);
-		HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
-		connection2.setRequestMethod("POST");
-		connection2.setDoOutput(true);
-		connection2.setRequestProperty("Connection", "Keep-Alive");
-		connection2.setRequestProperty("Accept", "application/xml");
-		OutputStreamWriter wr2 = new OutputStreamWriter(connection2.getOutputStream());
-		wr2.write(request);
-		wr2.flush();
-		InputStream in2 = (InputStream) connection2.getInputStream();
-		// String line;
-		// BufferedReader reader = new BufferedReader(
-		// new InputStreamReader(in2));
-		// PrintStream ps = new PrintStream(new BufferedOutputStream(new
-		// FileOutputStream(new File("output/web/ws/"+uriOnto.replace("/",
-		// "")+".txt"))), true);
-		//
-		// while ((line = reader.readLine()) != null) {
-		// ps.println(line);
-		// }
-		// ps.close();
-		// reader.close();
-		in2.close();
-		wr2.close();
-
-		in.close();
-		wr.close();
-
-		connection.disconnect();
+	private OWLOntology model = null;
+        private int pitfallNumber;
+        
+        
+	public OOPSevaluation(String content) throws IOException {
+            //always query by content
+            pitfallNumber = 0;
+            String request = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<OOPSRequest><OntologyUrl>";
+            request += "</OntologyUrl><OntologyContent>";
+            if (content != null && !"".equals(content)) {
+                    request += "<![CDATA[ " + content + " ]]>";
+            }
+            request += "</OntologyContent>" + "<Pitfalls></Pitfalls>" + "<OutputFormat>RDF/XML</OutputFormat>"
+                            + "</OOPSRequest>";
+            String uri = Constants.OOPS_SERVICE_URL;
+            URL url = new URL(uri);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(Constants.OOPS_TIME_OUT);
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("Accept", "application/xml");
+            OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
+            wr.write(request);
+            wr.flush();
+            InputStream in = (InputStream) connection.getInputStream();
+            try{
+                OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+                model = manager.loadOntologyFromOntologyDocument(in);
+                OWLClass pitfall = model.getOWLOntologyManager().getOWLDataFactory().getOWLClass(Constants.OOPS_NS + "pitfall");
+                this.pitfallNumber = EntitySearcher.getIndividuals(pitfall, model).collect(Collectors.toSet()).size();
+            }catch(OWLOntologyCreationException e){
+                logger.warn("Could not extract the number of pitfalls from response");
+            }
+            in.close();
+            wr.close();
+            connection.disconnect();
+            
 	}
-
+        
+        
+        /**
+         * Method that returns a String with an HTML representation of the evaluation
+         * @return 
+         */
 	public String printEvaluation() {
-
-		String oops = "http://www.oeg-upm.net/oops#";
-
-		String evaluationOutput = "";
-
-		OntClass pitfallClass = model.createClass(oops + "pitfall");
-		DatatypeProperty hasCodeDTP = model.createDatatypeProperty(oops + "hasCode");
-		// DatatypeProperty hasTitleDTP = model.createDatatypeProperty( oops +
-		// "hasTitle");
-		DatatypeProperty hasNameDTP = model.createDatatypeProperty(oops + "hasName");
-		DatatypeProperty hasDescriptionDTP = model.createDatatypeProperty(oops + "hasDescription");
-		DatatypeProperty hasImportanceLevelDTP = model.createDatatypeProperty(oops + "hasImportanceLevel");
-		DatatypeProperty hasFrequencyDTP = model.createDatatypeProperty(oops + "hasNumberAffectedElements");
-		ObjectProperty hasAffectedElement = model.createObjectProperty(oops + "hasAffectedElement");
-		ObjectProperty mightNotBeInverseOf = model.createObjectProperty(oops + "mightNotBeInverseOf");
-		ObjectProperty hasEquivalentClass = model.createObjectProperty(oops + "hasEquivalentClass");
-		ObjectProperty hasWrongEquivalentClass = model.createObjectProperty(oops + "hasWrongEquivalentClass");
-		ObjectProperty noSuggestion = model.createObjectProperty(oops + "noSuggestion");
-		ObjectProperty haveSameLabel = model.createObjectProperty(oops + "haveSameLabel");
-
-		ExtendedIterator<Individual> p = model.listIndividuals(pitfallClass);
-		List<Individual> plist = p.toList();
-		logger.info("Pitfall number: " + plist.size());
-
-		if (plist.size() > 0) {
-
-			// prepare for order list
-
-			List<String> codesL = new ArrayList<>();
-
-			for (int k = 0; k < plist.size(); k++) {
-				if (plist.get(k).hasProperty(hasCodeDTP)) {
-					codesL.add(plist.get(k).getPropertyValue(hasCodeDTP).asLiteral().getString());
-				} else {
-					logger.info("The pitfall does not have CODE: " + plist.get(k).getURI());
-				}
-			}
-
-			Collections.sort(codesL);
-
-			// int l=0;
-			// for(String temp: codesL){
-			// System.out.println("fruits " + ++l + " : " + temp);
-			// }
-
-			// end order list
-
-			evaluationOutput = evaluationOutput + "<h2>Evaluation results</h2>\n";
-			evaluationOutput = evaluationOutput + "<div class=\"panel-group\" id=\"accordion\">\n";
-
-			// for (int i = 0; i < plist.size(); i++){
-			int i = 0;
-			for (String temp : codesL) {
-				// Individual ind = plist.get(i);
-				ResIterator resources = model.listSubjectsWithProperty(hasCodeDTP, temp);
-
-				if (resources.hasNext()) {
-					Individual ind = resources.next().as(Individual.class);
-
-					// Iterator a = ind.listProperties();
-					// while (a.hasNext()){
-					// System.out.println(a.next().toString());
-					//
-					// }
-
-					String title = ind.getPropertyValue(hasNameDTP).asLiteral().getString();
-					String code = ind.getPropertyValue(hasCodeDTP).asLiteral().getString();
-					String description = ind.getPropertyValue(hasDescriptionDTP).asLiteral().getString();
-					String importanceLevel = ind.getPropertyValue(hasImportanceLevelDTP).asLiteral().getString();
-
-					boolean hasFrequency = ind.hasProperty(hasFrequencyDTP);
-					int frequency = 0;
-
-					if (hasFrequency) {
-						frequency = ind.getPropertyValue(hasFrequencyDTP).asLiteral().getInt();
-					}
-
-					// if(ind.hasProperty(hasTitleDTP)){
-					// title = ind.getPropertyValue(hasTitleDTP).asLiteral().getString();
-					// }
-
-					// codigo y titulo
-					evaluationOutput = evaluationOutput + "<div class=\"panel panel-default\">\n";
-					evaluationOutput = evaluationOutput + "<div class=\"panel-heading\">\n";
-					evaluationOutput = evaluationOutput + "<h4 class=\"panel-title\">\n";
-					evaluationOutput = evaluationOutput + "<a data-toggle=\"collapse\" href=\"#collapse" + i + "\">\n";
-					evaluationOutput = evaluationOutput + code + ". " + title;
-
-					// frequency and important level
-					// evaluationOutput = evaluationOutput + "</a>\n";
-
-					// place stuff at the right
-					evaluationOutput = evaluationOutput + "<span style=\"float: right;\">";
-
-					if (code.contentEquals("P03") || code.contentEquals("P10") || code.contentEquals("P22")
-							|| code.contentEquals("P36") || code.contentEquals("P37") || code.contentEquals("P38")
-							|| code.contentEquals("P39")) {
-						evaluationOutput = evaluationOutput + " ontology *";
-					} else if (frequency == 1) {
-						evaluationOutput = evaluationOutput + frequency + " case detected. ";
-
-					} else {
-						evaluationOutput = evaluationOutput + frequency + " cases detected. ";
-					}
-
-					if (importanceLevel.equalsIgnoreCase("critical")) {
-						evaluationOutput = evaluationOutput + "<span class=\"label label-danger\">" + importanceLevel
-								+ "</span>";
-					} else if (importanceLevel.equalsIgnoreCase("important")) {
-						evaluationOutput = evaluationOutput + "<span class=\"label label-warning\">" + importanceLevel
-								+ "</span>";
-					} else if (importanceLevel.equalsIgnoreCase("minor")) {
-						evaluationOutput = evaluationOutput + "<span class=\"label label-minor\">" + importanceLevel
-								+ "</span>";
-					}
-
-					// end stuff at right
-					evaluationOutput = evaluationOutput + "</span>";
-
-					evaluationOutput = evaluationOutput + "</a>\n";
-					evaluationOutput = evaluationOutput + "</h4>\n";
-					evaluationOutput = evaluationOutput + "</div>\n";
-					evaluationOutput = evaluationOutput + "<div id=\"collapse" + i
-							+ "\" class=\"panel-collapse collapse\">\n";
-					evaluationOutput = evaluationOutput + "<div class=\"panel-body\">\n";
-					// descripcion
-					evaluationOutput = evaluationOutput + "<p>" + description + "</p>";
-
-					// affected elements
-					if (code.contentEquals("P10") || code.contentEquals("P22") || code.contentEquals("P37")
-							|| code.contentEquals("P38") || code.contentEquals("P39")) {
-						evaluationOutput = evaluationOutput + "<p>"
-								+ "*This pitfall applies to the ontology in general instead of specific elements"
-								+ "</p>";
-					} else if (code.contentEquals("P03")) {
-						Resource affectedE = ind.getPropertyResourceValue(hasAffectedElement);
-						evaluationOutput = evaluationOutput + "<p>" + "The property " + "<a href=\""
-								+ affectedE.getURI() + "\" target=\"_blank\">" + affectedE.getURI() + "</a>"
-								+ " might be replaced by an ontology language predicate as for example "
-								+ "\"rdf:type\" or \"rdfs:subclassOf\" or  \"owl:sameAs\"" + "</p>";
-					}
-					// else if (code.contentEquals("P05")){
-					// //special output. P05. Defining wrong inverse relationships
-					// evaluationOutput = evaluationOutput + "<p>" +
-					// "This pitfall affects to the following ontology elements: " +
-					// "</p>";
-					// NodeIterator elements= ind.listPropertyValues(hasAffectedElement);
-					//
-					// evaluationOutput = evaluationOutput + "<ul>";
-					//
-					// while (elements.hasNext()){
-					// RDFNode nextNode = elements.next();
-					//
-					//
-					// if (nextNode.isLiteral()){
-					// System.out.println("This should be an instance in OOPSevaluation");
-					// }
-					// else if (nextNode.isURIResource()){
-					// // for each accepted element get the wrong inverse
-					// ObjectProperty mightBeEquivalentProperty = model.createObjectProperty(oops +
-					// "mightBeEquivalentProperty");
-					// Resource pairs = nextNode.asResource().
-					// }
-					// else{
-					// System.out.println("Can't act as Individual in OOPSevaluation");
-					// }
-					//
-					// }
-					// evaluationOutput = evaluationOutput + "</ul>";
-					//
-					// }
-					else if (code.contentEquals("P36")) {
-						evaluationOutput = evaluationOutput + "<p>"
-								+ "*This pitfall applies to the ontology in general instead of specific elements and it appears in the ontology URI: "
-								+ "<a href=\"" + this.uriOnto + "\" target=\"_blank\">" + this.uriOnto + "</a>"
-								+ "</p>";
-					}
-
-					else {
-						evaluationOutput = evaluationOutput + "<p>"
-								+ "This pitfall affects to the following ontology elements: " + "</p>";
-						if (code.contentEquals("P05")) {
-							NodeIterator elements = ind.listPropertyValues(mightNotBeInverseOf);
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-							while (elements.hasNext()) {
-								String uri = elements.next().asResource().getURI();
-								Individual indi = model.getIndividual(uri);
-
-								NodeIterator elementos = indi.listPropertyValues(hasAffectedElement);
-								String first = elementos.next().asLiteral().getString();
-								String second = elementos.next().asLiteral().getString();
-								evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
-										+ "\" target=\"_blank\">" + first + "</a>" + " may not be inverse of "
-										+ "<a href=\"" + second + "\" target=\"_blank\">" + second + "</a>" + "</li>";
-							}
-
-							evaluationOutput = evaluationOutput + "</ul>";
-						} else if (code.contentEquals("P13")) {
-
-							NodeIterator elements = ind.listPropertyValues(noSuggestion);
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-							while (elements.hasNext()) {
-								String uri = elements.next().asResource().getURI();
-								Individual indi = model.getIndividual(uri);
-
-								NodeIterator elementos = indi.listPropertyValues(hasAffectedElement);
-								while (elementos.hasNext()) {
-									String first = elementos.next().asLiteral().getString();
-									evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
-											+ "\" target=\"_blank\">" + first + "</a>" + "</li>";
-								}
-							}
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-						} else if (code.contentEquals("P30")) {
-
-							NodeIterator elements = ind.listPropertyValues(hasEquivalentClass);
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-							while (elements.hasNext()) {
-								String uri = elements.next().asResource().getURI();
-								Individual indi = model.getIndividual(uri);
-
-								NodeIterator elementos = indi.listPropertyValues(hasAffectedElement);
-
-								String first = elementos.next().asLiteral().getString();
-								String second = elementos.next().asLiteral().getString();
-								evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
-										+ "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
-										+ "\" target=\"_blank\">" + second + "</a>" + "</li>";
-							}
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-						} else if (code.contentEquals("P31")) {
-
-							NodeIterator elements = ind.listPropertyValues(hasWrongEquivalentClass);
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-							while (elements.hasNext()) {
-								String uri = elements.next().asResource().getURI();
-								Individual indi = model.getIndividual(uri);
-
-								NodeIterator elementos = indi.listPropertyValues(hasAffectedElement);
-
-								String first = elementos.next().asLiteral().getString();
-								String second = elementos.next().asLiteral().getString();
-								evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
-										+ "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
-										+ "\" target=\"_blank\">" + second + "</a>" + "</li>";
-							}
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-						} else if (code.contentEquals("P32")) {
-
-							NodeIterator elements = ind.listPropertyValues(haveSameLabel);
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-							while (elements.hasNext()) {
-								String uri = elements.next().asResource().getURI();
-								Individual indi = model.getIndividual(uri);
-
-								NodeIterator elementos = indi.listPropertyValues(hasAffectedElement);
-								evaluationOutput = evaluationOutput + "<li>";
-								boolean primero = true;
-								while (elementos.hasNext()) {
-									String first = elementos.next().asLiteral().getString();
-									if (!primero)
-										evaluationOutput = evaluationOutput + " , ";
-									evaluationOutput = evaluationOutput + "<a href=\"" + first + "\" target=\"_blank\">"
-											+ first + "</a>";
-									primero = false;
-								}
-								evaluationOutput = evaluationOutput + "</li>";
-							}
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-						} else {
-							NodeIterator elements = ind.listPropertyValues(hasAffectedElement);
-
-							evaluationOutput = evaluationOutput + "<ul>";
-
-							while (elements.hasNext()) {
-								RDFNode nextNode = elements.next();
-
-								if (nextNode.isLiteral()) {
-									String element = nextNode.asLiteral().getString();
-									evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + element
-											+ "\" target=\"_blank\">" + element + "</a>" + "</li>";
-								} else if (nextNode.isURIResource()) {
-									System.out.println("Es un Resource in OOPSevaluation");
-
-								} else {
-									System.out.println("Can't act as Individual in OOPSevaluation");
-								}
-
-							}
-							evaluationOutput = evaluationOutput + "</ul>";
-						}
-					}
-
-					evaluationOutput = evaluationOutput + "</div>\n";
-					evaluationOutput = evaluationOutput + "</div>\n";
-					evaluationOutput = evaluationOutput + "</div>\n";
-
-					i++;
-				}
-			}
-			evaluationOutput = evaluationOutput + "</div>\n"; // close div accordion
-		} else {
-			evaluationOutput = "<h2>Congratulations! OOPS did not find a single pitfall</h2>";
-		}
-
-		return evaluationOutput;
+            String evaluationOutput = "";
+            OWLDataFactory df = model.getOWLOntologyManager().getOWLDataFactory();
+            OWLClass pitfallClass = df.getOWLClass(Constants.OOPS_NS + "pitfall");
+            OWLDataProperty hasCodeDTP = df.getOWLDataProperty(Constants.OOPS_NS + "hasCode");
+            OWLDataProperty  hasNameDTP = df.getOWLDataProperty(Constants.OOPS_NS + "hasName");
+            OWLDataProperty  hasDescriptionDTP = df.getOWLDataProperty(Constants.OOPS_NS + "hasDescription");
+            OWLDataProperty  hasImportanceLevelDTP = df.getOWLDataProperty(Constants.OOPS_NS + "hasImportanceLevel");
+            OWLDataProperty  hasFrequencyDTP = df.getOWLDataProperty(Constants.OOPS_NS + "hasNumberAffectedElements");
+            OWLObjectProperty hasAffectedElement = df.getOWLObjectProperty(Constants.OOPS_NS + "hasAffectedElement");
+            OWLObjectProperty mightNotBeInverseOf = df.getOWLObjectProperty(Constants.OOPS_NS + "mightNotBeInverseOf");
+            OWLObjectProperty hasEquivalentClass = df.getOWLObjectProperty(Constants.OOPS_NS + "hasEquivalentClass");
+            OWLObjectProperty hasWrongEquivalentClass = df.getOWLObjectProperty(Constants.OOPS_NS + "hasWrongEquivalentClass");
+            OWLObjectProperty noSuggestion = df.getOWLObjectProperty(Constants.OOPS_NS + "noSuggestion");
+            OWLObjectProperty haveSameLabel = df.getOWLObjectProperty(Constants.OOPS_NS + "haveSameLabel");
+
+            Set pitfalls = EntitySearcher.getIndividuals(pitfallClass, model).collect(Collectors.toSet());
+            logger.info("Pitfall number: " + pitfalls.size());
+            if (this.pitfallNumber > 0) {
+                HashMap<String,ArrayList<OWLNamedIndividual>> codes = new HashMap<>();
+                Object[] codesList;
+                Iterator<OWLNamedIndividual> pitfallIt = pitfalls.iterator();
+                while (pitfallIt.hasNext()){
+                    OWLNamedIndividual pit = pitfallIt.next();
+                    EntitySearcher.getAnnotationAssertionAxioms(pit, model).forEach(i ->{
+                        if(i.getProperty().getIRI().equals(hasCodeDTP.getIRI())){
+                            String code = i.getValue().asLiteral().get().getLiteral();
+                            ArrayList<OWLNamedIndividual> pitfallsWithCode;
+                            if(codes.containsKey(code)){
+                                pitfallsWithCode = codes.get(code);
+                                pitfallsWithCode.add(pit);
+                            }else{
+                                pitfallsWithCode = new ArrayList<>();
+                                pitfallsWithCode.add(pit);
+                                codes.put(code,pitfallsWithCode);
+                            }
+                            //System.out.println(i.getProperty().getIRI()+"----" +i.getValue().toString());
+                        }
+                    });
+                }
+
+                codesList = codes.keySet().toArray();
+                Arrays.sort(codesList);
+
+                evaluationOutput = evaluationOutput + "<h2>Evaluation results</h2>\n";
+                evaluationOutput = evaluationOutput + "<div class=\"panel-group\" id=\"accordion\">\n";
+
+                int i = 0;
+                for (Object temp : codesList) {
+                   ArrayList<OWLNamedIndividual> resources = codes.get((String)temp);
+                   for (OWLNamedIndividual ind:resources){
+                        String title="";
+                        String code = (String) temp;
+                        String description = "";
+                        String importanceLevel = "";
+                        String affectedElement ="";
+                        int frequency = 0;
+                        
+                        try{
+                            List<OWLAnnotationAssertionAxiom> properties = EntitySearcher.getAnnotationAssertionAxioms(ind, model).collect(Collectors.toList());
+                            for (OWLAnnotationAssertionAxiom p: properties){
+                                if(p.getProperty().getIRI().equals(hasNameDTP.getIRI())){
+                                    title = p.getValue().asLiteral().get().getLiteral();
+                                }else if (p.getProperty().getIRI().equals(hasDescriptionDTP.getIRI())){
+                                    description = p.getValue().asLiteral().get().getLiteral();
+                                }else if (p.getProperty().getIRI().equals(hasImportanceLevelDTP.getIRI())){
+                                    importanceLevel = p.getValue().asLiteral().get().getLiteral();
+                                }else if (p.getProperty().getIRI().equals(hasFrequencyDTP.getIRI())){
+                                    frequency = p.getValue().asLiteral().get().parseInteger();
+                                }else if (p.getProperty().getIRI().equals(hasAffectedElement.getIRI())){
+                                    affectedElement = p.getValue().asIRI().toString();
+                                }
+                            }
+                        }catch(Exception e){
+                             logger.error("Error while extracting some of the properties for the pitfall: "+code);
+                        }
+
+                        evaluationOutput = evaluationOutput + "<div class=\"panel panel-default\">\n";
+                        evaluationOutput = evaluationOutput + "<div class=\"panel-heading\">\n";
+                        evaluationOutput = evaluationOutput + "<h4 class=\"panel-title\">\n";
+                        evaluationOutput = evaluationOutput + "<a data-toggle=\"collapse\" href=\"#collapse" + i + "\">\n";
+                        evaluationOutput = evaluationOutput + code + ". " + title;
+
+                        // frequency and important level
+                        // evaluationOutput = evaluationOutput + "</a>\n";
+
+                        // place stuff at the right
+                        evaluationOutput = evaluationOutput + "<span style=\"float: right;\">";
+//
+                        if (code.contentEquals("P03") || code.contentEquals("P10") || code.contentEquals("P22")
+                                        || code.contentEquals("P36") || code.contentEquals("P37") || code.contentEquals("P38")
+                                        || code.contentEquals("P39")) {
+                                evaluationOutput = evaluationOutput + " ontology *";
+                        } else if (frequency == 1) {
+                                evaluationOutput = evaluationOutput + frequency + " case detected. ";
+
+                        } else {
+                                evaluationOutput = evaluationOutput + frequency + " cases detected. ";
+                        }
+//
+                        if (importanceLevel.equalsIgnoreCase("critical")) {
+                                evaluationOutput = evaluationOutput + "<span class=\"label label-danger\">" + importanceLevel
+                                                + "</span>";
+                        } else if (importanceLevel.equalsIgnoreCase("important")) {
+                                evaluationOutput = evaluationOutput + "<span class=\"label label-warning\">" + importanceLevel
+                                                + "</span>";
+                        } else if (importanceLevel.equalsIgnoreCase("minor")) {
+                                evaluationOutput = evaluationOutput + "<span class=\"label label-minor\">" + importanceLevel
+                                                + "</span>";
+                        }
+
+                        // end stuff at right
+                        evaluationOutput = evaluationOutput + "</span>";
+
+                        evaluationOutput = evaluationOutput + "</a>\n";
+                        evaluationOutput = evaluationOutput + "</h4>\n";
+                        evaluationOutput = evaluationOutput + "</div>\n";
+                        evaluationOutput = evaluationOutput + "<div id=\"collapse" + i
+                                        + "\" class=\"panel-collapse collapse\">\n";
+                        evaluationOutput = evaluationOutput + "<div class=\"panel-body\">\n";
+                        // descripcion
+                        evaluationOutput = evaluationOutput + "<p>" + description + "</p>";
+
+                        // affected elements
+                        if (code.contentEquals("P10") || code.contentEquals("P22") || code.contentEquals("P37")
+                                    || code.contentEquals("P38") || code.contentEquals("P39")) {
+                            evaluationOutput = evaluationOutput + "<p>"
+                                + "*This pitfall applies to the ontology in general instead of specific elements"
+                                + "</p>";
+                        } else if (code.contentEquals("P03")) {
+//                            Resource affectedE = ind.getPropertyResourceValue(hasAffectedElement);
+                            evaluationOutput = evaluationOutput + "<p>" + "The property " + "<a href=\""
+                                + affectedElement + "\" target=\"_blank\">" + affectedElement + "</a>"
+                                + " might be replaced by an ontology language predicate as for example "
+                                + "\"rdf:type\" or \"rdfs:subclassOf\" or  \"owl:sameAs\"" + "</p>";
+                        }
+                        else if (code.contentEquals("P36")) {
+                                evaluationOutput = evaluationOutput + "<p>"
+                                    + "*This pitfall applies to the ontology in general instead of specific elements and it appears in the ontology URI."
+                            //	+ "<a href=\"" + this.uriOnto + "\" target=\"_blank\">" + this.uriOnto + "</a>"
+                                    + "</p>";
+                        }
+                        else {
+                            evaluationOutput = evaluationOutput + "<p>"
+                                + "This pitfall affects to the following ontology elements: " + "</p>";
+                            try{
+                                switch (code) {
+                                    case "P05":
+                                        {
+                                            List<OWLAnnotationAssertionAxiom> elements =  EntitySearcher.getAnnotationAssertionAxioms(ind, model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(mightNotBeInverseOf.getIRI())).
+                                                                            collect(Collectors.toList());
+                                            evaluationOutput = evaluationOutput + "<ul>";
+                                            for (OWLAnnotationAssertionAxiom element:elements) {
+                                                Iterator elementos =  (EntitySearcher.getAnnotationAssertionAxioms(element.getValue().asIRI().get(), model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasAffectedElement.getIRI())).
+                                                                            collect(Collectors.toList())).iterator();
+                                                if(elementos.hasNext()){
+                                                    String first = ((OWLAnnotationAssertionAxiom)elementos.next()).getValue().asLiteral().get().getLiteral();
+                                                    String second = ((OWLAnnotationAssertionAxiom)elementos.next()).getValue().asLiteral().get().getLiteral();
+                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
+                                                            + "\" target=\"_blank\">" + first + "</a>" + " may not be inverse of "
+                                                            + "<a href=\"" + second + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                    evaluationOutput = evaluationOutput + "</ul>";
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    case "P13":
+                                        {
+                                            List<OWLAnnotationAssertionAxiom> elements =  EntitySearcher.getAnnotationAssertionAxioms(ind, model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(noSuggestion.getIRI())).
+                                                                            collect(Collectors.toList());
+                                            evaluationOutput = evaluationOutput + "<ul>";
+                                            for (OWLAnnotationAssertionAxiom element:elements) {
+                                                Iterator elementos =  (EntitySearcher.getAnnotationAssertionAxioms(element.getValue().asIRI().get(), model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasAffectedElement.getIRI())).
+                                                                            collect(Collectors.toList())).iterator();
+                                                while(elementos.hasNext()) {
+                                                    String first = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
+                                                            + "\" target=\"_blank\">" + first + "</a>" + "</li>";
+                                                }
+                                            }     
+                                            evaluationOutput = evaluationOutput + "</ul>";
+                                            break;
+                                        }
+                                    case "P30":
+                                        {
+                                            List<OWLAnnotationAssertionAxiom> elements =  EntitySearcher.getAnnotationAssertionAxioms(ind, model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasEquivalentClass.getIRI())).
+                                                                            collect(Collectors.toList());
+                                            evaluationOutput = evaluationOutput + "<ul>";
+                                            for (OWLAnnotationAssertionAxiom element:elements) {
+                                                Iterator elementos =  (EntitySearcher.getAnnotationAssertionAxioms(element.getValue().asIRI().get(), model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasAffectedElement.getIRI())).
+                                                                            collect(Collectors.toList())).iterator();
+                                                while(elementos.hasNext()) {
+                                                    String first = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                    String second = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
+                                                            + "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
+                                                            + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                }       
+                                                evaluationOutput = evaluationOutput + "</ul>";
+                                            }
+                                            break;
+                                        }
+                                    case "P31":
+                                        {
+                                            List<OWLAnnotationAssertionAxiom> elements =  EntitySearcher.getAnnotationAssertionAxioms(ind, model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasWrongEquivalentClass.getIRI())).
+                                                                            collect(Collectors.toList());
+                                            evaluationOutput = evaluationOutput + "<ul>";
+                                            for (OWLAnnotationAssertionAxiom element:elements) {
+                                                Iterator elementos =  (EntitySearcher.getAnnotationAssertionAxioms(element.getValue().asIRI().get(), model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasAffectedElement.getIRI())).
+                                                                            collect(Collectors.toList())).iterator();
+                                                while(elementos.hasNext()) {
+                                                    String first = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                    String second = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
+                                                            + "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
+                                                            + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                }       
+                                                evaluationOutput = evaluationOutput + "</ul>";
+                                            }
+                                            break;
+                                        }
+                                    case "P32":
+                                        {
+                                            List<OWLAnnotationAssertionAxiom> elements =  EntitySearcher.getAnnotationAssertionAxioms(ind, model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(haveSameLabel.getIRI())).
+                                                                            collect(Collectors.toList());
+                                            evaluationOutput = evaluationOutput + "<ul>";
+                                            for (OWLAnnotationAssertionAxiom element:elements) {
+                                                Iterator elementos =  (EntitySearcher.getAnnotationAssertionAxioms(element.getValue().asIRI().get(), model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasAffectedElement.getIRI())).
+                                                                            collect(Collectors.toList())).iterator();
+                                                boolean primero = true;
+                                                while(elementos.hasNext()) {
+                                                    String first = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                    if (!primero)
+                                                        evaluationOutput = evaluationOutput + " , ";
+                                                    evaluationOutput = evaluationOutput + "<a href=\"" + first + "\" target=\"_blank\">"
+                                                            + first + "</a>";
+                                                    primero = false;
+                                                }
+                                                evaluationOutput = evaluationOutput + "</li>";
+                                            }
+                                            evaluationOutput = evaluationOutput + "</ul>";
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            List<OWLAnnotationAssertionAxiom> elements =  EntitySearcher.getAnnotationAssertionAxioms(ind, model).filter
+                                                                (prop -> prop.getProperty().getIRI().
+                                                                        equals(hasAffectedElement.getIRI())).
+                                                                            collect(Collectors.toList());
+                                            evaluationOutput = evaluationOutput + "<ul>";
+                                            for (OWLAnnotationAssertionAxiom elem:elements) {
+                                                OWLAnnotationValue e = ((OWLAnnotationAssertionAxiom)elem).getValue();
+                                                if(e.isLiteral()){
+                                                    String element = e.asLiteral().get().toString();
+                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + element
+                                                        + "\" target=\"_blank\">" + element + "</a>" + "</li>";
+                                                }else{
+                                                    logger.warn("Can't act as Individual in OOPSevaluation");
+                                                }
+                                            }
+                                            evaluationOutput = evaluationOutput + "</ul>";
+                                            break;
+                                        }
+                                }
+                            }catch(Exception e){
+                                logger.warn("Error when processing one of the pitfalls: "+e.getMessage());
+                            }
+                    }
+
+                    evaluationOutput = evaluationOutput + "</div>\n";
+                    evaluationOutput = evaluationOutput + "</div>\n";
+                    evaluationOutput = evaluationOutput + "</div>\n";
+
+                    i++;
+                    }
+                }
+                evaluationOutput = evaluationOutput + "</div>\n"; // close div accordion
+            } else {
+                    evaluationOutput = "<h2>Congratulations! OOPS did not find a single pitfall</h2>";
+            }
+
+        return evaluationOutput;
 
 	}
+
+    public int getPitfallNumber() {
+        return pitfallNumber;
+    }
+        
+        
 
 }

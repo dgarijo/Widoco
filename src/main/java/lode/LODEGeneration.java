@@ -36,8 +36,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -45,15 +46,15 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 import widoco.Configuration;
 
 /**
  *
- * @author Silvio Peroni, adpated to Widoco (and modified) by Daniel Garijo
+ * @author Silvio Peroni, adpated for WIDOCO (and modified) by Daniel Garijo
  */
 public class LODEGeneration {
-
-	final static Logger logger = Logger.getLogger(LODEGeneration.class);
+        private static final Logger logger = LoggerFactory.getLogger(LODEGeneration.class);
 
 	public static String getLODEhtml(Configuration c, File lodeResources) throws Exception {
 		try {

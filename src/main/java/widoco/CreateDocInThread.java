@@ -17,7 +17,8 @@ package widoco;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import widoco.gui.GuiController;
 
 /**
@@ -29,7 +30,7 @@ public class CreateDocInThread implements Runnable{
     private final GuiController pointerToMain;
     private final File tmpFile;
 
-    final static Logger logger = Logger.getLogger(CreateDocInThread.class);
+    private static final Logger logger = LoggerFactory.getLogger(CreateDocInThread.class);
 
     public CreateDocInThread(Configuration c, GuiController g, File lodeTmpResources){
         this.c = c;

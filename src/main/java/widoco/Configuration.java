@@ -18,10 +18,8 @@ package widoco;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -32,6 +30,7 @@ import java.util.Iterator;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,6 +122,8 @@ public class Configuration {
 	private boolean displaySerializations;// in case someone does not want serializations in their page
 	private boolean displayDirectImportsOnly;// in case someone wants only the direct imports on their page
 	private String rewriteBase;// rewrite base path for content negotiation (.htaccess)
+    private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
+	private HashMap<String, String> namespaceDeclarations; //Namespace declarations to be included in the documentation.
 
 	/**
 	 * Variable to keep track of possible errors in the changelog. If there are
@@ -183,6 +184,8 @@ public class Configuration {
 		displayDirectImportsOnly = false;
 		rewriteBase = "/";
 		contextURI = "";
+                //BY DEFAULT SHOULD BE FALSE
+                includeAllSectionsInOneDocument = true;
 		initializeOntology();
 	}
 
@@ -218,6 +221,7 @@ public class Configuration {
 		mainOntologyMetadata.setDoi("");
 		mainOntologyMetadata.setStatus("");
 		mainOntologyMetadata.setBackwardsCompatibleWith("");
+		this.namespaceDeclarations = new HashMap<>();
 	}
 
 	private void loadPropertyFile(String path) throws IOException {
@@ -370,10 +374,6 @@ public class Configuration {
 			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
 			throw ex;
 		}
-		// } catch (Exception ex) {
-		// logger.error("Error while reading configuration properties " +
-		// ex.getMessage());
-		// }
 	}
 
 	/**
@@ -384,8 +384,6 @@ public class Configuration {
 	 */
 	public void loadPropertiesFromOntology(OWLOntology o) {
 		if (o == null) {
-			// logger.error("The ontology is not loaded. Aborting loading
-			// metadata...");
 			return;
 		}
 		initializeOntology();
@@ -454,6 +452,17 @@ public class Configuration {
 
 			mainOntologyMetadata.setCiteAs(cite);
 		}
+		//load all namespaces in the ontology document.
+		this.namespaceDeclarations = new HashMap<>();
+		OWLOntologyXMLNamespaceManager nsManager = new OWLOntologyXMLNamespaceManager(o, o.getFormat());
+		for (String prefix : nsManager.getPrefixes()) {
+			String namespaceURI = nsManager.getNamespaceForPrefix(prefix);
+			if ("".equals(prefix) || namespaceURI.equals(mainOntologyMetadata.getNamespaceURI())){
+				namespaceDeclarations.put(mainOntologyMetadata.getNamespacePrefix(),namespaceURI);
+			}else{
+				namespaceDeclarations.put(prefix,nsManager.getNamespaceForPrefix(prefix));
+			}
+		}
 	}
 
 	private String appendDetails(final String detail, final String prefix, final boolean useFullStop) {
@@ -465,8 +474,6 @@ public class Configuration {
 	}
 
 	private void completeMetadata(OWLAnnotation a) {
-		// this.currentLanguage
-		// System.out.println(a.toString());
 		String propertyName = a.getProperty().getIRI().getIRIString();
 		String value;
 		String valueLanguage;
@@ -502,6 +509,7 @@ public class Configuration {
 		case Constants.PROP_DCTERMS_DESCRIPTION:
 		case Constants.PROP_DC_DESCRIPTION:
 		case Constants.PROP_SCHEMA_DESCRIPTION:
+                case Constants.PROP_RDFS_COMMENT:
 		case Constants.PROP_SKOS_NOTE:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
@@ -635,6 +643,10 @@ public class Configuration {
 		case Constants.PROP_OWL_BACKWARDS_COMPATIBLE:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setBackwardsCompatibleWith(value);
+			break;
+		case Constants.PROP_OWL_INCOMPATIBLE:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.setIncompatibleWith(value);
 			break;
 		}
 	}
@@ -1092,6 +1104,10 @@ public class Configuration {
 		return contextURI;
 	}
 
+	public HashMap<String,String> getNamespaceDeclarations(){
+		return namespaceDeclarations;
+	}
+
 	private void initializeImportedOntology(OWLOntology i) {
 		// get name, get URI, add to the config
 		Ontology ont = new Ontology();
@@ -1101,4 +1117,14 @@ public class Configuration {
 		mainOntologyMetadata.getImportedOntologies().add(ont);
 	}
 
+    public boolean isIncludeAllSectionsInOneDocument() {
+        return includeAllSectionsInOneDocument;
+    }
+
+    public void setIncludeAllSectionsInOneDocument(boolean includeAllSectionsInOneDocument) {
+        this.includeAllSectionsInOneDocument = includeAllSectionsInOneDocument;
+    }
+
+    
+        
 }
