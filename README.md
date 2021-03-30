@@ -3,6 +3,8 @@
 
 ![Logo](src/main/resources/logo/logo2.png)
 
+WIDOCO helps you to publish and create an enriched and customized documentation of your ontology automatically, by following a series of steps in a GUI.
+
 **Author**: Daniel Garijo Verdejo (@dgarijo)
 
 **Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk.
@@ -67,7 +69,7 @@ Features of WIDOCO:
 ## Examples
 Examples of the features of WIDOCO can be seen on [the gallery](http://dgarijo.github.io/Widoco/doc/gallery/)	
 	
-## Tutorial
+## GUI Tutorial
 A tutorial explaining the main features of the GUI can be found [here](http://dgarijo.github.io/Widoco/doc/tutorial/)    
     
 ## How to use WIDOCO
