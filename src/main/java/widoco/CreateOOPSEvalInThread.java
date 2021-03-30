@@ -103,20 +103,20 @@ public class CreateOOPSEvalInThread implements Runnable {
                                     this.pointerToMain.switchState("savingResponse");
                             }
                             logger.info("Saving response...");
-                            CreateResources.saveDocument(evalFolder.getAbsolutePath() + File.separator + "oopsEval.html",
+                            CreateResources.saveDocument(evalFolder.getAbsolutePath() + File.separator + "OOPSeval.html",
                                             Constants.getEvaluationText(evaluation, c), c);
                             //edit html file with the right pointer to the evaluation. For all languages
                             for (String lang: c.getLanguagesToGenerateDoc()){    
                                 Path path = Paths.get(pathOut+File.separator+"index-"+lang+".html");
                                 Charset charset = StandardCharsets.UTF_8;
                                 String htmlContent = new String(Files.readAllBytes(path), charset);
-                                content = htmlContent.replace("<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->",
+                                content = htmlContent.replace("<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSevaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->",
                                         "<dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd>");
                                 Files.write(path, content.getBytes(charset));
                             }
                             if (showGui) {
                                     pointerToMain.openBrowser(
-                                                    new File(evalFolder.getAbsolutePath() + File.separator + "oopsEval.html").toURI());
+                                                    new File(evalFolder.getAbsolutePath() + File.separator + "OOPSeval.html").toURI());
                             }
 			} else {
 				throw new Exception("OOPS server did not return an evaluation report");
