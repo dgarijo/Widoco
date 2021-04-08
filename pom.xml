@@ -49,6 +49,12 @@
 			<artifactId>owlapi-distribution</artifactId>
 			<version>5.1.14</version>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20201115</version>
+</dependency>
 
 		<dependency>
 			<groupId>com.googlecode.json-simple </groupId>
