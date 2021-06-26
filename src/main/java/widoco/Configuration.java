@@ -211,10 +211,10 @@ public class Configuration {
 		mainOntologyMetadata.setLicense(l);
 		mainOntologyMetadata.setSerializations(new HashMap<>());
 		// add default serializations: rdf/xml, n3, turtle and json-ld
-		mainOntologyMetadata.addSerialization("RDF/XML", "ontology.xml");
+		mainOntologyMetadata.addSerialization("RDF/XML", "ontology.rdf");
 		mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
 		mainOntologyMetadata.addSerialization("N-Triples", "ontology.nt");
-		mainOntologyMetadata.addSerialization("JSON-LD", "ontology.json");
+		mainOntologyMetadata.addSerialization("JSON-LD", "ontology.jsonld");
 		mainOntologyMetadata.setCreators(new ArrayList<>());
 		mainOntologyMetadata.setContributors(new ArrayList<>());
 		mainOntologyMetadata.setCiteAs("");

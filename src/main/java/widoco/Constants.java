@@ -119,7 +119,7 @@ public class Constants {
 																						// authors
 
 	public static final String PROP_VANN_PREFIX = NS_VANN + "preferredNamespacePrefix";
-	public static final String PROP_VANN_URI = NS_VANN + "preferredNamespaceURI";
+	public static final String PROP_VANN_URI = NS_VANN + "preferredNamespaceUri";
 
 	public static final String PROP_SKOS_NOTE = NS_SKOS + "note";
 
@@ -861,7 +861,7 @@ public class Constants {
 					+ "</dd>\n";
 		}
                 //add commented a reference in case the evaluation is to be included
-                head+="<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->";
+                head+="<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/oopsEval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->";
 		if (!"".equals(c.getMainOntology().getCiteAs()) && c.getMainOntology().getCiteAs() != null) {
 			head += "<dt>" + l.getProperty(LANG_CITE_AS) + "</dt>\n<dd>" + c.getMainOntology().getCiteAs() + "</dd>\n";
 		}
@@ -1150,7 +1150,7 @@ public class Constants {
 				+ "# Directive to ensure *.rdf files served as appropriate content type,\n"
 				+ "# if not present in main apache config\n" + "AddType application/rdf+xml .rdf\n"
 				+ "AddType application/rdf+xml .owl\n" + "AddType text/turtle .ttl\n"
-				+ "AddType application/n-triples .n3\n" + "AddType application/ld+json .json\n"
+				+ "AddType application/n-triples .n3\n" + "AddType application/ld+json .jsonld\n"
 				+ "# Rewrite engine setup\n" + "RewriteEngine On\n" + "#Change the path to the folder here\n"
 				+ "RewriteBase " + c.getRewriteBase() + projectFolder + " \n\n";
 

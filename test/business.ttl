@@ -1,0 +1,1253 @@
+#### Own prefixes
+@base                      <http://data.businessgraph.io/>.
+@prefix ebg:               <http://data.businessgraph.io/ontology#> .
+@prefix nace:              <http://data.businessgraph.io/nace/>.
+@prefix lau:               <http://data.businessgraph.io/lau/>.
+@prefix ebg-id:            <http://data.businessgraph.io/identifier/> .
+@prefix ebg-comp:          <http://data.businessgraph.io/company/>  .
+
+##### External prefixes
+@prefix adms:    <http://www.w3.org/ns/adms#> .
+@prefix dbo:     <http://dbpedia.org/ontology/>.
+@prefix dc:      <http://purl.org/dc/elements/1.1/>.
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix doap:    <http://usefulinc.com/ns/doap#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix locn:    <http://www.w3.org/ns/locn#>.
+@prefix ngeo:    <http://geovocab.org/geometry#> .
+@prefix nuts:    <http://nuts.geovocab.org/id/>.
+@prefix org:     <http://www.w3.org/ns/org#>.
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix puml:    <http://plantuml.com/ontology#>.
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix ramon:   <http://rdfdata.eionet.europa.eu/ramon/ontology/> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rov:     <http://www.w3.org/ns/regorg#>.
+@prefix schema:  <http://schema.org/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix spatial: <http://geovocab.org/spatial#> .
+@prefix time:    <http://www.w3.org/2006/time#>.
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix void:    <http://rdfs.org/ns/void#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix person:  <http://www.w3.org/ns/person#> .
+
+#### Ontology
+ebg: a owl:Ontology;
+  dct:title "euBusinessGraph ontology";
+  dct:created "2017-07-11"^^xsd:date;
+  dct:modified "2020-02-11"^^xsd:date;
+  owl:versionInfo "1.4.1";
+  vann:preferredNamespaceUri "http://data.businessgraph.io/ontology#";
+  vann:preferredNamespacePrefix "ebg";
+  foaf:homepage <http://businessgraph.io>;
+  dct:type <http://purl.org/adms/assettype/Ontology>;
+  dct:status <http://purl.org/adms/status/UnderDevelopment>;
+  dct:publisher [
+    foaf:name "The euBusinessGraph Project";
+    foaf:homepage <http://eubusinessgraph.eu> ];
+  dct:creator [
+    foaf:name "Vladimir Alexiev";
+    foaf:mbox <mailto:vladimir.alexiev@ontotext.com> ];
+  dct:creator [
+    foaf:name "Brian Elvesæter";
+    foaf:mbox <mailto:brian.elvesater@sintef.no> ];
+  dct:creator [
+    foaf:name "David Norheim";
+    foaf:mbox <mailto:david.norheim@brreg.no> ];
+  dct:creator [
+    foaf:name "Javier Paniagua";
+    foaf:mbox <mailto:paniagua@spaziodati.eu> ];
+  dct:creator [
+    foaf:name "Dumitru Roman";
+    foaf:mbox <mailto:dumitru.roman@sintef.no> ];
+  dct:creator [
+    foaf:name "Fredrik Seehusen" ];
+  dct:creator [
+    foaf:name "Boyan Simeonov";
+    foaf:mbox <mailto:boyan.simeonov@ontotext.com> ];
+  dct:creator [
+    foaf:name "Ahmet Soylu";
+    foaf:mbox <mailto:ahmet.soylu@sintef.no> ];
+  dct:creator [
+    foaf:name "Chris Taggart";
+    foaf:mbox <mailto:chris.taggart@opencorporates.com> ];
+  dct:creator [
+    foaf:name "Tatiana Tarasova" ];
+  dct:creator [
+    foaf:name "Bjørn Marius von Zernichow";
+    foaf:mbox <mailto:BjornMarius.vonZernichow@sintef.no> ];
+  dct:contributor [
+    foaf:name "The euBusinessGraph Consortium";
+    foaf:homepage <http://eubusinessgraph.eu/partners/> ];
+  dct:license <https://opendatacommons.org/licenses/by/>;
+  prov:wasGeneratedBy [
+    a doap:Project ;
+    a prov:Activity ;
+    doap:repository <https://github.com/euBusinessGraph/eubg-data> ];
+  rdfs:seeAlso <https://docs.google.com/document/d/1dhMOTlIOC6dOK_jksJRX0CB-GIRoiYY6fWtCnZArUhU/edit>;
+  rdfs:comment # this below is markdown, which is used by LODE
+  """The euBusinessGraph (`ebg:`) ontology represents companies, type/status/economic classification, addresses, identifiers, company officers (e.g., directors and CEOs), and dataset offerings.
+
+It uses `schema:domainIncludes/rangeIncludes` (which are polymorphic) to describe which properties are applicable to a class, 
+rather than `rdfs:domain/range` (which are monomorphic) to prescribe what classes must be applied to each node using a property.
+We find that this enables more flexible reuse and combination of different ontologies.
+We reuse the following ontologies and nomenclatures, and extend them where appropriate with classes and properties:
+
+- W3C Org, W3C RegOrg (basic company data), 
+
+- W3C Time (officer membership), 
+
+- W3C Locn (addresses),
+
+- schema.org (domain/rangeIncludes and various properties)
+
+- DBpedia ontology (jurisdiction)
+
+- NGEO and Spatial (NUTS administrative divisions)
+
+- ADMS (identifiers), 
+
+- FOAF, SIOC (blog posts),
+
+- RAMON, SKOS (NACE economic classifications and various nomenclatures),
+
+- VOID (dataset descriptions).
+
+This is only a reference. See more detail in the [EBG Semantic Model](https://docs.google.com/document/d/1dhMOTlIOC6dOK_jksJRX0CB-GIRoiYY6fWtCnZArUhU/edit) google document, which includes an informative description of classes and properties, gives examples and data provider rules, and provides more schema and instance diagrams.
+
+## Overview
+The figure below gives an overview of the ontology, depicting the main classes and their relationships (i.e., object properties). The ontology covers the following areas:
+
+- Registered Organization: To represent a legal company.
+
+- Identifier System: To represent Identifier Systems. A company can have several Identifiers belonging to different Identifier Systems.
+
+- Officer: To represent associated company officers, e.g., directors.
+
+- Dataset: To represent information about datasets that are offered by company data providers.
+
+![](https://raw.githubusercontent.com/euBusinessGraph/eubg-data/master/model/images/ontology-overview.png)
+
+### Registered Organization (company)
+Registered organizations are the main entities for which information is captured in the euBusinessGraph ontology. The ontology is not concerned with unregistered informal groups. Registered organizations gain legal entity status by the act of registration and are distinct from the broader concept of organizations, groups or, in some jurisdictions, sole traders. The figure below shows the classes and properties for representing core data about a registered organization.
+
+![](https://raw.githubusercontent.com/euBusinessGraph/eubg-data/master/model/images/ontology-company-classes.png)
+
+### Identifier System
+Mechanisms to identify companies in various data sources are essential in integration of data about companies across data sources. A proper understanding of what kind of systems of identifiers can be used for companies is thus necessary in this context. We analyzed various types of identifiers commonly used for companies and collected various properties of the systems they are part of. We modelled identifiers and identifier systems explicitly in the ontology as shown in thew figure below.
+
+![](https://raw.githubusercontent.com/euBusinessGraph/eubg-data/master/model/images/ontology-identifier-classes.png)
+
+### Officer
+We use the membership model of the W3C Organization Ontology in a straightforward way to represent officer data as shown in the figure below.
+
+![](https://raw.githubusercontent.com/euBusinessGraph/eubg-data/master/model/images/ontology-officer-classes.png)
+
+### Dataset Descriptions
+Data consumers need to know how many companies are included in a data provider dataset, from which jurisdictions, and what depth of data is included (e.g., which properties, addresses with what geo resolution, etc.). We thus need to express both metadata about the dataset itself, and fine-grained statistics about the content of a dataset, as shown in the figure below.
+
+![](https://raw.githubusercontent.com/euBusinessGraph/eubg-data/master/model/images/ontology-dataset-classes.png)
+
+""".
+
+#### Individuals: Concept Schemes, Datasets
+# Currently can't be documented by LODE because of https://github.com/essepuntato/LODE/issues/14
+
+nace: a skos:ConceptScheme;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "NACE 2 classification";
+  rdfs:comment "Statistical Classification of Economic Activities in the European Community, Rev. 2 (2008)";
+  dct:source <http://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_CLS_DLD&StrNom=NACE_REV2&StrLanguageCode=EN&StrLayoutCode=HIERARCHIC#>;
+  dct:creator <http://businessgraph.io>;
+  dct:publisher <http://businessgraph.io>;
+  dct:license <https://opendatacommons.org/licenses/by/>;
+  dct:created "2017-07-28"^^xsd:date;
+  dct:issued  "2017-07-28"^^xsd:date.
+
+lau: a void:Dataset;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "LAU Regions";
+  rdfs:comment "Local Administrative Units";
+  dct:source <http://ec.europa.eu/eurostat/web/nuts/local-administrative-units>;
+  dct:creator <http://businessgraph.io>;
+  dct:publisher <http://businessgraph.io>;
+  dct:license <https://opendatacommons.org/licenses/by/>;
+  dct:created "2017-07-28"^^xsd:date;
+  dct:issued "2017-07-28"^^xsd:date.
+
+<type/> a skos:ConceptScheme;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "Company type";
+  rdfs:comment "Company type (legal form) per jurisdiction";
+  dct:creator <http://businessgraph.io>;
+  dct:publisher <http://businessgraph.io>.
+
+<status/> a skos:ConceptScheme;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "Company status";
+  rdfs:comment "Company status, e.g. active, inactive. Unfortunately different providers use different definitions";
+  dct:creator <http://businessgraph.io>;
+  dct:publisher <http://businessgraph.io>.
+
+<resolution/> a skos:ConceptScheme;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "Geo Coordinate Resolution";
+  rdfs:comment "Resolution of a geographic coordinate location: from continent (least precise) to individual house number (most precise)";
+  dct:creator <http://businessgraph.io>;
+  dct:publisher <http://businessgraph.io>.
+
+<dataset/> a skos:ConceptScheme;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "Dataset type";
+  rdfs:comment "Company dataset type: freely avaialable, paid (advertised only), partition";
+  dct:creator <http://businessgraph.io>;
+  dct:publisher <http://businessgraph.io>.
+
+<dataset/free-available> a skos:Concept;
+  rdfs:isDefinedBy ebg: ;
+  skos:inScheme <dataset/>;
+  skos:prefLabel "Freely available".
+
+<dataset/paid-advertised> a skos:Concept;
+  rdfs:isDefinedBy ebg: ;
+  skos:inScheme <dataset/>;
+  skos:prefLabel "Paid (advertised only)".
+
+<dataset/partition> a skos:Concept;
+  rdfs:isDefinedBy ebg: ;
+  skos:inScheme <dataset/>;
+  skos:prefLabel "Partition";
+  skos:scopeNote "Used to describe dataset statistics. Not downloadable separately.".
+
+#### External Classes
+
+skos:Concept       a rdfs:Class;    rdfs:label "Concept".
+skos:ConceptScheme a rdfs:Class;    rdfs:label "Concept Scheme".
+rdf:Resource       a rdfs:Class;    rdfs:label "Resource".
+rdf:langString     a rdfs:Datatype; rdfs:label "Language-Tagged String".
+xsd:string         a rdfs:Datatype; rdfs:label "String".
+xsd:date           a rdfs:Datatype; rdfs:label "Date".
+xsd:gYear          a rdfs:Datatype; rdfs:label "Year".
+xsd:gYearMonth     a rdfs:Datatype; rdfs:label "Year-Month".
+
+#### Classes and Properties
+
+adms:Identifier a rdfs:Class ;
+  rdfs:label "Identifier" ;
+  skos:definition "Identifier of an entity (company, person) according to some identifier system.";
+  skos:scopeNote "The identifier value is recorded in skos:notation and the issuer/register in dct:creator." .
+
+adms:identifier a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization, ebg:IdentifierSystem ;
+  schema:rangeIncludes adms:Identifier ;
+  rdfs:label "identifier" ;
+  skos:definition "An identifier of a Company (the official identifier is rov:registration) or Identifier System / Register";
+  skos:scopeNote """This includes, but is not limited to:
+- Direct: Identifier in some aggregated dataset, where the official ID is part of the aggregation ID.
+- Indirect: Identifier in some aggregated dataset or for a website, where the aggregation ID bears no resemblance to the official ID
+- Multiple: Identifier that has a many-to-many relation with the company, i.e., a company may have several identifiers of the same kind, and the same identifier can be used by several companies.""" ;
+  skos:example "Direct: EU VAT number (in those jurisdictions where it is used as the primary company identifier), BRIS id, OCORP id." ,
+    "Indirect: GLEI LEI, SDATI Atoka ID.",
+    "Indirect: BG GUID 617f4edf8c154f4296efdf146513de21, which corresponds to official id 204060254 and can be used to reach the official register page for that company",
+    "Multiple: bank license, insurance license, license to trade dual-use goods (arms), Twitter account, Facebook account.";
+  skos:scopeNote """For Identifier Systems, we use codes issued by euBusinessGraph.
+For official Identifier Systems (country registers), we use the jurisdiction code (e.g. 'BG', 'GB').
+For other identifier systems, we use a short mnemonic code:
+- upper-case for company registers (e.g. 'OCORP', 'SDATI', 'RAL', 'EU', 'BRIS'),
+- mixed-case for social network registers (eg 'Twitter', 'Facebook').
+This code is used as the last URL part for identifiers issued in that system.""" .
+
+dbo:jurisdiction a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization, ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "jurisdiction" ;
+  skos:definition "Jurisdiction in which the company is registered or to which the identifier system applies.";
+  skos:scopeNote "For Europe, this is a country, even for Germany that has 166 separate registers (see Registration Authorities List).  Many jurisdictions register foreign companies that are incorporated and fully owned in another country. EBG collects all registrations from each register and doesn't attempt to match foreign companies across jurisdictions." ;
+  skos:scopeNote "If we know the official legal ID of the company, the jurisdiction code and official ID are used to form the company URL." ;
+  skos:example "NO has type NUF 'Norskregistrert utenlandsk foretak'." ;
+  skos:example "BG has many types, including a number of European companies." .
+
+schema:author a owl:ObjectProperty ;
+  rdfs:label "author" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes schema:Person, schema:Organization ;
+  skos:definition "Agent who specified the rules and organisation of an Identifier System" ;
+  skos:example "W3C specified web URL rules",
+    "GLEIF specified LEI structure and rules, then formalied it as ISO 17442:2012 Financial services -- Legal Entity Identifier (LEI)",
+    "Dun and Bradstreet specified DUNS numbers" .
+
+dct:creator  a owl:ObjectProperty ;
+  rdfs:label "issuer" ;
+  schema:domainIncludes ebg:IdentifierSystem, adms:Identifier ;
+  schema:rangeIncludes schema:Person, schema:Organization ;
+  skos:definition "Agent that issues identifiers and then keeps them in a database (register), and who issued a specific identifier" ;
+  skos:example "Web URLs are not issued by any central agency and there is no register to consult.",
+    "Companies House is the issuer for the official UK identifier system.",
+    "Dun and Bradstreet issues DUNS numbers.",
+    "GLEI Foundation (GLEIF) issues identifiers for the world-wide GLEI register (through its Local Operating Units, LOU)." ;
+  skos:scopeNote "In many countries there is a single registry although in others, such as Spain and Germany, multiple registries exist. [rov:].",
+    "Many agencies keep several registries; this ontology doesn't distinguish between an identifier system and its register(s)";
+  skos:example "http://www.registryagency.bg keeps both Trade Register http://brra.bg for companies, and Bulstat Register http://www.bulstat.bg/ for other entities" .
+
+schema:publisher a owl:DatatypeProperty ;
+  rdfs:label "identifier system publisher" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes schema:Person, schema:Organization ;
+  skos:definition "Agent that publishes an identifier database (register) in some form (i.e., printed form, online)" ;
+  skos:example "GLEIF publishes the GLEI openly, with a full dump that is updated regularly, which has spurned re-publishers such as http://openleis.com/ and http://glei.info.",
+    "Companies House and BRC publish the UK and NO registers openly.",
+    "DUNS numbers are not openly published." ;
+  skos:scopeNote "Different functions and distributions can be considered (e.g. search or other query, per-company web resources, full download). Often but not always the issuer is also the publisher." .
+
+dct:isPartOf  a owl:ObjectProperty ;
+  rdfs:label "is part of" ;
+  schema:domainIncludes adms:Identifier ;
+  schema:rangeIncludes ebg:IdentifierSystem ;
+  skos:definition "The Identifier System this identifier is part of" .
+
+dct:issued a owl:DatatypeProperty ;
+  schema:domainIncludes adms:Identifier ;
+  schema:rangeIncludes xsd:date ;
+  rdfs:label "issued on" ;
+  skos:definition "When was the identifier was issued (start date)." ;
+  skos:scopeNote "This may or may not be the same as the Incorporation Date of the company. Even for the official registration, the two dates may differ, depending on business rules." .
+
+schema:expires a owl:DatatypeProperty ;
+  rdfs:label "expires" ;
+  schema:domainIncludes adms:Identifier ;
+  schema:rangeIncludes xsd:date ;
+  skos:definition "Date when the identifier expires (end date)" ;
+  skos:scopeNote "This may or may not be the same as the dissolution date of the company. Even when it is about the official registration, the two dates may differ, depending on business rules." .
+
+ebg:IdentifierSystem a rdfs:Class ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "Identifier System" ;
+  skos:definition  "A system managed by a publisher (e.g., a register or agency) that is used to issue identifiers to entities (companies, persons, etc)." ;
+  skos:scopeNote "Some agencies/registers keep several identifier systems; this ontology doesn't distinguish between an identifier system and its register(s)";
+  skos:example "http://www.registryagency.bg keeps the systems used by The Trade Register http://brra.bg for companies, and The Bulstat Register http://www.bulstat.bg/ for other entities" .
+
+ebg:LAURegion a rdfs:Class;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "LAU Region";
+  rdfs:comment "Local Administrative Unit";
+  dct:source <http://ec.europa.eu/eurostat/web/nuts/national-structures-eu>,
+    <http://ec.europa.eu/eurostat/web/nuts/correspondence-tables/national-structures-non-eu>;
+  skos:example
+    "LAU1 BG: Общини (Obshtini)",
+    "LAU1 CH: Bezirke Districts Distretti",
+    "LAU1 CY: Επαpχίες (Eparchies)",
+    "LAU1 CZ: Okresy",
+    "LAU1 DE: Verwaltungs- gemeinschaften",
+    "LAU1 DK: Kommuner",
+    "LAU1 EE: Maakond",
+    "LAU1 EL: Δήμοι, Κοινότητες (Demoi, Koinotites)",
+    "LAU1 FI: Seutukunnat / Ekonomiska regioner",
+    "LAU1 FR: Cantons de rattachement",
+    "LAU1 HU: Statisztikai kistérségek",
+    "LAU1 IE: Counties, Cities",
+    "LAU1 IS: Landsvædi",
+    "LAU1 LI: Landschaften",
+    "LAU1 LT: Savivaldybės",
+    "LAU1 LU: Cantons",
+    "LAU1 ME: Општине (Opštine)",
+    "LAU1 MK: Општини (Opštini)",
+    "LAU1 MT: Distretti",
+    "LAU1 NO: Økonomiske regioner",
+    "LAU1 PL: Powiaty i miasta na prawach powiatu",
+    "LAU1 PT: Concelhos - Munícipios",
+    "LAU1 SI: Upravne enote",
+    "LAU1 SK: Okresy",
+    "LAU1 TR: Ilceler",
+    "LAU1 UK: Lower tier authorities (districts) or individual unitary authorities;  Individual unitary authorities or LECs (or parts thereof); Districts";
+  skos:example
+    "LAU2 AL: Bashki / Komunë",
+    "LAU2 AT: Gemeinden",
+    "LAU2 BE: Gemeenten / Communes",
+    "LAU2 BG: Naseleni mesta",
+    "LAU2 CH: Gemeinden Communes Comuni",
+    "LAU2 CY: Δήμοι, Κοινότητες (Dimoi, koinotites)",
+    "LAU2 CZ: Obce",
+    "LAU2 DE: Gemeinden",
+    "LAU2 DK: Sogne",
+    "LAU2 EE: Linn, vald",
+    "LAU2 EL: Δημοτικές / Τοπικές Κοινότητες (Dimotikes / Topikes Koinotites - Municipal  / Local Communes)",
+    "LAU2 ES: Municipios",
+    "LAU2 FI: Kunnat / Kommuner",
+    "LAU2 FR: Communes",
+    "LAU2 HR: Gradovi i općine",
+    "LAU2 HU: Települések",
+    "LAU2 IE: Electoral Districts",
+    "LAU2 IS: Sveitarfélög",
+    "LAU2 IT: Comuni",
+    "LAU2 LI: Gemeinden",
+    "LAU2 LT: Seniūnijos",
+    "LAU2 LU: Communes",
+    "LAU2 LV: Republikas pilsētas, novadi",
+    "LAU2 ME: Naselja",
+    "LAU2 MK: Naseleni mesta",
+    "LAU2 MT: Kunsilli",
+    "LAU2 NL: Gemeenten",
+    "LAU2 NO: Kommuner",
+    "LAU2 PL: Gminy",
+    "LAU2 PT: Freguesias",
+    "LAU2 RO: Comuni + Municipiu + Orase",
+    "LAU2 SE: Kommuner",
+    "LAU2 SI: Obcine",
+    "LAU2 SK: Obce",
+    "LAU2 TR: Köy",
+    "LAU2 UK: Wards (or parts thereof)".
+
+ebg:adminUnitL3 a owl:ObjectProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes ramon:NUTSRegion ;
+  rdfs:isDefinedBy ebg: ;
+  skos:scopeNote "Use a valid NUTS region. Eg Trentino-Alto Adige/Sudtirol (taken from the Geonames hierarchy above) is not a NUTS region." ;
+  rdfs:label "admin unit level 3" ;
+  skos:definition "NUTS2 (administrative region) of the address." ;
+  skos:example "nuts:ITC2 Valle d'Aosta/Vallée d'Aoste" ;
+  skos:example "nuts:ITH2 Provincia Autonoma di Trento" .
+
+ebg:adminUnitL4 a owl:ObjectProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes ramon:NUTSRegion ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "admin unit level 4" ;
+  skos:definition "NUTS3 (Province) of the address." ;
+  skos:example "nuts:ITH31 Verona", "nuts:ITC20 Aosta" .
+
+ebg:adminUnitL5 a owl:ObjectProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes ebg:LAURegion ;
+  rdfs:isDefinedBy ebg: ;
+  skos:scopeNote "Some countries (e.g. Bulgaria) use both LAU1 and LAU2 levels. Others (e.g. Italy) use only LAU2." ;
+  rdfs:label "admin unit level 5" ;
+  skos:definition "LAU1 (Municipality/Commune/Settlement) of the address." .
+
+ebg:adminUnitL6 a owl:ObjectProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes ebg:LAURegion ;
+  rdfs:label "admin unit level 6" ;
+  skos:scopeNote "Some countries (e.g. Bulgaria) use both LAU1 and LAU2 levels. Others (e.g. Italy) use only LAU2." ;
+  rdfs:isDefinedBy ebg: ;
+  skos:definition "LAU2 (Municipality/Commune/Settlement) of the address." .
+
+ebg:exclusionNote a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "exclusion note";
+  rdfs:comment "Exclusion note of a NACE classification concept";
+  schema:domainIncludes skos:Concept;
+  schema:rangeIncludes rdf:langString.
+
+ebg:geoResolution a owl:ObjectProperty ;
+  schema:domainIncludes schema:GeoCoordinates ;
+  rdfs:label "geocoordinate resolution" ;
+  rdfs:isDefinedBy ebg: ;
+  skos:definition "Resolution of a geographic coordinate location: from <resolution/L0> continent (least precise) to <resolution/L10> individual house number (most precise)." ;
+  skos:scopeNote "If geo coordinates are present, resolution must be present too, even if it's a guess. There is no default value." ;
+  skos:scopeNote "Values must be mapped to the <resolution/> ConceptScheme (lookup list)." .
+
+ebg:isEnumerated a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "has enumerated identifiers" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:boolean ;
+  skos:definition "Whether the system has an Issuer and issued identifiers are kept in a database (register)" ;
+  skos:example "Every official register is enumerated", "Websites are not enumerated" .
+
+ebg:isImmutable a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "has immutable identifiers" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:boolean ;
+  skos:definition "whether identifiers can change" ;
+  skos:example "Some registers encode additional information within the identifier (e.g., some identifiers encode the economic sector of the company). In these cases the identifier changes when the extra information that is encoded changes (see 'Dumb vs. Intelligent Identifiers' in Section 3.1.2.5)." .
+
+ebg:isOfficial a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "is official in jurisdiction" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:boolean ;
+  skos:definition "Whether the system is considered the official one in all jurisdictions in which it applies." ;
+  skos:example "False for Website, Twitter, Facebook in that they don't have any official status",
+    "True for UK Company House identifiers, the official register for the GB jurisdiction",
+    "False for GLEI, since it is not the official register for any of the world's jurisdictions",
+    "False for SDATI identifiers since the SDATI system is not official in Italy." .
+
+ebg:isPersistent a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "has persistent identifiers" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:boolean ;
+  skos:definition "Whether identifiers can be removed from the register (e.g., when a company is dissolved): such are not persistent" ;
+  skos:scopeNote "Some registers 'remove' identifiers when the object they relate to is no longer active, whereas the best practice is to make such identifiers Obsolete.".
+
+ebg:isPublic a owl:DatatypeProperty ;
+ rdfs:isDefinedBy ebg: ;
+ rdfs:label "is public" ;
+ schema:domainIncludes ebg:IdentifierSystem ;
+ schema:rangeIncludes xsd:boolean ;
+ skos:definition "whether identifiers from the system are available for public use: consulting, search or download." ;
+ skos:example "Italian (IT) company identifiers are public. Even though they are not published openly, they are available for a fee, and then can be used freely",
+   "DUNS identifiers are not public, even though there are limited lookup services (e.g., https://www.dnb.com/duns-number/lookup.html). Dun and Bradstreet does not allow their use en-masse." ;
+ skos:scopeNote "Most public systems (but not all) will have some Publishers, and preferably some web resources." .
+
+ebg:isPubliclyTraded a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:boolean;
+  rdfs:label "is publicly traded" ;
+  skos:definition "Whether the company is publicly traded (listed at a stock exchange) [ebg:]." .
+
+ebg:isStartup a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "is startup" ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:boolean;
+  skos:definition "Whether the company is a startup [ebg:]";
+  skos:example "A special section of the IT Business Register http://startup.registroimprese.it/ includes pitch, sectors and business model of startups and innovative SMEs".
+
+ebg:isSingleValued a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "is single-valued" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:boolean ;
+  skos:definition "Whether each entity has only one identifier in the system" ;
+  skos:example "Company IDs are single-valued in most national registers. If two companies merge, the recessive company ID is usually deprecated.",
+    "Stock exchange tickers are not single-valued, since a company may have several tickers for different kinds of its stock.",
+    "Official person names are single-valued, since each person has one official name (but that can change over time).",
+    "Websites are not single-valued since a company may have several websites";
+  skos:scopeNote "Similar to owl:FunctionalProperty, and Wikidata Single Value constraint" .
+
+ebg:isStateOwned a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "is state owned" ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:boolean;
+  skos:scopeNote "In many cases it's not possible to compute this attribute without access to the shareholder register, so it may be missing." ;
+  skos:definition "Whether this organisation is owned by the government, a government agency, community, city or other public entity." ;
+  skos:example "False for SpazioDati (a private company)." ;
+  skos:example "True for the Autonomous Province of Trento (local government)." ;
+  skos:example "True for the Norwegian company Statkraft (Norwegian state-owned company)." .
+
+ebg:numberOfEmployees a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "number of employees" ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:integer;
+  skos:definition "The number of employees in the company." .
+
+ebg:isUnique a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "has unique identifiers" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:boolean ;
+  skos:definition "Whether each identifier in the system relates to only one entity" ;
+  skos:scopeNote "Similar to: owl:InverseFunctionalProperty, and Wikidata Distinct Values constraint" ;
+  skos:example "Company IDs are unique in most national registers: one ID cannot identify two companies",
+    "Stock exchange tickers are unique to each exchange (but a company can buy the ticker of another, i.e. the identity may change over time)",
+    "Person names are not unique since they are highly ambiguous",
+    "Websites are not unique since a website can be shared by several related companies" .
+
+ebg:order a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "order";
+  rdfs:comment "Global order of a thesaurus concept respecting the hierarchical structure (depth-first traversal)";
+  schema:domainIncludes skos:Concept;
+  schema:rangeIncludes xsd:integer.
+
+ebg:orgStatusText a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:langString ;
+  rdfs:isDefinedBy ebg: ;
+  skos:scopeNote "Include valid language tag (see [iana:] for list)." ;
+  skos:scopeNote "If both Status and Status Text are present, they must express compatible values (Status Text may be a finer-granularity value)." ;
+  rdfs:label "status text" ;
+  skos:definition "Company status as it comes from the original register (free text)." ;
+  skos:example "Dissolved"@en ;
+  skos:example "Inactive"@en ;
+  skos:example "Revoked"@en ;
+  skos:example "Situation Normale"@fr ;
+  skos:example "En Liquidacion"@es ;
+  skos:example "Πτώχευση"@el .
+
+ebg:orgTypeText a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:langString ;
+  rdfs:isDefinedBy ebg: ;
+  skos:scopeNote "Because of the difficulties of standardizing Type lookup, we include a free text field" ;
+  skos:scopeNote "Include valid language tag (see [iana:] for list)." ;
+  skos:scopeNote "If Type is also present, it must express the same value as Type Text." ;
+  rdfs:label "type text" ;
+  skos:definition "Company Type (Entity Legal Form) as reported by a national company registe (free text)." ;
+  skos:example "Private Limited Company"@en ;
+  skos:example "Società a responsabilità limitata"@it .
+
+ebg:ralCode a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "identifier system RAL code" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:string ;
+  skos:definition "GLEI RAL code for the identifier system." ;
+  skos:scopeNote "Used only for official registers." .
+
+ebg:replacementPattern a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "replacement pattern" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:string ;
+  skos:definition "Pattern to use together with the Validation Regex to normalise identifier values by removing optional decorations" ;
+  skos:example "\"$1$2$3\" can be used together with the validationRegex \"(\\d{2})-?(\\d{3})-?(\\d{4})\" to extract the pure digits from a DUNS number spelled with optional dashes (e.g. \"36-032-1459\" -> \"360321459\")" .
+
+ebg:validationRegex a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "validation regex" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:string ;
+  skos:definition "Regular expression for validating identifier values within the system" ;
+  skos:example
+    "\"([A-Z]{2})/(\\d+)\" is a regex for the EU Value Added Tax (VIES) register, which consists of a member state code followed by slash and a national numeric identifier",
+    "\"\\d{9}\" is a simple regex for validating DUNS numbers",
+    "\"(\\d{2})-?(\\d{3})-?(\\d{4})\" is a regex for validating DUNS numbers that may include optional dashes in the indicated positions (e.g. \"36-032-1459\")" .
+
+ebg:validationRule a owl:ObjectProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "validation rule" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes rdf:Resource ;
+  skos:definition "URL providing human or machine-readable rule(s) for validating identifiers in the system" ;
+  skos:example "http://bsv-bg.com/ describes the BG EIK checksum algorithm in HTML",
+    "http://www.nsi.bg/sites/default/files/konkursi/RGP_OPAK_2014_Annex_6.pdf describes the BG EIK checksum algorithm in PDF. It is by an official source, but is less convenient" ;
+  skos:scopeNote "Can be in the form of webpage, PDF document, RDF shape, etc. Multiple values about the same validation rule are ok." .
+
+ebg:WebResource a rdfs:Class;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "Web Resource";
+  skos:definition "URL complemented with name, language and MIME type(s) to specify what the URL is about".
+
+ebg:webResource a owl:ObjectProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "web resource" ;
+  schema:domainIncludes ebg:IdentifierSystem, void:Dataset ;
+  schema:rangeIncludes ebg:WebResource ;
+  skos:definition "Web resource associated with an identifier system." ;
+  skos:example "https://brra.bg is the homepage of BG TR.",
+    "http://opendata.government.bg/dataset/tbprobckn-pernctbp is the open data download site for BG TR.",
+    "https://kbopub.economie.fgov.be/kbopub/zoeknummerform.html is the search URL for BE Banque-Carrefour des Entreprises." .
+
+schema:name a owl:DatatypeProperty;
+  rdfs:label "name";
+  schema:domainIncludes ebg:WebResource, ebg:IdentifierWebResource, ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:string, rdf:langString;
+  skos:definition "Name or short (generic) description of the resource";
+  skos:scopeNote "Provide this since it's useful to the user. Can provide it in several languages, in which case the language tag should be specified";
+  skos:example "Homepage", "Search", "Download", "Company data".
+
+schema:description a owl:DatatypeProperty;
+  rdfs:label "description";
+  schema:domainIncludes ebg:IdentifierSystem, schema:Organization ;
+  schema:rangeIncludes xsd:string, rdf:langString ;
+  skos:definition "Description of the resource" .
+
+dc:format a owl:DatatypeProperty;
+  rdfs:label "MIME Type";
+  schema:domainIncludes ebg:WebResource, ebg:IdentifierWebResource;
+  schema:rangeIncludes xsd:string, rdf:Resource;
+  skos:definition "MIME type of the resource. If several are provided, the server must provide all these resource types using Content Negotiation";
+  skos:example "text/html", "application/xml", "application/rdf+xml", "text/turtle", "text/csv", "text/tab-separated-values",
+    "'For a search page, use the custom type 'application/x-search''",
+    "'For a Description document supporting the OpenSearch standard, use '<http://a9.com/-/spec/opensearch/1.1/>''".
+
+schema:inLanguage a owl:DatatypeProperty;
+  rdfs:label "language";
+  skos:definition "Language of the web resource";
+  skos:scopeNote "Use a valid [iana:] language code from the IETF BCP 47 standard".
+
+ebg:IdentifierWebResource a rdfs:Class;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "Identifier Web Resource";
+  skos:definition "URL template complemented with name, language and MIME type(s) to specify what the URL is about. Substitute the identifier value into the template";
+  skos:scopeNote "This class has ebg:urlTemplate, and the same general properties as Web Resource: name, MIME type, language".
+
+ebg:identifierWebResource a owl:ObjectProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "identifier web resource" ;
+  schema:domainIncludes ebg:IdentifierSystem ;
+  schema:rangeIncludes ebg:IdentifierWebResource ;
+  skos:definition "Web resource associated with an identifier system";
+  skos:scopeNote "Specifies a template that can be used uniformly to build URLs for all identifiers in the system." ;
+  skos:example
+    "'https://opencorporates.com/companies/{}'      with MIME type 'text/html'",
+    "'https://opencorporates.com/companies/{}.xml'  with MIME type 'application/xml'",
+    "'https://opencorporates.com/companies/{}.json' with MIME type 'application/json'",
+    "'https://opencorporates.com/companies/{}.rdf'  with MIME type 'application/rdf+xml'".
+
+ebg:urlTemplate a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "URL template";
+  schema:domainIncludes ebg:IdentifierWebResource;
+  schema:rangeIncludes xsd:string;
+  skos:definition """URL template of an identifier web resource.
+If it has a placeholder {}, substitute the identifier value there.
+If it has placeholders like $1, $2… substitute the groups extracted by ebg:validationRegex""";
+  skos:example
+    "'For BE Banque-Carrefour des Entreprises, 'https://kbopub.economie.fgov.be/kbopub/toonondernemingps.html?ondernemingsnummer={}' with MIME type 'text/html' shows a web page for the company.'",
+    "'For the EU Value Added Tax (VIES) register, 'http://ec.europa.eu/taxation_customs/vies/vatResponse.html?memberStateCode=$1&number=$2' with MIME type 'text/html' shows a web page for an identifier that can be parsed with ebg:validationRegex '([A-Z]{2})/(\\d+)'. Here $1 is the member state code, and $2 is the national company id'",
+    "For OCORP, 'https://opencorporates.com/companies/{}'      returns company data with MIME type 'text/html'",
+    "For OCORP, 'https://opencorporates.com/companies/{}.xml'  returns company data with MIME type 'application/xml'",
+    "For OCORP, 'https://opencorporates.com/companies/{}.json' returns company data with MIME type 'application/json'",
+    "For OCORP, 'https://opencorporates.com/companies/{}.rdf'  returns company data with MIME type 'application/rdf+xml'",
+    "'For BR, 'http://data.brreg.no/enhetsregisteret/enhet/{}' with either 'application/xml' or 'application/json' returns the respective MIME type using Content Negotiation'".
+
+locn:Address a rdfs:Class ;
+  rdfs:label "Address" ;
+  skos:definition "Mailing or physical address of a company" ;
+  skos:scopeNote "Should be linked as registered address (one) or other address (multiple).",
+    "Every data provider should strive to provide NUTS3 for each address. This can be done in cooperation, using the techniques described in Address Calculations above." .
+
+locn:addressArea a owl:DatatypeProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes xsd:string , rdf:langString ;
+  rdfs:label "address area (neighbourhood/quarter)" ;
+  skos:definition "Part of a city, village or neighborhood." ;
+  skos:scopeNote "Not likely to appear, but we have Coordinate resolution corresponding to this field." .
+
+locn:adminUnitL1 a owl:ObjectProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes ramon:NUTSRegion ;
+  rdfs:label "admin unit level 1" ;
+  skos:definition "Country of the address" ;
+  skos:example "nuts:IT (Italy)." .
+
+locn:adminUnitL2 a owl:ObjectProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes ramon:NUTSRegion ;
+  rdfs:label "admin unit level 2" ;
+  skos:definition "NUTS1 (Macroregion) of the address." ;
+  skos:example "nuts:ITC NORD-OVEST (Nord-est)." .
+
+locn:fullAddress a owl:DatatypeProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes xsd:string, rdf:langString ;
+  rdfs:label "full address" ;
+  skos:definition "Full address, free text." ;
+  skos:example "Aston House, Cornwall Avenue, London N3 1LF, UK" ;
+  skos:example "Via Belenzani 19, 38122, Trento" .
+
+locn:locatorDesignator a owl:DatatypeProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes xsd:string ;
+  skos:scopeNote "Not likely to appear separately, but we have Coordinate resolution corresponding to this field." ;
+  rdfs:label "locator designator (street number)" ;
+  skos:definition "Street number and/or building name." ;
+  skos:example "47A" ;
+  skos:example "Polygraphia Office Center, floor 4" .
+
+locn:poBox a owl:DatatypeProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "post office box" ;
+  skos:definition "Some addresses are associated with a PO box instead of a street address." .
+
+locn:postCode a owl:DatatypeProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "post code" ;
+  skos:definition "Postal code of the address." ;
+  skos:scopeNote "If possible, a European postal code should correspond to the fixed values given in NUTS Downloads, so we can correlate it to a NUTS region." .
+
+locn:postName a owl:DatatypeProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes xsd:string, rdf:langString ;
+  skos:scopeNote "Provide a language tag if possible. If both ebg:adminUnitL6 and locn:postName are specified, they should correspond to each other." ;
+  rdfs:label "post name (locality/city/settlement)" ;
+  skos:definition "Locality/City/Settlement of the address, free text." ;
+  skos:example "Trento"@it ;
+  skos:example "Тренто"@bg .
+
+locn:thoroughfare a owl:DatatypeProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes xsd:string, rdf:langString ;
+  skos:scopeNote "It is ok if the street number is also here, because many systems do not enter the number separately. There may be several concatenated lines, separated with newlines." ;
+  rdfs:label "thoroughfare (street address)" ;
+  skos:definition "Street name and optionally number." ;
+  skos:example "Via Belenzani 19" ;
+  skos:example "Polygraphia Office Center, floor 4\n47A Tsarigradsko Shosse" .
+
+org:hasRegisteredSite a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes locn:Address ;
+  rdfs:label "registered site/address" ;
+  skos:definition "Public legal address where legal papers can be served." ;
+  skos:scopeNote "org:hasRegisteredSite leads to a node with types org:Site and locn:Address that has self-link org:siteAddress." .
+
+org:hasSite a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes org:Site ;
+  rdfs:label "site/address" ;
+  skos:scopeNote "org:hasSite leads to a node with types org:Site & locn:Address that has self-link org:siteAddress. org:hasRegisteredSite is declared a sub-property of org:hasSite, so querying by org:hasSite will obtain all addresses." ;
+  skos:definition "Other address/location associated to an organisation." .
+
+org:siteAddress a owl:ObjectProperty ;
+  rdfs:label "site's address" ;
+  schema:domainIncludes org:Site ;
+  schema:rangeIncludes locn:Address ;
+  skos:scopeNote "EBG doesn't need the distinction between org:Site and locn:Address, so we use one node having both types, and a self-link org:siteAddress" .
+
+org:Site a rdfs:Class;
+  rdfs:label "Site";
+  skos:definition """An office or other premise at which the organization is located.
+Many organizations are spread across multiple sites and many sites will host multiple locations.
+In most cases a Site will be a physical location. However, we don't exclude the possibility of non-physical sites such as a virtual office with an associated post box and phone reception service [org:]"""@en;
+  skos:scopeNote "EBG doesn't need the distinction between org:Site and locn:Address, so we use one node having both types, and a self link org:siteAddress".
+
+ramon:NUTSRegion a rdfs:Class ;
+  rdfs:label "NUTS Region" .
+
+ramon:code a owl:DatatypeProperty;
+  rdfs:label "code";
+  rdfs:comment "NUTS/LAU Code of an administrative region";
+  schema:domainIncludes ramon:NUTSRegion, ebg:LAURegion;
+  schema:rangeIncludes xsd:string.
+
+ebg:level a owl:DatatypeProperty;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "concept level";
+  rdfs:comment "Hierarchical level of a thesaurus concept";
+  schema:domainIncludes skos:Concept;
+  schema:rangeIncludes xsd:integer.
+
+ramon:level a owl:DatatypeProperty;
+  rdfs:label "admin region level";
+  rdfs:comment "Level of an administrative region: NUTS1..3=1..3, LAU1..2=4..5";
+  schema:domainIncludes ramon:NUTSRegion, ebg:LAURegion;
+  schema:rangeIncludes xsd:integer.
+
+ramon:name a owl:DatatypeProperty;
+  rdfs:label "admin region name";
+  rdfs:comment "Name of an administrative region or settlement";
+  schema:domainIncludes ramon:NUTSRegion, ebg:LAURegion;
+  schema:rangeIncludes rdf:langString.
+
+rov:RegisteredOrganization a rdfs:Class ;
+  skos:scopeNote "Registered organizations are the main entities that euBusinessGraph works with (the project is not concerned with  unregistered informal groups). The borderline between public organizations and commercial companies is not always clear-cut (a company may be partially owned by government, and e.g.  Public-Private-Partnerships are a prime example), so the project may deal with some organizations that are not companies. But for brevity and convenience we often call  them Companies [ebg:].";
+  rdfs:label "Registered Organization" ;
+  skos:definition "An organization that gains legal entity status by the act of registration. Compare to org:FormalOrganization that applies to any legal entity, including those created by other legal means. Registered organizations are distinct from the broader concept of organizations, groups or, in some jurisdictions, sole traders. Many organizations exist that are not legal entities yet to the outside world they have staff, hierarchies, locations etc. Other organizations exist that are an umbrella for several legal entities (universities are often good examples of this) [rov:].  A legal person or structure that is organized under the laws of any jurisdiction [lei-elf:]." ;
+  skos:example "All financial intermediaries." ;
+  skos:example "Banks and finance companies." ;
+  skos:example "All entities that issue equity, debt or other securities for other capital structures." ;
+  skos:example "All entities listed on an exchange." ;
+  skos:example "All entities that trade stock or debt, investment vehicles, including mutual funds, pension funds and alternative investment vehicles constituted as corporate entities or collective investment agreements (including umbrella funds as well as funds under an umbrella structure, hedge funds, private equity funds, etc.)." ;
+  skos:example "All entities under the purview of a financial regulator and their affiliates, subsidiaries and holding companies." ;
+  skos:example "Counterparties to financial transactions." .
+
+rov:legalName a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization , schema:Organization ;
+  schema:rangeIncludes rdf:langString ;
+  skos:scopeNote "A business may have more than one legal name, particularly in jurisdictions with more than one official language (e.g. Belgium). Some registries also treat a transliterated name as official [ebg:]" ;
+  skos:scopeNote "Provide a legal language tag (see [iana:] for a list) if possible." ;
+  skos:scopeNote "Don't allow leading, trailing and two consecutive spaces." ;
+  rdfs:label "legal name" ;
+  skos:definition "The legal name of the business, i.e. official name of the company [ebg:]" ;
+  skos:example "Ontotext"@en ;
+  skos:example "PROGIENE 2.000 I PROFESSIONISTI DELL'IGIENE S.R.L. ENUNCIABILE ANCHE: PROGIENE 2.000 S.R.L."@it ;
+  skos:example "CHRINON LTD" ;
+  skos:example "Ontotext"@en .
+
+rov:orgActivity a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes skos:Concept;
+  rdfs:label "economic activity" ;
+  skos:definition "Economic activity of the organization (NACE code)" ;
+  skos:scopeNote "Recorded using a controlled vocabulary: EC NACE 2. Values should be like nace:A, nace:42.50, etc",
+    "More detailed national classifications could also useful (e.g. IT ATECO, UK SIC, BG NKID) but are not supported for now. Providers should drop eventual NACE National Extensions trailing digits.",
+    "Values are taken from the euBusinessGraph NACE ConceptScheme. URL template: nace:([A-Z]|[0-9]{2}|[0-9]{2}\\.[0-9]{1,2}). Providers must use exact codes of the specified form",
+    "Only the most specific classification code(s) should be provided since we have a skos:broader hierarchy.".
+
+ebg:orgActivityText a owl:DatatypeProperty ;
+  rdfs:isDefinedBy ebg: ;
+  rdfs:label "economic activity text" ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:langString ;
+  skos:definition "Economic activity of the organization (free text)" ;
+  skos:scopeNote "Such field is widely used in some countries (e.g. BG) and may include much richer info than rov:orgActivity";
+  skos:example "NACE = 72.19 Scientific research and development in the field of natural, medical, agricultural and technical sciences, without biotechnology",
+   "Free text = Development, exploration and production of opto-electronic systems for analogue and digital holographic recording, interferometric measurement of mechanical characteristics and biological objects at micro and macro level, refractometers, light-sensitive materials for holographic recording, blueprints of museum exhibits, artworks and collection surveys, production of holographic illustrations for students, albums, advertising, souvenirs and others, design and manufacture of holographic optical elements with a wide spectrum of applications, marketing and sale of holographic products, consulting, training and promotion of holographic methods and technologies, mediation, brokerage, and **any other activity not prohibited** by Bulgarian legislation." .
+
+rov:orgStatus a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  skos:scopeNote "There is no globally accepted list of company states. For Inactive, some look at hard evidence (the company has been deregistered), others at a long period of inactivity (dormant). Because of this, a user cannot assume that Active and Inactive are opposites." ;
+  skos:scopeNote "A Best Practice for recording status levels is to use the relevant jurisdiction's terms and to encode these in a SKOS Concept Scheme [rov:]." ;
+  rdfs:label "status" ;
+  skos:definition "Flag that identifies whether a company is active or not [ebg:]. The operational and/or legal registration status of the entity [lei:]." ;
+  skos:example "'insolvent', 'bankrupt', 'in receivership': likely to mean slightly different things with different legal implications in different jurisdictions [rov:]." ;
+  skos:example "'Normal Activity': does appear to have cross-border usefulness and this should be used in preference to terms like 'trading' or 'operating' [rov:]." ;
+  skos:example "'Actively trading' vs 'Dormant' vs 'Unregistered' could be considered the 3 main divisions of Status." .
+
+rov:orgType a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  rdfs:label "type" ;
+  skos:definition "Company Type (Legal Form of the entity)" ;
+  skos:scopeNote "There is no agreed set of company types that crosses borders [rov:]. Each jurisdiction will have a limited set of recognized company types and these should be expressed in a consistent manner in a SKOS Concept Scheme [rov:]. Code lists of euBusinessGraph data providers were collected and published in the project repository.",
+    "The types may form a hierarchy, but each company can have maximum one value. E.g. for Italy: Società Di Capitale > Società a responsabilità limitata [ebg:]",
+    "In addition or alternatively to this field, ebg:orgTypeText may be used.".
+
+rov:registration a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes adms:Identifier ;
+  rdfs:label "official registration" ;
+  skos:definition "Identifier that holds the official company registration in its jurisdiction of registration. It establishes the legal existence of the company." ;
+  skos:scopeNote "This is a sub-property of adms:identifier, and should be an adms:Identifier pointing to an official ebg:IdentifierSystem. So it holds redundant information, but this is done for compatibility with the Registered Organization vocabulary.",
+    "In some cases we may not have info about the official registration, though \"it is questionable whether a description of a registered organization without this property and an associated Identifier class will be of any value\" [rov:]" .
+
+schema:GeoCoordinates a rdfs:Class ;
+  rdfs:label "Geographic coordinates" ;
+  skos:definition "Geographic coordinates, eg of a geo-located address." .
+
+schema:author a owl:ObjectProperty ;
+  rdfs:label "author";
+  schema:rangeIncludes schema:Person, schema:Organization;
+  skos:definition "Agent who specified the rules and organization of the identifier system";
+  skos:example
+    "W3C or TimBL specified web URLs",
+    "GLEIF specified GLEI",
+    "Dun and Bradstreet specified DUNS numbers".
+
+schema:availableLanguage a owl:DatatypeProperty ;
+  rdfs:label "language" ;
+  skos:definition "Languages used by the organization." ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:string ;
+  skos:scopeNote "Deduced from languages appearing in web resources related to the organisation (e.g. corporate websites, social network accounts, etc.)." ,
+    "The value should be from the [iana:] list: ISO 639-1 codes, optionally followed by region of use." ,
+    "Currently this data is provided by SDATI, for matching company entities only." ;
+  skos:example "en", "it", "zh-CN" .
+
+schema:dissolutionDate a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:date, xsd:gYearMonth, xsd:gYear ;
+  rdfs:label "dissolution date" ;
+  skos:definition "Date when the organization was dissolved or removed from register." ;
+  skos:scopeNote "Should have a valid XSD datatype." ;
+  skos:example "2010-11-18"^^xsd:date ;
+  skos:example "2010-11"^^xsd:gYearMonth ;
+  skos:example "2010"^^xsd:gYear .
+
+ebg:dissolutionYear a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:integer ;
+  rdfs:label "dissolution year" ;
+  skos:definition "Year the organization was dissolved or deregistered, as integer." ;
+  skos:scopeNote "Used for faceting." .
+
+schema:foundingDate a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:date, xsd:gYearMonth, xsd:gYear  ;
+  rdfs:label "founding date" ;
+  skos:definition "Date when the organization was created." ;
+  skos:scopeNote "Should have a valid XSD datatype." ;
+  skos:example "2010-11-18"^^xsd:date ;
+  skos:example "2010-11"^^xsd:gYearMonth ;
+  skos:example "2010"^^xsd:gYear .
+
+ebg:foundingYear a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes xsd:integer ;
+  rdfs:label "founding year" ;
+  skos:definition "Year the organization was created, as integer." ;
+  skos:scopeNote "Used for faceting." .
+
+schema:email a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:Resource ;
+  skos:scopeNote "euBusinessGraph does not record other company emails, so there is no need to distinguish between different kinds",
+    "The value should be a mailto: URL." ;
+  rdfs:label "certified email address" ;
+  skos:definition "Email that is officially registered and with the same validity as certified (snail) mail." ;
+  skos:example <mailto:elettorale@pec.comune.trento.it> .
+
+schema:geo a owl:ObjectProperty ;
+  schema:domainIncludes locn:Address ;
+  schema:rangeIncludes schema:GeoCoordinates ;
+  rdfs:label "geographic coordinates" ;
+  skos:definition "Geographic coordinates, eg of a geo-located address." ;
+  skos:scopeNote "If data is integrated from several providers, we may end up with multiple coordinate pairs in that node, which will need to be resolved into one." .
+
+schema:latitude a owl:DatatypeProperty ;
+  schema:domainIncludes schema:GeoCoordinates ;
+  schema:rangeIncludes xsd:decimal ;
+  rdfs:label "latitude" ;
+  skos:scopeNote "Coordinates must be expressed in the WGS 84 system." ;
+  skos:scopeNote "If no coordinates are available, do not make a schema:GeoCoordinates node." .
+
+schema:longitude a owl:DatatypeProperty ;
+  schema:domainIncludes schema:GeoCoordinates ;
+  schema:rangeIncludes xsd:decimal ;
+  rdfs:label "longitude" ;
+  skos:scopeNote "Coordinates must be expressed in the WGS 84 system." ;
+  skos:scopeNote "If no coordinates are available, do not make a schema:GeoCoordinates node." .
+
+schema:license a owl:ObjectProperty ;
+  rdfs:label "license" ;
+  schema:domainIncludes ebg:IdentifierSystem, void:Dataset ;
+  schema:rangeIncludes rdf:Resource ;
+  skos:definition "License that applies to an identifier system or dataset" ;
+  skos:scopeNote "If possible, use established license URLs, e.g. from https://creativecommons.org/ or http://rightsstatements.org/" .
+
+schema:sameAs a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:Resource ;
+  rdfs:label "wikipedia page" ;
+  skos:definition "Wikipedia page pertaining to the company." ;
+  skos:example <https://it.wikipedia.org/wiki/Trento> .
+
+schema:url a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization, ebg:WebResource ;
+  schema:rangeIncludes rdf:Resource ;
+  rdfs:label "website" ;
+  skos:definition "Website pertaining to the company or URL of a web resource" ;
+  skos:example <http://www.comune.trento.it>,
+    'For system BG TR, <https://brra.bg> with language "bg" and MIME type "text/html" is the homepage',
+    'For system BG TR, <http://opendata.government.bg/dataset/tbprobckn-pernctbp> with language "bg" and MIME type "application/xml" is open data download in XML',
+    'For system BE Banque-Carrefour des Entreprises, <https://kbopub.economie.fgov.be/kbopub/zoeknummerform.html> with MIME type "application/x-search" is the search URL'.
+
+sioc:feed a owl:ObjectProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:Resource ;
+  rdfs:label "news/blog feed" ;
+  skos:definition "RSS/Atom feed pertaining to the company." ;
+  skos:example <http://www.comune.ancona.gov.it/ankonline/anconaentrate/feed/>.
+
+skos:altLabel a owl:DatatypeProperty ;
+  schema:domainIncludes rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:langString, xsd:string ;
+  skos:definition "Informal/popular name of the company (also called Trading As) [ebg:]. Sometimes (e.g., when the legal name is very long) people refer to a company using a different, informal version [ebg:]. Some jurisdictions recognize concepts such as a trading name or alternative forms of a legal entity's name [rov:]." ;
+  skos:scopeNote "Do not emit such name if it's equal to the legal name [ebg:]. " ;
+  skos:scopeNote "Do not use this property to record translations of the primary legal name [rov:]." ;
+  skos:scopeNote "Provide a valid language tag if possible (see [iana:] for a list)." ;
+  skos:scopeNote "Don't allow leading, trailing and two consecutive spaces." ;
+  rdfs:label "alt label (trade name)" ;
+  skos:example "PROGIENE 2.000 I PROFESSIONISTI DELL'IGIENE SRL"@it ;
+  skos:example "OpenCorporates"@en .
+
+skos:notation a owl:DatatypeProperty ;
+  schema:domainIncludes adms:Identifier, ebg:IdentifierSystem ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "notation (identifier value)";
+  skos:definition "Literal value of the identifier." ;
+  skos:scopeNote "Should not include leading, trailing and consecutive spaces, to facilitate exact match.",
+    """adms:Identifier recommends that this value should be "datatyped with the identifier scheme (including the version number if appropriate)". However, we decided not to do this because:
+- One cannot search by exact literal value unless one also knows the datatype URL
+- Currently we do not plan to maintain different identifier system versions""" ,
+    """Codes for Identifier Systems are issued locally by euBusinessGraph.
+For identifier systems published by the sole or preferred official register in a jurisdiction, we use the jurisdiction code (e.g. "BG", "GB"). 
+For others, if the identifier system has no explicit name, we use a short mnemonic code of the publisher:
+- upper-case for company registers (e.g. "OCORP", "SDATI", "RAL", "EU", "BRIS"),
+- mixed-case for social network registers (e.g. "Twitter", "Facebook").""" .
+
+skos:prefLabel a owl:DatatypeProperty ;
+  schema:domainIncludes ebg:IdentifierSystem , rov:RegisteredOrganization ;
+  schema:rangeIncludes rdf:langString, xsd:string ;
+  rdfs:label "preferred name" ;
+  skos:definition "A single preferred name of a company or identifier system (preferably English)." ;
+  skos:scopeNote "Used as a display name of the company or identifier system. For companies we usually pick one of the Registered Names (English if present, else at random). For identifier systems, we use a commonly used English name." .
+
+schema:Organization a rdfs:Class ;
+  rdfs:label "Organization" ;
+  skos:definition "An organization." ;
+  skos:scopeNote "Used to represent the creator, publisher and author of an IdentifierSystem, and the creator of an Identifier" .
+
+person:Person a rdfs:Class ;
+  rdfs:label "Officer" ;
+  skos:definition "An officer is a natural person (as opposed to a legal person) [person:] that has a high-level management role in a Company (e.g., the CEO, treasurer and chief financial officer). Despite their high status, they typically serve at the will of the corporate directors, who can fire or replace them. Officers can also be shareholders and directors but don't necessarily have to be. They have the authority to act on behalf of the corporation, including contract authority." .
+
+schema:identifier a owl:DatatypeProperty;
+  schema:domainIncludes person:Person , schema:Organization;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "identifier" ;
+  skos:definition "An identifier for a resource." ;
+  skos:scopeNote "Used to represent the identifier (e.g. URL) of a Person or Organization." .
+
+person:birthName a owl:DatatypeProperty;
+  schema:domainIncludes person:Person ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "birth name" ;
+  skos:definition "The legal name of the person which is usually determined at or around birth, usually persistent and for this reason usually recorded by some official registers. Although birth names tend to be persistent we do not assume this has to be the case." ;
+  skos:example "Michele Barbera" .
+
+schema:gender a owl:DatatypeProperty;
+  schema:domainIncludes person:Person ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "person gender" ;
+  skos:definition "The gender of the person." .
+
+schema:birthDate a owl:DatatypeProperty;
+  schema:domainIncludes person:Person ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "person birth date" ;
+  skos:definition "The birth date of the person." .
+
+schema:nationality a owl:DatatypeProperty;
+  schema:domainIncludes person:Person ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "person nationality" ;
+  skos:definition "The nationality of the person." .
+
+org:Membership a rdfs:Class ;
+  rdfs:label "Membership" ;
+  skos:definition "represents the relation between an organisation and a member of that organisation." ;
+  skos:scopeNote "it is acceptable to use the same Membership node for several officers, if they had exactly the same role and membership interval (e.g. in many countries the Board is appointed and discharged at the same interval, namely between AGMs of the company)" .
+
+org:organization a owl:ObjectProperty ;
+  schema:domainIncludes org:Membership ;
+  schema:rangeIncludes org:Organization ;
+  rdfs:label "company" ;
+  skos:definition "Points to the company the membership is about" .
+
+org:member a owl:ObjectProperty ;
+  rdfs:label "member" ;
+  schema:domainIncludes org:Membership ;
+  schema:rangeIncludes person:Person ;
+  skos:definition "The officer that the membership is about" .
+
+org:memberDuring a owl:ObjectProperty ;
+  rdfs:label "duration" ;
+  schema:domainIncludes org:Membership ;
+  schema:rangeIncludes time:Interval ;
+  skos:definition "Interval (beginning and end) of the membership relation. May be an open interval." ;
+  skos:scopeNote "for the common case of missing time, we prefer to use xsd:date rather than completing it with a fake null time, eg \"<date>T00:00:00Z\"^^xsd:dateTime." .
+
+time:Interval a rdfs:Class ;
+  rdfs:label "Interval" ;
+  skos:definition "represents a time interval." .
+
+time:hasBeginning a owl:ObjectProperty ;
+  rdfs:label "start time" ;
+  schema:domainIncludes org:Interval ;
+  schema:rangeIncludes time:Instance ;
+  skos:definition "Beginning of the membership relation" .
+
+time:hasEnd a owl:ObjectProperty ;
+  rdfs:label "end time" ;
+  schema:domainIncludes org:Interval ;
+  schema:rangeIncludes time:Instance ;
+  skos:definition "End of the membership relation" .
+
+time:Instant a rdfs:Class ;
+  rdfs:label "Instant" ;
+  skos:definition "A temporal entity with zero extent or duration." .
+
+time:inXSDDate a owl:DatatypeProperty;
+  schema:domainIncludes person:Person ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "date" ;
+  skos:definition "Position of an instant, expressed using xsd:date." .
+
+org:Role a rdfs:Class ;
+  rdfs:subClassOf skos:Concept ;
+  rdfs:label "Role" ;
+  skos:definition "Denotes a role that a Person can take in an organization." ;
+  skos:scopeNote "Instances of this class describe the abstract role; to denote a specific instance of a person playing that role in a specific organization use an instance of org:Membership." .
+
+org:role a owl:ObjectProperty ;
+  rdfs:label "role" ;
+  schema:domainIncludes org:Membership ;
+  schema:rangeIncludes org:Role ;
+  skos:definition "The role played by the officer in the membership" .
+
+ebg:rolePositionText a owl:DatatypeProperty;
+  schema:domainIncludes org:Membership ;
+  schema:rangeIncludes xsd:string ;
+  rdfs:label "role text" ;
+  skos:definition "The (hierarchical) position of the person within a company (in free text), e.g., director." .
+
+rov:legalName              ebg:order 0.
+skos:prefLabel             ebg:order 1.
+skos:altLabel              ebg:order 2.
+rov:orgType                ebg:order 3.
+ebg:orgTypeText            ebg:order 4.
+ebg:isStartup              ebg:order 5.
+ebg:isStateOwned           ebg:order 6.
+ebg:isPubliclyTraded       ebg:order 7.
+rov:orgStatus              ebg:order 8.
+ebg:orgStatusText          ebg:order 9.
+rov:orgActivity            ebg:order 10.
+ebg:orgActivityText        ebg:order 11.
+ebg:orgActivityTransitive  ebg:order 12.
+schema:foundingDate        ebg:order 13.
+ebg:foundingYear           ebg:order 14.
+schema:dissolutionDate     ebg:order 15.
+ebg:dissolutionYear        ebg:order 16.
+schema:availableLanguage   ebg:order 17.
+schema:url                 ebg:order 18.
+schema:sameAs              ebg:order 19.
+schema:email               ebg:order 20.
+sioc:feed                  ebg:order 21.
+dbo:jurisdiction           ebg:order 22.
+org:hasRegisteredSite      ebg:order 23.
+org:hasSite                ebg:order 24.
+rov:registration           ebg:order 25.
+adms:identifier            ebg:order 26.
+org:siteAddress            ebg:order 27.
+locn:fullAddress           ebg:order 28.
+locn:adminUnitL1           ebg:order 29.
+locn:adminUnitL2           ebg:order 30.
+ebg:adminUnitL3            ebg:order 31.
+ebg:adminUnitL4            ebg:order 32.
+ebg:adminUnitL5            ebg:order 33.
+ebg:adminUnitL6            ebg:order 34.
+locn:postName              ebg:order 35.
+locn:addressArea           ebg:order 36.
+locn:thoroughfare          ebg:order 37.
+locn:locatorDesignator     ebg:order 38.
+locn:postCode              ebg:order 39.
+locn:poBox                 ebg:order 40.
+schema:geo                 ebg:order 41.
+schema:latitude            ebg:order 42.
+schema:longitude           ebg:order 43.
+ebg:geoResolution          ebg:order 44.
+schema:author              ebg:order 45.
+schema:author              ebg:order 45.
+dct:creator                ebg:order 46.
+schema:publisher           ebg:order 47.
+skos:notation              ebg:order 49.
+ebg:ralCode                ebg:order 50.
+schema:license             ebg:order 51.
+ebg:isUnique               ebg:order 52.
+ebg:isSingleValued         ebg:order 53.
+ebg:isPersistent           ebg:order 54.
+ebg:isImmutable            ebg:order 55.
+ebg:isPublic               ebg:order 56.
+ebg:isEnumerated           ebg:order 58.
+ebg:isOfficial             ebg:order 59.
+ebg:validationRule         ebg:order 60.
+ebg:validationRegex        ebg:order 61.
+ebg:replacementPattern     ebg:order 62.
+ebg:identifierWebResource  ebg:order 63.
+ebg:webResource            ebg:order 64.
+schema:name                ebg:order 66.
+dc:format                  ebg:order 67.
+schema:inLanguage          ebg:order 68.
+ebg:urlTemplate            ebg:order 69.
+dct:isPartOf               ebg:order 71.
+dct:issued                 ebg:order 73.
+schema:expires             ebg:order 74.
+person:birthName           ebg:order 102.
+org:organization           ebg:order 103.
+org:member                 ebg:order 104.
+org:memberDuring           ebg:order 105.
+org:role                   ebg:order 106.
+
+# These are not company props, but giving them ebg:order anyway, for completeness
+ebg:adminUnit              ebg:order 107.
+ebg:exclusionNote          ebg:order 108.
+ebg:level                  ebg:order 109.
+ebg:order                  ebg:order 110.
+ramon:code                 ebg:order 111.
+ramon:level                ebg:order 112.
+ramon:name                 ebg:order 113.
+
+# Proprietary EVRY attribute
+ebg:probabilityOfDefault   ebg:order 114.
