@@ -23,7 +23,7 @@ public class OOPSevaluationTest {
     /**
      * Test of printEvaluation method, of class OOPSevaluation.
      */
-   // @Test (Commented out because OOPS! WS seems to be down
+    @Test //(Commented out because OOPS! WS seems to be down
     public void testPrintEvaluation()  {
         try{
         System.out.println("printEvaluation with alo");
@@ -51,7 +51,7 @@ public class OOPSevaluationTest {
         }
     }
     
-    //@Test
+    @Test
     public void testPrintEvaluation2()  {
         try{
         System.out.println("printEvaluation with p-plan");

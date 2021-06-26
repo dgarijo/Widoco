@@ -125,10 +125,10 @@ public class CreateResources {
 		// serialize the model in different serializations.
 		OWLOntologyManager om = c.getMainOntology().getOWLAPIOntologyManager();
 		OWLOntology o = c.getMainOntology().getOWLAPIModel();
-		WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut + File.separator + "ontology.xml");
+		WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut + File.separator + "ontology.rdf");
 		WidocoUtils.writeModel(om, o, new TurtleDocumentFormat(), folderOut + File.separator + "ontology.ttl");
 		WidocoUtils.writeModel(om, o, new NTriplesDocumentFormat(), folderOut + File.separator + "ontology.nt");
-		WidocoUtils.writeModel(om, o, new RDFJsonLDDocumentFormat(), folderOut + File.separator + "ontology.json");
+		WidocoUtils.writeModel(om, o, new RDFJsonLDDocumentFormat(), folderOut + File.separator + "ontology.jsonld");
 		if (c.isIncludeIndex()) {
                     if(c.isIncludeAllSectionsInOneDocument()){
                         createUnifiedIndexDocument(abs,intro,overview,description,crossref,ref,changeLog, folderOut, c, lode, languageFile);
