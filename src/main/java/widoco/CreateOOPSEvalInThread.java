@@ -65,7 +65,7 @@ public class CreateOOPSEvalInThread implements Runnable {
 			if (!c.getMainOntology().isHashOntology()) {
 				ontologyXMLPath += File.separator + "doc";
 			}
-			ontologyXMLPath += File.separator + "ontology.xml";
+			ontologyXMLPath += File.separator + "ontology.rdf";
 
 			// read file
 			String content = null;
