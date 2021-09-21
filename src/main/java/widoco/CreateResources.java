@@ -306,28 +306,40 @@ public class CreateResources {
 
 	private static String createCrossReferenceSection(String path, LODEParser lodeParser, Configuration c,
 			Properties lang) {
-            // cross reference section has to be included always.
+            // Cross reference section has to be included always.
             String textToWrite = Constants.getCrossReferenceSectionTitleAndPlaceHolder(c, lang);
+
             String classesList = lodeParser.getClassList(), propList = lodeParser.getPropertyList(),
                             dataPropList = lodeParser.getDataPropList(), annotationPropList = lodeParser.getAnnotationPropList(),
                             namedIndividualList = lodeParser.getNamedIndividualList();
-            if (classesList != null && !"".equals(classesList)) {
-                    textToWrite += lodeParser.getClasses();
+
+			final boolean includesClass = classesList != null && !"".equals(classesList);
+			final boolean includesProperty = propList != null && !"".equals(propList);
+			final boolean includesDatatypeProperty = dataPropList != null && !"".equals(dataPropList);
+			final boolean includesAnnotation =
+				c.isIncludeAnnotationProperties() && annotationPropList != null && !"".equals(annotationPropList);
+			final boolean includesNamedIndividual =
+				c.isIncludeNamedIndividuals() && namedIndividualList != null && !"".equals(namedIndividualList);
+
+			if (includesClass) {
+				textToWrite += lodeParser.getClasses();
             }
-            if (propList != null && !"".equals(propList)) {
-                    textToWrite += lodeParser.getProperties();
+            if (includesProperty) {
+				textToWrite += lodeParser.getProperties();
             }
-            if (dataPropList != null && !"".equals(dataPropList)) {
-                    textToWrite += lodeParser.getDataProp();
+            if (includesDatatypeProperty) {
+				textToWrite += lodeParser.getDataProp();
             }
-            if (c.isIncludeAnnotationProperties() && annotationPropList != null && !"".equals(annotationPropList)) {
-                    textToWrite += lodeParser.getAnnotationProp();
+            if (includesAnnotation) {
+				textToWrite += lodeParser.getAnnotationProp();
             }
-            if (c.isIncludeNamedIndividuals() && namedIndividualList != null && !"".equals(namedIndividualList)) {
-                    textToWrite += lodeParser.getNamedIndividuals();
+            if (includesNamedIndividual) {
+				textToWrite += lodeParser.getNamedIndividuals();
             }
-            // add legend
-            textToWrite += Constants.getLegend(lang) + "\n";
+
+            // Add legend (for ontology components actually used).
+            textToWrite += Constants.getLegend(lang, includesClass, includesProperty,
+					includesDatatypeProperty, includesAnnotation, includesNamedIndividual);
             if(!c.isIncludeAllSectionsInOneDocument()){
                 saveDocument(path + File.separator + "crossref-" + c.getCurrentLanguage() + ".html", textToWrite, c);
             }

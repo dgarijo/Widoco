@@ -1265,18 +1265,48 @@ public class Constants {
 		return page406;
 	}
 
-	public static String getLegend(Properties lang) {
+	public static String getLegend(
+			Properties lang,
+			final boolean includesClass,
+			final boolean includesProperty,
+			final boolean includesDatatypeProperty,
+			final boolean includesAnnotation,
+			final boolean includesNamedIndividual) {
+
+		// If our ontology is empty, then no point in a legend at all!
+		if (!includesClass && !includesProperty && !includesDatatypeProperty &&
+				!includesAnnotation && !includesNamedIndividual) {
+			return "";
+		}
+
+		// TODO: Currently legend has no entry for Annotations - I don't know if this is intended or
+		//  not ...?
 		return "<div id=\"legend\">\n" + "<h2>" + lang.getProperty(Constants.LANG_LEGEND)
 				+ " <span class=\"backlink\"> " + lang.getProperty(Constants.LANG_BACK)
-				+ " <a href=\"#toc\">ToC</a></span></h2>\n" + "<div   class=\"entity\">\n"
-				+ "<sup class=\"type-c\" title=\"" + lang.getProperty(Constants.LANG_CLASSES) + "\">c</sup>: "
-				+ lang.getProperty(Constants.LANG_CLASSES) + " <br/>\n" + "<sup class=\"type-op\" title=\""
-				+ lang.getProperty(Constants.LANG_OBJ_PROP) + "\">op</sup>: "
-				+ lang.getProperty(Constants.LANG_OBJ_PROP) + " <br/>\n" + "<sup class=\"type-dp\" title=\""
-				+ lang.getProperty(Constants.LANG_DATA_PROP) + "\">dp</sup>: "
-				+ lang.getProperty(Constants.LANG_DATA_PROP) + " <br/>\n" + "<sup class=\"type-ni\" title=\""
-				+ lang.getProperty(Constants.LANG_NAMED_INDIV) + "\">ni</sup>: "
-				+ lang.getProperty(Constants.LANG_NAMED_INDIV) + "\n" + "</div>\n" + "</div>";
+				+ " <a href=\"#toc\">ToC</a></span></h2>\n"
+				+ "<div   class=\"entity\">\n"
+				+ (includesClass ?
+				  "<sup class=\"type-c\" title=\""
+				  + lang.getProperty(Constants.LANG_CLASSES)
+				  + "\">c</sup>: " + lang.getProperty(Constants.LANG_CLASSES) + " <br/>\n"
+				  : "")
+				+ (includesProperty ?
+				  "<sup class=\"type-op\" title=\""
+				  + lang.getProperty(Constants.LANG_OBJ_PROP) + "\">op</sup>: "
+				  + lang.getProperty(Constants.LANG_OBJ_PROP) + " <br/>\n"
+				  : "")
+				+ (includesDatatypeProperty ?
+				  "<sup class=\"type-dp\" title=\""
+				  + lang.getProperty(Constants.LANG_DATA_PROP) + "\">dp</sup>: "
+				  + lang.getProperty(Constants.LANG_DATA_PROP) + " <br/>\n"
+				  : "")
+				+ (includesNamedIndividual ?
+				  "<sup class=\"type-ni\" title=\""
+				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + "\">ni</sup>: "
+				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + "\n"
+				: "")
+				+ "</div>\n" + "</div>"
+				+ "\n";
 	}
 
 	public static String getAnalyticsCode(String code) {
