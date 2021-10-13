@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <ontology>Ontologie</ontology>
+    <ontologysource>Bron van de ontologie</ontologysource>
+    <visualisation>Andere visualisatie</visualisation>
+    <visualiseitwith>Visualiseer het met</visualiseitwith>
+    <date>Datum</date>
+    <currentversion>Huidige versie</currentversion>
+    <previousversion>Vorige versie</previousversion>
+    <backwardcompatiblewith>Achterwaarts compatibel met</backwardcompatiblewith>
+    <incompatibleWith>Incompatibel met</incompatibleWith>
+    <abstract>Samenvatting</abstract>
+    <introduction>Introductie</introduction>
+    <disjointclasses>Alle disjuncte klassen</disjointclasses>
+    <subclassdefinition>Definitie algemene subklasse</subclassdefinition>
+    <equivalentdefinition>Definitie algemene equivalent</equivalentdefinition>
+    <issubclassof>is een subklasse van</issubclassof>
+    <isequivalentto>is een equivalent van</isequivalentto>
+    <functional>functioneel</functional>
+    <inversefunctional>invers functioneel</inversefunctional>
+    <reflexive>reflexief</reflexive>
+    <irreflexive>irreflexief</irreflexive>
+    <symmetric>symmetrisch</symmetric>
+    <asymmetric>asymmetrisch</asymmetric>
+    <transitive>transitief</transitive>
+    <isdefinedby>Is gedefinieerd door</isdefinedby>
+    <belongsto>behoort tot</belongsto>
+    <issameas>is gelijk aan</issameas>
+    <isalsodefinedas>is ook gedefinieerd als</isalsodefinedas>
+    <isdisjointwith>is disjunct met</isdisjointwith>
+    <haskeys>heeft unieke sleutels</haskeys>
+    <hassuperclasses>heeft superklassen</hassuperclasses>
+    <hassubclasses>heeft subklassen</hassubclasses>
+    <isindomainof>is in domein van</isindomainof>
+    <isinrangeof>is in bereik van</isinrangeof>
+    <hasmembers>heeft leden</hasmembers>
+    <isinverseof>is invers van</isinverseof>
+    <hassubpropertychains>heeft ketens van subeigenschappen</hassubpropertychains>
+    <hasequivalentproperties>heeft equivalente eigenschappen</hasequivalentproperties>
+    <hassuperproperties>heeft supereigenschappen</hassuperproperties>
+    <hassubproperties>heeft subeigenschappen</hassubproperties>
+    <hasdomain>heeft domein</hasdomain>
+    <hasrange>heeft bereik</hasrange>
+    <importedontologies>Geïmporteerde ontologieën</importedontologies>
+    <individualassertions>heeft feiten</individualassertions>
+    <authors>Auteurs</authors>
+    <contributors>Bijdragers</contributors>
+    <publisher>Uitgever</publisher>
+    <toc>Inhoudsopgave</toc>
+    <tocabbr>IO</tocabbr>
+    <backto>terug naar</backto>
+    <class>klasse</class>
+    <classes>Klassen</classes>
+    <objectproperty>objecteigenschap</objectproperty>
+    <objectproperties>Objecteigenschappen</objectproperties>
+    <dataproperty>data-eigenschap</dataproperty>
+    <dataproperties>Data-eigenschappen</dataproperties>
+    <namedindividual>concreet exemplaar</namedindividual>
+    <namedindividuals>Concrete Exemplaren</namedindividuals>
+    <annotationproperty>annotatie-eigenschap</annotationproperty>
+    <annotationproperties>Annotatie-eigenschappen</annotationproperties>
+    <datarange>databereik</datarange>
+    <dataranges>Databereiken</dataranges>
+    <generalaxioms>Algemene axioma</generalaxioms>
+    <rule>regel</rule>
+    <rules>SWRL Regels</rules>
+    <namespace>standaard naamruimte</namespace>
+    <namespaces>Naamruimte verklaringen</namespaces>
+    <endnote>Dit HTML-document is verkregen door de broncode van de OWL-ontologie te verwerken via:</endnote>
+    <developedby>ontwikkeld door</developedby>
+    <or>of</or>
+    <classtoc>Index van klassen</classtoc>
+    <objectpropertytoc>Index van objecteigenschappen</objectpropertytoc>
+    <datapropertytoc>Index van data-eigenschappen</datapropertytoc>
+    <annotationpropertytoc>Index van annotatie-eigenschappen</annotationpropertytoc>
+    <namedindividualtoc>Index van concrete exemplaren</namedindividualtoc>
+    <hascharacteristics>heeft kenmerken</hascharacteristics>
+	<rationale>Grondslag voor term</rationale>
+	<example>Voorbeeld</example>
+	<propertyannotation>Annotatie-eigenschap</propertyannotation>
+	<category>Categorie</category>
+	<isrequired>Is verplicht</isrequired>
+	<source>Bron</source>
+	<termStatus>Term status</termStatus>
+	<deprecated>Is vervallen</deprecated>
+    <domainIncludes>domein bevat</domainIncludes>
+    <rangeIncludes>bereik bevat</rangeIncludes>
+</labels>
