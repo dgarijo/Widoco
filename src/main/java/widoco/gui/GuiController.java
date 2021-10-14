@@ -248,19 +248,16 @@ public final class GuiController {
 			errors = true;
 		}
 
-		if (!errors && getOntoMetadata) {
-			logger.info("Load properties from the ontology");
-			config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
-		}
-
 		if (!errors) {
 			try {
-				// This loop doesn't seem to make sense since l is not used by
-				// generateDocumentation() but it seems that
-				// the Configuration object has mutable state that points to the
-				// "currentLanguage".
+				// CurentLanguage changes state in vocabularySuccessfullyGenerated.
+				// TO DO: improve this a little so language is passed on to load properties and generate doc.
 				for (String l : config.getLanguagesToGenerateDoc()) {
 					logger.info("Generating documentation for " + ontology + " in lang " + l);
+					if (getOntoMetadata) {
+						logger.info("Load properties from the ontology in lang " + l);
+						config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
+					}
 					CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
 					config.vocabularySuccessfullyGenerated();
 				}
