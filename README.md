@@ -73,6 +73,9 @@ Examples of the features of WIDOCO can be seen on [the gallery](http://dgarijo.g
 A tutorial explaining the main features of the GUI can be found [here](http://dgarijo.github.io/Widoco/doc/tutorial/)    
     
 ## How to use WIDOCO
+
+### JAR execution
+
 Download the latest `.jar` [WIDOCO available release](https://github.com/dgarijo/WIDOCO/releases/latest) (it will be something like `widoco-VERSION-jar-with-dependencies.jar`). Then just double click the `.jar` file.
 
 You may also execute WIDOCO through the command line. Usage:
@@ -80,7 +83,31 @@ You may also execute WIDOCO through the command line. Usage:
 java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]
 ```
 
-**OPTIONS**:
+### Docker execution
+
+First build the image using the `Dockerfile` in project folder:
+
+```bash
+docker build -t dgarijo/widoco .
+```
+
+You can now execute WIDOCO through the command line. Usage:
+
+```bash
+docker run -ti --rm dgarijo/widoco [OPTIONS]
+```
+
+If you want to share data between the Docker Container and your Host, for instance to load a local ontology file (from PATH), you will need to mount the container
+with host directories. For instance:
+
+```bash
+docker run -ti --rm \
+  -v `pwd`/test:/usr/local/widoco/in \
+  -v `pwd`/target/generated-doc:/usr/local/widoco/out \
+  dgarijo/widoco -ontFile in/bne.ttl -outFolder out -rewriteAll
+```
+
+### Options
 
 `-ontFile PATH`  [required (unless -ontURI is used)]: Load a local ontology file (from PATH) to document. This option is incompatible with -ontURI
 
