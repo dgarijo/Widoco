@@ -4,7 +4,7 @@
 	<groupId>es.oeg</groupId>
 	<artifactId>widoco</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4.14</version>
+	<version>1.4.16</version>
 	<name>Widoco</name>
 
 	<properties>
@@ -68,11 +68,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>-->
 	</dependencies>
 
 	<dependencyManagement>
@@ -96,7 +91,7 @@
 							<finalName>${project.artifactId}-${project.version}-jar-with-dependencies</finalName>
 							<shadedArtifactAttached>true</shadedArtifactAttached>
 							<shadedClassifierName>launcher</shadedClassifierName>
-							<outputDirectory>jar/</outputDirectory>
+							<outputDirectory>JAR/</outputDirectory>
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
@@ -136,12 +131,6 @@
 
 	<!-- Environment settings -->
 	<repositories>
-
-		<!--<repository>
-			<id>maven-restlet</id>
-			<name>Restlet Framework repository</name>
-			<url>http://maven.restlet.org</url>
-		</repository>-->
 
 		<repository>
 			<id>jitpack.io</id>
