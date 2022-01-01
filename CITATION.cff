@@ -1,0 +1,20 @@
+title: "WIDOCO: A Wizard for documenting ontologies"
+license: Apache-2.0
+authors:
+  - family-names: Garijo
+    given-names: Daniel
+    orcid: "http://orcid.org/0000-0003-0454-7145"
+cff-version: 1.2.0
+message: "If you use this software, please cite both the article from preferred-citation and the software itself."
+preferred-citation:
+  authors:
+    - family-names: Garijo
+      given-names: Daniel
+  title: "WIDOCO: A wizard for documenting ontologies"
+  type: article
+  year: 2017
+  doi: 10.1007/978-3-319-68204-4_9
+identifiers:
+  - description: "Collection of archived snapshots for WIDOCO"
+    type: doi
+    value: 10.5281/zenodo.591294
