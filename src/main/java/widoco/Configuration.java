@@ -633,12 +633,18 @@ public class Configuration {
 			mainOntologyMetadata.setDoi(value);
 			break;
 		case Constants.PROP_BIBO_STATUS:
+			value = "Specification Draft";
 			try {
-				value = a.getValue().asLiteral().get().getLiteral();
-				mainOntologyMetadata.setStatus(value);
-			} catch (Exception e) {
-				logger.error("Error while getting the status. No literal provided");
+				//if an object property is used, all valid status have the form http://purl.org/ontology/bibo/status/
+				value = a.getValue().asIRI().get().getIRIString().replace(Constants.NS_BIBO+"status/","");
+			}catch(Exception e){
+				try{
+					value = a.getValue().asLiteral().get().getLiteral();
+				} catch (Exception e1) {
+					logger.error("Error while getting the status. No valid literal or URI provided");
+				}
 			}
+			mainOntologyMetadata.setStatus(value);
 			break;
 		case Constants.PROP_OWL_BACKWARDS_COMPATIBLE:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
