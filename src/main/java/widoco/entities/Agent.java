@@ -22,15 +22,17 @@ package widoco.entities;
 public class Agent {
     private String name;
     private String URL;
+    private String email;
     private String institutionName;
     private String institutionURL;
 
     public Agent() {
     }
 
-    public Agent(String name, String URL, String institutionName, String institutionURL) {
+    public Agent(String name, String URL, String email, String institutionName, String institutionURL) {
         this.name = name;
         this.URL = URL;
+        this.email = email;
         this.institutionName = institutionName;
         this.institutionURL = institutionURL;
     }
@@ -51,6 +53,8 @@ public class Agent {
         return URL;
     }
 
+    public String getEmail() { return email; }
+
     public void setInstitutionName(String institutionName) {
         this.institutionName = institutionName;
     }
@@ -66,5 +70,8 @@ public class Agent {
     public void setURL(String URL) {
         this.URL = URL;
     }
-    
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

@@ -29,7 +29,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import javax.imageio.ImageIO;
-import org.semanticweb.owlapi.model.OWLOntology;
+
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,6 @@ import widoco.entities.License;
 import widoco.entities.Ontology;
 import widoco.gui.GuiController;
 import licensius.GetLicense;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 
 /**
  * class for storing all the details to generate the ontology. This will be a
@@ -414,7 +414,7 @@ public class Configuration {
 			});
 		}
 		this.mainOntologyMetadata.setThisVersion(versionUri);
-		o.annotations().forEach(a -> completeMetadata(a));
+		o.annotations().forEach(a -> completeOntologyMetadata(a,o));
 		if (isUseLicensius()) {
 			String licName;
 			String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
@@ -438,11 +438,11 @@ public class Configuration {
 		if (mainOntologyMetadata.getCiteAs() == null || mainOntologyMetadata.getCiteAs().isEmpty()) {
 			String cite = "";
 			for (Agent a : mainOntologyMetadata.getCreators()) {
-				cite += a.getName() + ",";
+				cite += a.getName() + ", ";
 			}
 			if (cite.length() > 1) {
 				// remove the last ","
-				cite = cite.substring(0, cite.length() - 1);
+				cite = cite.substring(0, cite.length() - 2);
 				cite += ".";
 			}
 
@@ -473,10 +473,11 @@ public class Configuration {
 		return (prefix + detail + (useFullStop ? "." : ""));
 	}
 
-	private void completeMetadata(OWLAnnotation a) {
+	private void completeOntologyMetadata(OWLAnnotation a, OWLOntology o) {
 		String propertyName = a.getProperty().getIRI().getIRIString();
 		String value;
 		String valueLanguage;
+//		 System.out.println(propertyName);
 		switch (propertyName) {
 		case Constants.PROP_RDFS_LABEL:
 			try {
@@ -576,37 +577,54 @@ public class Configuration {
 		case Constants.PROP_PROV_ATTRIBUTED_TO:
 		case Constants.PROP_DC_PUBLISHER:
 		case Constants.PROP_DCTERMS_PUBLISHER:
-		case Constants.PROP_SCHEMA_PUBLISER:
+		case Constants.PROP_SCHEMA_PUBLISHER:
 			try {
-				value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
-				Agent g = new Agent();
-				if (isURL(value)) {
-					g.setURL(value);
-					g.setName(value);
-				} else {
-					g.setName(value);
-					g.setURL("");
+				Agent ag = new Agent();
+				if (a.getValue().isLiteral()) {
+					ag.setURL("");
+					ag.setName(a.getValue().asLiteral().get().getLiteral());
+				}else{
+					if (!a.getValue().asAnonymousIndividual().isEmpty()){
+						// dealing with a blank node, extract metadata from URL, name and organization (if available)
+						o.getAnnotationAssertionAxioms(a.getValue().asAnonymousIndividual().get()).stream().forEach(i -> {
+							System.out.println("AP "+i);
+							completeAgentMetadata(i, ag, o);
+						});
+					}else{
+						IRI valueURI = a.getValue().asIRI().get();
+						o.getAnnotationAssertionAxioms(valueURI).stream().forEach(i -> {
+							System.out.println("NAMED " + i);
+							completeAgentMetadata(i, ag, o);
+						});
+						if(ag.getName()==null || ag.getName().equals("")){
+							//the value does not have annotations, so we keep it as it is.
+							ag.setName(valueURI.getIRIString());
+						}
+						if(ag.getURL()==null || ag.getURL().equals("")){
+							ag.setURL(valueURI.getIRIString());
+						}
+					}
 				}
 				switch (propertyName) {
 				case Constants.PROP_DC_CONTRIBUTOR:
 				case Constants.PROP_DCTERMS_CONTRIBUTOR:
 				case Constants.PROP_SCHEMA_CONTRIBUTOR:
 				case Constants.PROP_PAV_CONTRIBUTED_BY:
-					mainOntologyMetadata.getContributors().add(g);
+					mainOntologyMetadata.getContributors().add(ag);
 					break;
 				case Constants.PROP_DC_CREATOR:
 				case Constants.PROP_DCTERMS_CREATOR:
 				case Constants.PROP_PAV_CREATED_BY:
 				case Constants.PROP_PROV_ATTRIBUTED_TO:
 				case Constants.PROP_SCHEMA_CREATOR:
-					mainOntologyMetadata.getCreators().add(g);
+					mainOntologyMetadata.getCreators().add(ag);
 					break;
 				default:
-					mainOntologyMetadata.setPublisher(g);
+					mainOntologyMetadata.setPublisher(ag);
 					break;
 				}
 			} catch (Exception e) {
-				logger.error("Could not retrieve cretor/contributor. Please avoid using blank nodes...");
+				logger.error("Could not retrieve creator/contributor.");
 			}
 			break;
 		case Constants.PROP_DCTERMS_CREATED:
@@ -655,6 +673,104 @@ public class Configuration {
 			mainOntologyMetadata.setIncompatibleWith(value);
 			break;
 		}
+	}
+
+	/**
+	 * Method that given an annotation, an agent and an ontology, it will try to retrieve the name, URL
+	 * and institution name/URL that agent belongs to.
+	 * @param ann annotation axiom about an agent (can be a bank node or a URI)
+	 * @param ag agent to complete metadata from
+	 * @param o ontology model (needed in case further search is required)
+	 */
+	private void completeAgentMetadata(OWLAnnotationAssertionAxiom ann, Agent ag, OWLOntology o) {
+		String propertyName = ann.getProperty().getIRI().getIRIString();
+		String nameFragment;
+//		System.out.println(propertyName);
+		switch (propertyName) {
+			case Constants.PROP_RDFS_LABEL:
+			case Constants.PROP_SCHEMA_NAME:
+			case Constants.PROP_VCARD_FN:
+			case Constants.PROP_FOAF_NAME:
+			case Constants.PROP_VCARD_FN_OLD:
+				ag.setName(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
+				break;
+			case Constants.PROP_SCHEMA_GIVEN_NAME:
+			case Constants.PROP_VCARD_GIVEN_NAME:
+			case Constants.PROP_VCARD_GIVEN_OLD:
+			case Constants.PROP_FOAF_GIVEN_NAME:
+				nameFragment = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
+				if (ag.getName() == null){
+					ag.setName(nameFragment);
+				}else{
+					if(!ag.getName().contains(nameFragment)){
+					ag.setName(nameFragment + " " +ag.getName());
+					}
+				}
+				break;
+			case Constants.PROP_SCHEMA_FAMILY_NAME:
+			case Constants.PROP_VCARD_FAMILY_NAME:
+			case Constants.PROP_VCARD_FAMILY_OLD:
+			case Constants.PROP_FOAF_FAMILY_NAME:
+				nameFragment = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
+				if (ag.getName() == null){
+					ag.setName(nameFragment);
+				}else {
+					if(!ag.getName().contains(nameFragment)){
+						ag.setName(ag.getName() + " " + nameFragment);
+					}
+				}
+				break;
+			case Constants.PROP_SCHEMA_URL:
+			case Constants.PROP_FOAF_HOME_PAGE:
+			case Constants.PROP_VCARD_HAS_URL:
+			case Constants.PROP_VCARD_URL:
+				ag.setURL(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
+				break;
+			case Constants.PROP_SCHEMA_EMAIL:
+			case Constants.PROP_FOAF_MBOX:
+			case Constants.PROP_VCARD_EMAIL:
+			case Constants.PROP_VCARD_EMAIL_OLD:
+				ag.setEmail(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
+				break;
+			case Constants.PROP_SCHEMA_AFFILIATION:
+			case Constants.PROP_ORG_MEMBER_OF:
+				if (ann.getValue().isLiteral()) {
+					String literalValue = ann.getValue().asLiteral().get().getLiteral();
+					if (literalValue.contains("http")){
+						ag.setInstitutionURL(literalValue);
+						ag.setInstitutionName(literalValue);
+					}
+				}else{
+					Agent aux = new Agent(); // store the information about the organization as an aux agent
+					if (!ann.getValue().asAnonymousIndividual().isEmpty()){
+						// dealing with a blank node, extract metadata from URL, name and organization (if available)
+						o.getAnnotationAssertionAxioms(ann.getValue().asAnonymousIndividual().get()).stream().forEach(i -> {
+							completeAgentMetadata(i,aux,o);
+						});
+					}else{
+						IRI valueURI = ann.getValue().asIRI().get();
+						o.getAnnotationAssertionAxioms(valueURI).stream().forEach(i -> {
+							completeAgentMetadata(i,aux,o);
+						});
+						if(aux.getName()==null || aux.getName().equals("")){
+							//the value does not have annotations, so we keep it as it is.
+							aux.setName(valueURI.getIRIString());
+						}
+						if(aux.getURL()==null || aux.getURL().equals("")){
+							aux.setURL(valueURI.getIRIString());
+						}
+					}
+					//copy aux data into ag
+					if (aux.getName()!=null){
+						ag.setInstitutionName(aux.getName());
+					}
+					if (aux.getURL()!=null){
+						ag.setInstitutionURL(aux.getURL());
+					}
+				}
+				break;
+			}
+
 	}
 
 	private boolean isURL(String s) {
