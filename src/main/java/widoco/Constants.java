@@ -69,6 +69,10 @@ public class Constants {
 	public static final String NS_BIBO = "http://purl.org/ontology/bibo/";
 	public static final String NS_SKOS = "http://www.w3.org/2004/02/skos/core#";
 	public static final String NS_PAV = "http://purl.org/pav/";
+	public static final String NS_VCARD = "http://www.w3.org/2006/vcard/ns#";
+	public static final String NS_VCARD_OLD = "http://www.w3.org/2001/vcard-rdf/3.0#";
+	public static final String NS_FOAF = "http://xmlns.com/foaf/0.1/";
+	public static final String NS_ORG = "http://www.w3.org/ns/org#";
 
 	public static final String PROP_RDFS_LABEL = NS_RDFS + "label";
 	public static final String PROP_RDFS_COMMENT = NS_RDFS + "comment";
@@ -81,8 +85,13 @@ public class Constants {
 	public static final String PROP_SCHEMA_CITATION = NS_SCHEMA + "citation";
 	public static final String PROP_SCHEMA_DATE_CREATED = NS_SCHEMA + "dateCreated";
 	public static final String PROP_SCHEMA_DATE_MODIFIED = NS_SCHEMA + "dateModified";
-	public static final String PROP_SCHEMA_PUBLISER = NS_SCHEMA + "publisher";
+	public static final String PROP_SCHEMA_PUBLISHER = NS_SCHEMA + "publisher";
 	public static final String PROP_SCHEMA_SCHEMA_VERSION = NS_SCHEMA + "schemaVersion";
+	public static final String PROP_SCHEMA_GIVEN_NAME = NS_SCHEMA + "givenName";
+	public static final String PROP_SCHEMA_FAMILY_NAME = NS_SCHEMA + "familyName";
+	public static final String PROP_SCHEMA_URL = NS_SCHEMA + "url";
+	public static final String PROP_SCHEMA_EMAIL = NS_SCHEMA + "email";
+	public static final String PROP_SCHEMA_AFFILIATION = NS_SCHEMA + "affiliation";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
@@ -115,8 +124,7 @@ public class Constants {
 
 	public static final String PROP_PROV_WAS_REVISION_OF = NS_PROV + "wasRevisionOf";
 	public static final String PROP_PROV_GENERATED_AT_TIME = NS_PROV + "generatedAtTime";
-	public static final String PROP_PROV_ATTRIBUTED_TO = NS_PROV + "wasAttributedTo";// attribution only considered for
-																						// authors
+	public static final String PROP_PROV_ATTRIBUTED_TO = NS_PROV + "wasAttributedTo";
 
 	public static final String PROP_VANN_PREFIX = NS_VANN + "preferredNamespacePrefix";
 	public static final String PROP_VANN_URI = NS_VANN + "preferredNamespaceUri";
@@ -131,6 +139,28 @@ public class Constants {
 	public static final String PROP_PAV_CONTRIBUTED_BY = NS_PAV + "contributedBy";
 
 	public static final String PROP_CC_LICENSE = "http://creativecommons.org/ns#license";
+
+	public static final String PROP_VCARD_FN = NS_VCARD + "fn";
+	public static final String PROP_VCARD_GIVEN_NAME = NS_VCARD + "given-name";
+	public static final String PROP_VCARD_FAMILY_NAME = NS_VCARD + "family-name";
+	public static final String PROP_VCARD_URL = NS_VCARD + "url";
+	public static final String PROP_VCARD_HAS_URL = NS_VCARD + "hasURL";
+	public static final String PROP_VCARD_EMAIL = NS_VCARD + "hasEmail";
+
+	public static final String PROP_VCARD_FN_OLD = NS_VCARD_OLD + "FN";
+	public static final String PROP_VCARD_FAMILY_OLD = NS_VCARD_OLD + "Family";
+	public static final String PROP_VCARD_GIVEN_OLD = NS_VCARD_OLD + "Given";
+	public static final String PROP_VCARD_EMAIL_OLD = NS_VCARD_OLD + "EMAIL";
+
+	public static final String PROP_FOAF_NAME = NS_FOAF + "name";
+	public static final String PROP_FOAF_GIVEN_NAME = NS_FOAF + "givenName";
+	public static final String PROP_FOAF_FAMILY_NAME = NS_FOAF + "familyName";
+	public static final String PROP_FOAF_MBOX = NS_FOAF + "mbox";
+	public static final String PROP_FOAF_HOME_PAGE = NS_FOAF + "homepage";
+
+	public static final String PROP_ORG_MEMBER_OF = NS_ORG + "memberOf";
+
+
 
 	// The following properties need additional support (future release)
 	// SEE_ALSO (NEEDED INTERFACE UPDATE)
@@ -391,6 +421,12 @@ public class Constants {
 						agents += ", (<a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionURL()
 								+ "</a>)";
 					}
+				}
+				if(currAuth.getEmail()!=null && !"".equals(currAuth.getEmail())){
+					if (!currAuth.getEmail().startsWith("mailto:")){
+						currAuth.setEmail("mailto:" + currAuth.getEmail());
+					}
+					agents += "<a href=\""+currAuth.getEmail()+"\">&#9993;</a>";
 				}
 				agents += "</dd>";
 			}

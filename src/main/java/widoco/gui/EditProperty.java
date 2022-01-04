@@ -46,19 +46,19 @@ public class EditProperty extends javax.swing.JFrame {
                 this.setTitle("Editing Authors");
                 this.addRowButton.setText("Add author...");
                 this.deleteRowButton.setText("Delete author...");
-                createTable(new String[]{"Name","URI","Institution Name", "Institution URI"});
+                createTable(new String[]{"Name","URI","email","Institution Name", "Institution URI"});
                 loadAgents(c.getMainOntology().getCreators());
                 break;
             case contributors:
                 this.setTitle("Editing Contributors");
                 this.addRowButton.setText("Add contributor...");
                 this.deleteRowButton.setText("Delete contributor...");
-                createTable(new String[]{"Name","URI","Institution Name", "Institution URI"});
+                createTable(new String[]{"Name","URI","email","Institution Name", "Institution URI"});
                 loadAgents(c.getMainOntology().getContributors());
                 break;
             case publisher:
                 this.setTitle("Editing Publisher");
-                createTable(new String[]{"Name","URI","Institution Name","Institution URI"});
+                createTable(new String[]{"Name","URI","email","Institution Name","Institution URI"});
                 this.addRowButton.setEnabled(false);
                 this.deleteRowButton.setEnabled(false);
                 ArrayList<Agent> aux = new ArrayList<Agent>();
@@ -101,7 +101,8 @@ public class EditProperty extends javax.swing.JFrame {
         Iterator<Agent> it = ag.iterator();
         while (it.hasNext()) {
             Agent currentAg = it.next();
-            Object[] row = new Object[]{currentAg.getName(),currentAg.getURL(),currentAg.getInstitutionName(), currentAg.getInstitutionURL()};
+            Object[] row = new Object[]{currentAg.getName(),currentAg.getURL(),currentAg.getEmail(),
+                    currentAg.getInstitutionName(), currentAg.getInstitutionURL()};
             ((DefaultTableModel)tableProperties.getModel()).addRow(row);
         }
     }
@@ -221,7 +222,7 @@ public class EditProperty extends javax.swing.JFrame {
     private void addRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowButtonActionPerformed
         Object[] row;
         if(type.equals(PropertyType.authors)||type.equals(PropertyType.contributors)){
-            row = new Object[]{"","",""};
+            row = new Object[]{"","","",""};
         }else{//ontologies
             row = new Object[]{"",""};
         }
@@ -256,13 +257,14 @@ public class EditProperty extends javax.swing.JFrame {
         for(int row = 0;row < tableProperties.getRowCount();row++) {
             String agentName = (String)tableProperties.getValueAt(row, 0);
             String agentURI = (String)tableProperties.getValueAt(row,1);
-            String agentInstitution = (String)tableProperties.getValueAt(row,2);
-            String agentInstitutionURI = (String)tableProperties.getValueAt(row,3);
+            String agentEmail = (String)tableProperties.getValueAt(row,2);
+            String agentInstitution = (String)tableProperties.getValueAt(row,3);
+            String agentInstitutionURI = (String)tableProperties.getValueAt(row,4);
             if((agentName!=null &&!agentName.equals("")) || (agentURI!=null && !agentURI.equals(""))){
                 if(agentName==null || agentName.equals("")){
                     agentName = "agent"+row;
                 }
-                Agent a = new Agent(agentName, agentURI, agentInstitution, agentInstitutionURI);            
+                Agent a = new Agent(agentName, agentURI, agentEmail, agentInstitution, agentInstitutionURI);
                 agents.add(a);
             }
         }
