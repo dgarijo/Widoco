@@ -127,13 +127,20 @@ public class Ontology {
      */
     private String incompatibleWith;
 
+    /**
+     * images used to illustrate the ontology
+     */
+    private ArrayList<String> images;
+
     public Ontology() {
+        this.images = new ArrayList<>();
     }
 
     public Ontology(String name, String namespacePrefix, String namespaceURI) {
         this.name = name;
         this.namespacePrefix = namespacePrefix;
         this.namespaceURI = namespaceURI;
+        this.images = new ArrayList<>();
     }
 
     public String getName() {
@@ -339,5 +346,13 @@ public class Ontology {
 
     public void setIncompatibleWith(String incompatibleWith) {
         this.incompatibleWith = incompatibleWith;
+    }
+
+    public ArrayList<String> getImages(){
+        return images;
+    }
+
+    public void addImage(String image){
+        this.images.add(image);
     }
 }

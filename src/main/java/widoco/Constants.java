@@ -92,6 +92,7 @@ public class Constants {
 	public static final String PROP_SCHEMA_URL = NS_SCHEMA + "url";
 	public static final String PROP_SCHEMA_EMAIL = NS_SCHEMA + "email";
 	public static final String PROP_SCHEMA_AFFILIATION = NS_SCHEMA + "affiliation";
+	public static final String PROP_SCHEMA_IMAGE = NS_SCHEMA + "image";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
@@ -157,6 +158,8 @@ public class Constants {
 	public static final String PROP_FOAF_FAMILY_NAME = NS_FOAF + "familyName";
 	public static final String PROP_FOAF_MBOX = NS_FOAF + "mbox";
 	public static final String PROP_FOAF_HOME_PAGE = NS_FOAF + "homepage";
+	public static final String PROP_FOAF_IMAGE = NS_FOAF + "img";
+	public static final String PROP_FOAF_DEPICTION = NS_FOAF + "depiction";
 
 	public static final String PROP_ORG_MEMBER_OF = NS_ORG + "memberOf";
 
@@ -958,14 +961,18 @@ public class Constants {
 	}
 
 	public static String getDescriptionSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
-		return "<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": "
+		String descriptionString =  "<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": "
 				+ lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER) + "\n";
+		for (String image: c.getMainOntology().getImages()){
+			descriptionString += "<img src=\""+image+"\">";
+		}
+		return descriptionString;
 	}
 
 	public static String getCrossReferenceSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
 		return "<h2 id=\"crossreference\" class=\"list\">" + lang.getProperty(LANG_CROSS_REF_TITLE) + " "
 				+ c.getMainOntology().getName() + " " + lang.getProperty(LANG_CROSS_REF_TITLE2) + "</h2>" + "\n"
-				+ lang.getProperty(LANG_CROSS_REF_PLACEHOLDER) + c.getMainOntology().getName() + ".\n";
+				+ lang.getProperty(LANG_CROSS_REF_PLACEHOLDER) +" "+ c.getMainOntology().getName() + ".\n";
 	}
 
 	public static String getProvenanceHtml(Configuration c, Properties lang) {

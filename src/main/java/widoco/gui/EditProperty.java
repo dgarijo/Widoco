@@ -16,7 +16,7 @@ import widoco.entities.Ontology;
  */
 public class EditProperty extends javax.swing.JFrame {
 
-    public enum PropertyType{authors, contributors, publisher, extended, imported, license};
+    public enum PropertyType{authors, contributors, publisher, extended, imported, license, image};
     private final GuiStep2 step2Gui;
     private final Configuration c;
     private final PropertyType type;
@@ -40,7 +40,7 @@ public class EditProperty extends javax.swing.JFrame {
         this.step2Gui = g;
         this.c = c; //needed because for authors/contributors we are going to load additional stuff
         this.type = p;
-        //The properties have to correspon to those in the config
+        //The properties have to correspond to those in the config
         switch(type){
             case authors:
                 this.setTitle("Editing Authors");

@@ -17,6 +17,8 @@
                             <http://purl.org/dc/elements/1.1/title> "The example ontology"@en ;
                             <http://purl.org/dc/terms/created> "February 5th, 2020"@en ;
                             <http://purl.org/dc/terms/creator> "Maria Poveda-Villalon"@en ;
+                            schema:image <https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.9.0/images/overviewSDv5.png>;
+                            foaf:img "https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.9.0/images/overviewSDv5.png";
                             <http://purl.org/dc/terms/creator> [
                                 foaf:name "Oscar Corcho";
                                 foaf:mbox "mailto:MyEmail@example.org";
