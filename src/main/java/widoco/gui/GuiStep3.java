@@ -138,7 +138,7 @@ public class GuiStep3 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Step 3: Load the sections");
-        setResizable(false);
+        setResizable(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -586,7 +586,7 @@ public class GuiStep3 extends javax.swing.JFrame {
 
     private void buttonRewriteBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRewriteBaseActionPerformed
         String newRewriteBase = JOptionPane.showInputDialog(this, "New rewrite base path for .htaccess",g.getConfig().getRewriteBase());
-        if(!newRewriteBase.equals("") && !newRewriteBase.equals("/")){
+        if(newRewriteBase!=null && !newRewriteBase.equals("") && !newRewriteBase.equals("/")){
             g.getConfig().setRewriteBase(newRewriteBase);
         }
     }//GEN-LAST:event_buttonRewriteBaseActionPerformed

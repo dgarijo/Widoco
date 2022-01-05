@@ -39,7 +39,7 @@ public class CreateDocInThreadTest {
     
     public CreateDocInThreadTest() { 
         c = new Configuration();
-        //set up where the files will be written. Otherwise an error will be produced
+        //set up where the files will be written. Otherwise, an error will be produced
         c.setDocumentationURI(docUri);
         c.setOverwriteAll(true);
     }
@@ -80,7 +80,7 @@ public class CreateDocInThreadTest {
     /**
      * Test ontology in TTL. BNE
      */
-//    @org.junit.Test
+    @org.junit.Test
     public void testOntoInTTL() {
         System.out.println("Testing Ontology: BNE");
         try{
@@ -168,6 +168,32 @@ public class CreateDocInThreadTest {
             CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
         }catch(Exception e){
             fail("Error while running test "+e.getMessage());
+        }
+    }
+
+    /**
+     * Test to see if the metadata is correctly gathered in:
+     * 1) Direct annotations
+     * 2) Blank nodes
+     * 3) Entities described with URIs locally
+     * The test uses an ontology which has 3 creators, each described with one of the methods above.
+     */
+    @org.junit.Test
+    public void testAnnotationsInOntology() {
+        try {
+            String pathToOnto = "test" + File.separator + "example_annotated.owl";
+            c.setFromFile(true);
+            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            if(c.getMainOntology().getCreators().size()!=3){
+                fail("Could not extract all three creators");
+            }
+            //not needed, but added for consistency with the other tests.
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+        }catch(Exception e){
+            fail("Error while running the test: " +e.getMessage());
         }
     }
 //    

@@ -10,7 +10,7 @@
     <backwardcompatiblewith>Achterwaarts compatibel met</backwardcompatiblewith>
     <incompatibleWith>Incompatibel met</incompatibleWith>
     <abstract>Samenvatting</abstract>
-    <introduction>Introductie</introduction>
+    <introduction>Inleiding</introduction>
     <disjointclasses>Alle disjuncte klassen</disjointclasses>
     <subclassdefinition>Definitie algemene subklasse</subclassdefinition>
     <equivalentdefinition>Definitie algemene equivalent</equivalentdefinition>
@@ -47,7 +47,7 @@
     <contributors>Bijdragers</contributors>
     <publisher>Uitgever</publisher>
     <toc>Inhoudsopgave</toc>
-    <tocabbr>IO</tocabbr>
+    <tocabbr>Index</tocabbr>
     <backto>terug naar</backto>
     <class>klasse</class>
     <classes>Klassen</classes>
@@ -65,15 +65,15 @@
     <rule>regel</rule>
     <rules>SWRL Regels</rules>
     <namespace>standaard naamruimte</namespace>
-    <namespaces>Naamruimte verklaringen</namespaces>
+    <namespaces>Naamruimtedefinties</namespaces>
     <endnote>Dit HTML-document is verkregen door de broncode van de OWL-ontologie te verwerken via:</endnote>
     <developedby>ontwikkeld door</developedby>
     <or>of</or>
     <classtoc>Index van klassen</classtoc>
-    <objectpropertytoc>Index van objecteigenschappen</objectpropertytoc>
-    <datapropertytoc>Index van data-eigenschappen</datapropertytoc>
-    <annotationpropertytoc>Index van annotatie-eigenschappen</annotationpropertytoc>
-    <namedindividualtoc>Index van concrete exemplaren</namedindividualtoc>
+    <objectpropertytoc>Index objecteigenschappen</objectpropertytoc>
+    <datapropertytoc>Index data-eigenschappen</datapropertytoc>
+    <annotationpropertytoc>Index annotatie-eigenschappen</annotationpropertytoc>
+    <namedindividualtoc>Index concrete exemplaren</namedindividualtoc>
     <hascharacteristics>heeft kenmerken</hascharacteristics>
 	<rationale>Grondslag voor term</rationale>
 	<example>Voorbeeld</example>

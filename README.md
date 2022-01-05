@@ -7,7 +7,7 @@ WIDOCO helps you to publish and create an enriched and customized documentation 
 
 **Author**: Daniel Garijo Verdejo (@dgarijo)
 
-**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk, Pat Mc Bennett, Christophe Camel, Jacobus Geluk, Martin Scharm, @rpietzsch, Jonathan Leitschuh, Jodi Schneider, Giacomo Lanza, Alejandra Gonzalez-Beltran, Mario Scrocca, Miguel Angel García.
+**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk, Pat Mc Bennett, Christophe Camel, Jacobus Geluk, Martin Scharm, @rpietzsch, Jonathan Leitschuh, Jodi Schneider, Giacomo Lanza, Alejandra Gonzalez-Beltran, Mario Scrocca, Miguel Angel García and Flores Bakker.
 
 **Citing WIDOCO**: If you used WIDOCO in your work, please cite the ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
 
@@ -64,7 +64,9 @@ Features of WIDOCO:
 * Integration with diagram creators ([WebVOWL](http://vowl.visualdataweb.org/webvowl/)).
 * Automatic changelog of differences between the actual and the previous version of the ontology (based on [Bubastis](http://www.ebi.ac.uk/efo/bubastis/)).
 * Separation of the sections of your html page so you can write them independently and replace only those needed.
-* Content negotiation and serialization of your ontology according to W3C best practices
+* Content negotiation and serialization of your ontology according to [W3C best practices](https://www.w3.org/TR/swbp-vocab-pub/)
+* Evaluation reports of your ontology (using the [OOPS! web service](http://oops.linkeddata.es/))
+* Integration with license metadata services ([Licensius](http://licensius.com/)) to automatically describe the license used in your ontology.
 
 ## Examples
 Examples of the features of WIDOCO can be seen on [the gallery](http://dgarijo.github.io/Widoco/doc/gallery/)
