@@ -330,6 +330,8 @@ public class Constants {
                 + "        This flag can only be used with the htaccess option.\n" +
 "    -excludeIntroduction: Skip the introduction section in the documentation. \n" +
 "    -uniteSections: Write all HTML sections into a single HTML document. \n" +
+"    -noPlaceHolderText: Do not add any placeholder text (this will remove intro, abstract (if empty) and " +
+				"description sections)." +
 "    --help: Shows this message and exit.\n";  
 
 	/**

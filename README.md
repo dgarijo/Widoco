@@ -157,6 +157,8 @@ docker run -ti --rm \
 
 `-uniteSections`: Write all HTML sections into a single HTML document.
 
+`-noPlaceHolderText`: Do not add any placeholder text (this will remove intro, abstract (if empty) and description sections).
+
 `--help`: Shows a help message and exits.
 
 
