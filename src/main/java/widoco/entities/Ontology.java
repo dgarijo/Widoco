@@ -355,4 +355,8 @@ public class Ontology {
     public void addImage(String image){
         this.images.add(image);
     }
+
+    public void setImages(ArrayList<String> images){
+        this.images = images;
+    }
 }
