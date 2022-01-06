@@ -184,8 +184,7 @@ public class Configuration {
 		displayDirectImportsOnly = false;
 		rewriteBase = "/";
 		contextURI = "";
-                //BY DEFAULT SHOULD BE FALSE
-                includeAllSectionsInOneDocument = true;
+		includeAllSectionsInOneDocument = false;
 		initializeOntology();
 	}
 
@@ -221,6 +220,8 @@ public class Configuration {
 		mainOntologyMetadata.setDoi("");
 		mainOntologyMetadata.setStatus("");
 		mainOntologyMetadata.setBackwardsCompatibleWith("");
+		mainOntologyMetadata.setIncompatibleWith("");
+		mainOntologyMetadata.setImages(new ArrayList<>());
 		this.namespaceDeclarations = new HashMap<>();
 	}
 
@@ -368,6 +369,7 @@ public class Configuration {
 				mainOntologyMetadata.addSerialization("JSON-LD", serializationJSONLD);
 			}
 			this.googleAnalyticsCode = propertyFile.getProperty("GoogleAnalyticsCode");
+			//TO DO: There is missing metadata here (incompatible, images, backwards compatibility)
 
 		} catch (IOException ex) {
 			// Only a warning, as we can continue safely without a property file.
@@ -587,13 +589,11 @@ public class Configuration {
 					if (!a.getValue().asAnonymousIndividual().isEmpty()){
 						// dealing with a blank node, extract metadata from URL, name and organization (if available)
 						o.getAnnotationAssertionAxioms(a.getValue().asAnonymousIndividual().get()).stream().forEach(i -> {
-//							System.out.println("AP "+i);
 							completeAgentMetadata(i, ag, o);
 						});
 					}else{
 						IRI valueURI = a.getValue().asIRI().get();
 						o.getAnnotationAssertionAxioms(valueURI).stream().forEach(i -> {
-//							System.out.println("NAMED " + i);
 							completeAgentMetadata(i, ag, o);
 						});
 						if(ag.getName()==null || ag.getName().equals("")){

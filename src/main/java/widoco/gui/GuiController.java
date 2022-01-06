@@ -82,7 +82,8 @@ public final class GuiController {
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
 				includeImportedOntologies = false, htAccess = false, webVowl = false, errors = false, licensius = false,
 				generateOnlyCrossRef = false, includeNamedIndividuals = true, includeAnnotationProperties = false,
-				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, uniteSections = false;
+				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, uniteSections = false,
+				placeHolderText = true;
 		String confPath = "";
 		String code = null;// for tracking analytics.
 		String[] languages = null;
@@ -166,12 +167,15 @@ public final class GuiController {
 			case "-excludeIntroduction":
 				excludeIntroduction = true;
 				break;
-                        case "-uniteSections":
+			case "-uniteSections":
 				uniteSections = true;
 				break;
-                        case "--help":
-                            System.out.println(Constants.HELP_TEXT);
-                            return;
+			case "-noPlaceHolderText":
+				placeHolderText = false;
+				break;
+			case "--help":
+				System.out.println(Constants.HELP_TEXT);
+				return;
 			default:
 				System.out.println("Command" + s + " not recognized.");
 				System.out.println(Constants.HELP_TEXT);
@@ -212,9 +216,15 @@ public final class GuiController {
 		this.config.setIncludeAnnotationProperties(includeAnnotationProperties);
 		this.config.setDisplaySerializations(displaySerializations);
 		this.config.setDisplayDirectImportsOnly(displayDirectImportsOnly);
-                this.config.setIncludeAllSectionsInOneDocument(uniteSections);
+		this.config.setIncludeAllSectionsInOneDocument(uniteSections);
 		if (excludeIntroduction) {
 			this.config.setIncludeIntroduction(false);
+		}
+		if (!placeHolderText){
+			this.config.setIncludeIntroduction(false);
+			this.config.setIncludeDescription(false);
+			this.config.setIncludeReferences(false);
+			this.config.setIncludeAbstract(false);
 		}
 		if (code != null) {
 			this.config.setGoogleAnalyticsCode(code);
@@ -257,6 +267,10 @@ public final class GuiController {
 					if (getOntoMetadata) {
 						logger.info("Load properties from the ontology in lang " + l);
 						config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());
+						if (config.getAbstractSection()!=null && !config.getAbstractSection().equals("") &&
+							placeHolderText == false){
+							config.setIncludeAbstract(true);
+						}
 					}
 					CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
 					config.vocabularySuccessfullyGenerated();
