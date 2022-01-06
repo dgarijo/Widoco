@@ -16,7 +16,7 @@ import widoco.entities.Ontology;
  */
 public class EditProperty extends javax.swing.JFrame {
 
-    public enum PropertyType{authors, contributors, publisher, extended, imported, license};
+    public enum PropertyType{authors, contributors, publisher, extended, imported, license, image};
     private final GuiStep2 step2Gui;
     private final Configuration c;
     private final PropertyType type;
@@ -40,7 +40,7 @@ public class EditProperty extends javax.swing.JFrame {
         this.step2Gui = g;
         this.c = c; //needed because for authors/contributors we are going to load additional stuff
         this.type = p;
-        //The properties have to correspon to those in the config
+        //The properties have to correspond to those in the config
         switch(type){
             case authors:
                 this.setTitle("Editing Authors");
@@ -86,6 +86,13 @@ public class EditProperty extends javax.swing.JFrame {
                 createTable(new String[]{"License Name","License URI", "License Logo URL"});
                 loadLicense(c.getMainOntology().getLicense());
                 break;
+            case image:
+                this.setTitle("Editing Images");
+                this.addRowButton.setText("Add image...");
+                this.deleteRowButton.setText("Delete image...");
+                createTable(new String[]{"Image URL"});
+                loadImages(c.getMainOntology().getImages());
+                break;
         }
     }
 
@@ -121,6 +128,13 @@ public class EditProperty extends javax.swing.JFrame {
         ((DefaultTableModel)tableProperties.getModel()).addRow(row);
         this.addRowButton.setEnabled(false);
         this.deleteRowButton.setEnabled(false);
+    }
+
+    private void loadImages(ArrayList<String> images) {
+        for(String img:images){
+            Object[] row = new Object[]{img};
+            ((DefaultTableModel)tableProperties.getModel()).addRow(row);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -247,6 +261,8 @@ public class EditProperty extends javax.swing.JFrame {
             case imported:this.c.getMainOntology().setImportedOntologies(getOntologiesFromTable());
                 break;
             case license:this.c.getMainOntology().setLicense(getLicenseFromTable());
+                break;
+            case image:this.c.getMainOntology().setImages(getImagesFromTable());
         }
         this.step2Gui.refreshPropertyTable();
         this.dispose();
@@ -293,6 +309,17 @@ public class EditProperty extends javax.swing.JFrame {
         String licLogo = (String)tableProperties.getValueAt(0,2);
         return new License(licURI, licName, licLogo);
     }
+
+    private ArrayList<String> getImagesFromTable() {
+        ArrayList<String> images = new ArrayList<String>();
+        for(int row = 0;row < tableProperties.getRowCount();row++) {
+            String imageURL = (String)tableProperties.getValueAt(row, 0);
+            if(!imageURL.equals("") || !imageURL.equals("")){
+                images.add(imageURL);
+            }
+        }
+        return images;
+    }
     
     private void deleteRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRowButtonActionPerformed
         if(tableProperties.getSelectedRow()!=-1){
@@ -310,57 +337,6 @@ public class EditProperty extends javax.swing.JFrame {
     private void deleteSelectedRow(int rowNumber){
         ((DefaultTableModel)tableProperties.getModel()).removeRow(rowNumber);
     }
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(EditProperty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(EditProperty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(EditProperty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(EditProperty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                Configuration config = new Configuration();
-//                Agent a = new Agent("Dani","http://bananen", "oeg","");
-//                Agent a2 = new Agent("Dani2","http://bananen", "oeg","");
-//                Agent a3 = new Agent("Dani3","http://bananen", "oeg","");
-//                
-//                Ontology o1 = new Ontology("blah", "ble","bli");
-//                
-//                ArrayList<Agent> creators = new ArrayList();
-//                
-//                creators.add(a);
-//                creators.add(a2);
-//                creators.add(a3);
-//                
-//                ArrayList<Ontology> onto = new ArrayList();
-//                onto.add(o1);
-//                config.setCreators(creators);
-//                config.setExtendedOntologies(onto);
-//                new EditProperty(null, config, PropertyType.extended).setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRowButton;

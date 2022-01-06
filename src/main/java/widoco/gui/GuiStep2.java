@@ -134,6 +134,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
 							form = new EditProperty(gAux, conf, EditProperty.PropertyType.imported);
 						} else if (prop.equals("license")) {
 							form = new EditProperty(gAux, conf, EditProperty.PropertyType.license);
+						} else if (prop.equals("images")) {
+							form = new EditProperty(gAux, conf, EditProperty.PropertyType.image);
 						}
 						if (form != null) {
 							gAux.saveMetadata();
@@ -165,7 +167,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
 	}
 
 	private void refreshTable() {
-		String authors = "", contributors = "", imported = "", extended = "", publisher = "";
+		String authors = "", contributors = "", imported = "", extended = "", publisher = "", images ="";
 		for (Agent a : conf.getMainOntology().getCreators()) {
 			if (a.getName() == null || a.getName().equals("")) {
 				authors += "creator; ";
@@ -202,6 +204,13 @@ public final class GuiStep2 extends javax.swing.JFrame {
 		} else {
 			publisher += p.getName();
 		}
+		for (String img: conf.getMainOntology().getImages()){
+			if(!img.equals("")){
+				images +=img + ";";
+			}else{
+				images +="image;";
+			}
+		}
 		tableProperties.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 				{ "abstract", conf.getAbstractSection() }, { "ontology title", conf.getMainOntology().getTitle() },
 				{ "ontology name", conf.getMainOntology().getName() },
@@ -217,7 +226,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				{ "cite as", conf.getMainOntology().getCiteAs() }, { "doi", conf.getMainOntology().getDoi() },
 				{ "status", conf.getMainOntology().getStatus() },
 				{ "backwards compatible with", conf.getMainOntology().getBackwardsCompatibleWith() },
-                                { "incompatible with", conf.getMainOntology().getIncompatibleWith()} },
+                                { "incompatible with", conf.getMainOntology().getIncompatibleWith()},
+								 { "images", images }},
 				new String[] { "Property", "Value" }) {
 			Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
 			boolean[] canEdit = new boolean[] { false, true };
@@ -234,6 +244,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
 						|| getValueAt(rowIndex, 0).equals("publisher")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("extended")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("license")
+						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("images")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("imported")) {
 					return false;
 				}
@@ -370,14 +381,14 @@ public final class GuiStep2 extends javax.swing.JFrame {
 
 		labelSteps.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 		labelSteps.setText("Steps");
-
 		tableProperties.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { "abstract", "" }, { "ontology title", null }, { "ontology name", null },
 						{ "ontology prefix", null }, { "ontology ns URI", null }, { "date of release", null },
 						{ "this version URI", null }, { "latest version URI", null }, { "previous version URI", null },
 						{ "ontology revision", null }, { "authors", null }, { "contributors", null },
 						{ "publisher", null }, { "imported ontologies", null }, { "extended ontologies", null },
-						{ "license", null }, { "cite as", null }, { "doi", null }, { "status", null } },
+						{ "license", null }, { "cite as", null }, { "doi", null }, { "status", null },
+						{ "backwards compatible with", null },{ "incompatible with", null }},
 				new String[] { "Property", "Value" }) {
 			Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
 			boolean[] canEdit = new boolean[] { false, false };

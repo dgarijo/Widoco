@@ -91,7 +91,7 @@ public class Configuration {
 	 */
 	private boolean includeDiagram;
 
-	private Properties propertyFile = null;
+	private Properties propertyFile;
 
 	// Lode configuration parameters
 	private boolean useOwlAPI;
@@ -671,6 +671,12 @@ public class Configuration {
 		case Constants.PROP_OWL_INCOMPATIBLE:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setIncompatibleWith(value);
+			break;
+		case Constants.PROP_SCHEMA_IMAGE:
+		case Constants.PROP_FOAF_IMAGE:
+		case Constants.PROP_FOAF_DEPICTION:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.addImage(value);
 			break;
 		}
 	}
