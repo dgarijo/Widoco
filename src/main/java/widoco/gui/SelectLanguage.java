@@ -56,6 +56,12 @@ private final String previousLang;//an auxiliar param to knw if the text field i
             else if(nextL.contains("nl")){
                 nl.setSelected(true);
             }
+            else if(nextL.contains("it")){
+                it.setSelected(true);
+            }
+            else if(nextL.contains("de")){
+                de.setSelected(true);
+            }
             else{
                 otherText.setText(nextL);
                 lang = nextL;
@@ -78,8 +84,8 @@ private final String previousLang;//an auxiliar param to knw if the text field i
         doneButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         otherText = new javax.swing.JTextField();
-        it = new javax.swing.JRadioButton();
-        de = new javax.swing.JRadioButton();
+        it = new javax.swing.JCheckBox();
+        de = new javax.swing.JCheckBox();
         en = new javax.swing.JCheckBox();
         fr = new javax.swing.JCheckBox();
         es = new javax.swing.JCheckBox();
@@ -103,22 +109,13 @@ private final String previousLang;//an auxiliar param to knw if the text field i
 
         jLabel2.setText("Other (will select labels in that lang):");
 
-        it.setText("it (coming soon)");
-        it.setEnabled(false);
-
-        de.setText("de (coming soon)");
-        de.setEnabled(false);
-
+        it.setText("it");
+        de.setText("de");
         en.setText("en (default)");
-
         fr.setText("fr");
-
         es.setText("es");
-
         pt.setText("pt");
-
         cs.setText("cs");
-
         nl.setText("nl");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,6 +206,16 @@ private final String previousLang;//an auxiliar param to knw if the text field i
         }else{
             this.c.removeLanguageToGenerate("nl");
         }
+        if(it.isSelected()){
+            this.c.addLanguageToGenerate("it");
+        }else{
+            this.c.removeLanguageToGenerate("it");
+        }
+        if(de.isSelected()){
+            this.c.addLanguageToGenerate("de");
+        }else{
+            this.c.removeLanguageToGenerate("de");
+        }
        String otherL = otherText.getText();
        if(!"".equals(otherL)){
            this.c.addLanguageToGenerate(otherL);
@@ -231,12 +238,12 @@ private final String previousLang;//an auxiliar param to knw if the text field i
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox nl;
     private javax.swing.JCheckBox cs;
-    private javax.swing.JRadioButton de;
+    private javax.swing.JCheckBox de;
     private javax.swing.JButton doneButton;
     private javax.swing.JCheckBox en;
     private javax.swing.JCheckBox es;
     private javax.swing.JCheckBox fr;
-    private javax.swing.JRadioButton it;
+    private javax.swing.JCheckBox it;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField otherText;

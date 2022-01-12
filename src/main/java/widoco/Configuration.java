@@ -512,7 +512,7 @@ public class Configuration {
 		case Constants.PROP_DCTERMS_DESCRIPTION:
 		case Constants.PROP_DC_DESCRIPTION:
 		case Constants.PROP_SCHEMA_DESCRIPTION:
-                case Constants.PROP_RDFS_COMMENT:
+		case Constants.PROP_RDFS_COMMENT:
 		case Constants.PROP_SKOS_NOTE:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();

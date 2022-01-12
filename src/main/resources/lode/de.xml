@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+    <ontology>Ontologie</ontology>
+    <ontologysource>Ontologie Quelle</ontologysource>
+    <visualisation>Andere Visualisierung</visualisation>
+    <visualiseitwith>Visualisierung mit:</visualiseitwith>
+    <date>Datum</date>
+    <currentversion>Aktuelle Version</currentversion>
+    <previousversion>Vorherige Version</previousversion>
+    <backwardcompatiblewith>Abwärtskompatibel mit</backwardcompatiblewith>
+    <incompatibleWith>Inkompatibel mit</incompatibleWith>
+    <abstract>Abstract</abstract>
+    <introduction>Einführung</introduction>
+    <disjointclasses>Alle disjuncten Klassen</disjointclasses>
+    <subclassdefinition>Allgemeine Subklassendefinition</subclassdefinition>
+    <equivalentdefinition>Allgemeine Equivalenz Definition</equivalentdefinition>
+    <issubclassof>ist Subklasse von</issubclassof>
+    <isequivalentto>ist äquvivalent zu</isequivalentto>
+    <functional>funktional</functional>
+    <inversefunctional>invers funktional</inversefunctional>
+    <reflexive>reflexiv</reflexive>
+    <irreflexive>irreflexiv</irreflexive>
+    <symmetric>symmetrisch</symmetric>
+    <asymmetric>asymmetrisch</asymmetric>
+    <transitive>transitiv</transitive>
+    <isdefinedby>ist definiert durch</isdefinedby>
+    <belongsto>gehört zu</belongsto>
+    <issameas>ist gleich wie</issameas>
+    <isalsodefinedas>ist auch definiert als</isalsodefinedas>
+    <isdisjointwith>ist disjunkt zu</isdisjointwith>
+    <haskeys>hat Schlüssel</haskeys>
+    <hassuperclasses>hat Super-Klassen</hassuperclasses>
+    <hassubclasses>hat Sub-Klassen</hassubclasses>
+    <isindomainof>ist in der Domäne von</isindomainof>
+    <isinrangeof>ist in Range von</isinrangeof>
+    <hasmembers>hat Member</hasmembers>
+    <isinverseof>ist inverse zu</isinverseof>
+    <hassubpropertychains>hat Sub-Eigenschaft Ketten</hassubpropertychains>
+    <hasequivalentproperties>hat äquivalente Eigenschaften</hasequivalentproperties>
+    <hassuperproperties>hat Super-Eigenschaften</hassuperproperties>
+    <hassubproperties>hat Sub-Eigenschaften</hassubproperties>
+    <hasdomain>hat Domäne</hasdomain>
+    <hasrange>hat Range</hasrange>
+    <importedontologies>Importierte Ontologien</importedontologies>
+    <individualassertions>hat Fakten</individualassertions>
+    <authors>Authoren</authors>
+    <contributors>Mitwirkende</contributors>
+    <publisher>Veröffentlicht bei</publisher>
+    <toc>Inhaltsverzeichnis</toc>
+    <tocabbr>Übersicht</tocabbr>
+    <backto>zurück zur</backto>
+    <class>Klasse</class>
+    <classes>Klassen</classes>
+    <objectproperty>Objekt Eigenschaft</objectproperty>
+    <objectproperties>Objekt Eigenschaften</objectproperties>
+    <dataproperty>Daten Eigenschaft</dataproperty>
+    <dataproperties>Daten Eigenschaften</dataproperties>
+    <namedindividual>benanntes Individuum</namedindividual>
+    <namedindividuals>benannte Individuen</namedindividuals>
+    <annotationproperty>Anmerkungseigenschaft</annotationproperty>
+    <annotationproperties>Anmerkungseigenschaften</annotationproperties>
+    <datarange>Datenbereich</datarange>
+    <dataranges>Datenbereiche</dataranges>
+    <generalaxioms>Allgemeine Axiome</generalaxioms>
+    <rule>Regel</rule>
+    <rules>SWRL Regeln</rules>
+    <namespace>Standard-Namensraum</namespace>
+    <namespaces>Namensraumdefinitionen</namespaces>
+    <endnote>Dieses HTML Dokument wurde durch Verarbeitung einer Ontologie mit Hilfe von</endnote>
+    <developedby>erzeugt, entwickelt durch</developedby>
+    <or>oder</or>
+    <classtoc>Klassenübersicht</classtoc>
+    <objectpropertytoc>Übersicht der Objekteigenschaften</objectpropertytoc>
+    <datapropertytoc>Übersicht der Dateneigenschaften</datapropertytoc>
+    <annotationpropertytoc>Übersicht der Anmerkungseigenschaften</annotationpropertytoc>
+    <namedindividualtoc>Übersicht der benannten Individuen</namedindividualtoc>
+    <hascharacteristics>hat Charakteristika</hascharacteristics>
+    <coversRequirements>deckt Anforderungen</coversRequirements>
+    <extractedFrom>extrahiert aus</extractedFrom>
+    <hasComponent>hat Komponente</hasComponent>
+    <hasConsequences>hat Schlussfolgerungen</hasConsequences>
+    <hasIntent>hat Intent</hasIntent>
+    <hasUnitTest>hat Unit Test</hasUnitTest>
+    <isCloneOf>ist Klon von</isCloneOf>
+    <isSpecializationOf>ist Spezialisierung von</isSpecializationOf>
+    <reengineeredFrom>weiterentwicklet auf Basis von</reengineeredFrom>
+    <relatedCPs>ähnliche Inhaltsmuster</relatedCPs>
+    <scenarios>Szenarien</scenarios>
+</labels>

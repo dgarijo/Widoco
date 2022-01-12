@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GuiStep1 extends javax.swing.JFrame {
     
-        private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private GuiController g;// pointer to be able to save and go to the next state.
 	private String folderPath;
 
