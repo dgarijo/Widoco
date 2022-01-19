@@ -91,7 +91,7 @@
 							<finalName>${project.artifactId}-${project.version}-jar-with-dependencies</finalName>
 							<shadedArtifactAttached>true</shadedArtifactAttached>
 							<shadedClassifierName>launcher</shadedClassifierName>
-							<outputDirectory>JAR/</outputDirectory>
+							<outputDirectory>jar/</outputDirectory>
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
