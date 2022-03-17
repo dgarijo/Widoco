@@ -1,5 +1,5 @@
 # WIzard for DOCumenting Ontologies (WIDOCO)
-[![DOI](https://zenodo.org/badge/11427075.svg)](https://zenodo.org/badge/latestdoi/11427075) [![](https://jitpack.io/v/dgarijo/Widoco.svg)](https://jitpack.io/#dgarijo/Widoco)
+[![DOI](https://zenodo.org/badge/11427075.svg)](https://zenodo.org/badge/latestdoi/11427075) [![](https://jitpack.io/v/dgarijo/Widoco.svg)](https://jitpack.io/#dgarijo/Widoco) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 ![Logo](src/main/resources/logo/logo2.png)
 
@@ -38,7 +38,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
   <dependency>
       <groupId>com.github.dgarijo</groupId>
       <artifactId>Widoco</artifactId>
-      <version>v1.4.15</version>
+      <version>v1.4.16</version>
   </dependency>
 </dependencies>
 
