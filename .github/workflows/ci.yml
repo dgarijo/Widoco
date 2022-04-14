@@ -20,6 +20,11 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn -e --batch-mode package
+      - name: Upload JAR
+        uses: actions/upload-artifact@v2
+        with:
+          name: widoco_JDK-${{ matrix.jdk }}
+          path: JAR/*.jar
   docker:
     runs-on: ubuntu-latest
     steps:
