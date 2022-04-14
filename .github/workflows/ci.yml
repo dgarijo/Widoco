@@ -6,17 +6,20 @@ on:
 jobs:
   maven:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jdk: [11, 14, 17]
     steps:
       - uses: actions/checkout@v3
       # details https://github.com/actions/setup-java
-      - name: Set up JDK 17
+      - name: Set up JDK  ${{ matrix.jdk }}
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version:  ${{ matrix.jdk }}
           distribution: 'zulu'
           cache: maven
       - name: Build with Maven
-        run: mvn package
+        run: mvn -e --batch-mode package
   docker:
     runs-on: ubuntu-latest
     steps:
