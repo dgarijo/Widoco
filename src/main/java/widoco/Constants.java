@@ -44,7 +44,7 @@ public class Constants {
 	public static final int LICENSIUS_TIME_OUT = 10000;
 
 	public static final int OOPS_TIME_OUT = 10000;
-        public static final String OOPS_SERVICE_URL = "http://oops.linkeddata.es/rest";
+        public static final String OOPS_SERVICE_URL = "https://oops.linkeddata.es/rest";
         public static final String OOPS_NS = "http://oops.linkeddata.es/def#";
 
 	public static final String[] POSSIBLE_VOCAB_SERIALIZATIONS = { "application/rdf+xml", "text/turtle", "text/n3",
@@ -93,6 +93,7 @@ public class Constants {
 	public static final String PROP_SCHEMA_EMAIL = NS_SCHEMA + "email";
 	public static final String PROP_SCHEMA_AFFILIATION = NS_SCHEMA + "affiliation";
 	public static final String PROP_SCHEMA_IMAGE = NS_SCHEMA + "image";
+	public static final String PROP_SCHEMA_DATE_ISSUED = NS_SCHEMA + "dateIssued";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
@@ -118,6 +119,7 @@ public class Constants {
 	public static final String PROP_DCTERMS_PUBLISHER = NS_DCTERMS + "publisher";
 	public static final String PROP_DCTERMS_CREATED = NS_DCTERMS + "created";
 	public static final String PROP_DCTERMS_MODIFIED = NS_DCTERMS + "modified";
+	public static final String PROP_DCTERMS_ISSUED = NS_DCTERMS + "issued";
 	public static final String PROP_DCTERMS_BIBLIOGRAPHIC_CIT = NS_DCTERMS + "bibliographicCitation";
 
 	public static final String PROP_BIBO_DOI = NS_BIBO + "doi";
@@ -238,6 +240,7 @@ public class Constants {
 	public static final String LANG_THIS_VERSION = "thisVersion";
 	public static final String LANG_LATEST_VERSION = "latestVersion";
 	public static final String LANG_PREVIOUS_VERSION = "previousVersion";
+	public static final String LANG_ISSUED = "issued";
 	public static final String LANG_REVISION = "revision";
 	public static final String LANG_SERIALIZATION = "serialization";
 	public static final String LANG_LICENSE_URL_IF_NULL = "licenseURLIfNull";
@@ -245,7 +248,7 @@ public class Constants {
 	public static final String LANG_LICENSE_IF_NULL = "licenseIfNull";
 	public static final String LANG_VISUALIZATION = "visualization";
 	public static final String LANG_CITE_AS = "citeAs";
-	public static final String LANG_PRPOV_HEAD = "provHead";
+	public static final String LANG_PROV_HEAD = "provHead";
 	public static final String LANG_OVERVIEW_PLACEHOLDER = "overviewPlaceHolder";
 	public static final String LANG_DESCRIPTION_PLACEHOLDER = "descriptionPlaceHolder";
 	public static final String LANG_CROSS_REF_TITLE = "crossRefTitle";
@@ -270,7 +273,7 @@ public class Constants {
 	public static final String LANG_NAMED_INDIV = "namedIndiv";
 	public static final String LANG_TABLE_OF_CONTENTS = "tableOfContents";
 	public static final String LANG_COMPATIBLE = "compatible";
-        public static final String LANG_INCOMPATIBLE = "incompatible";
+	public static final String LANG_INCOMPATIBLE = "incompatible";
 	public static final String LANG_LEGEND = "legend";
 
 	// labels for the changelog
@@ -869,6 +872,9 @@ public class Constants {
 		if (c.getMainOntology().getRevision() != null && !"".equals(c.getMainOntology().getRevision()))
 			head += "<dt>" + l.getProperty(LANG_REVISION) + "</dt>\n" + "<dd>" + c.getMainOntology().getRevision()
 					+ "</dd>\n";
+		if (c.getMainOntology().getIssuedDate() != null && !"".equals(c.getMainOntology().getIssuedDate()))
+			head += "<dt>" + l.getProperty(LANG_ISSUED) + "</dt>\n" + "<dd>" + c.getMainOntology().getIssuedDate()
+					+ "</dd>\n";
 		if (!c.getMainOntology().getCreators().isEmpty())
 			head += getAuthors(c.getMainOntology().getCreators(), l) + "\n";
 		if (!c.getMainOntology().getContributors().isEmpty())
@@ -951,7 +957,7 @@ public class Constants {
 
 		if (c.isPublishProvenance()) {
 			head += "<a href=\"provenance/provenance-" + c.getCurrentLanguage() + ".html\" target=\"_blank\">"
-					+ l.getProperty(LANG_PRPOV_HEAD) + "</a>";
+					+ l.getProperty(LANG_PROV_HEAD) + "</a>";
 		}
 		head += "<hr/>\n" + "</div>\n";
 		return head;
