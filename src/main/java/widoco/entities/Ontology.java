@@ -132,6 +132,11 @@ public class Ontology {
      */
     private ArrayList<String> images;
 
+    /**
+     * Issued date
+     */
+    private String issuedDate;
+
     public Ontology() {
         this.images = new ArrayList<>();
     }
@@ -286,6 +291,10 @@ public class Ontology {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    public String getIssuedDate(){ return issuedDate;}
+
+    public void setIssuedDate(String issuedDate){ this.issuedDate = issuedDate;}
     
     public ArrayList<Ontology> getImportedOntologies() {
         return importedOntologies;

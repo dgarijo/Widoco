@@ -71,6 +71,7 @@ public class OOPSevaluation {
                             + "</OOPSRequest>";
             String uri = Constants.OOPS_SERVICE_URL;
             URL url = new URL(uri);
+            System.out.println(request);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(Constants.OOPS_TIME_OUT);
             connection.setRequestMethod("POST");
