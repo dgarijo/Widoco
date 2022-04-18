@@ -641,6 +641,11 @@ public class Configuration {
 			value = a.getValue().asLiteral().get().getLiteral();
 			mainOntologyMetadata.setReleaseDate(value);
 			break;
+		case Constants.PROP_SCHEMA_DATE_ISSUED:
+		case Constants.PROP_DCTERMS_ISSUED:
+			value = a.getValue().asLiteral().get().getLiteral();
+			mainOntologyMetadata.setIssuedDate(value);
+			break;
 		case Constants.PROP_DCTERMS_BIBLIOGRAPHIC_CIT:
 		case Constants.PROP_SCHEMA_CITATION:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
