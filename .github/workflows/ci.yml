@@ -30,7 +30,7 @@ jobs:
       - name: Build with Maven
         run: mvn -e --batch-mode package
       - name: Include JDK in filename
-        run:
+        run: |
           FN=$(ls JAR/*.jar)
           mv ${FN} ${FN/.jar/_JDK-${{ matrix.jdk }}.jar}
       - name: Upload JAR
