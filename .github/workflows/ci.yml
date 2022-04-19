@@ -24,6 +24,10 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn -e --batch-mode package
+      - name: Include JDK in filename
+        run:
+          FN=$(ls JAR/*.jar)
+          mv ${FN} ${FN/.jar/_JDK-${{ matrix.jdk }}.jar}
       - name: Upload JAR
         uses: actions/upload-artifact@v2
         with:
