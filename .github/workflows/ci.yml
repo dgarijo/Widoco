@@ -2,6 +2,11 @@ name: CI
 
 on:
   push:
+    branches: [develop, master]
+    tags:
+     - 'v*'
+  pull_request:
+
 
 env:
   REGISTRY: ghcr.io
@@ -24,6 +29,10 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn -e --batch-mode package
+      - name: Include JDK in filename
+        run: |
+          FN=$(ls JAR/*.jar)
+          mv ${FN} ${FN/.jar/_JDK-${{ matrix.jdk }}.jar}
       - name: Upload JAR
         uses: actions/upload-artifact@v2
         with:
@@ -45,11 +54,11 @@ jobs:
       # https://github.com/docker/metadata-action (lower cases image name, etc.)
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v3.7.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2.1.0
         with:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
