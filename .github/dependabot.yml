@@ -3,5 +3,6 @@ updates:
   # Update Github actions in workflows
   - package-ecosystem: "github-actions"
     directory: "/"
+    target-branch: "develop"
     schedule:
-      interval: "daily"
+      interval: "weekly"
