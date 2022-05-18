@@ -110,8 +110,8 @@ public class CreateOOPSEvalInThread implements Runnable {
                                 Path path = Paths.get(pathOut+File.separator+"index-"+lang+".html");
                                 Charset charset = StandardCharsets.UTF_8;
                                 String htmlContent = new String(Files.readAllBytes(path), charset);
-                                content = htmlContent.replace("<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->",
-                                        "<dt>Evaluation:</dt><dd><a href=\"OOPSEvaluation/OOPSeval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd>");
+                                content = htmlContent.replace("<!-- <dt>Evaluation:</dt><dd><a href=\"OOPSevaluation/oopsEval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd> -->",
+                                        "<dt>Evaluation:</dt><dd><a href=\"OOPSevaluation/oopsEval.html#\" target=\"_blank\"><img src=\"https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg\" alt=\"Evaluate with OOPS!\" /></a></dd>");
                                 Files.write(path, content.getBytes(charset));
                             }
                             if (showGui) {
