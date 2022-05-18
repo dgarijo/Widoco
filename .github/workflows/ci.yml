@@ -34,7 +34,7 @@ jobs:
           FN=$(ls JAR/*.jar)
           mv ${FN} ${FN/.jar/_JDK-${{ matrix.jdk }}.jar}
       - name: Upload JAR
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: widoco_JDK-${{ matrix.jdk }}
           path: JAR/*.jar
