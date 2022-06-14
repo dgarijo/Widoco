@@ -904,7 +904,7 @@ public class Constants {
 
 		if (c.getMainOntology().getLicense() != null) {
 			String lname = c.getMainOntology().getLicense().getName();// "license name goes here";
-			String licenseURL = c.getMainOntology().getLicense().getUrl();// "http://insertlicenseURIhere.org";
+			String licenseURL = c.getMainOntology().getLicense().getUrl();// "http://insertlicenseURIhere.example.org";
 			if (licenseURL == null || "".equals(licenseURL))
 				licenseURL = l.getProperty(LANG_LICENSE_URL_IF_NULL);
 			if (lname == null || "".equals(lname))
