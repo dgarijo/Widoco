@@ -324,7 +324,7 @@ public class LODEGeneration {
 
 		transformer.transform(inputSource, new StreamResult(output));
 
-		return output.toString("UTF-8");
+		return output.toString("UTF-8").replace("any u r i", "anyURI");
 	}
 
 }
