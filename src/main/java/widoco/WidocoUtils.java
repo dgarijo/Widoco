@@ -257,7 +257,10 @@ public class WidocoUtils {
 
 			while (ze != null) {
 				String fileName = ze.getName();
-				File newFile = new File(outputFolder + File.separator + fileName);
+				File newFile = new File(outputFolder, fileName);
+				if (!newFile.toPath().normalize().startsWith(outputFolder)) {
+					throw new RuntimeException("Bad zip entry");
+				}
 				// System.out.println("file unzip : "+ newFile.getAbsoluteFile());
 				if (ze.isDirectory()) {
 					String temp = newFile.getAbsolutePath();
