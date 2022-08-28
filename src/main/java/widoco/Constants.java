@@ -677,7 +677,7 @@ public class Constants {
 		document += getJSONLDSnippet(c);
 		document += "<script src=\"" + resourcesFolderName + "/jquery.js\"></script> \n" + "<script src=\""
 				+ resourcesFolderName + "/marked.min.js\"></script> \n" + "    <script> \n" + "function loadHash() {\n"
-				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});\n"
+				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked.parse(jQuery(this).text())).remove()});\n"
 				+ "	var hash = location.hash;\n" + "	if($(hash).offset()!=null){\n"
 				+ "	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" + "}\n" + "	loadTOC();\n"
 				+ "}\n" + "function loadTOC(){\n" + "	//process toc dynamically\n" + "	  var t='<h2>"
