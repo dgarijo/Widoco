@@ -1,24 +1,24 @@
 <h2 id="desc" class="list">Vocabulary checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
-In this section we list the metadata terms we consider relevant for describing a vocabulary. 
+In this section we list the metadata terms we consider relevant for describing a vocabulary.
 
 <h3 id="access" class="list">Vocabulary access</h3>
 <p>
-Properties designed to tell anyone how to access your vocabulary. It is true that if a human accesses it and goes through it in detail, she/he will probably figure out which is the main vocabulary and which are the imported or extended ontologies. But from a machine perspective, this is harder. Why not make things easy for everybody? 
+Properties designed to tell anyone how to access your vocabulary. It is true that if a human accesses it and goes through it in detail, she/he will probably figure out which is the main vocabulary and which are the imported or extended ontologies. But from a machine perspective, this is harder. Why not make things easy for everybody?
 </p>
 
-<h4 class="list" id="namespaceURI">Vocabulary namespace URI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4> 
+<h4 class="list" id="namespaceURI">Vocabulary namespace URI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
 Property defining the main URI of your vocabulary. This becomes important in cases when you use permanent URLs: the vocabulary local URI hosting the file may not be the main URI you want people to access when resolving it. The vann vocabulary has a very nice property for describing this, and it is encouraged by the LOV best practices [<a href="#LOV">Vandenbussche and Batant 2012</a>]. Please note that <strong>the value must be a literal, not a resource (URL)</strong>.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>: 
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespaceUri">vann:preferredNamespaceUri</a></li>
 </ul>
 
 <h4 class="list" id="prefix">Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone to refer to it in the same way.</p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespacePrefix">vann:preferredNamespacePrefix</a></li>
 </ul>
 
@@ -26,14 +26,14 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 <p>Once your vocabulary can be properly identified, it is important to describe what it does without forcing users to explore it thoroughly. For this purpose, the following properties are recommended:</p>
 <h4 class="list" id="title">Title [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>If you were writing a paper describing your ontology, what would be the title?</p>
-<ul class="hlist"><strong>Properties you may use</strong>: 
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/title">dc:title</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/terms/title">dcterms:title</a></li>
 	<li><a target="_blank" href="http://schema.org/name">schema:name</a></li>
 </ul>
 <h4 class="list" id="description">Description [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>A small paragraph indicating what the ontology does and why should some one use it</p>
-<ul class="hlist"><strong>Properties you may use</strong>: 
+<ul class="hlist"><strong>Properties you may use</strong>:
 <li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:description</a></li>
 <li><a target="_blank" href="http://purl.org/dc/terms/description">dcterms:description</a></li>
 <li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
@@ -44,7 +44,7 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 <h4 class="list" id="abs">Abstract [<em class="rfc2119" title="RECOMMENDED">OPTIONAL</em>]</h4>
 <p>Similar to a description, but with a little bit more background and an explanation about the resued/extended vocabularies, context and applications using this ontology. It can be considered as the abstract of the paper describing you ontology.</p>
 
-<ul class="hlist"><strong>Properties you may use</strong>: 
+<ul class="hlist"><strong>Properties you may use</strong>:
 <li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:abstract</a></li>
 <li><a target="_blank" href="http://purl.org/dc/terms/abstract">dcterms:abstract</a></li>
 </ul>
@@ -54,8 +54,8 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
-	<li><a target="_blank" href="TO DO">bibo:status</a></li>
+<ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="http://purl.org/ontology/bibo/status">bibo:status</a></li>
 </ul>
 
 <h3 id="version" class="list">Vocabulary version</h3>
@@ -64,7 +64,7 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 <h4 class="list" id="versionIRI">Version IRI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>The IRI that identifies this version of your vocabulary.</p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionIRI">owl:versionIRI</a></li>
 	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
@@ -74,7 +74,7 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 Details about the version being handled. We recommend to include, for example, the version number of the ontology (e.g., 1.0.1).
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionInfo">owl:versionInfo</a></li>
 	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
@@ -84,7 +84,7 @@ Details about the version being handled. We recommend to include, for example, t
 Property useful to determine whether this version of the vocabulary is compatible with a previous one.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#backwardCompatibleWith">owl:backwardCompatibleWith</a></li>
 </ul>
 
@@ -93,7 +93,7 @@ Property useful to determine whether this version of the vocabulary is compatibl
 Property useful to let a potential reuser that this version of the vocabulary is not compatible with a previous (or future) version.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#incompatibleWith">owl:incompatibleWith</a></li>
 </ul>
 
@@ -107,7 +107,7 @@ Several aspects of the vocabulary's provenance may be very useful to gather insi
 Adding a link to a previous version helps to see how the vocabulary has changed from one to the other. Thanks to this relationship, tools like WIDOCO may create automated changelog sections in the documentation of an ontology.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#priorVersion">owl:priorVersion</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/previousVersion">pav:previousVersion</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/terms/replaces">dcterms:replaces</a></li>
@@ -119,7 +119,7 @@ Adding a link to a previous version helps to see how the vocabulary has changed 
 Date when the vocabulary was created. There are different ways in which the date may be represented, but typically is with an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTime">xsd:dateTime</a> literal. Note that some vocabularies, like schema.org, define their own object as range for the date property. We advise to look at the respective vocabulary specifications for more information.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/created">dcterms:created</a></li>
 	<li><a target="_blank" href="http://schema.org/dateCreated">schema:dateCreated</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></li>
@@ -131,7 +131,7 @@ Date when the vocabulary was created. There are different ways in which the date
 Date when your vocabulary was modified. If you review several times a vocabulary, it would be advisable to know when it was last reviewed.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/modified">dcterms:modified</a></li>
 	<li><a target="_blank" href="http://schema.org/dateModified">schema:dateModified</a></li>
 </ul>
@@ -141,7 +141,7 @@ Date when your vocabulary was modified. If you review several times a vocabulary
 Date of formal issuance, like publication. It may be useful to distinguish between the date of creation versus the official date of publication of your vocabulary.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/issued">dcterms:issued</a></li>
 	<li><a target="_blank" href="http://schema.org/dateIssued">schema:dateIssued</a></li>
 </ul>
@@ -150,7 +150,7 @@ Date of formal issuance, like publication. It may be useful to distinguish betwe
 <p>Property indicating where the terms of your vocabulary come from. For example, if your vocabulary implements an existing non-RDF standard, or if there is an active discussion of the terms in a separate collaborative wiki, you may want to add a pointer to them in your vocabulary.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/source">dc:source</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dcterms:source</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#hadPrimarySource">prov:hadPrimarySource</a></li>
@@ -164,7 +164,7 @@ A key aspect of the medatata should specify the roles of the scientists that hav
 People who created the vocabulary. Adding this metadata property is critical for other potential reusers to provide accurate credit and know who to contact in case of questions.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/creator">dcterms:creator</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/creator">dc:creator</a></li>
 	<li><a target="_blank" href="http://schema.org/creator">schema:creator</a></li>
@@ -174,10 +174,10 @@ People who created the vocabulary. Adding this metadata property is critical for
 
 <h4 class="list" id="contributors">Contributors [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
-People who contributed to the development of the vocabulary. Even if contributors may not play a critical role in the vocabulary development, it is important to acknowledge their contribution as well. 
+People who contributed to the development of the vocabulary. Even if contributors may not play a critical role in the vocabulary development, it is important to acknowledge their contribution as well.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/contributor">dcterms:contributor</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/contributor">dc:contributor</a></li>
 	<li><a target="_blank" href="http://schema.org/contributor">schema:contributor</a></li>
@@ -189,7 +189,7 @@ People who contributed to the development of the vocabulary. Even if contributor
 Organization responsible for publishing the vocabulary. This property is optional, as there are many cases where no organization is involved when publishing a vocabulary.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">dcterms:publisher</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/publisher">dc:publisher</a></li>
 	<li><a target="_blank" href="http://schema.org/publisher">schema:publisher</a></li>
@@ -204,7 +204,7 @@ Organization responsible for publishing the vocabulary. This property is optiona
 Digital Object Identifier associated to the vocabulary.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">bibo:doi</a></li>
 </ul>
 
@@ -213,7 +213,7 @@ Digital Object Identifier associated to the vocabulary.
 Property indicating the text with the citation itself.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/terms/bibliographicCitation">dcterms:bibliographicCitation</a></li>
 	<li><a target="_blank" href="http://schema.org/citation">schema:citation</a></li>
 </ul>
@@ -224,7 +224,7 @@ Property indicating the text with the citation itself.
 Adding a license to your vocabulary is very important, since it tells potential reusers under which terms the ontology may be used, how they should provide attribution to the original author and under which terms they have to license their own work as well.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/rights">dc:rights</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/terms/license">dcterms:license</a></li>
 	<li><a target="_blank" href="http://schema.org/license">schema:license</a></li>
@@ -242,7 +242,7 @@ Adding a license to your vocabulary is very important, since it tells potential 
 A logo that represents the vocabulary and helps people quickly identify it.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://xmlns.com/foaf/0.1/logo">foaf:logo</a></li>
 	<li><a target="_blank" href="http://schema.org/logo">schema:logo</a></li>
 </ul>
@@ -252,7 +252,7 @@ A logo that represents the vocabulary and helps people quickly identify it.
 A visualization of the vocabulary.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://xmlns.com/foaf/0.1/depiction">foaf:depiction</a></li>
 	<li><a target="_blank" href="http://schema.org/image">schema:image</a></li>
 </ul>
@@ -263,7 +263,7 @@ A visualization of the vocabulary.
 Property used to add pointers to similar resources. It may be helpful for the reader, in order to read related state of the art.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#seeAlso">rdfs:seeAlso</a></li>
 </ul>
 
@@ -271,11 +271,11 @@ Property used to add pointers to similar resources. It may be helpful for the re
 <h2 id="desc-term" class="list">Term checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 These metadata terms are targeted towards describing the classes, properties and data properties of the ontology. Adding them as part of the ontology is crucial for potential reusers:
 
-<h3 id="label" class="list">Label [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3> 
+<h3 id="label" class="list">Label [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
 <p>
-A human readable label of the term. 
+A human readable label of the term.
 </p>
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></li>
 	<li><a target="_blank" href="http://purl.obolibrary.org/obo/IAO_0000118">obo:IAO_0000118</a></li>
@@ -287,17 +287,17 @@ A human readable label of the term.
 Definition of the term. We recommend it to be as precise as possible, in order to avoid possible misunderstandings when reusing the ontology.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></li>
 </ul>
 
 <h3 id="osource" class="list">Term original source [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
 <p>
-Source used to define the ontology term. This property is also used for crawlers, in order to refer to the ontology document in case they stumble upon a term. 
+Source used to define the ontology term. This property is also used for crawlers, in order to refer to the ontology document in case they stumble upon a term.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#isDefinedby">rdfs:isDefinedBy</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dc:source</a></li>
 </ul>
@@ -307,7 +307,7 @@ Source used to define the ontology term. This property is also used for crawlers
 It is always helpful to add examples on the intended usages of the ontology. Pointers to real examples are also valuable.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/vocab/vann/example">vann:example</a></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#example">skos:example</a></li>
 </ul>
@@ -322,7 +322,7 @@ Different versions of the vocabulary may lead to remove or add new terms. In som
 Boolean property that indicates whether a term has been deprecated or not.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#deprecated">owl:deprecated </a></li>
 </ul>
 
@@ -331,7 +331,7 @@ Boolean property that indicates whether a term has been deprecated or not.
 Property indicating the usage status of the term. For example, whether the term is mature enough, whether it is has been deprecated, curated, etc. Note that some of the properties proposed below, such as obo:IAO_0000114, have as range a set of fixed values.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2003/06/sw-vocab-status/ns#">sw:term_status</a></li>
 	<li><a target="_blank" href="http://purl.obolibrary.org/obo/IAO_0000114">obo:IAO_0000114</a></li>
 </ul>
@@ -341,6 +341,6 @@ Property indicating the usage status of the term. For example, whether the term 
 A sentence or paragraph explaining why the term was added to the vocabulary. This is key in standard vocabularies, where there is a lot of discussion, because it may record the conclusion of a discussion that led to the addition of the term.
 </p>
 
-<ul class="hlist"><strong>Properties you may use</strong>:  
+<ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.linkedmodel.org/schema/vaem#rationale">vaem:rationale</a></li>
 </ul>
