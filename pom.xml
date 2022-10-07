@@ -131,6 +131,35 @@
 					<target>11</target>
 				</configuration>
 			</plugin>
+                        <plugin>
+                                <groupId>org.owasp</groupId>
+                                <artifactId>dependency-check-maven</artifactId>
+                                <version>6.0.1</version>
+                                <executions>
+                                        <execution>
+                                                <goals>
+                                                        <goal>check</goal>
+                                                </goals>
+                                        </execution>
+                                </executions>
+                        </plugin>
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-dependency-plugin</artifactId>
+                                <version>3.2.0</version>
+                                <executions>
+                                        <execution>
+                                                <phase>validate</phase>
+                                                <goals>
+                                                        <goal>list</goal>
+                                                </goals>
+                                        </execution>
+                                </executions>
+                                <configuration>
+                                        <outputFile>pom.lock</outputFile>
+                                </configuration>
+                        </plugin>
+
 
 		</plugins>
 
