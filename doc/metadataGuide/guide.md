@@ -147,7 +147,7 @@ Widoco will recognize the following properties when describing agents (persons o
 
 | Metadata category | Ontology annotation property |  Accepted property value | 
 | -- | -- | -- | 
-| Affiliation | [schema:affiliation](https://schema.org/affiliation), [org:memberOf](http://www.w3.org/ns/org#memberOf) | [Organization](#organization)
+| Affiliation | [schema:affiliation](https://schema.org/affiliation), [org:memberOf](http://www.w3.org/ns/org#memberOf) | [Text](#text) or [Organization](#organization) or [BNode](#bnode)| [ontology](#onto), [config](#config)
 | Family Name | [schema:familyName](https://schema.org/familyName), [vcard:family-name](http://www.w3.org/2006/vcard/ns#family-name), [foaf:family_name](http://xmlns.com/foaf/0.1/family_name) | [Text](#text) 
 | Full name | [rdfs:label](http://www.w3.org/2000/01/rdf-schema#label), [schema:name](https://schema.org/name), [vcard:fn](http://www.w3.org/2006/vcard/ns#fn), [foaf:name](http://xmlns.com/foaf/0.1/name) | [Text](#text)
 | Given name | [schema:givenName](https://schema.org/givenName), [vcard:given-name](http://www.w3.org/2006/vcard/ns#given-name), [foaf:givenname](http://xmlns.com/foaf/0.1/givenname) | [Text](#text) 
