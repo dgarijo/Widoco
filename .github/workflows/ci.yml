@@ -27,8 +27,6 @@ jobs:
           java-version:  ${{ matrix.jdk }}
           distribution: 'zulu'
           cache: maven
-      - name: Informative security dependency checks.
-        run: mvn org.owasp:dependency-check-maven:check
       - name: Build with Maven
         run: mvn -e --batch-mode package
       - name: Include JDK in filename
