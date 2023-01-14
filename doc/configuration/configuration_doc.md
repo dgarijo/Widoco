@@ -1,4 +1,10 @@
 
+# Running Widoco with a Config.properties file
+**Please note** that we recommend running Widoco by reading metadata from the ontology itself.
+
+In order to have Widoco accept a configuration file, you need to create a `config.properties` file and use the `-confFile` option to invoke Widoco. The metadata is declared with a key=value pair as shown below:
+
+```
 abstract=An example ontology
 backwardCompatibleWith=https://w3id.org/example/1.0.0
 citeAs="add some citattion text here."
@@ -29,15 +35,26 @@ publisher=
 publisherURI=
 publisherInstitution=
 publisherInstitutionURI=
-source=
 ontologyTitle=The Example Ontology
 thisVersionURI=https://w3id.org/example/1.0.1
 ontologyRevisionNumber=v1.0.0
 status=Ontology Specification Draft
+```
+
+Additional configuration options include the following
+```
 importedOntologyNames=Imported Ontology 1; Imported Ontology 2
 importedOntologyURIs=http://example.org/test11; http://example.org/test22
 extendedOntologyNames=test1; test2
 extendedOntologyURIs=http://example.org/test1; http://example.org/test2
-RDFXMLSerialization=ontology.xml
-TurtleSerialization=ontology.ttl
-N3Serialization=ontology.nt
+RDFXMLSerialization=URL of the file with RDF-XML serialization. E.g., http://my-onto/onto.owl
+TurtleSerialization=URL of the file with Turtle serialization. E.g., http://my-onto/onto..ttl;
+N3Serialization=URL of the file with N3 serialization. E.g., http://my-onto/onto.n3
+JSONLDSerialization=URL of the file with JSON-LD serialization. E.g., http://my-onto/onto.jsonld
+GoogleAnalyticsCode=UA-TestCodeGoesHere
+contextURI=JSON-LD context URI. 
+```
+
+For more information, see the [Widoco readme options](https://github.com/dgarijo/Widoco/#options).
+
+For a complete example, have a look at a sample [config.properties file](config.properties).
