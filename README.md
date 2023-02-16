@@ -75,7 +75,7 @@ Examples of the features of WIDOCO can be seen on [the gallery](https://dgarijo.
 A tutorial explaining the main features of the GUI can be found [here](https://dgarijo.github.io/Widoco/doc/tutorial/)  
 
 ## Metadata usage
-To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the Widoco metadata documentation](doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](doc/bestPractices/index-en.html).
+To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the Widoco metadata documentation](doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
 
 ## How to use WIDOCO
 
