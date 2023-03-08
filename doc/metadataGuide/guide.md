@@ -137,10 +137,10 @@ If blank nodes are used, then the the result should look similar to the followin
 <https://w3id.org/example> rdf:type owl:Ontology ;
     schema:creator [
         a schema:Person;
-        schema:name: "Daniel Garijo"
+        schema:name "Daniel Garijo"
     ] ,[
         a schema:Person;
-        schema:name: "María Poveda"
+        schema:name "María Poveda"
     ] .
 ```
 Widoco will recognize the following properties when describing agents (persons or organizations):
