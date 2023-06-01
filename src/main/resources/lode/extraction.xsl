@@ -38,6 +38,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 xmlns:obo="http://purl.obolibrary.org/obo/"
                 xmlns:skos="http://www.w3.org/2004/02/skos/core#"
                 xmlns:sw="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+                xmlns:extra="https://w3id.org/extra#"
                 xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://www.oxygenxml.com/ns/doc/xsl
 http://www.oxygenxml.com/ns/doc/xsl ">
@@ -987,6 +988,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <xsl:call-template name="get.source"/>
         <xsl:call-template name="get.termStatus"/>
         <xsl:call-template name="get.deprecated"/>
+        <xsl:call-template name="get.rule"/>
     </xsl:template>
 
     <xsl:template name="get.original.source">
@@ -2209,6 +2211,31 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     </xsl:if>
                 </dl>
             </div>
+        </xsl:if>
+    </xsl:template>
+
+    <!-- CUSTOM: ADD FOR LINKING RULES TO TERMS-->
+    <xsl:template name="get.rule">
+        <xsl:if test="exists(extra:usesRule)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('usesRule')"/>
+                </dt>
+                <xsl:for-each select="extra:usesRule">
+                    <dd>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(@*:resource) = ''">
+                                <xsl:value-of select="text()"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <a href="{@*:resource}">
+                                    <xsl:value-of select="@*:resource"/>
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </dd>
+                </xsl:for-each>
+            </dl>
         </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

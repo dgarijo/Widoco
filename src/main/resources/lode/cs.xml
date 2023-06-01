@@ -85,4 +85,5 @@
 	<deprecated>Je zastaralý</deprecated>
     <domainIncludes>domain includes</domainIncludes>
     <rangeIncludes>range includes</rangeIncludes>
+    <usesRule>uses rule</usesRule>
 </labels>

@@ -156,8 +156,8 @@ public class Constants {
 	public static final String PROP_VCARD_EMAIL_OLD = NS_VCARD_OLD + "EMAIL";
 
 	public static final String PROP_FOAF_NAME = NS_FOAF + "name";
-	public static final String PROP_FOAF_GIVEN_NAME = NS_FOAF + "givenName";
-	public static final String PROP_FOAF_FAMILY_NAME = NS_FOAF + "familyName";
+	public static final String PROP_FOAF_GIVEN_NAME = NS_FOAF + "givenname";
+	public static final String PROP_FOAF_FAMILY_NAME = NS_FOAF + "family_name";
 	public static final String PROP_FOAF_MBOX = NS_FOAF + "mbox";
 	public static final String PROP_FOAF_HOME_PAGE = NS_FOAF + "homepage";
 	public static final String PROP_FOAF_IMAGE = NS_FOAF + "img";
@@ -651,15 +651,18 @@ public class Constants {
 		/* Style selection */
 		if (c.isUseW3CStyle()) {
 			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/primer.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/rec.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/extra.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/owl.css\" media=\"screen\" />   ";
+					+ "/primer.css\" media=\"screen\" />   \n" +
+					" <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/rec.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/extra.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/owl.css\" media=\"screen\" />   \n";
 
 		} else {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   "
-					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />";
+			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   \n"
+					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />\n";
 		}
+		// add a favicon (rdf logo)
+		document += "<link rel=\"icon\" type=\"image/png\" href=\"" + resourcesFolderName + "/rdf.icon\"/>";
 
 		// add a title to the document
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))

@@ -85,4 +85,5 @@
 	<deprecated>Is vervallen</deprecated>
     <domainIncludes>domein bevat</domainIncludes>
     <rangeIncludes>bereik bevat</rangeIncludes>
+    <usesRule>gebruikt regel</usesRule>
 </labels>
