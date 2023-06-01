@@ -210,7 +210,7 @@ public class Configuration {
 		mainOntologyMetadata.setLicense(l);
 		mainOntologyMetadata.setSerializations(new HashMap<>());
 		// add default serializations: rdf/xml, n3, turtle and json-ld
-		mainOntologyMetadata.addSerialization("RDF/XML", "ontology.rdf");
+		mainOntologyMetadata.addSerialization("RDF/XML", "ontology.owl");
 		mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
 		mainOntologyMetadata.addSerialization("N-Triples", "ontology.nt");
 		mainOntologyMetadata.addSerialization("JSON-LD", "ontology.jsonld");
@@ -226,7 +226,6 @@ public class Configuration {
 	}
 
 	private void loadPropertyFile(String path) throws IOException {
-		// try {
 		try {
 			initializeOntology();
 			// this forces the property file to be in UTF 8 instead of the ISO
@@ -438,21 +437,21 @@ public class Configuration {
 		}
 		// default citation if none is given
 		if (mainOntologyMetadata.getCiteAs() == null || mainOntologyMetadata.getCiteAs().isEmpty()) {
-			String cite = "";
+			StringBuilder cite = new StringBuilder();
 			for (Agent a : mainOntologyMetadata.getCreators()) {
-				cite += a.getName() + ", ";
+				cite.append(a.getName()).append(", ");
 			}
 			if (cite.length() > 1) {
 				// remove the last ","
-				cite = cite.substring(0, cite.length() - 2);
-				cite += ".";
+				cite = new StringBuilder(cite.substring(0, cite.length() - 2));
+				cite.append(".");
 			}
 
-			cite += appendDetails(mainOntologyMetadata.getTitle(), " ", true);
-			cite += appendDetails(mainOntologyMetadata.getRevision(), " Revision: ", true);
-			cite += appendDetails(mainOntologyMetadata.getThisVersion(), " Retrieved from: ", false);
+			cite.append(appendDetails(mainOntologyMetadata.getTitle(), " ", true));
+			cite.append(appendDetails(mainOntologyMetadata.getRevision(), " Revision: ", true));
+			cite.append(appendDetails(mainOntologyMetadata.getThisVersion(), " Retrieved from: ", false));
 
-			mainOntologyMetadata.setCiteAs(cite);
+			mainOntologyMetadata.setCiteAs(cite.toString());
 		}
 		//load all namespaces in the ontology document.
 		this.namespaceDeclarations = new HashMap<>();

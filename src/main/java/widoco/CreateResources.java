@@ -125,7 +125,7 @@ public class CreateResources {
 		// serialize the model in different serializations.
 		OWLOntologyManager om = c.getMainOntology().getOWLAPIOntologyManager();
 		OWLOntology o = c.getMainOntology().getOWLAPIModel();
-		WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut + File.separator + "ontology.rdf");
+		WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut + File.separator + "ontology.owl");
 		WidocoUtils.writeModel(om, o, new TurtleDocumentFormat(), folderOut + File.separator + "ontology.ttl");
 		WidocoUtils.writeModel(om, o, new NTriplesDocumentFormat(), folderOut + File.separator + "ontology.nt");
 		WidocoUtils.writeModel(om, o, new RDFJsonLDDocumentFormat(), folderOut + File.separator + "ontology.jsonld");
@@ -442,6 +442,9 @@ public class CreateResources {
 				new File(resources.getAbsolutePath() + File.separator + "jquery.js"));
 		WidocoUtils.copyLocalResource("/lode/marked.min.js",
 				new File(resources.getAbsolutePath() + File.separator + "marked.min.js"));
+		// icon
+		WidocoUtils.copyLocalResource("/widoco/images/rdf.icon",
+				new File(resources.getAbsolutePath() + File.separator + "rdf.icon"));
 		// copy css
 		if (c.isUseW3CStyle()) {
 			WidocoUtils.copyLocalResource("/lode/lodeprimer.css",

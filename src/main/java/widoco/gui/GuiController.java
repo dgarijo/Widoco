@@ -17,7 +17,9 @@
 package widoco.gui;
 
 import java.awt.Desktop;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.Date;
 import java.util.Properties;
@@ -34,6 +36,9 @@ import widoco.CreateOOPSEvalInThread;
 import widoco.CreateResources;
 import widoco.LoadOntologyInThread;
 import widoco.WidocoUtils;
+
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 
 /**
  *
@@ -77,6 +82,23 @@ public final class GuiController {
 	public GuiController(String[] args) {
 
 		logger.info("\n\n--WIzard for DOCumenting Ontologies (WIDOCO).\n https://w3id.org/widoco/\n");
+		String version = "";
+		try {
+			MavenXpp3Reader reader = new MavenXpp3Reader();
+			Model model = reader.read(new FileReader("pom.xml"));
+			version = model.getVersion();
+		} catch (Exception e) {
+			try{
+				InputStream inputStream = GuiController.class.getResourceAsStream("/META-INF/maven/es.oeg/widoco/pom.xml");
+				MavenXpp3Reader reader = new MavenXpp3Reader();
+				Model model = reader.read(inputStream);
+				version = model.getVersion();
+			}catch (Exception e2) {
+				logger.error("Could not read the project version from pom");
+			}
+
+		}
+
 		// get the arguments
 		String outFolder = "myDocumentation" + (new Date().getTime()), ontology = "", rb = null, configOutFile = null;
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
@@ -175,6 +197,11 @@ public final class GuiController {
 				break;
 			case "--help":
 				System.out.println(Constants.HELP_TEXT);
+				return;
+			case "--version":
+				if (!version.isEmpty()) {
+					System.out.println("Version: "+version);
+				}
 				return;
 			default:
 				System.out.println("Command" + s + " not recognized.");

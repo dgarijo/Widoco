@@ -17,6 +17,13 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>3.9.0</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>com.github.VisualDataWeb</groupId>
 			<artifactId>OWL2VOWL</artifactId>
 			<version>0.3.5</version>
