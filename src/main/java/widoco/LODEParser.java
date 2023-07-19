@@ -80,6 +80,7 @@ public class LODEParser {
 		replacements = new HashMap<String, String>();
 		this.c = c;
 		parse(lodeContent, langFile);
+		System.out.println(lodeContent);
 	}
 
 	public String getClassList() {
@@ -166,6 +167,7 @@ public class LODEParser {
 							"<h3 id=\"namedindividuals\" class=\"list\">"
 									+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
 				}
+				/*missing: rules!*/
 			}
 			// fix ids
 			if (!"".equals(classList) && classList != null) {

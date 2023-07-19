@@ -39,8 +39,8 @@ public class Constants {
 	private static final Logger logger = LoggerFactory.getLogger(Constants.class);
 
 	// constants for the Licensius service
-	public static final String LICENSUS_URI_SERVICE_LICENSE = "http://www.licensius.com/api/license/findlicenseinrdf?uri=";// "http://licensius.appspot.com/getLicense?content=";
-	public static final String LICENSIUS_URI_SEVICE_LICENSE_INFO = "http://www.licensius.com/api/license/getlicenseinfo?uri=";// "http://licensius.appspot.com/getLicenseTitle?content=";
+	public static final String LICENSUS_URI_SERVICE_LICENSE = "http://www.licensius.appspot.com/api/license/findlicenseinrdf?uri=";//http://www.licensius.com/api/license/findlicenseinrdf?uri=";// "http://licensius.appspot.com/getLicense?content=";
+	public static final String LICENSIUS_URI_SEVICE_LICENSE_INFO = "http://www.licensius.appspot.com/api/license/getlicenseinfo?uri=";// "http://licensius.appspot.com/getLicenseTitle?content=";
 	public static final int LICENSIUS_TIME_OUT = 10000;
 
 	public static final int OOPS_TIME_OUT = 10000;
