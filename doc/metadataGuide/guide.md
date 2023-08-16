@@ -57,7 +57,7 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 |Modification date|[dcterms:modified], [schema:dateModified] |modified|[Sec 3.4.3] **[OPTIONAL]**   |[Text]|[ontology](#onto), [config]|
 |Previous version|[dce:replaces], [dcterms:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[Sec 3.4.1] **[RECOMMENDED]**|[URI]|[ontology](#onto), [config]|
 |Publisher|[dcterms:publisher], [dce:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Sec 3.5.3] **[OPTIONAL]**|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
-|Similar resources|[rdfs:seeAlso]            |      |[Sec 3.9] **OPTIONAL**    |[Text]                     |[ontology](#onto), [config]|
+|Similar resources|[rdfs:seeAlso]            |      |[Sec 3.9] **[OPTIONAL]**  |[Text]                     |[ontology](#onto), [config]|
 |Status           |[bibo:status]             |status|[Sec 3.2.4] **[OPTIONAL]**|[Text] or [Status](#status)|[ontology](#onto), [config]|
 |Source|[dce:source], [dcterms:source], [prov:hadPrimarySource]|source|[Sec 3.4.5] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
 |Title |[dce:title], [dcterms:title], [schema:name]   |ontologyTitle  |[Sec 3.2.1] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
