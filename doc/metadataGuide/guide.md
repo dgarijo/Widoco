@@ -2,7 +2,7 @@
 There are two ways to make WIDOCO aware of the metadata of your ontology:
 
 * Add metadata annotations in your ontology. This makes ontology maintenance easier when you publish new versions, as metadata is included in the ontology. In our [best practice document](https://w3id.org/widoco/bestPractices) we show which properties you should add in your ontology for this purpose. This is the **recommended option**.
-* Declare a `.properties` file: A collection of key-values pair where all the metadata is specified. Since it's a specific file, it has to be maintained separately from the ontology.
+* Declare a `.properties` file: A collection of key-value pairs where all the metadata is specified. Since it's a specific file, it has to be maintained separately from the ontology.
 
 In this document we illustrate how Widoco uses metadata in the final documentation of your ontology, using both options specified above.
 
