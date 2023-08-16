@@ -37,31 +37,31 @@ This section explains the metadata recognized by WIDOCO for both ontology annota
 
 The table below shows which ontology metadata annotations are recognized in WIDOCO in alphabetical order:
 
-|Metadata category |Ontology annotation property* |`config.properties` field(s)**|Good practices document    |Accepted property value |Example   |
-|------------------|------------------------------|------------------------------|---------------------------|------------------------|----------|
-|Abstract              |[dce:abstract], [dcterms:abstract]|abstract              |[Sec 3.2.3] **[OPTIONAL]**  |[Text]|[ontology](#onto), [config]|
-|Backwards compatible  |[owl:backwardCompatibleWith]      |backwardCompatibleWith|[Sec 3.3.3] **[OPTIONAL]**  |[URI] |[ontology](#onto), [config]|
-|Bibliographic citation|[dcterms:bibliographicCitation], [schema:citation]|citeAs|[Sec 3.6.2] **[OPTIONAL]**  |[Text]|[ontology](#onto), [config]|
+|Metadata category|Ontology annotation property*|`config.properties` field(s)**|Good practices document|Accepted property value|Example|
+|-----------------|-----------------------------|------------------------------|-----------------------|-----------------------|-------|
+|Abstract            |[dce:abstract], [dcterms:abstract]|abstract        |[Sec 3.2.3] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Backwards compatible|[owl:backwardCompatibleWith]|backwardCompatibleWith|[Sec 3.3.3] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
+|Bibliographic citation|[dcterms:bibliographicCitation], [schema:citation]|citeAs|[Sec 3.6.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Creation date|[dcterms:created], [schema:dateCreated], [prov:generatedAtTime], [pav:createdOn], [doap:created]|creationDate|[Sec 3.4.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Creators|[dcterms:creator], [dce:creator], [schema:creator], [pav:createdBy], [pav:authoredBy], [prov:wasAttributedTo], [doap:developer], [foaf:maker]|authors, authorsURI, authorsInstitution, authorsInstitutionURI|[Sec 3.5.1] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |Contributors|[dcterms:contributor], [dce:contributor], [schema:contributor], [pav:contributedBy], [doap:documenter], [doap:maintainer], [doap:helper], [doap:translator]|contributors, contributorsURI, contributorsInstitution, contributorsInstitutionURI|[Sec 3.5.2] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |Description|[dce:description], [dcterms:description], [schema:description], [rdfs:comment], [skos:note], [doap:description], [doap:shortdesc]|description|[Sec 3.2.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|Diagram    |[foaf:image], [foaf:depiction], [schema:image]|diagram             |[Sec 3.8.2] **[OPTIONAL]**   |[Text]|[ontology](#onto), [config]|
-|DOI        |[bibo:doi]                                    |DOI                 |[Sec 3.6.1] **[OPTIONAL]**   |[Text]|[ontology](#onto), [config]|
-|Incompatible with|[owl:incompatibleWith]                  |incompatibleWith    |[Sec 3.3.4] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
-|Issued date      |[dcterms:issued], [schema:dateIssued]   |issued              |[Sec 3.4.4] **[OPTIONAL]**   |[Text]|[ontology](#onto), [config]|
+|Diagram |[foaf:image], [foaf:depiction], [schema:image]|diagram         |[Sec 3.8.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|DOI     |[bibo:doi]                                    |DOI             |[Sec 3.6.1] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Incompatible with|[owl:incompatibleWith]               |incompatibleWith|[Sec 3.3.4] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
+|Issued date      |[dcterms:issued], [schema:dateIssued]|issued          |[Sec 3.4.4] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |License|[dce:rights], [dcterms:license], [schema:license], [cc:license], [doap:license]|licenseName, licenseURI, licenseIconURL|[Sec 3.7] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
-|Logo   |[foaf:logo], [schema:logo]                      |logo                  |[Sec 3.8.1] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
-|Namespace prefix |[vann:preferredNamespacePrefix]       |ontologyPrefix        |[Sec 3.1.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
-|Namespace URI    |[vann:preferredNamespaceUri]          |ontologyNamespaceURI  |[Sec 3.1.1] **[RECOMMENDED]**|[URI] |[ontology](#onto), [config]|
-|Modification date|[dcterms:modified], [schema:dateModified]|modified           |[Sec 3.4.3] **[OPTIONAL]**   |[Text]|[ontology](#onto), [config]|
-|Previous version |[dce:replaces], [dcterms:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI |[Sec 3.4.1] **[RECOMMENDED]**|[URI]|[ontology](#onto), [config]|
+|Logo            |[foaf:logo], [schema:logo]     |logo                |[Sec 3.8.1] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
+|Namespace prefix|[vann:preferredNamespacePrefix]|ontologyPrefix      |[Sec 3.1.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
+|Namespace URI   |[vann:preferredNamespaceUri]   |ontologyNamespaceURI|[Sec 3.1.1] **[RECOMMENDED]**|[URI] |[ontology](#onto), [config]|
+|Modification date|[dcterms:modified], [schema:dateModified] |modified|[Sec 3.4.3] **[OPTIONAL]**   |[Text]|[ontology](#onto), [config]|
+|Previous version|[dce:replaces], [dcterms:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[Sec 3.4.1] **[RECOMMENDED]**|[URI]|[ontology](#onto), [config]|
 |Publisher|[dcterms:publisher], [dce:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Sec 3.5.3] **[OPTIONAL]**|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
-|Similar resources|[rdfs:seeAlso]                    |        |[Sec 3.9] **OPTIONAL**    |[Text]                     |[ontology](#onto), [config]|
-|Status   |[bibo:status]                             |status  |[Sec 3.2.4] **[OPTIONAL]**|[Text] or [Status](#status)|[ontology](#onto), [config]|
-|Source   |[dce:source], [dcterms:source], [prov:hadPrimarySource]|source|[Sec 3.4.5] **[OPTIONAL]**          |[URI] |[ontology](#onto), [config]|
-|Title    |[dce:title], [dcterms:title], [schema:name]   |ontologyTitle  |[Sec 3.2.1] **[RECOMMENDED]**       |[Text]|[ontology](#onto), [config]|
-|Version IRI   |[owl:versionIRI]                         |thisVersionURI        |[Sec 3.3.1] **[RECOMMENDED]**|[URI] |[ontology](#onto), [config]|
+|Similar resources|[rdfs:seeAlso]            |      |[Sec 3.9] **OPTIONAL**    |[Text]                     |[ontology](#onto), [config]|
+|Status           |[bibo:status]             |status|[Sec 3.2.4] **[OPTIONAL]**|[Text] or [Status](#status)|[ontology](#onto), [config]|
+|Source|[dce:source], [dcterms:source], [prov:hadPrimarySource]|source|[Sec 3.4.5] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
+|Title |[dce:title], [dcterms:title], [schema:name]   |ontologyTitle  |[Sec 3.2.1] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
+|Version IRI   |[owl:versionIRI]                      |thisVersionURI |[Sec 3.3.1] **[RECOMMENDED]**|[URI] |[ontology](#onto), [config]|
 |Version number|[owl:versionInfo], [schema:schemaVersion]|ontologyRevisionNumber|[Sec 3.3.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
 
 **\*** All listed properties are supported by WIDOCO.
