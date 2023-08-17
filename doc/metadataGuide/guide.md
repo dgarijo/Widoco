@@ -72,15 +72,15 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 
 The table below summarizes all the metadata annotations recognized for ontology terms, in alphabetical order. Note that there are no `config.properties` annotations here, as these annotations are only read from the ontology file.
 
-|Metadata category |Ontology annotation property                     |Good practices document    |Accepted property value|Example          |
-|------------------|-------------------------------------------------|---------------------------|-----------------------|-----------------|
-|Definition        |[rdfs:comment], [skos:definition]                |[Sec 4.2] **[RECOMMENDED]**|[Text]                 |[ontology](#term)|
-|Deprecation status|[owl:deprecated]                                 |[Sec 4.5.1] **[OPTIONAL]** |[Boolean]              |[ontology](#term)|
-|Example           |[vann:example], [skos:example]                   |[Sec 4.4] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
-|Label             |[rdfs:label], [skos:prefLabel], [obo:IAO_0000118]|[Sec 4.1] **[RECOMMENDED]**|[Text]                 |[ontology](#term)|
-|Original source   |[rdfs:isDefinedBy], [dce:source]                 |[Sec 4.3] **[OPTIONAL]**   |[URI]                  |[ontology](#term)|
-|Rationale         |[vaem:rationale]                                 |[Sec 4.6] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
-|Status            |[sw:term_status], [obo:IAO_0000114]              |[Sec 4.5.2] **[OPTIONAL]** |[Text]                 |[ontology](#term)|
+|Metadata category|Ontology annotation property|Good practices document|Accepted property value|Example|
+|-----------------|----------------------------|-----------------------|-----------------------|-------|
+|Definition|[rdfs:comment], [skos:definition]|[Sec 4.2] **[RECOMMENDED]**|[Text]   |[ontology](#term)|
+|Deprecation status|[owl:deprecated]          |[Sec 4.5.1] **[OPTIONAL]**|[Boolean]|[ontology](#term)|
+|Example|[vann:example], [skos:example]       |[Sec 4.4] **[OPTIONAL]**  |[Text]   |[ontology](#term)|
+|Label|[rdfs:label], [skos:prefLabel], [obo:IAO_0000118]|[Sec 4.1] **[RECOMMENDED]**|[Text]|[ontology](#term)|
+|Original source|[rdfs:isDefinedBy], [dce:source]|[Sec 4.3] **[OPTIONAL]**  |[URI] |[ontology](#term)|
+|Rationale|[vaem:rationale]                      |[Sec 4.6] **[OPTIONAL]**  |[Text]|[ontology](#term)|
+|Status   |[sw:term_status], [obo:IAO_0000114]   |[Sec 4.5.2] **[OPTIONAL]**|[Text]|[ontology](#term)|
 
 
 ## <span id="onto">Example: Using ontology annotations (<a href="#table">Back to table</a>)
@@ -144,14 +144,14 @@ If blank nodes are used, then the the result should look similar to the followin
 ```
 Widoco will recognize the following properties when describing agents (persons or organizations):
 
-|Metadata category|Ontology annotation property                                |Accepted property value            |
-|-----------------|------------------------------------------------------------|-----------------------------------|
-|Affiliation      |[schema:affiliation], [org:memberOf]                        |[Text] or [Organization] or [BNode]|
-|Family Name      |[schema:familyName], [vcard:family-name], [foaf:family_name]|[Text]                             |
-|Full name        |[rdfs:label], [schema:name], [vcard:fn], [foaf:name]        |[Text]                             |
-|Given name       |[schema:givenName], [vcard:given-name], [foaf:givenname]    |[Text]                             |
-|Email            |[schema:email], [vcard:hasEmail], [foaf:mbox]               |[Text]                             |
-|URL              |[schema:url], [vcard:hasURL], [foaf:homepage]               |[URI]                              |
+|Metadata category|Ontology annotation property    |Accepted property value            |
+|-----------------|--------------------------------|-----------------------------------|
+|Affiliation |[schema:affiliation], [org:memberOf] |[Text] or [Organization] or [BNode]|
+|Family Name |[schema:familyName], [vcard:family-name], [foaf:family_name]|[Text]      |
+|Full name   |[rdfs:label], [schema:name], [vcard:fn], [foaf:name]        |[Text]      |
+|Given name  |[schema:givenName], [vcard:given-name], [foaf:givenname]    |[Text]      |
+|Email       |[schema:email], [vcard:hasEmail], [foaf:mbox]               |[Text]      |
+|URL         |[schema:url], [vcard:hasURL], [foaf:homepage]               |[URI]       |
 
 
 ### <span id="term">Annotating ontology terms:
@@ -331,6 +331,7 @@ status=Ontology Specification Draft
 [rdfs:comment]:                  http://www.w3.org/2000/01/rdf-schema#comment
 [rdfs:isDefinedBy]:              http://www.w3.org/2000/01/rdf-schema#isDefinedby
 [rdfs:label]:                    http://www.w3.org/2000/01/rdf-schema#label
+[rdfs:seeAlso]                   http://www.w3.org/2000/01/rdf-schema#seeAlso
 [schema:affiliation]:            https://schema.org/affiliation
 [schema:citation]:               https://schema.org/citation
 [schema:contributor]:            https://schema.org/contributor
