@@ -66,8 +66,8 @@ public class LODEParser {
 	Configuration c;
 
 	/**
-	 * Constructor for the lode parser. The reason for creating this class is that I
-	 * don't want to edit LODE's xls file, and I only want to reuse certain parts.
+	 * Constructor for the LODE parser. The reason for creating this class is to reuse certain parts of
+	 * the generated HTML.
 	 * 
 	 * @param lodeContent
 	 *            text obtained as a response from LODE.
@@ -80,7 +80,7 @@ public class LODEParser {
 		replacements = new HashMap<String, String>();
 		this.c = c;
 		parse(lodeContent, langFile);
-		System.out.println(lodeContent);
+		//System.out.println(lodeContent);
 	}
 
 	public String getClassList() {

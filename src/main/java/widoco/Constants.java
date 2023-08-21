@@ -58,7 +58,8 @@ public class Constants {
 	 */
 
 	public static final String NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#";
-	public static final String NS_SCHEMA = "https://schema.org/";
+	public static final String NS_SCHEMA_HTTPS = "https://schema.org/";
+	public static final String NS_SCHEMA_HTTP = "http://schema.org/";
 	public static final String NS_DC = "http://purl.org/dc/elements/1.1/";
 	public static final String NS_DCTERMS = "http://purl.org/dc/terms/";
 	public static final String NS_OWL = "http://www.w3.org/2002/07/owl#";
@@ -73,27 +74,49 @@ public class Constants {
 	public static final String NS_VCARD_OLD = "http://www.w3.org/2001/vcard-rdf/3.0#";
 	public static final String NS_FOAF = "http://xmlns.com/foaf/0.1/";
 	public static final String NS_ORG = "http://www.w3.org/ns/org#";
+	public static final String NS_MOD = "https://w3id.org/mod#";
+	public static final String NS_VOAF = "http://purl.org/vocommons/voaf#";
 
 	public static final String PROP_RDFS_LABEL = NS_RDFS + "label";
 	public static final String PROP_RDFS_COMMENT = NS_RDFS + "comment";
 
-	public static final String PROP_SCHEMA_NAME = NS_SCHEMA + "name";
-	public static final String PROP_SCHEMA_CREATOR = NS_SCHEMA + "creator";
-	public static final String PROP_SCHEMA_LICENSE = NS_SCHEMA + "license";
-	public static final String PROP_SCHEMA_CONTRIBUTOR = NS_SCHEMA + "contributor";
-	public static final String PROP_SCHEMA_DESCRIPTION = NS_SCHEMA + "description";
-	public static final String PROP_SCHEMA_CITATION = NS_SCHEMA + "citation";
-	public static final String PROP_SCHEMA_DATE_CREATED = NS_SCHEMA + "dateCreated";
-	public static final String PROP_SCHEMA_DATE_MODIFIED = NS_SCHEMA + "dateModified";
-	public static final String PROP_SCHEMA_PUBLISHER = NS_SCHEMA + "publisher";
-	public static final String PROP_SCHEMA_SCHEMA_VERSION = NS_SCHEMA + "schemaVersion";
-	public static final String PROP_SCHEMA_GIVEN_NAME = NS_SCHEMA + "givenName";
-	public static final String PROP_SCHEMA_FAMILY_NAME = NS_SCHEMA + "familyName";
-	public static final String PROP_SCHEMA_URL = NS_SCHEMA + "url";
-	public static final String PROP_SCHEMA_EMAIL = NS_SCHEMA + "email";
-	public static final String PROP_SCHEMA_AFFILIATION = NS_SCHEMA + "affiliation";
-	public static final String PROP_SCHEMA_IMAGE = NS_SCHEMA + "image";
-	public static final String PROP_SCHEMA_DATE_ISSUED = NS_SCHEMA + "dateIssued";
+	public static final String PROP_SCHEMA_NAME_HTTP = NS_SCHEMA_HTTP + "name";
+	public static final String PROP_SCHEMA_NAME_HTTPS = NS_SCHEMA_HTTPS + "name";
+	public static final String PROP_SCHEMA_ALTERNATE_NAME_HTTP = NS_SCHEMA_HTTP + "alternateName";
+	public static final String PROP_SCHEMA_ALTERNATE_NAME_HTTPS = NS_SCHEMA_HTTPS + "alternateName";
+
+	public static final String PROP_SCHEMA_CREATOR_HTTP = NS_SCHEMA_HTTP + "creator";
+	public static final String PROP_SCHEMA_CREATOR_HTTPS = NS_SCHEMA_HTTPS + "creator";
+	public static final String PROP_SCHEMA_LICENSE_HTTP = NS_SCHEMA_HTTP + "license";
+	public static final String PROP_SCHEMA_LICENSE_HTTPS = NS_SCHEMA_HTTPS + "license";
+	public static final String PROP_SCHEMA_CONTRIBUTOR_HTTP = NS_SCHEMA_HTTP + "contributor";
+	public static final String PROP_SCHEMA_CONTRIBUTOR_HTTPS = NS_SCHEMA_HTTPS + "contributor";
+	public static final String PROP_SCHEMA_DESCRIPTION_HTTP = NS_SCHEMA_HTTP + "description";
+	public static final String PROP_SCHEMA_DESCRIPTION_HTTPS = NS_SCHEMA_HTTPS + "description";
+	public static final String PROP_SCHEMA_CITATION_HTTP = NS_SCHEMA_HTTP + "citation";
+	public static final String PROP_SCHEMA_CITATION_HTTPS = NS_SCHEMA_HTTPS + "citation";
+	public static final String PROP_SCHEMA_DATE_CREATED_HTTP = NS_SCHEMA_HTTP + "dateCreated";
+	public static final String PROP_SCHEMA_DATE_CREATED_HTTPS = NS_SCHEMA_HTTPS + "dateCreated";
+	public static final String PROP_SCHEMA_DATE_MODIFIED_HTTP = NS_SCHEMA_HTTP + "dateModified";
+	public static final String PROP_SCHEMA_DATE_MODIFIED_HTTPS = NS_SCHEMA_HTTPS + "dateModified";
+	public static final String PROP_SCHEMA_PUBLISHER_HTTP = NS_SCHEMA_HTTP + "publisher";
+	public static final String PROP_SCHEMA_PUBLISHER_HTTPS = NS_SCHEMA_HTTPS + "publisher";
+	public static final String PROP_SCHEMA_SCHEMA_VERSION_HTTP = NS_SCHEMA_HTTP + "schemaVersion";
+	public static final String PROP_SCHEMA_SCHEMA_VERSION_HTTPS = NS_SCHEMA_HTTPS + "schemaVersion";
+	public static final String PROP_SCHEMA_GIVEN_NAME_HTTP = NS_SCHEMA_HTTP + "givenName";
+	public static final String PROP_SCHEMA_GIVEN_NAME_HTTPS = NS_SCHEMA_HTTPS + "givenName";
+	public static final String PROP_SCHEMA_FAMILY_NAME_HTTP = NS_SCHEMA_HTTP + "familyName";
+	public static final String PROP_SCHEMA_FAMILY_NAME_HTTPS = NS_SCHEMA_HTTPS + "familyName";
+	public static final String PROP_SCHEMA_URL_HTTP = NS_SCHEMA_HTTP + "url";
+	public static final String PROP_SCHEMA_URL_HTTPS = NS_SCHEMA_HTTPS + "url";
+	public static final String PROP_SCHEMA_EMAIL_HTTP = NS_SCHEMA_HTTP + "email";
+	public static final String PROP_SCHEMA_EMAIL_HTTPS = NS_SCHEMA_HTTPS + "email";
+	public static final String PROP_SCHEMA_AFFILIATION_HTTP = NS_SCHEMA_HTTP + "affiliation";
+	public static final String PROP_SCHEMA_AFFILIATION_HTTPS = NS_SCHEMA_HTTPS + "affiliation";
+	public static final String PROP_SCHEMA_IMAGE_HTTP = NS_SCHEMA_HTTP + "image";
+	public static final String PROP_SCHEMA_IMAGE_HTTPS = NS_SCHEMA_HTTPS + "image";
+	public static final String PROP_SCHEMA_DATE_ISSUED_HTTP = NS_SCHEMA_HTTP + "dateIssued";
+	public static final String PROP_SCHEMA_DATE_ISSUED_HTTPS = NS_SCHEMA_HTTPS + "dateIssued";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
@@ -133,6 +156,7 @@ public class Constants {
 	public static final String PROP_VANN_URI = NS_VANN + "preferredNamespaceUri";
 
 	public static final String PROP_SKOS_NOTE = NS_SKOS + "note";
+	public static final String PROP_SKOS_PREF_LABEL = NS_SKOS + "prefLabel";
 
 	public static final String PROP_PAV_CREATED_BY = NS_PAV + "createdBy";
 	public static final String PROP_PAV_CREATED_ON = NS_PAV + "createdOn";
@@ -162,8 +186,9 @@ public class Constants {
 	public static final String PROP_FOAF_HOME_PAGE = NS_FOAF + "homepage";
 	public static final String PROP_FOAF_IMAGE = NS_FOAF + "img";
 	public static final String PROP_FOAF_DEPICTION = NS_FOAF + "depiction";
-
 	public static final String PROP_ORG_MEMBER_OF = NS_ORG + "memberOf";
+	public static final String PROP_MOD_ACRONYM = NS_MOD + "acronym";
+	public static final String PROP_VOAF_EXTENDS = NS_VOAF + "extends";
 
 
 
@@ -184,7 +209,8 @@ public class Constants {
 	public static final String ONT_NAME = "ontologyName";
 	public static final String ONT_PREFIX = "ontologyPrefix";
 	public static final String ONT_NAMESPACE_URI = "ontologyNamespaceURI";
-	public static final String DATE_OF_RELEASE = "dateOfRelease";
+	public static final String DATE_CREATED = "dateCreated";
+	public static final String DATE_MODIFIED = "dateModified";
 	public static final String THIS_VERSION_URI = "thisVersionURI";
 	public static final String LATEST_VERSION_URI = "latestVersionURI";
 	public static final String PREVIOUS_VERSION = "previousVersionURI";
@@ -237,6 +263,7 @@ public class Constants {
 	public static final String LANG_NS_TEXT = "nsText";
 	public static final String LANG_BACK3 = "back3";
 	public static final String LANG_DATE = "date";
+	public static final String LANG_DATE_MODIFIED = "dateModified";
 	public static final String LANG_THIS_VERSION = "thisVersion";
 	public static final String LANG_LATEST_VERSION = "latestVersion";
 	public static final String LANG_PREVIOUS_VERSION = "previousVersion";
@@ -250,6 +277,7 @@ public class Constants {
 	public static final String LANG_CITE_AS = "citeAs";
 	public static final String LANG_PROV_HEAD = "provHead";
 	public static final String LANG_OVERVIEW_PLACEHOLDER = "overviewPlaceHolder";
+	public static final String LANG_DESCRIPTION_TITLE = "descriptionTitle";
 	public static final String LANG_DESCRIPTION_PLACEHOLDER = "descriptionPlaceHolder";
 	public static final String LANG_CROSS_REF_TITLE = "crossRefTitle";
 	public static final String LANG_CROSS_REF_TITLE2 = "crossRefTitle2";
@@ -577,11 +605,14 @@ public class Constants {
 			metadata += "\"Document describing the ontology " + o.getNamespaceURI() + "\"";
 		}
 		// release date (mandatory)
-		metadata += ", \"datePublished\":";
-		if (o.getReleaseDate() != null && !"".equals(o.getReleaseDate())) {
-			metadata += "\"" + o.getReleaseDate() + "\"";
+		metadata += ", \"dateReleased\":";
+		if (o.getCreationDate() != null && !"".equals(o.getCreationDate())) {
+			metadata += "\"" + o.getCreationDate() + "\"";
 		} else {
 			metadata += "\"" + (new Date()).toString() + "\"";
+		}
+		if (o.getModifiedDate() != null && !"".equals(o.getModifiedDate())) {
+			metadata += ", \"dateModified\":\"" + o.getModifiedDate() + "\"";
 		}
 		// version (optional)
 		if (o.getRevision() != null && !"".equals(o.getRevision())) {
@@ -854,11 +885,13 @@ public class Constants {
 		head += "</div>\n";
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))
 			head += "<h1>" + c.getMainOntology().getTitle() + "</h1>\n";
-		if (c.getMainOntology().getReleaseDate() != null && !"".equals(c.getMainOntology().getReleaseDate()))
-			head += "<h2>" + l.getProperty(LANG_DATE) + " " + c.getMainOntology().getReleaseDate() + "</h2>\n";
+		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate()))
+			head += "<h2>" + l.getProperty(LANG_DATE) + " " + c.getMainOntology().getCreationDate() + "</h2>\n";
 
 		// start definition list
 		head += "\n\n<dl>\n";
+		if (c.getMainOntology().getModifiedDate() != null && !"".equals(c.getMainOntology().getModifiedDate()))
+			head += "<dt>" + l.getProperty(LANG_DATE_MODIFIED) + " " + c.getMainOntology().getModifiedDate() + "</dt>\n";
 
 		if (c.getMainOntology().getThisVersion() != null && !"".equals(c.getMainOntology().getThisVersion()))
 			head += "<dt>" + l.getProperty(LANG_THIS_VERSION) + "</dt>\n" + "<dd><a href=\""
@@ -972,12 +1005,22 @@ public class Constants {
 	}
 
 	public static String getDescriptionSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
-		String descriptionString =  "<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": "
-				+ lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER) + "\n";
-		for (String image: c.getMainOntology().getImages()){
-			descriptionString += "<img src=\""+image+"\">";
+		StringBuilder descriptionString = new StringBuilder(
+				"<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": ");
+		descriptionString.append(lang.getProperty(LANG_DESCRIPTION_TITLE)).append("\n");
+		String ontologyDescription = c.getMainOntology().getDescription();
+		//add description body from ontology or default
+		descriptionString.append("<span class=\"markdown\">");
+		if (ontologyDescription != null && !ontologyDescription.isEmpty()){
+			descriptionString.append(ontologyDescription);
+		}else{
+			descriptionString.append(lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER)).append("\n");
 		}
-		return descriptionString;
+		descriptionString.append("</span>");
+		for (String image: c.getMainOntology().getImages()){
+			descriptionString.append("<img src=\"").append(image).append("\">");
+		}
+		return descriptionString.toString();
 	}
 
 	public static String getCrossReferenceSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
@@ -1021,8 +1064,8 @@ public class Constants {
 					+ c.getMainOntology().getPreviousVersion() + "</li>\n";
 		}
 		provhtml += "<li>" + lang.getProperty(LANG_RESULT);
-		if (c.getMainOntology().getReleaseDate() != null && !"".equals(c.getMainOntology().getReleaseDate())) {
-			provhtml += "<li>" + lang.getProperty(LANG_GENERATED) + " " + c.getMainOntology().getReleaseDate();
+		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
+			provhtml += "<li>" + lang.getProperty(LANG_GENERATED) + " " + c.getMainOntology().getCreationDate();
 		}
 		provhtml += "</ul>\n" + "</div>\n<p>" + lang.getProperty(LANG_BACK) + " <a href=\"..\\index-"
 				+ c.getCurrentLanguage() + ".html\">" + lang.getProperty(LANG_BACK1) + "</a>. <a href=\"provenance-"
@@ -1100,8 +1143,8 @@ public class Constants {
 		if (c.getMainOntology().getPreviousVersion() != null && !"".equals(c.getMainOntology().getPreviousVersion())) {
 			provrdf += "\t prov:wasRevisionOf <" + c.getMainOntology().getPreviousVersion() + ">;\n";
 		}
-		if (c.getMainOntology().getReleaseDate() != null && !"".equals(c.getMainOntology().getReleaseDate())) {
-			provrdf += "\t prov:wasGeneratedAt \"" + c.getMainOntology().getReleaseDate() + "\";\n";
+		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
+			provrdf += "\t prov:wasGeneratedAt \"" + c.getMainOntology().getCreationDate() + "\";\n";
 		}
 		provrdf += ".\n";
 		provrdf += agents;
@@ -1211,92 +1254,119 @@ public class Constants {
 
 	/**
 	 * Method that writes an htaccess file according to the W3C best practices. Note
-	 * that hash is different than slash
+	 * that hash is different from slash
 	 * 
-	 * @param c
-	 * @return
+	 * @param c Configuration parameter with the language parameters
+	 * @return a String with the htaccess file
 	 */
-	public static final String getHTACCESS(Configuration c) {
+	public static String getHTACCESS(Configuration c) {
 		String projectFolder = c.getDocumentationURI()
 				.substring(c.getDocumentationURI().lastIndexOf(File.separator) + 1);
-		String htAccessFile = "# Turn off MultiViews\n" + "Options -MultiViews\n" + "\n"
+		StringBuilder htAccessFile = new StringBuilder(
+				"# Turn off MultiViews\n"
+				+ "Options -MultiViews\n" + "\n"
 				+ "# Directive to ensure *.rdf files served as appropriate content type,\n"
-				+ "# if not present in main apache config\n" + "AddType application/rdf+xml .rdf\n"
+				+ "# if not present in main apache config\n"
+				+ "AddType application/rdf+xml .rdf\n"
 				+ "AddType application/rdf+xml .owl\n" + "AddType text/turtle .ttl\n"
 				+ "AddType application/n-triples .n3\n" + "AddType application/ld+json .jsonld\n"
 				+ "# Rewrite engine setup\n" + "RewriteEngine On\n" + "#Change the path to the folder here\n"
-				+ "RewriteBase " + c.getRewriteBase() + projectFolder + " \n\n";
+				+ "RewriteBase " + c.getRewriteBase() + projectFolder + " \n\n");
 
-		htAccessFile += "# Rewrite rule to serve HTML content from the vocabulary URI if requested\n"
+		String htmlAccept = "# Rewrite rule to serve HTML content from the vocabulary URI if requested\n"
 				+ "RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n"
 				+ "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n"
 				+ "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n"
 				+ "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n";
 		// this depends on whether the vocab is hash or slash!
 		if (c.getMainOntology().isHashOntology()) {
-			htAccessFile += "RewriteRule ^$ index-" + c.getCurrentLanguage() + ".html [R=303,L]\n\n";
+			// moving JSON-LD before HTML (only) so HTTP playground apps work (e.g., JSON-LD playground)
 			HashMap<String, String> serializations = c.getMainOntology().getSerializations();
-			for (String serialization : serializations.keySet()) {
-				htAccessFile += "# Rewrite rule to serve " + serialization
-						+ " content from the vocabulary URI if requested\n";
-				if (serialization.equals("RDF/XML")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
-				} else if (serialization.equals("TTL")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" + "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
-				} else if (serialization.equals("N-Triples")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
-				} else if (serialization.equals("JSON-LD")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} application/ld\\+json\n";
-				}
-				htAccessFile += "RewriteRule ^$ " + serializations.get(serialization) + " [R=303,L]\n\n";
+			if (serializations.containsKey("JSON-LD")){
+				htAccessFile.append("# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested\n");
+				htAccessFile.append("# Placed before HTML to support serving JSON-LD from a browser (e.g., JSON Playground)\n");
+				htAccessFile.append("RewriteCond %{HTTP_ACCEPT} application/ld\\+json\n");
+				htAccessFile.append("RewriteRule ^$ ").append(serializations.get("JSON-LD")).append(" [R=303,L]\n\n");
 			}
-			htAccessFile += "RewriteCond %{HTTP_ACCEPT} .+\n" + "RewriteRule ^$ 406.html [R=406,L]\n"
-					+ "# Default response\n" + "# ---------------------------\n"
+			htAccessFile.append(htmlAccept);
+			htAccessFile.append("RewriteRule ^$ index-").append(c.getCurrentLanguage()).append(".html [R=303,L]\n\n");
+			for (String serialization : serializations.keySet()) {
+				String comment = "# Rewrite rule to serve "
+						+ serialization + " content from the vocabulary URI if requested\n";
+				String rewriteCond = "RewriteRule ^$ "+serializations.get(serialization)+" [R=303,L]\n\n";
+				switch (serialization) {
+					case "RDF/XML":
+						htAccessFile.append(comment).append("RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
+								"RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n").append(rewriteCond);
+						break;
+					case "TTL":
+						htAccessFile.append(comment).append("RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n").append(rewriteCond);
+						break;
+					case "N-Triples":
+						htAccessFile.append(comment).append("RewriteCond %{HTTP_ACCEPT} application/n-triples\n")
+								.append(rewriteCond);
+						break;
+				}
+			}
+			htAccessFile.append("RewriteCond %{HTTP_ACCEPT} .+\n"
+					+ "RewriteRule ^$ 406.html [R=406,L]\n"
+					+ "# Default response\n"
+					+ "# ---------------------------\n"
 					+ "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n"
-					+ "RewriteRule ^$ " + serializations.get("RDF/XML") + " [R=303,L]";
+					+ "RewriteRule ^$ ").append(serializations.get("RDF/XML")).append(" [R=303,L]");
 		} else {// slash (the structure changes a little)
+			String normalSerialization, complexSerialization, condition = "";
 			String warning = "############################################################################\n"
 					+ "### THIS FILE SHOULD BE PLACED ON THE PARENT FOLDER OF THE DOCUMENTATION ###\n"
 					+ "### OTHERWISE THE CONTENT NEGOTIATION WILL NOT WORK                      ###\n"
 					+ "### THE URL OF YOUR VOCABULARY WILL BE (domain)/" + projectFolder + "/def    ###\n"
 					+ "############################################################################\n";
-			htAccessFile = warning + htAccessFile;
-			htAccessFile += "RewriteRule ^def$ doc/index-" + c.getCurrentLanguage() + ".html [R=303,L]\n";
-			htAccessFile += "RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n"
-					+ "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n"
-					+ "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n"
-					+ "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n" + "RewriteRule ^def/(.+) doc/index-"
-					+ c.getCurrentLanguage() + ".html#$1 [R=303,NE,L]\n";
+			htAccessFile.insert(0, warning);
 			HashMap<String, String> serializations = c.getMainOntology().getSerializations();
+			if (serializations.containsKey("JSON-LD")){
+				htAccessFile.append("# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested\n");
+				htAccessFile.append("# Placed before HTML to support serving JSON-LD from a browser (e.g., JSON Playground)\n");
+				condition = "RewriteCond %{HTTP_ACCEPT} application/ld\\+json\n";
+				normalSerialization = "RewriteRule ^def$ doc/" + serializations.get("JSON-LD") + " [R=303,L]\n\n";
+				complexSerialization = "RewriteRule ^def/(.+)$ doc/" + serializations.get("JSON-LD")
+						+ " [R=303,NE,L]\n\n";
+				htAccessFile.append(condition).append(normalSerialization).append(condition).append(complexSerialization);
+			}
+			htAccessFile.append("RewriteRule ^def$ doc/index-").append(c.getCurrentLanguage()).append(".html [R=303,L]\n");
+			htAccessFile.append("RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n" +
+					"RewriteCond %{HTTP_ACCEPT} text/html [OR]\n" + "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n" +
+					"RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n" +
+					"RewriteRule ^def/(.+) doc/index-").append(c.getCurrentLanguage()).append(".html#$1 [R=303,NE,L]\n");
+
 			for (String serialization : serializations.keySet()) {
-				htAccessFile += "# Rewrite rule to serve " + serialization
-						+ " content from the vocabulary URI if requested\n";
-				String normalSerialization, complexSerialization, condition = "";
-				if (serialization.equals("RDF/XML")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
-				} else if (serialization.equals("TTL")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" + "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
-				} else if (serialization.equals("N-Triples")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
-				} else if (serialization.equals("JSON-LD")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} application/ld+json\n";
+				condition = "";
+				String comment = "# Rewrite rule to serve "
+						+ serialization + " content from the vocabulary URI if requested\n";
+				switch (serialization) {
+					case "RDF/XML":
+						condition = comment + "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
+						break;
+					case "TTL":
+						condition = comment + "RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" + "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
+						break;
+					case "N-Triples":
+						condition = comment + "RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
+						break;
 				}
 				normalSerialization = "RewriteRule ^def$ doc/" + serializations.get(serialization) + " [R=303,L]\n\n";
 				complexSerialization = "RewriteRule ^def/(.+)$ doc/" + serializations.get(serialization)
 						+ " [R=303,NE,L]\n\n";
-				htAccessFile += condition + normalSerialization + condition + complexSerialization;
+				if (!condition.isEmpty()) {
+					htAccessFile.append(condition).append(normalSerialization).append(condition).append(complexSerialization);
+				}
 			}
-			htAccessFile += "RewriteCond %{HTTP_ACCEPT} .+\n" + "RewriteRule ^def$ doc/406.html [R=406,L]\n"
-					+ "# Default response\n" + "# ---------------------------\n"
-					+ "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n"
-					+ "RewriteRule ^def$ doc/" + serializations.get("RDF/XML") + " [R=303,L]";
+			htAccessFile.append("RewriteCond %{HTTP_ACCEPT} .+\n" + "RewriteRule ^def$ doc/406.html [R=406,L]\n" + "# Default response\n" + "# ---------------------------\n" + "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n" + "RewriteRule ^def$ doc/").append(serializations.get("RDF/XML")).append(" [R=303,L]");
 		}
-
-		return htAccessFile;
+		return htAccessFile.toString();
 
 	}
 

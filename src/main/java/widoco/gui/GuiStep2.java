@@ -118,24 +118,37 @@ public final class GuiStep2 extends javax.swing.JFrame {
 						// current property.
 						String prop = (String) tableProperties.getModel().getValueAt(row, 0);
 						JFrame form = null;
-						if (prop.equals("abstract")) {
-							form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.abs);
-						} else if (prop.equals("cite as")) {
-							form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.citeAs);
-						} else if (prop.equals("authors")) {
-							form = new EditProperty(gAux, conf, EditProperty.PropertyType.authors);
-						} else if (prop.equals("contributors")) {
-							form = new EditProperty(gAux, conf, EditProperty.PropertyType.contributors);
-						} else if (prop.equals("publisher")) {
-							form = new EditProperty(gAux, conf, EditProperty.PropertyType.publisher);
-						} else if (prop.equals("extended ontologies")) {
-							form = new EditProperty(gAux, conf, EditProperty.PropertyType.extended);
-						} else if (prop.equals("imported ontologies")) {
-							form = new EditProperty(gAux, conf, EditProperty.PropertyType.imported);
-						} else if (prop.equals("license")) {
-							form = new EditProperty(gAux, conf, EditProperty.PropertyType.license);
-						} else if (prop.equals("images")) {
-							form = new EditProperty(gAux, conf, EditProperty.PropertyType.image);
+						switch (prop) {
+							case "abstract":
+								form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.abs);
+								break;
+							case "ontology description":
+								form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.description);
+								break;
+							case "cite as":
+								form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.citeAs);
+								break;
+							case "authors":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.authors);
+								break;
+							case "contributors":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.contributors);
+								break;
+							case "publisher":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.publisher);
+								break;
+							case "extended ontologies":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.extended);
+								break;
+							case "imported ontologies":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.imported);
+								break;
+							case "license":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.license);
+								break;
+							case "images":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.image);
+								break;
 						}
 						if (form != null) {
 							gAux.saveMetadata();
@@ -212,22 +225,30 @@ public final class GuiStep2 extends javax.swing.JFrame {
 			}
 		}
 		tableProperties.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-				{ "abstract", conf.getAbstractSection() }, { "ontology title", conf.getMainOntology().getTitle() },
+				{ "abstract", conf.getAbstractSection() },
+				{ "ontology title", conf.getMainOntology().getTitle() },
 				{ "ontology name", conf.getMainOntology().getName() },
+				{ "ontology description", conf.getMainOntology().getDescription() },
 				{ "ontology prefix", conf.getMainOntology().getNamespacePrefix() },
 				{ "ontology ns URI", conf.getMainOntology().getNamespaceURI() },
-				{ "date of release", conf.getMainOntology().getReleaseDate() },
+				{ "creation date", conf.getMainOntology().getCreationDate() },
+				{ "modified date", conf.getMainOntology().getModifiedDate() },
 				{ "this version URI", conf.getMainOntology().getThisVersion() },
 				{ "latest version URI", conf.getMainOntology().getNamespaceURI() },
 				{ "previous version URI", conf.getMainOntology().getPreviousVersion() },
-				{ "ontology revision", conf.getMainOntology().getRevision() }, { "authors", authors },
-				{ "contributors", contributors }, { "publisher", publisher }, { "imported ontologies", imported },
-				{ "extended ontologies", extended }, { "license", conf.getMainOntology().getLicense().getUrl() },
-				{ "cite as", conf.getMainOntology().getCiteAs() }, { "doi", conf.getMainOntology().getDoi() },
+				{ "ontology revision", conf.getMainOntology().getRevision() },
+				{ "authors", authors },
+				{ "contributors", contributors },
+				{ "publisher", publisher },
+				{ "imported ontologies", imported },
+				{ "extended ontologies", extended },
+				{ "license", conf.getMainOntology().getLicense().getUrl() },
+				{ "cite as", conf.getMainOntology().getCiteAs() },
+				{ "doi", conf.getMainOntology().getDoi() },
 				{ "status", conf.getMainOntology().getStatus() },
 				{ "backwards compatible with", conf.getMainOntology().getBackwardsCompatibleWith() },
-                                { "incompatible with", conf.getMainOntology().getIncompatibleWith()},
-								 { "images", images }},
+                { "incompatible with", conf.getMainOntology().getIncompatibleWith()},
+				{ "images", images }},
 				new String[] { "Property", "Value" }) {
 			Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
 			boolean[] canEdit = new boolean[] { false, true };
@@ -239,8 +260,11 @@ public final class GuiStep2 extends javax.swing.JFrame {
 
 			@Override
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				if (getValueAt(rowIndex, 0).equals("abstract") || getValueAt(rowIndex, 0).equals("cite as")
-						|| getValueAt(rowIndex, 0).equals("authors") || getValueAt(rowIndex, 0).equals("contributors")
+				if (getValueAt(rowIndex, 0).equals("abstract")
+						|| getValueAt(rowIndex, 0).equals("ontology description")
+						|| getValueAt(rowIndex, 0).equals("cite as")
+						|| getValueAt(rowIndex, 0).equals("authors")
+						|| getValueAt(rowIndex, 0).equals("contributors")
 						|| getValueAt(rowIndex, 0).equals("publisher")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("extended")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("license")
@@ -266,40 +290,61 @@ public final class GuiStep2 extends javax.swing.JFrame {
 			// we save all except for: authors, contribs, imported and exported
 			// ontos, which will be saved with the other form
 			// if(value!=null && !value.equals("")){
-			if (prop.equals("abstract")) {
-				conf.setAbstractSection(value);
-			} else if (prop.equals("ontology title")) {
-				conf.getMainOntology().setTitle(value);
-			} else if (prop.equals("ontology name")) {
-				conf.getMainOntology().setName(value);
-			} else if (prop.equals("ontology prefix")) {
-				conf.getMainOntology().setNamespacePrefix(value);
-			} else if (prop.equals("ontology ns URI")) {
-				conf.getMainOntology().setNamespaceURI(value);
-			} else if (prop.equals("date of release")) {
-				conf.getMainOntology().setReleaseDate(value);
-			} else if (prop.equals("this version URI")) {
-				conf.getMainOntology().setThisVersion(value);
-			} else if (prop.equals("latest version URI")) {
-				conf.getMainOntology().setLatestVersion(value);
-			} else if (prop.equals("previous version URI")) {
-				conf.getMainOntology().setPreviousVersion(value);
-			} else if (prop.equals("ontology revision")) {
-				conf.getMainOntology().setRevision(value);
-			} else if (prop.equals("license URI")) {
-				conf.getMainOntology().getLicense().setUrl(value);
-			} else if (prop.equals("cite as")) {
-				conf.getMainOntology().setCiteAs(value);
-			} else if (prop.equals("doi")) {
-				conf.getMainOntology().setDoi(value);
-			} else if (prop.equals("status")) {
-				conf.getMainOntology().setStatus(value);
-			} else if (prop.equals("backwards compatible with")) {
-				conf.getMainOntology().setBackwardsCompatibleWith(value);
-			} else if (prop.equals("incompatible with")) {
-				conf.getMainOntology().setIncompatibleWith(value);
+			switch (prop) {
+				case "abstract":
+					conf.setAbstractSection(value);
+					break;
+				case "ontology title":
+					conf.getMainOntology().setTitle(value);
+					break;
+				case "ontology name":
+					conf.getMainOntology().setName(value);
+					break;
+				case "ontology description":
+					conf.getMainOntology().setDescription(value);
+				case "ontology prefix":
+					conf.getMainOntology().setNamespacePrefix(value);
+					break;
+				case "ontology ns URI":
+					conf.getMainOntology().setNamespaceURI(value);
+					break;
+				case "creation date":
+					conf.getMainOntology().setCreationDate(value);
+					break;
+				case "modified date":
+					conf.getMainOntology().setModifiedDate(value);
+					break;
+				case "this version URI":
+					conf.getMainOntology().setThisVersion(value);
+					break;
+				case "latest version URI":
+					conf.getMainOntology().setLatestVersion(value);
+					break;
+				case "previous version URI":
+					conf.getMainOntology().setPreviousVersion(value);
+					break;
+				case "ontology revision":
+					conf.getMainOntology().setRevision(value);
+					break;
+				case "license URI":
+					conf.getMainOntology().getLicense().setUrl(value);
+					break;
+				case "cite as":
+					conf.getMainOntology().setCiteAs(value);
+					break;
+				case "doi":
+					conf.getMainOntology().setDoi(value);
+					break;
+				case "status":
+					conf.getMainOntology().setStatus(value);
+					break;
+				case "backwards compatible with":
+					conf.getMainOntology().setBackwardsCompatibleWith(value);
+					break;
+				case "incompatible with":
+					conf.getMainOntology().setIncompatibleWith(value);
+					break;
 			}
-			// }
 		}
 	}
 
@@ -383,12 +428,12 @@ public final class GuiStep2 extends javax.swing.JFrame {
 		labelSteps.setText("Steps");
 		tableProperties.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { "abstract", "" }, { "ontology title", null }, { "ontology name", null },
-						{ "ontology prefix", null }, { "ontology ns URI", null }, { "date of release", null },
-						{ "this version URI", null }, { "latest version URI", null }, { "previous version URI", null },
-						{ "ontology revision", null }, { "authors", null }, { "contributors", null },
-						{ "publisher", null }, { "imported ontologies", null }, { "extended ontologies", null },
-						{ "license", null }, { "cite as", null }, { "doi", null }, { "status", null },
-						{ "backwards compatible with", null },{ "incompatible with", null }},
+						{ "ontology prefix", null }, { "ontology ns URI", null }, { "creation date", null },
+						{ "modified date", null }, { "this version URI", null }, { "latest version URI", null },
+						{ "previous version URI", null }, { "ontology revision", null }, { "authors", null },
+						{ "contributors", null }, { "publisher", null }, { "imported ontologies", null },
+						{ "extended ontologies", null }, { "license", null }, { "cite as", null }, { "doi", null },
+						{ "status", null }, { "backwards compatible with", null },{ "incompatible with", null }},
 				new String[] { "Property", "Value" }) {
 			Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
 			boolean[] canEdit = new boolean[] { false, false };

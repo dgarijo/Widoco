@@ -101,9 +101,13 @@ public class Ontology {
      */
     private String title;
     /**
-     * Release date of the ontology
+     * Creation date of the ontology
      */
-    private String releaseDate;
+    private String creationDate;
+    /**
+     * Modification date of the ontology
+     */
+    private String modifiedDate;
     /**
      * Status of the ontology (e.g., specification draft, official release, etc.)
      */
@@ -136,6 +140,14 @@ public class Ontology {
      * Issued date
      */
     private String issuedDate;
+
+    private String funder;
+
+    private String funding;
+
+    private String description;
+
+
 
     public Ontology() {
         this.images = new ArrayList<>();
@@ -284,12 +296,20 @@ public class Ontology {
         else this.title = title;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getCreationDate() {
+        return creationDate;
     }
     
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setCreationDate(String releaseDate) {
+        this.creationDate = releaseDate;
+    }
+
+    public String getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public String getIssuedDate(){ return issuedDate;}
@@ -367,5 +387,29 @@ public class Ontology {
 
     public void setImages(ArrayList<String> images){
         this.images = images;
+    }
+
+    public String getFunder() {
+        return funder;
+    }
+
+    public void setFunder(String funder){
+        this.funder = funder;
+    }
+
+    public String getFunding() {
+        return funding;
+    }
+
+    public void setFunding(String funding) {
+        this.funding = funding;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

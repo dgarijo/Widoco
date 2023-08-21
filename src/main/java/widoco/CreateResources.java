@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -485,7 +484,8 @@ public class CreateResources {
 		textProperties += Constants.THIS_VERSION_URI + "=" + conf.getMainOntology().getThisVersion() + "\n";
 		textProperties += Constants.LATEST_VERSION_URI + "=" + conf.getMainOntology().getLatestVersion() + "\n";
 		textProperties += Constants.PREVIOUS_VERSION + "=" + conf.getMainOntology().getPreviousVersion() + "\n";
-		textProperties += Constants.DATE_OF_RELEASE + "=" + conf.getMainOntology().getReleaseDate() + "\n";
+		textProperties += Constants.DATE_CREATED + "=" + conf.getMainOntology().getCreationDate() + "\n";
+		textProperties += Constants.DATE_MODIFIED + "=" + conf.getMainOntology().getModifiedDate() + "\n";
 		textProperties += Constants.ONTOLOGY_REVISION + "=" + conf.getMainOntology().getRevision() + "\n";
 		textProperties += Constants.LICENSE_URI + "=" + conf.getMainOntology().getLicense().getUrl() + "\n";
 		textProperties += Constants.LICENSE_NAME + "=" + conf.getMainOntology().getLicense().getName() + "\n";

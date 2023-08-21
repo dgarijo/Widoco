@@ -8,7 +8,8 @@ In order to have Widoco accept a configuration file, you need to create a `confi
 abstract=An example ontology
 backwardCompatibleWith=https://w3id.org/example/1.0.0
 citeAs="add some citattion text here."
-creationDate="13 Nov, 2022"
+dateCreated="13 Nov, 2022"
+dateModified="15 Nov, 2022"
 authors=First Author;Second Author
 authorsURI=http://example.org/author1;http://example.org/author2
 authorsInstitution=First author institution;Second author institution

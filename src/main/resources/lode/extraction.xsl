@@ -983,6 +983,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     </xsl:template>
 
     <xsl:template name="get.entity.metadata">
+        <xsl:call-template name="get.skos.editorial.note"/>
         <xsl:call-template name="get.version"/>
         <xsl:call-template name="get.author"/>
         <xsl:call-template name="get.original.source"/>
@@ -2170,6 +2171,21 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                                 </a>
                             </xsl:otherwise>
                         </xsl:choose>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="get.skos.editorial.note">
+        <xsl:if test="exists(skos:editorialNote)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('editorialNote')"/>
+                </dt>
+                <xsl:for-each select="skos:editorialNote">
+                    <dd>
+                        <xsl:value-of select="text()"/>
                     </dd>
                 </xsl:for-each>
             </dl>

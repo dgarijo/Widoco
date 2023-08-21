@@ -86,6 +86,7 @@
 	<deprecated>Is deprecated</deprecated>
     <domainIncludes>domain includes</domainIncludes>
     <rangeIncludes>range includes</rangeIncludes>
+    <editorialNote>editorial note</editorialNote>
     <usedByRuleInAntecedent>used by rule (in antecedent)</usedByRuleInAntecedent>
     <usedByRuleInConsequent>used by rule (in consequent)</usedByRuleInConsequent>
 </labels>

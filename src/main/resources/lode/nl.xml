@@ -86,4 +86,5 @@
     <domainIncludes>domein bevat</domainIncludes>
     <rangeIncludes>bereik bevat</rangeIncludes>
     <usesRule>gebruikt regel</usesRule>
+    <editorialNote>redactionele opmerking</editorialNote>
 </labels>

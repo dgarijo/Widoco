@@ -1,5 +1,7 @@
 <h2 id="desc" class="list">Vocabulary checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
-In this section we list the metadata terms we consider relevant for describing a vocabulary.
+<p>
+In this section we list the metadata terms we consider relevant for describing a vocabulary or an ontology. For each term we suggest a list of properties that may be used, including a <strong>(PREFERRED)</strong> tag for those terms that are most popular at the moment. Popularity is based on [<a href="#analysis"> an analysis </a> over thousands of ontologies and vocabularies and the work done in the Metadata for Ontology Description and publication ontology by [<a href="jonquet">Dutta et al 2021</a>].
+</p>
 
 <h3 id="access" class="list">Vocabulary access</h3>
 <p>
@@ -12,41 +14,51 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespaceUri">vann:preferredNamespaceUri</a></li>
+	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespaceUri">vann:preferredNamespaceUri</a> <strong>(PREFERRED)</strong></li>
 </ul>
 
 <h4 class="list" id="prefix">Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone to refer to it in the same way.</p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespacePrefix">vann:preferredNamespacePrefix</a></li>
+	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespacePrefix">vann:preferredNamespacePrefix</a> <strong>(PREFERRED)</strong></li>
 </ul>
 
 <h3 id="goals" class="list">Vocabulary goals and description</h3>
 <p>Once your vocabulary can be properly identified, it is important to describe what it does without forcing users to explore it thoroughly. For this purpose, the following properties are recommended:</p>
-<h4 class="list" id="title">Title [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
-<p>If you were writing a paper describing your ontology, what would be the title?</p>
+
+<h4 class="list" id="name">Name [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>The name (short acronym) for your ontology.</p>
 <ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="https://w3id.org/mod#acronym">mod:acronym</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></li>
+	<li><a target="_blank" href="http://schema.org/alternateName">schema:alternateName</a></li>
+</ul>
+
+<h4 class="list" id="title">Title [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
+<p>If you were writing a paper describing your ontology, what would the title be?</p>
+<ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="http://purl.org/dc/terms/title">dcterms:title</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/title">dc:title</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/terms/title">dcterms:title</a></li>
 	<li><a target="_blank" href="http://schema.org/name">schema:name</a></li>
 </ul>
 <h4 class="list" id="description">Description [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>A small paragraph indicating what the ontology does and why should some one use it</p>
 <ul class="hlist"><strong>Properties you may use</strong>:
-<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:description</a></li>
-<li><a target="_blank" href="http://purl.org/dc/terms/description">dcterms:description</a></li>
-<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
-<li><a target="_blank" href="http://schema.org/description">schema:description</a></li>
-<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#note">skos:note</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/description">dcterms:description</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:description</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
+	<li><a target="_blank" href="http://schema.org/description">schema:description</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#note">skos:note</a></li>
 </ul>
 
 <h4 class="list" id="abs">Abstract [<em class="rfc2119" title="RECOMMENDED">OPTIONAL</em>]</h4>
 <p>Similar to a description, but with a little bit more background and an explanation about the resued/extended vocabularies, context and applications using this ontology. It can be considered as the abstract of the paper describing you ontology.</p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:abstract</a></li>
-<li><a target="_blank" href="http://purl.org/dc/terms/abstract">dcterms:abstract</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/abstract">dcterms:abstract</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:abstract</a></li>
 </ul>
 
 <h4 class="list" id="status">Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
@@ -55,7 +67,7 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/ontology/bibo/status">bibo:status</a></li>
+	<li><a target="_blank" href="http://purl.org/ontology/bibo/status">bibo:status</a> <strong>(PREFERRED)</strong></li>
 </ul>
 
 <h3 id="version" class="list">Vocabulary version</h3>
@@ -65,7 +77,7 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 <p>The IRI that identifies this version of your vocabulary.</p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionIRI">owl:versionIRI</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionIRI">owl:versionIRI</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
 
@@ -75,7 +87,7 @@ Details about the version being handled. We recommend to include, for example, t
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionInfo">owl:versionInfo</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionInfo">owl:versionInfo</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
 
@@ -154,6 +166,14 @@ Date of formal issuance, like publication. It may be useful to distinguish betwe
 	<li><a target="_blank" href="http://purl.org/dc/terms/source">dc:source</a></li>
 	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dcterms:source</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#hadPrimarySource">prov:hadPrimarySource</a></li>
+</ul>
+
+<h4 class="list" id="extended">Ontology extensions [<em class="rfc2119" title="OPTIONAL">OPTIONAl</em>]</h4>
+<p>Property indicating the ontologies and vocabularies extended in this ontology.
+</p>
+
+<ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="http://purl.org/vocommons/voaf#extends">voaf:extends</a> <strong>(PREFERRED)</strong></li>
 </ul>
 
 <h3 id="credit" class="list">Vocabulary attribution</h3>
