@@ -197,6 +197,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <xsl:call-template name="get.objectproperties"/>
             <xsl:call-template name="get.dataproperties"/>
             <xsl:call-template name="get.namedindividuals"/>
+            <xsl:call-template name="get.rules"/>
             <xsl:call-template name="get.annotationproperties"/>
             <xsl:call-template name="get.generalaxioms"/>
             <xsl:call-template name="get.swrlrules"/>
@@ -982,13 +983,15 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     </xsl:template>
 
     <xsl:template name="get.entity.metadata">
+        <xsl:call-template name="get.skos.editorial.note"/>
         <xsl:call-template name="get.version"/>
         <xsl:call-template name="get.author"/>
         <xsl:call-template name="get.original.source"/>
         <xsl:call-template name="get.source"/>
         <xsl:call-template name="get.termStatus"/>
         <xsl:call-template name="get.deprecated"/>
-        <xsl:call-template name="get.rule"/>
+        <xsl:call-template name="get.rule.antecedent"/>
+        <xsl:call-template name="get.rule.consequent"/>
     </xsl:template>
 
     <xsl:template name="get.original.source">
@@ -1765,7 +1768,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <xsl:value-of select="f:getDescriptionLabel('namedindividuals')"/>
                 </h2>
                 <xsl:call-template name="get.namedindividuals.toc"/>
-                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[exists(element())]">
+                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                               order="ascending" data-type="text"/>
                     <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
@@ -1776,7 +1779,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
 
     <xsl:template name="get.namedindividuals.toc">
         <ul class="hlist">
-            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[exists(element())]" mode="toc">
+            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]" mode="toc">
                 <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                           order="ascending" data-type="text"/>
                 <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
@@ -2174,6 +2177,21 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         </xsl:if>
     </xsl:template>
 
+    <xsl:template name="get.skos.editorial.note">
+        <xsl:if test="exists(skos:editorialNote)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('editorialNote')"/>
+                </dt>
+                <xsl:for-each select="skos:editorialNote">
+                    <dd>
+                        <xsl:value-of select="text()"/>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template name="get.deprecated">
         <xsl:if test="exists(owl:deprecated)">
             <dl>
@@ -2215,17 +2233,19 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     </xsl:template>
 
     <!-- CUSTOM: ADD FOR LINKING RULES TO TERMS-->
-    <xsl:template name="get.rule">
-        <xsl:if test="exists(extra:usesRule)">
+    <xsl:template name="get.rule.antecedent">
+        <xsl:if test="exists(extra:usedByRuleInAntecedent)">
             <dl>
                 <dt>
-                    <xsl:value-of select="f:getDescriptionLabel('usesRule')"/>
+                    <xsl:value-of select="f:getDescriptionLabel('usedByRuleInAntecedent')"/>
                 </dt>
-                <xsl:for-each select="extra:usesRule">
+                <xsl:for-each select="extra:usedByRuleInAntecedent">
                     <dd>
                         <xsl:choose>
                             <xsl:when test="normalize-space(@*:resource) = ''">
-                                <xsl:value-of select="text()"/>
+                                <a href="#{text()}">
+                                    <xsl:value-of select="text()"/>
+                                </a>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{@*:resource}">
@@ -2238,4 +2258,48 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             </dl>
         </xsl:if>
     </xsl:template>
+
+    <xsl:template name="get.rule.consequent">
+        <xsl:if test="exists(extra:usedByRuleInConsequent)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('usedByRuleInConsequent')"/>
+                </dt>
+                <xsl:for-each select="extra:usedByRuleInConsequent">
+                    <dd>
+                        <a href="#{text()}">
+                            <xsl:value-of select="text()"/>
+                        </a>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="get.rules">
+        <xsl:if test="exists(//owl:NamedIndividual/element())">
+            <div id="rules">
+                <h2>
+                    <xsl:value-of select="f:getDescriptionLabel('otherRules')"/>
+                </h2>
+                <xsl:call-template name="get.rules.toc"/>
+                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]">
+                    <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
+                              order="ascending" data-type="text"/>
+                    <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
+                </xsl:apply-templates>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="get.rules.toc">
+        <ul class="hlist">
+            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]" mode="toc">
+                <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
+                          order="ascending" data-type="text"/>
+                <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
+            </xsl:apply-templates>
+        </ul>
+    </xsl:template>
+
 </xsl:stylesheet>

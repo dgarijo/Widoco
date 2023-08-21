@@ -196,7 +196,8 @@ public class Configuration {
 			mainOntologyMetadata.setNamespaceURI("");
 		}
 		mainOntologyMetadata.setTitle("");
-		mainOntologyMetadata.setReleaseDate("");
+		mainOntologyMetadata.setCreationDate("");
+		mainOntologyMetadata.setModifiedDate("");
 		mainOntologyMetadata.setPreviousVersion("");
 		mainOntologyMetadata.setThisVersion("");
 		mainOntologyMetadata.setLatestVersion("");
@@ -235,7 +236,8 @@ public class Configuration {
 			abstractSection = propertyFile.getProperty(Constants.ABSTRACT_SECTION_CONTENT);
 			contextURI = propertyFile.getProperty(Constants.CONTEXT_URI, "");
 			mainOntologyMetadata.setTitle(propertyFile.getProperty(Constants.ONT_TITLE, "Title goes here"));
-			mainOntologyMetadata.setReleaseDate(propertyFile.getProperty(Constants.DATE_OF_RELEASE, "Date of release"));
+			mainOntologyMetadata.setCreationDate(propertyFile.getProperty(Constants.DATE_CREATED, "Creation date"));
+			mainOntologyMetadata.setModifiedDate(propertyFile.getProperty(Constants.DATE_MODIFIED, "Modified date"));
 			mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.PREVIOUS_VERSION));
 			mainOntologyMetadata.setThisVersion(propertyFile.getProperty(Constants.THIS_VERSION_URI));
 			mainOntologyMetadata.setLatestVersion(propertyFile.getProperty(Constants.LATEST_VERSION_URI));
@@ -481,6 +483,10 @@ public class Configuration {
 //		 System.out.println(propertyName);
 		switch (propertyName) {
 		case Constants.PROP_RDFS_LABEL:
+		case Constants.PROP_SKOS_PREF_LABEL:
+		case Constants.PROP_SCHEMA_ALTERNATE_NAME_HTTP:
+		case Constants.PROP_SCHEMA_ALTERNATE_NAME_HTTPS:
+		case Constants.PROP_MOD_ACRONYM:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
@@ -494,7 +500,8 @@ public class Configuration {
 			break;
 		case Constants.PROP_DC_TITLE:
 		case Constants.PROP_DCTERMS_TITLE:
-		case Constants.PROP_SCHEMA_NAME:
+		case Constants.PROP_SCHEMA_NAME_HTTP:
+		case Constants.PROP_SCHEMA_NAME_HTTPS:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
@@ -508,11 +515,6 @@ public class Configuration {
 			break;
 		case Constants.PROP_DCTERMS_ABSTRACT:
 		case Constants.PROP_DC_ABSTRACT:
-		case Constants.PROP_DCTERMS_DESCRIPTION:
-		case Constants.PROP_DC_DESCRIPTION:
-		case Constants.PROP_SCHEMA_DESCRIPTION:
-		case Constants.PROP_RDFS_COMMENT:
-		case Constants.PROP_SKOS_NOTE:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
@@ -524,6 +526,24 @@ public class Configuration {
 				logger.error("Error while getting ontology abstract. No literal provided");
 			}
 			break;
+		case Constants.PROP_DCTERMS_DESCRIPTION:
+		case Constants.PROP_DC_DESCRIPTION:
+		case Constants.PROP_SCHEMA_DESCRIPTION_HTTP:
+		case Constants.PROP_SCHEMA_DESCRIPTION_HTTPS:
+		case Constants.PROP_RDFS_COMMENT:
+		case Constants.PROP_SKOS_NOTE:
+			try {
+				valueLanguage = a.getValue().asLiteral().get().getLang();
+				value = a.getValue().asLiteral().get().getLiteral();
+				if (this.currentLanguage.equals(valueLanguage)
+						|| (mainOntologyMetadata.getDescription() == null
+						||	mainOntologyMetadata.getDescription().isEmpty())) {
+					mainOntologyMetadata.setDescription(value);
+				}
+			} catch (Exception e) {
+				logger.error("Error while getting ontology description. No literal provided");
+			}
+			break;
 		case Constants.PROP_DCTERMS_REPLACES:
 		case Constants.PROP_DC_REPLACES:
 		case Constants.PROP_PROV_WAS_REVISION_OF:
@@ -533,7 +553,8 @@ public class Configuration {
 			mainOntologyMetadata.setPreviousVersion(value);
 			break;
 		case Constants.PROP_OWL_VERSION_INFO:
-		case Constants.PROP_SCHEMA_SCHEMA_VERSION:
+		case Constants.PROP_SCHEMA_SCHEMA_VERSION_HTTP:
+		case Constants.PROP_SCHEMA_SCHEMA_VERSION_HTTPS:
 			try {
 				value = a.getValue().asLiteral().get().getLiteral();
 				mainOntologyMetadata.setRevision(value);
@@ -551,7 +572,8 @@ public class Configuration {
 			break;
 		case Constants.PROP_DCTERMS_LICENSE:
 		case Constants.PROP_DC_RIGHTS:
-		case Constants.PROP_SCHEMA_LICENSE:
+		case Constants.PROP_SCHEMA_LICENSE_HTTP:
+		case Constants.PROP_SCHEMA_LICENSE_HTTPS:
 		case Constants.PROP_CC_LICENSE:
 			try {
 				value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
@@ -569,16 +591,19 @@ public class Configuration {
 			break;
 		case Constants.PROP_DC_CONTRIBUTOR:
 		case Constants.PROP_DCTERMS_CONTRIBUTOR:
-		case Constants.PROP_SCHEMA_CONTRIBUTOR:
+		case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTP:
+		case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTPS:
 		case Constants.PROP_PAV_CONTRIBUTED_BY:
 		case Constants.PROP_DC_CREATOR:
 		case Constants.PROP_DCTERMS_CREATOR:
-		case Constants.PROP_SCHEMA_CREATOR:
+		case Constants.PROP_SCHEMA_CREATOR_HTTP:
+		case Constants.PROP_SCHEMA_CREATOR_HTTPS:
 		case Constants.PROP_PAV_CREATED_BY:
 		case Constants.PROP_PROV_ATTRIBUTED_TO:
 		case Constants.PROP_DC_PUBLISHER:
 		case Constants.PROP_DCTERMS_PUBLISHER:
-		case Constants.PROP_SCHEMA_PUBLISHER:
+		case Constants.PROP_SCHEMA_PUBLISHER_HTTP:
+		case Constants.PROP_SCHEMA_PUBLISHER_HTTPS:
 			try {
 				Agent ag = new Agent();
 				if (a.getValue().isLiteral()) {
@@ -607,7 +632,8 @@ public class Configuration {
 				switch (propertyName) {
 				case Constants.PROP_DC_CONTRIBUTOR:
 				case Constants.PROP_DCTERMS_CONTRIBUTOR:
-				case Constants.PROP_SCHEMA_CONTRIBUTOR:
+				case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTP:
+				case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTPS:
 				case Constants.PROP_PAV_CONTRIBUTED_BY:
 					mainOntologyMetadata.getContributors().add(ag);
 					break;
@@ -615,7 +641,8 @@ public class Configuration {
 				case Constants.PROP_DCTERMS_CREATOR:
 				case Constants.PROP_PAV_CREATED_BY:
 				case Constants.PROP_PROV_ATTRIBUTED_TO:
-				case Constants.PROP_SCHEMA_CREATOR:
+				case Constants.PROP_SCHEMA_CREATOR_HTTP:
+				case Constants.PROP_SCHEMA_CREATOR_HTTPS:
 					mainOntologyMetadata.getCreators().add(ag);
 					break;
 				default:
@@ -627,26 +654,28 @@ public class Configuration {
 			}
 			break;
 		case Constants.PROP_DCTERMS_CREATED:
-		case Constants.PROP_SCHEMA_DATE_CREATED:
+		case Constants.PROP_SCHEMA_DATE_CREATED_HTTP:
+		case Constants.PROP_SCHEMA_DATE_CREATED_HTTPS:
 		case Constants.PROP_PROV_GENERATED_AT_TIME:
 		case Constants.PROP_PAV_CREATED_ON:
-			if (mainOntologyMetadata.getReleaseDate() == null || "".equals(mainOntologyMetadata.getReleaseDate())) {
-				value = a.getValue().asLiteral().get().getLiteral();
-				mainOntologyMetadata.setReleaseDate(value);
-			}
+			value = a.getValue().asLiteral().get().getLiteral();
+			mainOntologyMetadata.setCreationDate(value);
 			break;
 		case Constants.PROP_DCTERMS_MODIFIED:
-		case Constants.PROP_SCHEMA_DATE_MODIFIED:
+		case Constants.PROP_SCHEMA_DATE_MODIFIED_HTTP:
+		case Constants.PROP_SCHEMA_DATE_MODIFIED_HTTPS:
 			value = a.getValue().asLiteral().get().getLiteral();
-			mainOntologyMetadata.setReleaseDate(value);
+			mainOntologyMetadata.setModifiedDate(value);
 			break;
-		case Constants.PROP_SCHEMA_DATE_ISSUED:
+		case Constants.PROP_SCHEMA_DATE_ISSUED_HTTP:
+		case Constants.PROP_SCHEMA_DATE_ISSUED_HTTPS:
 		case Constants.PROP_DCTERMS_ISSUED:
 			value = a.getValue().asLiteral().get().getLiteral();
 			mainOntologyMetadata.setIssuedDate(value);
 			break;
 		case Constants.PROP_DCTERMS_BIBLIOGRAPHIC_CIT:
-		case Constants.PROP_SCHEMA_CITATION:
+		case Constants.PROP_SCHEMA_CITATION_HTTP:
+		case Constants.PROP_SCHEMA_CITATION_HTTPS:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setCiteAs(value);
 			break;
@@ -676,12 +705,20 @@ public class Configuration {
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setIncompatibleWith(value);
 			break;
-		case Constants.PROP_SCHEMA_IMAGE:
+		case Constants.PROP_SCHEMA_IMAGE_HTTP:
+		case Constants.PROP_SCHEMA_IMAGE_HTTPS:
 		case Constants.PROP_FOAF_IMAGE:
 		case Constants.PROP_FOAF_DEPICTION:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.addImage(value);
 			break;
+		case Constants.PROP_VOAF_EXTENDS:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			Ontology ont = new Ontology();
+			ont.setNamespaceURI(value);
+			ont.setName(value);
+			mainOntologyMetadata.getExtendedOntologies().add(ont);
+			//mainOntologyMetadata.setExtendedOntologies();
 		}
 	}
 
@@ -698,13 +735,15 @@ public class Configuration {
 //		System.out.println(propertyName);
 		switch (propertyName) {
 			case Constants.PROP_RDFS_LABEL:
-			case Constants.PROP_SCHEMA_NAME:
+			case Constants.PROP_SCHEMA_NAME_HTTP:
+			case Constants.PROP_SCHEMA_NAME_HTTPS:
 			case Constants.PROP_VCARD_FN:
 			case Constants.PROP_FOAF_NAME:
 			case Constants.PROP_VCARD_FN_OLD:
 				ag.setName(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
 				break;
-			case Constants.PROP_SCHEMA_GIVEN_NAME:
+			case Constants.PROP_SCHEMA_GIVEN_NAME_HTTP:
+			case Constants.PROP_SCHEMA_GIVEN_NAME_HTTPS:
 			case Constants.PROP_VCARD_GIVEN_NAME:
 			case Constants.PROP_VCARD_GIVEN_OLD:
 			case Constants.PROP_FOAF_GIVEN_NAME:
@@ -717,7 +756,8 @@ public class Configuration {
 					}
 				}
 				break;
-			case Constants.PROP_SCHEMA_FAMILY_NAME:
+			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTP:
+			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTPS:
 			case Constants.PROP_VCARD_FAMILY_NAME:
 			case Constants.PROP_VCARD_FAMILY_OLD:
 			case Constants.PROP_FOAF_FAMILY_NAME:
@@ -730,19 +770,22 @@ public class Configuration {
 					}
 				}
 				break;
-			case Constants.PROP_SCHEMA_URL:
+			case Constants.PROP_SCHEMA_URL_HTTP:
+			case Constants.PROP_SCHEMA_URL_HTTPS:
 			case Constants.PROP_FOAF_HOME_PAGE:
 			case Constants.PROP_VCARD_HAS_URL:
 			case Constants.PROP_VCARD_URL:
 				ag.setURL(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
 				break;
-			case Constants.PROP_SCHEMA_EMAIL:
+			case Constants.PROP_SCHEMA_EMAIL_HTTP:
+			case Constants.PROP_SCHEMA_EMAIL_HTTPS:
 			case Constants.PROP_FOAF_MBOX:
 			case Constants.PROP_VCARD_EMAIL:
 			case Constants.PROP_VCARD_EMAIL_OLD:
 				ag.setEmail(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
 				break;
-			case Constants.PROP_SCHEMA_AFFILIATION:
+			case Constants.PROP_SCHEMA_AFFILIATION_HTTP:
+			case Constants.PROP_SCHEMA_AFFILIATION_HTTPS:
 			case Constants.PROP_ORG_MEMBER_OF:
 				if (ann.getValue().isLiteral()) {
 					String literalValue = ann.getValue().asLiteral().get().getLiteral();

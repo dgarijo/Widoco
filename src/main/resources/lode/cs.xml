@@ -86,4 +86,5 @@
     <domainIncludes>domain includes</domainIncludes>
     <rangeIncludes>range includes</rangeIncludes>
     <usesRule>uses rule</usesRule>
+    <editorialNote>redakční poznámka</editorialNote>
 </labels>
