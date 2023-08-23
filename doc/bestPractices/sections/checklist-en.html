@@ -17,12 +17,30 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespaceUri">vann:preferredNamespaceUri</a> <strong>(PREFERRED)</strong></li>
 </ul>
 
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	vann:preferredNamespaceUri &lt;https://w3id.org/example#&gt; .
+</pre>
+
 <h4 class="list" id="prefix">Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
-<p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone to refer to it in the same way.</p>
+<p>Preferred prefix used to refer to the ontology. This is important to let potential reusers know how you expect your ontology to be abbreviated. You want everyone to refer to it in the same way. It's also recommended to register your prefix at the <a href="http://prefix.cc">http://prefix.cc</a> service, so other KG engineers are able to find the URI of your ontology.</p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/vocab/vann/preferredNamespacePrefix">vann:preferredNamespacePrefix</a> <strong>(PREFERRED)</strong></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	vann:preferredNamespacePrefix "ex" .
+</pre>
 
 <h3 id="goals" class="list">Vocabulary goals and description</h3>
 <p>Once your vocabulary can be properly identified, it is important to describe what it does without forcing users to explore it thoroughly. For this purpose, the following properties are recommended:</p>
@@ -36,30 +54,67 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 	<li><a target="_blank" href="http://schema.org/alternateName">schema:alternateName</a></li>
 </ul>
 
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	rdfs:label "Example"@en .
+</pre>
+
 <h4 class="list" id="title">Title [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>If you were writing a paper describing your ontology, what would the title be?</p>
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/title">dcterms:title</a> <strong>(PREFERRED)</strong></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/title">dc:title</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/title">dct:title</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/title">dce:title</a></li>
 	<li><a target="_blank" href="http://schema.org/name">schema:name</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	dct:title "The example ontology"@en .
+</pre>
+
 <h4 class="list" id="description">Description [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>A small paragraph indicating what the ontology does and why should some one use it</p>
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/description">dcterms:description</a> <strong>(PREFERRED)</strong></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:description</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/description">dct:description</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dce:description</a></li>
 	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
 	<li><a target="_blank" href="http://schema.org/description">schema:description</a></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#note">skos:note</a></li>
 </ul>
 
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	dct:description "The Example ontology is used to provide an example for ontology annotations in OWL."@en .
+</pre>
+
 <h4 class="list" id="abs">Abstract [<em class="rfc2119" title="RECOMMENDED">OPTIONAL</em>]</h4>
 <p>Similar to a description, but with a little bit more background and an explanation about the resued/extended vocabularies, context and applications using this ontology. It can be considered as the abstract of the paper describing you ontology.</p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/abstract">dcterms:abstract</a> <strong>(PREFERRED)</strong></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dc:abstract</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/abstract">dct:abstract</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/description">dce:abstract</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	dct:abstract "The abstract should explain a little more about the scope and goals of the ontology."@en .
+</pre>
 
 <h4 class="list" id="status">Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -68,7 +123,18 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 
 <ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/ontology/bibo/status">bibo:status</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="https://w3id.org/mod#status">mod:status</a></li>
 </ul>
+Note that the range of bibo:status is a "bibo:DocumentStatus" instance. Common status include: bibo:status/accepted, bibo:status/draft, bibo:status/published, bibo:status/rejected and bibo:status/peerReviewed. For more information, please see the <a href="http://purl.org/ontology/bibo/">bibo vocabulary</a>. In MOD, the status is a string.
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix bibo: &lt;http://purl.org/ontology/bibo/&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	bibo:status &lt;http://purl.org/ontology/bibo/status/accepted&gt; .
+</pre>
 
 <h3 id="version" class="list">Vocabulary version</h3>
 <p>Your vocabulary may evolve and go through several releases. Knowing which version of the vocabulary is the one being operated with may help debugging and solving compatibility issues. </p>
@@ -80,16 +146,34 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionIRI">owl:versionIRI</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
+<h5>Example:</h5>
+
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+&lt;https://w3id.org/example> rdf:type owl:Ontology ;
+	owl:versionIRI &lt;https://w3id.org/example/1.0.1&gt; .
+</pre>
 
 <h4 class="list" id="versionInfo">Version info [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
-Details about the version being handled. We recommend to include, for example, the version number of the ontology (e.g., 1.0.1).
+Details about the version being handled. We recommend to include the version number of the ontology (e.g., 1.0.1), if possible using <a href="https://semver.org/">semantic versioning</a>.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#versionInfo">owl:versionInfo</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/pav/version">pav:version</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/hasVersion">dct:hasVersion</a></li>
 	<li><a target="_blank" href="http://schema.org/schemaVersion">schema:schemaVersion</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	owl:versionInfo "0.0.1" .
+</pre>
 
 <h4 class="list" id="backwardCompatibility">Backward compatibility [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -97,8 +181,17 @@ Property useful to determine whether this version of the vocabulary is compatibl
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#backwardCompatibleWith">owl:backwardCompatibleWith</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#backwardCompatibleWith">owl:backwardCompatibleWith</a> <strong>(PREFERRED)</strong></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	owl:versionIRI &lt;https://w3id.org/example/1.0.1&gt; .
+	owl:backwardCompatibleWith &lt;https://w3id.org/example/1.0.0&gt .
+</pre>
 
 <h4 class="list" id="incompatibility">Incompatibility [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -106,8 +199,17 @@ Property useful to let a potential reuser that this version of the vocabulary is
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#incompatibleWith">owl:incompatibleWith</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#incompatibleWith">owl:incompatibleWith</a> <strong>(PREFERRED)</strong></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	owl:versionIRI &lt;https://w3id.org/example/1.0.0&gt; .
+	owl:incompatibleWith &lt;https://w3id.org/example/0.0.1&gt .
+</pre>
 
 <h3 id="prov" class="list">Vocabulary provenance</h3>
 <p>
@@ -120,11 +222,20 @@ Adding a link to a previous version helps to see how the vocabulary has changed 
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#priorVersion">owl:priorVersion</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#priorVersion">owl:priorVersion</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://purl.org/pav/previousVersion">pav:previousVersion</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/terms/replaces">dcterms:replaces</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/replaces">dct:replaces</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#wasRevisionOf">prov:wasRevisionOf</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	owl:versionIRI &lt;https://w3id.org/example/1.0.1&gt; .
+	owl:priorVersion &lt;https://w3id.org/example/1.0.0&gt .
+</pre>
 
 <h4 class="list" id="creationDate">Creation date [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
@@ -132,11 +243,21 @@ Date when the vocabulary was created. There are different ways in which the date
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/created">dcterms:created</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/created">dct:created</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/dateCreated">schema:dateCreated</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#generatedAtTime">prov:generatedAtTime</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/createdOn">pav:createdOn</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	dct:created "2021-01-01"^^xsd:date  .
+</pre>
 
 <h4 class="list" id="modificationDate">Modification date [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -144,9 +265,20 @@ Date when your vocabulary was modified. If you review several times a vocabulary
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/modified">dcterms:modified</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/modified">dct:modified</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/dateModified">schema:dateModified</a></li>
+	<li><a target="_blank" href="http://purl.org/pav/lastUpdatedOn">pav:lastUpdatedOn</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	dct:modified "2021-01-02"^^xsd:date  .
+</pre>
 
 <h4 class="list" id="issuedDate">Issued date [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -154,19 +286,41 @@ Date of formal issuance, like publication. It may be useful to distinguish betwe
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/issued">dcterms:issued</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/issued">dct:issued</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/dateIssued">schema:dateIssued</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
+	dct:created "2021-01-01"^^xsd:date ; .
+</pre>
 
 <h4 class="list" id="source">Source [<em class="rfc2119" title="OPTIONAL">OPTIONAl</em>]</h4>
 <p>Property indicating where the terms of your vocabulary come from. For example, if your vocabulary implements an existing non-RDF standard, or if there is an active discussion of the terms in a separate collaborative wiki, you may want to add a pointer to them in your vocabulary.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/source">dc:source</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dcterms:source</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/source">dct:source</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dce:source</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#hadPrimarySource">prov:hadPrimarySource</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2007/05/powder-s#describedBy">wdrs:describedBy</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;http://def.isotc211.org/iso19108/2006/TemporalObjects&gt; a owl:Ontology ;
+    rdfs:label "ISO 19108:2006 Temporal Objects" ;
+    dct:source &lt;http://standards.iso.org/iso/19108/ed-1/en/&gt; .
+</pre>
 
 <h4 class="list" id="extended">Ontology extensions [<em class="rfc2119" title="OPTIONAL">OPTIONAl</em>]</h4>
 <p>Property indicating the ontologies and vocabularies extended in this ontology.
@@ -175,6 +329,15 @@ Date of formal issuance, like publication. It may be useful to distinguish betwe
 <ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/vocommons/voaf#extends">voaf:extends</a> <strong>(PREFERRED)</strong></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix voaf: &lt;http://purl.org/vocommons/voaf#&gt; .
+&lt;http://environment.data.gov.au/def/op&gt; owl:Ontology ;
+	voaf:extends &lt;http://qudt.org/schema/qudt&gt; .
+</pre>
 
 <h3 id="credit" class="list">Vocabulary attribution</h3>
 A key aspect of the medatata should specify the roles of the scientists that have participated in its creation. Having this metadata can facilitate other scientists to provide the approapriate credit to the contributors of the vocabulary.
@@ -185,12 +348,46 @@ People who created the vocabulary. Adding this metadata property is critical for
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/creator">dcterms:creator</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/creator">dc:creator</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/creator">dct:creator</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/creator">dce:creator</a></li>
 	<li><a target="_blank" href="http://schema.org/creator">schema:creator</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/createdBy">pav:createdBy</a></li>
 	<li><a target="_blank" href="http://www.w3.org/ns/prov#wasAttributedTo">prov:wasAttributedTo</a></li>
 </ul>
+
+<h5>Example 1:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://saref.etsi.org/saref4wear/&gt; a owl:Ontology ;
+    dct:created "2019-01-01"^^xsd:date ;
+    dct:creator &lt;http://www.garcia-castro.com/foaf.rdf#me&gt;,
+		&lt;https://www.linkedin.com/in/maurodragoni/MauroDragoni&gt .
+</pre>
+Many ontologies declare authors as a string, which is technically incorrect. If you want to add additional information about the authors in an ontology,
+you may do so by adding them as individuals (or as blank nodes). The example below shows an example:
+
+<h5>Example 2:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix org: &lt;http://www.w3.org/ns/org#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://w3id.org/ecfo&gt; rdf:type owl:Ontology ;
+dct:creator &lt;https://orcid.org/0000-0003-0454-7145&gt; ;
+
+&lt;https://orcid.org/0000-0003-0454-7145&gt; foaf:name "Daniel Garijo"@en ;
+	org:memberOf &lt;https://www.upm.es#this&gt; .
+
+&lt;https://www.upm.es#this&gt; rdf:type owl:NamedIndividual ,
+                                   foaf:Organization ;
+                          foaf:homepage "https://www.upm.es" ;
+                          foaf:name "Universidad Politécnica de Madrid" .
+</pre>
 
 <h4 class="list" id="contributors">Contributors [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
@@ -198,11 +395,22 @@ People who contributed to the development of the vocabulary. Even if contributor
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/contributor">dcterms:contributor</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/contributor">dc:contributor</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/contributor">dct:contributor</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/contributor">dce:contributor</a></li>
 	<li><a target="_blank" href="http://schema.org/contributor">schema:contributor</a></li>
 	<li><a target="_blank" href="http://purl.org/pav/contributedBy">pav:contributedBy</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;http://cedric.cnam.fr/isid/ontologies/OntoSemStats.owl#&gt; a owl:Ontology ;
+    dct:contributor &lt;http://cedric.cnam.fr/~hamdif/&gt;,
+		&lt;http://cedric.cnam.fr/~sisaid/&gt; .
+</pre>
 
 <h4 class="list" id="publisher">Publisher [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -210,10 +418,20 @@ Organization responsible for publishing the vocabulary. This property is optiona
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">dcterms:publisher</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/publisher">dc:publisher</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/publisher">dct:publisher</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/publisher">dce:publisher</a></li>
 	<li><a target="_blank" href="http://schema.org/publisher">schema:publisher</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://w3id.org/fr/def/core#&gt; a owl:Ontology ;
+    dct:publisher &lt;http://www.oeg-upm.net/; .
+</pre>
 
 
 <h3 id="cite" class="list">Vocabulary citation</h3>
@@ -225,8 +443,18 @@ Digital Object Identifier associated to the vocabulary.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/ontology/bibo/doi">bibo:doi</a></li>
+	<li><a target="_blank" href="http://purl.org/ontology/bibo/doi">bibo:doi</a> <strong>(PREFERRED)</strong></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix bibo: &lt;http://purl.org/ontology/bibo/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;http://taxref.mnhn.fr/lod/taxref-ld&gt; a owl:Ontology ;
+    bibo:doi "10.5281/zenodo.6940891" .
+</pre>
 
 <h4 class="list" id="biblio">Bibliographic citation [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -234,9 +462,17 @@ Property indicating the text with the citation itself.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/terms/bibliographicCitation">dcterms:bibliographicCitation</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/bibliographicCitation">dct:bibliographicCitation</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/citation">schema:citation</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+&lt;http://www.w3id.org/urban-iot/core&gt; a owl:Ontology ;
+    dct:bibliographicCitation "Comune di Milano. Urban IoT Ontologies - Core Module (v1.0.1). http://www.w3id.org/urban-iot/core" ; .
+</pre>
 
 
 <h3 id="lic" class="list">Vocabulary license [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
@@ -245,13 +481,19 @@ Adding a license to your vocabulary is very important, since it tells potential 
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/rights">dc:rights</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/terms/license">dcterms:license</a></li>
+	<li><a target="_blank" href="http://purl.org/dc/terms/license">dct:license</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/rights">dce:rights</a></li>
 	<li><a target="_blank" href="http://schema.org/license">schema:license</a></li>
 	<li><a target="_blank" href="http://creativecommons.org/ns#">cc:license</a></li>
 </ul>
 
-<!-- I haven't found much info about xhv:license-->
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+&lt;http://www.w3id.org/urban-iot/core&gt; a owl:Ontology ;
+    dct:license &lt;https://creativecommons.org/licenses/by/4.0/&gt; .
+</pre>
 
 
 <h3 id="image" class="list">Vocabulary visualization</h3>
@@ -263,9 +505,17 @@ A logo that represents the vocabulary and helps people quickly identify it.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://xmlns.com/foaf/0.1/logo">foaf:logo</a></li>
+	<li><a target="_blank" href="http://xmlns.com/foaf/0.1/logo">foaf:logo</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://schema.org/logo">schema:logo</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+&lt;https://w3id.org/roar&gt; a owl:Ontology ;
+    foaf:logo &lt;https://www.leonvanwissen.nl/vocab/roar/docs/resources/roar-logo.png#&gt; .
+</pre>
 
 <h4 class="list" id="diagram">Vocabulary diagram [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
@@ -273,9 +523,17 @@ A visualization of the vocabulary.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="http://schema.org/image">schema:image</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://xmlns.com/foaf/0.1/depiction">foaf:depiction</a></li>
-	<li><a target="_blank" href="http://schema.org/image">schema:image</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+&lt;http://ns.softwiki.de/req/2/&gt; a owl:Ontology ;
+    foaf:depiction &lt;http://ns.softwiki.de/req/2/img/sworeV2.png#&gt; .
+</pre>
 
 
 <h3 id="similar" class="list">Similar resources (See also) [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
@@ -287,6 +545,14 @@ Property used to add pointers to similar resources. It may be helpful for the re
 	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#seeAlso">rdfs:seeAlso</a></li>
 </ul>
 
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+&lt;http://vocabularies.wikipathways.org/wpTypes#&gt; a owl:Ontology ;
+    rdfs:seeAlso &lt;http://www.wikipathways.org/&gt; .
+</pre>
+
 
 <h2 id="desc-term" class="list">Term checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 These metadata terms are targeted towards describing the classes, properties and data properties of the ontology. Adding them as part of the ontology is crucial for potential reusers:
@@ -296,10 +562,19 @@ These metadata terms are targeted towards describing the classes, properties and
 A human readable label of the term.
 </p>
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></li>
 	<li><a target="_blank" href="http://purl.obolibrary.org/obo/IAO_0000118">obo:IAO_0000118</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix : &lt;https://w3id.org/example#&gt; .
+:Researcher rdf:type owl:Class ;
+	rdfs:label "Researcher"@en .
+</pre>
 
 
 <h3 id="def" class="list">Term definition [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
@@ -308,9 +583,18 @@ Definition of the term. We recommend it to be as precise as possible, in order t
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#comment">rdfs:comment</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix : &lt;https://w3id.org/example#&gt; .
+:Researcher rdf:type owl:Class ;
+	rdfs:comment"A researcher is a person who publishes scientific papers, writes research proposals and mentors students"@en .
+</pre>
 
 <h3 id="osource" class="list">Term original source [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h3>
 <p>
@@ -318,9 +602,18 @@ Source used to define the ontology term. This property is also used for crawlers
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#isDefinedby">rdfs:isDefinedBy</a></li>
-	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dc:source</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#isDefinedby">rdfs:isDefinedBy</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://purl.org/dc/elements/1.1/source">dce:source</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix : &lt;https://w3id.org/example#&gt; .
+:Researcher rdf:type owl:Class ;
+	rdfs:isDefinedBy &lt;https://w3id.org/example#&gt; .
+</pre>
 
 <h3 id="example" class="list">Term example [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
 <p>
@@ -328,9 +621,18 @@ It is always helpful to add examples on the intended usages of the ontology. Poi
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://purl.org/vocab/vann/example">vann:example</a></li>
+	<li><a target="_blank" href="http://purl.org/vocab/vann/example">vann:example</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://www.w3.org/2004/02/skos/core#example">skos:example</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .
+@prefix : &lt;https://w3id.org/example#&gt; .
+:Researcher rdf:type owl:Class ;
+	vann:example "Daniel Garijo"@en  .
+</pre>
 
 <h3 id="use" class="list">Term usability</h3>
 <p>
@@ -343,18 +645,35 @@ Boolean property that indicates whether a term has been deprecated or not.
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#deprecated">owl:deprecated </a></li>
+	<li><a target="_blank" href="http://www.w3.org/2002/07/owl#deprecated">owl:deprecated</a> <strong>(PREFERRED)</strong></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix : &lt;https://w3id.org/example#&gt; .
+:Researcher rdf:type owl:Class ;
+	vann:example "Daniel Garijo"@en  .
+</pre>
 
 <h4 class="list" id="status1">Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-Property indicating the usage status of the term. For example, whether the term is mature enough, whether it is has been deprecated, curated, etc. Note that some of the properties proposed below, such as obo:IAO_0000114, have as range a set of fixed values.
+Property indicating the usage status of the term. For example, whether the term is mature enough, whether it has been deprecated, curated, etc. Note that some of the properties proposed below, such as obo:IAO_0000114, have as range a set of fixed values. The <a href="https://github.com/UKGovLD/registry-core/wiki/Principles-and-concepts#status-and-life-cycle">registry vocabulary</a> proposes a hierarchy of status that may be used to represent terms as well (reg:statusAccepted, reg:statusValid, reg:statusDeprecated, etc.). 
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.w3.org/2003/06/sw-vocab-status/ns#">sw:term_status</a></li>
+	<li><a target="_blank" href="http://www.w3.org/2003/06/sw-vocab-status/ns#">sw:term_status</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="http://purl.obolibrary.org/obo/IAO_0000114">obo:IAO_0000114</a></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix sw: &lt;http://www.w3.org/2003/06/sw-vocab-status/ns#&gt; .
+@prefix : &lt;https://w3id.org/example#&gt; .
+:Researcher rdf:type owl:Class ;
+	sw:term_status &lt;http://purl.org/linked-data/registry#statusValid&gt;  .
+</pre>
 
 <h3 id="rationale" class="list">Term rationale [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
 <p>
@@ -362,5 +681,14 @@ A sentence or paragraph explaining why the term was added to the vocabulary. Thi
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
-	<li><a target="_blank" href="http://www.linkedmodel.org/schema/vaem#rationale">vaem:rationale</a></li>
+	<li><a target="_blank" href="http://www.linkedmodel.org/schema/vaem#rationale">vaem:rationale</a> <strong>(PREFERRED)</strong></li>
 </ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix vaem: &lt;http://www.linkedmodel.org/schema/vaem#&gt; .
+@prefix : &lt;https://w3id.org/example#&gt; .
+:Researcher rdf:type owl:Class ;
+	vaem:rationale "The concept Researcher was added to the ontology to represent those authors of scientific publications that belong to a public institution."@en .
+</pre>
