@@ -486,21 +486,31 @@ public class CreateResources {
 		textProperties += Constants.PREVIOUS_VERSION + "=" + conf.getMainOntology().getPreviousVersion() + "\n";
 		textProperties += Constants.DATE_CREATED + "=" + conf.getMainOntology().getCreationDate() + "\n";
 		textProperties += Constants.DATE_MODIFIED + "=" + conf.getMainOntology().getModifiedDate() + "\n";
-		textProperties += Constants.ONTOLOGY_REVISION + "=" + conf.getMainOntology().getRevision() + "\n";
+		textProperties += Constants.ONT_REVISION_NUMBER + "=" + conf.getMainOntology().getRevision() + "\n";
 		textProperties += Constants.LICENSE_URI + "=" + conf.getMainOntology().getLicense().getUrl() + "\n";
 		textProperties += Constants.LICENSE_NAME + "=" + conf.getMainOntology().getLicense().getName() + "\n";
 		textProperties += Constants.LICENSE_ICON_URL + "=" + conf.getMainOntology().getLicense().getIcon() + "\n";
 		textProperties += Constants.CITE_AS + "=" + conf.getMainOntology().getCiteAs() + "\n";
 		textProperties += Constants.DOI + "=" + conf.getMainOntology().getDoi() + "\n";
 		textProperties += Constants.STATUS + "=" + conf.getMainOntology().getStatus() + "\n";
+		textProperties += Constants.LOGO + "=" + conf.getMainOntology().getLogo() + "\n";
+		textProperties += Constants.DESCRIPTION + "=" + conf.getMainOntology().getDescription() + "\n";
 		textProperties += Constants.COMPATIBLE + "=" + conf.getMainOntology().getBackwardsCompatibleWith() + "\n";
-		if (conf.getMainOntology().getPublisher() != null) {
-			textProperties += Constants.PUBLISHER + "=" + conf.getMainOntology().getPublisher().getName() + "\n";
-			textProperties += Constants.PUBLISHER_URI + "=" + conf.getMainOntology().getPublisher().getURL() + "\n";
-			textProperties += Constants.PUBLISHER_INSTITUTION + "="
-					+ conf.getMainOntology().getPublisher().getInstitutionName() + "\n";
-			textProperties += Constants.PUBLISHER_INSTITUTION_URI + "="
-					+ conf.getMainOntology().getPublisher().getInstitutionURL() + "\n";
+		if (conf.getMainOntology().getPublisher() != null ) {
+			Agent p = conf.getMainOntology().getPublisher();
+			String publisher = "", publisherURI="", publisherInstitution="", publisherInstitutionURI="";
+			if (p.getName() != null)
+				publisher = p.getName();
+			if (p.getURL() != null)
+				publisherURI = p.getURL();
+			if (p.getInstitutionName() != null)
+				publisherInstitution = p.getInstitutionName();
+			if (p.getInstitutionURL() != null)
+				publisherInstitutionURI += p.getInstitutionURL();
+			textProperties += Constants.PUBLISHER + "=" + publisher + "\n";
+			textProperties += Constants.PUBLISHER_URI + "=" + publisherURI + "\n";
+			textProperties += Constants.PUBLISHER_INSTITUTION + "=" + publisherInstitution + "\n";
+			textProperties += Constants.PUBLISHER_INSTITUTION_URI + "=" + publisherInstitutionURI + "\n";
 		}
 		String authors = "", authorURLs = "", authorInstitutions = "", authorInstitutionURLs = "";
 		ArrayList<Agent> ag = conf.getMainOntology().getCreators();
@@ -602,7 +612,7 @@ public class CreateResources {
 					importedURIs += o.getNamespaceURI();
 				importedURIs += ";";
 			}
-			// last agent: no ";"
+			// last onto: no ";"
 			if (imported.get(imported.size() - 1).getName() != null)
 				importedNames += imported.get(imported.size() - 1).getName();
 			if (imported.get(imported.size() - 1).getNamespaceURI() != null)
@@ -613,17 +623,42 @@ public class CreateResources {
 		// serializations
 		HashMap<String, String> serializations = conf.getMainOntology().getSerializations();
 		if (serializations.containsKey("RDF/XML")) {
-			textProperties += Constants.RDF + "=" + serializations.get("RDF/XML") + "\n";
+			textProperties += Constants.SERIALIZATION_RDF + "=" + serializations.get("RDF/XML") + "\n";
 		}
 		if (serializations.containsKey("TTL")) {
-			textProperties += Constants.TTL + "=" + serializations.get("TTL") + "\n";
+			textProperties += Constants.SERIALIZATION_TTL + "=" + serializations.get("TTL") + "\n";
 		}
 		if (serializations.containsKey("N-Triples")) {
-			textProperties += Constants.N3 + "=" + serializations.get("N-Triples") + "\n";
+			textProperties += Constants.SERIALIZATION_N3 + "=" + serializations.get("N-Triples") + "\n";
 		}
 		if (serializations.containsKey("JSON-LD")) {
-			textProperties += Constants.JSON + "=" + serializations.get("JSON-LD") + "\n";
+			textProperties += Constants.SERIALIZATION_JSON + "=" + serializations.get("JSON-LD") + "\n";
 		}
+		String images = "", sources = "", seeAlso = "";
+		ArrayList<String> imgs = conf.getMainOntology().getImages();
+		if (!imgs.isEmpty()){
+			for (int i = 0; i < imgs.size() - 1; i++) {
+				images += imgs.get(i) + ";";
+			}
+			images += imgs.get(imgs.size() - 1) ;
+		}
+		textProperties += Constants.IMAGES + "=" + images + "\n";
+		ArrayList<String> srcs = conf.getMainOntology().getSources();
+		if (!srcs.isEmpty()){
+			for (int i = 0; i < srcs.size() - 1; i++) {
+				sources += srcs.get(i) + ";";
+			}
+			sources += srcs.get(srcs.size() - 1) ;
+		}
+		textProperties += Constants.SOURCE + "=" + sources + "\n";
+		ArrayList<String> see = conf.getMainOntology().getSeeAlso();
+		if (!see.isEmpty()){
+			for (int i = 0; i < see.size() - 1; i++) {
+				seeAlso += see.get(i) + ";";
+			}
+			seeAlso += see.get(see.size() - 1) ;
+		}
+		textProperties += Constants.SEE_ALSO + "=" + seeAlso + "\n";
 		// copy the result into the file
 		Writer writer = null;
 		try {
@@ -638,6 +673,7 @@ public class CreateResources {
 				if (writer != null)
 					writer.close();
 			} catch (IOException ex) {
+				logger.warn("Could not close the properties file.");
 			}
 		}
 	}

@@ -149,6 +149,12 @@ public final class GuiStep2 extends javax.swing.JFrame {
 							case "images":
 								form = new EditProperty(gAux, conf, EditProperty.PropertyType.image);
 								break;
+							case "see also":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.seeAlso);
+								break;
+							case "sources":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.source);
+								break;
 						}
 						if (form != null) {
 							gAux.saveMetadata();
@@ -180,48 +186,63 @@ public final class GuiStep2 extends javax.swing.JFrame {
 	}
 
 	private void refreshTable() {
-		String authors = "", contributors = "", imported = "", extended = "", publisher = "", images ="";
+		StringBuilder authors = new StringBuilder();
+		StringBuilder contributors = new StringBuilder();
+		StringBuilder imported = new StringBuilder();
+		StringBuilder extended = new StringBuilder();
+		StringBuilder publisher = new StringBuilder();
+		StringBuilder images = new StringBuilder();
+		StringBuilder sources = new StringBuilder();
+		StringBuilder seeAlso = new StringBuilder();
 		for (Agent a : conf.getMainOntology().getCreators()) {
 			if (a.getName() == null || a.getName().equals("")) {
-				authors += "creator; ";
+				authors.append("creator; ");
 			} else {
-				authors += a.getName() + "; ";
+				authors.append(a.getName()).append("; ");
 			}
 		}
 		for (Agent a : conf.getMainOntology().getContributors()) {
 			if (a.getName() == null || a.getName().equals("")) {
-				contributors += "contributor; ";
+				contributors.append("contributor; ");
 			} else {
-				contributors += a.getName() + "; ";
+				contributors.append(a.getName()).append("; ");
 			}
 		}
 		for (Ontology a : conf.getMainOntology().getImportedOntologies()) {
 			if (a.getName() == null || a.getName().equals("")) {
-				imported += "importedOnto; ";
+				imported.append("importedOnto; ");
 			} else {
-				imported += a.getName() + "; ";
+				imported.append(a.getName()).append("; ");
 			}
 		}
 		for (Ontology a : conf.getMainOntology().getExtendedOntologies()) {
 			if (a.getName() == null || a.getName().equals("")) {
-				extended += "extendedOnto; ";
+				extended.append("extendedOnto; ");
 			} else {
-				extended += a.getName() + "; ";
+				extended.append(a.getName()).append("; ");
 			}
 		}
 		Agent p = conf.getMainOntology().getPublisher();
 		if (p.getName() == null || p.getName().equals("")) {
 			if (p.getURL() != null) {
-				publisher += "publisherName ";
+				publisher.append("publisherName ");
 			}
 		} else {
-			publisher += p.getName();
+			publisher.append(p.getName());
 		}
 		for (String img: conf.getMainOntology().getImages()){
 			if(!img.equals("")){
-				images +=img + ";";
-			}else{
-				images +="image;";
+				images.append(img).append(";");
+			}
+		}
+		for (String source: conf.getMainOntology().getSources()){
+			if(!source.equals("")){
+				sources.append(source).append(";");
+			}
+		}
+		for (String see: conf.getMainOntology().getSeeAlso()){
+			if(!see.equals("")){
+				seeAlso.append(see).append(";");
 			}
 		}
 		tableProperties.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
@@ -237,18 +258,22 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				{ "latest version URI", conf.getMainOntology().getNamespaceURI() },
 				{ "previous version URI", conf.getMainOntology().getPreviousVersion() },
 				{ "ontology revision", conf.getMainOntology().getRevision() },
-				{ "authors", authors },
-				{ "contributors", contributors },
-				{ "publisher", publisher },
-				{ "imported ontologies", imported },
-				{ "extended ontologies", extended },
+				{ "authors", authors.toString()},
+				{ "contributors", contributors.toString()},
+				{ "publisher", publisher.toString() },
+				{ "imported ontologies", imported.toString()},
+				{ "extended ontologies", extended.toString()},
 				{ "license", conf.getMainOntology().getLicense().getUrl() },
 				{ "cite as", conf.getMainOntology().getCiteAs() },
 				{ "doi", conf.getMainOntology().getDoi() },
 				{ "status", conf.getMainOntology().getStatus() },
 				{ "backwards compatible with", conf.getMainOntology().getBackwardsCompatibleWith() },
                 { "incompatible with", conf.getMainOntology().getIncompatibleWith()},
-				{ "images", images }},
+				{ "images", images.toString()},
+				{ "logo", conf.getMainOntology().getLogo() },
+				{ "sources", sources.toString() },
+				{ "see also", seeAlso.toString() }
+				},
 				new String[] { "Property", "Value" }) {
 			Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
 			boolean[] canEdit = new boolean[] { false, true };
@@ -269,6 +294,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("extended")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("license")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("images")
+						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("see also")
+						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("source")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("imported")) {
 					return false;
 				}
@@ -343,6 +370,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
 					break;
 				case "incompatible with":
 					conf.getMainOntology().setIncompatibleWith(value);
+					break;
+				case "logo":
+					conf.getMainOntology().setLogo(value);
 					break;
 			}
 		}

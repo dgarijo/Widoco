@@ -76,9 +76,11 @@ public class Constants {
 	public static final String NS_ORG = "http://www.w3.org/ns/org#";
 	public static final String NS_MOD = "https://w3id.org/mod#";
 	public static final String NS_VOAF = "http://purl.org/vocommons/voaf#";
+	public static final String NS_WDRS = "http://www.w3.org/2007/05/powder-s#";
 
 	public static final String PROP_RDFS_LABEL = NS_RDFS + "label";
 	public static final String PROP_RDFS_COMMENT = NS_RDFS + "comment";
+	public static final String PROP_RDFS_SEE_ALSO = NS_RDFS + "seeAlso";
 
 	public static final String PROP_SCHEMA_NAME_HTTP = NS_SCHEMA_HTTP + "name";
 	public static final String PROP_SCHEMA_NAME_HTTPS = NS_SCHEMA_HTTPS + "name";
@@ -117,11 +119,13 @@ public class Constants {
 	public static final String PROP_SCHEMA_IMAGE_HTTPS = NS_SCHEMA_HTTPS + "image";
 	public static final String PROP_SCHEMA_DATE_ISSUED_HTTP = NS_SCHEMA_HTTP + "dateIssued";
 	public static final String PROP_SCHEMA_DATE_ISSUED_HTTPS = NS_SCHEMA_HTTPS + "dateIssued";
+	public static final String PROP_SCHEMA_LOGO_HTTP = NS_SCHEMA_HTTP + "logo";
+	public static final String PROP_SCHEMA_LOGO_HTTPS = NS_SCHEMA_HTTPS + "logo";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
 	public static final String PROP_OWL_BACKWARDS_COMPATIBLE = NS_OWL + "backwardCompatibleWith";
-        public static final String PROP_OWL_INCOMPATIBLE = NS_OWL + "incompatibleWith";
+    public static final String PROP_OWL_INCOMPATIBLE = NS_OWL + "incompatibleWith";
 
 	public static final String PROP_DC_TITLE = NS_DC + "title";
 	public static final String PROP_DC_RIGHTS = NS_DC + "rights";
@@ -131,6 +135,7 @@ public class Constants {
 	public static final String PROP_DC_REPLACES = NS_DC + "replaces";
 	public static final String PROP_DC_CONTRIBUTOR = NS_DC + "contributor";
 	public static final String PROP_DC_PUBLISHER = NS_DC + "publisher";
+	public static final String PROP_DC_SOURCE = NS_DC + "source";
 
 	public static final String PROP_DCTERMS_REPLACES = NS_DCTERMS + "replaces";
 	public static final String PROP_DCTERMS_DESCRIPTION = NS_DCTERMS + "description";
@@ -144,6 +149,8 @@ public class Constants {
 	public static final String PROP_DCTERMS_MODIFIED = NS_DCTERMS + "modified";
 	public static final String PROP_DCTERMS_ISSUED = NS_DCTERMS + "issued";
 	public static final String PROP_DCTERMS_BIBLIOGRAPHIC_CIT = NS_DCTERMS + "bibliographicCitation";
+	public static final String PROP_DCTERMS_HAS_VERSION = NS_DCTERMS + "hasVersion";
+	public static final String PROP_DCTERMS_SOURCE = NS_DCTERMS + "source";
 
 	public static final String PROP_BIBO_DOI = NS_BIBO + "doi";
 	public static final String PROP_BIBO_STATUS = NS_BIBO + "status";
@@ -151,6 +158,7 @@ public class Constants {
 	public static final String PROP_PROV_WAS_REVISION_OF = NS_PROV + "wasRevisionOf";
 	public static final String PROP_PROV_GENERATED_AT_TIME = NS_PROV + "generatedAtTime";
 	public static final String PROP_PROV_ATTRIBUTED_TO = NS_PROV + "wasAttributedTo";
+	public static final String PROP_PROV_HAD_PRIMARY_SOURCE = NS_PROV + "hadPrimarySource";
 
 	public static final String PROP_VANN_PREFIX = NS_VANN + "preferredNamespacePrefix";
 	public static final String PROP_VANN_URI = NS_VANN + "preferredNamespaceUri";
@@ -164,6 +172,8 @@ public class Constants {
 	// NS_PAV+"hasCurrentVersion";//we just extract the URI as the latest
 	public static final String PROP_PAV_PREVIOUS_VERSION = NS_PAV + "previousVersion";
 	public static final String PROP_PAV_CONTRIBUTED_BY = NS_PAV + "contributedBy";
+	public static final String PROP_PAV_VERSION = NS_PAV + "version";
+	public static final String PROP_PAV_LAST_UPDATED_ON = NS_PAV + "lastUpdatedOn";
 
 	public static final String PROP_CC_LICENSE = "http://creativecommons.org/ns#license";
 
@@ -184,17 +194,20 @@ public class Constants {
 	public static final String PROP_FOAF_FAMILY_NAME = NS_FOAF + "family_name";
 	public static final String PROP_FOAF_MBOX = NS_FOAF + "mbox";
 	public static final String PROP_FOAF_HOME_PAGE = NS_FOAF + "homepage";
+	public static final String PROP_FOAF_LOGO = NS_FOAF + "logo";
 	public static final String PROP_FOAF_IMAGE = NS_FOAF + "img";
 	public static final String PROP_FOAF_DEPICTION = NS_FOAF + "depiction";
 	public static final String PROP_ORG_MEMBER_OF = NS_ORG + "memberOf";
 	public static final String PROP_MOD_ACRONYM = NS_MOD + "acronym";
+	public static final String PROP_MOD_STATUS = NS_MOD + "status";
 	public static final String PROP_VOAF_EXTENDS = NS_VOAF + "extends";
+
+	public static final String PROP_WDRS_IS_DESCRIBED_BY = NS_WDRS + "describedBy";
 
 
 
 	// The following properties need additional support (future release)
 	// SEE_ALSO (NEEDED INTERFACE UPDATE)
-	// OWL:incompatibleWith
 	// foaf: logo schema:logo, foaf:depiction, schema:image
 	// issue date
 	// source for the vocab
@@ -204,42 +217,49 @@ public class Constants {
 	 */
 
 	public static final String ABSTRACT_SECTION_CONTENT = "abstract";
-	public static final String CONTEXT_URI = "contextURI";
-	public static final String ONT_TITLE = "ontologyTitle";
-	public static final String ONT_NAME = "ontologyName";
-	public static final String ONT_PREFIX = "ontologyPrefix";
-	public static final String ONT_NAMESPACE_URI = "ontologyNamespaceURI";
-	public static final String DATE_CREATED = "dateCreated";
-	public static final String DATE_MODIFIED = "dateModified";
-	public static final String THIS_VERSION_URI = "thisVersionURI";
-	public static final String LATEST_VERSION_URI = "latestVersionURI";
-	public static final String PREVIOUS_VERSION = "previousVersionURI";
-	public static final String ONTOLOGY_REVISION = "ontologyRevisionNumber";
 	public static final String AUTHORS = "authors";
 	public static final String AUTHORS_URI = "authorsURI";
 	public static final String AUTHORS_INSTITUTION = "authorsInstitution";
 	public static final String AUTHORS_INSTITUTION_URI = "authorsInstitutionURI";
+	public static final String CITE_AS = "citeAs";
+	public static final String CONTEXT_URI = "contextURI";
 	public static final String CONTRIBUTORS = "contributors";
 	public static final String CONTRIBUTORS_URI = "contributorsURI";
 	public static final String CONTRIBUTORS_INSTITUTION = "contributorsInstitution";
 	public static final String CONTRIBUTORS_INSTITUTION_URI = "contributorsInstitutionURI";
+	public static final String DATE_CREATED = "dateCreated";
+	public static final String DATE_MODIFIED = "dateModified";
+	public static final String DESCRIPTION = "description";
+	public static final String DOI = "DOI";
+	public static final String EXTENDED_ONTOLOGY_NAMES = "extendedOntologyNames";
+	public static final String EXTENDED_ONTOLOGY_URIS = "extendedOntologyURIs";
+	public static final String LATEST_VERSION_URI = "latestVersionURI";
+	public static final String LICENSE_ICON_URL = "licenseIconURL";
+	public static final String LICENSE_NAME = "licenseName";
+	public static final String LICENSE_URI = "licenseURI";
+	public static final String LOGO = "logo";
+	public static final String IMAGES = "images";
+	public static final String IMPORTED_ONTOLOGY_NAMES = "importedOntologyNames";
+	public static final String IMPORTED_ONTOLOGY_URIS = "importedOntologyURIs";
+	public static final String INCOMPATIBLE_WITH = "incompatibleWith";
+	public static final String ONT_NAME = "ontologyName";
+	public static final String ONT_NAMESPACE_URI = "ontologyNamespaceURI";
+	public static final String ONT_REVISION_NUMBER = "ontologyRevisionNumber";
+	public static final String ONT_TITLE = "ontologyTitle";
+	public static final String ONT_PREFIX = "ontologyPrefix";
+	public static final String THIS_VERSION_URI = "thisVersionURI";
+	public static final String PREVIOUS_VERSION = "previousVersionURI";
 	public static final String PUBLISHER = "publisher";
 	public static final String PUBLISHER_URI = "publisherURI";
 	public static final String PUBLISHER_INSTITUTION = "publisherInstitution";
 	public static final String PUBLISHER_INSTITUTION_URI = "publisherInstitutionURI";
-	public static final String IMPORTED_ONTOLOGY_NAMES = "importedOntologyNames";
-	public static final String IMPORTED_ONTOLOGY_URIS = "importedOntologyURIs";
-	public static final String EXTENDED_ONTOLOGY_NAMES = "extendedOntologyNames";
-	public static final String EXTENDED_ONTOLOGY_URIS = "extendedOntologyURIs";
-	public static final String LICENSE_NAME = "licenseName";
-	public static final String LICENSE_URI = "licenseURI";
-	public static final String LICENSE_ICON_URL = "licenseIconURL";
-	public static final String CITE_AS = "citeAs";
-	public static final String DOI = "DOI";
-	public static final String RDF = "RDFXMLSerialization";
-	public static final String TTL = "TurtleSerialization";
-	public static final String N3 = "N3Serialization";
-	public static final String JSON = "JSONLDSerialization";
+	public static final String SEE_ALSO = "seeAlso";
+	public static final String SOURCE = "source";
+	public static final String SERIALIZATION_N3 = "N3Serialization";
+	public static final String SERIALIZATION_JSON = "JSONLDSerialization";
+	public static final String SERIALIZATION_RDF = "RDFXMLSerialization";
+	public static final String SERIALIZATION_TTL = "TurtleSerialization";
+
 
 	/*
 	 * Property that will retrieve the status of the document from the property file
@@ -303,6 +323,10 @@ public class Constants {
 	public static final String LANG_COMPATIBLE = "compatible";
 	public static final String LANG_INCOMPATIBLE = "incompatible";
 	public static final String LANG_LEGEND = "legend";
+	public static final String LANG_SOURCES = "source";
+	public static final String LANG_SEE_ALSO = "seeAlso";
+	public static final String LANG_FUNDER = "funder";
+	public static final String LANG_FUNDING = "funding";
 
 	// labels for the changelog
 	public static final String LANG_CHANGELOG_HEAD = "changelogHead";
@@ -532,6 +556,15 @@ public class Constants {
 		extended += getOntologies(ontos);
 		extended = extended.replace("owl:imports", ""); // to remove the import annotation
 		return extended + "\n";
+	}
+
+	private static String getURLs(ArrayList<String> resources, String label) {
+		StringBuilder elem = new StringBuilder("<dt>" + label + "</dt>\n");
+		for (String e : resources) {
+			elem.append("<dd><a href=\"").append(e).append("\">").append(e).append("</a></dd>");
+		}
+		elem.append("\n");
+		return elem.toString() ;
 	}
 
 	// Removes '#' and last '/' to avoid namespace duplication.
@@ -885,6 +918,10 @@ public class Constants {
 		head += "</div>\n";
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))
 			head += "<h1>" + c.getMainOntology().getTitle() + "</h1>\n";
+		//logo setup
+		if (c.getMainOntology().getLogo() != null && !"".equals(c.getMainOntology().getLogo()))
+			head += "<img src=\""+c.getMainOntology().getLogo()+"\" width=\"50/\">\n";
+
 		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate()))
 			head += "<h2>" + l.getProperty(LANG_DATE) + " " + c.getMainOntology().getCreationDate() + "</h2>\n";
 
@@ -915,13 +952,16 @@ public class Constants {
 			head += getAuthors(c.getMainOntology().getCreators(), l) + "\n";
 		if (!c.getMainOntology().getContributors().isEmpty())
 			head += getContributors(c.getMainOntology().getContributors(), l) + "\n";
-		if (c.getMainOntology().getPublisher() != null) {
+		if (c.getMainOntology().getPublisher() != null)
 			head += getPublisher(c.getMainOntology().getPublisher(), l);
-		}
 		if (!c.getMainOntology().getImportedOntologies().isEmpty())
 			head += getImports(c.getMainOntology().getImportedOntologies(), l) + "\n";
 		if (!c.getMainOntology().getExtendedOntologies().isEmpty())
 			head += getExtends(c.getMainOntology().getExtendedOntologies(), l) + "\n";
+		if (!c.getMainOntology().getSources().isEmpty())
+			head += getURLs(c.getMainOntology().getSources(), l.getProperty(Constants.LANG_SOURCES)) + "\n";
+		if (!c.getMainOntology().getSeeAlso().isEmpty())
+			head += getURLs(c.getMainOntology().getSeeAlso(), l.getProperty(Constants.LANG_SEE_ALSO)) + "\n";
 
 		if (c.isDisplaySerializations()) {
 			HashMap<String, String> availableSerializations = c.getMainOntology().getSerializations();

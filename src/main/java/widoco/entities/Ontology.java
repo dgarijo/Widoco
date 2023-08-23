@@ -141,11 +141,20 @@ public class Ontology {
      */
     private String issuedDate;
 
-    private String funder;
+    private ArrayList<Agent> funders;
 
-    private String funding;
+    private ArrayList<String> fundingGrants;
 
     private String description;
+
+    private ArrayList<String> sources;
+
+    /**
+     * See also resources (list)
+     */
+    private ArrayList<String> seeAlso;
+
+    private String logo;
 
 
 
@@ -389,27 +398,64 @@ public class Ontology {
         this.images = images;
     }
 
-    public String getFunder() {
-        return funder;
-    }
-
-    public void setFunder(String funder){
-        this.funder = funder;
-    }
-
-    public String getFunding() {
-        return funding;
-    }
-
-    public void setFunding(String funding) {
-        this.funding = funding;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ArrayList<Agent> getFunders() {
+        return funders;
+    }
+
+    public void setFunders(ArrayList<Agent> funders) {
+        this.funders = funders;
+    }
+    public void addFunder(Agent funder) {
+        if (funders == null) {
+            funders = new ArrayList<>();
+        }
+        this.funders.add(funder);
+    }
+
+    public ArrayList<String> getFundingGrants() {
+        return fundingGrants;
+    }
+
+    public void addFunding(String funding) {
+        if (fundingGrants == null){
+            fundingGrants = new ArrayList<>();
+        }
+        this.fundingGrants.add(funding);
+    }
+
+    public void setFundingGrants(ArrayList<String> fundingGrants) {
+        this.fundingGrants = fundingGrants;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public ArrayList<String> getSeeAlso() {
+        return seeAlso;
+    }
+
+    public void setSeeAlso(ArrayList<String> seeAlso) {
+        this.seeAlso = seeAlso;
+    }
+
+    public ArrayList<String> getSources() {
+        return sources;
+    }
+
+    public void setSources(ArrayList<String> sources) {
+        this.sources = sources;
     }
 }

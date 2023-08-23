@@ -16,7 +16,7 @@ import widoco.entities.Ontology;
  */
 public class EditProperty extends javax.swing.JFrame {
 
-    public enum PropertyType{authors, contributors, publisher, extended, imported, license, image};
+    public enum PropertyType{authors, contributors, publisher, extended, imported, license, image, source, seeAlso};
     private final GuiStep2 step2Gui;
     private final Configuration c;
     private final PropertyType type;
@@ -91,7 +91,21 @@ public class EditProperty extends javax.swing.JFrame {
                 this.addRowButton.setText("Add image...");
                 this.deleteRowButton.setText("Delete image...");
                 createTable(new String[]{"Image URL"});
-                loadImages(c.getMainOntology().getImages());
+                loadResources(c.getMainOntology().getImages());
+                break;
+            case seeAlso:
+                this.setTitle("Editing related resources (seeAlso)");
+                this.addRowButton.setText("Add resource...");
+                this.deleteRowButton.setText("Delete resource...");
+                createTable(new String[]{"Resource URL"});
+                loadResources(c.getMainOntology().getSeeAlso());
+                break;
+            case source:
+                this.setTitle("Editing Sources");
+                this.addRowButton.setText("Add source...");
+                this.deleteRowButton.setText("Delete source...");
+                createTable(new String[]{"Source URL"});
+                loadResources(c.getMainOntology().getSources());
                 break;
         }
     }
@@ -105,21 +119,17 @@ public class EditProperty extends javax.swing.JFrame {
     }
     
     private void loadAgents(ArrayList<Agent> ag){
-        Iterator<Agent> it = ag.iterator();
-        while (it.hasNext()) {
-            Agent currentAg = it.next();
-            Object[] row = new Object[]{currentAg.getName(),currentAg.getURL(),currentAg.getEmail(),
+        for (Agent currentAg : ag) {
+            Object[] row = new Object[]{currentAg.getName(), currentAg.getURL(), currentAg.getEmail(),
                     currentAg.getInstitutionName(), currentAg.getInstitutionURL()};
-            ((DefaultTableModel)tableProperties.getModel()).addRow(row);
+            ((DefaultTableModel) tableProperties.getModel()).addRow(row);
         }
     }
     
     private void loadOntologies (ArrayList<Ontology> ont){
-        Iterator<Ontology> it = ont.iterator();
-        while (it.hasNext()) {
-            Ontology currentOnt = it.next();
-            Object[] row = new Object[]{currentOnt.getName(),currentOnt.getNamespaceURI()};
-            ((DefaultTableModel)tableProperties.getModel()).addRow(row);
+        for (Ontology currentOnt : ont) {
+            Object[] row = new Object[]{currentOnt.getName(), currentOnt.getNamespaceURI()};
+            ((DefaultTableModel) tableProperties.getModel()).addRow(row);
         }
     }
     
@@ -130,12 +140,13 @@ public class EditProperty extends javax.swing.JFrame {
         this.deleteRowButton.setEnabled(false);
     }
 
-    private void loadImages(ArrayList<String> images) {
-        for(String img:images){
+    private void loadResources(ArrayList<String> resources) {
+        for(String img:resources){
             Object[] row = new Object[]{img};
             ((DefaultTableModel)tableProperties.getModel()).addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -262,7 +273,12 @@ public class EditProperty extends javax.swing.JFrame {
                 break;
             case license:this.c.getMainOntology().setLicense(getLicenseFromTable());
                 break;
-            case image:this.c.getMainOntology().setImages(getImagesFromTable());
+            case image:this.c.getMainOntology().setImages(getResourceFromTable());
+                break;
+            case seeAlso:this.c.getMainOntology().setSeeAlso(getResourceFromTable());
+                break;
+            case source:this.c.getMainOntology().setSources(getResourceFromTable());
+                break;
         }
         this.step2Gui.refreshPropertyTable();
         this.dispose();
@@ -310,15 +326,15 @@ public class EditProperty extends javax.swing.JFrame {
         return new License(licURI, licName, licLogo);
     }
 
-    private ArrayList<String> getImagesFromTable() {
-        ArrayList<String> images = new ArrayList<String>();
+    private ArrayList<String> getResourceFromTable() {
+        ArrayList<String> resources = new ArrayList<String>();
         for(int row = 0;row < tableProperties.getRowCount();row++) {
-            String imageURL = (String)tableProperties.getValueAt(row, 0);
-            if(!imageURL.equals("") || !imageURL.equals("")){
-                images.add(imageURL);
+            String resourceURL = (String)tableProperties.getValueAt(row, 0);
+            if(resourceURL!=null && !resourceURL.equals("")){
+                resources.add(resourceURL);
             }
         }
-        return images;
+        return resources;
     }
     
     private void deleteRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRowButtonActionPerformed
