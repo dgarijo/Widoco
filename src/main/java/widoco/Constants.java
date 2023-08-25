@@ -18,11 +18,7 @@ package widoco;
 import diff.CompareOntologies;
 import diff.OntologyDifferencesRenderer;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,6 +73,7 @@ public class Constants {
 	public static final String NS_MOD = "https://w3id.org/mod#";
 	public static final String NS_VOAF = "http://purl.org/vocommons/voaf#";
 	public static final String NS_WDRS = "http://www.w3.org/2007/05/powder-s#";
+	public static final String NS_WIDOCO = "https://w3id.org/widoco/vocab#";
 
 	public static final String PROP_RDFS_LABEL = NS_RDFS + "label";
 	public static final String PROP_RDFS_COMMENT = NS_RDFS + "comment";
@@ -103,6 +100,10 @@ public class Constants {
 	public static final String PROP_SCHEMA_DATE_MODIFIED_HTTPS = NS_SCHEMA_HTTPS + "dateModified";
 	public static final String PROP_SCHEMA_PUBLISHER_HTTP = NS_SCHEMA_HTTP + "publisher";
 	public static final String PROP_SCHEMA_PUBLISHER_HTTPS = NS_SCHEMA_HTTPS + "publisher";
+	public static final String PROP_SCHEMA_FUNDER_HTTP = NS_SCHEMA_HTTP + "funder";
+	public static final String PROP_SCHEMA_FUNDER_HTTPS = NS_SCHEMA_HTTPS + "funder";
+	public static final String PROP_SCHEMA_FUNDING_HTTP = NS_SCHEMA_HTTP + "funding";
+	public static final String PROP_SCHEMA_FUNDING_HTTPS = NS_SCHEMA_HTTPS + "funding";
 	public static final String PROP_SCHEMA_SCHEMA_VERSION_HTTP = NS_SCHEMA_HTTP + "schemaVersion";
 	public static final String PROP_SCHEMA_SCHEMA_VERSION_HTTPS = NS_SCHEMA_HTTPS + "schemaVersion";
 	public static final String PROP_SCHEMA_GIVEN_NAME_HTTP = NS_SCHEMA_HTTP + "givenName";
@@ -121,6 +122,8 @@ public class Constants {
 	public static final String PROP_SCHEMA_DATE_ISSUED_HTTPS = NS_SCHEMA_HTTPS + "dateIssued";
 	public static final String PROP_SCHEMA_LOGO_HTTP = NS_SCHEMA_HTTP + "logo";
 	public static final String PROP_SCHEMA_LOGO_HTTPS = NS_SCHEMA_HTTPS + "logo";
+	public static final String PROP_SCHEMA_STATUS_HTTP = NS_SCHEMA_HTTP + "creativeWorkStatus";
+	public static final String PROP_SCHEMA_STATUS_HTTPS = NS_SCHEMA_HTTPS + "creativeWorkStatus";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
@@ -197,12 +200,18 @@ public class Constants {
 	public static final String PROP_FOAF_LOGO = NS_FOAF + "logo";
 	public static final String PROP_FOAF_IMAGE = NS_FOAF + "img";
 	public static final String PROP_FOAF_DEPICTION = NS_FOAF + "depiction";
+	public static final String PROP_FOAF_FUNDED_BY = NS_FOAF + "fundedBy";
+
 	public static final String PROP_ORG_MEMBER_OF = NS_ORG + "memberOf";
 	public static final String PROP_MOD_ACRONYM = NS_MOD + "acronym";
 	public static final String PROP_MOD_STATUS = NS_MOD + "status";
 	public static final String PROP_VOAF_EXTENDS = NS_VOAF + "extends";
-
 	public static final String PROP_WDRS_IS_DESCRIBED_BY = NS_WDRS + "describedBy";
+	public static final String PROP_WIDOCO_INTRODUCTION = NS_WIDOCO + "introduction";
+	public static final String PROP_WIDOCO_RDF_XML= NS_WIDOCO + "rdfxmlSerialization";
+	public static final String PROP_WIDOCO_NT= NS_WIDOCO + "nTSerialization";
+	public static final String PROP_WIDOCO_TURTLE = NS_WIDOCO + "turtleSerialization";
+	public static final String PROP_WIDOCO_JSON_LD = NS_WIDOCO + "jsonldSerialization";
 
 
 
@@ -255,6 +264,8 @@ public class Constants {
 	public static final String PUBLISHER_INSTITUTION_URI = "publisherInstitutionURI";
 	public static final String SEE_ALSO = "seeAlso";
 	public static final String SOURCE = "source";
+	public static final String FUNDERS = "funders";
+	public static final String FUNDING = "fundingGrants";
 	public static final String SERIALIZATION_N3 = "N3Serialization";
 	public static final String SERIALIZATION_JSON = "JSONLDSerialization";
 	public static final String SERIALIZATION_RDF = "RDFXMLSerialization";
@@ -271,6 +282,7 @@ public class Constants {
 	// This way, if refactoring is needed we only have to change it here.
 	public static final String LANG_ABSTRACT = "abstract";
 	public static final String LANG_ABSTRACT_PLACEHOLDER = "abstractPlaceHolder";
+	public static final String LANG_INTRO_TITLE = "introTitle";
 	public static final String LANG_INTRO_PLACEHOLDER = "introPlaceHolder";
 	public static final String LANG_REFERENCES_PLACEHOLDER = "referencesPlaceHolder";
 	public static final String LANG_AUTHORS = AUTHORS;
@@ -424,7 +436,15 @@ public class Constants {
 	}
 
 	public static String getIntroductionSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
-		String s = "<h2 id=\"intro\" class=\"list\">" + lang.getProperty(LANG_INTRO_PLACEHOLDER);
+		String s = "<h2 id=\"intro\" class=\"list\">";
+		//check if the content of the intro was found in a metadata property
+		if (c.getIntroText() == null || c.getIntroText().isEmpty()){
+			s+= lang.getProperty(LANG_INTRO_PLACEHOLDER);
+		}else{
+			s+= lang.getProperty(LANG_INTRO_TITLE);
+			s+= "<span class=\"markdown\">"+ c.getIntroText() + "</span>\n";
+		}
+
 		return s;
 	}
 
@@ -509,6 +529,12 @@ public class Constants {
 		return c + "\n";
 	}
 
+	private static String getFunders(ArrayList<Agent> contrib, Properties l) {
+		String c = "<dt>" + l.getProperty(LANG_FUNDER) + "</dt>\n";
+		c += getAgents(contrib);
+		return c + "\n";
+	}
+
 	private static String getPublisher(Agent publisher, Properties l) {
 		if ((publisher.getName() != null && !"".equals(publisher.getName()))
 				|| (publisher.getURL() != null && !"".equals(publisher.getURL()))) {
@@ -579,31 +605,15 @@ public class Constants {
 	public static String getNameSpaceDeclaration(HashMap<String, String> namesp, Configuration c, Properties lang) {
 		String ns = "<div id=\"namespacedeclarations\">\n" + "<h3 id=\"ns\" class=\"list\">" + lang.getProperty(LANG_NS)
 				+ lang.getProperty(LANG_NS_TEXT);
-		Iterator<String> keys = namesp.keySet().iterator();
 		String nsPrefix = c.getMainOntology().getNamespacePrefix();
 		String nsURI = c.getMainOntology().getNamespaceURI();
-		ns += "<tr><td><b>" + nsPrefix + "</b></td><td>&lt;" + nsURI + "&gt;</td></tr>\n";
-
-		// Leave a gap after the main ontology namespace, just so it stands out more (since it's the
-		// most important namespace).
-		// No need for us to check 'if there are any more prefixes', as the code currently always
-		// includes more anyway (whether they're actually referenced in the ontology or not (e.g.,
-		// 'rdf', 'xsd', etc.)). I don't think the code should be doing this, but that's a tidy-up
-		// for another day!
-		ns += "<tr><td></td><td></td></tr>\n";
-
-		// Strip off any trailing namespace characters from our main ontology namespace URI so that
-		// we are comparing like-for-like when removing duplicates.
-		final String nsURIStripped = stripTrailingNamespaceChars(nsURI);
-
-		while (keys.hasNext()) {
-			String key = keys.next();
-
-			// Only add the namespace if it's not equal to the main ontology one (already added).
-			String currValue = stripTrailingNamespaceChars(namesp.get(key));
-			if (!currValue.equals(nsURIStripped)) {
-				ns += "<tr><td><b>" + key + "</b></td><td>&lt;" + currValue + "&gt;</td></tr>\n";
-			}
+		//order all ns alphabetically
+		if (!namesp.containsKey(nsPrefix)){
+			namesp.put(nsPrefix,stripTrailingNamespaceChars(nsURI));
+		}
+		TreeMap<String, String> sortedMap = new TreeMap<>(namesp);
+		for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+			ns += "<tr><td><b>" + entry.getKey() + "</b></td><td>&lt;" + entry.getValue() + "&gt;</td></tr>\n";
 		}
 
 		ns += "</tbody>\n" + "</table>\n" + "</div>\n" + "</div>\n";
@@ -760,19 +770,44 @@ public class Constants {
 				+ " };" + "    $(function(){\n";
 		// the script for loading the table is called after loading everything else,
 		// after the loadHash function
-		if (c.isIncludeAbstract())
-			document += "      $(\"#abstract\").load(\"sections/abstract-" + c.getCurrentLanguage() + ".html\"); \n";
-		if (c.isIncludeIntroduction())
-			document += "      $(\"#introduction\").load(\"sections/introduction-" + c.getCurrentLanguage()
-					+ ".html\"); \n";
-		if (c.isIncludeOverview())
-			document += "      $(\"#overview\").load(\"sections/overview-" + c.getCurrentLanguage() + ".html\"); \n";
-		if (c.isIncludeDescription())
-			document += "      $(\"#description\").load(\"sections/description-" + c.getCurrentLanguage()
-					+ ".html\"); \n";
-		if (c.isIncludeReferences())
-			document += "      $(\"#references\").load(\"sections/references-" + c.getCurrentLanguage()
-					+ ".html\"); \n";
+		if (c.isIncludeAbstract()) {
+			if(c.getAbstractPath()!=null && !c.getAbstractPath().isEmpty()){
+				document += "      $(\"#abstract\").load(\""+c.getAbstractPath()+"\"); \n";
+			}else {
+				document += "      $(\"#abstract\").load(\"sections/abstract-" + c.getCurrentLanguage() + ".html\"); \n";
+			}
+		}
+		if (c.isIncludeIntroduction()){
+			if(c.getIntroductionPath()!=null && !c.getIntroductionPath().isEmpty()){
+				document += "      $(\"#introduction\").load(\""+c.getIntroductionPath()+"\"); \n";
+			}else {
+				document += "      $(\"#introduction\").load(\"sections/introduction-" + c.getCurrentLanguage()
+						+ ".html\"); \n";
+			}
+		}
+		if (c.isIncludeOverview()){
+			if(c.getOverviewPath()!=null && !c.getOverviewPath().isEmpty()){
+				document += "      $(\"#overview\").load(\""+c.getOverviewPath()+"\"); \n";
+			}else {
+				document += "      $(\"#overview\").load(\"sections/overview-" + c.getCurrentLanguage() + ".html\"); \n";
+			}
+		}
+		if (c.isIncludeDescription()){
+			if(c.getDescriptionPath()!=null && !c.getDescriptionPath().isEmpty()){
+				document += "      $(\"#description\").load(\""+c.getDescriptionPath()+"\"); \n";
+			}else {
+				document += "      $(\"#description\").load(\"sections/description-" + c.getCurrentLanguage()
+						+ ".html\"); \n";
+			}
+		}
+		if (c.isIncludeReferences()){
+			if(c.getReferencesPath()!=null && !c.getReferencesPath().isEmpty()){
+				document += "      $(\"#references\").load(\""+c.getReferencesPath()+"\"); \n";
+			}else {
+				document += "      $(\"#references\").load(\"sections/references-" + c.getCurrentLanguage()
+						+ ".html\"); \n";
+			}
+		}
 		if (c.isIncludeChangeLog()) {
 			if (c.getMainOntology().getPreviousVersion() != null && !"".equals(c.getMainOntology().getPreviousVersion())
 					&& c.isChangeLogSuccessfullyCreated()) {
@@ -962,6 +997,10 @@ public class Constants {
 			head += getURLs(c.getMainOntology().getSources(), l.getProperty(Constants.LANG_SOURCES)) + "\n";
 		if (!c.getMainOntology().getSeeAlso().isEmpty())
 			head += getURLs(c.getMainOntology().getSeeAlso(), l.getProperty(Constants.LANG_SEE_ALSO)) + "\n";
+		if (!c.getMainOntology().getFunders().isEmpty())
+			head += getFunders(c.getMainOntology().getFunders(), l) + "\n";
+		if (!c.getMainOntology().getFundingGrants().isEmpty())
+			head += getURLs(c.getMainOntology().getFundingGrants(), l.getProperty(Constants.LANG_FUNDING)) + "\n";
 
 		if (c.isDisplaySerializations()) {
 			HashMap<String, String> availableSerializations = c.getMainOntology().getSerializations();

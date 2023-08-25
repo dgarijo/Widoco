@@ -124,8 +124,9 @@ Indicates the status of the vocabulary (Recommnedation, Draft, etc.)
 <ul class="hlist"><strong>Properties you may use</strong>:
 	<li><a target="_blank" href="http://purl.org/ontology/bibo/status">bibo:status</a> <strong>(PREFERRED)</strong></li>
 	<li><a target="_blank" href="https://w3id.org/mod#status">mod:status</a></li>
+	<li><a target="_blank" href="https://schema.org/creativeWorkStatus">schema:creativeWorkStatus</a></li>
 </ul>
-Note that the range of bibo:status is a "bibo:DocumentStatus" instance. Common status include: bibo:status/accepted, bibo:status/draft, bibo:status/published, bibo:status/rejected and bibo:status/peerReviewed. For more information, please see the <a href="http://purl.org/ontology/bibo/">bibo vocabulary</a>. In MOD, the status is a string.
+Note that the range of bibo:status is a "bibo:DocumentStatus" instance. Common status include: bibo:status/accepted, bibo:status/draft, bibo:status/published, bibo:status/rejected and bibo:status/peerReviewed. For more information, please see the <a href="http://purl.org/ontology/bibo/">bibo vocabulary</a>. In MOD, status is a string. In schema.org, status may refer to a string or to a <a href="https://schema.org/DefinedTerm">schema:DefinedTerm</a>.
 
 <h5>Example:</h5>
 <pre>
@@ -431,6 +432,45 @@ Organization responsible for publishing the vocabulary. This property is optiona
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 &lt;https://w3id.org/fr/def/core#&gt; a owl:Ontology ;
     dct:publisher &lt;http://www.oeg-upm.net/; .
+</pre>
+
+<h4 class="list" id="funder">Funder [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
+Organizations (or persons) responsible for funding the vocabulary. Ontologies are often a product of funding organizations, and hence they should be acknowledged.
+</p>
+
+<ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="http://xmlns.com/foaf/0.1/">foaf:fundedBy</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="https://schema.org/funder">schema:funder</a></li>
+</ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://w3id.org/fr/def/core#&gt; a owl:Ontology ;
+    foaf:funder &lt;https://example.org/fundingOrganization&gt; .
+</pre>
+
+<h4 class="list" id="funding">Funding [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
+<p>
+Projects or grants responsible for funding the vocabulary. Note that the range of this property is a schema:Grant.
+</p>
+
+<ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="https://schema.org/funding">schema:funding</a> <strong>(PREFERRED)</strong></li>
+</ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix schema: &lt;https://schema.org/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+&lt;https://w3id.org/fr/def/core#&gt; a owl:Ontology ;
+    foaf:funding &lt;https://example.org/fundingGrant&gt; .
 </pre>
 
 

@@ -501,9 +501,28 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <li>
             <a href="#{generate-id()}" title="{@*:about|@*:ID}">
                 <xsl:choose>
-                    <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                    <!--<xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
                         <xsl:value-of
                                 select="rdfs:label[f:isInLanguage(.)] | skos:prefLabel[f:isInLanguage(.)] | obo:IAO_0000118[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <span>
+                            <xsl:value-of select="f:getLabel(@*:about|@*:ID)"/>
+                        </span>
+                    </xsl:otherwise>
+                </xsl:choose>-->
+                    <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                        <xsl:choose>
+                            <xsl:when test="exists(rdfs:label[f:isInLanguage(.)])">
+                                <xsl:value-of select="rdfs:label[f:isInLanguage(.)][1]"/>
+                            </xsl:when>
+                            <xsl:when test="exists(skos:prefLabel[f:isInLanguage(.)])">
+                                <xsl:value-of select="skos:prefLabel[f:isInLanguage(.)][1]"/>
+                            </xsl:when>
+                            <xsl:when test="exists(obo:IAO_0000118[f:isInLanguage(.)])">
+                                <xsl:value-of select="obo:IAO_0000118[f:isInLanguage(.)][1]"/>
+                            </xsl:when>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
                         <span>
@@ -637,10 +656,32 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <xsl:variable name="node"
                       select="$root//rdf:RDF/element()[(@*:about = $iri or @*:ID = $iri) and exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)][1]"
                       as="element()*"/>
+        <!-- Modified to include only one type of label if multiple are availble.
         <xsl:choose>
             <xsl:when test="exists($node/rdfs:label|$node/skos:prefLabel|$node/obo:IAO_0000118)">
                 <xsl:value-of
                         select="$node/rdfs:label[f:isInLanguage(.)] | $node/skos:prefLabel[f:isInLanguage(.)] | $node/obo:IAO_0000118[f:isInLanguage(.)]"/>
+            </xsl:when>
+            -->
+        <xsl:variable name="labelNode">
+            <xsl:for-each select="$node">
+                <xsl:choose>
+                    <xsl:when test="exists(rdfs:label[f:isInLanguage(.)])">
+                        <xsl:sequence select="rdfs:label[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                    <xsl:when test="exists(skos:prefLabel[f:isInLanguage(.)])">
+                        <xsl:sequence select="skos:prefLabel[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                    <xsl:when test="exists(obo:IAO_0000118[f:isInLanguage(.)])">
+                        <xsl:sequence select="obo:IAO_0000118[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space($labelNode)) &gt; 0">
+                <xsl:value-of select="$labelNode"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="localName" as="xs:string?">
@@ -1562,8 +1603,21 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <a name="{substring-after($url, '#')}"/>
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+            <!--<xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
                 <xsl:apply-templates select="rdfs:label|skos:prefLabel|obo:IAO_0000118"/>
+            </xsl:when>-->
+            <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                <xsl:choose>
+                    <xsl:when test="exists(rdfs:label)">
+                        <xsl:apply-templates select="rdfs:label"/>
+                    </xsl:when>
+                    <xsl:when test="exists(skos:prefLabel)">
+                        <xsl:apply-templates select="skos:prefLabel"/>
+                    </xsl:when>
+                    <xsl:when test="exists(obo:IAO_0000118)">
+                        <xsl:apply-templates select="obo:IAO_0000118"/>
+                    </xsl:when>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <h3>
@@ -2283,7 +2337,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <xsl:value-of select="f:getDescriptionLabel('otherRules')"/>
                 </h2>
                 <xsl:call-template name="get.rules.toc"/>
-                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]">
+                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                               order="ascending" data-type="text"/>
                     <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
@@ -2294,7 +2348,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
 
     <xsl:template name="get.rules.toc">
         <ul class="hlist">
-            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]" mode="toc">
+            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]" mode="toc">
                 <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                           order="ascending" data-type="text"/>
                 <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>

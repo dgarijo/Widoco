@@ -21,10 +21,7 @@
  */
 package widoco.gui;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -125,6 +122,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
 							case "ontology description":
 								form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.description);
 								break;
+							case "ontology introduction":
+								form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.introduction);
+								break;
 							case "cite as":
 								form = new BiggerTextArea(gAux, conf, BiggerTextArea.PropertyType.citeAs);
 								break;
@@ -133,6 +133,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
 								break;
 							case "contributors":
 								form = new EditProperty(gAux, conf, EditProperty.PropertyType.contributors);
+								break;
+							case "funders":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.funders);
 								break;
 							case "publisher":
 								form = new EditProperty(gAux, conf, EditProperty.PropertyType.publisher);
@@ -154,6 +157,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
 								break;
 							case "sources":
 								form = new EditProperty(gAux, conf, EditProperty.PropertyType.source);
+								break;
+							case "funding":
+								form = new EditProperty(gAux, conf, EditProperty.PropertyType.funding);
 								break;
 						}
 						if (form != null) {
@@ -194,6 +200,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
 		StringBuilder images = new StringBuilder();
 		StringBuilder sources = new StringBuilder();
 		StringBuilder seeAlso = new StringBuilder();
+		StringBuilder funders = new StringBuilder();
+		StringBuilder funding = new StringBuilder();
 		for (Agent a : conf.getMainOntology().getCreators()) {
 			if (a.getName() == null || a.getName().equals("")) {
 				authors.append("creator; ");
@@ -206,6 +214,13 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				contributors.append("contributor; ");
 			} else {
 				contributors.append(a.getName()).append("; ");
+			}
+		}
+		for (Agent a : conf.getMainOntology().getFunders()) {
+			if (a.getName() == null || a.getName().equals("")) {
+				funders.append("funding; ");
+			} else {
+				funders.append(a.getName()).append("; ");
 			}
 		}
 		for (Ontology a : conf.getMainOntology().getImportedOntologies()) {
@@ -245,11 +260,17 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				seeAlso.append(see).append(";");
 			}
 		}
+		for (String see: conf.getMainOntology().getFundingGrants()){
+			if(!see.equals("")){
+				funding.append(see).append(";");
+			}
+		}
 		tableProperties.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 				{ "abstract", conf.getAbstractSection() },
 				{ "ontology title", conf.getMainOntology().getTitle() },
 				{ "ontology name", conf.getMainOntology().getName() },
 				{ "ontology description", conf.getMainOntology().getDescription() },
+				{ "ontology introduction", conf.getIntroText() },
 				{ "ontology prefix", conf.getMainOntology().getNamespacePrefix() },
 				{ "ontology ns URI", conf.getMainOntology().getNamespaceURI() },
 				{ "creation date", conf.getMainOntology().getCreationDate() },
@@ -260,6 +281,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				{ "ontology revision", conf.getMainOntology().getRevision() },
 				{ "authors", authors.toString()},
 				{ "contributors", contributors.toString()},
+				{ "funders", funders.toString()},
 				{ "publisher", publisher.toString() },
 				{ "imported ontologies", imported.toString()},
 				{ "extended ontologies", extended.toString()},
@@ -272,6 +294,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				{ "images", images.toString()},
 				{ "logo", conf.getMainOntology().getLogo() },
 				{ "sources", sources.toString() },
+				{ "funding", funding.toString() },
 				{ "see also", seeAlso.toString() }
 				},
 				new String[] { "Property", "Value" }) {
@@ -286,16 +309,19 @@ public final class GuiStep2 extends javax.swing.JFrame {
 			@Override
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
 				if (getValueAt(rowIndex, 0).equals("abstract")
+						|| getValueAt(rowIndex, 0).equals("ontology introduction")
 						|| getValueAt(rowIndex, 0).equals("ontology description")
 						|| getValueAt(rowIndex, 0).equals("cite as")
 						|| getValueAt(rowIndex, 0).equals("authors")
 						|| getValueAt(rowIndex, 0).equals("contributors")
 						|| getValueAt(rowIndex, 0).equals("publisher")
+						|| getValueAt(rowIndex, 0).equals("funders")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("extended")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("license")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("images")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("see also")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("source")
+						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("funding")
 						|| ((String) getValueAt(rowIndex, 0)).toLowerCase().contains("imported")) {
 					return false;
 				}
@@ -329,6 +355,8 @@ public final class GuiStep2 extends javax.swing.JFrame {
 					break;
 				case "ontology description":
 					conf.getMainOntology().setDescription(value);
+				case "ontology introduction":
+					conf.setIntroText(value);
 				case "ontology prefix":
 					conf.getMainOntology().setNamespacePrefix(value);
 					break;
@@ -458,6 +486,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
 		labelSteps.setText("Steps");
 		tableProperties.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { "abstract", "" }, { "ontology title", null }, { "ontology name", null },
+						{ "ontology description", null }, { "ontology introduction", null },
 						{ "ontology prefix", null }, { "ontology ns URI", null }, { "creation date", null },
 						{ "modified date", null }, { "this version URI", null }, { "latest version URI", null },
 						{ "previous version URI", null }, { "ontology revision", null }, { "authors", null },
@@ -751,12 +780,23 @@ public final class GuiStep2 extends javax.swing.JFrame {
 		this.useLicensiusWSCheckBox.setEnabled(false);
 		this.loadMetadataFromOnto.setSelected(false);
 		this.loadMetadataFromDefaultConfigFile.setSelected(false);
-		JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
-		int returnVal = chooser.showOpenDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			// g.reloadConfiguration(chooser.getSelectedFile().getAbsolutePath());
-			conf.reloadPropertyFile(chooser.getSelectedFile().getAbsolutePath());
+//		JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
+//		int returnVal = chooser.showOpenDialog(this);
+//		if (returnVal == JFileChooser.APPROVE_OPTION) {
+//			// g.reloadConfiguration(chooser.getSelectedFile().getAbsolutePath());
+//			conf.reloadPropertyFile(chooser.getSelectedFile().getAbsolutePath());
+//			this.refreshPropertyTable();
+//		}
+		FileDialog chooser = new FileDialog(this, "Select .properties file", FileDialog.LOAD);
+		chooser.setVisible(true);
+		String directory = chooser.getDirectory();
+		String file = chooser.getFile();
+		if (directory != null && file != null) {
+			File selectedFile = new File(directory, file);
+			conf.reloadPropertyFile(selectedFile.getAbsolutePath());
 			this.refreshPropertyTable();
+		} else {
+			logger.info("Load canceled.");
 		}
 	}// GEN-LAST:event_loadMetadataButtonActionPerformed
 
@@ -793,18 +833,34 @@ public final class GuiStep2 extends javax.swing.JFrame {
 
 	private void saveMetadataButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_saveMetadataButtonActionPerformed
 		saveMetadata();
-		// ideally the serialization of config woule have to be done in another class.
-		JFileChooser chooser = new JFileChooser();
-		int returnVal = chooser.showSaveDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			// create a file (if not exists already)
-			String path = chooser.getSelectedFile().getAbsolutePath();
+//		JFileChooser chooser = new JFileChooser();
+//		int returnVal = chooser.showSaveDialog(this);
+//		if (returnVal == JFileChooser.APPROVE_OPTION) {
+//			// create a file (if not exists already)
+//			String path = chooser.getSelectedFile().getAbsolutePath();
+//			try {
+//				CreateResources.saveConfigFile(path, conf);
+//				JOptionPane.showMessageDialog(this, "Property file saved successfully");
+//			} catch (IOException e) {
+//				JOptionPane.showMessageDialog(this, "Error while saving the property file ");
+//			}
+//		}
+
+		FileDialog chooser = new FileDialog(this, "Select A file to save all ontology metadata", FileDialog.SAVE);
+		chooser.setVisible(true);
+		String directory = chooser.getDirectory();
+		String file = chooser.getFile();
+		if (directory != null && file != null) {
+			File selectedFile = new File(directory, file);
+			logger.info("You chose to save this file: " + selectedFile.getName());
 			try {
-				CreateResources.saveConfigFile(path, conf);
+				CreateResources.saveConfigFile(selectedFile.getAbsolutePath(), conf);
 				JOptionPane.showMessageDialog(this, "Property file saved successfully");
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this, "Error while saving the property file ");
 			}
+		} else {
+			logger.info("Selection canceled.");
 		}
 
 	}// GEN-LAST:event_saveMetadataButtonActionPerformed

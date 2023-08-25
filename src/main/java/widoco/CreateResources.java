@@ -386,19 +386,22 @@ public class CreateResources {
 		Writer out = null;
 		try {
 			if (f.exists()) {
-				// JOptionPane.showMessageDialog(null, "You have overwritten the previous file.
-				// This message should be better prepared.");
-				if (!c.getOverWriteAll()) {
-					String[] options = new String[] { "Rewrite all", "Yes", "No" };
-					int response = JOptionPane.showOptionDialog(null,
-							"The file " + f.getName() + " already exists. Do you want to overwrite it?",
-							"Existing File!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
-							options, options[0]);
-					// 0 -> yes to all. 1 -> Yes. 2-> No
-					if (response == 0)
-						c.setOverwriteAll(true);
-					if (response == 2)
-						return; // else we continue rewriting the file.
+				try {
+					if (!c.getOverWriteAll()) {
+						String[] options = new String[]{"Rewrite all", "Yes", "No"};
+						int response = JOptionPane.showOptionDialog(null,
+								"The file " + f.getName() + " already exists. Do you want to overwrite it?",
+								"Existing File!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+								options, options[0]);
+						// 0 -> yes to all. 1 -> Yes. 2-> No
+						if (response == 0)
+							c.setOverwriteAll(true);
+						if (response == 2)
+							return; // else we continue rewriting the file.
+					}
+				}catch (Exception e){
+					logger.error("It looks like WIDOCO tried to save the documentation, but files already exist. Please " +
+							"try using the -rewriteAll option.");
 				}
 			} else {
 				f.createNewFile();
@@ -634,7 +637,7 @@ public class CreateResources {
 		if (serializations.containsKey("JSON-LD")) {
 			textProperties += Constants.SERIALIZATION_JSON + "=" + serializations.get("JSON-LD") + "\n";
 		}
-		String images = "", sources = "", seeAlso = "";
+		String images = "", sources = "", seeAlso = "", funding = "", funder = "";
 		ArrayList<String> imgs = conf.getMainOntology().getImages();
 		if (!imgs.isEmpty()){
 			for (int i = 0; i < imgs.size() - 1; i++) {
@@ -659,6 +662,22 @@ public class CreateResources {
 			seeAlso += see.get(see.size() - 1) ;
 		}
 		textProperties += Constants.SEE_ALSO + "=" + seeAlso + "\n";
+		ArrayList<String> fund = conf.getMainOntology().getFundingGrants();
+		if (!fund.isEmpty()){
+			for (int i = 0; i < fund.size() - 1; i++) {
+				funding += fund.get(i) + ";";
+			}
+			funding += fund.get(fund.size() - 1) ;
+		}
+		textProperties += Constants.FUNDING + "=" + funding + "\n";
+		ArrayList<Agent> funders = conf.getMainOntology().getFunders();
+		if (!funders.isEmpty()){
+			for (int i = 0; i < funders.size() - 1; i++) {
+				funding += funders.get(i).getName() + ";";
+			}
+			funding += funders.get(fund.size() - 1).getName() ; //name is a URL in this case
+		}
+		textProperties += Constants.FUNDERS + "=" + funders + "\n";
 		// copy the result into the file
 		Writer writer = null;
 		try {

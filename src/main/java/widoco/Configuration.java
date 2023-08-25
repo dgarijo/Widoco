@@ -120,6 +120,7 @@ public class Configuration {
 	private String rewriteBase;// rewrite base path for content negotiation (.htaccess)
     private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
 	private HashMap<String, String> namespaceDeclarations; //Namespace declarations to be included in the documentation.
+	private String introText;// in case there is an explicit annotation in the ontology
 
 	/**
 	 * Variable to keep track of possible errors in the changelog. If there are
@@ -181,6 +182,7 @@ public class Configuration {
 		rewriteBase = "/";
 		contextURI = "";
 		includeAllSectionsInOneDocument = false;
+		introText = "";
 		initializeOntology();
 	}
 
@@ -223,6 +225,8 @@ public class Configuration {
 		mainOntologyMetadata.setImages(new ArrayList<>());
 		mainOntologyMetadata.setSources(new ArrayList<>());
 		mainOntologyMetadata.setSeeAlso(new ArrayList<>());
+		mainOntologyMetadata.setFunders(new ArrayList<>());
+		mainOntologyMetadata.setFundingGrants(new ArrayList<>());
 		this.namespaceDeclarations = new HashMap<>();
 	}
 
@@ -384,6 +388,20 @@ public class Configuration {
 			String seeAlso = propertyFile.getProperty(Constants.SEE_ALSO, "");
 			if (!"".equals(seeAlso)){
 				mainOntologyMetadata.setSeeAlso(new ArrayList<String>(Arrays.asList(seeAlso.split(";"))));
+			}
+			String funders = propertyFile.getProperty(Constants.FUNDERS, "");
+			if (!"".equals(funders)){
+				String [] fundersURI = funders.split(";");
+				for (String s : fundersURI) {
+					Agent a = new Agent();
+					a.setName(s);
+					a.setURL(s);
+					mainOntologyMetadata.getFunders().add(a);
+				}
+			}
+			String funding = propertyFile.getProperty(Constants.FUNDING, "");
+			if (!"".equals(funding)){
+				mainOntologyMetadata.setFundingGrants(new ArrayList<String>(Arrays.asList(funding.split(";"))));
 			}
 
 		} catch (IOException ex) {
@@ -620,6 +638,9 @@ public class Configuration {
 		case Constants.PROP_DCTERMS_PUBLISHER:
 		case Constants.PROP_SCHEMA_PUBLISHER_HTTP:
 		case Constants.PROP_SCHEMA_PUBLISHER_HTTPS:
+		case Constants.PROP_SCHEMA_FUNDER_HTTP:
+		case Constants.PROP_SCHEMA_FUNDER_HTTPS:
+		case Constants.PROP_FOAF_FUNDED_BY:
 			try {
 				Agent ag = new Agent();
 				if (a.getValue().isLiteral()) {
@@ -660,6 +681,13 @@ public class Configuration {
 				case Constants.PROP_SCHEMA_CREATOR_HTTP:
 				case Constants.PROP_SCHEMA_CREATOR_HTTPS:
 					mainOntologyMetadata.getCreators().add(ag);
+					break;
+				case Constants.PROP_SCHEMA_FUNDER_HTTP:
+				case Constants.PROP_SCHEMA_FUNDER_HTTPS:
+				case Constants.PROP_FOAF_FUNDED_BY:
+					if(ag.getURL() == null || ag.getURL().isEmpty())
+						ag.setURL(ag.getName());
+					mainOntologyMetadata.getFunders().add(ag);
 					break;
 				default:
 					mainOntologyMetadata.setPublisher(ag);
@@ -702,6 +730,8 @@ public class Configuration {
 			break;
 		case Constants.PROP_BIBO_STATUS:
 		case Constants.PROP_MOD_STATUS:
+		case Constants.PROP_SCHEMA_STATUS_HTTP:
+		case Constants.PROP_SCHEMA_STATUS_HTTPS:
 			value = "Specification Draft";
 			try {
 				//if an object property is used, all valid status have the form http://purl.org/ontology/bibo/status/
@@ -750,9 +780,26 @@ public class Configuration {
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.getSources().add(value);
 			break;
+		case Constants.PROP_SCHEMA_FUNDING_HTTP:
+		case Constants.PROP_SCHEMA_FUNDING_HTTPS:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getFundingGrants().add(value);
+			break;
 		case Constants.PROP_RDFS_SEE_ALSO:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.getSeeAlso().add(value);
+			break;
+		case Constants.PROP_WIDOCO_INTRODUCTION:
+			try {
+				valueLanguage = a.getValue().asLiteral().get().getLang();
+				value = a.getValue().asLiteral().get().getLiteral();
+				if (this.currentLanguage.equals(valueLanguage)
+						|| (introText == null || "".equals(introText))) {
+					introText = value;
+				}
+			} catch (Exception e) {
+				logger.error("Error while introduction annotation. No literal provided");
+			}
 			break;
 		}
 	}
@@ -1335,6 +1382,11 @@ public class Configuration {
         this.includeAllSectionsInOneDocument = includeAllSectionsInOneDocument;
     }
 
-    
-        
+	public String getIntroText() {
+		return introText;
+	}
+
+	public void setIntroText(String introText) {
+		this.introText = introText;
+	}
 }

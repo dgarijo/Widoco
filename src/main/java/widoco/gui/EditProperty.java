@@ -2,7 +2,6 @@ package widoco.gui;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import widoco.Configuration;
@@ -16,7 +15,8 @@ import widoco.entities.Ontology;
  */
 public class EditProperty extends javax.swing.JFrame {
 
-    public enum PropertyType{authors, contributors, publisher, extended, imported, license, image, source, seeAlso};
+    public enum PropertyType{authors, contributors, funders, publisher, extended, imported, license, image, source,
+        seeAlso, funding};
     private final GuiStep2 step2Gui;
     private final Configuration c;
     private final PropertyType type;
@@ -55,6 +55,13 @@ public class EditProperty extends javax.swing.JFrame {
                 this.deleteRowButton.setText("Delete contributor...");
                 createTable(new String[]{"Name","URI","email","Institution Name", "Institution URI"});
                 loadAgents(c.getMainOntology().getContributors());
+                break;
+            case funders:
+                this.setTitle("Editing Funders");
+                this.addRowButton.setText("Add funder...");
+                this.deleteRowButton.setText("Delete funder...");
+                createTable(new String[]{"Name","URI","email","Institution Name", "Institution URI"});
+                loadAgents(c.getMainOntology().getFunders());
                 break;
             case publisher:
                 this.setTitle("Editing Publisher");
@@ -99,6 +106,13 @@ public class EditProperty extends javax.swing.JFrame {
                 this.deleteRowButton.setText("Delete resource...");
                 createTable(new String[]{"Resource URL"});
                 loadResources(c.getMainOntology().getSeeAlso());
+                break;
+            case funding:
+                this.setTitle("Editing funding grants");
+                this.addRowButton.setText("Add grant...");
+                this.deleteRowButton.setText("Delete grant...");
+                createTable(new String[]{"Grant URL"});
+                loadResources(c.getMainOntology().getFundingGrants());
                 break;
             case source:
                 this.setTitle("Editing Sources");
