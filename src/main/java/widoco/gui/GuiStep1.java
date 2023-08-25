@@ -21,18 +21,15 @@
  */
 package widoco.gui;
 
-import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +42,7 @@ public class GuiStep1 extends javax.swing.JFrame {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private GuiController g;// pointer to be able to save and go to the next state.
 	private String folderPath;
+	private Dimension dim;
 
 	/**
 	 * Creates new form WidocoGui2
@@ -70,7 +68,7 @@ public class GuiStep1 extends javax.swing.JFrame {
 		buttonGroup.add(option1);
 		buttonGroup.add(option2);
 		buttonGroup.add(option3);
-		Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
 		// Determine the new location of the window
 		int w = this.getSize().width;
@@ -205,7 +203,7 @@ public class GuiStep1 extends javax.swing.JFrame {
 			}
 		});
 
-		textDocPath.setEditable(false);
+		//textDocPath.setEditable(false);
 		textDocPath.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 		textDocPath.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,14 +404,14 @@ public class GuiStep1 extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(this, "The selected folder does not exist! Please select a folder");
 				return;
 			}
-			// no need to check if the file is a foder, as we ensure this with the
+			// no need to check if the file is a folder, as we ensure this with the
 			// "directories_only" property
 			this.textDocPath.setText(folderPath + File.separator + this.textDocName.getText());
 		}
-	}// GEN-LAST:event_browseButtonActionPerformed
+	}
 
 	private void textDocPathActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_textDocPathActionPerformed
-		// TODO add your handling code here:
+
 	}// GEN-LAST:event_textDocPathActionPerformed
 
 	private void textDocNameKeyTyped(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_textDocNameKeyTyped
@@ -443,29 +441,20 @@ public class GuiStep1 extends javax.swing.JFrame {
 	private void option1ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_option1ItemStateChanged
 
 		if (option1.isSelected()) {
-			JFileChooser chooser = new JFileChooser(new File("").getAbsolutePath());
-			chooser.setName("Select OWL File");
-			// no need to create an additional class, as we will use this filter only here.
-			chooser.setFileFilter(new FileFilter() {
-				@Override
-				public boolean accept(File f) {
-					if (f.isDirectory()) {
-						return true;
-					}
-					return f.getName().endsWith(".owl") || f.getName().endsWith(".rdf") || f.getName().endsWith(".json")
-							|| f.getName().endsWith(".jsonld") || f.getName().endsWith(".ttl");
-				}
-
-				@Override
-				public String getDescription() {
-					return null;
-				}
-			});
-			// chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			int returnVal = chooser.showOpenDialog(this);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				logger.info("You chose to save this file: " + chooser.getSelectedFile().getName());
-				this.textFieldPath.setText(chooser.getSelectedFile().getAbsolutePath());
+			FileDialog selectFileDialog = new FileDialog(this, "Select OWL File", FileDialog.LOAD);
+			selectFileDialog.setFilenameFilter((dir, name) ->
+					name.endsWith(".owl") || name.endsWith(".rdf") || name.endsWith(".json") ||
+							name.endsWith(".jsonld") || name.endsWith(".ttl")
+			);
+			selectFileDialog.setVisible(true);
+			String directory = selectFileDialog.getDirectory();
+			String file = selectFileDialog.getFile();
+			if (directory != null && file != null) {
+				File selectedFile = new File(directory, file);
+				logger.info("You chose to save this file: " + selectedFile.getName());
+				this.textFieldPath.setText(selectedFile.getAbsolutePath());
+			} else {
+				logger.info("Selection canceled.");
 			}
 		}
 

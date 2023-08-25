@@ -21,10 +21,11 @@
  */
 package widoco.gui;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.*;
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
@@ -37,6 +38,7 @@ import javax.swing.JOptionPane;
  */
 public class GuiStep3 extends javax.swing.JFrame {
     private final GuiController g;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private String abstractPath;
     private String introductionPath;
     private String overviewPath;
@@ -275,11 +277,11 @@ public class GuiStep3 extends javax.swing.JFrame {
 
         checkBoxDisplaySerialization.setSelected(true);
         checkBoxDisplaySerialization.setText("Display ontology serializations");
-        checkBoxDisplaySerialization.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxDisplaySerializationActionPerformed(evt);
-            }
-        });
+//        checkBoxDisplaySerialization.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                checkBoxDisplaySerializationActionPerformed(evt);
+//            }
+//        });
 
         buttonRewriteBase.setText("Set base path");
         buttonRewriteBase.addActionListener(new java.awt.event.ActionListener() {
@@ -580,9 +582,7 @@ public class GuiStep3 extends javax.swing.JFrame {
         abstractPath = loadSection();
     }//GEN-LAST:event_abstractSectionButtonActionPerformed
 
-    private void checkBoxDisplaySerializationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySerializationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxDisplaySerializationActionPerformed
+
 
     private void buttonRewriteBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRewriteBaseActionPerformed
         String newRewriteBase = JOptionPane.showInputDialog(this, "New rewrite base path for .htaccess",g.getConfig().getRewriteBase());
@@ -592,10 +592,19 @@ public class GuiStep3 extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRewriteBaseActionPerformed
 
     private String loadSection(){
-        JFileChooser chooser = new JFileChooser();
-        int returnVal = chooser.showSaveDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            return chooser.getSelectedFile().getAbsolutePath();
+//        JFileChooser chooser = new JFileChooser();
+//        int returnVal = chooser.showSaveDialog(this);
+//        if(returnVal == JFileChooser.APPROVE_OPTION) {
+//            return chooser.getSelectedFile().getAbsolutePath();
+//        }
+        FileDialog chooser = new FileDialog(this, "Select file to load", FileDialog.LOAD);
+        chooser.setVisible(true);
+        String directory = chooser.getDirectory();
+        String file = chooser.getFile();
+        if (directory != null && file != null) {
+            File selectedFile = new File(directory, file);
+            logger.info("Saving selection to "+selectedFile.getAbsolutePath());
+            return selectedFile.getAbsolutePath();
         }
         return null;
     }

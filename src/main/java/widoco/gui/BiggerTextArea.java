@@ -8,7 +8,7 @@ import widoco.Configuration;
  * @author dgarijo
  */
 public class BiggerTextArea extends javax.swing.JFrame {
-    public enum PropertyType{abs, description, citeAs};
+    public enum PropertyType{abs, description, introduction, citeAs};
     
     private final GuiStep2 step2Gui;
     private final Configuration c;
@@ -44,6 +44,9 @@ public class BiggerTextArea extends javax.swing.JFrame {
                 break;
             case description: this.setTitle("Complete description");
                 textArea.setText(c.getMainOntology().getDescription());
+                break;
+            case introduction: this.setTitle("Complete introduction");
+                textArea.setText(c.getIntroText());
                 break;
             case citeAs: this.setTitle("Complete citation");
                 textArea.setText(c.getMainOntology().getCiteAs());
@@ -133,6 +136,8 @@ public class BiggerTextArea extends javax.swing.JFrame {
             case abs:this.c.setAbstractSection(textArea.getText());
                 break;
             case description:this.c.getMainOntology().setDescription(textArea.getText());
+                break;
+            case introduction:this.c.setIntroText(textArea.getText());
                 break;
             case citeAs:this.c.getMainOntology().setCiteAs(textArea.getText());
                 break;

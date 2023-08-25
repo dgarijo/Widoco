@@ -30,6 +30,7 @@ In this document we illustrate how Widoco uses metadata in the final documentati
 |vann            |[http://purl.org/vocab/vann/](http://purl.org/vocab/vann/)                        |
 |vcard           |[http://www.w3.org/2006/vcard/ns#](http://www.w3.org/2006/vcard/ns#)              |
 |wdrs            |[http://www.w3.org/2007/05/powder-s#](http://www.w3.org/2007/05/powder-s#)        |
+|widoco          |[https://w3id.org/widoco/vocab#](https://w3id.org/widoco/vocab#)        |
 
 ## Metadata usage in WIDOCO
 
@@ -51,6 +52,8 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 |Diagram |[foaf:image], [foaf:depiction], [schema:image]|diagram         |[Sec 3.8.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |DOI     |[bibo:doi]                                    |DOI             |[Sec 3.6.1] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Extended ontologies| [voaf:extends]                    |extendedOntologyNames, extendedOntologyURIs | [Sec 3.4.6] **[OPTIONAL]**|[URI]|[ontology](#onto), [config]|
+|Funders  (org, person)    |[foaf:fundedBy] [schema:funder] |funders             |[Sec 3.5.4] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
+|Funding grants  |[schema:funding]                         |fundingGrant        |[Sec 3.5.5] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
 |Incompatible with|[owl:incompatibleWith]               |incompatibleWith|[Sec 3.3.4] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
 |Imported ontologies|[owl:imports]                      |importedOntologyNames, importedOntologyURIs|**[RECOMMENDED]** (good practice in ontology engineering) | [URI] |  [ontology](#onto), [config]|
 |Issued date      |[dct:issued], [schema:dateIssued]|issued          |[Sec 3.4.4] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
@@ -63,7 +66,7 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 |Previous version|[dce:replaces], [dct:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[Sec 3.4.1] **[RECOMMENDED]**|[URI]|[ontology](#onto), [config]|
 |Publisher|[dct:publisher], [dce:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Sec 3.5.3] **[OPTIONAL]**|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
 |Similar resources|[rdfs:seeAlso]            |      |[Sec 3.9] **[OPTIONAL]**  |[Text]                     |[ontology](#onto), [config]|
-|Status           |[bibo:status] [mod:status]       |status|[Sec 3.2.4] **[OPTIONAL]**|[Text] or [Status](#status)|[ontology](#onto), [config]|
+|Status           |[bibo:status] [mod:status] [schema:creativeWorkStatus]      |status|[Sec 3.2.4] **[OPTIONAL]**|[Text] or [Status](#status)|[ontology](#onto), [config]|
 |Source|[dce:source], [dct:source], [prov:hadPrimarySource], [wdrs:describedBy]|source|[Sec 3.4.5] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
 |Title |[dce:title], [dct:title], [schema:name]   |ontologyTitle  |[Sec 3.2.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
 |Version IRI   |[owl:versionIRI]                      |thisVersionURI |[Sec 3.3.1] **[RECOMMENDED]**|[URI] |[ontology](#onto), [config]|
@@ -72,6 +75,17 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 **\*** All listed properties are supported by WIDOCO.
 
 **\*\*** Configuration properties do not support [URI](#uri)s or blank nodes. Hence, additional properties are needed (like authorsURI, contributorsURI) to annotate URIs in case they are needed.
+
+### Custom annotations
+We prioritize reusing metadata properties defined already. However, a small subset of `OPTIONAL` annotation properties (i.e., `introduction` and the URL to the different serializations) have been introduced by WIDOCO to customize parts of the documentation from the ontology itself:
+
+|Metadata category|Ontology annotation property*|`config.properties` field(s)**|Good practices document|Accepted property value|Example|
+|-----------------|-----------------------------|------------------------------|-----------------------|-----------------------|-------|
+|Introduction     |[widoco:introduction]        |introduction                     |N/A **[OPTIONAL]**     |[Text]|[ontology](#onto), [config]|
+|N-Triples serialization   |[widoco:ntSerialization]     |NTSerialization         |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
+|JSON-LD serialization     |[widoco:jsonldSerialization]   |JSONLDSerialization   |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
+|RDF-XML serialization     |[widoco:rdfxmlSerialization]   |RDFXMLSerialization   |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
+|Turtle serialization      |[widoco:turtleSerialization] |TurtleSerialization     |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
 
 ### Term (classes, properties and data properties) annotations
 
@@ -103,7 +117,8 @@ The following `Turtle` code block shows sample annotations for each of the metad
 @prefix schema: <https://schema.org/> .
 @prefix voaf: <http://purl.org/vocommons/voaf#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-@prefix bibo: <http://purl.org/ontology/bibo/>
+@prefix widoco: <https://w3id.org/widoco/vocab#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
 
 <https://w3id.org/example> rdf:type owl:Ontology ;
     owl:versionIRI <https://w3id.org/example/1.0.1> ;
@@ -123,7 +138,12 @@ The following `Turtle` code block shows sample annotations for each of the metad
     voaf:extends <https://w3id.org/otherOntology> ;
     owl:imports <http://www.w3.org/2000/01/rdf-schema> ;
     bibo:status <http://purl.org/ontology/bibo/status/draft> ;
+    foaf:fundedBy <https://example.org/fundingOrganization> ;
+    schema:funding <https://example.org/fundingGrant> ;
+    widoco:introduction "A paragraph with the introduction section of the documentation about your resource"@en ;
+    widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ; 
     owl:versionInfo "1.0.1" .
+    #If content negotiation is enabled, the widoco:rdfxmlSerialization annotation may not be needed.
 ```
 
 ### Annotating the ontology using entities:
@@ -203,15 +223,18 @@ contributors=First contributor;Second contributor
 contributorsURI=http://example.org/contributor1;http://example.org/contributor2
 contributorsInstitution=First contributor institution;Second contributor institution
 contributorsInstitutionURI=https://isi.edu/;https://isi.edu/
-description="A description of what the ontology does goes here"
+description=A description of what the ontology does goes here
 diagram="https://example.org/diagram.svg"
 extendedOntologyNames=test1; test2
 extendedOntologyURIs=http://example.org/test1; http://example.org/test2
 DOI=https://dx.doi.org/SOME/DOI
+funder=https://example.org/institution
+funding=https://example.org/fundingGrant
 incompatibleWith=https://w3id.org/example/0.0.1
 importedOntologyNames=Imported Ontology 1; Imported Ontology 2
 importedOntologyURIs=http://example.org/test11; http://example.org/test22
-issued=""
+introduction=A brief text for the introduction section may be written here.
+issued=
 licenseURI=http://creativecommons.org/licenses/by/2.0/
 licenseName=CC-BY
 licenseIconURL=https://i.creativecommons.org/l/by/2.0/88x31.png
@@ -229,6 +252,10 @@ ontologyTitle=The Example Ontology
 thisVersionURI=https://w3id.org/example/1.0.1
 ontologyRevisionNumber=v1.0.0
 status=Ontology Specification Draft
+RDFXMLSerialization=ontology.xml
+TurtleSerialization=ontology.ttl
+NTSerialization=ontology.nt
+JSONLDSerialization=ontology.nt
 ```
 
 ## Glossary (<a href="#table">Back to table</a>)
@@ -274,6 +301,8 @@ status=Ontology Specification Draft
 [Sec 3.5.1]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#creators
 [Sec 3.5.2]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#contributors
 [Sec 3.5.3]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#publisher
+[Sec 3.5.4]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#funder
+[Sec 3.5.5]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#funding
 [Sec 3.6.1]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#doi
 [Sec 3.6.2]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#biblio
 [Sec 3.7]:   https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#lic
@@ -324,6 +353,7 @@ status=Ontology Specification Draft
 [doap:translator]:               http://usefulinc.com/ns/doap#translator
 [foaf:depiction]:                http://xmlns.com/foaf/0.1/depiction
 [foaf:family_name]:              http://xmlns.com/foaf/0.1/family_name
+[foaf:fundedBy]:                 http://xmlns.com/foaf/0.1/fundedBy
 [foaf:givenname]:                http://xmlns.com/foaf/0.1/givenname
 [foaf:homepage]:                 http://xmlns.com/foaf/0.1/homepage
 [foaf:image]:                    http://xmlns.com/foaf/0.1/image
@@ -362,6 +392,7 @@ status=Ontology Specification Draft
 [schema:citation]:               https://schema.org/citation
 [schema:contributor]:            https://schema.org/contributor
 [schema:creator]:                https://schema.org/creator
+[schema:creativeWorkStatus]:     https://schema.org/creativeWorkStatus
 [schema:dateCreated]:            https://schema.org/dateCreated
 [schema:dateIssued]:             https://schema.org/dateIssued
 [schema:dateModified]:           https://schema.org/dateModified
@@ -377,6 +408,8 @@ status=Ontology Specification Draft
 [schema:publisher]:              https://schema.org/publisher
 [schema:schemaVersion]:          https://schema.org/schemaVersion
 [schema:url]:                    https://schema.org/url
+[schema:funder]:                 https://schema.org/funder
+[schema:funding]:                https://schema.org/funding
 [skos:definition]:               http://www.w3.org/2004/02/skos/core#definition
 [skos:editorialNote]:            http://www.w3.org/2004/02/skos/core#editorialNote
 [skos:example]:                  http://www.w3.org/2004/02/skos/core#example
@@ -394,3 +427,8 @@ status=Ontology Specification Draft
 [vcard:hasURL]:                  http://www.w3.org/2006/vcard/ns#hasURL
 [voaf:extends]:                  http://purl.org/vocommons/voaf#extends
 [wdrs:describedBy]:              http://www.w3.org/2007/05/powder-s#describedBy
+[widoco:introduction]:           https://w3id.org/widoco/vocab#introduction
+[widoco:rdfxmlSerialization]:    https://w3id.org/widoco/vocab#rdfxmlSerialization
+[widoco:turtleSerialization]:    https://w3id.org/widoco/vocab#turtleSerialization
+[widoco:ntSerialization]:        https://w3id.org/widoco/vocab#ntSerialization
+[widoco:jsonldSerialization]:    https://w3id.org/widoco/vocab#jsonldSerialization
