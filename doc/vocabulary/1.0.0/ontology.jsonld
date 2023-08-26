@@ -131,6 +131,9 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "JSON_LD serialization"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#anyURI"
   } ]
 }, {
   "@id" : "https://w3id.org/widoco/vocab#ntSerialization",
@@ -142,6 +145,9 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "NT serialization"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#anyURI"
   } ]
 }, {
   "@id" : "https://w3id.org/widoco/vocab#rdfxmlSerialization",

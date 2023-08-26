@@ -176,6 +176,7 @@
     <owl:AnnotationProperty rdf:about="https://w3id.org/widoco/vocab#jsonldSerialization">
         <rdfs:comment xml:lang="en">Property to indicate the URL corresponding to the JSON-LD serialization of an ontology</rdfs:comment>
         <rdfs:label xml:lang="en">JSON_LD serialization</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
     </owl:AnnotationProperty>
     
 
@@ -186,6 +187,7 @@
     <owl:AnnotationProperty rdf:about="https://w3id.org/widoco/vocab#ntSerialization">
         <rdfs:comment xml:lang="en">Property to indicate the URL corresponding to the N-Triples serialization of an ontology</rdfs:comment>
         <rdfs:label xml:lang="en">NT serialization</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
     </owl:AnnotationProperty>
     
 

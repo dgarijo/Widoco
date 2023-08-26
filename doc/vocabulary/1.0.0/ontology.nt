@@ -78,11 +78,13 @@
 <https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
 <https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/2000/01/rdf-schema#comment> "Property to indicate the URL corresponding to the JSON-LD serialization of an ontology"@en .
 <https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/2000/01/rdf-schema#label> "JSON_LD serialization"@en .
+<https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#anyURI> .
 # 
 # https://w3id.org/widoco/vocab#ntSerialization
 <https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
 <https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/2000/01/rdf-schema#comment> "Property to indicate the URL corresponding to the N-Triples serialization of an ontology"@en .
 <https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/2000/01/rdf-schema#label> "NT serialization"@en .
+<https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#anyURI> .
 # 
 # https://w3id.org/widoco/vocab#rdfxmlSerialization
 <https://w3id.org/widoco/vocab#rdfxmlSerialization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .

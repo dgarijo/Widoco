@@ -99,13 +99,15 @@
 ###  https://w3id.org/widoco/vocab#jsonldSerialization
 :jsonldSerialization rdf:type owl:AnnotationProperty ;
                      rdfs:comment "Property to indicate the URL corresponding to the JSON-LD serialization of an ontology"@en ;
-                     rdfs:label "JSON_LD serialization"@en .
+                     rdfs:label "JSON_LD serialization"@en ;
+                     rdfs:range xsd:anyURI .
 
 
 ###  https://w3id.org/widoco/vocab#ntSerialization
 :ntSerialization rdf:type owl:AnnotationProperty ;
                  rdfs:comment "Property to indicate the URL corresponding to the N-Triples serialization of an ontology"@en ;
-                 rdfs:label "NT serialization"@en .
+                 rdfs:label "NT serialization"@en ;
+                 rdfs:range xsd:anyURI .
 
 
 ###  https://w3id.org/widoco/vocab#rdfxmlSerialization
