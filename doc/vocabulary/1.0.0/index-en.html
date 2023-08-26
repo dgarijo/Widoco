@@ -49,7 +49,7 @@ function loadTOC(){
  $.fn.ignore = function(sel){
         return this.clone().find(sel||">*").remove().end();
  };    $(function(){
-      $("#introduction").load("sections/introduction-en.html"); 
+      $("#introd").load("sections/introduction-en.html"); 
       $("#overview").load("sections/overview-en.html"); 
       $("#description").load("sections/description-en.html"); 
       $("#crossref").load("sections/crossref-en.html", null, loadHash); 
@@ -88,7 +88,7 @@ function loadTOC(){
 <span>WIDOCO Specification Draft</span>
 </div>
 </div>     <div id="abstract"></div>
-<div id="toc"></div>     <div id="introduction"></div>
+<div id="toc"></div>     <div id="introd"></div>
      <div id="overview"></div>
      <div id="description"></div>
      <div id="crossref"></div>
