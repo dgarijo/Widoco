@@ -4,10 +4,8 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix schema:  <https://schema.org/> .
-@prefix vcard:   <http://www.w3.org/2006/vcard/ns#> .
-@prefix org:     <http://www.w3.org/ns/org#>.
+@prefix widoco: <https://w3id.org/widoco/vocab#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @base <https://w3id.org/example> .
 
 <https://w3id.org/example> rdf:type owl:Ontology ;
@@ -16,24 +14,7 @@
                             <http://purl.org/dc/elements/1.1/description> "This is an example ontology to illustrate some of the annotations that should be included"@en ;
                             <http://purl.org/dc/elements/1.1/title> "The example ontology"@en ;
                             <http://purl.org/dc/terms/created> "February 5th, 2020"@en ;
-                            <http://purl.org/dc/terms/issued> "February 4th, 2020"@en ;
                             <http://purl.org/dc/terms/creator> "Maria Poveda-Villalon"@en ;
-                            schema:image <https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.9.0/images/overviewSDv5.png>;
-                            foaf:img "https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.9.0/images/overviewSDv5.png";
-                            <http://purl.org/dc/terms/creator> [
-                                foaf:name "Oscar Corcho";
-                                foaf:mbox "mailto:MyEmail@example.org";
-                                org:memberOf <https://example.org/UPM>.
-                              ] ;
-                              <http://purl.org/dc/terms/contributor> [
-                                  foaf:name "Edna Ruckhaus";
-                                  org:memberOf <https://example.org/UPM>.
-                                ] ;
-                                <http://purl.org/dc/terms/contributor> [
-                                    foaf:name "Pepito Perez1";
-                                    org:memberOf <https://example.org/UPM>.
-                                  ] ;
-                            schema:creator <https://example.org/dgv>;
                             <http://purl.org/dc/terms/license> <http://creativecommons.org/licenses/by/2.0/> ;
                             <http://purl.org/vocab/vann/preferredNamespacePrefix> "exo"@en ;
                             <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/example" ;
@@ -41,17 +22,13 @@
                             rdfs:comment "An example vocabulary designed to illustrate how to publish vocabularies on the Web following the FAIR principles. This vocabulary describes three simple classes with 3 properties and a data property."@en ;
                             owl:backwardCompatibleWith <https://w3id.org/example/1.0.0> ;
                             owl:priorVersion <https://w3id.org/example/1.0.0> ;
+                            <http://purl.org/dc/terms/source> <https://w3id.org/source1>,  <https://w3id.org/source2> ;
+                            rdfs:seeAlso "https://URL1.com" ;
+                            <http://xmlns.com/foaf/0.1/fundedBy> "https://ORG.com";
+                            <http://schema.org/funding> <https://example.org/GRANT1>;
+                            widoco:introduction "A paragraph with the introduction section of the documentation about your resource"@en ;
+                            widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ; 
                             owl:versionInfo "1.0.1"@en .
-
-<https://example.org/dgv> a schema:Person;
-  schema:name "Daniel Garijo";
-  schema:email "mailto:MyEmail@example.org";
-  schema:url <https://example.org> ;
-  schema:affiliation <https://example.org/UPM> .
-
-<https://example.org/UPM> a foaf:Organization ;
-  foaf:name "UPM";
-  foaf:homepage "https://www.upm.es" .
 
 #################################################################
 #    Annotation properties
@@ -130,6 +107,7 @@ xsd:date rdf:type rdfs:Datatype .
            rdfs:domain :Organization ;
            rdfs:range :Researcher ;
            rdfs:comment "This example property indicates that an Organization has a Researcher as member"@en ;
+           skos:editorialNote "banana in pajama"@en ;
            rdfs:label "has member"@en .
 
 
@@ -157,6 +135,7 @@ xsd:date rdf:type rdfs:Datatype .
 :foundedIn rdf:type owl:DatatypeProperty ;
            rdfs:domain :Organization ;
            rdfs:range xsd:date ;
+           skos:editorialNote "banana in pajama data prop"@en ;
            rdfs:comment "Date when an organization was founded"@en ;
            rdfs:label "founded in"@en .
 
@@ -174,7 +153,10 @@ xsd:date rdf:type rdfs:Datatype .
 :Organization rdf:type owl:Class ;
               <http://purl.org/vocab/vann/example> "University of Southern California"@en ;
               rdfs:comment "An organized body of people with a particular purpose, especially a business, society, association, etc."@en ;
-              rdfs:label "Organization"@en .
+              skos:editorialNote "SKOS note"@en ;
+              owl:equivalentClass <http://xmlns.com/foaf/0.1/Organization>;
+              skos:prefLabel "organization";
+              rdfs:label "Organization"@en, "org"@fr .
 
 
 ###  https://w3id.org/example#Researcher

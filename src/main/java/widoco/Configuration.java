@@ -209,10 +209,10 @@ public class Configuration {
 		mainOntologyMetadata.setLicense(l);
 		mainOntologyMetadata.setSerializations(new HashMap<>());
 		// add default serializations: rdf/xml, n3, turtle and json-ld
-		mainOntologyMetadata.addSerialization("RDF/XML", "ontology.owl");
-		mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
-		mainOntologyMetadata.addSerialization("N-Triples", "ontology.nt");
-		mainOntologyMetadata.addSerialization("JSON-LD", "ontology.jsonld");
+		mainOntologyMetadata.addSerialization(Constants.RDF_XML, "ontology.owl");
+		mainOntologyMetadata.addSerialization(Constants.TTL, "ontology.ttl");
+		mainOntologyMetadata.addSerialization(Constants.NT, "ontology.nt");
+		mainOntologyMetadata.addSerialization(Constants.JSON_LD, "ontology.jsonld");
 		mainOntologyMetadata.setCreators(new ArrayList<>());
 		mainOntologyMetadata.setContributors(new ArrayList<>());
 		mainOntologyMetadata.setCiteAs("");
@@ -237,33 +237,33 @@ public class Configuration {
 			propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
 			// We try to load from the configuration file. If it fails, then we should try
 			// to load from the ontology. Then, if it fails, we should ask the user.
-			abstractSection = propertyFile.getProperty(Constants.ABSTRACT_SECTION_CONTENT);
-			contextURI = propertyFile.getProperty(Constants.CONTEXT_URI, "");
-			mainOntologyMetadata.setTitle(propertyFile.getProperty(Constants.ONT_TITLE, "Title goes here"));
-			mainOntologyMetadata.setCreationDate(propertyFile.getProperty(Constants.DATE_CREATED, "Creation date"));
-			mainOntologyMetadata.setModifiedDate(propertyFile.getProperty(Constants.DATE_MODIFIED, "Modified date"));
-			mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.PREVIOUS_VERSION));
-			mainOntologyMetadata.setThisVersion(propertyFile.getProperty(Constants.THIS_VERSION_URI));
-			mainOntologyMetadata.setLatestVersion(propertyFile.getProperty(Constants.LATEST_VERSION_URI));
-			mainOntologyMetadata.setName(propertyFile.getProperty(Constants.ONT_NAME));
-			mainOntologyMetadata.setNamespacePrefix(propertyFile.getProperty(Constants.ONT_PREFIX));
-			mainOntologyMetadata.setNamespaceURI(propertyFile.getProperty(Constants.ONT_NAMESPACE_URI));
-			mainOntologyMetadata.setRevision(propertyFile.getProperty(Constants.ONT_REVISION_NUMBER));
+			abstractSection = propertyFile.getProperty(Constants.PF_ABSTRACT_SECTION_CONTENT);
+			contextURI = propertyFile.getProperty(Constants.PF_CONTEXT_URI, "");
+			mainOntologyMetadata.setTitle(propertyFile.getProperty(Constants.PF_ONT_TITLE, "Title goes here"));
+			mainOntologyMetadata.setCreationDate(propertyFile.getProperty(Constants.PF_DATE_CREATED, "Creation date"));
+			mainOntologyMetadata.setModifiedDate(propertyFile.getProperty(Constants.PF_DATE_MODIFIED, "Modified date"));
+			mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.PF_PREVIOUS_VERSION));
+			mainOntologyMetadata.setThisVersion(propertyFile.getProperty(Constants.PF_THIS_VERSION_URI));
+			mainOntologyMetadata.setLatestVersion(propertyFile.getProperty(Constants.PF_LATEST_VERSION_URI));
+			mainOntologyMetadata.setName(propertyFile.getProperty(Constants.PF_ONT_NAME));
+			mainOntologyMetadata.setNamespacePrefix(propertyFile.getProperty(Constants.PF_ONT_PREFIX));
+			mainOntologyMetadata.setNamespaceURI(propertyFile.getProperty(Constants.PF_ONT_NAMESPACE_URI));
+			mainOntologyMetadata.setRevision(propertyFile.getProperty(Constants.PF_ONT_REVISION_NUMBER));
 			Agent publisher = new Agent();
-			publisher.setName(propertyFile.getProperty(Constants.PUBLISHER, ""));
-			publisher.setURL(propertyFile.getProperty(Constants.PUBLISHER_URI, ""));
-			publisher.setInstitutionName(propertyFile.getProperty(Constants.PUBLISHER_INSTITUTION, ""));
-			publisher.setInstitutionURL(propertyFile.getProperty(Constants.PUBLISHER_INSTITUTION_URI, ""));
+			publisher.setName(propertyFile.getProperty(Constants.PF_PUBLISHER, ""));
+			publisher.setURL(propertyFile.getProperty(Constants.PF_PUBLISHER_URI, ""));
+			publisher.setInstitutionName(propertyFile.getProperty(Constants.PF_PUBLISHER_INSTITUTION, ""));
+			publisher.setInstitutionURL(propertyFile.getProperty(Constants.PF_PUBLISHER_INSTITUTION_URI, ""));
 			mainOntologyMetadata.setPublisher(publisher);
-			String aux = propertyFile.getProperty(Constants.AUTHORS, "");
+			String aux = propertyFile.getProperty(Constants.PF_AUTHORS, "");
 			String[] names, urls, authorInst, authorInstURI;
 			if (!aux.equals("")) {
 				names = aux.split(";");
-				aux = propertyFile.getProperty(Constants.AUTHORS_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_AUTHORS_URI, "");
 				urls = aux.split(";");
-				aux = propertyFile.getProperty(Constants.AUTHORS_INSTITUTION, "");
+				aux = propertyFile.getProperty(Constants.PF_AUTHORS_INSTITUTION, "");
 				authorInst = aux.split(";");
-				aux = propertyFile.getProperty(Constants.AUTHORS_INSTITUTION_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_AUTHORS_INSTITUTION_URI, "");
 				authorInstURI = aux.split(";");
 				for (int i = 0; i < names.length; i++) {
 					Agent a = new Agent();
@@ -286,14 +286,14 @@ public class Configuration {
 					mainOntologyMetadata.getCreators().add(a);
 				}
 			}
-			aux = propertyFile.getProperty(Constants.CONTRIBUTORS, "");
+			aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS, "");
 			if (!aux.equals("")) {
 				names = aux.split(";");
-				aux = propertyFile.getProperty(Constants.CONTRIBUTORS_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS_URI, "");
 				urls = aux.split(";");
-				aux = propertyFile.getProperty(Constants.CONTRIBUTORS_INSTITUTION, "");
+				aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS_INSTITUTION, "");
 				authorInst = aux.split(";");
-				aux = propertyFile.getProperty(Constants.CONTRIBUTORS_INSTITUTION_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS_INSTITUTION_URI, "");
 				authorInstURI = aux.split(";");
 				for (int i = 0; i < names.length; i++) {
 					Agent a = new Agent();
@@ -316,9 +316,9 @@ public class Configuration {
 					mainOntologyMetadata.getContributors().add(a);
 				}
 			}
-			aux = propertyFile.getProperty(Constants.IMPORTED_ONTOLOGY_NAMES, "");
+			aux = propertyFile.getProperty(Constants.PF_IMPORTED_ONTOLOGY_NAMES, "");
 			names = aux.split(";");
-			aux = propertyFile.getProperty(Constants.IMPORTED_ONTOLOGY_URIS, "");
+			aux = propertyFile.getProperty(Constants.PF_IMPORTED_ONTOLOGY_URIS, "");
 			urls = aux.split(";");
 			for (int i = 0; i < names.length; i++) {
 				if (!"".equals(names[i])) {
@@ -332,9 +332,9 @@ public class Configuration {
 					mainOntologyMetadata.getImportedOntologies().add(o);
 				}
 			}
-			aux = propertyFile.getProperty(Constants.EXTENDED_ONTOLOGY_NAMES, "");
+			aux = propertyFile.getProperty(Constants.PF_EXTENDED_ONTOLOGY_NAMES, "");
 			names = aux.split(";");
-			aux = propertyFile.getProperty(Constants.EXTENDED_ONTOLOGY_URIS, "");
+			aux = propertyFile.getProperty(Constants.PF_EXTENDED_ONTOLOGY_URIS, "");
 			urls = aux.split(";");
 			for (int i = 0; i < names.length; i++) {
 				if (!"".equals(names[i])) {
@@ -348,48 +348,49 @@ public class Configuration {
 					mainOntologyMetadata.getExtendedOntologies().add(o);
 				}
 			}
-			mainOntologyMetadata.getLicense().setName(propertyFile.getProperty(Constants.LICENSE_NAME, ""));
-			mainOntologyMetadata.getLicense().setUrl(propertyFile.getProperty(Constants.LICENSE_URI, ""));
-			mainOntologyMetadata.getLicense().setIcon(propertyFile.getProperty(Constants.LICENSE_ICON_URL, ""));
+			mainOntologyMetadata.getLicense().setName(propertyFile.getProperty(Constants.PF_LICENSE_NAME, ""));
+			mainOntologyMetadata.getLicense().setUrl(propertyFile.getProperty(Constants.PF_LICENSE_URI, ""));
+			mainOntologyMetadata.getLicense().setIcon(propertyFile.getProperty(Constants.PF_LICENSE_ICON_URL, ""));
 			mainOntologyMetadata.setStatus(propertyFile.getProperty(Constants.STATUS, "Specification Draft"));
-			mainOntologyMetadata.setCiteAs(propertyFile.getProperty(Constants.CITE_AS, ""));
-			mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.DOI, ""));
-			mainOntologyMetadata.setDescription(propertyFile.getProperty(Constants.DESCRIPTION, ""));
-			mainOntologyMetadata.setLogo(propertyFile.getProperty(Constants.LOGO, ""));
+			mainOntologyMetadata.setCiteAs(propertyFile.getProperty(Constants.PF_CITE_AS, ""));
+			mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.PF_DOI, ""));
+			mainOntologyMetadata.setDescription(propertyFile.getProperty(Constants.PF_DESCRIPTION, ""));
+			mainOntologyMetadata.setLogo(propertyFile.getProperty(Constants.PF_LOGO, ""));
 			mainOntologyMetadata.setBackwardsCompatibleWith(propertyFile.getProperty(Constants.COMPATIBLE, ""));
-			mainOntologyMetadata.setIncompatibleWith(propertyFile.getProperty(Constants.INCOMPATIBLE_WITH,""));
+			mainOntologyMetadata.setIncompatibleWith(propertyFile.getProperty(Constants.PF_INCOMPATIBLE_WITH,""));
+			this.setIntroText(propertyFile.getProperty(Constants.PF_INTRODUCTION, ""));
 			// vocabLoadedSerialization =
 			// propertyFile.getProperty(TextConstants.deafultSerialization, "RDF/XML");
-			String serializationRDFXML = propertyFile.getProperty(Constants.SERIALIZATION_RDF, "");
+			String serializationRDFXML = propertyFile.getProperty(Constants.PF_SERIALIZATION_RDF, "");
 			if (!"".equals(serializationRDFXML)) {
-				mainOntologyMetadata.addSerialization("RDF/XML", serializationRDFXML);
+				mainOntologyMetadata.addSerialization(Constants.RDF_XML, serializationRDFXML);
 			}
-			String serializationTTL = propertyFile.getProperty(Constants.SERIALIZATION_TTL, "");
+			String serializationTTL = propertyFile.getProperty(Constants.PF_SERIALIZATION_TTL, "");
 			if (!"".equals(serializationTTL)) {
-				mainOntologyMetadata.addSerialization("TTL", serializationTTL);
+				mainOntologyMetadata.addSerialization(Constants.TTL, serializationTTL);
 			}
-			String serializationN3 = propertyFile.getProperty(Constants.SERIALIZATION_N3, "");
-			if (!"".equals(serializationN3)) {
-				mainOntologyMetadata.addSerialization("N-Triples", serializationN3);
+			String serializationNT = propertyFile.getProperty(Constants.PF_SERIALIZATION_NT, "");
+			if (!"".equals(serializationNT)) {
+				mainOntologyMetadata.addSerialization(Constants.NT, serializationNT);
 			}
-			String serializationJSONLD = propertyFile.getProperty(Constants.SERIALIZATION_JSON, "");
+			String serializationJSONLD = propertyFile.getProperty(Constants.PF_SERIALIZATION_JSON, "");
 			if (!"".equals(serializationJSONLD)) {
-				mainOntologyMetadata.addSerialization("JSON-LD", serializationJSONLD);
+				mainOntologyMetadata.addSerialization(Constants.JSON_LD, serializationJSONLD);
 			}
 			this.googleAnalyticsCode = propertyFile.getProperty("GoogleAnalyticsCode");
-			String images = propertyFile.getProperty(Constants.IMAGES, "");
+			String images = propertyFile.getProperty(Constants.PF_IMAGES, "");
 			if (!"".equals(images)){
-				mainOntologyMetadata.setImages(new ArrayList<String>(Arrays.asList(images.split(";"))));
+				mainOntologyMetadata.setImages(new ArrayList<>(Arrays.asList(images.split(";"))));
 			}
-			String source = propertyFile.getProperty(Constants.SOURCE, "");
+			String source = propertyFile.getProperty(Constants.PF_SOURCE, "");
 			if (!"".equals(source)){
-				mainOntologyMetadata.setSources(new ArrayList<String>(Arrays.asList(source.split(";"))));
+				mainOntologyMetadata.setSources(new ArrayList<>(Arrays.asList(source.split(";"))));
 			}
-			String seeAlso = propertyFile.getProperty(Constants.SEE_ALSO, "");
+			String seeAlso = propertyFile.getProperty(Constants.PF_SEE_ALSO, "");
 			if (!"".equals(seeAlso)){
-				mainOntologyMetadata.setSeeAlso(new ArrayList<String>(Arrays.asList(seeAlso.split(";"))));
+				mainOntologyMetadata.setSeeAlso(new ArrayList<>(Arrays.asList(seeAlso.split(";"))));
 			}
-			String funders = propertyFile.getProperty(Constants.FUNDERS, "");
+			String funders = propertyFile.getProperty(Constants.PF_FUNDERS, "");
 			if (!"".equals(funders)){
 				String [] fundersURI = funders.split(";");
 				for (String s : fundersURI) {
@@ -399,7 +400,7 @@ public class Configuration {
 					mainOntologyMetadata.getFunders().add(a);
 				}
 			}
-			String funding = propertyFile.getProperty(Constants.FUNDING, "");
+			String funding = propertyFile.getProperty(Constants.PF_FUNDING, "");
 			if (!"".equals(funding)){
 				mainOntologyMetadata.setFundingGrants(new ArrayList<String>(Arrays.asList(funding.split(";"))));
 			}
@@ -800,6 +801,23 @@ public class Configuration {
 			} catch (Exception e) {
 				logger.error("Error while introduction annotation. No literal provided");
 			}
+			break;
+		//serializations (rare as it is usually available with C/N)
+		case Constants.PROP_WIDOCO_JSON_LD:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.JSON_LD, value);
+			break;
+		case Constants.PROP_WIDOCO_NT:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.NT, value);
+			break;
+		case Constants.PROP_WIDOCO_RDF_XML:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.RDF_XML, value);
+			break;
+		case Constants.PROP_WIDOCO_TURTLE:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.TTL, value);
 			break;
 		}
 	}

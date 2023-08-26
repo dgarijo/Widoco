@@ -209,7 +209,7 @@ public class Constants {
 	public static final String PROP_WDRS_IS_DESCRIBED_BY = NS_WDRS + "describedBy";
 	public static final String PROP_WIDOCO_INTRODUCTION = NS_WIDOCO + "introduction";
 	public static final String PROP_WIDOCO_RDF_XML= NS_WIDOCO + "rdfxmlSerialization";
-	public static final String PROP_WIDOCO_NT= NS_WIDOCO + "nTSerialization";
+	public static final String PROP_WIDOCO_NT= NS_WIDOCO + "ntSerialization";
 	public static final String PROP_WIDOCO_TURTLE = NS_WIDOCO + "turtleSerialization";
 	public static final String PROP_WIDOCO_JSON_LD = NS_WIDOCO + "jsonldSerialization";
 
@@ -222,54 +222,61 @@ public class Constants {
 	// source for the vocab
 
 	/**
-	 * Constants for the property file with the ontology metadata
+	 * Constants for the property file (PF) with the ontology metadata
 	 */
 
-	public static final String ABSTRACT_SECTION_CONTENT = "abstract";
-	public static final String AUTHORS = "authors";
-	public static final String AUTHORS_URI = "authorsURI";
-	public static final String AUTHORS_INSTITUTION = "authorsInstitution";
-	public static final String AUTHORS_INSTITUTION_URI = "authorsInstitutionURI";
-	public static final String CITE_AS = "citeAs";
-	public static final String CONTEXT_URI = "contextURI";
-	public static final String CONTRIBUTORS = "contributors";
-	public static final String CONTRIBUTORS_URI = "contributorsURI";
-	public static final String CONTRIBUTORS_INSTITUTION = "contributorsInstitution";
-	public static final String CONTRIBUTORS_INSTITUTION_URI = "contributorsInstitutionURI";
-	public static final String DATE_CREATED = "dateCreated";
-	public static final String DATE_MODIFIED = "dateModified";
-	public static final String DESCRIPTION = "description";
-	public static final String DOI = "DOI";
-	public static final String EXTENDED_ONTOLOGY_NAMES = "extendedOntologyNames";
-	public static final String EXTENDED_ONTOLOGY_URIS = "extendedOntologyURIs";
-	public static final String LATEST_VERSION_URI = "latestVersionURI";
-	public static final String LICENSE_ICON_URL = "licenseIconURL";
-	public static final String LICENSE_NAME = "licenseName";
-	public static final String LICENSE_URI = "licenseURI";
-	public static final String LOGO = "logo";
-	public static final String IMAGES = "images";
-	public static final String IMPORTED_ONTOLOGY_NAMES = "importedOntologyNames";
-	public static final String IMPORTED_ONTOLOGY_URIS = "importedOntologyURIs";
-	public static final String INCOMPATIBLE_WITH = "incompatibleWith";
-	public static final String ONT_NAME = "ontologyName";
-	public static final String ONT_NAMESPACE_URI = "ontologyNamespaceURI";
-	public static final String ONT_REVISION_NUMBER = "ontologyRevisionNumber";
-	public static final String ONT_TITLE = "ontologyTitle";
-	public static final String ONT_PREFIX = "ontologyPrefix";
-	public static final String THIS_VERSION_URI = "thisVersionURI";
-	public static final String PREVIOUS_VERSION = "previousVersionURI";
-	public static final String PUBLISHER = "publisher";
-	public static final String PUBLISHER_URI = "publisherURI";
-	public static final String PUBLISHER_INSTITUTION = "publisherInstitution";
-	public static final String PUBLISHER_INSTITUTION_URI = "publisherInstitutionURI";
-	public static final String SEE_ALSO = "seeAlso";
-	public static final String SOURCE = "source";
-	public static final String FUNDERS = "funders";
-	public static final String FUNDING = "fundingGrants";
-	public static final String SERIALIZATION_N3 = "N3Serialization";
-	public static final String SERIALIZATION_JSON = "JSONLDSerialization";
-	public static final String SERIALIZATION_RDF = "RDFXMLSerialization";
-	public static final String SERIALIZATION_TTL = "TurtleSerialization";
+	public static final String PF_ABSTRACT_SECTION_CONTENT = "abstract";
+	public static final String PF_AUTHORS = "authors";
+	public static final String PF_AUTHORS_URI = "authorsURI";
+	public static final String PF_AUTHORS_INSTITUTION = "authorsInstitution";
+	public static final String PF_AUTHORS_INSTITUTION_URI = "authorsInstitutionURI";
+	public static final String PF_CITE_AS = "citeAs";
+	public static final String PF_CONTEXT_URI = "contextURI";
+	public static final String PF_CONTRIBUTORS = "contributors";
+	public static final String PF_CONTRIBUTORS_URI = "contributorsURI";
+	public static final String PF_CONTRIBUTORS_INSTITUTION = "contributorsInstitution";
+	public static final String PF_CONTRIBUTORS_INSTITUTION_URI = "contributorsInstitutionURI";
+	public static final String PF_DATE_CREATED = "dateCreated";
+	public static final String PF_DATE_MODIFIED = "dateModified";
+	public static final String PF_DESCRIPTION = "description";
+	public static final String PF_DOI = "DOI";
+	public static final String PF_EXTENDED_ONTOLOGY_NAMES = "extendedOntologyNames";
+	public static final String PF_EXTENDED_ONTOLOGY_URIS = "extendedOntologyURIs";
+	public static final String PF_LATEST_VERSION_URI = "latestVersionURI";
+	public static final String PF_LICENSE_ICON_URL = "licenseIconURL";
+	public static final String PF_LICENSE_NAME = "licenseName";
+	public static final String PF_LICENSE_URI = "licenseURI";
+	public static final String PF_LOGO = "logo";
+	public static final String PF_IMAGES = "images";
+	public static final String PF_IMPORTED_ONTOLOGY_NAMES = "importedOntologyNames";
+	public static final String PF_IMPORTED_ONTOLOGY_URIS = "importedOntologyURIs";
+	public static final String PF_INCOMPATIBLE_WITH = "incompatibleWith";
+	public static final String PF_INTRODUCTION = "introduction";
+	public static final String PF_ONT_NAME = "ontologyName";
+	public static final String PF_ONT_NAMESPACE_URI = "ontologyNamespaceURI";
+	public static final String PF_ONT_REVISION_NUMBER = "ontologyRevisionNumber";
+	public static final String PF_ONT_TITLE = "ontologyTitle";
+	public static final String PF_ONT_PREFIX = "ontologyPrefix";
+	public static final String PF_THIS_VERSION_URI = "thisVersionURI";
+	public static final String PF_PREVIOUS_VERSION = "previousVersionURI";
+	public static final String PF_PUBLISHER = "publisher";
+	public static final String PF_PUBLISHER_URI = "publisherURI";
+	public static final String PF_PUBLISHER_INSTITUTION = "publisherInstitution";
+	public static final String PF_PUBLISHER_INSTITUTION_URI = "publisherInstitutionURI";
+	public static final String PF_SEE_ALSO = "seeAlso";
+	public static final String PF_SOURCE = "source";
+	public static final String PF_FUNDERS = "funders";
+	public static final String PF_FUNDING = "fundingGrants";
+	public static final String PF_SERIALIZATION_NT = "NTSerialization";
+	public static final String PF_SERIALIZATION_JSON = "JSONLDSerialization";
+	public static final String PF_SERIALIZATION_RDF = "RDFXMLSerialization";
+	public static final String PF_SERIALIZATION_TTL = "TurtleSerialization";
+
+	/*OWL_API RDF Serializations*/
+	public static final String RDF_XML = "RDF/XML";
+	public static final String TTL = "TTL";
+	public static final String NT = "N-Triples";
+	public static final String JSON_LD = "JSON-LD";
 
 
 	/*
@@ -285,10 +292,10 @@ public class Constants {
 	public static final String LANG_INTRO_TITLE = "introTitle";
 	public static final String LANG_INTRO_PLACEHOLDER = "introPlaceHolder";
 	public static final String LANG_REFERENCES_PLACEHOLDER = "referencesPlaceHolder";
-	public static final String LANG_AUTHORS = AUTHORS;
-	public static final String LANG_CONTRIBUTORS = CONTRIBUTORS;
+	public static final String LANG_AUTHORS = PF_AUTHORS;
+	public static final String LANG_CONTRIBUTORS = PF_CONTRIBUTORS;
 	public static final String LANG_AC_TEXT = "ackText";
-	public static final String LANG_PUBLISHER = PUBLISHER;
+	public static final String LANG_PUBLISHER = PF_PUBLISHER;
 	public static final String LANG_IMPORTED = "imported";
 	public static final String LANG_EXTENDED = "extended";
 	public static final String LANG_NS = "ns";
