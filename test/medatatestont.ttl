@@ -1,0 +1,13 @@
+@prefix myont: <https://identifier.my.ont/ont/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://identifier.my.ont/ont/>
+  a owl:Ontology ;
+  rdfs:label "ontology";
+  dcterms:title "Example title" ;
+.
+
+<myont:citationtitle>
+  a owl:DatatypeProperty ;
+  rdfs:subPropertyOf dcterms:title ;
+.

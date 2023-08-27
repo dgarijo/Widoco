@@ -126,6 +126,14 @@ xsd:date rdf:type rdfs:Datatype .
         rdfs:comment "This property links instances from Researcher to Organization"@en ;
         rdfs:label "part of"@en .
 
+###  http://www.w3.org/2006/time#hasBeginning
+<http://www.w3.org/2006/time#hasBeginning> rdf:type owl:ObjectProperty ;
+                                           rdfs:domain <http://www.w3.org/2006/time#TemporalEntity> ;
+                                           rdfs:range <http://www.w3.org/2006/time#Instant> ;
+                                           rdfs:comment "Beginning of a temporal entity."^^xsd:anyURI ;
+                                           rdfs:isDefinedBy "http://www.w3.org/2006/time"^^xsd:anyURI ;
+                                           rdfs:label "has beginning"^^xsd:anyURI .
+
 
 #################################################################
 #    Data properties
@@ -146,6 +154,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://xmlns.com/foaf/0.1/Organization
 <http://xmlns.com/foaf/0.1/Organization> rdf:type owl:Class ;
+                                         rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
                                          owl:equivalentClass :Organization .
 
 
@@ -156,6 +165,7 @@ xsd:date rdf:type rdfs:Datatype .
               skos:editorialNote "SKOS note"@en ;
               owl:equivalentClass <http://xmlns.com/foaf/0.1/Organization>;
               skos:prefLabel "organization";
+              rdfs:isDefinedBy <https://w3id.org/example> ;
               rdfs:label "Organization"@en, "org"@fr .
 
 

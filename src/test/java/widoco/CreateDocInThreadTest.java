@@ -263,6 +263,31 @@ public class CreateDocInThreadTest {
             fail("Error while running the test: " +e.getMessage());
         }
     }
+
+    /**
+     * Test to see if annotation properties that document the ontology and also are extended in the ontology itself
+     * are being recognized.
+     * Issue 530 (https://github.com/dgarijo/Widoco/issues/530)
+     */
+    @org.junit.Test
+    public void testIssue530() {
+        try {
+            String pathToOnto = "test" + File.separator + "medatatestont.ttl";
+            c.setFromFile(true);
+            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            //title is the property being extended
+            if(c.getMainOntology().getTitle().isEmpty()){
+                fail("Could not extract title!");
+            }
+            //not needed, but added for consistency with the other tests.
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+        }catch(Exception e){
+            fail("Error while running the test: " +e.getMessage());
+        }
+    }
 //    
     /**
      * This is a test to see if a big ontology works (several MB)

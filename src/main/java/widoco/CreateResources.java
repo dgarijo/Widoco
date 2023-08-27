@@ -232,21 +232,23 @@ public class CreateResources {
 	}
 
 	private static String createIntroductionSection(String path, Configuration c,Properties lang) {
-            String textToWrite;
+            String introText;
+			String nsText="";
             HashMap<String,String> nsDecl = c.getNamespaceDeclarations();
             if ((c.getIntroductionPath() != null) && (!"".equals(c.getIntroductionPath()))) {
-                textToWrite = WidocoUtils.readExternalResource(c.getIntroductionPath());
+				introText = WidocoUtils.readExternalResource(c.getIntroductionPath());
             } else {
-                textToWrite = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
+				introText = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
                 if (nsDecl != null && !nsDecl.isEmpty()) {
-                    textToWrite += Constants.getNameSpaceDeclaration(nsDecl, c, lang);
+					nsText = Constants.getNameSpaceDeclaration(nsDecl, c, lang);
                 }
                 //only save if separating sections
                 if(!c.isIncludeAllSectionsInOneDocument()){
-                    saveDocument(path + File.separator + "introduction-" + c.getCurrentLanguage() + ".html", textToWrite,c);
+                    saveDocument(path + File.separator + "introduction-" + c.getCurrentLanguage() + ".html", introText,c);
+					saveDocument(path + File.separator + "ns-" + c.getCurrentLanguage() + ".html", nsText,c);
                 }
             }
-            return textToWrite;
+            return introText + nsText;
 	}
 
 	// the lists passed onto this method are the fixed lists
