@@ -791,6 +791,9 @@ public class Constants {
 				document += "      $(\"#introduction\").load(\"sections/introduction-" + c.getCurrentLanguage()
 						+ ".html\"); \n";
 			}
+			//namespace table is always a separated document
+			document += "      $(\"#nstable\").load(\"sections/ns-" + c.getCurrentLanguage()
+					+ ".html\"); \n";
 		}
 		if (c.isIncludeOverview()){
 			if(c.getOverviewPath()!=null && !c.getOverviewPath().isEmpty()){
@@ -835,9 +838,10 @@ public class Constants {
 		if (c.isIncludeAbstract())
 			document += "     <div id=\"abstract\"></div>\n";
 		document += "<div id=\"toc\"></div>";
-		if (c.isIncludeIntroduction())
+		if (c.isIncludeIntroduction()) {
 			document += "     <div id=\"introduction\"></div>\n";
-		// else document += "<div id=\"namespacedeclaration\"></div>\n";
+			document += "	  <div id=\"nstable\"></div>\n"; //ns declaration is part of the intro
+		}
 		if (c.isIncludeOverview())
 			document += "     <div id=\"overview\"></div>\n";
 		if (c.isIncludeDescription())

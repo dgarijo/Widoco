@@ -1045,7 +1045,8 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <dd>
                         <xsl:choose>
                             <xsl:when test="normalize-space(@*:resource) = ''">
-                                <xsl:value-of select="$ontology-url"/>
+                                <!--<xsl:value-of select="$ontology-url"/>-->
+                                <xsl:value-of select="text()"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{@*:resource}">

@@ -450,7 +450,31 @@ public class Configuration {
 			});
 		}
 		this.mainOntologyMetadata.setThisVersion(versionUri);
+		// process ontology annotations
 		o.annotations().forEach(a -> completeOntologyMetadata(a,o));
+		// in some cases, properties and data properties extend annotation properties, so we need to process them
+		// separately. In this case we go through all axioms and look for any props that have the own ontology as subject
+		for (OWLAxiom axiom : o.getAxioms()) {
+			String subject = "", predicate ="", object ="";
+			if (axiom instanceof OWLDataPropertyAssertionAxiom) {
+				OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = (OWLDataPropertyAssertionAxiom) axiom;
+				subject = dataPropertyAssertionAxiom.getSubject().toStringID();
+				predicate = dataPropertyAssertionAxiom.getProperty().asOWLDataProperty().toStringID();
+				object = dataPropertyAssertionAxiom.getObject().getLiteral();
+			} else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
+				OWLObjectPropertyAssertionAxiom objectPropertyAssertionAxiom = (OWLObjectPropertyAssertionAxiom) axiom;
+				subject = objectPropertyAssertionAxiom.getSubject().toStringID();
+				predicate = objectPropertyAssertionAxiom.getProperty().asOWLObjectProperty().toStringID();
+				object = objectPropertyAssertionAxiom.getObject().toStringID();
+			}
+			if (subject.equals(uri)){
+				OWLDataFactory dataFactory = this.mainOntologyMetadata.getOWLAPIOntologyManager().getOWLDataFactory();
+				OWLAnnotationProperty pAux = dataFactory.getOWLAnnotationProperty(IRI.create(predicate));
+				OWLAnnotationValue oAux = dataFactory.getOWLLiteral(object);
+				completeOntologyMetadata(dataFactory.getOWLAnnotation(pAux,oAux),o);
+			}
+		}
+
 		if (isUseLicensius()) {
 			String licName;
 			String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
@@ -513,7 +537,7 @@ public class Configuration {
 		String propertyName = a.getProperty().getIRI().getIRIString();
 		String value;
 		String valueLanguage;
-//		 System.out.println(propertyName);
+		//System.out.println(propertyName);
 		switch (propertyName) {
 		case Constants.PROP_RDFS_LABEL:
 		case Constants.PROP_SKOS_PREF_LABEL:
