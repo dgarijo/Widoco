@@ -63,6 +63,8 @@ public class LODEParser {
 	private String annotationPropList;
 	private String namedIndividuals;
 	private String namedIndividualList;
+	private String rules;
+	private String ruleList;
 	Configuration c;
 
 	/**
@@ -123,6 +125,14 @@ public class LODEParser {
 		return namedIndividualList;
 	}
 
+	public String getRules() {
+		return rules;
+	}
+
+	public String getRuleList() {
+		return ruleList;
+	}
+
 	private void parse(String content, Properties langFile) {
 
 		try {
@@ -134,40 +144,54 @@ public class LODEParser {
 			// String cList = "", pList= "", dPList= "", c= "", p= "", dp="";
 			for (int i = 0; i < html.getLength(); i++) {
 				String attrID = html.item(i).getAttributes().item(0).getTextContent();
-				if (attrID.equals("classes")) {
-					classList = getTermList(html.item(i));
-					classes = nodeToString(html.item(i));
-					classes = classes.replace("<h2>" + langFile.getProperty(Constants.LANG_CLASSES) + "</h2>",
-							"<h3 id=\"classes-headline\" class=\"list\">" + langFile.getProperty(Constants.LANG_CLASSES)
-									+ "</h3>");
-				} else if (attrID.equals("objectproperties")) {
-					propertyList = getTermList(html.item(i));
-					properties = (nodeToString(html.item(i)));
-					properties = properties.replace("<h2>" + langFile.getProperty(Constants.LANG_OBJ_PROP) + "</h2>",
-							"<h3 id=\"properties\" class=\"list\">" + langFile.getProperty(Constants.LANG_OBJ_PROP)
-									+ "</h3>");
-				} else if (attrID.equals("dataproperties")) {
-					dataPropList = (getTermList(html.item(i)));
-					dataProp = (nodeToString(html.item(i)));
-					dataProp = dataProp.replace("<h2>" + langFile.getProperty(Constants.LANG_DATA_PROP) + "</h2>",
-							"<h3 id=\"dataproperties-headline\" class=\"list\">"
-									+ langFile.getProperty(Constants.LANG_DATA_PROP) + "</h3>");
-				} else if (attrID.equals("annotationproperties")) {
-					annotationPropList = (getTermList(html.item(i)));
-					annotationProp = (nodeToString(html.item(i)));
-					annotationProp = annotationProp.replace(
-							"<h2>" + langFile.getProperty(Constants.LANG_ANN_PROP) + "</h2>",
-							"<h3 id=\"annotationproperties\" class=\"list\">"
-									+ langFile.getProperty(Constants.LANG_ANN_PROP) + "</h3>");
-				} else if (attrID.equals("namedindividuals")) {
-					namedIndividualList = (getTermList(html.item(i)));
-					namedIndividuals = (nodeToString(html.item(i)));
-					namedIndividuals = namedIndividuals.replace(
-							"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
-							"<h3 id=\"namedindividuals\" class=\"list\">"
-									+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
+				switch (attrID) {
+					case "classes":
+						classList = getTermList(html.item(i));
+						classes = nodeToString(html.item(i));
+						classes = classes.replace("<h2>" + langFile.getProperty(Constants.LANG_CLASSES) + "</h2>",
+								"<h3 id=\"classes-headline\" class=\"list\">" + langFile.getProperty(Constants.LANG_CLASSES)
+										+ "</h3>");
+						break;
+					case "objectproperties":
+						propertyList = getTermList(html.item(i));
+						properties = (nodeToString(html.item(i)));
+						properties = properties.replace("<h2>" + langFile.getProperty(Constants.LANG_OBJ_PROP) + "</h2>",
+								"<h3 id=\"properties\" class=\"list\">" + langFile.getProperty(Constants.LANG_OBJ_PROP)
+										+ "</h3>");
+						break;
+					case "dataproperties":
+						dataPropList = (getTermList(html.item(i)));
+						dataProp = (nodeToString(html.item(i)));
+						dataProp = dataProp.replace("<h2>" + langFile.getProperty(Constants.LANG_DATA_PROP) + "</h2>",
+								"<h3 id=\"dataproperties-headline\" class=\"list\">"
+										+ langFile.getProperty(Constants.LANG_DATA_PROP) + "</h3>");
+						break;
+					case "annotationproperties":
+						annotationPropList = (getTermList(html.item(i)));
+						annotationProp = (nodeToString(html.item(i)));
+						annotationProp = annotationProp.replace(
+								"<h2>" + langFile.getProperty(Constants.LANG_ANN_PROP) + "</h2>",
+								"<h3 id=\"annotationproperties\" class=\"list\">"
+										+ langFile.getProperty(Constants.LANG_ANN_PROP) + "</h3>");
+						break;
+					case "namedindividuals":
+						namedIndividualList = (getTermList(html.item(i)));
+						namedIndividuals = (nodeToString(html.item(i)));
+						namedIndividuals = namedIndividuals.replace(
+								"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
+								"<h3 id=\"namedindividuals\" class=\"list\">"
+										+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
+						break;
+					/*missing: rules!*/
+					case "rules":
+						ruleList = (getTermList(html.item(i)));
+						rules = (nodeToString(html.item(i)));
+//						rules = rules.replace(
+//								"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
+//								"<h3 id=\"rules\" class=\"list\">"
+//										+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
+						break;
 				}
-				/*missing: rules!*/
 			}
 			// fix ids
 			if (!"".equals(classList) && classList != null) {
@@ -190,14 +214,17 @@ public class LODEParser {
 				namedIndividualList = fixIds(namedIndividualList);
 				namedIndividuals = fixIds(namedIndividuals);
 			}
+			if (!"".equals(ruleList) && ruleList != null) {
+				ruleList = fixIds(ruleList);
+				rules = fixIds(rules);
+				//hack so "named individuals" appear as rules
+				rules = rules.replace("<a href=\"#namedindividuals\">Named Individual ToC</a>",
+						"<a href=\"#rules\">Rules ToC</a>");
+			}
 			logger.info("Parsing Complete!");
-		} catch (ParserConfigurationException ex) {
+		} catch (ParserConfigurationException | DOMException ex) {
 			logger.error("Exception interpreting the resource: " + ex.getMessage());
-		} catch (DOMException ex) {
-			logger.error("Exception interpreting the resource: " + ex.getMessage());
-		} catch (SAXException ex) {
-			logger.error(MarkerFactory.getMarker("FATAL"), ex.getMessage());
-		} catch (IOException ex) {
+		} catch (SAXException | IOException ex) {
 			logger.error(MarkerFactory.getMarker("FATAL"), ex.getMessage());
 		}
 	}
@@ -223,15 +250,8 @@ public class LODEParser {
 			DOMSource source = new DOMSource(fixAnchor(n));
 			trans.transform(source, result);
 			return sw.toString();
-			// String returnValue= sw.toString().replace("\n", "");
-			// return(returnValue);
-		} catch (IllegalArgumentException ex) {
+		} catch (IllegalArgumentException | TransformerException ex) {
 			logger.error("Error while writing to xml " + ex.getMessage());
-			// ex.printStackTrace();
-			return null;
-		} catch (TransformerException ex) {
-			logger.error("Error while writing to xml " + ex.getMessage());
-			// ex.printStackTrace();
 			return null;
 		}
 	}
