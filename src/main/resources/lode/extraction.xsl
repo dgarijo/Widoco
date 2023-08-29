@@ -38,7 +38,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 xmlns:obo="http://purl.obolibrary.org/obo/"
                 xmlns:skos="http://www.w3.org/2004/02/skos/core#"
                 xmlns:sw="http://www.w3.org/2003/06/sw-vocab-status/ns#"
-                xmlns:extra="https://w3id.org/extra#"
+                xmlns:widoco="https://w3id.org/widoco/vocab#"
                 xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://www.oxygenxml.com/ns/doc/xsl
 http://www.oxygenxml.com/ns/doc/xsl ">
@@ -1823,7 +1823,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <xsl:value-of select="f:getDescriptionLabel('namedindividuals')"/>
                 </h2>
                 <xsl:call-template name="get.namedindividuals.toc"/>
-                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]">
+                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                               order="ascending" data-type="text"/>
                     <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
@@ -1834,7 +1834,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
 
     <xsl:template name="get.namedindividuals.toc">
         <ul class="hlist">
-            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/extra#Rule')]" mode="toc">
+            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]" mode="toc">
                 <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                           order="ascending" data-type="text"/>
                 <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
@@ -2289,12 +2289,12 @@ http://www.oxygenxml.com/ns/doc/xsl ">
 
     <!-- CUSTOM: ADD FOR LINKING RULES TO TERMS-->
     <xsl:template name="get.rule.antecedent">
-        <xsl:if test="exists(extra:usedByRuleInAntecedent)">
+        <xsl:if test="exists(widoco:usedByRuleInAntecedent)">
             <dl>
                 <dt>
                     <xsl:value-of select="f:getDescriptionLabel('usedByRuleInAntecedent')"/>
                 </dt>
-                <xsl:for-each select="extra:usedByRuleInAntecedent">
+                <xsl:for-each select="widoco:usedByRuleInAntecedent">
                     <dd>
                         <xsl:choose>
                             <xsl:when test="normalize-space(@*:resource) = ''">
@@ -2315,12 +2315,12 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     </xsl:template>
 
     <xsl:template name="get.rule.consequent">
-        <xsl:if test="exists(extra:usedByRuleInConsequent)">
+        <xsl:if test="exists(widoco:usedByRuleInConsequent)">
             <dl>
                 <dt>
                     <xsl:value-of select="f:getDescriptionLabel('usedByRuleInConsequent')"/>
                 </dt>
-                <xsl:for-each select="extra:usedByRuleInConsequent">
+                <xsl:for-each select="widoco:usedByRuleInConsequent">
                     <dd>
                         <a href="#{text()}">
                             <xsl:value-of select="text()"/>
@@ -2334,9 +2334,9 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:template name="get.rules">
         <xsl:if test="exists(//owl:NamedIndividual/element())">
             <div id="rules">
-                <h2>
+                <h3 id="rule" class="list">
                     <xsl:value-of select="f:getDescriptionLabel('otherRules')"/>
-                </h2>
+                </h3>
                 <xsl:call-template name="get.rules.toc"/>
                 <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
