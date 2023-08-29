@@ -91,16 +91,16 @@ We prioritize reusing metadata properties defined already. However, a small subs
 
 The table below summarizes all the metadata annotations recognized for ontology terms, in alphabetical order. Note that there are no `config.properties` annotations here, as these annotations are only read from the ontology file.
 
-|Metadata category  |Ontology annotation property                     |Good practices document    |Accepted property value|Example          |
-|-------------------|-------------------------------------------------|---------------------------|-----------------------|-----------------|
-|Definition         |[rdfs:comment], [skos:definition]                |[Sec 4.2] **[RECOMMENDED]**|[Text]                 |[ontology](#term)|
-|Deprecation status |[owl:deprecated]                                 |[Sec 4.5.1] **[OPTIONAL]** |[Boolean]              |[ontology](#term)|
-|Editorial note     |[skos:editorialNote]                             |N/A **[OPTIONAL]**         |[Text]                 |[ontology](#term)|
-|Example            |[vann:example], [skos:example]                   |[Sec 4.4] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
-|Label              |[rdfs:label], [skos:prefLabel], [obo:IAO_0000118]|[Sec 4.1] **[RECOMMENDED]**|[Text]                 |[ontology](#term)|
-|Original source    |[rdfs:isDefinedBy], [dc:source]                  |[Sec 4.3] **[OPTIONAL]**   |[URI]                  |[ontology](#term)|
-|Rationale          |[vaem:rationale]                                 |[Sec 4.6] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
-|Status             |[sw:term_status], [obo:IAO_0000114]              |[Sec 4.5.2] **[OPTIONAL]** |[Text]                 |[ontology](#term)|
+|Metadata category |Ontology annotation property                     |Good practices document    |Accepted property value|Example          |
+|------------------|-------------------------------------------------|---------------------------|-----------------------|-----------------|
+|Definition        |[rdfs:comment], [skos:definition]                |[Sec 4.2] **[RECOMMENDED]**|[Text]                 |[ontology](#term)|
+|Deprecation status|[owl:deprecated]                                 |[Sec 4.5.1] **[OPTIONAL]** |[Boolean]              |[ontology](#term)|
+|Editorial note    |[skos:editorialNote]                             |N/A **[OPTIONAL]**         |[Text]                 |[ontology](#term)|
+|Example           |[vann:example], [skos:example]                   |[Sec 4.4] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
+|Label             |[rdfs:label], [skos:prefLabel], [obo:IAO_0000118]|[Sec 4.1] **[RECOMMENDED]**|[Text]                 |[ontology](#term)|
+|Original source   |[rdfs:isDefinedBy], [dc:source]                  |[Sec 4.3] **[OPTIONAL]**   |[URI]                  |[ontology](#term)|
+|Rationale         |[vaem:rationale]                                 |[Sec 4.6] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
+|Status            |[sw:term_status], [obo:IAO_0000114]              |[Sec 4.5.2] **[OPTIONAL]** |[Text]                 |[ontology](#term)|
 
 
 ## <span id="onto">Example: Using ontology annotations (<a href="#table">Back to table</a>)
