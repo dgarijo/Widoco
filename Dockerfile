@@ -11,6 +11,9 @@ RUN mvn package && \
 # ----
 FROM openjdk:17-slim
 
+RUN apt-get update
+RUN apt-get install -y libfreetype6 fontconfig
+
 WORKDIR /usr/local/widoco
 
 COPY --from=BUILD_IMAGE /var/build/widoco/JAR/widoco.jar .
