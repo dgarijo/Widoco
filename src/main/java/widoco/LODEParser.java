@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -182,14 +183,14 @@ public class LODEParser {
 								"<h3 id=\"namedindividuals\" class=\"list\">"
 										+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
 						break;
-					/*missing: rules!*/
-					case "rules":
+					case "swrlrules":
 						ruleList = (getTermList(html.item(i)));
-						rules = (nodeToString(html.item(i)));
-//						rules = rules.replace(
-//								"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
-//								"<h3 id=\"rules\" class=\"list\">"
-//										+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
+						if (ruleList != null) {
+							rules = ruleList.replace(
+									"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
+									"<h3 id=\"rules\" class=\"list\">"
+											+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
+						}
 						break;
 				}
 			}
@@ -230,11 +231,27 @@ public class LODEParser {
 	}
 
 	private String getTermList(Node n) {
+		String AttrID = n.getAttributes().item(0).getTextContent();
 		NodeList divs = n.getChildNodes();
+		StringBuilder swrl_list = new StringBuilder();
+		boolean is_swrl = Objects.equals(AttrID, "swrlrules");
 		for (int j = 0; j < divs.getLength(); j++) {
-			if (divs.item(j).getNodeName().equals("ul")) {
-				return (nodeToString(divs.item(j)));
+			Node node = divs.item(j);
+			if (!is_swrl) {
+				if (node.getNodeName().equals("ul")) {
+					return (nodeToString(node));
+				}
+			} else {
+				if (node.getNodeName().equals("div")) {
+					Node classAttribute = node.getAttributes().getNamedItem("class");
+					if (classAttribute != null && classAttribute.getNodeValue().equals("entity")) {
+                        swrl_list.append(nodeToString(node));
+					}
+				}
 			}
+		}
+		if (is_swrl && swrl_list.length()>0) {
+			return swrl_list.toString();
 		}
 		return null;
 	}
