@@ -137,7 +137,7 @@ public class CreateResources {
 		}
 	}
 
-	public static void generateSkeleton(String folderOut, Configuration c, Properties l) {
+	public static void generateSkeleton(String folderOut, Configuration c, Properties l) throws IOException {
 		// c.setTitle("Skeleton title");
 		c.setIncludeDiagram(false);
 		c.setPublishProvenance(false);
@@ -426,7 +426,7 @@ public class CreateResources {
 
 	}
 
-	private static void createFolderStructure(String s, Configuration c, Properties lang) {
+	private static void createFolderStructure(String s, Configuration c, Properties lang) throws IOException {
 		File f = new File(s);
                 if(!c.isIncludeAllSectionsInOneDocument()){
                     File sections = new File(s + File.separator + "sections");
@@ -484,7 +484,7 @@ public class CreateResources {
 		if (c.isCreateWebVowlVisualization()) {
 			File webvowl = new File(s + File.separator + "webvowl");
 			webvowl.mkdir();
-			WidocoUtils.unZipIt(Constants.WEBVOWL_RESOURCES, webvowl.getAbsolutePath());
+			WidocoUtils.copyResourceDir(Constants.WEBVOWL_PATH, webvowl);
 		}
 	}
 

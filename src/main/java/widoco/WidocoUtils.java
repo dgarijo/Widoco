@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,6 +34,7 @@ import java.util.zip.ZipInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.model.*;
@@ -44,7 +47,7 @@ import org.semanticweb.owlapi.model.*;
 public class WidocoUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(WidocoUtils.class);
-
+	public static final char JAR_SEPARATOR = '/';
 	/**
 	 * Method that will download the ontology to document with Widoco.
 	 * 
@@ -198,6 +201,89 @@ public class WidocoUtils {
 		}
 	}
 
+	public static void copyResourceDir(String resourceFolder, File destinationFolder) throws IOException {
+		// Determine if running from JAR or as source
+		logger.info("copyResourceFolder from "+resourceFolder+" to "+ destinationFolder);
+		URL resourceUrl = WidocoUtils.class.getClassLoader().getResource(resourceFolder);
+		if (!destinationFolder.exists())
+			destinationFolder.mkdirs();
+		if (resourceUrl == null || !resourceUrl.getProtocol().equals("file")) {
+			// Running from JAR, use getResourceAsStream
+			copyDirFromJar(resourceFolder, destinationFolder);
+
+		} else {
+			// Running from source, use Files.copy
+			copyDirFromSrc(resourceFolder, destinationFolder);
+		}
+
+	}
+	// inspired from
+	// https://github.com/TriggerReactor/TriggerReactor/blob/7e71958b27231032c04d09795122dfc1d80c51b1/core/src/main/java/io/github/wysohn/triggerreactor/tools/JarUtil.java
+	public static void copyDirFromJar(String folderName, File destFolder) throws IOException {
+
+		byte[] buffer = new byte[1024];
+		File fullPath = null;
+		String path = WidocoUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		try {
+			if (!path.startsWith("file"))
+				path = "file://" + path;
+
+			fullPath = new File(new URI(path));
+		} catch (URISyntaxException e) {
+			logger.error("URI syntax error");
+		}
+		ZipInputStream zis = new ZipInputStream(new FileInputStream(fullPath));
+
+		ZipEntry entry;
+		while ((entry = zis.getNextEntry()) != null) {
+			if (!entry.getName().startsWith(folderName + JAR_SEPARATOR))
+				continue;
+
+			String fileName = entry.getName();
+
+			// Remove the folderName from the fileName
+			fileName = fileName.substring((folderName + JAR_SEPARATOR).length());
+
+			File file = new File(destFolder + File.separator + fileName);
+
+			if (fileName.isEmpty() || fileName.charAt(fileName.length() - 1) == JAR_SEPARATOR) {
+				// Skip empty or directory entries
+				continue;
+			}
+
+			if (!file.getParentFile().exists())
+				file.getParentFile().mkdirs();
+
+			if (!file.exists())
+				file.createNewFile();
+			FileOutputStream fos = new FileOutputStream(file);
+
+			int len;
+			while ((len = zis.read(buffer)) > 0) {
+				fos.write(buffer, 0, len);
+			}
+			fos.close();
+		}
+		zis.closeEntry();
+		zis.close();
+	}
+
+	private static void copyDirFromSrc(String resourceFolder, File destinationFolder) throws IOException {
+		URL resource = WidocoUtils.class.getClassLoader().getResource(resourceFolder);
+
+		if (resource == null) {
+			throw new IllegalArgumentException("Resource not found: " + resourceFolder);
+		}
+		try {
+			File sourceFolder = new File(resource.toURI());
+			// Copy only the contents of the source folder to the destination folder
+			FileUtils.copyDirectory(sourceFolder, destinationFolder);
+		} catch (URISyntaxException e) {
+			throw new IOException("Error copying resources to the temp folder: " + e.getMessage(), e);
+		} catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	/**
 	 * Method used to copy the local files: styles, images, etc.
 	 * 

@@ -1241,9 +1241,9 @@ public class Constants {
 		return provrdf;
 	}
 
-	public static final String LODE_RESOURCES = "/lode.zip";
-	public static final String OOPS_RESOURCES = "/oops.zip";
-	public static final String WEBVOWL_RESOURCES = "/webvowl_1.1.7_patched.zip";
+	public static final String LODE_PATH = "lode";
+	public static final String OOPS_PATH = "oops";
+	public static final String WEBVOWL_PATH = "webvowl_1.1.7_patched";
 
 	public static final String CONFIG_PATH = "config" + File.separator + "config.properties";
 
