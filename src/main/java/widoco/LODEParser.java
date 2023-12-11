@@ -21,6 +21,7 @@ import java.io.StringWriter;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Objects;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,7 +44,7 @@ import org.xml.sax.SAXException;
 /**
  * Class made for parsing and manipulating LODE's html. This class contains most
  * of the TemplateGeneratorOLD class
- * 
+ *
  * @author Daniel Garijo
  */
 public class LODEParser {
@@ -65,12 +66,14 @@ public class LODEParser {
 	private String namedIndividualList;
 	private String rules;
 	private String ruleList;
+	private String swrlrules;
+	private String swrlruleslist;
 	Configuration c;
 
 	/**
 	 * Constructor for the LODE parser. The reason for creating this class is to reuse certain parts of
 	 * the generated HTML.
-	 * 
+	 *
 	 * @param lodeContent
 	 *            text obtained as a response from LODE.
 	 * @param c
@@ -133,6 +136,42 @@ public class LODEParser {
 		return ruleList;
 	}
 
+	public String getSwrlrules() {
+		return swrlrules;
+	}
+
+	public String getSwrlruleslist() {
+		return swrlruleslist;
+	}
+
+	/**
+	 * Check if rules are really defined or if the xslt
+	 * generated an empty rule list.
+	 * @return
+	 */
+	private boolean rulesDefined(){
+
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = null;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException(e);
+		}
+		// Parse the HTML string as XML
+		Document doc = null;
+		try {
+			doc = builder.parse(new ByteArrayInputStream(ruleList.getBytes()));
+		} catch (SAXException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		// Get the list of <li> elements
+		NodeList ruleNodes = doc.getElementsByTagName("li");
+		return ruleNodes.getLength()>0;
+	}
+
 	private void parse(String content, Properties langFile) {
 
 		try {
@@ -185,11 +224,27 @@ public class LODEParser {
 					/*missing: rules!*/
 					case "rules":
 						ruleList = (getTermList(html.item(i)));
-						rules = (nodeToString(html.item(i)));
+						if (rulesDefined()){
+							rules = (nodeToString(html.item(i)));
+						} else {
+							// No rules defined, false positive
+							// this happens if owl:NamedIndividuals are defined
+							// that do not meet the requirements set in
+							//     src/main/resources/lode/extraction.xsl
+							// 			<xsl:template name="get.rules">
+							ruleList="";
+							rules ="";
+						}
 //						rules = rules.replace(
 //								"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
 //								"<h3 id=\"rules\" class=\"list\">"
 //										+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
+						break;
+					case "swrlrules":
+						swrlruleslist = (getTermList(html.item(i)));
+						swrlrules = (nodeToString(html.item(i)));
+						swrlrules = swrlrules.replace("<h2>SWRL rules</h2>",
+								"<h3 id=\"swrlrules\" class=\"list\">SWRL rules</h3>");
 						break;
 				}
 			}
@@ -220,6 +275,10 @@ public class LODEParser {
 				//hack so "named individuals" appear as rules
 				rules = rules.replace("<a href=\"#namedindividuals\">Named Individual ToC</a>",
 						"<a href=\"#rules\">Rules ToC</a>");
+			}
+			if (!"".equals(swrlruleslist) && swrlruleslist != null) {
+				swrlruleslist = fixIds(swrlruleslist);
+				swrlrules = fixIds(swrlrules);
 			}
 			logger.info("Parsing Complete!");
 		} catch (ParserConfigurationException | DOMException ex) {
@@ -263,6 +322,12 @@ public class LODEParser {
 	// (the second one)
 	private Node fixAnchor(Node nodeToFix) {
 		try {
+			String AttrID = nodeToFix.getAttributes().item(0).getTextContent();
+			// Do nothing for swrl rules, they do not have
+			// <a> and <h3>
+			if (Objects.equals(AttrID, "swrlrules")) {
+				return nodeToFix;
+			}
 			NodeList outerDiv = nodeToFix.getChildNodes();
 			for (int i = 0; i < outerDiv.getLength(); i++) {
 				Node currentNode = outerDiv.item(i);
@@ -307,7 +372,7 @@ public class LODEParser {
 	/**
 	 * Method to fix the ids generated automatically by LODE with the URIs of the
 	 * classes and properties.
-	 * 
+	 *
 	 * @param textToBeFixed
 	 *            The input text with the links to be fixed
 	 * @return

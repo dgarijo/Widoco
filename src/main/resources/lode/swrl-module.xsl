@@ -28,18 +28,61 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:f="http://www.essepuntato.it/xslt/function"
     xmlns:dcterms="http://purl.org/dc/terms/"
     xmlns="http://www.w3.org/1999/xhtml">
-    
+
+
+    <xsl:template match="rdf:Description" mode="toc">
+        <li>
+            <a href="#{generate-id()}">
+                <xsl:choose>
+                    <xsl:when test="string(rdfs:label)">
+                        <xsl:value-of select="rdfs:label"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Rule #</xsl:text>
+                        <xsl:value-of select="count(preceding-sibling::rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]) + 1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </a>
+        </li>
+    </xsl:template>
+
+<!-- SWRL TOC and SWRL Rule extraction
+Copyright (C) 2023, Victor Chavez <vchavezb@protonmail.com>
+-->
+    <xsl:template name="get.swrl.toc">
+        <ul class="hlist">
+            <xsl:apply-templates select="/rdf:RDF/rdf:Description[rdf:type[@rdf:resource='http://www.w3.org/2003/11/swrl#Imp']]" mode="toc">
+                <xsl:sort select="rdfs:comment" order="ascending" data-type="text"/>
+            </xsl:apply-templates>
+        </ul>
+    </xsl:template>
+
     <xsl:template match="swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]">
         <div id="{generate-id()}" class="entity">
-            <h3>Rule #<xsl:value-of select="count(preceding-sibling::swrl:Imp | preceding-sibling::rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]) + 1" /> <xsl:call-template name="get.backlink.to.top" /></h3>
+            <h3>
+                <xsl:choose>
+                    <xsl:when test="string(rdfs:label)">
+                        <xsl:value-of select="rdfs:label"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="concat('Rule #', count(preceding-sibling::swrl:Imp | preceding-sibling::rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]) + 1)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="get.backlink.to.top" />
+            </h3>
             <p>
+                <!-- Add rdfs:comment -->
+                <xsl:if test="rdfs:comment">
+                    <xsl:value-of select="rdfs:comment" /><br/><br/>
+                </xsl:if>
+                <!-- Continue with the existing content -->
                 <xsl:apply-templates select="swrl:body" />
                 <xsl:text> -> </xsl:text>
                 <xsl:apply-templates select="swrl:head" />
             </p>
         </div>
     </xsl:template>
-    
+
     <xsl:template match="swrl:body | swrl:head | swrl:AtomList/rdf:first | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#AtomList']]/rdf:first">
         <xsl:apply-templates />
     </xsl:template>
@@ -140,6 +183,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:if test="exists(//(swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]))">
             <div id="swrlrules">
                 <h2>SWRL rules</h2>
+                <xsl:call-template name="get.swrl.toc"/>
                 <xsl:apply-templates select="//(swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']])" />
             </div>
         </xsl:if>

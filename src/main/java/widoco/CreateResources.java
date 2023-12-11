@@ -95,7 +95,7 @@ public class CreateResources {
 		if (c.isIncludeOverview()) {
 			overview = createOverviewSection(folderOut + File.separator + "sections", c, lode.getClassList(),
                                 lode.getPropertyList(), lode.getDataPropList(), lode.getAnnotationPropList(),
-                                lode.getNamedIndividualList(), lode.getRuleList(), languageFile);
+                                lode.getNamedIndividualList(), lode.getRuleList(), lode.getSwrlruleslist(),languageFile);
 		}
 		if (c.isIncludeDescription()) {
 			description = createDescriptionSection(folderOut + File.separator + "sections", c, languageFile);
@@ -253,7 +253,7 @@ public class CreateResources {
 
 	// the lists passed onto this method are the fixed lists
 	private static String createOverviewSection(String path, Configuration c, String classesList, String propList,
-            String dataPropList, String annotationProps, String namedIndividuals, String rules, Properties lang) {
+												String dataPropList, String annotationProps, String namedIndividuals, String rules, String swrlRules, Properties lang) {
             String textToWrite = "";
             if ((c.getOverviewPath() != null) && (!"".equals(c.getOverviewPath()))) {
                 textToWrite = WidocoUtils.readExternalResource(c.getOverviewPath());
@@ -279,11 +279,16 @@ public class CreateResources {
                         textToWrite += ("<h4>" + lang.getProperty(Constants.LANG_NAMED_INDIV) + "</h4>");
                         textToWrite += (namedIndividuals);
                 }
-				if (!"".equals(rules) && rules != null ) {
-					//only eng support for now
-					textToWrite += ("<h4> Rules </h4>");
-					textToWrite += (rules);
-				}
+                if (!"".equals(rules) && rules != null ) {
+                        //only eng support for now
+                        textToWrite += ("<h4> Rules </h4>");
+                        textToWrite += (rules);
+                }
+                if (!"".equals(swrlRules) && swrlRules != null ) {
+                        //only eng support for now
+                        textToWrite += ("<h4> SWRL Rules </h4>");
+                        textToWrite += (swrlRules);
+                }
                 // add the webvowl diagram, if selected
                 if (c.isCreateWebVowlVisualization()) {
                         textToWrite += "<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html\"></iframe> ";
@@ -342,9 +347,13 @@ public class CreateResources {
             if (includesNamedIndividual) {
 				textToWrite += lodeParser.getNamedIndividuals();
             }
-			//since rules are an edge case, if they exist we add them
+			//since rules and swrl rules are an edge case, if they exist we add them
 			if(lodeParser.getRuleList()!=null && !lodeParser.getRuleList().isEmpty()){
 				textToWrite += lodeParser.getRules();
+			}
+
+			if(lodeParser.getSwrlruleslist()!=null && !lodeParser.getSwrlruleslist().isEmpty()){
+				textToWrite += lodeParser.getSwrlrules();
 			}
 
             // Add legend (for ontology components actually used).
