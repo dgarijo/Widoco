@@ -23,7 +23,7 @@ Property defining the main URI of your vocabulary. This becomes important in cas
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix vann: &lt;http://purl.org/vocab/vann/&gt; .
 &lt;https://w3id.org/example&gt; rdf:type owl:Ontology ;
-	vann:preferredNamespaceUri &lt;https://w3id.org/example#&gt; .
+	vann:preferredNamespaceUri "https://w3id.org/example" .
 </pre>
 
 <h4 class="list" id="prefix">Prefix [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
@@ -698,7 +698,7 @@ Boolean property that indicates whether a term has been deprecated or not.
 
 <h4 class="list" id="status1">Status [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h4>
 <p>
-Property indicating the usage status of the term. For example, whether the term is mature enough, whether it has been deprecated, curated, etc. Note that some of the properties proposed below, such as obo:IAO_0000114, have as range a set of fixed values. The <a href="https://github.com/UKGovLD/registry-core/wiki/Principles-and-concepts#status-and-life-cycle">registry vocabulary</a> proposes a hierarchy of status that may be used to represent terms as well (reg:statusAccepted, reg:statusValid, reg:statusDeprecated, etc.). 
+Property indicating the usage status of the term. For example, whether the term is mature enough, whether it has been deprecated, curated, etc. Note that some of the properties proposed below, such as obo:IAO_0000114, have as range a set of fixed values. The <a href="https://github.com/UKGovLD/registry-core/wiki/Principles-and-concepts#status-and-life-cycle">registry vocabulary</a> proposes a hierarchy of status that may be used to represent terms as well (reg:statusAccepted, reg:statusValid, reg:statusDeprecated, etc.).
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:

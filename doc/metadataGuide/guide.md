@@ -141,7 +141,7 @@ The following `Turtle` code block shows sample annotations for each of the metad
     foaf:fundedBy <https://example.org/fundingOrganization> ;
     schema:funding <https://example.org/fundingGrant> ;
     widoco:introduction "A paragraph with the introduction section of the documentation about your resource"@en ;
-    widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ; 
+    widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ;
     owl:versionInfo "1.0.1" .
     #If content negotiation is enabled, the widoco:rdfxmlSerialization annotation may not be needed.
 ```
