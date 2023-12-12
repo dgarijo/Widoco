@@ -1,0 +1,168 @@
+<https://w3id.org/widoco/vocab> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://w3id.org/widoco/vocab> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/widoco/vocab/1.0.0> .
+<https://w3id.org/widoco/vocab> <http://purl.org/dc/elements/1.1/description> "Vocabulary with extra annotation properties for ontologies that have not been found in existing vocabularies."@en .
+<https://w3id.org/widoco/vocab> <http://purl.org/dc/elements/1.1/title> "WIDOCO extra annotations ontology"@en .
+<https://w3id.org/widoco/vocab> <http://purl.org/dc/terms/created> "August 26th, 2023"@en .
+<https://w3id.org/widoco/vocab> <http://purl.org/dc/terms/creator> <https://orcid.org/0000-0003-0454-7145> .
+<https://w3id.org/widoco/vocab> <http://purl.org/dc/terms/license> <http://creativecommons.org/licenses/by/2.0/> .
+<https://w3id.org/widoco/vocab> <http://purl.org/vocab/vann/preferredNamespacePrefix> "widoco"@en .
+<https://w3id.org/widoco/vocab> <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/widoco/vocab#" .
+<https://w3id.org/widoco/vocab> <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0"@en .
+# 
+# 
+# #################################################################
+# #
+# #    Annotation properties
+# #
+# #################################################################
+# 
+# 
+# http://purl.org/dc/elements/1.1/abstract
+<http://purl.org/dc/elements/1.1/abstract> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/dc/elements/1.1/created
+<http://purl.org/dc/elements/1.1/created> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/dc/elements/1.1/publisher
+<http://purl.org/dc/elements/1.1/publisher> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/dc/terms/created
+<http://purl.org/dc/terms/created> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/dc/terms/creator
+<http://purl.org/dc/terms/creator> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/vocab/vann/example
+<http://purl.org/vocab/vann/example> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/vocab/vann/preferredNamespacePrefix
+<http://purl.org/vocab/vann/preferredNamespacePrefix> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://purl.org/vocab/vann/preferredNamespaceUri
+<http://purl.org/vocab/vann/preferredNamespaceUri> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://schema.org/author
+<http://schema.org/author> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://schema.org/citation
+<http://schema.org/citation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://www.linkedmodel.org/schema/vaem#rationale
+<http://www.linkedmodel.org/schema/vaem#rationale> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://www.w3.org/ns/org#memberOf
+<http://www.w3.org/ns/org#memberOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://xmlns.com/foaf/0.1/homepage
+<http://xmlns.com/foaf/0.1/homepage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://xmlns.com/foaf/0.1/name
+<http://xmlns.com/foaf/0.1/name> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# https://w3id.org/widoco/vocab#introduction
+<https://w3id.org/widoco/vocab#introduction> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/widoco/vocab#introduction> <http://www.w3.org/2000/01/rdf-schema#comment> "Annotation property used to indicate the contents of the introduction section"@en .
+<https://w3id.org/widoco/vocab#introduction> <http://www.w3.org/2000/01/rdf-schema#label> "introduction"@en .
+<https://w3id.org/widoco/vocab#introduction> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .
+# 
+# https://w3id.org/widoco/vocab#jsonldSerialization
+<https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/2000/01/rdf-schema#comment> "Property to indicate the URL corresponding to the JSON-LD serialization of an ontology"@en .
+<https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/2000/01/rdf-schema#label> "JSON_LD serialization"@en .
+<https://w3id.org/widoco/vocab#jsonldSerialization> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#anyURI> .
+# 
+# https://w3id.org/widoco/vocab#ntSerialization
+<https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/2000/01/rdf-schema#comment> "Property to indicate the URL corresponding to the N-Triples serialization of an ontology"@en .
+<https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/2000/01/rdf-schema#label> "NT serialization"@en .
+<https://w3id.org/widoco/vocab#ntSerialization> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#anyURI> .
+# 
+# https://w3id.org/widoco/vocab#rdfxmlSerialization
+<https://w3id.org/widoco/vocab#rdfxmlSerialization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/widoco/vocab#rdfxmlSerialization> <http://www.w3.org/2000/01/rdf-schema#comment> "Property to indicate the URL corresponding to the RDF/XML serialization of an ontology"@en .
+<https://w3id.org/widoco/vocab#rdfxmlSerialization> <http://www.w3.org/2000/01/rdf-schema#label> "RDF/XML serialization"@en .
+<https://w3id.org/widoco/vocab#rdfxmlSerialization> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#anyURI> .
+# 
+# https://w3id.org/widoco/vocab#turtleSerialization
+<https://w3id.org/widoco/vocab#turtleSerialization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+<https://w3id.org/widoco/vocab#turtleSerialization> <http://www.w3.org/2000/01/rdf-schema#comment> "Property to indicate the URL corresponding to the Turtle serialization of an ontology"@en .
+<https://w3id.org/widoco/vocab#turtleSerialization> <http://www.w3.org/2000/01/rdf-schema#label> "Turtle serialization"@en .
+<https://w3id.org/widoco/vocab#turtleSerialization> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#anyURI> .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+# 
+# 
+# https://w3id.org/widoco/vocab#usedByRuleInAntecedent
+<https://w3id.org/widoco/vocab#usedByRuleInAntecedent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://w3id.org/widoco/vocab#usedByRuleInAntecedent> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topObjectProperty> .
+<https://w3id.org/widoco/vocab#usedByRuleInAntecedent> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/widoco/vocab#Rule> .
+<https://w3id.org/widoco/vocab#usedByRuleInAntecedent> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates that a property or class was used in the antecedent of a rule"@en .
+<https://w3id.org/widoco/vocab#usedByRuleInAntecedent> <http://www.w3.org/2000/01/rdf-schema#label> "used by rule in antecedent"@en .
+# 
+# https://w3id.org/widoco/vocab#usedByRuleInConsequent
+<https://w3id.org/widoco/vocab#usedByRuleInConsequent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://w3id.org/widoco/vocab#usedByRuleInConsequent> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topObjectProperty> .
+<https://w3id.org/widoco/vocab#usedByRuleInConsequent> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/widoco/vocab#Rule> .
+<https://w3id.org/widoco/vocab#usedByRuleInConsequent> <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates that a property or class was used in the consequent of a rule"@en .
+<https://w3id.org/widoco/vocab#usedByRuleInConsequent> <http://www.w3.org/2000/01/rdf-schema#label> "used by rule in consequent"@en .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://xmlns.com/foaf/0.1/Organization
+<http://xmlns.com/foaf/0.1/Organization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+# 
+# https://w3id.org/widoco/vocab#Rule
+<https://w3id.org/widoco/vocab#Rule> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<https://w3id.org/widoco/vocab#Rule> <http://www.w3.org/2000/01/rdf-schema#comment> "A general class for documenting rules (not defined as SWRL rules)"@en .
+<https://w3id.org/widoco/vocab#Rule> <http://www.w3.org/2000/01/rdf-schema#label> "Rule"@en .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# https://www.upm.es#this
+<https://www.upm.es#this> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://www.upm.es#this> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> .
+<https://www.upm.es#this> <http://xmlns.com/foaf/0.1/homepage> "https://www.upm.es" .
+<https://www.upm.es#this> <http://xmlns.com/foaf/0.1/name> "Universidad Politécnica de Madrid" .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Annotations
+# #
+# #################################################################
+# 
+# 
+<https://orcid.org/0000-0003-0454-7145> <http://www.w3.org/ns/org#memberOf> <https://www.upm.es#this> .
+<https://orcid.org/0000-0003-0454-7145> <http://xmlns.com/foaf/0.1/name> "Daniel Garijo"@en .
+# 
+# Generated by the OWL API (version 5.1.18.2021-07-30T21:49:07Z) https://github.com/owlcs/owlapi/

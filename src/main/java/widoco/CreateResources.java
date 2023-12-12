@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
 
@@ -96,7 +95,7 @@ public class CreateResources {
 		if (c.isIncludeOverview()) {
 			overview = createOverviewSection(folderOut + File.separator + "sections", c, lode.getClassList(),
                                 lode.getPropertyList(), lode.getDataPropList(), lode.getAnnotationPropList(),
-                                lode.getNamedIndividualList(), languageFile);
+                                lode.getNamedIndividualList(), lode.getRuleList(), languageFile);
 		}
 		if (c.isIncludeDescription()) {
 			description = createDescriptionSection(folderOut + File.separator + "sections", c, languageFile);
@@ -233,26 +232,28 @@ public class CreateResources {
 	}
 
 	private static String createIntroductionSection(String path, Configuration c,Properties lang) {
-            String textToWrite;
+            String introText;
+			String nsText="";
             HashMap<String,String> nsDecl = c.getNamespaceDeclarations();
             if ((c.getIntroductionPath() != null) && (!"".equals(c.getIntroductionPath()))) {
-                textToWrite = WidocoUtils.readExternalResource(c.getIntroductionPath());
+				introText = WidocoUtils.readExternalResource(c.getIntroductionPath());
             } else {
-                textToWrite = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
+				introText = Constants.getIntroductionSectionTitleAndPlaceHolder(c, lang);
                 if (nsDecl != null && !nsDecl.isEmpty()) {
-                    textToWrite += Constants.getNameSpaceDeclaration(nsDecl, c, lang);
+					nsText = Constants.getNameSpaceDeclaration(nsDecl, c, lang);
                 }
                 //only save if separating sections
                 if(!c.isIncludeAllSectionsInOneDocument()){
-                    saveDocument(path + File.separator + "introduction-" + c.getCurrentLanguage() + ".html", textToWrite,c);
+                    saveDocument(path + File.separator + "introduction-" + c.getCurrentLanguage() + ".html", introText,c);
+					saveDocument(path + File.separator + "ns-" + c.getCurrentLanguage() + ".html", nsText,c);
                 }
             }
-            return textToWrite;
+            return introText + nsText;
 	}
 
 	// the lists passed onto this method are the fixed lists
 	private static String createOverviewSection(String path, Configuration c, String classesList, String propList,
-            String dataPropList, String annotationProps, String namedIndividuals, Properties lang) {
+            String dataPropList, String annotationProps, String namedIndividuals, String rules, Properties lang) {
             String textToWrite = "";
             if ((c.getOverviewPath() != null) && (!"".equals(c.getOverviewPath()))) {
                 textToWrite = WidocoUtils.readExternalResource(c.getOverviewPath());
@@ -278,6 +279,11 @@ public class CreateResources {
                         textToWrite += ("<h4>" + lang.getProperty(Constants.LANG_NAMED_INDIV) + "</h4>");
                         textToWrite += (namedIndividuals);
                 }
+				if (!"".equals(rules) && rules != null ) {
+					//only eng support for now
+					textToWrite += ("<h4> Rules </h4>");
+					textToWrite += (rules);
+				}
                 // add the webvowl diagram, if selected
                 if (c.isCreateWebVowlVisualization()) {
                         textToWrite += "<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html\"></iframe> ";
@@ -336,6 +342,10 @@ public class CreateResources {
             if (includesNamedIndividual) {
 				textToWrite += lodeParser.getNamedIndividuals();
             }
+			//since rules are an edge case, if they exist we add them
+			if(lodeParser.getRuleList()!=null && !lodeParser.getRuleList().isEmpty()){
+				textToWrite += lodeParser.getRules();
+			}
 
             // Add legend (for ontology components actually used).
             textToWrite += Constants.getLegend(lang, includesClass, includesProperty,
@@ -387,19 +397,22 @@ public class CreateResources {
 		Writer out = null;
 		try {
 			if (f.exists()) {
-				// JOptionPane.showMessageDialog(null, "You have overwritten the previous file.
-				// This message should be better prepared.");
-				if (!c.getOverWriteAll()) {
-					String[] options = new String[] { "Rewrite all", "Yes", "No" };
-					int response = JOptionPane.showOptionDialog(null,
-							"The file " + f.getName() + " already exists. Do you want to overwrite it?",
-							"Existing File!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
-							options, options[0]);
-					// 0 -> yes to all. 1 -> Yes. 2-> No
-					if (response == 0)
-						c.setOverwriteAll(true);
-					if (response == 2)
-						return; // else we continue rewriting the file.
+				try {
+					if (!c.getOverWriteAll()) {
+						String[] options = new String[]{"Rewrite all", "Yes", "No"};
+						int response = JOptionPane.showOptionDialog(null,
+								"The file " + f.getName() + " already exists. Do you want to overwrite it?",
+								"Existing File!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+								options, options[0]);
+						// 0 -> yes to all. 1 -> Yes. 2-> No
+						if (response == 0)
+							c.setOverwriteAll(true);
+						if (response == 2)
+							return; // else we continue rewriting the file.
+					}
+				}catch (Exception e){
+					logger.error("It looks like WIDOCO tried to save the documentation, but files already exist. Please " +
+							"try using the -rewriteAll option.");
 				}
 			} else {
 				f.createNewFile();
@@ -477,30 +490,42 @@ public class CreateResources {
 
 	public static void saveConfigFile(String path, Configuration conf) throws IOException {
 		String textProperties = "\n";// the first line I leave an intro because there have been problems.
-		textProperties += Constants.ABSTRACT_SECTION_CONTENT + "=" + conf.getAbstractSection() + "\n";
-		textProperties += Constants.ONT_TITLE + "=" + conf.getMainOntology().getTitle() + "\n";
-		textProperties += Constants.ONT_PREFIX + "=" + conf.getMainOntology().getNamespacePrefix() + "\n";
-		textProperties += Constants.ONT_NAMESPACE_URI + "=" + conf.getMainOntology().getNamespaceURI() + "\n";
-		textProperties += Constants.ONT_NAME + "=" + conf.getMainOntology().getName() + "\n";
-		textProperties += Constants.THIS_VERSION_URI + "=" + conf.getMainOntology().getThisVersion() + "\n";
-		textProperties += Constants.LATEST_VERSION_URI + "=" + conf.getMainOntology().getLatestVersion() + "\n";
-		textProperties += Constants.PREVIOUS_VERSION + "=" + conf.getMainOntology().getPreviousVersion() + "\n";
-		textProperties += Constants.DATE_OF_RELEASE + "=" + conf.getMainOntology().getReleaseDate() + "\n";
-		textProperties += Constants.ONTOLOGY_REVISION + "=" + conf.getMainOntology().getRevision() + "\n";
-		textProperties += Constants.LICENSE_URI + "=" + conf.getMainOntology().getLicense().getUrl() + "\n";
-		textProperties += Constants.LICENSE_NAME + "=" + conf.getMainOntology().getLicense().getName() + "\n";
-		textProperties += Constants.LICENSE_ICON_URL + "=" + conf.getMainOntology().getLicense().getIcon() + "\n";
-		textProperties += Constants.CITE_AS + "=" + conf.getMainOntology().getCiteAs() + "\n";
-		textProperties += Constants.DOI + "=" + conf.getMainOntology().getDoi() + "\n";
+		textProperties += Constants.PF_ABSTRACT_SECTION_CONTENT + "=" + conf.getAbstractSection() + "\n";
+		textProperties += Constants.PF_ONT_TITLE + "=" + conf.getMainOntology().getTitle() + "\n";
+		textProperties += Constants.PF_ONT_PREFIX + "=" + conf.getMainOntology().getNamespacePrefix() + "\n";
+		textProperties += Constants.PF_ONT_NAMESPACE_URI + "=" + conf.getMainOntology().getNamespaceURI() + "\n";
+		textProperties += Constants.PF_ONT_NAME + "=" + conf.getMainOntology().getName() + "\n";
+		textProperties += Constants.PF_THIS_VERSION_URI + "=" + conf.getMainOntology().getThisVersion() + "\n";
+		textProperties += Constants.PF_LATEST_VERSION_URI + "=" + conf.getMainOntology().getLatestVersion() + "\n";
+		textProperties += Constants.PF_PREVIOUS_VERSION + "=" + conf.getMainOntology().getPreviousVersion() + "\n";
+		textProperties += Constants.PF_DATE_CREATED + "=" + conf.getMainOntology().getCreationDate() + "\n";
+		textProperties += Constants.PF_DATE_MODIFIED + "=" + conf.getMainOntology().getModifiedDate() + "\n";
+		textProperties += Constants.PF_ONT_REVISION_NUMBER + "=" + conf.getMainOntology().getRevision() + "\n";
+		textProperties += Constants.PF_LICENSE_URI + "=" + conf.getMainOntology().getLicense().getUrl() + "\n";
+		textProperties += Constants.PF_LICENSE_NAME + "=" + conf.getMainOntology().getLicense().getName() + "\n";
+		textProperties += Constants.PF_LICENSE_ICON_URL + "=" + conf.getMainOntology().getLicense().getIcon() + "\n";
+		textProperties += Constants.PF_CITE_AS + "=" + conf.getMainOntology().getCiteAs() + "\n";
+		textProperties += Constants.PF_DOI + "=" + conf.getMainOntology().getDoi() + "\n";
 		textProperties += Constants.STATUS + "=" + conf.getMainOntology().getStatus() + "\n";
+		textProperties += Constants.PF_LOGO + "=" + conf.getMainOntology().getLogo() + "\n";
+		textProperties += Constants.PF_DESCRIPTION + "=" + conf.getMainOntology().getDescription() + "\n";
+		textProperties += Constants.PF_INTRODUCTION + "=" + conf.getIntroText() + "\n";
 		textProperties += Constants.COMPATIBLE + "=" + conf.getMainOntology().getBackwardsCompatibleWith() + "\n";
-		if (conf.getMainOntology().getPublisher() != null) {
-			textProperties += Constants.PUBLISHER + "=" + conf.getMainOntology().getPublisher().getName() + "\n";
-			textProperties += Constants.PUBLISHER_URI + "=" + conf.getMainOntology().getPublisher().getURL() + "\n";
-			textProperties += Constants.PUBLISHER_INSTITUTION + "="
-					+ conf.getMainOntology().getPublisher().getInstitutionName() + "\n";
-			textProperties += Constants.PUBLISHER_INSTITUTION_URI + "="
-					+ conf.getMainOntology().getPublisher().getInstitutionURL() + "\n";
+		if (conf.getMainOntology().getPublisher() != null ) {
+			Agent p = conf.getMainOntology().getPublisher();
+			String publisher = "", publisherURI="", publisherInstitution="", publisherInstitutionURI="";
+			if (p.getName() != null)
+				publisher = p.getName();
+			if (p.getURL() != null)
+				publisherURI = p.getURL();
+			if (p.getInstitutionName() != null)
+				publisherInstitution = p.getInstitutionName();
+			if (p.getInstitutionURL() != null)
+				publisherInstitutionURI += p.getInstitutionURL();
+			textProperties += Constants.PF_PUBLISHER + "=" + publisher + "\n";
+			textProperties += Constants.PF_PUBLISHER_URI + "=" + publisherURI + "\n";
+			textProperties += Constants.PF_PUBLISHER_INSTITUTION + "=" + publisherInstitution + "\n";
+			textProperties += Constants.PF_PUBLISHER_INSTITUTION_URI + "=" + publisherInstitutionURI + "\n";
 		}
 		String authors = "", authorURLs = "", authorInstitutions = "", authorInstitutionURLs = "";
 		ArrayList<Agent> ag = conf.getMainOntology().getCreators();
@@ -530,10 +555,10 @@ public class CreateResources {
 			if (ag.get(ag.size() - 1).getInstitutionURL() != null)
 				authorInstitutionURLs += ag.get(ag.size() - 1).getInstitutionURL();
 		}
-		textProperties += Constants.AUTHORS + "=" + authors + "\n";
-		textProperties += Constants.AUTHORS_URI + "=" + authorURLs + "\n";
-		textProperties += Constants.AUTHORS_INSTITUTION + "=" + authorInstitutions + "\n";
-		textProperties += Constants.AUTHORS_INSTITUTION_URI + "=" + authorInstitutionURLs + "\n";
+		textProperties += Constants.PF_AUTHORS + "=" + authors + "\n";
+		textProperties += Constants.PF_AUTHORS_URI + "=" + authorURLs + "\n";
+		textProperties += Constants.PF_AUTHORS_INSTITUTION + "=" + authorInstitutions + "\n";
+		textProperties += Constants.PF_AUTHORS_INSTITUTION_URI + "=" + authorInstitutionURLs + "\n";
 
 		ag = conf.getMainOntology().getContributors();
 		authors = "";
@@ -565,10 +590,10 @@ public class CreateResources {
 			if (ag.get(ag.size() - 1).getInstitutionURL() != null)
 				authorInstitutionURLs += ag.get(ag.size() - 1).getInstitutionURL();
 		}
-		textProperties += Constants.CONTRIBUTORS + "=" + authors + "\n";
-		textProperties += Constants.CONTRIBUTORS_URI + "=" + authorURLs + "\n";
-		textProperties += Constants.CONTRIBUTORS_INSTITUTION + "=" + authorInstitutions + "\n";
-		textProperties += Constants.CONTRIBUTORS_INSTITUTION_URI + "=" + authorInstitutionURLs + "\n";
+		textProperties += Constants.PF_CONTRIBUTORS + "=" + authors + "\n";
+		textProperties += Constants.PF_CONTRIBUTORS_URI + "=" + authorURLs + "\n";
+		textProperties += Constants.PF_CONTRIBUTORS_INSTITUTION + "=" + authorInstitutions + "\n";
+		textProperties += Constants.PF_CONTRIBUTORS_INSTITUTION_URI + "=" + authorInstitutionURLs + "\n";
 		String importedNames = "", importedURIs = "";
 		ArrayList<Ontology> imported = conf.getMainOntology().getImportedOntologies();
 		if (!imported.isEmpty()) {
@@ -587,8 +612,8 @@ public class CreateResources {
 			if (imported.get(imported.size() - 1).getNamespaceURI() != null)
 				importedURIs += imported.get(imported.size() - 1).getNamespaceURI();
 		}
-		textProperties += Constants.IMPORTED_ONTOLOGY_NAMES + "=" + importedNames + "\n";
-		textProperties += Constants.IMPORTED_ONTOLOGY_URIS + "=" + importedURIs + "\n";
+		textProperties += Constants.PF_IMPORTED_ONTOLOGY_NAMES + "=" + importedNames + "\n";
+		textProperties += Constants.PF_IMPORTED_ONTOLOGY_URIS + "=" + importedURIs + "\n";
 		imported = conf.getMainOntology().getExtendedOntologies();
 		importedNames = "";
 		importedURIs = "";
@@ -602,28 +627,69 @@ public class CreateResources {
 					importedURIs += o.getNamespaceURI();
 				importedURIs += ";";
 			}
-			// last agent: no ";"
+			// last onto: no ";"
 			if (imported.get(imported.size() - 1).getName() != null)
 				importedNames += imported.get(imported.size() - 1).getName();
 			if (imported.get(imported.size() - 1).getNamespaceURI() != null)
 				importedURIs += imported.get(imported.size() - 1).getNamespaceURI();
 		}
-		textProperties += Constants.EXTENDED_ONTOLOGY_NAMES + "=" + importedNames + "\n";
-		textProperties += Constants.EXTENDED_ONTOLOGY_URIS + "=" + importedURIs + "\n";
+		textProperties += Constants.PF_EXTENDED_ONTOLOGY_NAMES + "=" + importedNames + "\n";
+		textProperties += Constants.PF_EXTENDED_ONTOLOGY_URIS + "=" + importedURIs + "\n";
 		// serializations
 		HashMap<String, String> serializations = conf.getMainOntology().getSerializations();
 		if (serializations.containsKey("RDF/XML")) {
-			textProperties += Constants.RDF + "=" + serializations.get("RDF/XML") + "\n";
+			textProperties += Constants.PF_SERIALIZATION_RDF + "=" + serializations.get("RDF/XML") + "\n";
 		}
 		if (serializations.containsKey("TTL")) {
-			textProperties += Constants.TTL + "=" + serializations.get("TTL") + "\n";
+			textProperties += Constants.PF_SERIALIZATION_TTL + "=" + serializations.get("TTL") + "\n";
 		}
 		if (serializations.containsKey("N-Triples")) {
-			textProperties += Constants.N3 + "=" + serializations.get("N-Triples") + "\n";
+			textProperties += Constants.PF_SERIALIZATION_NT + "=" + serializations.get("N-Triples") + "\n";
 		}
 		if (serializations.containsKey("JSON-LD")) {
-			textProperties += Constants.JSON + "=" + serializations.get("JSON-LD") + "\n";
+			textProperties += Constants.PF_SERIALIZATION_JSON + "=" + serializations.get("JSON-LD") + "\n";
 		}
+		String images = "", sources = "", seeAlso = "", funding = "", funder = "";
+		ArrayList<String> imgs = conf.getMainOntology().getImages();
+		if (!imgs.isEmpty()){
+			for (int i = 0; i < imgs.size() - 1; i++) {
+				images += imgs.get(i) + ";";
+			}
+			images += imgs.get(imgs.size() - 1) ;
+		}
+		textProperties += Constants.PF_IMAGES + "=" + images + "\n";
+		ArrayList<String> srcs = conf.getMainOntology().getSources();
+		if (!srcs.isEmpty()){
+			for (int i = 0; i < srcs.size() - 1; i++) {
+				sources += srcs.get(i) + ";";
+			}
+			sources += srcs.get(srcs.size() - 1) ;
+		}
+		textProperties += Constants.PF_SOURCE + "=" + sources + "\n";
+		ArrayList<String> see = conf.getMainOntology().getSeeAlso();
+		if (!see.isEmpty()){
+			for (int i = 0; i < see.size() - 1; i++) {
+				seeAlso += see.get(i) + ";";
+			}
+			seeAlso += see.get(see.size() - 1) ;
+		}
+		textProperties += Constants.PF_SEE_ALSO + "=" + seeAlso + "\n";
+		ArrayList<String> fund = conf.getMainOntology().getFundingGrants();
+		if (!fund.isEmpty()){
+			for (int i = 0; i < fund.size() - 1; i++) {
+				funding += fund.get(i) + ";";
+			}
+			funding += fund.get(fund.size() - 1) ;
+		}
+		textProperties += Constants.PF_FUNDING + "=" + funding + "\n";
+		ArrayList<Agent> funders = conf.getMainOntology().getFunders();
+		if (!funders.isEmpty()){
+			for (int i = 0; i < funders.size() - 1; i++) {
+				funder += funders.get(i).getName() + ";";
+			}
+			funder += funders.get(fund.size() - 1).getName() ; //name is a URL in this case
+		}
+		textProperties += Constants.PF_FUNDERS + "=" + funder + "\n";
 		// copy the result into the file
 		Writer writer = null;
 		try {
@@ -638,6 +704,7 @@ public class CreateResources {
 				if (writer != null)
 					writer.close();
 			} catch (IOException ex) {
+				logger.warn("Could not close the properties file.");
 			}
 		}
 	}

@@ -1,0 +1,157 @@
+@prefix : <https://w3id.org/widoco/vocab#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@base <https://w3id.org/widoco/vocab> .
+
+<https://w3id.org/widoco/vocab> rdf:type owl:Ontology ;
+                                 owl:versionIRI <https://w3id.org/widoco/vocab/1.0.0> ;
+                                 <http://purl.org/dc/elements/1.1/description> "Vocabulary with extra annotation properties for ontologies that have not been found in existing vocabularies."@en ;
+                                 <http://purl.org/dc/elements/1.1/title> "WIDOCO extra annotations ontology"@en ;
+                                 <http://purl.org/dc/terms/created> "August 26th, 2023"@en ;
+                                 <http://purl.org/dc/terms/creator> <https://orcid.org/0000-0003-0454-7145> ;
+                                 <http://purl.org/dc/terms/license> <http://creativecommons.org/licenses/by/2.0/> ;
+                                 <http://purl.org/vocab/vann/preferredNamespacePrefix> "widoco"@en ;
+                                 <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/widoco/vocab#" ;
+                                 owl:versionInfo "1.0.0"@en .
+
+<https://orcid.org/0000-0003-0454-7145> foaf:name "Daniel Garijo"@en ;
+                                        org:memberOf <https://www.upm.es#this> .
+
+###  https://www.upm.es#this
+<https://www.upm.es#this> rdf:type owl:NamedIndividual ,
+                                   foaf:Organization ;
+                          foaf:homepage "https://www.upm.es" ;
+                          foaf:name "Universidad Politécnica de Madrid" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/abstract
+<http://purl.org/dc/elements/1.1/abstract> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/created
+<http://purl.org/dc/elements/1.1/created> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/publisher
+<http://purl.org/dc/elements/1.1/publisher> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+<http://purl.org/dc/terms/created> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+<http://purl.org/dc/terms/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/example
+<http://purl.org/vocab/vann/example> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+<http://purl.org/vocab/vann/preferredNamespacePrefix> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+<http://purl.org/vocab/vann/preferredNamespaceUri> rdf:type owl:AnnotationProperty .
+
+
+###  http://schema.org/author
+<http://schema.org/author> rdf:type owl:AnnotationProperty .
+
+
+###  http://schema.org/citation
+<http://schema.org/citation> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.linkedmodel.org/schema/vaem#rationale
+<http://www.linkedmodel.org/schema/vaem#rationale> rdf:type owl:AnnotationProperty .
+
+
+###  https://w3id.org/widoco/vocab#introduction
+:introduction rdf:type owl:AnnotationProperty ;
+              rdfs:comment "Annotation property used to indicate the contents of the introduction section"@en ;
+              rdfs:label "introduction"@en ;
+              rdfs:range xsd:string .
+
+
+###  https://w3id.org/widoco/vocab#jsonldSerialization
+:jsonldSerialization rdf:type owl:AnnotationProperty ;
+                     rdfs:comment "Property to indicate the URL corresponding to the JSON-LD serialization of an ontology"@en ;
+                     rdfs:label "JSON_LD serialization"@en ;
+                     rdfs:range xsd:anyURI .
+
+
+###  https://w3id.org/widoco/vocab#ntSerialization
+:ntSerialization rdf:type owl:AnnotationProperty ;
+                 rdfs:comment "Property to indicate the URL corresponding to the N-Triples serialization of an ontology"@en ;
+                 rdfs:label "NT serialization"@en ;
+                 rdfs:range xsd:anyURI .
+
+
+###  https://w3id.org/widoco/vocab#rdfxmlSerialization
+:rdfxmlSerialization rdf:type owl:AnnotationProperty ;
+                     rdfs:comment "Property to indicate the URL corresponding to the RDF/XML serialization of an ontology"@en ;
+                     rdfs:label "RDF/XML serialization"@en ;
+                     rdfs:range xsd:anyURI .
+
+
+###  https://w3id.org/widoco/vocab#turtleSerialization
+:turtleSerialization rdf:type owl:AnnotationProperty ;
+                     rdfs:comment "Property to indicate the URL corresponding to the Turtle serialization of an ontology"@en ;
+                     rdfs:label "Turtle serialization"@en ;
+                     rdfs:range xsd:anyURI .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/widoco/vocab#usedByRuleInAntecedent
+:usedByRuleInAntecedent rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty ;
+                        rdfs:range :Rule ;
+                        rdfs:comment "Indicates that a property or class was used in the antecedent of a rule"@en ;
+                        rdfs:label "used by rule in antecedent"@en .
+
+
+###  https://w3id.org/widoco/vocab#usedByRuleInConsequent
+:usedByRuleInConsequent rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty ;
+                        rdfs:range :Rule ;
+                        rdfs:comment "Indicates that a property or class was used in the consequent of a rule"@en ;
+                        rdfs:label "used by rule in consequent"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/widoco/vocab#Rule
+:Rule rdf:type owl:Class ;
+      rdfs:comment "A general class for documenting rules (not defined as SWRL rules)"@en ;
+      rdfs:label "Rule"@en .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

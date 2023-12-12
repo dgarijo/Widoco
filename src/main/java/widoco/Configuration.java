@@ -23,11 +23,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 import javax.imageio.ImageIO;
 
 import org.semanticweb.owlapi.model.*;
@@ -124,6 +120,7 @@ public class Configuration {
 	private String rewriteBase;// rewrite base path for content negotiation (.htaccess)
     private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
 	private HashMap<String, String> namespaceDeclarations; //Namespace declarations to be included in the documentation.
+	private String introText;// in case there is an explicit annotation in the ontology
 
 	/**
 	 * Variable to keep track of possible errors in the changelog. If there are
@@ -185,6 +182,7 @@ public class Configuration {
 		rewriteBase = "/";
 		contextURI = "";
 		includeAllSectionsInOneDocument = false;
+		introText = "";
 		initializeOntology();
 	}
 
@@ -196,7 +194,8 @@ public class Configuration {
 			mainOntologyMetadata.setNamespaceURI("");
 		}
 		mainOntologyMetadata.setTitle("");
-		mainOntologyMetadata.setReleaseDate("");
+		mainOntologyMetadata.setCreationDate("");
+		mainOntologyMetadata.setModifiedDate("");
 		mainOntologyMetadata.setPreviousVersion("");
 		mainOntologyMetadata.setThisVersion("");
 		mainOntologyMetadata.setLatestVersion("");
@@ -210,18 +209,24 @@ public class Configuration {
 		mainOntologyMetadata.setLicense(l);
 		mainOntologyMetadata.setSerializations(new HashMap<>());
 		// add default serializations: rdf/xml, n3, turtle and json-ld
-		mainOntologyMetadata.addSerialization("RDF/XML", "ontology.owl");
-		mainOntologyMetadata.addSerialization("TTL", "ontology.ttl");
-		mainOntologyMetadata.addSerialization("N-Triples", "ontology.nt");
-		mainOntologyMetadata.addSerialization("JSON-LD", "ontology.jsonld");
+		mainOntologyMetadata.addSerialization(Constants.RDF_XML, "ontology.owl");
+		mainOntologyMetadata.addSerialization(Constants.TTL, "ontology.ttl");
+		mainOntologyMetadata.addSerialization(Constants.NT, "ontology.nt");
+		mainOntologyMetadata.addSerialization(Constants.JSON_LD, "ontology.jsonld");
 		mainOntologyMetadata.setCreators(new ArrayList<>());
 		mainOntologyMetadata.setContributors(new ArrayList<>());
 		mainOntologyMetadata.setCiteAs("");
 		mainOntologyMetadata.setDoi("");
 		mainOntologyMetadata.setStatus("");
+		mainOntologyMetadata.setLogo("");
+		mainOntologyMetadata.setDescription("");
 		mainOntologyMetadata.setBackwardsCompatibleWith("");
 		mainOntologyMetadata.setIncompatibleWith("");
 		mainOntologyMetadata.setImages(new ArrayList<>());
+		mainOntologyMetadata.setSources(new ArrayList<>());
+		mainOntologyMetadata.setSeeAlso(new ArrayList<>());
+		mainOntologyMetadata.setFunders(new ArrayList<>());
+		mainOntologyMetadata.setFundingGrants(new ArrayList<>());
 		this.namespaceDeclarations = new HashMap<>();
 	}
 
@@ -232,32 +237,33 @@ public class Configuration {
 			propertyFile.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
 			// We try to load from the configuration file. If it fails, then we should try
 			// to load from the ontology. Then, if it fails, we should ask the user.
-			abstractSection = propertyFile.getProperty(Constants.ABSTRACT_SECTION_CONTENT);
-			contextURI = propertyFile.getProperty(Constants.CONTEXT_URI, "");
-			mainOntologyMetadata.setTitle(propertyFile.getProperty(Constants.ONT_TITLE, "Title goes here"));
-			mainOntologyMetadata.setReleaseDate(propertyFile.getProperty(Constants.DATE_OF_RELEASE, "Date of release"));
-			mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.PREVIOUS_VERSION));
-			mainOntologyMetadata.setThisVersion(propertyFile.getProperty(Constants.THIS_VERSION_URI));
-			mainOntologyMetadata.setLatestVersion(propertyFile.getProperty(Constants.LATEST_VERSION_URI));
-			mainOntologyMetadata.setName(propertyFile.getProperty(Constants.ONT_NAME));
-			mainOntologyMetadata.setNamespacePrefix(propertyFile.getProperty(Constants.ONT_PREFIX));
-			mainOntologyMetadata.setNamespaceURI(propertyFile.getProperty(Constants.ONT_NAMESPACE_URI));
-			mainOntologyMetadata.setRevision(propertyFile.getProperty(Constants.ONTOLOGY_REVISION));
+			abstractSection = propertyFile.getProperty(Constants.PF_ABSTRACT_SECTION_CONTENT);
+			contextURI = propertyFile.getProperty(Constants.PF_CONTEXT_URI, "");
+			mainOntologyMetadata.setTitle(propertyFile.getProperty(Constants.PF_ONT_TITLE, "Title goes here"));
+			mainOntologyMetadata.setCreationDate(propertyFile.getProperty(Constants.PF_DATE_CREATED, "Creation date"));
+			mainOntologyMetadata.setModifiedDate(propertyFile.getProperty(Constants.PF_DATE_MODIFIED, "Modified date"));
+			mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.PF_PREVIOUS_VERSION));
+			mainOntologyMetadata.setThisVersion(propertyFile.getProperty(Constants.PF_THIS_VERSION_URI));
+			mainOntologyMetadata.setLatestVersion(propertyFile.getProperty(Constants.PF_LATEST_VERSION_URI));
+			mainOntologyMetadata.setName(propertyFile.getProperty(Constants.PF_ONT_NAME));
+			mainOntologyMetadata.setNamespacePrefix(propertyFile.getProperty(Constants.PF_ONT_PREFIX));
+			mainOntologyMetadata.setNamespaceURI(propertyFile.getProperty(Constants.PF_ONT_NAMESPACE_URI));
+			mainOntologyMetadata.setRevision(propertyFile.getProperty(Constants.PF_ONT_REVISION_NUMBER));
 			Agent publisher = new Agent();
-			publisher.setName(propertyFile.getProperty(Constants.PUBLISHER, ""));
-			publisher.setURL(propertyFile.getProperty(Constants.PUBLISHER_URI, ""));
-			publisher.setInstitutionName(propertyFile.getProperty(Constants.PUBLISHER_INSTITUTION, ""));
-			publisher.setInstitutionURL(propertyFile.getProperty(Constants.PUBLISHER_INSTITUTION_URI, ""));
+			publisher.setName(propertyFile.getProperty(Constants.PF_PUBLISHER, ""));
+			publisher.setURL(propertyFile.getProperty(Constants.PF_PUBLISHER_URI, ""));
+			publisher.setInstitutionName(propertyFile.getProperty(Constants.PF_PUBLISHER_INSTITUTION, ""));
+			publisher.setInstitutionURL(propertyFile.getProperty(Constants.PF_PUBLISHER_INSTITUTION_URI, ""));
 			mainOntologyMetadata.setPublisher(publisher);
-			String aux = propertyFile.getProperty(Constants.AUTHORS, "");
+			String aux = propertyFile.getProperty(Constants.PF_AUTHORS, "");
 			String[] names, urls, authorInst, authorInstURI;
 			if (!aux.equals("")) {
 				names = aux.split(";");
-				aux = propertyFile.getProperty(Constants.AUTHORS_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_AUTHORS_URI, "");
 				urls = aux.split(";");
-				aux = propertyFile.getProperty(Constants.AUTHORS_INSTITUTION, "");
+				aux = propertyFile.getProperty(Constants.PF_AUTHORS_INSTITUTION, "");
 				authorInst = aux.split(";");
-				aux = propertyFile.getProperty(Constants.AUTHORS_INSTITUTION_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_AUTHORS_INSTITUTION_URI, "");
 				authorInstURI = aux.split(";");
 				for (int i = 0; i < names.length; i++) {
 					Agent a = new Agent();
@@ -280,14 +286,14 @@ public class Configuration {
 					mainOntologyMetadata.getCreators().add(a);
 				}
 			}
-			aux = propertyFile.getProperty(Constants.CONTRIBUTORS, "");
+			aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS, "");
 			if (!aux.equals("")) {
 				names = aux.split(";");
-				aux = propertyFile.getProperty(Constants.CONTRIBUTORS_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS_URI, "");
 				urls = aux.split(";");
-				aux = propertyFile.getProperty(Constants.CONTRIBUTORS_INSTITUTION, "");
+				aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS_INSTITUTION, "");
 				authorInst = aux.split(";");
-				aux = propertyFile.getProperty(Constants.CONTRIBUTORS_INSTITUTION_URI, "");
+				aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS_INSTITUTION_URI, "");
 				authorInstURI = aux.split(";");
 				for (int i = 0; i < names.length; i++) {
 					Agent a = new Agent();
@@ -310,9 +316,9 @@ public class Configuration {
 					mainOntologyMetadata.getContributors().add(a);
 				}
 			}
-			aux = propertyFile.getProperty(Constants.IMPORTED_ONTOLOGY_NAMES, "");
+			aux = propertyFile.getProperty(Constants.PF_IMPORTED_ONTOLOGY_NAMES, "");
 			names = aux.split(";");
-			aux = propertyFile.getProperty(Constants.IMPORTED_ONTOLOGY_URIS, "");
+			aux = propertyFile.getProperty(Constants.PF_IMPORTED_ONTOLOGY_URIS, "");
 			urls = aux.split(";");
 			for (int i = 0; i < names.length; i++) {
 				if (!"".equals(names[i])) {
@@ -326,9 +332,9 @@ public class Configuration {
 					mainOntologyMetadata.getImportedOntologies().add(o);
 				}
 			}
-			aux = propertyFile.getProperty(Constants.EXTENDED_ONTOLOGY_NAMES, "");
+			aux = propertyFile.getProperty(Constants.PF_EXTENDED_ONTOLOGY_NAMES, "");
 			names = aux.split(";");
-			aux = propertyFile.getProperty(Constants.EXTENDED_ONTOLOGY_URIS, "");
+			aux = propertyFile.getProperty(Constants.PF_EXTENDED_ONTOLOGY_URIS, "");
 			urls = aux.split(";");
 			for (int i = 0; i < names.length; i++) {
 				if (!"".equals(names[i])) {
@@ -342,33 +348,62 @@ public class Configuration {
 					mainOntologyMetadata.getExtendedOntologies().add(o);
 				}
 			}
-			mainOntologyMetadata.getLicense().setName(propertyFile.getProperty(Constants.LICENSE_NAME, ""));
-			mainOntologyMetadata.getLicense().setUrl(propertyFile.getProperty(Constants.LICENSE_URI, ""));
-			mainOntologyMetadata.getLicense().setIcon(propertyFile.getProperty(Constants.LICENSE_ICON_URL, ""));
+			mainOntologyMetadata.getLicense().setName(propertyFile.getProperty(Constants.PF_LICENSE_NAME, ""));
+			mainOntologyMetadata.getLicense().setUrl(propertyFile.getProperty(Constants.PF_LICENSE_URI, ""));
+			mainOntologyMetadata.getLicense().setIcon(propertyFile.getProperty(Constants.PF_LICENSE_ICON_URL, ""));
 			mainOntologyMetadata.setStatus(propertyFile.getProperty(Constants.STATUS, "Specification Draft"));
-			mainOntologyMetadata.setCiteAs(propertyFile.getProperty(Constants.CITE_AS, ""));
-			mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.DOI, ""));
+			mainOntologyMetadata.setCiteAs(propertyFile.getProperty(Constants.PF_CITE_AS, ""));
+			mainOntologyMetadata.setDoi(propertyFile.getProperty(Constants.PF_DOI, ""));
+			mainOntologyMetadata.setDescription(propertyFile.getProperty(Constants.PF_DESCRIPTION, ""));
+			mainOntologyMetadata.setLogo(propertyFile.getProperty(Constants.PF_LOGO, ""));
 			mainOntologyMetadata.setBackwardsCompatibleWith(propertyFile.getProperty(Constants.COMPATIBLE, ""));
+			mainOntologyMetadata.setIncompatibleWith(propertyFile.getProperty(Constants.PF_INCOMPATIBLE_WITH,""));
+			this.setIntroText(propertyFile.getProperty(Constants.PF_INTRODUCTION, ""));
 			// vocabLoadedSerialization =
 			// propertyFile.getProperty(TextConstants.deafultSerialization, "RDF/XML");
-			String serializationRDFXML = propertyFile.getProperty(Constants.RDF, "");
+			String serializationRDFXML = propertyFile.getProperty(Constants.PF_SERIALIZATION_RDF, "");
 			if (!"".equals(serializationRDFXML)) {
-				mainOntologyMetadata.addSerialization("RDF/XML", serializationRDFXML);
+				mainOntologyMetadata.addSerialization(Constants.RDF_XML, serializationRDFXML);
 			}
-			String serializationTTL = propertyFile.getProperty(Constants.TTL, "");
+			String serializationTTL = propertyFile.getProperty(Constants.PF_SERIALIZATION_TTL, "");
 			if (!"".equals(serializationTTL)) {
-				mainOntologyMetadata.addSerialization("TTL", serializationTTL);
+				mainOntologyMetadata.addSerialization(Constants.TTL, serializationTTL);
 			}
-			String serializationN3 = propertyFile.getProperty(Constants.N3, "");
-			if (!"".equals(serializationN3)) {
-				mainOntologyMetadata.addSerialization("N-Triples", serializationN3);
+			String serializationNT = propertyFile.getProperty(Constants.PF_SERIALIZATION_NT, "");
+			if (!"".equals(serializationNT)) {
+				mainOntologyMetadata.addSerialization(Constants.NT, serializationNT);
 			}
-			String serializationJSONLD = propertyFile.getProperty(Constants.JSON, "");
+			String serializationJSONLD = propertyFile.getProperty(Constants.PF_SERIALIZATION_JSON, "");
 			if (!"".equals(serializationJSONLD)) {
-				mainOntologyMetadata.addSerialization("JSON-LD", serializationJSONLD);
+				mainOntologyMetadata.addSerialization(Constants.JSON_LD, serializationJSONLD);
 			}
 			this.googleAnalyticsCode = propertyFile.getProperty("GoogleAnalyticsCode");
-			//TO DO: There is missing metadata here (incompatible, images, backwards compatibility)
+			String images = propertyFile.getProperty(Constants.PF_IMAGES, "");
+			if (!"".equals(images)){
+				mainOntologyMetadata.setImages(new ArrayList<>(Arrays.asList(images.split(";"))));
+			}
+			String source = propertyFile.getProperty(Constants.PF_SOURCE, "");
+			if (!"".equals(source)){
+				mainOntologyMetadata.setSources(new ArrayList<>(Arrays.asList(source.split(";"))));
+			}
+			String seeAlso = propertyFile.getProperty(Constants.PF_SEE_ALSO, "");
+			if (!"".equals(seeAlso)){
+				mainOntologyMetadata.setSeeAlso(new ArrayList<>(Arrays.asList(seeAlso.split(";"))));
+			}
+			String funders = propertyFile.getProperty(Constants.PF_FUNDERS, "");
+			if (!"".equals(funders)){
+				String [] fundersURI = funders.split(";");
+				for (String s : fundersURI) {
+					Agent a = new Agent();
+					a.setName(s);
+					a.setURL(s);
+					mainOntologyMetadata.getFunders().add(a);
+				}
+			}
+			String funding = propertyFile.getProperty(Constants.PF_FUNDING, "");
+			if (!"".equals(funding)){
+				mainOntologyMetadata.setFundingGrants(new ArrayList<String>(Arrays.asList(funding.split(";"))));
+			}
 
 		} catch (IOException ex) {
 			// Only a warning, as we can continue safely without a property file.
@@ -381,7 +416,7 @@ public class Configuration {
 	 * Method that given an ontology retrieves the main metadata properties into the
 	 * configuration.
 	 * 
-	 * @param o
+	 * @param o Ontology to load properties from
 	 */
 	public void loadPropertiesFromOntology(OWLOntology o) {
 		if (o == null) {
@@ -415,7 +450,31 @@ public class Configuration {
 			});
 		}
 		this.mainOntologyMetadata.setThisVersion(versionUri);
+		// process ontology annotations
 		o.annotations().forEach(a -> completeOntologyMetadata(a,o));
+		// in some cases, properties and data properties extend annotation properties, so we need to process them
+		// separately. In this case we go through all axioms and look for any props that have the own ontology as subject
+		for (OWLAxiom axiom : o.getAxioms()) {
+			String subject = "", predicate ="", object ="";
+			if (axiom instanceof OWLDataPropertyAssertionAxiom) {
+				OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = (OWLDataPropertyAssertionAxiom) axiom;
+				subject = dataPropertyAssertionAxiom.getSubject().toStringID();
+				predicate = dataPropertyAssertionAxiom.getProperty().asOWLDataProperty().toStringID();
+				object = dataPropertyAssertionAxiom.getObject().getLiteral();
+			} else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
+				OWLObjectPropertyAssertionAxiom objectPropertyAssertionAxiom = (OWLObjectPropertyAssertionAxiom) axiom;
+				subject = objectPropertyAssertionAxiom.getSubject().toStringID();
+				predicate = objectPropertyAssertionAxiom.getProperty().asOWLObjectProperty().toStringID();
+				object = objectPropertyAssertionAxiom.getObject().toStringID();
+			}
+			if (subject.equals(uri)){
+				OWLDataFactory dataFactory = this.mainOntologyMetadata.getOWLAPIOntologyManager().getOWLDataFactory();
+				OWLAnnotationProperty pAux = dataFactory.getOWLAnnotationProperty(IRI.create(predicate));
+				OWLAnnotationValue oAux = dataFactory.getOWLLiteral(object);
+				completeOntologyMetadata(dataFactory.getOWLAnnotation(pAux,oAux),o);
+			}
+		}
+
 		if (isUseLicensius()) {
 			String licName;
 			String lic = GetLicense.getFirstLicenseFound(mainOntologyMetadata.getNamespaceURI());
@@ -478,9 +537,13 @@ public class Configuration {
 		String propertyName = a.getProperty().getIRI().getIRIString();
 		String value;
 		String valueLanguage;
-//		 System.out.println(propertyName);
+		//System.out.println(propertyName);
 		switch (propertyName) {
 		case Constants.PROP_RDFS_LABEL:
+		case Constants.PROP_SKOS_PREF_LABEL:
+		case Constants.PROP_SCHEMA_ALTERNATE_NAME_HTTP:
+		case Constants.PROP_SCHEMA_ALTERNATE_NAME_HTTPS:
+		case Constants.PROP_MOD_ACRONYM:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
@@ -494,7 +557,8 @@ public class Configuration {
 			break;
 		case Constants.PROP_DC_TITLE:
 		case Constants.PROP_DCTERMS_TITLE:
-		case Constants.PROP_SCHEMA_NAME:
+		case Constants.PROP_SCHEMA_NAME_HTTP:
+		case Constants.PROP_SCHEMA_NAME_HTTPS:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
@@ -508,11 +572,6 @@ public class Configuration {
 			break;
 		case Constants.PROP_DCTERMS_ABSTRACT:
 		case Constants.PROP_DC_ABSTRACT:
-		case Constants.PROP_DCTERMS_DESCRIPTION:
-		case Constants.PROP_DC_DESCRIPTION:
-		case Constants.PROP_SCHEMA_DESCRIPTION:
-		case Constants.PROP_RDFS_COMMENT:
-		case Constants.PROP_SKOS_NOTE:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
@@ -524,6 +583,24 @@ public class Configuration {
 				logger.error("Error while getting ontology abstract. No literal provided");
 			}
 			break;
+		case Constants.PROP_DCTERMS_DESCRIPTION:
+		case Constants.PROP_DC_DESCRIPTION:
+		case Constants.PROP_SCHEMA_DESCRIPTION_HTTP:
+		case Constants.PROP_SCHEMA_DESCRIPTION_HTTPS:
+		case Constants.PROP_RDFS_COMMENT:
+		case Constants.PROP_SKOS_NOTE:
+			try {
+				valueLanguage = a.getValue().asLiteral().get().getLang();
+				value = a.getValue().asLiteral().get().getLiteral();
+				if (this.currentLanguage.equals(valueLanguage)
+						|| (mainOntologyMetadata.getDescription() == null
+						||	mainOntologyMetadata.getDescription().isEmpty())) {
+					mainOntologyMetadata.setDescription(value);
+				}
+			} catch (Exception e) {
+				logger.error("Error while getting ontology description. No literal provided");
+			}
+			break;
 		case Constants.PROP_DCTERMS_REPLACES:
 		case Constants.PROP_DC_REPLACES:
 		case Constants.PROP_PROV_WAS_REVISION_OF:
@@ -533,7 +610,10 @@ public class Configuration {
 			mainOntologyMetadata.setPreviousVersion(value);
 			break;
 		case Constants.PROP_OWL_VERSION_INFO:
-		case Constants.PROP_SCHEMA_SCHEMA_VERSION:
+		case Constants.PROP_SCHEMA_SCHEMA_VERSION_HTTP:
+		case Constants.PROP_SCHEMA_SCHEMA_VERSION_HTTPS:
+		case Constants.PROP_PAV_VERSION:
+		case Constants.PROP_DCTERMS_HAS_VERSION:
 			try {
 				value = a.getValue().asLiteral().get().getLiteral();
 				mainOntologyMetadata.setRevision(value);
@@ -551,7 +631,8 @@ public class Configuration {
 			break;
 		case Constants.PROP_DCTERMS_LICENSE:
 		case Constants.PROP_DC_RIGHTS:
-		case Constants.PROP_SCHEMA_LICENSE:
+		case Constants.PROP_SCHEMA_LICENSE_HTTP:
+		case Constants.PROP_SCHEMA_LICENSE_HTTPS:
 		case Constants.PROP_CC_LICENSE:
 			try {
 				value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
@@ -569,16 +650,22 @@ public class Configuration {
 			break;
 		case Constants.PROP_DC_CONTRIBUTOR:
 		case Constants.PROP_DCTERMS_CONTRIBUTOR:
-		case Constants.PROP_SCHEMA_CONTRIBUTOR:
+		case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTP:
+		case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTPS:
 		case Constants.PROP_PAV_CONTRIBUTED_BY:
 		case Constants.PROP_DC_CREATOR:
 		case Constants.PROP_DCTERMS_CREATOR:
-		case Constants.PROP_SCHEMA_CREATOR:
+		case Constants.PROP_SCHEMA_CREATOR_HTTP:
+		case Constants.PROP_SCHEMA_CREATOR_HTTPS:
 		case Constants.PROP_PAV_CREATED_BY:
 		case Constants.PROP_PROV_ATTRIBUTED_TO:
 		case Constants.PROP_DC_PUBLISHER:
 		case Constants.PROP_DCTERMS_PUBLISHER:
-		case Constants.PROP_SCHEMA_PUBLISHER:
+		case Constants.PROP_SCHEMA_PUBLISHER_HTTP:
+		case Constants.PROP_SCHEMA_PUBLISHER_HTTPS:
+		case Constants.PROP_SCHEMA_FUNDER_HTTP:
+		case Constants.PROP_SCHEMA_FUNDER_HTTPS:
+		case Constants.PROP_FOAF_FUNDED_BY:
 			try {
 				Agent ag = new Agent();
 				if (a.getValue().isLiteral()) {
@@ -607,7 +694,8 @@ public class Configuration {
 				switch (propertyName) {
 				case Constants.PROP_DC_CONTRIBUTOR:
 				case Constants.PROP_DCTERMS_CONTRIBUTOR:
-				case Constants.PROP_SCHEMA_CONTRIBUTOR:
+				case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTP:
+				case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTPS:
 				case Constants.PROP_PAV_CONTRIBUTED_BY:
 					mainOntologyMetadata.getContributors().add(ag);
 					break;
@@ -615,8 +703,16 @@ public class Configuration {
 				case Constants.PROP_DCTERMS_CREATOR:
 				case Constants.PROP_PAV_CREATED_BY:
 				case Constants.PROP_PROV_ATTRIBUTED_TO:
-				case Constants.PROP_SCHEMA_CREATOR:
+				case Constants.PROP_SCHEMA_CREATOR_HTTP:
+				case Constants.PROP_SCHEMA_CREATOR_HTTPS:
 					mainOntologyMetadata.getCreators().add(ag);
+					break;
+				case Constants.PROP_SCHEMA_FUNDER_HTTP:
+				case Constants.PROP_SCHEMA_FUNDER_HTTPS:
+				case Constants.PROP_FOAF_FUNDED_BY:
+					if(ag.getURL() == null || ag.getURL().isEmpty())
+						ag.setURL(ag.getName());
+					mainOntologyMetadata.getFunders().add(ag);
 					break;
 				default:
 					mainOntologyMetadata.setPublisher(ag);
@@ -627,26 +723,29 @@ public class Configuration {
 			}
 			break;
 		case Constants.PROP_DCTERMS_CREATED:
-		case Constants.PROP_SCHEMA_DATE_CREATED:
+		case Constants.PROP_SCHEMA_DATE_CREATED_HTTP:
+		case Constants.PROP_SCHEMA_DATE_CREATED_HTTPS:
 		case Constants.PROP_PROV_GENERATED_AT_TIME:
 		case Constants.PROP_PAV_CREATED_ON:
-			if (mainOntologyMetadata.getReleaseDate() == null || "".equals(mainOntologyMetadata.getReleaseDate())) {
-				value = a.getValue().asLiteral().get().getLiteral();
-				mainOntologyMetadata.setReleaseDate(value);
-			}
+			value = a.getValue().asLiteral().get().getLiteral();
+			mainOntologyMetadata.setCreationDate(value);
 			break;
 		case Constants.PROP_DCTERMS_MODIFIED:
-		case Constants.PROP_SCHEMA_DATE_MODIFIED:
+		case Constants.PROP_SCHEMA_DATE_MODIFIED_HTTP:
+		case Constants.PROP_SCHEMA_DATE_MODIFIED_HTTPS:
+		case Constants.PROP_PAV_LAST_UPDATED_ON:
 			value = a.getValue().asLiteral().get().getLiteral();
-			mainOntologyMetadata.setReleaseDate(value);
+			mainOntologyMetadata.setModifiedDate(value);
 			break;
-		case Constants.PROP_SCHEMA_DATE_ISSUED:
+		case Constants.PROP_SCHEMA_DATE_ISSUED_HTTP:
+		case Constants.PROP_SCHEMA_DATE_ISSUED_HTTPS:
 		case Constants.PROP_DCTERMS_ISSUED:
 			value = a.getValue().asLiteral().get().getLiteral();
 			mainOntologyMetadata.setIssuedDate(value);
 			break;
 		case Constants.PROP_DCTERMS_BIBLIOGRAPHIC_CIT:
-		case Constants.PROP_SCHEMA_CITATION:
+		case Constants.PROP_SCHEMA_CITATION_HTTP:
+		case Constants.PROP_SCHEMA_CITATION_HTTPS:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setCiteAs(value);
 			break;
@@ -655,6 +754,9 @@ public class Configuration {
 			mainOntologyMetadata.setDoi(value);
 			break;
 		case Constants.PROP_BIBO_STATUS:
+		case Constants.PROP_MOD_STATUS:
+		case Constants.PROP_SCHEMA_STATUS_HTTP:
+		case Constants.PROP_SCHEMA_STATUS_HTTPS:
 			value = "Specification Draft";
 			try {
 				//if an object property is used, all valid status have the form http://purl.org/ontology/bibo/status/
@@ -676,11 +778,70 @@ public class Configuration {
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setIncompatibleWith(value);
 			break;
-		case Constants.PROP_SCHEMA_IMAGE:
+		case Constants.PROP_SCHEMA_IMAGE_HTTP:
+		case Constants.PROP_SCHEMA_IMAGE_HTTPS:
 		case Constants.PROP_FOAF_IMAGE:
 		case Constants.PROP_FOAF_DEPICTION:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.addImage(value);
+			break;
+		case Constants.PROP_SCHEMA_LOGO_HTTP:
+		case Constants.PROP_SCHEMA_LOGO_HTTPS:
+		case Constants.PROP_FOAF_LOGO:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.setLogo(value);
+			break;
+		case Constants.PROP_VOAF_EXTENDS:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			Ontology ont = new Ontology();
+			ont.setNamespaceURI(value);
+			ont.setName(value);
+			mainOntologyMetadata.getExtendedOntologies().add(ont);
+			break;
+		case Constants.PROP_WDRS_IS_DESCRIBED_BY:
+		case Constants.PROP_DC_SOURCE:
+		case Constants.PROP_DCTERMS_SOURCE:
+		case Constants.PROP_PROV_HAD_PRIMARY_SOURCE:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSources().add(value);
+			break;
+		case Constants.PROP_SCHEMA_FUNDING_HTTP:
+		case Constants.PROP_SCHEMA_FUNDING_HTTPS:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getFundingGrants().add(value);
+			break;
+		case Constants.PROP_RDFS_SEE_ALSO:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSeeAlso().add(value);
+			break;
+		case Constants.PROP_WIDOCO_INTRODUCTION:
+			try {
+				valueLanguage = a.getValue().asLiteral().get().getLang();
+				value = a.getValue().asLiteral().get().getLiteral();
+				if (this.currentLanguage.equals(valueLanguage)
+						|| (introText == null || "".equals(introText))) {
+					introText = value;
+				}
+			} catch (Exception e) {
+				logger.error("Error while introduction annotation. No literal provided");
+			}
+			break;
+		//serializations (rare as it is usually available with C/N)
+		case Constants.PROP_WIDOCO_JSON_LD:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.JSON_LD, value);
+			break;
+		case Constants.PROP_WIDOCO_NT:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.NT, value);
+			break;
+		case Constants.PROP_WIDOCO_RDF_XML:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.RDF_XML, value);
+			break;
+		case Constants.PROP_WIDOCO_TURTLE:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.getSerializations().replace(Constants.TTL, value);
 			break;
 		}
 	}
@@ -698,13 +859,15 @@ public class Configuration {
 //		System.out.println(propertyName);
 		switch (propertyName) {
 			case Constants.PROP_RDFS_LABEL:
-			case Constants.PROP_SCHEMA_NAME:
+			case Constants.PROP_SCHEMA_NAME_HTTP:
+			case Constants.PROP_SCHEMA_NAME_HTTPS:
 			case Constants.PROP_VCARD_FN:
 			case Constants.PROP_FOAF_NAME:
 			case Constants.PROP_VCARD_FN_OLD:
 				ag.setName(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
 				break;
-			case Constants.PROP_SCHEMA_GIVEN_NAME:
+			case Constants.PROP_SCHEMA_GIVEN_NAME_HTTP:
+			case Constants.PROP_SCHEMA_GIVEN_NAME_HTTPS:
 			case Constants.PROP_VCARD_GIVEN_NAME:
 			case Constants.PROP_VCARD_GIVEN_OLD:
 			case Constants.PROP_FOAF_GIVEN_NAME:
@@ -717,7 +880,8 @@ public class Configuration {
 					}
 				}
 				break;
-			case Constants.PROP_SCHEMA_FAMILY_NAME:
+			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTP:
+			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTPS:
 			case Constants.PROP_VCARD_FAMILY_NAME:
 			case Constants.PROP_VCARD_FAMILY_OLD:
 			case Constants.PROP_FOAF_FAMILY_NAME:
@@ -730,19 +894,22 @@ public class Configuration {
 					}
 				}
 				break;
-			case Constants.PROP_SCHEMA_URL:
+			case Constants.PROP_SCHEMA_URL_HTTP:
+			case Constants.PROP_SCHEMA_URL_HTTPS:
 			case Constants.PROP_FOAF_HOME_PAGE:
 			case Constants.PROP_VCARD_HAS_URL:
 			case Constants.PROP_VCARD_URL:
 				ag.setURL(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
 				break;
-			case Constants.PROP_SCHEMA_EMAIL:
+			case Constants.PROP_SCHEMA_EMAIL_HTTP:
+			case Constants.PROP_SCHEMA_EMAIL_HTTPS:
 			case Constants.PROP_FOAF_MBOX:
 			case Constants.PROP_VCARD_EMAIL:
 			case Constants.PROP_VCARD_EMAIL_OLD:
 				ag.setEmail(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
 				break;
-			case Constants.PROP_SCHEMA_AFFILIATION:
+			case Constants.PROP_SCHEMA_AFFILIATION_HTTP:
+			case Constants.PROP_SCHEMA_AFFILIATION_HTTPS:
 			case Constants.PROP_ORG_MEMBER_OF:
 				if (ann.getValue().isLiteral()) {
 					String literalValue = ann.getValue().asLiteral().get().getLiteral();
@@ -1257,6 +1424,11 @@ public class Configuration {
         this.includeAllSectionsInOneDocument = includeAllSectionsInOneDocument;
     }
 
-    
-        
+	public String getIntroText() {
+		return introText;
+	}
+
+	public void setIntroText(String introText) {
+		this.introText = introText;
+	}
 }

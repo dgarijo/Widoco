@@ -16,6 +16,7 @@
                             <http://purl.org/dc/elements/1.1/description> "This is an example ontology to illustrate some of the annotations that should be included"@en ;
                             <http://purl.org/dc/elements/1.1/title> "The example ontology"@en ;
                             <http://purl.org/dc/terms/created> "February 5th, 2020"@en ;
+                            <http://purl.org/dc/terms/issued> "February 4th, 2020"@en ;
                             <http://purl.org/dc/terms/creator> "Maria Poveda-Villalon"@en ;
                             schema:image <https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.9.0/images/overviewSDv5.png>;
                             foaf:img "https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.9.0/images/overviewSDv5.png";
@@ -24,6 +25,14 @@
                                 foaf:mbox "mailto:MyEmail@example.org";
                                 org:memberOf <https://example.org/UPM>.
                               ] ;
+                              <http://purl.org/dc/terms/contributor> [
+                                  foaf:name "Edna Ruckhaus";
+                                  org:memberOf <https://example.org/UPM>.
+                                ] ;
+                                <http://purl.org/dc/terms/contributor> [
+                                    foaf:name "Pepito Perez1";
+                                    org:memberOf <https://example.org/UPM>.
+                                  ] ;
                             schema:creator <https://example.org/dgv>;
                             <http://purl.org/dc/terms/license> <http://creativecommons.org/licenses/by/2.0/> ;
                             <http://purl.org/vocab/vann/preferredNamespacePrefix> "exo"@en ;
