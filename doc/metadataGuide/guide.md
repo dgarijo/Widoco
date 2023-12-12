@@ -129,7 +129,7 @@ The following `Turtle` code block shows sample annotations for each of the metad
     dct:creator "Daniel Garijo"@en ,"Maria Poveda-Villalon"@en ;
     dct:license <http://creativecommons.org/licenses/by/2.0/> ;
     vann:preferredNamespacePrefix "exo"@en ;
-    vann:preferredNamespaceUri> "https://w3id.org/example" ;
+    vann:preferredNamespaceUri "https://w3id.org/example" ;
     schema:citation "Cite this vocabulary as: Garijo, D. and Poveda-Villalón, M. The example ontology 1.0.1."@en ;
     rdfs:comment "An example vocabulary designed to illustrate how to publish vocabularies on the Web following the FAIR principles. This vocabulary describes three simple classes with 3 properties and a data property."@en ;
     rdfs:label "Example" ;
