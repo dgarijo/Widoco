@@ -176,14 +176,14 @@ If blank nodes are used, then the the result should look similar to the followin
 ```
 Widoco will recognize the following properties when describing agents (persons or organizations):
 
-|Metadata category|Ontology annotation property    |Accepted property value            |
-|-----------------|--------------------------------|-----------------------------------|
-|Affiliation |[schema:affiliation], [org:memberOf] |[Text] or [Organization] or [BNode]|
-|Family Name |[schema:familyName], [vcard:family-name], [foaf:family_name]|[Text]      |
-|Full name   |[rdfs:label], [schema:name], [vcard:fn], [foaf:name]        |[Text]      |
-|Given name  |[schema:givenName], [vcard:given-name], [foaf:givenname]    |[Text]      |
-|Email       |[schema:email], [vcard:hasEmail], [foaf:mbox]               |[Text]      |
-|URL         |[schema:url], [vcard:hasURL], [foaf:homepage]               |[URI]       |
+|Metadata category|Ontology annotation property                                |Accepted property value            |
+|-----------------|------------------------------------------------------------|-----------------------------------|
+|Affiliation      |[schema:affiliation], [org:memberOf]                        |[Text] or [Organization] or [BNode]|
+|Family Name      |[schema:familyName], [vcard:family-name], [foaf:family_name]|[Text]                             |
+|Full name        |[rdfs:label], [schema:name], [vcard:fn], [foaf:name]        |[Text]                             |
+|Given name       |[schema:givenName], [vcard:given-name], [foaf:givenname]    |[Text]                             |
+|Email            |[schema:email], [vcard:hasEmail], [foaf:mbox]               |[Text]                             |
+|URL              |[schema:url], [vcard:hasURL], [foaf:homepage]               |[URI]                              |
 
 
 ### <span id="term">Annotating ontology terms:
