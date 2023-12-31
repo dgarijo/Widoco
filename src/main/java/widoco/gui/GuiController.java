@@ -210,12 +210,12 @@ public final class GuiController {
 			}
 			i++;
 		}
-		// this creates the tmp files
+		// this creates tmp files for the conversion assets
 		config = new Configuration();
 		try {
 			this.config.reloadPropertyFile(confPath);
 		} catch (Exception e) {
-			System.out.println("Configuration file could not be loaded: " + e.getMessage());
+			logger.error("Configuration file could not be loaded: " + e.getMessage());
 			return;
 		}
 
@@ -291,6 +291,7 @@ public final class GuiController {
 				// TO DO: improve this a little so language is passed on to load properties and generate doc.
 				for (String l : config.getLanguagesToGenerateDoc()) {
 					logger.info("Generating documentation for " + ontology + " in lang " + l);
+					config.loadNamespaceDeclarations(config.getMainOntology().getOWLAPIModel());
 					if (getOntoMetadata) {
 						logger.info("Load properties from the ontology in lang " + l);
 						config.loadPropertiesFromOntology(config.getMainOntology().getOWLAPIModel());

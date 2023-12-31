@@ -513,6 +513,9 @@ public class Configuration {
 
 			mainOntologyMetadata.setCiteAs(cite.toString());
 		}
+	}
+
+	public void loadNamespaceDeclarations(OWLOntology o){
 		//load all namespaces in the ontology document.
 		this.namespaceDeclarations = new HashMap<>();
 		OWLOntologyXMLNamespaceManager nsManager = new OWLOntologyXMLNamespaceManager(o, o.getFormat());
