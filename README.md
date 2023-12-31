@@ -38,7 +38,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
   <dependency>
       <groupId>com.github.dgarijo</groupId>
       <artifactId>Widoco</artifactId>
-      <version>v1.4.16</version>
+      <version>v1.4.21</version>
   </dependency>
 </dependencies>
 
@@ -56,7 +56,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
 WIDOCO helps you to publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
 
 Features of WIDOCO:
-* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](doc/gallery/index.html))
+* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](https://dgarijo.github.io/Widoco/doc/gallery/index.html))
 * Massive metadata extraction and support: WIDOCO will enhance your ontology documentation  based on your ontology annotations. Now you can add custom logos and images, edit the content of your sections, etc. by just editing metadata. See our [supported metadata](https://github.com/dgarijo/Widoco/blob/master/doc/metadataGuide/guide.md) and [recommendations](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) for more information.
 * Automatic annotation in JSON-LD snippets of the html produced.
 * Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).
@@ -75,7 +75,7 @@ Examples of the features of WIDOCO can be seen on [the gallery](https://dgarijo.
 A tutorial explaining the main features of the GUI can be found [here](https://dgarijo.github.io/Widoco/doc/tutorial/)  
 
 ## Metadata usage
-To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the WIDOCO metadata documentation](doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
+To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the WIDOCO metadata documentation](https://dgarijo.github.io/Widoco/doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
 
 For example, in order to show your logo in your documentation you just need to use `foaf:logo` as an annotation, as follows:
 ```
@@ -85,7 +85,7 @@ For example, in order to show your logo in your documentation you just need to u
     foaf:logo <https://www.leonvanwissen.nl/vocab/roar/docs/resources/roar-logo.png#> .
 ```
 
-and it will show right next to the title. The [WIDOCO metadata documentation](doc/metadataGuide/guide.md) shows all supported metadata fields.
+and it will show right next to the title. The [WIDOCO metadata documentation](https://dgarijo.github.io/Widoco/doc/metadataGuide/guide.md) shows all supported metadata fields.
 
 ## How to use WIDOCO
 
@@ -138,7 +138,7 @@ docker run -ti --rm \
 
 `-outFolder folderName`: Specifies the name of the folder where to save the documentation. By default is 'myDocumentation'
 
-`-confFile PATH`: Load your own configuration file for the ontology metadata. Incompatible with -getOntologyMetadata. See [the configuration documentation](doc/configuration/configuration_doc.md) for more information about the accepted fields.
+`-confFile PATH`: Load your own configuration file for the ontology metadata. Incompatible with -getOntologyMetadata. See [the configuration documentation](https://dgarijo.github.io/Widoco/doc/configuration/configuration_doc.md) for more information about the accepted fields.
 
 `-getOntologyMetadata`: Extract ontology metadata from the given ontology
 
@@ -191,7 +191,7 @@ There are two alternative ways for making WIDOCO get your vocabulary metadata an
 * The recommended way: add them in your OWL file. For guidelines on which ones to include, follow our [best practices document](https://w3id.org/widoco/bestPractices), which indicates which ones we recommend.
 * Alternatively, edit the project properties of /config/config.properties. This is a key-value pair file with metadata properties. Some people consider it easier than adding the property annotations to the OWL file, although I recommend doing the former option. Note that the character ";" is used for lists (for instance first author; second author; third author).
 
-For more information, see the [Widoco metadata guide](doc/metadataGuide/guide.md)
+For more information, see the [Widoco metadata guide](https://dgarijo.github.io/Widoco/doc/metadataGuide/guide.md)
 
 ## Browser issues (Why can't I see the generated documentation / visualization?)
 WIDOCO separates the contents of different sections in HTML files, which are then loaded in the `index.html` file. WIDOCO was designed this way because it's easier to edit your introduction or description sections independently without being all aggregated together in a huge HTML document.  **When all the contents generated by WIDOCO are stored in a server, you will be able to see the documentation of your ontology using any browser**. However, if you open the `index.html` file **on your local browser**, you may see a document missing most of the sections in your documentation. This happens because browsers don't allow loading separate content when opening a file locally for security reasons. If you want to explore how your ontology would look locally, you have two options:
