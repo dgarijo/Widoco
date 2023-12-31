@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,6 +34,7 @@ import java.util.zip.ZipInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.model.*;
@@ -44,7 +47,7 @@ import org.semanticweb.owlapi.model.*;
 public class WidocoUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(WidocoUtils.class);
-
+	public static final char JAR_SEPARATOR = '/';
 	/**
 	 * Method that will download the ontology to document with Widoco.
 	 * 
@@ -152,52 +155,90 @@ public class WidocoUtils {
 		}
 	}
 
-	// /**
-	// * Method that reads a local file and loads it into the configuration.
-	// * @param model
-	// * @param ontoPath
-	// * @param ontoURL
-	// */
-	// private static void readOntModel(OntModel model,Configuration c){
-	// String[] serializations = {"RDF/XML", "TTL", "N3"};
-	// String ontoPath = c.getOntologyPath();
-	// String ext = "";
-	// for(String s:serializations){
-	// InputStream in;
-	// try{
-	// in = FileManager.get().open(ontoPath);
-	// if (in == null) {
-	// System.err.println("Error: Ontology file not found");
-	// return;
-	// }
-	// model.read(in, null, s);
-	// System.out.println("Vocab loaded in "+s);
-	// if(s.equals("RDF/XML")){
-	// ext="xml";
-	// }else if(s.equals("TTL")){
-	// ext="ttl";
-	// }else if(s.equals("N3")){
-	// ext="n3";
-	// }
-	// c.getMainOntology().addSerialization(s, "ontology."+ext);
-	// //c.setVocabSerialization(s);
-	// break;
-	// }catch(Exception e){
-	// System.err.println("Could not open the ontology in "+s);
-	// }
-	// }
-	//
-	// }
 
-	public static void copyResourceFolder(String[] resources, String savePath) throws IOException {
-		for (String resource : resources) {
-			String aux = resource.substring(resource.lastIndexOf("/") + 1, resource.length());
-			File b = new File(savePath + File.separator + aux);
-			b.createNewFile();
-			copyLocalResource(resource, b);
+	public static void copyResourceDir(String resourceFolder, File destinationFolder) throws IOException {
+		// Determine if running from JAR or as source
+		logger.info("Copying resource folder from "+resourceFolder+" to "+ destinationFolder);
+		URL resourceUrl = WidocoUtils.class.getClassLoader().getResource(resourceFolder);
+		if (!destinationFolder.exists())
+			destinationFolder.mkdirs();
+		if (resourceUrl == null || !resourceUrl.getProtocol().equals("file")) {
+			// Running from JAR, use getResourceAsStream
+			copyDirFromJar(resourceFolder, destinationFolder);
+
+		} else {
+			// Running from source, use Files.copy
+			copyDirFromSrc(resourceFolder, destinationFolder);
 		}
+
+	}
+	// inspired from
+	// https://github.com/TriggerReactor/TriggerReactor/blob/7e71958b27231032c04d09795122dfc1d80c51b1/core/src/main/java/io/github/wysohn/triggerreactor/tools/JarUtil.java
+	public static void copyDirFromJar(String folderName, File destFolder) throws IOException {
+
+		byte[] buffer = new byte[1024];
+		File fullPath = null;
+		String path = WidocoUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		try {
+			if (!path.startsWith("file"))
+				path = "file://" + path;
+
+			fullPath = new File(new URI(path));
+		} catch (URISyntaxException e) {
+			logger.error("URI syntax error");
+		}
+		ZipInputStream zis = new ZipInputStream(new FileInputStream(fullPath));
+
+		ZipEntry entry;
+		while ((entry = zis.getNextEntry()) != null) {
+			if (!entry.getName().startsWith(folderName + JAR_SEPARATOR))
+				continue;
+
+			String fileName = entry.getName();
+
+			// Remove the folderName from the fileName
+			fileName = fileName.substring((folderName + JAR_SEPARATOR).length());
+
+			File file = new File(destFolder + File.separator + fileName);
+
+			if (fileName.isEmpty() || fileName.charAt(fileName.length() - 1) == JAR_SEPARATOR) {
+				// Skip empty or directory entries
+				continue;
+			}
+
+			if (!file.getParentFile().exists())
+				file.getParentFile().mkdirs();
+
+			if (!file.exists())
+				file.createNewFile();
+			FileOutputStream fos = new FileOutputStream(file);
+
+			int len;
+			while ((len = zis.read(buffer)) > 0) {
+				fos.write(buffer, 0, len);
+			}
+			fos.close();
+		}
+		zis.closeEntry();
+		zis.close();
 	}
 
+	private static void copyDirFromSrc(String resourceFolder, File destinationFolder) throws IOException {
+		URL resource = WidocoUtils.class.getClassLoader().getResource(resourceFolder);
+
+		if (resource == null) {
+			throw new IllegalArgumentException("Resource not found: " + resourceFolder);
+		}
+		try {
+			File sourceFolder = new File(resource.toURI());
+			// Copy only the contents of the source folder to the destination folder
+			FileUtils.copyDirectory(sourceFolder, destinationFolder);
+		} catch (URISyntaxException e) {
+			throw new IOException("Error copying resources to the temp folder: " + e.getMessage(), e);
+		} catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	/**
 	 * Method used to copy the local files: styles, images, etc.
 	 * 
@@ -214,102 +255,39 @@ public class WidocoUtils {
 		}
 	}
 
+
 	/**
-	 * Copy a file from outside the project into the desired file.
-	 * 
+	 * Auxiliary method for reading local resources and returning their content
 	 * @param path
-	 * @param dest
+	 * 		path of the file
+	 * @return
+	 * 		content of the file
 	 */
-	public static void copyExternalResource(String path, File dest) {
-		try {
-			InputStream is = new FileInputStream(path);
-			copy(is, dest);
-		} catch (Exception e) {
+	public static String readExternalResource(String path) {
+		String content = "";
+		try{
+			content = new String ( Files.readAllBytes( Paths.get(path) ) );
+		}catch (IOException e){
 			logger.error("Exception while copying " + path + e.getMessage());
 		}
-	}
-        
-        public static String readExternalResource(String path) {
-            String content = "";
-            try{
-                content = new String ( Files.readAllBytes( Paths.get(path) ) );
-            }catch (IOException e){
-                logger.error("Exception while copying " + path + e.getMessage());
-            }
-            return content;
+		return content;
 	}
 
-	/**
-	 * Code to unzip a file. Inspired from
-	 * http://www.mkyong.com/java/how-to-decompress-files-from-a-zip-file/ Taken
-	 * from
-	 * 
-	 * @param resourceName
-	 * @param outputFolder
-	 */
-	public static void unZipIt(String resourceName, String outputFolder) {
-
-		byte[] buffer = new byte[1024];
-
-		try {
-			ZipInputStream zis = new ZipInputStream(CreateResources.class.getResourceAsStream(resourceName));
-			ZipEntry ze = zis.getNextEntry();
-
-			while (ze != null) {
-				String fileName = ze.getName();
-				File newFile = new File(outputFolder, fileName);
-				if (!newFile.toPath().normalize().startsWith(outputFolder)) {
-					throw new RuntimeException("Bad zip entry");
-				}
-				// System.out.println("file unzip : "+ newFile.getAbsoluteFile());
-				if (ze.isDirectory()) {
-					String temp = newFile.getAbsolutePath();
-					new File(temp).mkdirs();
-				} else {
-					String directory = newFile.getParent();
-					if (directory != null) {
-						File d = new File(directory);
-						if (!d.exists()) {
-							d.mkdirs();
-						}
-					}
-					FileOutputStream fos = new FileOutputStream(newFile);
-					int len;
-					while ((len = zis.read(buffer)) > 0) {
-						fos.write(buffer, 0, len);
-					}
-					fos.close();
-				}
-				ze = zis.getNextEntry();
-			}
-
-			zis.closeEntry();
-			zis.close();
-
-		} catch (IOException ex) {
-			logger.error("Error while extracting the reosurces: " + ex.getMessage());
-		}
-
-	}
 
 	public static void copy(InputStream is, File dest) throws Exception {
-		OutputStream os = null;
-		try {
-			os = new FileOutputStream(dest);
-			byte[] buffer = new byte[1024];
-			int length;
-			while ((length = is.read(buffer)) > 0) {
-				os.write(buffer, 0, length);
-			}
-		} catch (Exception e) {
-			logger.error("Exception while copying resource. " + e.getMessage());
-			throw e;
-		} finally {
-			if (is != null)
-				is.close();
-			if (os != null)
-				os.close();
-		}
+        try (OutputStream os = new FileOutputStream(dest)) {
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } catch (Exception e) {
+            logger.error("Exception while copying resource. " + e.getMessage());
+            throw e;
+        } finally {
+            if (is != null)
+                is.close();
+        }
 	}
 
 	public static String getValueAsLiteralOrURI(OWLAnnotationValue v) {

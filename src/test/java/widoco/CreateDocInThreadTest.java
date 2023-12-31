@@ -288,6 +288,34 @@ public class CreateDocInThreadTest {
             fail("Error while running the test: " +e.getMessage());
         }
     }
+
+    /**
+     * Test to check if after the -noPlaceHolder flag is used, but the ontology has a custom intro
+     * the custom introduction annotation works correctly.
+     * Reference: https://github.com/dgarijo/Widoco/issues/658
+     */
+    @org.junit.Test
+    public void testIssue658() {
+        try {
+            String pathToOnto = "test" + File.separator + "medatatestont.ttl";
+            c.setFromFile(true);
+            //emulating the flag "-noPlaceHolder"
+            c.setIncludeIntroduction(false);
+            c.setIncludeAbstract(false);
+            c.setIncludeDescription(false);
+            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            //not needed, but added for consistency with the other tests.
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            //read from myDoc/doc/sections/introduction.html
+            String result = WidocoUtils.readExternalResource("myDoc/doc/sections/introduction-en.html");
+            assertTrue(result.contains("This is an intro"));
+        }catch(Exception e){
+            fail("Error while running the test: " +e.getMessage());
+        }
+    }
 //    
     /**
      * This is a test to see if a big ontology works (several MB)

@@ -8,29 +8,29 @@ In this document we illustrate how Widoco uses metadata in the final documentati
 
 ## Namespaces used in this document
 
-|Namespace prefix|URI                                                                             |
-|----------------|--------------------------------------------------------------------------------|
-|bibo            |[http://purl.org/ontology/bibo/](http://purl.org/ontology/bibo/)                |
-|cc              |[http://creativecommons.org/ns#](http://creativecommons.org/ns#)                |
-|dce             |[http://purl.org/dc/elements/1.1/](http://purl.org/dc/elements/1.1/)            |
-|dct             |[http://purl.org/dc/terms/](http://purl.org/dc/terms/)                          |
-|doap            |[http://usefulinc.com/ns/doap#](http://usefulinc.com/ns/doap#)                  |
-|foaf            |[http://xmlns.com/foaf/0.1/](http://xmlns.com/foaf/0.1/)                        |
-|mod             |[https://w3id.org/mod#](https://w3id.org/mod#)
-|obo             |[http://purl.obolibrary.org/obo/](http://purl.obolibrary.org/obo/)              |
-|org             |[http://www.w3.org/ns/org#](http://www.w3.org/ns/org#)                          |
-|owl             |[http://www.w3.org/2002/07/owl#](http://www.w3.org/2002/07/owl#)                |
-|pav             |[http://purl.org/pav/](http://purl.org/pav/)                                    |
-|prov            |[http://www.w3.org/ns/prov#](http://www.w3.org/ns/prov#)                        |
-|rdfs            |[http://www.w3.org/2000/01/rdf-schema#](http://www.w3.org/2000/01/rdf-schema#)  |
-|schema          |[https://schema.org/](https://schema.org/)                                      |
+|Namespace prefix|URI                                                                                           |
+|----------------|----------------------------------------------------------------------------------------------|
+|bibo            |[http://purl.org/ontology/bibo/](http://purl.org/ontology/bibo/)                              |
+|cc              |[http://creativecommons.org/ns#](http://creativecommons.org/ns#)                              |
+|dc              |[http://purl.org/dc/elements/1.1/](http://purl.org/dc/elements/1.1/)                          |
+|dcterms         |[http://purl.org/dc/terms/](http://purl.org/dc/terms/)                                        |
+|doap            |[http://usefulinc.com/ns/doap#](http://usefulinc.com/ns/doap#)                                |
+|foaf            |[http://xmlns.com/foaf/0.1/](http://xmlns.com/foaf/0.1/)                                      |
+|mod             |[https://w3id.org/mod#](https://w3id.org/mod#)                                                |
+|obo             |[http://purl.obolibrary.org/obo/](http://purl.obolibrary.org/obo/)                            |
+|org             |[http://www.w3.org/ns/org#](http://www.w3.org/ns/org#)                                        |
+|owl             |[http://www.w3.org/2002/07/owl#](http://www.w3.org/2002/07/owl#)                              |
+|pav             |[http://purl.org/pav/](http://purl.org/pav/)                                                  |
+|prov            |[http://www.w3.org/ns/prov#](http://www.w3.org/ns/prov#)                                      |
+|rdfs            |[http://www.w3.org/2000/01/rdf-schema#](http://www.w3.org/2000/01/rdf-schema#)                |
+|schema          |[https://schema.org/](https://schema.org/)                                                    |
 |sw              |[http://www.w3.org/2003/06/sw-vocab-status/ns#](http://www.w3.org/2003/06/sw-vocab-status/ns#)|
-|skos            |[http://www.w3.org/2004/02/skos/core#](http://www.w3.org/2004/02/skos/core#)      |
-|vaem            |[http://www.linkedmodel.org/schema/vaem#](http://www.linkedmodel.org/schema/vaem#)|
-|vann            |[http://purl.org/vocab/vann/](http://purl.org/vocab/vann/)                        |
-|vcard           |[http://www.w3.org/2006/vcard/ns#](http://www.w3.org/2006/vcard/ns#)              |
-|wdrs            |[http://www.w3.org/2007/05/powder-s#](http://www.w3.org/2007/05/powder-s#)        |
-|widoco          |[https://w3id.org/widoco/vocab#](https://w3id.org/widoco/vocab#)        |
+|skos            |[http://www.w3.org/2004/02/skos/core#](http://www.w3.org/2004/02/skos/core#)                  |
+|vaem            |[http://www.linkedmodel.org/schema/vaem#](http://www.linkedmodel.org/schema/vaem#)            |
+|vann            |[http://purl.org/vocab/vann/](http://purl.org/vocab/vann/)                                    |
+|vcard           |[http://www.w3.org/2006/vcard/ns#](http://www.w3.org/2006/vcard/ns#)                          |
+|wdrs            |[http://www.w3.org/2007/05/powder-s#](http://www.w3.org/2007/05/powder-s#)                    |
+|widoco          |[https://w3id.org/widoco/vocab#](https://w3id.org/widoco/vocab#)                              |
 
 ## Metadata usage in WIDOCO
 
@@ -40,37 +40,37 @@ This section explains the metadata recognized by WIDOCO for both ontology annota
 
 The table below shows which ontology metadata annotations are recognized in WIDOCO in alphabetical order:
 
-|Metadata category|Ontology annotation property*|`config.properties` field(s)**|Good practices document|Accepted property value|Example|
-|-----------------|-----------------------------|------------------------------|-----------------------|-----------------------|-------|
-|Abstract            |[dce:abstract], [dct:abstract]|abstract        |[Sec 3.2.4] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|Backwards compatible|[owl:backwardCompatibleWith]|backwardCompatibleWith|[Sec 3.3.3] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
-|Bibliographic citation|[dct:bibliographicCitation], [schema:citation]|citeAs|[Sec 3.6.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|Creation date|[dct:created], [schema:dateCreated], [prov:generatedAtTime], [pav:createdOn], [doap:created]|creationDate|[Sec 3.4.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|Creators|[dct:creator], [dce:creator], [schema:creator], [pav:createdBy], [pav:authoredBy], [prov:wasAttributedTo], [doap:developer], [foaf:maker]|authors, authorsURI, authorsInstitution, authorsInstitutionURI|[Sec 3.5.1] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
-|Contributors|[dct:contributor], [dce:contributor], [schema:contributor], [pav:contributedBy], [doap:documenter], [doap:maintainer], [doap:helper], [doap:translator]|contributors, contributorsURI, contributorsInstitution, contributorsInstitutionURI|[Sec 3.5.2] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
-|Description|[dce:description], [dct:description], [schema:description], [rdfs:comment], [skos:note], [doap:description], [doap:shortdesc]|description|[Sec 3.2.3] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|Diagram |[foaf:image], [foaf:depiction], [schema:image]|diagram         |[Sec 3.8.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|DOI     |[bibo:doi]                                    |DOI             |[Sec 3.6.1] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|Extended ontologies| [voaf:extends]                    |extendedOntologyNames, extendedOntologyURIs | [Sec 3.4.6] **[OPTIONAL]**|[URI]|[ontology](#onto), [config]|
-|Funders  (org, person)    |[foaf:fundedBy] [schema:funder] |funders             |[Sec 3.5.4] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
-|Funding grants  |[schema:funding]                         |fundingGrant        |[Sec 3.5.5] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
-|Incompatible with|[owl:incompatibleWith]               |incompatibleWith|[Sec 3.3.4] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
-|Imported ontologies|[owl:imports]                      |importedOntologyNames, importedOntologyURIs|**[RECOMMENDED]** (good practice in ontology engineering) | [URI] |  [ontology](#onto), [config]|
-|Issued date      |[dct:issued], [schema:dateIssued]|issued          |[Sec 3.4.4] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|License|[dce:rights], [dct:license], [schema:license], [cc:license], [doap:license]|licenseName, licenseURI, licenseIconURL|[Sec 3.7] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
-|Logo            |[foaf:logo], [schema:logo]     |logo                |[Sec 3.8.1] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
-|Name            |[rdfs:label], [mod:acronym], [schema:alternateName], [skos:prefLabel]    |ontologyName        |[Sec 3.2.1] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
-|Namespace prefix|[vann:preferredNamespacePrefix]|ontologyPrefix      |[Sec 3.1.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
-|Namespace URI   |[vann:preferredNamespaceUri]   |ontologyNamespaceURI|[Sec 3.1.1] **[RECOMMENDED]**|[URI] |[ontology](#onto), [config]|
-|Modification date|[dct:modified], [schema:dateModified] [pav:lastUpdatedOn] |modified|[Sec 3.4.3] **[OPTIONAL]**   |[Text]|[ontology](#onto), [config]|
-|Previous version|[dce:replaces], [dct:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[Sec 3.4.1] **[RECOMMENDED]**|[URI]|[ontology](#onto), [config]|
-|Publisher|[dct:publisher], [dce:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Sec 3.5.3] **[OPTIONAL]**|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
-|Similar resources|[rdfs:seeAlso]            |      |[Sec 3.9] **[OPTIONAL]**  |[Text]                     |[ontology](#onto), [config]|
-|Status           |[bibo:status] [mod:status] [schema:creativeWorkStatus]      |status|[Sec 3.2.4] **[OPTIONAL]**|[Text] or [Status](#status)|[ontology](#onto), [config]|
-|Source|[dce:source], [dct:source], [prov:hadPrimarySource], [wdrs:describedBy]|source|[Sec 3.4.5] **[OPTIONAL]**   |[URI] |[ontology](#onto), [config]|
-|Title |[dce:title], [dct:title], [schema:name]   |ontologyTitle  |[Sec 3.2.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
-|Version IRI   |[owl:versionIRI]                      |thisVersionURI |[Sec 3.3.1] **[RECOMMENDED]**|[URI] |[ontology](#onto), [config]|
-|Version number|[owl:versionInfo], [schema:schemaVersion], [pav:version], [dct:hasVersion]|ontologyRevisionNumber|[Sec 3.3.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
+|Metadata category|Ontology annotation property*|`config.properties` field(s)**|Good practices document |Accepted property value|Example |
+|-----------------|-----------------------------|------------------------------|------------------------|-----------------------|--------|
+|Abstract         |[dc:abstract], [dcterms:abstract]|abstract              |[Sec 3.2.4] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Backwards compatible|[owl:backwardCompatibleWith]  |backwardCompatibleWith|[Sec 3.3.3] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
+|Bibliographic citation|[dcterms:bibliographicCitation], [schema:citation]|citeAs|[Sec 3.6.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Creation date|[dcterms:created], [schema:dateCreated], [prov:generatedAtTime], [pav:createdOn], [doap:created]|creationDate|[Sec 3.4.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Creators|[dcterms:creator], [dc:creator], [schema:creator], [pav:createdBy], [pav:authoredBy], [prov:wasAttributedTo], [doap:developer], [foaf:maker]|authors, authorsURI, authorsInstitution, authorsInstitutionURI|[Sec 3.5.1] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
+|Contributors|[dcterms:contributor], [dc:contributor], [schema:contributor], [pav:contributedBy], [doap:documenter], [doap:maintainer], [doap:helper], [doap:translator]|contributors, contributorsURI, contributorsInstitution, contributorsInstitutionURI|[Sec 3.5.2] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
+|Description|[dc:description], [dcterms:description], [schema:description], [rdfs:comment], [skos:note], [doap:description], [doap:shortdesc]|description|[Sec 3.2.3] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Diagram|[foaf:image], [foaf:depiction], [schema:image]|diagram   |[Sec 3.8.2] **[OPTIONAL]**|[Text]         |[ontology](#onto), [config]|
+|DOI    |[bibo:doi]                                    |DOI       |[Sec 3.6.1] **[OPTIONAL]**|[Text]         |[ontology](#onto), [config]|
+|Extended ontologies|[voaf:extends] |extendedOntologyNames, extendedOntologyURIs |[Sec 3.4.6] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
+|Funders (org, person)|[foaf:fundedBy] [schema:funder]|funders    |[Sec 3.5.4] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
+|Funding grants       |[schema:funding]              |fundingGrant|[Sec 3.5.5] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
+|Incompatible with    |[owl:incompatibleWith]        |incompatibleWith|[Sec 3.3.4] **[OPTIONAL]**   |[URI]   |[ontology](#onto), [config]|
+|Imported ontologies  |[owl:imports]                 |importedOntologyNames, importedOntologyURIs|N/A **[RECOMMENDED]** (good practice in ontology engineering) | [URI] |  [ontology](#onto), [config]|
+|Issued date      |[dcterms:issued], [schema:dateIssued]   |issued     |[Sec 3.4.4] **[OPTIONAL]**   |[Text] |[ontology](#onto), [config]|
+|License|[dc:rights], [dcterms:license], [schema:license], [cc:license], [doap:license]|licenseName, licenseURI, licenseIconURL|[Sec 3.7] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
+|Logo             |[foaf:logo], [schema:logo]     |logo                |[Sec 3.8.1] **[OPTIONAL]**   |[URI]  |[ontology](#onto), [config]|
+|Name|[rdfs:label], [mod:acronym], [schema:alternateName], [skos:prefLabel]|ontologyName|[Sec 3.2.1] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
+|Namespace prefix |[vann:preferredNamespacePrefix]|ontologyPrefix      |[Sec 3.1.2] **[RECOMMENDED]**|[Text] |[ontology](#onto), [config]|
+|Namespace URI    |[vann:preferredNamespaceUri]   |ontologyNamespaceURI|[Sec 3.1.1] **[RECOMMENDED]**|[URI]  |[ontology](#onto), [config]|
+|Modification date|[dcterms:modified], [schema:dateModified] [pav:lastUpdatedOn]|modified|[Sec 3.4.3] **[OPTIONAL]**|[Text]  |[ontology](#onto), [config]|
+|Previous version |[dc:replaces], [dcterms:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[Sec 3.4.1] **[RECOMMENDED]**|[URI]|[ontology](#onto), [config]|
+|Publisher|[dcterms:publisher], [dc:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Sec 3.5.3] **[OPTIONAL]**|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
+|Similar resources|[rdfs:seeAlso]                 |                    |[Sec 3.9] **[OPTIONAL]**     |[Text] |[ontology](#onto), [config]|
+|Status|[bibo:status] [mod:status] [schema:creativeWorkStatus]|status|[Sec 3.2.4] **[OPTIONAL]**|[Text] or [Status](#status) |[ontology](#onto), [config]|
+|Source|[dc:source], [dcterms:source], [prov:hadPrimarySource], [wdrs:describedBy]|source|[Sec 3.4.5] **[OPTIONAL]**|[URI]   |[ontology](#onto), [config]|
+|Title |[dc:title], [dcterms:title], [schema:name]|ontologyTitle       |[Sec 3.2.2] **[RECOMMENDED]**|[Text] |[ontology](#onto), [config]|
+|Version IRI   |[owl:versionIRI]                  |thisVersionURI      |[Sec 3.3.1] **[RECOMMENDED]**|[URI]  |[ontology](#onto), [config]|
+|Version number|[owl:versionInfo], [schema:schemaVersion], [pav:version], [dcterms:hasVersion]|ontologyRevisionNumber|[Sec 3.3.2] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
 
 **\*** All listed properties are supported by WIDOCO.
 
@@ -81,11 +81,11 @@ We prioritize reusing metadata properties defined already. However, a small subs
 
 |Metadata category|Ontology annotation property*|`config.properties` field(s)**|Good practices document|Accepted property value|Example|
 |-----------------|-----------------------------|------------------------------|-----------------------|-----------------------|-------|
-|Introduction     |[widoco:introduction]        |introduction                     |N/A **[OPTIONAL]**     |[Text]|[ontology](#onto), [config]|
-|N-Triples serialization   |[widoco:ntSerialization]     |NTSerialization         |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
-|JSON-LD serialization     |[widoco:jsonldSerialization]   |JSONLDSerialization   |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
-|RDF-XML serialization     |[widoco:rdfxmlSerialization]   |RDFXMLSerialization   |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
-|Turtle serialization      |[widoco:turtleSerialization] |TurtleSerialization     |N/A **[OPTIONAL]**     |[URL] |[ontology](#onto), [config]|
+|Introduction            |[widoco:introduction]        |introduction         |N/A **[OPTIONAL]**   |[Text] |[ontology](#onto), [config]|
+|N-Triples serialization |[widoco:ntSerialization]     |NTSerialization      |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
+|JSON-LD serialization   |[widoco:jsonldSerialization] |JSONLDSerialization  |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
+|RDF-XML serialization   |[widoco:rdfxmlSerialization] |RDFXMLSerialization  |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
+|Turtle serialization    |[widoco:turtleSerialization] |TurtleSerialization  |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
 
 ### Term (classes, properties and data properties) annotations
 
@@ -98,7 +98,7 @@ The table below summarizes all the metadata annotations recognized for ontology 
 |Editorial note    |[skos:editorialNote]                             |N/A **[OPTIONAL]**         |[Text]                 |[ontology](#term)|
 |Example           |[vann:example], [skos:example]                   |[Sec 4.4] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
 |Label             |[rdfs:label], [skos:prefLabel], [obo:IAO_0000118]|[Sec 4.1] **[RECOMMENDED]**|[Text]                 |[ontology](#term)|
-|Original source   |[rdfs:isDefinedBy], [dce:source]                 |[Sec 4.3] **[OPTIONAL]**   |[URI]                  |[ontology](#term)|
+|Original source   |[rdfs:isDefinedBy], [dc:source]                  |[Sec 4.3] **[OPTIONAL]**   |[URI]                  |[ontology](#term)|
 |Rationale         |[vaem:rationale]                                 |[Sec 4.6] **[OPTIONAL]**   |[Text]                 |[ontology](#term)|
 |Status            |[sw:term_status], [obo:IAO_0000114]              |[Sec 4.5.2] **[OPTIONAL]** |[Text]                 |[ontology](#term)|
 
@@ -112,8 +112,8 @@ The following `Turtle` code block shows sample annotations for each of the metad
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix dct: <http://purl.org/dc/terms/> .
-@prefix dce: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix schema: <https://schema.org/> .
 @prefix voaf: <http://purl.org/vocommons/voaf#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -122,12 +122,12 @@ The following `Turtle` code block shows sample annotations for each of the metad
 
 <https://w3id.org/example> rdf:type owl:Ontology ;
     owl:versionIRI <https://w3id.org/example/1.0.1> ;
-    dct:abstract "An example vocabulary designed to illustrate how to publish vocabularies on the Web following the FAIR principles"@en ;
-    dce:description "This is an example ontology to illustrate some of the annotations that should be included"@en ;
-    dce:title "The example ontology"@en ;
-    dct:created "February 5th, 2020"@en ;
-    dct:creator "Daniel Garijo"@en ,"Maria Poveda-Villalon"@en ;
-    dct:license <http://creativecommons.org/licenses/by/2.0/> ;
+    dcterms:abstract "An example vocabulary designed to illustrate how to publish vocabularies on the Web following the FAIR principles"@en ;
+    dc:description "This is an example ontology to illustrate some of the annotations that should be included"@en ;
+    dc:title "The example ontology"@en ;
+    dcterms:created "February 5th, 2020"@en ;
+    dcterms:creator "Daniel Garijo"@en ,"Maria Poveda-Villalon"@en ;
+    dcterms:license <http://creativecommons.org/licenses/by/2.0/> ;
     vann:preferredNamespacePrefix "exo"@en ;
     vann:preferredNamespaceUri "https://w3id.org/example" ;
     schema:citation "Cite this vocabulary as: Garijo, D. and Poveda-Villalón, M. The example ontology 1.0.1."@en ;
@@ -141,7 +141,7 @@ The following `Turtle` code block shows sample annotations for each of the metad
     foaf:fundedBy <https://example.org/fundingOrganization> ;
     schema:funding <https://example.org/fundingGrant> ;
     widoco:introduction "A paragraph with the introduction section of the documentation about your resource"@en ;
-    widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ; 
+    widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ;
     owl:versionInfo "1.0.1" .
     #If content negotiation is enabled, the widoco:rdfxmlSerialization annotation may not be needed.
 ```
@@ -319,29 +319,29 @@ JSONLDSerialization=ontology.nt
 [bibo:doi]:                      http://purl.org/ontology/bibo/doi
 [bibo:status]:                   http://purl.org/ontology/bibo/status
 [cc:license]:                    http://creativecommons.org/ns#
-[dce:abstract]:                  http://purl.org/dc/elements/1.1/abstract
-[dce:contributor]:               http://purl.org/dc/elements/1.1/contributor
-[dce:creator]:                   http://purl.org/dc/elements/1.1/creator
-[dce:description]:               http://purl.org/dc/elements/1.1/description
-[dce:publisher]:                 http://purl.org/dc/elements/1.1/publisher
-[dce:replaces]:                  http://purl.org/dc/elements/1.1/replaces
-[dce:rights]:                    http://purl.org/dc/elements/1.1/rights
-[dce:source]:                    http://purl.org/dc/elements/1.1/source
-[dce:title]:                     http://purl.org/dc/elements/1.1/title
-[dct:abstract]:              http://purl.org/dc/terms/abstract
-[dct:bibliographicCitation]: http://purl.org/dc/terms/bibliographicCitation
-[dct:contributor]:           http://purl.org/dc/terms/contributor
-[dct:created]:               http://purl.org/dc/terms/created
-[dct:creator]:               http://purl.org/dc/terms/creator
-[dct:description]:           http://purl.org/dc/terms/description
-[dct:hasVersion]:            http://purl.org/dc/terms/hasVersion
-[dct:issued]:                http://purl.org/dc/terms/issued
-[dct:license]:               http://purl.org/dc/terms/license
-[dct:modified]:              http://purl.org/dc/terms/modified
-[dct:publisher]:             http://purl.org/dc/terms/publisher
-[dct:replaces]:              http://purl.org/dc/terms/replaces
-[dct:source]:                http://purl.org/dc/terms/source
-[dct:title]:                 http://purl.org/dc/terms/title
+[dc:abstract]:                   http://purl.org/dc/elements/1.1/abstract
+[dc:contributor]:                http://purl.org/dc/elements/1.1/contributor
+[dc:creator]:                    http://purl.org/dc/elements/1.1/creator
+[dc:description]:                http://purl.org/dc/elements/1.1/description
+[dc:publisher]:                  http://purl.org/dc/elements/1.1/publisher
+[dc:replaces]:                   http://purl.org/dc/elements/1.1/replaces
+[dc:rights]:                     http://purl.org/dc/elements/1.1/rights
+[dc:source]:                     http://purl.org/dc/elements/1.1/source
+[dc:title]:                      http://purl.org/dc/elements/1.1/title
+[dcterms:abstract]:              http://purl.org/dc/terms/abstract
+[dcterms:bibliographicCitation]: http://purl.org/dc/terms/bibliographicCitation
+[dcterms:contributor]:           http://purl.org/dc/terms/contributor
+[dcterms:created]:               http://purl.org/dc/terms/created
+[dcterms:creator]:               http://purl.org/dc/terms/creator
+[dcterms:description]:           http://purl.org/dc/terms/description
+[dcterms:hasVersion]:            http://purl.org/dc/terms/hasVersion
+[dcterms:issued]:                http://purl.org/dc/terms/issued
+[dcterms:license]:               http://purl.org/dc/terms/license
+[dcterms:modified]:              http://purl.org/dc/terms/modified
+[dcterms:publisher]:             http://purl.org/dc/terms/publisher
+[dcterms:replaces]:              http://purl.org/dc/terms/replaces
+[dcterms:source]:                http://purl.org/dc/terms/source
+[dcterms:title]:                 http://purl.org/dc/terms/title
 [doap:created]:                  http://usefulinc.com/ns/doap#
 [doap:description]:              http://usefulinc.com/ns/doap#description
 [doap:developer]:                http://usefulinc.com/ns/doap#developer
