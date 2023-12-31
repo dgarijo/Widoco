@@ -45,7 +45,7 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 |Abstract         |[dc:abstract], [dcterms:abstract]|abstract              |[Sec 3.2.4] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Backwards compatible|[owl:backwardCompatibleWith]  |backwardCompatibleWith|[Sec 3.3.3] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
 |Bibliographic citation|[dcterms:bibliographicCitation], [schema:citation]|citeAs|[Sec 3.6.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
-|Creation date|[dcterms:created], [schema:dateCreated], [prov:generatedAtTime], [pav:createdOn], [doap:created]|creationDate|[Sec 3.4.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Creation date|[dcterms:created], [schema:dateCreated], [prov:generatedAtTime], [pav:createdOn], [doap:created]|dateCreated|[Sec 3.4.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Creators|[dcterms:creator], [dc:creator], [schema:creator], [pav:createdBy], [pav:authoredBy], [prov:wasAttributedTo], [doap:developer], [foaf:maker]|authors, authorsURI, authorsInstitution, authorsInstitutionURI|[Sec 3.5.1] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |Contributors|[dcterms:contributor], [dc:contributor], [schema:contributor], [pav:contributedBy], [doap:documenter], [doap:maintainer], [doap:helper], [doap:translator]|contributors, contributorsURI, contributorsInstitution, contributorsInstitutionURI|[Sec 3.5.2] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |Description|[dc:description], [dcterms:description], [schema:description], [rdfs:comment], [skos:note], [doap:description], [doap:shortdesc]|description|[Sec 3.2.3] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
@@ -56,13 +56,13 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 |Funding grants       |[schema:funding]              |fundingGrant|[Sec 3.5.5] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
 |Incompatible with    |[owl:incompatibleWith]        |incompatibleWith|[Sec 3.3.4] **[OPTIONAL]**   |[URI]   |[ontology](#onto), [config]|
 |Imported ontologies  |[owl:imports]                 |importedOntologyNames, importedOntologyURIs|N/A **[RECOMMENDED]** (good practice in ontology engineering) | [URI] |  [ontology](#onto), [config]|
-|Issued date      |[dcterms:issued], [schema:dateIssued]   |issued     |[Sec 3.4.4] **[OPTIONAL]**   |[Text] |[ontology](#onto), [config]|
+|Issued date      |[dcterms:issued], [schema:dateIssued]   |dateIssued     |[Sec 3.4.4] **[OPTIONAL]**   |[Text] |[ontology](#onto), [config]|
 |License|[dc:rights], [dcterms:license], [schema:license], [cc:license], [doap:license]|licenseName, licenseURI, licenseIconURL|[Sec 3.7] **[OPTIONAL]**|[Text] or [URI]|[ontology](#onto), [config]|
 |Logo             |[foaf:logo], [schema:logo]     |logo                |[Sec 3.8.1] **[OPTIONAL]**   |[URI]  |[ontology](#onto), [config]|
 |Name|[rdfs:label], [mod:acronym], [schema:alternateName], [skos:prefLabel]|ontologyName|[Sec 3.2.1] **[RECOMMENDED]**|[Text]|[ontology](#onto), [config]|
 |Namespace prefix |[vann:preferredNamespacePrefix]|ontologyPrefix      |[Sec 3.1.2] **[RECOMMENDED]**|[Text] |[ontology](#onto), [config]|
 |Namespace URI    |[vann:preferredNamespaceUri]   |ontologyNamespaceURI|[Sec 3.1.1] **[RECOMMENDED]**|[URI]  |[ontology](#onto), [config]|
-|Modification date|[dcterms:modified], [schema:dateModified] [pav:lastUpdatedOn]|modified|[Sec 3.4.3] **[OPTIONAL]**|[Text]  |[ontology](#onto), [config]|
+|Modification date|[dcterms:modified], [schema:dateModified] [pav:lastUpdatedOn]|dateModified|[Sec 3.4.3] **[OPTIONAL]**|[Text]  |[ontology](#onto), [config]|
 |Previous version |[dc:replaces], [dcterms:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[Sec 3.4.1] **[RECOMMENDED]**|[URI]|[ontology](#onto), [config]|
 |Publisher|[dcterms:publisher], [dc:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Sec 3.5.3] **[OPTIONAL]**|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
 |Similar resources|[rdfs:seeAlso]                 |                    |[Sec 3.9] **[OPTIONAL]**     |[Text] |[ontology](#onto), [config]|
@@ -141,7 +141,7 @@ The following `Turtle` code block shows sample annotations for each of the metad
     foaf:fundedBy <https://example.org/fundingOrganization> ;
     schema:funding <https://example.org/fundingGrant> ;
     widoco:introduction "A paragraph with the introduction section of the documentation about your resource"@en ;
-    widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ;
+    widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ; 
     owl:versionInfo "1.0.1" .
     #If content negotiation is enabled, the widoco:rdfxmlSerialization annotation may not be needed.
 ```
@@ -214,7 +214,6 @@ Create a `config.properties` file and use the `-confFile` option to invoke Widoc
 abstract=An example ontology
 backwardCompatibleWith=https://w3id.org/example/1.0.0
 citeAs="add some citattion text here."
-creationDate="13 Nov, 2022"
 authors=First Author;Second Author
 authorsURI=http://example.org/author1;http://example.org/author2
 authorsInstitution=First author institution;Second author institution
@@ -224,6 +223,9 @@ contributorsURI=http://example.org/contributor1;http://example.org/contributor2
 contributorsInstitution=First contributor institution;Second contributor institution
 contributorsInstitutionURI=https://isi.edu/;https://isi.edu/
 description=A description of what the ontology does goes here
+dateCreated="13 Nov, 2022"
+dateIssued="14 Nov, 2022"
+dateModified="15 April, 2023"
 diagram="https://example.org/diagram.svg"
 extendedOntologyNames=test1; test2
 extendedOntologyURIs=http://example.org/test1; http://example.org/test2
@@ -234,14 +236,12 @@ incompatibleWith=https://w3id.org/example/0.0.1
 importedOntologyNames=Imported Ontology 1; Imported Ontology 2
 importedOntologyURIs=http://example.org/test11; http://example.org/test22
 introduction=A brief text for the introduction section may be written here.
-issued=
 licenseURI=http://creativecommons.org/licenses/by/2.0/
 licenseName=CC-BY
 licenseIconURL=https://i.creativecommons.org/l/by/2.0/88x31.png
 logo="https://example.org/logo.svg"
 ontologyName=The Cohort Ontology
 ontologyPrefix=exo
-modified="15 April, 2023"
 ontologyNamespaceURI=https://w3id.org/example
 previousVersionURI=https://w3id.org/example/1.0.0
 publisher=

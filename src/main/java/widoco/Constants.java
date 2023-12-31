@@ -237,6 +237,7 @@ public class Constants {
 	public static final String PF_CONTRIBUTORS_INSTITUTION = "contributorsInstitution";
 	public static final String PF_CONTRIBUTORS_INSTITUTION_URI = "contributorsInstitutionURI";
 	public static final String PF_DATE_CREATED = "dateCreated";
+	public static final String PF_DATE_ISSUED = "dateIssued";
 	public static final String PF_DATE_MODIFIED = "dateModified";
 	public static final String PF_DESCRIPTION = "description";
 	public static final String PF_DOI = "DOI";
@@ -498,15 +499,15 @@ public class Constants {
 				}
 				if (currAuth.getInstitutionName() != null && !"".equals(currAuth.getInstitutionName())) {
 					if (currAuth.getInstitutionURL() != null && !"".equals(currAuth.getInstitutionURL())) {
-						agents += ", (<a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionName()
-								+ "</a>)";
+						agents += ", <a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionName()
+								+ "</a>";
 					} else {
 						agents += ", " + currAuth.getInstitutionName();
 					}
 				} else {
 					if (currAuth.getInstitutionURL() != null && !"".equals(currAuth.getInstitutionURL())) {
-						agents += ", (<a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionURL()
-								+ "</a>)";
+						agents += ", <a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionURL()
+								+ "</a>";
 					}
 				}
 				if(currAuth.getEmail()!=null && !"".equals(currAuth.getEmail())){
@@ -518,7 +519,7 @@ public class Constants {
 				agents += "</dd>";
 			}
 		} catch (Exception e) {
-			logger.error("Error while writing authors, their urls or their instititions.");
+			logger.error("Error while writing authors, their urls or their institutions.");
 		}
 		return agents;
 	}

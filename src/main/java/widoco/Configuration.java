@@ -240,8 +240,9 @@ public class Configuration {
 			abstractSection = propertyFile.getProperty(Constants.PF_ABSTRACT_SECTION_CONTENT);
 			contextURI = propertyFile.getProperty(Constants.PF_CONTEXT_URI, "");
 			mainOntologyMetadata.setTitle(propertyFile.getProperty(Constants.PF_ONT_TITLE, "Title goes here"));
-			mainOntologyMetadata.setCreationDate(propertyFile.getProperty(Constants.PF_DATE_CREATED, "Creation date"));
-			mainOntologyMetadata.setModifiedDate(propertyFile.getProperty(Constants.PF_DATE_MODIFIED, "Modified date"));
+			mainOntologyMetadata.setCreationDate(propertyFile.getProperty(Constants.PF_DATE_CREATED, "Date created"));
+			mainOntologyMetadata.setModifiedDate(propertyFile.getProperty(Constants.PF_DATE_MODIFIED, "Date modified"));
+			mainOntologyMetadata.setIssuedDate(propertyFile.getProperty(Constants.PF_DATE_ISSUED, "Date issued"));
 			mainOntologyMetadata.setPreviousVersion(propertyFile.getProperty(Constants.PF_PREVIOUS_VERSION));
 			mainOntologyMetadata.setThisVersion(propertyFile.getProperty(Constants.PF_THIS_VERSION_URI));
 			mainOntologyMetadata.setLatestVersion(propertyFile.getProperty(Constants.PF_LATEST_VERSION_URI));
@@ -512,6 +513,9 @@ public class Configuration {
 
 			mainOntologyMetadata.setCiteAs(cite.toString());
 		}
+	}
+
+	public void loadNamespaceDeclarations(OWLOntology o){
 		//load all namespaces in the ontology document.
 		this.namespaceDeclarations = new HashMap<>();
 		OWLOntologyXMLNamespaceManager nsManager = new OWLOntologyXMLNamespaceManager(o, o.getFormat());

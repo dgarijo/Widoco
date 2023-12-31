@@ -38,7 +38,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
   <dependency>
       <groupId>com.github.dgarijo</groupId>
       <artifactId>Widoco</artifactId>
-      <version>v1.4.16</version>
+      <version>v1.4.21</version>
   </dependency>
 </dependencies>
 
@@ -56,7 +56,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
 WIDOCO helps you to publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
 
 Features of WIDOCO:
-* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](doc/gallery/index.html))
+* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](https://dgarijo.github.io/Widoco/doc/gallery/index.html))
 * Massive metadata extraction and support: WIDOCO will enhance your ontology documentation  based on your ontology annotations. Now you can add custom logos and images, edit the content of your sections, etc. by just editing metadata. See our [supported metadata](https://github.com/dgarijo/Widoco/blob/master/doc/metadataGuide/guide.md) and [recommendations](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) for more information.
 * Automatic annotation in JSON-LD snippets of the html produced.
 * Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).
@@ -75,7 +75,7 @@ Examples of the features of WIDOCO can be seen on [the gallery](https://dgarijo.
 A tutorial explaining the main features of the GUI can be found [here](https://dgarijo.github.io/Widoco/doc/tutorial/)  
 
 ## Metadata usage
-To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the WIDOCO metadata documentation](doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
+To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the WIDOCO metadata documentation](https://dgarijo.github.io/Widoco/doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
 
 For example, in order to show your logo in your documentation you just need to use `foaf:logo` as an annotation, as follows:
 ```
