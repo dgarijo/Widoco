@@ -578,6 +578,7 @@ public class Configuration {
 				if (this.currentLanguage.equals(valueLanguage)
 						|| (abstractSection == null || "".equals(abstractSection))) {
 					abstractSection = value;
+					this.setIncludeAbstract(true); // in case users set no place holder text but added their own
 				}
 			} catch (Exception e) {
 				logger.error("Error while getting ontology abstract. No literal provided");
@@ -596,6 +597,7 @@ public class Configuration {
 						|| (mainOntologyMetadata.getDescription() == null
 						||	mainOntologyMetadata.getDescription().isEmpty())) {
 					mainOntologyMetadata.setDescription(value);
+					this.setIncludeDescription(true);
 				}
 			} catch (Exception e) {
 				logger.error("Error while getting ontology description. No literal provided");
@@ -821,6 +823,7 @@ public class Configuration {
 				if (this.currentLanguage.equals(valueLanguage)
 						|| (introText == null || "".equals(introText))) {
 					introText = value;
+					this.setIncludeIntroduction(true);
 				}
 			} catch (Exception e) {
 				logger.error("Error while introduction annotation. No literal provided");
