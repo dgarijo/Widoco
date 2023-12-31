@@ -1723,7 +1723,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                 <xsl:if test="exists(/rdf:RDF/(swrl:Imp | rdf:Description[rdf:type[@*:resource = 'http://www.w3.org/2003/11/swrl#Imp']]))">
                     <li>
                         <a href="#swrlrules">
-                            <xsl:value-of select="f:getDescriptionLabel('rules')"/>
+                            <xsl:value-of select="f:getDescriptionLabel('swrlrules')"/>
                         </a>
                     </li>
                 </xsl:if>
