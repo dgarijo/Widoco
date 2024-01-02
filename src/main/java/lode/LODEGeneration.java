@@ -69,17 +69,11 @@ public class LODEGeneration {
 					c.getMainOntology().getOWLAPIModel());
 			content = applyXSLTTransformation(content, c.getOntologyURI(), lang, lodeResources);
 			return (content);
-		} catch (OWLOntologyStorageException e) {
-			logger.error("Error while applying LODE. Error while applying the XLS file: " + e.getMessage());
-			throw e;
-		} catch (TransformerException e) {
-			logger.error("Error while applying LODE. Error while applying the XLS file: " + e.getMessage());
-			throw e;
-		} catch (UnsupportedEncodingException e) {
+		} catch (OWLOntologyStorageException | TransformerException | UnsupportedEncodingException e) {
 			logger.error("Error while applying LODE. Error while applying the XLS file: " + e.getMessage());
 			throw e;
 		}
-	}
+    }
 
 	/**
 	 * Method that uses the loaded ontology and parses it in case there are imports

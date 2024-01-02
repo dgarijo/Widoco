@@ -1,0 +1,17 @@
+@prefix myont: <https://identifier.my.ont/ont/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix widoco: <https://w3id.org/widoco/vocab#> .
+
+<https://identifier.my.ont/ont/>
+  a owl:Ontology ;
+  rdfs:label "ontology";
+  dcterms:title "Example title" ;
+  dcterms:abstract "This should be the abstract";
+  dcterms:description "Example description";
+  widoco:introduction "This is an intro"
+.
+
+<myont:citationtitle>
+  a owl:DatatypeProperty ;
+  rdfs:subPropertyOf dcterms:title ;
+.

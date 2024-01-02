@@ -4,7 +4,7 @@
 	<groupId>es.oeg</groupId>
 	<artifactId>widoco</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4.17</version>
+	<version>1.4.21</version>
 	<name>Widoco</name>
 
 	<properties>
@@ -17,21 +17,28 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>3.9.0</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>com.github.VisualDataWeb</groupId>
 			<artifactId>OWL2VOWL</artifactId>
 			<version>0.3.5</version>
 		</dependency>
 
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <version>1.7.30</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                    <version>1.7.30</version>
-                </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.30</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.30</version>
+		</dependency>
 
 		<!-- We use "provided" scope because we are exporting the contents of these 
 			libraries, and we don't want our bundle consumers to see and be confused 
@@ -131,35 +138,6 @@
 					<target>11</target>
 				</configuration>
 			</plugin>
-                        <plugin>
-                                <groupId>org.owasp</groupId>
-                                <artifactId>dependency-check-maven</artifactId>
-                                <version>6.0.1</version>
-                                <executions>
-                                        <execution>
-                                                <goals>
-                                                        <goal>check</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                        </plugin>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-dependency-plugin</artifactId>
-                                <version>3.2.0</version>
-                                <executions>
-                                        <execution>
-                                                <phase>validate</phase>
-                                                <goals>
-                                                        <goal>list</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                                <configuration>
-                                        <outputFile>pom.lock</outputFile>
-                                </configuration>
-                        </plugin>
-
 
 		</plugins>
 

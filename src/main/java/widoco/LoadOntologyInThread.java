@@ -45,6 +45,7 @@ public class LoadOntologyInThread implements Runnable {
 		try {
 			WidocoUtils.loadModelToDocument(c);
 			c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+			c.loadNamespaceDeclarations(c.getMainOntology().getOWLAPIModel());
 			if (showGui) {
 				pointerToMain.switchState("finishedLoading");
 			}

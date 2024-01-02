@@ -65,7 +65,7 @@ public class CreateOOPSEvalInThread implements Runnable {
 			if (!c.getMainOntology().isHashOntology()) {
 				ontologyXMLPath += File.separator + "doc";
 			}
-			ontologyXMLPath += File.separator + "ontology.rdf";
+			ontologyXMLPath += File.separator + "ontology.owl";
 
 			// read file
 			String content = null;
@@ -94,7 +94,7 @@ public class CreateOOPSEvalInThread implements Runnable {
                             if (!evalFolder.exists())
                                     evalFolder.mkdir();
                             evalResourcesFolder.mkdir();
-                            WidocoUtils.unZipIt(Constants.OOPS_RESOURCES, evalResourcesFolder.getAbsolutePath());
+                            WidocoUtils.copyResourceDir(Constants.OOPS_PATH, evalResourcesFolder);
                             //eval = new OOPSevaluation("", content);
                             eval = new OOPSevaluation(content);
                             evaluation = eval.printEvaluation();

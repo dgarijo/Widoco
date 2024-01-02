@@ -85,4 +85,6 @@
 	<deprecated>Deprecato</deprecated>
     <domainIncludes>dominio include</domainIncludes>
     <rangeIncludes>codominio include</rangeIncludes>
+    <usesRule>usa la regola</usesRule>
+    <editorialNote>nota redazionale</editorialNote>
 </labels>

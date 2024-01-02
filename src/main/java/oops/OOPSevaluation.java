@@ -15,9 +15,7 @@
  */
 package oops;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -57,21 +55,26 @@ public class OOPSevaluation {
 	public boolean error = false;
 	private OWLOntology model = null;
         private int pitfallNumber;
-        
-        
-	public OOPSevaluation(String content) throws IOException {
+
+
+    /**
+     * Main constructor: given an ontology file, a request will be issue to the OOPS! server
+     * @param ontologyContent
+     * @throws IOException
+     */
+	public OOPSevaluation(String ontologyContent) throws IOException {
             //always query by content
             pitfallNumber = 0;
             String request = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<OOPSRequest><OntologyUrl>";
             request += "</OntologyUrl><OntologyContent>";
-            if (content != null && !"".equals(content)) {
-                    request += "<![CDATA[ " + content + " ]]>";
+            if (ontologyContent != null && !"".equals(ontologyContent)) {
+                    request += "<![CDATA[ " + ontologyContent + " ]]>";
             }
             request += "</OntologyContent>" + "<Pitfalls></Pitfalls>" + "<OutputFormat>RDF/XML</OutputFormat>"
                             + "</OOPSRequest>";
             String uri = Constants.OOPS_SERVICE_URL;
             URL url = new URL(uri);
-            System.out.println(request);
+            //System.out.println(request);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(Constants.OOPS_TIME_OUT);
             connection.setRequestMethod("POST");
@@ -82,19 +85,34 @@ public class OOPSevaluation {
             wr.write(request);
             wr.flush();
             InputStream in = (InputStream) connection.getInputStream();
-            try{
-                OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-                model = manager.loadOntologyFromOntologyDocument(in);
-                OWLClass pitfall = model.getOWLOntologyManager().getOWLDataFactory().getOWLClass(Constants.OOPS_NS + "pitfall");
-                this.pitfallNumber = EntitySearcher.getIndividuals(pitfall, model).collect(Collectors.toSet()).size();
-            }catch(OWLOntologyCreationException e){
-                logger.warn("Could not extract the number of pitfalls from response");
-            }
+            initializeEvaluation(in);
             in.close();
             wr.close();
             connection.disconnect();
             
 	}
+
+    /**
+     * Auxiliary constructor in case the response from OOPS! is downloaded elsewhere
+     * @param OOPSResponse
+     * @throws IOException
+     */
+    public OOPSevaluation(InputStream OOPSResponse){
+        initializeEvaluation(OOPSResponse);
+    }
+
+
+    private void initializeEvaluation(InputStream OOPSResponse){
+        try{
+            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            model = manager.loadOntologyFromOntologyDocument(OOPSResponse);
+            OWLClass pitfall = model.getOWLOntologyManager().getOWLDataFactory().getOWLClass(Constants.OOPS_NS + "pitfall");
+            this.pitfallNumber = EntitySearcher.getIndividuals(pitfall, model).collect(Collectors.toSet()).size();
+        }catch(OWLOntologyCreationException e){
+            logger.warn("Could not extract the number of pitfalls from response");
+        }
+
+    }
         
         
         /**

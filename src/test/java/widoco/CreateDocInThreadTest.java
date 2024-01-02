@@ -196,6 +196,126 @@ public class CreateDocInThreadTest {
             fail("Error while running the test: " +e.getMessage());
         }
     }
+
+    /**
+     * Test to see if the metadata is correctly gathered for the following properties:
+     * Abstract, description, title, creator, created, license, namespace prefix, namespaceURI, citation,
+     * backwardCompatibility, prior version, source, see also, fundedBy,
+     * introduction, rdfxml serialization, version info
+     */
+    @org.junit.Test
+    public void testAdvancedAnnotationsInOntology() {
+        try {
+            String pathToOnto = "test" + File.separator + "example_test.owl";
+            c.setFromFile(true);
+            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            if(c.getAbstractSection().isEmpty()){
+                fail("Could not extract abstract");
+            }
+            if(c.getMainOntology().getDescription().isEmpty()){
+                fail("Could not extract description");
+            }
+            if(c.getMainOntology().getTitle().isEmpty()){
+                fail("Could not extract title");
+            }
+            if(c.getMainOntology().getCreators().size()!=1){
+                fail("Could not extract creator");
+            }
+            if(c.getMainOntology().getNamespaceURI().isEmpty()){
+                fail("Could not extract ns URI");
+            }
+            if(c.getMainOntology().getNamespacePrefix().isEmpty()){
+                fail("Could not extract prefix");
+            }
+            if(c.getMainOntology().getCiteAs().isEmpty()){
+                fail("Could not extract citation");
+            }
+            if(c.getMainOntology().getBackwardsCompatibleWith().isEmpty()){
+                fail("Could not extract backward compatibility");
+            }
+            if(c.getMainOntology().getPreviousVersion().isEmpty()){
+                fail("Could not extract previous version");
+            }
+            if(c.getMainOntology().getSources().isEmpty()){
+                fail("Could not extract sources");
+            }
+            if(c.getMainOntology().getSeeAlso().isEmpty()){
+                fail("Could not extract seeAlso");
+            }
+            if(c.getMainOntology().getFunders().isEmpty()){
+                fail("Could not extract funders");
+            }
+            if(c.getIntroText().isEmpty()){
+                fail("Could not extract intro");
+            }
+            if(!c.getMainOntology().getSerializations().get(Constants.RDF_XML).contains("example.org")){
+                fail("Could not extract rdf/xml serialization properly");
+            }
+            if(c.getMainOntology().getRevision().isEmpty()){
+                fail("Could not extract revision");
+            }
+            //not needed, but added for consistency with the other tests.
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+        }catch(Exception e){
+            fail("Error while running the test: " +e.getMessage());
+        }
+    }
+
+    /**
+     * Test to see if annotation properties that document the ontology and also are extended in the ontology itself
+     * are being recognized.
+     * Issue 530 (https://github.com/dgarijo/Widoco/issues/530)
+     */
+    @org.junit.Test
+    public void testIssue530() {
+        try {
+            String pathToOnto = "test" + File.separator + "medatatestont.ttl";
+            c.setFromFile(true);
+            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            //title is the property being extended
+            if(c.getMainOntology().getTitle().isEmpty()){
+                fail("Could not extract title!");
+            }
+            //not needed, but added for consistency with the other tests.
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+        }catch(Exception e){
+            fail("Error while running the test: " +e.getMessage());
+        }
+    }
+
+    /**
+     * Test to check if after the -noPlaceHolder flag is used, but the ontology has a custom intro
+     * the custom introduction annotation works correctly.
+     * Reference: https://github.com/dgarijo/Widoco/issues/658
+     */
+    @org.junit.Test
+    public void testIssue658() {
+        try {
+            String pathToOnto = "test" + File.separator + "medatatestont.ttl";
+            c.setFromFile(true);
+            //emulating the flag "-noPlaceHolder"
+            c.setIncludeIntroduction(false);
+            c.setIncludeAbstract(false);
+            c.setIncludeDescription(false);
+            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            //not needed, but added for consistency with the other tests.
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            //read from myDoc/doc/sections/introduction.html
+            String result = WidocoUtils.readExternalResource("myDoc/doc/sections/introduction-en.html");
+            assertTrue(result.contains("This is an intro"));
+        }catch(Exception e){
+            fail("Error while running the test: " +e.getMessage());
+        }
+    }
 //    
     /**
      * This is a test to see if a big ontology works (several MB)

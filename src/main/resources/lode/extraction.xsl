@@ -38,6 +38,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 xmlns:obo="http://purl.obolibrary.org/obo/"
                 xmlns:skos="http://www.w3.org/2004/02/skos/core#"
                 xmlns:sw="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+                xmlns:widoco="https://w3id.org/widoco/vocab#"
                 xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://www.oxygenxml.com/ns/doc/xsl
 http://www.oxygenxml.com/ns/doc/xsl ">
@@ -196,6 +197,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <xsl:call-template name="get.objectproperties"/>
             <xsl:call-template name="get.dataproperties"/>
             <xsl:call-template name="get.namedindividuals"/>
+            <xsl:call-template name="get.rules"/>
             <xsl:call-template name="get.annotationproperties"/>
             <xsl:call-template name="get.generalaxioms"/>
             <xsl:call-template name="get.swrlrules"/>
@@ -499,9 +501,28 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <li>
             <a href="#{generate-id()}" title="{@*:about|@*:ID}">
                 <xsl:choose>
-                    <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                    <!--<xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
                         <xsl:value-of
                                 select="rdfs:label[f:isInLanguage(.)] | skos:prefLabel[f:isInLanguage(.)] | obo:IAO_0000118[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <span>
+                            <xsl:value-of select="f:getLabel(@*:about|@*:ID)"/>
+                        </span>
+                    </xsl:otherwise>
+                </xsl:choose>-->
+                    <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                        <xsl:choose>
+                            <xsl:when test="exists(rdfs:label[f:isInLanguage(.)])">
+                                <xsl:value-of select="rdfs:label[f:isInLanguage(.)][1]"/>
+                            </xsl:when>
+                            <xsl:when test="exists(skos:prefLabel[f:isInLanguage(.)])">
+                                <xsl:value-of select="skos:prefLabel[f:isInLanguage(.)][1]"/>
+                            </xsl:when>
+                            <xsl:when test="exists(obo:IAO_0000118[f:isInLanguage(.)])">
+                                <xsl:value-of select="obo:IAO_0000118[f:isInLanguage(.)][1]"/>
+                            </xsl:when>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
                         <span>
@@ -635,10 +656,32 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <xsl:variable name="node"
                       select="$root//rdf:RDF/element()[(@*:about = $iri or @*:ID = $iri) and exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)][1]"
                       as="element()*"/>
+        <!-- Modified to include only one type of label if multiple are availble.
         <xsl:choose>
             <xsl:when test="exists($node/rdfs:label|$node/skos:prefLabel|$node/obo:IAO_0000118)">
                 <xsl:value-of
                         select="$node/rdfs:label[f:isInLanguage(.)] | $node/skos:prefLabel[f:isInLanguage(.)] | $node/obo:IAO_0000118[f:isInLanguage(.)]"/>
+            </xsl:when>
+            -->
+        <xsl:variable name="labelNode">
+            <xsl:for-each select="$node">
+                <xsl:choose>
+                    <xsl:when test="exists(rdfs:label[f:isInLanguage(.)])">
+                        <xsl:sequence select="rdfs:label[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                    <xsl:when test="exists(skos:prefLabel[f:isInLanguage(.)])">
+                        <xsl:sequence select="skos:prefLabel[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                    <xsl:when test="exists(obo:IAO_0000118[f:isInLanguage(.)])">
+                        <xsl:sequence select="obo:IAO_0000118[f:isInLanguage(.)]"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space($labelNode)) &gt; 0">
+                <xsl:value-of select="$labelNode"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="localName" as="xs:string?">
@@ -981,12 +1024,15 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     </xsl:template>
 
     <xsl:template name="get.entity.metadata">
+        <xsl:call-template name="get.skos.editorial.note"/>
         <xsl:call-template name="get.version"/>
         <xsl:call-template name="get.author"/>
         <xsl:call-template name="get.original.source"/>
         <xsl:call-template name="get.source"/>
         <xsl:call-template name="get.termStatus"/>
         <xsl:call-template name="get.deprecated"/>
+        <xsl:call-template name="get.rule.antecedent"/>
+        <xsl:call-template name="get.rule.consequent"/>
     </xsl:template>
 
     <xsl:template name="get.original.source">
@@ -999,7 +1045,8 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <dd>
                         <xsl:choose>
                             <xsl:when test="normalize-space(@*:resource) = ''">
-                                <xsl:value-of select="$ontology-url"/>
+                                <!--<xsl:value-of select="$ontology-url"/>-->
+                                <xsl:value-of select="text()"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{@*:resource}">
@@ -1557,8 +1604,21 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <a name="{substring-after($url, '#')}"/>
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+            <!--<xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
                 <xsl:apply-templates select="rdfs:label|skos:prefLabel|obo:IAO_0000118"/>
+            </xsl:when>-->
+            <xsl:when test="exists(rdfs:label|skos:prefLabel|obo:IAO_0000118)">
+                <xsl:choose>
+                    <xsl:when test="exists(rdfs:label)">
+                        <xsl:apply-templates select="rdfs:label"/>
+                    </xsl:when>
+                    <xsl:when test="exists(skos:prefLabel)">
+                        <xsl:apply-templates select="skos:prefLabel"/>
+                    </xsl:when>
+                    <xsl:when test="exists(obo:IAO_0000118)">
+                        <xsl:apply-templates select="obo:IAO_0000118"/>
+                    </xsl:when>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <h3>
@@ -1663,7 +1723,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                 <xsl:if test="exists(/rdf:RDF/(swrl:Imp | rdf:Description[rdf:type[@*:resource = 'http://www.w3.org/2003/11/swrl#Imp']]))">
                     <li>
                         <a href="#swrlrules">
-                            <xsl:value-of select="f:getDescriptionLabel('rules')"/>
+                            <xsl:value-of select="f:getDescriptionLabel('swrlrules')"/>
                         </a>
                     </li>
                 </xsl:if>
@@ -1763,7 +1823,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <xsl:value-of select="f:getDescriptionLabel('namedindividuals')"/>
                 </h2>
                 <xsl:call-template name="get.namedindividuals.toc"/>
-                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[exists(element())]">
+                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]">
                     <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                               order="ascending" data-type="text"/>
                     <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
@@ -1774,7 +1834,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
 
     <xsl:template name="get.namedindividuals.toc">
         <ul class="hlist">
-            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[exists(element())]" mode="toc">
+            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and not(rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]" mode="toc">
                 <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
                           order="ascending" data-type="text"/>
                 <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
@@ -2172,6 +2232,21 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         </xsl:if>
     </xsl:template>
 
+    <xsl:template name="get.skos.editorial.note">
+        <xsl:if test="exists(skos:editorialNote)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('editorialNote')"/>
+                </dt>
+                <xsl:for-each select="skos:editorialNote">
+                    <dd>
+                        <xsl:value-of select="text()"/>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+
     <xsl:template name="get.deprecated">
         <xsl:if test="exists(owl:deprecated)">
             <dl>
@@ -2211,4 +2286,75 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             </div>
         </xsl:if>
     </xsl:template>
+
+    <!-- CUSTOM: ADD FOR LINKING RULES TO TERMS-->
+    <xsl:template name="get.rule.antecedent">
+        <xsl:if test="exists(widoco:usedByRuleInAntecedent)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('usedByRuleInAntecedent')"/>
+                </dt>
+                <xsl:for-each select="widoco:usedByRuleInAntecedent">
+                    <dd>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(@*:resource) = ''">
+                                <a href="#{text()}">
+                                    <xsl:value-of select="text()"/>
+                                </a>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <a href="{@*:resource}">
+                                    <xsl:value-of select="@*:resource"/>
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="get.rule.consequent">
+        <xsl:if test="exists(widoco:usedByRuleInConsequent)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('usedByRuleInConsequent')"/>
+                </dt>
+                <xsl:for-each select="widoco:usedByRuleInConsequent">
+                    <dd>
+                        <a href="#{text()}">
+                            <xsl:value-of select="text()"/>
+                        </a>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="get.rules">
+        <xsl:if test="exists(//owl:NamedIndividual/element())">
+            <div id="rules">
+                <h3 id="rule" class="list">
+                    <xsl:value-of select="f:getDescriptionLabel('otherRules')"/>
+                </h3>
+                <xsl:call-template name="get.rules.toc"/>
+                <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]">
+                    <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
+                              order="ascending" data-type="text"/>
+                    <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
+                </xsl:apply-templates>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="get.rules.toc">
+        <ul class="hlist">
+            <xsl:apply-templates select="/rdf:RDF/owl:NamedIndividual[element() and (rdf:type/@rdf:resource = 'https://w3id.org/widoco/vocab#Rule')]" mode="toc">
+                <xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
+                          order="ascending" data-type="text"/>
+                <xsl:with-param name="type" tunnel="yes" as="xs:string" select="'individual'"/>
+            </xsl:apply-templates>
+        </ul>
+    </xsl:template>
+
 </xsl:stylesheet>

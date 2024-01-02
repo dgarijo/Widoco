@@ -86,4 +86,6 @@
 	<deprecated>Obsolète</deprecated>
     <domainIncludes>domaine comprend</domainIncludes>
     <rangeIncludes>cible comprend</rangeIncludes>
+    <usesRule>utilise la règle</usesRule>
+    <editorialNote>note éditoriale</editorialNote>
 </labels>

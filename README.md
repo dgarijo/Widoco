@@ -7,7 +7,7 @@ WIDOCO helps you to publish and create an enriched and customized documentation 
 
 **Author**: Daniel Garijo Verdejo (@dgarijo)
 
-**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk, Pat Mc Bennett, Christophe Camel, Jacobus Geluk, Martin Scharm, @rpietzsch, Jonathan Leitschuh, Jodi Schneider, Giacomo Lanza, Alejandra Gonzalez-Beltran, Mario Scrocca, Miguel Angel García, Flores Bakker, @JohnnyMoonlight and René Fritze.
+**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk, Pat Mc Bennett, Christophe Camel, Jacobus Geluk, Martin Scharm, @rpietzsch, Jonathan Leitschuh, Jodi Schneider, Giacomo Lanza, Alejandra Gonzalez-Beltran, Mario Scrocca, Miguel Angel García, Flores Bakker, @JohnnyMoonlight,  René Fritze, @telecsur, Jan Vlug, Han Kruiger, Johannes Theissen-Lipp, Roberto Polli and Victor Chavez.
 
 **Citing WIDOCO**: If you used WIDOCO in your work, please cite the ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
 
@@ -38,7 +38,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
   <dependency>
       <groupId>com.github.dgarijo</groupId>
       <artifactId>Widoco</artifactId>
-      <version>v1.4.16</version>
+      <version>v1.4.21</version>
   </dependency>
 </dependencies>
 
@@ -56,10 +56,10 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
 WIDOCO helps you to publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.
 
 Features of WIDOCO:
-* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](doc/gallery/index.html))
+* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](https://dgarijo.github.io/Widoco/doc/gallery/index.html))
+* Massive metadata extraction and support: WIDOCO will enhance your ontology documentation  based on your ontology annotations. Now you can add custom logos and images, edit the content of your sections, etc. by just editing metadata. See our [supported metadata](https://github.com/dgarijo/Widoco/blob/master/doc/metadataGuide/guide.md) and [recommendations](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) for more information.
 * Automatic annotation in JSON-LD snippets of the html produced.
 * Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).
-* Metadata extraction from the ontology plus the means to complete it on the fly when generating your ontology. Check the [best practice document](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) to know more about the terms recognized by WIDOCO.
 * Guidelines on the main sections that your document should have and how to complete them.
 * Integration with diagram creators ([WebVOWL](http://vowl.visualdataweb.org/webvowl/)).
 * Automatic changelog of differences between the actual and the previous version of the ontology (based on [Bubastis](http://www.ebi.ac.uk/efo/bubastis/)).
@@ -75,9 +75,27 @@ Examples of the features of WIDOCO can be seen on [the gallery](https://dgarijo.
 A tutorial explaining the main features of the GUI can be found [here](https://dgarijo.github.io/Widoco/doc/tutorial/)  
 
 ## Metadata usage
-To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the Widoco metadata documentation](doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
+To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the WIDOCO metadata documentation](https://dgarijo.github.io/Widoco/doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
+
+For example, in order to show your logo in your documentation you just need to use `foaf:logo` as an annotation, as follows:
+```
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+<https://w3id.org/roar> a owl:Ontology ;
+    foaf:logo <https://www.leonvanwissen.nl/vocab/roar/docs/resources/roar-logo.png#> .
+```
+
+and it will show right next to the title. The [WIDOCO metadata documentation](doc/metadataGuide/guide.md) shows all supported metadata fields.
 
 ## How to use WIDOCO
+
+### Building the JAR executable
+We provide JAR files for each release (see the [releases](https://github.com/dgarijo/Widoco/releases) page). However, if you want to build WIDOCO from scratch, just cd into the project folder and run:
+
+```bash
+mvn install
+```
+The JAR will be generated in a "JAR" folder. The name will follow the pattern: `widoco-{VERSION_ID}-jar-with-dependencies.jar`, where {VERSION_ID} is the version number of the tool.
 
 ### JAR execution
 
@@ -163,6 +181,8 @@ docker run -ti --rm \
 `-noPlaceHolderText`: Do not add any placeholder text (this will remove intro, abstract (if empty) and description sections).
 
 `--help`: Shows a help message and exits.
+
+`--version`: Shows the version of WIDOCO.
 
 
 ## How can I make WIDOCO automatically recognize my vocabulary annotations?

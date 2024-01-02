@@ -18,11 +18,7 @@ package widoco;
 import diff.CompareOntologies;
 import diff.OntologyDifferencesRenderer;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +35,8 @@ public class Constants {
 	private static final Logger logger = LoggerFactory.getLogger(Constants.class);
 
 	// constants for the Licensius service
-	public static final String LICENSUS_URI_SERVICE_LICENSE = "http://www.licensius.com/api/license/findlicenseinrdf?uri=";// "http://licensius.appspot.com/getLicense?content=";
-	public static final String LICENSIUS_URI_SEVICE_LICENSE_INFO = "http://www.licensius.com/api/license/getlicenseinfo?uri=";// "http://licensius.appspot.com/getLicenseTitle?content=";
+	public static final String LICENSUS_URI_SERVICE_LICENSE = "http://www.licensius.appspot.com/api/license/findlicenseinrdf?uri=";//http://www.licensius.com/api/license/findlicenseinrdf?uri=";// "http://licensius.appspot.com/getLicense?content=";
+	public static final String LICENSIUS_URI_SEVICE_LICENSE_INFO = "http://www.licensius.appspot.com/api/license/getlicenseinfo?uri=";// "http://licensius.appspot.com/getLicenseTitle?content=";
 	public static final int LICENSIUS_TIME_OUT = 10000;
 
 	public static final int OOPS_TIME_OUT = 10000;
@@ -58,7 +54,8 @@ public class Constants {
 	 */
 
 	public static final String NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#";
-	public static final String NS_SCHEMA = "https://schema.org/";
+	public static final String NS_SCHEMA_HTTPS = "https://schema.org/";
+	public static final String NS_SCHEMA_HTTP = "http://schema.org/";
 	public static final String NS_DC = "http://purl.org/dc/elements/1.1/";
 	public static final String NS_DCTERMS = "http://purl.org/dc/terms/";
 	public static final String NS_OWL = "http://www.w3.org/2002/07/owl#";
@@ -73,32 +70,65 @@ public class Constants {
 	public static final String NS_VCARD_OLD = "http://www.w3.org/2001/vcard-rdf/3.0#";
 	public static final String NS_FOAF = "http://xmlns.com/foaf/0.1/";
 	public static final String NS_ORG = "http://www.w3.org/ns/org#";
+	public static final String NS_MOD = "https://w3id.org/mod#";
+	public static final String NS_VOAF = "http://purl.org/vocommons/voaf#";
+	public static final String NS_WDRS = "http://www.w3.org/2007/05/powder-s#";
+	public static final String NS_WIDOCO = "https://w3id.org/widoco/vocab#";
 
 	public static final String PROP_RDFS_LABEL = NS_RDFS + "label";
 	public static final String PROP_RDFS_COMMENT = NS_RDFS + "comment";
+	public static final String PROP_RDFS_SEE_ALSO = NS_RDFS + "seeAlso";
 
-	public static final String PROP_SCHEMA_NAME = NS_SCHEMA + "name";
-	public static final String PROP_SCHEMA_CREATOR = NS_SCHEMA + "creator";
-	public static final String PROP_SCHEMA_LICENSE = NS_SCHEMA + "license";
-	public static final String PROP_SCHEMA_CONTRIBUTOR = NS_SCHEMA + "contributor";
-	public static final String PROP_SCHEMA_DESCRIPTION = NS_SCHEMA + "description";
-	public static final String PROP_SCHEMA_CITATION = NS_SCHEMA + "citation";
-	public static final String PROP_SCHEMA_DATE_CREATED = NS_SCHEMA + "dateCreated";
-	public static final String PROP_SCHEMA_DATE_MODIFIED = NS_SCHEMA + "dateModified";
-	public static final String PROP_SCHEMA_PUBLISHER = NS_SCHEMA + "publisher";
-	public static final String PROP_SCHEMA_SCHEMA_VERSION = NS_SCHEMA + "schemaVersion";
-	public static final String PROP_SCHEMA_GIVEN_NAME = NS_SCHEMA + "givenName";
-	public static final String PROP_SCHEMA_FAMILY_NAME = NS_SCHEMA + "familyName";
-	public static final String PROP_SCHEMA_URL = NS_SCHEMA + "url";
-	public static final String PROP_SCHEMA_EMAIL = NS_SCHEMA + "email";
-	public static final String PROP_SCHEMA_AFFILIATION = NS_SCHEMA + "affiliation";
-	public static final String PROP_SCHEMA_IMAGE = NS_SCHEMA + "image";
-	public static final String PROP_SCHEMA_DATE_ISSUED = NS_SCHEMA + "dateIssued";
+	public static final String PROP_SCHEMA_NAME_HTTP = NS_SCHEMA_HTTP + "name";
+	public static final String PROP_SCHEMA_NAME_HTTPS = NS_SCHEMA_HTTPS + "name";
+	public static final String PROP_SCHEMA_ALTERNATE_NAME_HTTP = NS_SCHEMA_HTTP + "alternateName";
+	public static final String PROP_SCHEMA_ALTERNATE_NAME_HTTPS = NS_SCHEMA_HTTPS + "alternateName";
+
+	public static final String PROP_SCHEMA_CREATOR_HTTP = NS_SCHEMA_HTTP + "creator";
+	public static final String PROP_SCHEMA_CREATOR_HTTPS = NS_SCHEMA_HTTPS + "creator";
+	public static final String PROP_SCHEMA_LICENSE_HTTP = NS_SCHEMA_HTTP + "license";
+	public static final String PROP_SCHEMA_LICENSE_HTTPS = NS_SCHEMA_HTTPS + "license";
+	public static final String PROP_SCHEMA_CONTRIBUTOR_HTTP = NS_SCHEMA_HTTP + "contributor";
+	public static final String PROP_SCHEMA_CONTRIBUTOR_HTTPS = NS_SCHEMA_HTTPS + "contributor";
+	public static final String PROP_SCHEMA_DESCRIPTION_HTTP = NS_SCHEMA_HTTP + "description";
+	public static final String PROP_SCHEMA_DESCRIPTION_HTTPS = NS_SCHEMA_HTTPS + "description";
+	public static final String PROP_SCHEMA_CITATION_HTTP = NS_SCHEMA_HTTP + "citation";
+	public static final String PROP_SCHEMA_CITATION_HTTPS = NS_SCHEMA_HTTPS + "citation";
+	public static final String PROP_SCHEMA_DATE_CREATED_HTTP = NS_SCHEMA_HTTP + "dateCreated";
+	public static final String PROP_SCHEMA_DATE_CREATED_HTTPS = NS_SCHEMA_HTTPS + "dateCreated";
+	public static final String PROP_SCHEMA_DATE_MODIFIED_HTTP = NS_SCHEMA_HTTP + "dateModified";
+	public static final String PROP_SCHEMA_DATE_MODIFIED_HTTPS = NS_SCHEMA_HTTPS + "dateModified";
+	public static final String PROP_SCHEMA_PUBLISHER_HTTP = NS_SCHEMA_HTTP + "publisher";
+	public static final String PROP_SCHEMA_PUBLISHER_HTTPS = NS_SCHEMA_HTTPS + "publisher";
+	public static final String PROP_SCHEMA_FUNDER_HTTP = NS_SCHEMA_HTTP + "funder";
+	public static final String PROP_SCHEMA_FUNDER_HTTPS = NS_SCHEMA_HTTPS + "funder";
+	public static final String PROP_SCHEMA_FUNDING_HTTP = NS_SCHEMA_HTTP + "funding";
+	public static final String PROP_SCHEMA_FUNDING_HTTPS = NS_SCHEMA_HTTPS + "funding";
+	public static final String PROP_SCHEMA_SCHEMA_VERSION_HTTP = NS_SCHEMA_HTTP + "schemaVersion";
+	public static final String PROP_SCHEMA_SCHEMA_VERSION_HTTPS = NS_SCHEMA_HTTPS + "schemaVersion";
+	public static final String PROP_SCHEMA_GIVEN_NAME_HTTP = NS_SCHEMA_HTTP + "givenName";
+	public static final String PROP_SCHEMA_GIVEN_NAME_HTTPS = NS_SCHEMA_HTTPS + "givenName";
+	public static final String PROP_SCHEMA_FAMILY_NAME_HTTP = NS_SCHEMA_HTTP + "familyName";
+	public static final String PROP_SCHEMA_FAMILY_NAME_HTTPS = NS_SCHEMA_HTTPS + "familyName";
+	public static final String PROP_SCHEMA_URL_HTTP = NS_SCHEMA_HTTP + "url";
+	public static final String PROP_SCHEMA_URL_HTTPS = NS_SCHEMA_HTTPS + "url";
+	public static final String PROP_SCHEMA_EMAIL_HTTP = NS_SCHEMA_HTTP + "email";
+	public static final String PROP_SCHEMA_EMAIL_HTTPS = NS_SCHEMA_HTTPS + "email";
+	public static final String PROP_SCHEMA_AFFILIATION_HTTP = NS_SCHEMA_HTTP + "affiliation";
+	public static final String PROP_SCHEMA_AFFILIATION_HTTPS = NS_SCHEMA_HTTPS + "affiliation";
+	public static final String PROP_SCHEMA_IMAGE_HTTP = NS_SCHEMA_HTTP + "image";
+	public static final String PROP_SCHEMA_IMAGE_HTTPS = NS_SCHEMA_HTTPS + "image";
+	public static final String PROP_SCHEMA_DATE_ISSUED_HTTP = NS_SCHEMA_HTTP + "dateIssued";
+	public static final String PROP_SCHEMA_DATE_ISSUED_HTTPS = NS_SCHEMA_HTTPS + "dateIssued";
+	public static final String PROP_SCHEMA_LOGO_HTTP = NS_SCHEMA_HTTP + "logo";
+	public static final String PROP_SCHEMA_LOGO_HTTPS = NS_SCHEMA_HTTPS + "logo";
+	public static final String PROP_SCHEMA_STATUS_HTTP = NS_SCHEMA_HTTP + "creativeWorkStatus";
+	public static final String PROP_SCHEMA_STATUS_HTTPS = NS_SCHEMA_HTTPS + "creativeWorkStatus";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
 	public static final String PROP_OWL_BACKWARDS_COMPATIBLE = NS_OWL + "backwardCompatibleWith";
-        public static final String PROP_OWL_INCOMPATIBLE = NS_OWL + "incompatibleWith";
+    public static final String PROP_OWL_INCOMPATIBLE = NS_OWL + "incompatibleWith";
 
 	public static final String PROP_DC_TITLE = NS_DC + "title";
 	public static final String PROP_DC_RIGHTS = NS_DC + "rights";
@@ -108,6 +138,7 @@ public class Constants {
 	public static final String PROP_DC_REPLACES = NS_DC + "replaces";
 	public static final String PROP_DC_CONTRIBUTOR = NS_DC + "contributor";
 	public static final String PROP_DC_PUBLISHER = NS_DC + "publisher";
+	public static final String PROP_DC_SOURCE = NS_DC + "source";
 
 	public static final String PROP_DCTERMS_REPLACES = NS_DCTERMS + "replaces";
 	public static final String PROP_DCTERMS_DESCRIPTION = NS_DCTERMS + "description";
@@ -121,6 +152,8 @@ public class Constants {
 	public static final String PROP_DCTERMS_MODIFIED = NS_DCTERMS + "modified";
 	public static final String PROP_DCTERMS_ISSUED = NS_DCTERMS + "issued";
 	public static final String PROP_DCTERMS_BIBLIOGRAPHIC_CIT = NS_DCTERMS + "bibliographicCitation";
+	public static final String PROP_DCTERMS_HAS_VERSION = NS_DCTERMS + "hasVersion";
+	public static final String PROP_DCTERMS_SOURCE = NS_DCTERMS + "source";
 
 	public static final String PROP_BIBO_DOI = NS_BIBO + "doi";
 	public static final String PROP_BIBO_STATUS = NS_BIBO + "status";
@@ -128,11 +161,13 @@ public class Constants {
 	public static final String PROP_PROV_WAS_REVISION_OF = NS_PROV + "wasRevisionOf";
 	public static final String PROP_PROV_GENERATED_AT_TIME = NS_PROV + "generatedAtTime";
 	public static final String PROP_PROV_ATTRIBUTED_TO = NS_PROV + "wasAttributedTo";
+	public static final String PROP_PROV_HAD_PRIMARY_SOURCE = NS_PROV + "hadPrimarySource";
 
 	public static final String PROP_VANN_PREFIX = NS_VANN + "preferredNamespacePrefix";
 	public static final String PROP_VANN_URI = NS_VANN + "preferredNamespaceUri";
 
 	public static final String PROP_SKOS_NOTE = NS_SKOS + "note";
+	public static final String PROP_SKOS_PREF_LABEL = NS_SKOS + "prefLabel";
 
 	public static final String PROP_PAV_CREATED_BY = NS_PAV + "createdBy";
 	public static final String PROP_PAV_CREATED_ON = NS_PAV + "createdOn";
@@ -140,6 +175,8 @@ public class Constants {
 	// NS_PAV+"hasCurrentVersion";//we just extract the URI as the latest
 	public static final String PROP_PAV_PREVIOUS_VERSION = NS_PAV + "previousVersion";
 	public static final String PROP_PAV_CONTRIBUTED_BY = NS_PAV + "contributedBy";
+	public static final String PROP_PAV_VERSION = NS_PAV + "version";
+	public static final String PROP_PAV_LAST_UPDATED_ON = NS_PAV + "lastUpdatedOn";
 
 	public static final String PROP_CC_LICENSE = "http://creativecommons.org/ns#license";
 
@@ -156,64 +193,92 @@ public class Constants {
 	public static final String PROP_VCARD_EMAIL_OLD = NS_VCARD_OLD + "EMAIL";
 
 	public static final String PROP_FOAF_NAME = NS_FOAF + "name";
-	public static final String PROP_FOAF_GIVEN_NAME = NS_FOAF + "givenName";
-	public static final String PROP_FOAF_FAMILY_NAME = NS_FOAF + "familyName";
+	public static final String PROP_FOAF_GIVEN_NAME = NS_FOAF + "givenname";
+	public static final String PROP_FOAF_FAMILY_NAME = NS_FOAF + "family_name";
 	public static final String PROP_FOAF_MBOX = NS_FOAF + "mbox";
 	public static final String PROP_FOAF_HOME_PAGE = NS_FOAF + "homepage";
+	public static final String PROP_FOAF_LOGO = NS_FOAF + "logo";
 	public static final String PROP_FOAF_IMAGE = NS_FOAF + "img";
 	public static final String PROP_FOAF_DEPICTION = NS_FOAF + "depiction";
+	public static final String PROP_FOAF_FUNDED_BY = NS_FOAF + "fundedBy";
 
 	public static final String PROP_ORG_MEMBER_OF = NS_ORG + "memberOf";
+	public static final String PROP_MOD_ACRONYM = NS_MOD + "acronym";
+	public static final String PROP_MOD_STATUS = NS_MOD + "status";
+	public static final String PROP_VOAF_EXTENDS = NS_VOAF + "extends";
+	public static final String PROP_WDRS_IS_DESCRIBED_BY = NS_WDRS + "describedBy";
+	public static final String PROP_WIDOCO_INTRODUCTION = NS_WIDOCO + "introduction";
+	public static final String PROP_WIDOCO_RDF_XML= NS_WIDOCO + "rdfxmlSerialization";
+	public static final String PROP_WIDOCO_NT= NS_WIDOCO + "ntSerialization";
+	public static final String PROP_WIDOCO_TURTLE = NS_WIDOCO + "turtleSerialization";
+	public static final String PROP_WIDOCO_JSON_LD = NS_WIDOCO + "jsonldSerialization";
 
 
 
 	// The following properties need additional support (future release)
 	// SEE_ALSO (NEEDED INTERFACE UPDATE)
-	// OWL:incompatibleWith
 	// foaf: logo schema:logo, foaf:depiction, schema:image
 	// issue date
 	// source for the vocab
 
 	/**
-	 * Constants for the property file with the ontology metadata
+	 * Constants for the property file (PF) with the ontology metadata
 	 */
 
-	public static final String ABSTRACT_SECTION_CONTENT = "abstract";
-	public static final String CONTEXT_URI = "contextURI";
-	public static final String ONT_TITLE = "ontologyTitle";
-	public static final String ONT_NAME = "ontologyName";
-	public static final String ONT_PREFIX = "ontologyPrefix";
-	public static final String ONT_NAMESPACE_URI = "ontologyNamespaceURI";
-	public static final String DATE_OF_RELEASE = "dateOfRelease";
-	public static final String THIS_VERSION_URI = "thisVersionURI";
-	public static final String LATEST_VERSION_URI = "latestVersionURI";
-	public static final String PREVIOUS_VERSION = "previousVersionURI";
-	public static final String ONTOLOGY_REVISION = "ontologyRevisionNumber";
-	public static final String AUTHORS = "authors";
-	public static final String AUTHORS_URI = "authorsURI";
-	public static final String AUTHORS_INSTITUTION = "authorsInstitution";
-	public static final String AUTHORS_INSTITUTION_URI = "authorsInstitutionURI";
-	public static final String CONTRIBUTORS = "contributors";
-	public static final String CONTRIBUTORS_URI = "contributorsURI";
-	public static final String CONTRIBUTORS_INSTITUTION = "contributorsInstitution";
-	public static final String CONTRIBUTORS_INSTITUTION_URI = "contributorsInstitutionURI";
-	public static final String PUBLISHER = "publisher";
-	public static final String PUBLISHER_URI = "publisherURI";
-	public static final String PUBLISHER_INSTITUTION = "publisherInstitution";
-	public static final String PUBLISHER_INSTITUTION_URI = "publisherInstitutionURI";
-	public static final String IMPORTED_ONTOLOGY_NAMES = "importedOntologyNames";
-	public static final String IMPORTED_ONTOLOGY_URIS = "importedOntologyURIs";
-	public static final String EXTENDED_ONTOLOGY_NAMES = "extendedOntologyNames";
-	public static final String EXTENDED_ONTOLOGY_URIS = "extendedOntologyURIs";
-	public static final String LICENSE_NAME = "licenseName";
-	public static final String LICENSE_URI = "licenseURI";
-	public static final String LICENSE_ICON_URL = "licenseIconURL";
-	public static final String CITE_AS = "citeAs";
-	public static final String DOI = "DOI";
-	public static final String RDF = "RDFXMLSerialization";
-	public static final String TTL = "TurtleSerialization";
-	public static final String N3 = "N3Serialization";
-	public static final String JSON = "JSONLDSerialization";
+	public static final String PF_ABSTRACT_SECTION_CONTENT = "abstract";
+	public static final String PF_AUTHORS = "authors";
+	public static final String PF_AUTHORS_URI = "authorsURI";
+	public static final String PF_AUTHORS_INSTITUTION = "authorsInstitution";
+	public static final String PF_AUTHORS_INSTITUTION_URI = "authorsInstitutionURI";
+	public static final String PF_CITE_AS = "citeAs";
+	public static final String PF_CONTEXT_URI = "contextURI";
+	public static final String PF_CONTRIBUTORS = "contributors";
+	public static final String PF_CONTRIBUTORS_URI = "contributorsURI";
+	public static final String PF_CONTRIBUTORS_INSTITUTION = "contributorsInstitution";
+	public static final String PF_CONTRIBUTORS_INSTITUTION_URI = "contributorsInstitutionURI";
+	public static final String PF_DATE_CREATED = "dateCreated";
+	public static final String PF_DATE_ISSUED = "dateIssued";
+	public static final String PF_DATE_MODIFIED = "dateModified";
+	public static final String PF_DESCRIPTION = "description";
+	public static final String PF_DOI = "DOI";
+	public static final String PF_EXTENDED_ONTOLOGY_NAMES = "extendedOntologyNames";
+	public static final String PF_EXTENDED_ONTOLOGY_URIS = "extendedOntologyURIs";
+	public static final String PF_LATEST_VERSION_URI = "latestVersionURI";
+	public static final String PF_LICENSE_ICON_URL = "licenseIconURL";
+	public static final String PF_LICENSE_NAME = "licenseName";
+	public static final String PF_LICENSE_URI = "licenseURI";
+	public static final String PF_LOGO = "logo";
+	public static final String PF_IMAGES = "images";
+	public static final String PF_IMPORTED_ONTOLOGY_NAMES = "importedOntologyNames";
+	public static final String PF_IMPORTED_ONTOLOGY_URIS = "importedOntologyURIs";
+	public static final String PF_INCOMPATIBLE_WITH = "incompatibleWith";
+	public static final String PF_INTRODUCTION = "introduction";
+	public static final String PF_ONT_NAME = "ontologyName";
+	public static final String PF_ONT_NAMESPACE_URI = "ontologyNamespaceURI";
+	public static final String PF_ONT_REVISION_NUMBER = "ontologyRevisionNumber";
+	public static final String PF_ONT_TITLE = "ontologyTitle";
+	public static final String PF_ONT_PREFIX = "ontologyPrefix";
+	public static final String PF_THIS_VERSION_URI = "thisVersionURI";
+	public static final String PF_PREVIOUS_VERSION = "previousVersionURI";
+	public static final String PF_PUBLISHER = "publisher";
+	public static final String PF_PUBLISHER_URI = "publisherURI";
+	public static final String PF_PUBLISHER_INSTITUTION = "publisherInstitution";
+	public static final String PF_PUBLISHER_INSTITUTION_URI = "publisherInstitutionURI";
+	public static final String PF_SEE_ALSO = "seeAlso";
+	public static final String PF_SOURCE = "source";
+	public static final String PF_FUNDERS = "funders";
+	public static final String PF_FUNDING = "fundingGrants";
+	public static final String PF_SERIALIZATION_NT = "NTSerialization";
+	public static final String PF_SERIALIZATION_JSON = "JSONLDSerialization";
+	public static final String PF_SERIALIZATION_RDF = "RDFXMLSerialization";
+	public static final String PF_SERIALIZATION_TTL = "TurtleSerialization";
+
+	/*OWL_API RDF Serializations*/
+	public static final String RDF_XML = "RDF/XML";
+	public static final String TTL = "TTL";
+	public static final String NT = "N-Triples";
+	public static final String JSON_LD = "JSON-LD";
+
 
 	/*
 	 * Property that will retrieve the status of the document from the property file
@@ -225,18 +290,20 @@ public class Constants {
 	// This way, if refactoring is needed we only have to change it here.
 	public static final String LANG_ABSTRACT = "abstract";
 	public static final String LANG_ABSTRACT_PLACEHOLDER = "abstractPlaceHolder";
+	public static final String LANG_INTRO_TITLE = "introTitle";
 	public static final String LANG_INTRO_PLACEHOLDER = "introPlaceHolder";
 	public static final String LANG_REFERENCES_PLACEHOLDER = "referencesPlaceHolder";
-	public static final String LANG_AUTHORS = AUTHORS;
-	public static final String LANG_CONTRIBUTORS = CONTRIBUTORS;
+	public static final String LANG_AUTHORS = PF_AUTHORS;
+	public static final String LANG_CONTRIBUTORS = PF_CONTRIBUTORS;
 	public static final String LANG_AC_TEXT = "ackText";
-	public static final String LANG_PUBLISHER = PUBLISHER;
+	public static final String LANG_PUBLISHER = PF_PUBLISHER;
 	public static final String LANG_IMPORTED = "imported";
 	public static final String LANG_EXTENDED = "extended";
 	public static final String LANG_NS = "ns";
 	public static final String LANG_NS_TEXT = "nsText";
 	public static final String LANG_BACK3 = "back3";
 	public static final String LANG_DATE = "date";
+	public static final String LANG_DATE_MODIFIED = "dateModified";
 	public static final String LANG_THIS_VERSION = "thisVersion";
 	public static final String LANG_LATEST_VERSION = "latestVersion";
 	public static final String LANG_PREVIOUS_VERSION = "previousVersion";
@@ -250,6 +317,7 @@ public class Constants {
 	public static final String LANG_CITE_AS = "citeAs";
 	public static final String LANG_PROV_HEAD = "provHead";
 	public static final String LANG_OVERVIEW_PLACEHOLDER = "overviewPlaceHolder";
+	public static final String LANG_DESCRIPTION_TITLE = "descriptionTitle";
 	public static final String LANG_DESCRIPTION_PLACEHOLDER = "descriptionPlaceHolder";
 	public static final String LANG_CROSS_REF_TITLE = "crossRefTitle";
 	public static final String LANG_CROSS_REF_TITLE2 = "crossRefTitle2";
@@ -275,6 +343,10 @@ public class Constants {
 	public static final String LANG_COMPATIBLE = "compatible";
 	public static final String LANG_INCOMPATIBLE = "incompatible";
 	public static final String LANG_LEGEND = "legend";
+	public static final String LANG_SOURCES = "source";
+	public static final String LANG_SEE_ALSO = "seeAlso";
+	public static final String LANG_FUNDER = "funder";
+	public static final String LANG_FUNDING = "funding";
 
 	// labels for the changelog
 	public static final String LANG_CHANGELOG_HEAD = "changelogHead";
@@ -372,7 +444,15 @@ public class Constants {
 	}
 
 	public static String getIntroductionSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
-		String s = "<h2 id=\"intro\" class=\"list\">" + lang.getProperty(LANG_INTRO_PLACEHOLDER);
+		String s = "<h2 id=\"intro\" class=\"list\">";
+		//check if the content of the intro was found in a metadata property
+		if (c.getIntroText() == null || c.getIntroText().isEmpty()){
+			s+= lang.getProperty(LANG_INTRO_PLACEHOLDER);
+		}else{
+			s+= lang.getProperty(LANG_INTRO_TITLE);
+			s+= "<span class=\"markdown\">"+ c.getIntroText() + "</span>\n";
+		}
+
 		return s;
 	}
 
@@ -419,15 +499,15 @@ public class Constants {
 				}
 				if (currAuth.getInstitutionName() != null && !"".equals(currAuth.getInstitutionName())) {
 					if (currAuth.getInstitutionURL() != null && !"".equals(currAuth.getInstitutionURL())) {
-						agents += ", (<a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionName()
-								+ "</a>)";
+						agents += ", <a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionName()
+								+ "</a>";
 					} else {
 						agents += ", " + currAuth.getInstitutionName();
 					}
 				} else {
 					if (currAuth.getInstitutionURL() != null && !"".equals(currAuth.getInstitutionURL())) {
-						agents += ", (<a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionURL()
-								+ "</a>)";
+						agents += ", <a href=\"" + currAuth.getInstitutionURL() + "\">" + currAuth.getInstitutionURL()
+								+ "</a>";
 					}
 				}
 				if(currAuth.getEmail()!=null && !"".equals(currAuth.getEmail())){
@@ -439,7 +519,7 @@ public class Constants {
 				agents += "</dd>";
 			}
 		} catch (Exception e) {
-			logger.error("Error while writing authors, their urls or their instititions.");
+			logger.error("Error while writing authors, their urls or their institutions.");
 		}
 		return agents;
 	}
@@ -453,6 +533,12 @@ public class Constants {
 
 	private static String getContributors(ArrayList<Agent> contrib, Properties l) {
 		String c = "<dt>" + l.getProperty(LANG_CONTRIBUTORS) + "</dt>\n";
+		c += getAgents(contrib);
+		return c + "\n";
+	}
+
+	private static String getFunders(ArrayList<Agent> contrib, Properties l) {
+		String c = "<dt>" + l.getProperty(LANG_FUNDER) + "</dt>\n";
 		c += getAgents(contrib);
 		return c + "\n";
 	}
@@ -506,6 +592,15 @@ public class Constants {
 		return extended + "\n";
 	}
 
+	private static String getURLs(ArrayList<String> resources, String label) {
+		StringBuilder elem = new StringBuilder("<dt>" + label + "</dt>\n");
+		for (String e : resources) {
+			elem.append("<dd><a href=\"").append(e).append("\">").append(e).append("</a></dd>");
+		}
+		elem.append("\n");
+		return elem.toString() ;
+	}
+
 	// Removes '#' and last '/' to avoid namespace duplication.
 	public static String stripTrailingNamespaceChars(String namespace) {
 		final String removedSlash = namespace.endsWith("/")
@@ -518,31 +613,15 @@ public class Constants {
 	public static String getNameSpaceDeclaration(HashMap<String, String> namesp, Configuration c, Properties lang) {
 		String ns = "<div id=\"namespacedeclarations\">\n" + "<h3 id=\"ns\" class=\"list\">" + lang.getProperty(LANG_NS)
 				+ lang.getProperty(LANG_NS_TEXT);
-		Iterator<String> keys = namesp.keySet().iterator();
 		String nsPrefix = c.getMainOntology().getNamespacePrefix();
 		String nsURI = c.getMainOntology().getNamespaceURI();
-		ns += "<tr><td><b>" + nsPrefix + "</b></td><td>&lt;" + nsURI + "&gt;</td></tr>\n";
-
-		// Leave a gap after the main ontology namespace, just so it stands out more (since it's the
-		// most important namespace).
-		// No need for us to check 'if there are any more prefixes', as the code currently always
-		// includes more anyway (whether they're actually referenced in the ontology or not (e.g.,
-		// 'rdf', 'xsd', etc.)). I don't think the code should be doing this, but that's a tidy-up
-		// for another day!
-		ns += "<tr><td></td><td></td></tr>\n";
-
-		// Strip off any trailing namespace characters from our main ontology namespace URI so that
-		// we are comparing like-for-like when removing duplicates.
-		final String nsURIStripped = stripTrailingNamespaceChars(nsURI);
-
-		while (keys.hasNext()) {
-			String key = keys.next();
-
-			// Only add the namespace if it's not equal to the main ontology one (already added).
-			String currValue = stripTrailingNamespaceChars(namesp.get(key));
-			if (!currValue.equals(nsURIStripped)) {
-				ns += "<tr><td><b>" + key + "</b></td><td>&lt;" + currValue + "&gt;</td></tr>\n";
-			}
+		//order all ns alphabetically
+		if (!namesp.containsKey(nsPrefix)){
+			namesp.put(nsPrefix,stripTrailingNamespaceChars(nsURI));
+		}
+		TreeMap<String, String> sortedMap = new TreeMap<>(namesp);
+		for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+			ns += "<tr><td><b>" + entry.getKey() + "</b></td><td>&lt;" + entry.getValue() + "&gt;</td></tr>\n";
 		}
 
 		ns += "</tbody>\n" + "</table>\n" + "</div>\n" + "</div>\n";
@@ -577,11 +656,14 @@ public class Constants {
 			metadata += "\"Document describing the ontology " + o.getNamespaceURI() + "\"";
 		}
 		// release date (mandatory)
-		metadata += ", \"datePublished\":";
-		if (o.getReleaseDate() != null && !"".equals(o.getReleaseDate())) {
-			metadata += "\"" + o.getReleaseDate() + "\"";
+		metadata += ", \"dateReleased\":";
+		if (o.getCreationDate() != null && !"".equals(o.getCreationDate())) {
+			metadata += "\"" + o.getCreationDate() + "\"";
 		} else {
 			metadata += "\"" + (new Date()).toString() + "\"";
+		}
+		if (o.getModifiedDate() != null && !"".equals(o.getModifiedDate())) {
+			metadata += ", \"dateModified\":\"" + o.getModifiedDate() + "\"";
 		}
 		// version (optional)
 		if (o.getRevision() != null && !"".equals(o.getRevision())) {
@@ -651,15 +733,18 @@ public class Constants {
 		/* Style selection */
 		if (c.isUseW3CStyle()) {
 			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/primer.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/rec.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/extra.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/owl.css\" media=\"screen\" />   ";
+					+ "/primer.css\" media=\"screen\" />   \n" +
+					" <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/rec.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/extra.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
+					+ "/owl.css\" media=\"screen\" />   \n";
 
 		} else {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   "
-					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />";
+			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   \n"
+					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />\n";
 		}
+		// add a favicon (rdf logo)
+		document += "<link rel=\"icon\" type=\"image/png\" href=\"" + resourcesFolderName + "/rdf.icon\"/>";
 
 		// add a title to the document
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))
@@ -693,19 +778,47 @@ public class Constants {
 				+ " };" + "    $(function(){\n";
 		// the script for loading the table is called after loading everything else,
 		// after the loadHash function
-		if (c.isIncludeAbstract())
-			document += "      $(\"#abstract\").load(\"sections/abstract-" + c.getCurrentLanguage() + ".html\"); \n";
-		if (c.isIncludeIntroduction())
-			document += "      $(\"#introduction\").load(\"sections/introduction-" + c.getCurrentLanguage()
+		if (c.isIncludeAbstract()) {
+			if(c.getAbstractPath()!=null && !c.getAbstractPath().isEmpty()){
+				document += "      $(\"#abstract\").load(\""+c.getAbstractPath()+"\"); \n";
+			}else {
+				document += "      $(\"#abstract\").load(\"sections/abstract-" + c.getCurrentLanguage() + ".html\"); \n";
+			}
+		}
+		if (c.isIncludeIntroduction()){
+			if(c.getIntroductionPath()!=null && !c.getIntroductionPath().isEmpty()){
+				document += "      $(\"#introduction\").load(\""+c.getIntroductionPath()+"\"); \n";
+			}else {
+				document += "      $(\"#introduction\").load(\"sections/introduction-" + c.getCurrentLanguage()
+						+ ".html\"); \n";
+			}
+			//namespace table is always a separated document
+			document += "      $(\"#nstable\").load(\"sections/ns-" + c.getCurrentLanguage()
 					+ ".html\"); \n";
-		if (c.isIncludeOverview())
-			document += "      $(\"#overview\").load(\"sections/overview-" + c.getCurrentLanguage() + ".html\"); \n";
-		if (c.isIncludeDescription())
-			document += "      $(\"#description\").load(\"sections/description-" + c.getCurrentLanguage()
-					+ ".html\"); \n";
-		if (c.isIncludeReferences())
-			document += "      $(\"#references\").load(\"sections/references-" + c.getCurrentLanguage()
-					+ ".html\"); \n";
+		}
+		if (c.isIncludeOverview()){
+			if(c.getOverviewPath()!=null && !c.getOverviewPath().isEmpty()){
+				document += "      $(\"#overview\").load(\""+c.getOverviewPath()+"\"); \n";
+			}else {
+				document += "      $(\"#overview\").load(\"sections/overview-" + c.getCurrentLanguage() + ".html\"); \n";
+			}
+		}
+		if (c.isIncludeDescription()){
+			if(c.getDescriptionPath()!=null && !c.getDescriptionPath().isEmpty()){
+				document += "      $(\"#description\").load(\""+c.getDescriptionPath()+"\"); \n";
+			}else {
+				document += "      $(\"#description\").load(\"sections/description-" + c.getCurrentLanguage()
+						+ ".html\"); \n";
+			}
+		}
+		if (c.isIncludeReferences()){
+			if(c.getReferencesPath()!=null && !c.getReferencesPath().isEmpty()){
+				document += "      $(\"#references\").load(\""+c.getReferencesPath()+"\"); \n";
+			}else {
+				document += "      $(\"#references\").load(\"sections/references-" + c.getCurrentLanguage()
+						+ ".html\"); \n";
+			}
+		}
 		if (c.isIncludeChangeLog()) {
 			if (c.getMainOntology().getPreviousVersion() != null && !"".equals(c.getMainOntology().getPreviousVersion())
 					&& c.isChangeLogSuccessfullyCreated()) {
@@ -726,9 +839,10 @@ public class Constants {
 		if (c.isIncludeAbstract())
 			document += "     <div id=\"abstract\"></div>\n";
 		document += "<div id=\"toc\"></div>";
-		if (c.isIncludeIntroduction())
+		if (c.isIncludeIntroduction()) {
 			document += "     <div id=\"introduction\"></div>\n";
-		// else document += "<div id=\"namespacedeclaration\"></div>\n";
+			document += "	  <div id=\"nstable\"></div>\n"; //ns declaration is part of the intro
+		}
 		if (c.isIncludeOverview())
 			document += "     <div id=\"overview\"></div>\n";
 		if (c.isIncludeDescription())
@@ -851,11 +965,17 @@ public class Constants {
 		head += "</div>\n";
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))
 			head += "<h1>" + c.getMainOntology().getTitle() + "</h1>\n";
-		if (c.getMainOntology().getReleaseDate() != null && !"".equals(c.getMainOntology().getReleaseDate()))
-			head += "<h2>" + l.getProperty(LANG_DATE) + " " + c.getMainOntology().getReleaseDate() + "</h2>\n";
+		//logo setup
+		if (c.getMainOntology().getLogo() != null && !"".equals(c.getMainOntology().getLogo()))
+			head += "<img src=\""+c.getMainOntology().getLogo()+"\" width=\"50/\">\n";
+
+		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate()))
+			head += "<h2>" + l.getProperty(LANG_DATE) + " " + c.getMainOntology().getCreationDate() + "</h2>\n";
 
 		// start definition list
 		head += "\n\n<dl>\n";
+		if (c.getMainOntology().getModifiedDate() != null && !"".equals(c.getMainOntology().getModifiedDate()))
+			head += "<dt>" + l.getProperty(LANG_DATE_MODIFIED) + " " + c.getMainOntology().getModifiedDate() + "</dt>\n";
 
 		if (c.getMainOntology().getThisVersion() != null && !"".equals(c.getMainOntology().getThisVersion()))
 			head += "<dt>" + l.getProperty(LANG_THIS_VERSION) + "</dt>\n" + "<dd><a href=\""
@@ -879,13 +999,20 @@ public class Constants {
 			head += getAuthors(c.getMainOntology().getCreators(), l) + "\n";
 		if (!c.getMainOntology().getContributors().isEmpty())
 			head += getContributors(c.getMainOntology().getContributors(), l) + "\n";
-		if (c.getMainOntology().getPublisher() != null) {
+		if (c.getMainOntology().getPublisher() != null)
 			head += getPublisher(c.getMainOntology().getPublisher(), l);
-		}
 		if (!c.getMainOntology().getImportedOntologies().isEmpty())
 			head += getImports(c.getMainOntology().getImportedOntologies(), l) + "\n";
 		if (!c.getMainOntology().getExtendedOntologies().isEmpty())
 			head += getExtends(c.getMainOntology().getExtendedOntologies(), l) + "\n";
+		if (!c.getMainOntology().getSources().isEmpty())
+			head += getURLs(c.getMainOntology().getSources(), l.getProperty(Constants.LANG_SOURCES)) + "\n";
+		if (!c.getMainOntology().getSeeAlso().isEmpty())
+			head += getURLs(c.getMainOntology().getSeeAlso(), l.getProperty(Constants.LANG_SEE_ALSO)) + "\n";
+		if (!c.getMainOntology().getFunders().isEmpty())
+			head += getFunders(c.getMainOntology().getFunders(), l) + "\n";
+		if (!c.getMainOntology().getFundingGrants().isEmpty())
+			head += getURLs(c.getMainOntology().getFundingGrants(), l.getProperty(Constants.LANG_FUNDING)) + "\n";
 
 		if (c.isDisplaySerializations()) {
 			HashMap<String, String> availableSerializations = c.getMainOntology().getSerializations();
@@ -969,12 +1096,22 @@ public class Constants {
 	}
 
 	public static String getDescriptionSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
-		String descriptionString =  "<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": "
-				+ lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER) + "\n";
-		for (String image: c.getMainOntology().getImages()){
-			descriptionString += "<img src=\""+image+"\">";
+		StringBuilder descriptionString = new StringBuilder(
+				"<h2 id=\"desc\" class=\"list\">" + c.getMainOntology().getName() + ": ");
+		descriptionString.append(lang.getProperty(LANG_DESCRIPTION_TITLE)).append("\n");
+		String ontologyDescription = c.getMainOntology().getDescription();
+		//add description body from ontology or default
+		descriptionString.append("<span class=\"markdown\">");
+		if (ontologyDescription != null && !ontologyDescription.isEmpty()){
+			descriptionString.append(ontologyDescription);
+		}else{
+			descriptionString.append(lang.getProperty(LANG_DESCRIPTION_PLACEHOLDER)).append("\n");
 		}
-		return descriptionString;
+		descriptionString.append("</span>");
+		for (String image: c.getMainOntology().getImages()){
+			descriptionString.append("<img src=\"").append(image).append("\">");
+		}
+		return descriptionString.toString();
 	}
 
 	public static String getCrossReferenceSectionTitleAndPlaceHolder(Configuration c, Properties lang) {
@@ -1018,8 +1155,8 @@ public class Constants {
 					+ c.getMainOntology().getPreviousVersion() + "</li>\n";
 		}
 		provhtml += "<li>" + lang.getProperty(LANG_RESULT);
-		if (c.getMainOntology().getReleaseDate() != null && !"".equals(c.getMainOntology().getReleaseDate())) {
-			provhtml += "<li>" + lang.getProperty(LANG_GENERATED) + " " + c.getMainOntology().getReleaseDate();
+		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
+			provhtml += "<li>" + lang.getProperty(LANG_GENERATED) + " " + c.getMainOntology().getCreationDate();
 		}
 		provhtml += "</ul>\n" + "</div>\n<p>" + lang.getProperty(LANG_BACK) + " <a href=\"..\\index-"
 				+ c.getCurrentLanguage() + ".html\">" + lang.getProperty(LANG_BACK1) + "</a>. <a href=\"provenance-"
@@ -1097,17 +1234,17 @@ public class Constants {
 		if (c.getMainOntology().getPreviousVersion() != null && !"".equals(c.getMainOntology().getPreviousVersion())) {
 			provrdf += "\t prov:wasRevisionOf <" + c.getMainOntology().getPreviousVersion() + ">;\n";
 		}
-		if (c.getMainOntology().getReleaseDate() != null && !"".equals(c.getMainOntology().getReleaseDate())) {
-			provrdf += "\t prov:wasGeneratedAt \"" + c.getMainOntology().getReleaseDate() + "\";\n";
+		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
+			provrdf += "\t prov:wasGeneratedAt \"" + c.getMainOntology().getCreationDate() + "\";\n";
 		}
 		provrdf += ".\n";
 		provrdf += agents;
 		return provrdf;
 	}
 
-	public static final String LODE_RESOURCES = "/lode.zip";
-	public static final String OOPS_RESOURCES = "/oops.zip";
-	public static final String WEBVOWL_RESOURCES = "/webvowl_1.1.7_patched.zip";
+	public static final String LODE_PATH = "lode";
+	public static final String OOPS_PATH = "oops";
+	public static final String WEBVOWL_PATH = "webvowl_1.1.7_patched";
 
 	public static final String CONFIG_PATH = "config" + File.separator + "config.properties";
 
@@ -1208,92 +1345,119 @@ public class Constants {
 
 	/**
 	 * Method that writes an htaccess file according to the W3C best practices. Note
-	 * that hash is different than slash
+	 * that hash is different from slash
 	 * 
-	 * @param c
-	 * @return
+	 * @param c Configuration parameter with the language parameters
+	 * @return a String with the htaccess file
 	 */
-	public static final String getHTACCESS(Configuration c) {
+	public static String getHTACCESS(Configuration c) {
 		String projectFolder = c.getDocumentationURI()
 				.substring(c.getDocumentationURI().lastIndexOf(File.separator) + 1);
-		String htAccessFile = "# Turn off MultiViews\n" + "Options -MultiViews\n" + "\n"
+		StringBuilder htAccessFile = new StringBuilder(
+				"# Turn off MultiViews\n"
+				+ "Options -MultiViews\n" + "\n"
 				+ "# Directive to ensure *.rdf files served as appropriate content type,\n"
-				+ "# if not present in main apache config\n" + "AddType application/rdf+xml .rdf\n"
+				+ "# if not present in main apache config\n"
+				+ "AddType application/rdf+xml .rdf\n"
 				+ "AddType application/rdf+xml .owl\n" + "AddType text/turtle .ttl\n"
 				+ "AddType application/n-triples .n3\n" + "AddType application/ld+json .jsonld\n"
 				+ "# Rewrite engine setup\n" + "RewriteEngine On\n" + "#Change the path to the folder here\n"
-				+ "RewriteBase " + c.getRewriteBase() + projectFolder + " \n\n";
+				+ "RewriteBase " + c.getRewriteBase() + projectFolder + " \n\n");
 
-		htAccessFile += "# Rewrite rule to serve HTML content from the vocabulary URI if requested\n"
+		String htmlAccept = "# Rewrite rule to serve HTML content from the vocabulary URI if requested\n"
 				+ "RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n"
 				+ "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n"
 				+ "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n"
 				+ "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n";
 		// this depends on whether the vocab is hash or slash!
 		if (c.getMainOntology().isHashOntology()) {
-			htAccessFile += "RewriteRule ^$ index-" + c.getCurrentLanguage() + ".html [R=303,L]\n\n";
+			// moving JSON-LD before HTML (only) so HTTP playground apps work (e.g., JSON-LD playground)
 			HashMap<String, String> serializations = c.getMainOntology().getSerializations();
-			for (String serialization : serializations.keySet()) {
-				htAccessFile += "# Rewrite rule to serve " + serialization
-						+ " content from the vocabulary URI if requested\n";
-				if (serialization.equals("RDF/XML")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
-				} else if (serialization.equals("TTL")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" + "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
-				} else if (serialization.equals("N-Triples")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
-				} else if (serialization.equals("JSON-LD")) {
-					htAccessFile += "RewriteCond %{HTTP_ACCEPT} application/ld\\+json\n";
-				}
-				htAccessFile += "RewriteRule ^$ " + serializations.get(serialization) + " [R=303,L]\n\n";
+			if (serializations.containsKey("JSON-LD")){
+				htAccessFile.append("# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested\n");
+				htAccessFile.append("# Placed before HTML to support serving JSON-LD from a browser (e.g., JSON Playground)\n");
+				htAccessFile.append("RewriteCond %{HTTP_ACCEPT} application/ld\\+json\n");
+				htAccessFile.append("RewriteRule ^$ ").append(serializations.get("JSON-LD")).append(" [R=303,L]\n\n");
 			}
-			htAccessFile += "RewriteCond %{HTTP_ACCEPT} .+\n" + "RewriteRule ^$ 406.html [R=406,L]\n"
-					+ "# Default response\n" + "# ---------------------------\n"
+			htAccessFile.append(htmlAccept);
+			htAccessFile.append("RewriteRule ^$ index-").append(c.getCurrentLanguage()).append(".html [R=303,L]\n\n");
+			for (String serialization : serializations.keySet()) {
+				String comment = "# Rewrite rule to serve "
+						+ serialization + " content from the vocabulary URI if requested\n";
+				String rewriteCond = "RewriteRule ^$ "+serializations.get(serialization)+" [R=303,L]\n\n";
+				switch (serialization) {
+					case "RDF/XML":
+						htAccessFile.append(comment).append("RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n" +
+								"RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n").append(rewriteCond);
+						break;
+					case "TTL":
+						htAccessFile.append(comment).append("RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n").append(rewriteCond);
+						break;
+					case "N-Triples":
+						htAccessFile.append(comment).append("RewriteCond %{HTTP_ACCEPT} application/n-triples\n")
+								.append(rewriteCond);
+						break;
+				}
+			}
+			htAccessFile.append("RewriteCond %{HTTP_ACCEPT} .+\n"
+					+ "RewriteRule ^$ 406.html [R=406,L]\n"
+					+ "# Default response\n"
+					+ "# ---------------------------\n"
 					+ "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n"
-					+ "RewriteRule ^$ " + serializations.get("RDF/XML") + " [R=303,L]";
+					+ "RewriteRule ^$ ").append(serializations.get("RDF/XML")).append(" [R=303,L]");
 		} else {// slash (the structure changes a little)
+			String normalSerialization, complexSerialization, condition = "";
 			String warning = "############################################################################\n"
 					+ "### THIS FILE SHOULD BE PLACED ON THE PARENT FOLDER OF THE DOCUMENTATION ###\n"
 					+ "### OTHERWISE THE CONTENT NEGOTIATION WILL NOT WORK                      ###\n"
 					+ "### THE URL OF YOUR VOCABULARY WILL BE (domain)/" + projectFolder + "/def    ###\n"
 					+ "############################################################################\n";
-			htAccessFile = warning + htAccessFile;
-			htAccessFile += "RewriteRule ^def$ doc/index-" + c.getCurrentLanguage() + ".html [R=303,L]\n";
-			htAccessFile += "RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n"
-					+ "RewriteCond %{HTTP_ACCEPT} text/html [OR]\n"
-					+ "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n"
-					+ "RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n" + "RewriteRule ^def/(.+) doc/index-"
-					+ c.getCurrentLanguage() + ".html#$1 [R=303,NE,L]\n";
+			htAccessFile.insert(0, warning);
 			HashMap<String, String> serializations = c.getMainOntology().getSerializations();
+			if (serializations.containsKey("JSON-LD")){
+				htAccessFile.append("# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested\n");
+				htAccessFile.append("# Placed before HTML to support serving JSON-LD from a browser (e.g., JSON Playground)\n");
+				condition = "RewriteCond %{HTTP_ACCEPT} application/ld\\+json\n";
+				normalSerialization = "RewriteRule ^def$ doc/" + serializations.get("JSON-LD") + " [R=303,L]\n\n";
+				complexSerialization = "RewriteRule ^def/(.+)$ doc/" + serializations.get("JSON-LD")
+						+ " [R=303,NE,L]\n\n";
+				htAccessFile.append(condition).append(normalSerialization).append(condition).append(complexSerialization);
+			}
+			htAccessFile.append("RewriteRule ^def$ doc/index-").append(c.getCurrentLanguage()).append(".html [R=303,L]\n");
+			htAccessFile.append("RewriteCond %{HTTP_ACCEPT} !application/rdf\\+xml.*(text/html|application/xhtml\\+xml)\n" +
+					"RewriteCond %{HTTP_ACCEPT} text/html [OR]\n" + "RewriteCond %{HTTP_ACCEPT} application/xhtml\\+xml [OR]\n" +
+					"RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*\n" +
+					"RewriteRule ^def/(.+) doc/index-").append(c.getCurrentLanguage()).append(".html#$1 [R=303,NE,L]\n");
+
 			for (String serialization : serializations.keySet()) {
-				htAccessFile += "# Rewrite rule to serve " + serialization
-						+ " content from the vocabulary URI if requested\n";
-				String normalSerialization, complexSerialization, condition = "";
-				if (serialization.equals("RDF/XML")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
-				} else if (serialization.equals("TTL")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
-							+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" + "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
-				} else if (serialization.equals("N-Triples")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
-				} else if (serialization.equals("JSON-LD")) {
-					condition = "RewriteCond %{HTTP_ACCEPT} application/ld+json\n";
+				condition = "";
+				String comment = "# Rewrite rule to serve "
+						+ serialization + " content from the vocabulary URI if requested\n";
+				switch (serialization) {
+					case "RDF/XML":
+						condition = comment + "RewriteCond %{HTTP_ACCEPT} \\*/\\* [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} application/rdf\\+xml\n";
+						break;
+					case "TTL":
+						condition = comment + "RewriteCond %{HTTP_ACCEPT} text/turtle [OR]\n"
+								+ "RewriteCond %{HTTP_ACCEPT} text/\\* [OR]\n" + "RewriteCond %{HTTP_ACCEPT} \\*/turtle \n";
+						break;
+					case "N-Triples":
+						condition = comment + "RewriteCond %{HTTP_ACCEPT} application/n-triples\n";
+						break;
 				}
 				normalSerialization = "RewriteRule ^def$ doc/" + serializations.get(serialization) + " [R=303,L]\n\n";
 				complexSerialization = "RewriteRule ^def/(.+)$ doc/" + serializations.get(serialization)
 						+ " [R=303,NE,L]\n\n";
-				htAccessFile += condition + normalSerialization + condition + complexSerialization;
+				if (!condition.isEmpty()) {
+					htAccessFile.append(condition).append(normalSerialization).append(condition).append(complexSerialization);
+				}
 			}
-			htAccessFile += "RewriteCond %{HTTP_ACCEPT} .+\n" + "RewriteRule ^def$ doc/406.html [R=406,L]\n"
-					+ "# Default response\n" + "# ---------------------------\n"
-					+ "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n"
-					+ "RewriteRule ^def$ doc/" + serializations.get("RDF/XML") + " [R=303,L]";
+			htAccessFile.append("RewriteCond %{HTTP_ACCEPT} .+\n" + "RewriteRule ^def$ doc/406.html [R=406,L]\n" + "# Default response\n" + "# ---------------------------\n" + "# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default\n" + "RewriteRule ^def$ doc/").append(serializations.get("RDF/XML")).append(" [R=303,L]");
 		}
-
-		return htAccessFile;
+		return htAccessFile.toString();
 
 	}
 

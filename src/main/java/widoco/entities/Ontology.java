@@ -101,9 +101,13 @@ public class Ontology {
      */
     private String title;
     /**
-     * Release date of the ontology
+     * Creation date of the ontology
      */
-    private String releaseDate;
+    private String creationDate;
+    /**
+     * Modification date of the ontology
+     */
+    private String modifiedDate;
     /**
      * Status of the ontology (e.g., specification draft, official release, etc.)
      */
@@ -136,6 +140,23 @@ public class Ontology {
      * Issued date
      */
     private String issuedDate;
+
+    private ArrayList<Agent> funders;
+
+    private ArrayList<String> fundingGrants;
+
+    private String description;
+
+    private ArrayList<String> sources;
+
+    /**
+     * See also resources (list)
+     */
+    private ArrayList<String> seeAlso;
+
+    private String logo;
+
+
 
     public Ontology() {
         this.images = new ArrayList<>();
@@ -284,12 +305,20 @@ public class Ontology {
         else this.title = title;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getCreationDate() {
+        return creationDate;
     }
     
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setCreationDate(String releaseDate) {
+        this.creationDate = releaseDate;
+    }
+
+    public String getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public String getIssuedDate(){ return issuedDate;}
@@ -367,5 +396,66 @@ public class Ontology {
 
     public void setImages(ArrayList<String> images){
         this.images = images;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ArrayList<Agent> getFunders() {
+        return funders;
+    }
+
+    public void setFunders(ArrayList<Agent> funders) {
+        this.funders = funders;
+    }
+    public void addFunder(Agent funder) {
+        if (funders == null) {
+            funders = new ArrayList<>();
+        }
+        this.funders.add(funder);
+    }
+
+    public ArrayList<String> getFundingGrants() {
+        return fundingGrants;
+    }
+
+    public void addFunding(String funding) {
+        if (fundingGrants == null){
+            fundingGrants = new ArrayList<>();
+        }
+        this.fundingGrants.add(funding);
+    }
+
+    public void setFundingGrants(ArrayList<String> fundingGrants) {
+        this.fundingGrants = fundingGrants;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public ArrayList<String> getSeeAlso() {
+        return seeAlso;
+    }
+
+    public void setSeeAlso(ArrayList<String> seeAlso) {
+        this.seeAlso = seeAlso;
+    }
+
+    public ArrayList<String> getSources() {
+        return sources;
+    }
+
+    public void setSources(ArrayList<String> sources) {
+        this.sources = sources;
     }
 }

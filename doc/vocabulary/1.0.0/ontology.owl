@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://w3id.org/widoco/vocab#"
+     xml:base="https://w3id.org/widoco/vocab"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:org="http://www.w3.org/ns/org#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:vaem="http://www.linkedmodel.org/schema/vaem#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:vocab="https://w3id.org/widoco/vocab#"
+     xmlns:schema="http://schema.org/">
+    <owl:Ontology rdf:about="https://w3id.org/widoco/vocab">
+        <owl:versionIRI rdf:resource="https://w3id.org/widoco/vocab/1.0.0"/>
+        <dc:description xml:lang="en">Vocabulary with extra annotation properties for ontologies that have not been found in existing vocabularies.</dc:description>
+        <dc:title xml:lang="en">WIDOCO extra annotations ontology</dc:title>
+        <terms:created xml:lang="en">August 26th, 2023</terms:created>
+        <terms:creator rdf:resource="https://orcid.org/0000-0003-0454-7145"/>
+        <terms:license rdf:resource="http://creativecommons.org/licenses/by/2.0/"/>
+        <vann:preferredNamespacePrefix xml:lang="en">widoco</vann:preferredNamespacePrefix>
+        <vann:preferredNamespaceUri>https://w3id.org/widoco/vocab#</vann:preferredNamespaceUri>
+        <owl:versionInfo xml:lang="en">1.0.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/abstract -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/abstract"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/created -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/created"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/description -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/description"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/publisher -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/publisher"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/title -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/title"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/creator -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/creator"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/license -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/license"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/example -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/example"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespacePrefix -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespaceUri -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri"/>
+    
+
+
+    <!-- http://schema.org/author -->
+
+
+    <owl:AnnotationProperty rdf:about="http://schema.org/author"/>
+    
+
+
+    <!-- http://schema.org/citation -->
+
+
+    <owl:AnnotationProperty rdf:about="http://schema.org/citation"/>
+    
+
+
+    <!-- http://www.linkedmodel.org/schema/vaem#rationale -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.linkedmodel.org/schema/vaem#rationale"/>
+    
+
+
+    <!-- http://www.w3.org/ns/org#memberOf -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/org#memberOf"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/homepage -->
+
+
+    <owl:AnnotationProperty rdf:about="http://xmlns.com/foaf/0.1/homepage"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/name -->
+
+
+    <owl:AnnotationProperty rdf:about="http://xmlns.com/foaf/0.1/name"/>
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#introduction -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/widoco/vocab#introduction">
+        <rdfs:comment xml:lang="en">Annotation property used to indicate the contents of the introduction section</rdfs:comment>
+        <rdfs:label xml:lang="en">introduction</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#jsonldSerialization -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/widoco/vocab#jsonldSerialization">
+        <rdfs:comment xml:lang="en">Property to indicate the URL corresponding to the JSON-LD serialization of an ontology</rdfs:comment>
+        <rdfs:label xml:lang="en">JSON_LD serialization</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#ntSerialization -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/widoco/vocab#ntSerialization">
+        <rdfs:comment xml:lang="en">Property to indicate the URL corresponding to the N-Triples serialization of an ontology</rdfs:comment>
+        <rdfs:label xml:lang="en">NT serialization</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#rdfxmlSerialization -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/widoco/vocab#rdfxmlSerialization">
+        <rdfs:comment xml:lang="en">Property to indicate the URL corresponding to the RDF/XML serialization of an ontology</rdfs:comment>
+        <rdfs:label xml:lang="en">RDF/XML serialization</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#turtleSerialization -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/widoco/vocab#turtleSerialization">
+        <rdfs:comment xml:lang="en">Property to indicate the URL corresponding to the Turtle serialization of an ontology</rdfs:comment>
+        <rdfs:label xml:lang="en">Turtle serialization</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#usedByRuleInAntecedent -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/widoco/vocab#usedByRuleInAntecedent">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="https://w3id.org/widoco/vocab#Rule"/>
+        <rdfs:comment xml:lang="en">Indicates that a property or class was used in the antecedent of a rule</rdfs:comment>
+        <rdfs:label xml:lang="en">used by rule in antecedent</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#usedByRuleInConsequent -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/widoco/vocab#usedByRuleInConsequent">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="https://w3id.org/widoco/vocab#Rule"/>
+        <rdfs:comment xml:lang="en">Indicates that a property or class was used in the consequent of a rule</rdfs:comment>
+        <rdfs:label xml:lang="en">used by rule in consequent</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Organization -->
+
+
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Organization"/>
+    
+
+
+    <!-- https://w3id.org/widoco/vocab#Rule -->
+
+
+    <owl:Class rdf:about="https://w3id.org/widoco/vocab#Rule">
+        <rdfs:comment xml:lang="en">A general class for documenting rules (not defined as SWRL rules)</rdfs:comment>
+        <rdfs:label xml:lang="en">Rule</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://www.upm.es#this -->
+
+
+    <owl:NamedIndividual rdf:about="https://www.upm.es#this">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+        <foaf:homepage>https://www.upm.es</foaf:homepage>
+        <foaf:name>Universidad Politécnica de Madrid</foaf:name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    <rdf:Description rdf:about="https://orcid.org/0000-0003-0454-7145">
+        <org:memberOf rdf:resource="https://www.upm.es#this"/>
+        <foaf:name xml:lang="en">Daniel Garijo</foaf:name>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 5.1.18.2021-07-30T21:49:07Z) https://github.com/owlcs/owlapi/ -->
+
+
