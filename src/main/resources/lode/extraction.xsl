@@ -1174,8 +1174,8 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <xsl:variable name="assertions">
             <assertions>
                 <xsl:for-each select="element()">
-                    <xsl:variable name="currentURI" select="concat(namespace-uri(.),local-name(.))" as="xs:string"/>
-                    <xsl:if test="some $prop in (/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty)/(@*:about|@*:ID)) satisfies $prop = $currentURI">
+                    <xsl:if test="name() != 'rdf:type'">
+                        <xsl:variable name="currentURI" select="concat(namespace-uri(.),local-name(.))" as="xs:string"/>
                         <assertion rdf:about="{$currentURI}">
                             <xsl:choose>
                                 <xsl:when test="@*:resource">
@@ -1938,8 +1938,11 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <xsl:when test="($type = '' or $type = 'annotation') and $el[self::owl:AnnotationProperty]">
                 <sup title="{f:getDescriptionLabel('annotationproperty')}" class="type-ap">ap</sup>
             </xsl:when>
-            <xsl:when test="($type = '' or $type = 'individual') and $el[self::owl:NamedIndividual]">
+            <xsl:when test="($type = '' or $type = 'individual' or $type = 'namedindividual') and $el[self::owl:NamedIndividual]">
                 <sup title="{f:getDescriptionLabel('namedindividual')}" class="type-ni">ni</sup>
+            </xsl:when>
+            <xsl:when test="not(contains($iri, 'http://www.w3.org/2001/XMLSchema'))">
+                <sup title="{f:getDescriptionLabel('externalproperty')}" class="type-ep">ep</sup>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -2049,6 +2052,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             </xsl:if>
         </xsl:if>
     </xsl:function>
+
 
     <xsl:function name="f:hasSubclasses" as="xs:boolean">
         <xsl:param name="el" as="element()"/>
