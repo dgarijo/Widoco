@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
+import widoco.ExternalPropertyParser;
 
 /**
  *
@@ -337,6 +338,7 @@ public class Constants {
 	public static final String LANG_CLASSES = "classes";
 	public static final String LANG_OBJ_PROP = "objProp";
 	public static final String LANG_DATA_PROP = "dataProp";
+	public static final String LANG_EXT_PROP = "extProp";
 	public static final String LANG_ANN_PROP = "annProp";
 	public static final String LANG_NAMED_INDIV = "namedIndiv";
 	public static final String LANG_TABLE_OF_CONTENTS = "tableOfContents";
@@ -1500,25 +1502,30 @@ public class Constants {
 				+ " <span class=\"backlink\"> " + lang.getProperty(Constants.LANG_BACK)
 				+ " <a href=\"#toc\">ToC</a></span></h2>\n"
 				+ "<div   class=\"entity\">\n"
-				+ (includesClass ?
+				+ (includesClass || ExternalPropertyParser.hasClasses()?
 				  "<sup class=\"type-c\" title=\""
 				  + lang.getProperty(Constants.LANG_CLASSES)
 				  + "\">c</sup>: " + lang.getProperty(Constants.LANG_CLASSES) + " <br/>\n"
 				  : "")
-				+ (includesProperty ?
+				+ (includesProperty || ExternalPropertyParser.hasObjProps()?
 				  "<sup class=\"type-op\" title=\""
 				  + lang.getProperty(Constants.LANG_OBJ_PROP) + "\">op</sup>: "
 				  + lang.getProperty(Constants.LANG_OBJ_PROP) + " <br/>\n"
 				  : "")
-				+ (includesDatatypeProperty ?
+				+ (includesDatatypeProperty  || ExternalPropertyParser.hasDataProps()?
 				  "<sup class=\"type-dp\" title=\""
 				  + lang.getProperty(Constants.LANG_DATA_PROP) + "\">dp</sup>: "
 				  + lang.getProperty(Constants.LANG_DATA_PROP) + " <br/>\n"
 				  : "")
-				+ (includesNamedIndividual ?
+				+ (includesNamedIndividual || ExternalPropertyParser.hasNamedIndiv() ?
 				  "<sup class=\"type-ni\" title=\""
 				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + "\">ni</sup>: "
-				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + "\n"
+				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + " <br/>\n"
+				: "")
+				+ (ExternalPropertyParser.hasExternalProps() ?
+				"<sup class=\"type-ep\" title=\""
+						+ lang.getProperty(Constants.LANG_EXT_PROP) + "\">ep</sup>: "
+						+ lang.getProperty(Constants.LANG_EXT_PROP) + "\n"
 				: "")
 				+ "</div>\n" + "</div>"
 				+ "\n";

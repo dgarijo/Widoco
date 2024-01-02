@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-This file has been edited by Daniel Garijo and Varun Ratnakar
+This file has been edited by Daniel Garijo, Varun Ratnakar, and Victor Chavez
 
 Copyright (c) 2010-2014, Silvio Peroni <essepuntato@gmail.com>
 
@@ -1173,8 +1173,15 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:template name="get.individual.assertions">
         <xsl:variable name="assertions">
             <assertions>
+                <xsl:variable name="ns_rdfs" select="'http://www.w3.org/2000/01/rdf-schema#'"/>
+                <xsl:variable name="ns_dc" select="'http://purl.org/dc/elements/1.1/'"/>
                 <xsl:for-each select="element()">
-                    <xsl:if test="name() != 'rdf:type'">
+                    <!-- Get assertions for individuals if they are not rdf:type
+                        or do not belong to namespace rdfs and dc
+                    -->
+                    <xsl:if test="(name() != 'rdf:type')
+                                    and string(namespace-uri()) != $ns_rdfs
+                                    and string(namespace-uri()) != $ns_dc">
                         <xsl:variable name="currentURI" select="concat(namespace-uri(.),local-name(.))" as="xs:string"/>
                         <assertion rdf:about="{$currentURI}">
                             <xsl:choose>
@@ -1941,7 +1948,12 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <xsl:when test="($type = '' or $type = 'individual' or $type = 'namedindividual') and $el[self::owl:NamedIndividual]">
                 <sup title="{f:getDescriptionLabel('namedindividual')}" class="type-ni">ni</sup>
             </xsl:when>
-            <xsl:when test="not(contains($iri, 'http://www.w3.org/2001/XMLSchema'))">
+            <!-- If the owl entity does not match any of the above and is not
+                part of the xs or rdfs namespace, then classify it as an external property
+            -->
+            <xsl:when test="not(contains($iri, 'http://www.w3.org/2001/XMLSchema'))
+							and not(contains($iri, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'))
+							and not(contains($iri, 'http://www.w3.org/2000/01/rdf-schema#'))">
                 <sup title="{f:getDescriptionLabel('externalproperty')}" class="type-ep">ep</sup>
             </xsl:when>
         </xsl:choose>
