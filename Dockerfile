@@ -1,5 +1,5 @@
 # ----
-FROM harbor.cicd.s15m.nl/docker-hub-proxy/library/maven:3.8.3-openjdk-17-slim AS BUILD_IMAGE
+FROM maven:3.8.3-openjdk-17-slim AS BUILD_IMAGE
 
 WORKDIR /var/build/widoco
 
