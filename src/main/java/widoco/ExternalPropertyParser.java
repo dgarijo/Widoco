@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2024 Victor Chavez <vchavezb@protonmail.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 package widoco;
 
 import org.semanticweb.owlapi.model.*;
