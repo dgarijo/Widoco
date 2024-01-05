@@ -69,7 +69,11 @@ Copyright (C) 2023, Victor Chavez <vchavezb@protonmail.com>
                         <xsl:value-of select="concat('Rule #', count(preceding-sibling::swrl:Imp | preceding-sibling::rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]) + 1)"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:call-template name="get.backlink.to.top" />
+                <xsl:call-template name="get.backlink.to.top">
+                    <xsl:with-param name="toc" select="'swrlrules'" tunnel="yes" as="xs:string"/>
+                    <xsl:with-param name="toc.string" select="f:getDescriptionLabel('swrltoc')" tunnel="yes"
+                                    as="xs:string"/>
+                </xsl:call-template>
             </h3>
             <p>
                 <!-- Add rdfs:comment -->
