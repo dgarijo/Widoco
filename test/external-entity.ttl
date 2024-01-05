@@ -1,4 +1,5 @@
 @prefix : <http://www.external-entity.com/testCase/> .
+@prefix ext: <http://my-external-ont.com/ext/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -14,6 +15,10 @@
 #################################################################
 #    Annotation properties
 #################################################################
+
+###  http://my-external-ont.com/ext/Annotation
+ext:Annotation rdf:type owl:AnnotationProperty .
+
 
 ###  http://purl.org/vocab/vann/preferredNamespaceUri
 vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
@@ -38,13 +43,14 @@ vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
 
 ###  http://www.external-entity.com/testCase/PersonA
 :PersonA rdf:type owl:NamedIndividual ,
-                  <http://www.w3.org/2000/10/swap/pim/contact#Person> .
+                  <http://www.w3.org/2000/10/swap/pim/contact#Person> ;
+         ext:Annotation "external annotation"@en .
 
 
 ###  http://www.external-entity.com/testCase/PersonB
 :PersonB rdf:type owl:NamedIndividual ,
                   :LocalPerson ;
-         <http://xmlns.com/foaf/0.1/knows> :PersonB ;
+         <http://xmlns.com/foaf/0.1/knows> :PersonA ;
          <http://xmlns.com/foaf/0.1/age> 30 .
 
 

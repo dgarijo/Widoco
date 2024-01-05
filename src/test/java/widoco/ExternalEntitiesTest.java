@@ -287,10 +287,14 @@ public class ExternalEntitiesTest {
             testIndividual(crossRefDoc,ONT_NS+"PersonA","http://www.w3.org/2000/10/swap/pim/contact#Person","type-c");
             testIndividual(crossRefDoc,ONT_NS+"PersonB",ONT_NS+"LocalPerson","type-c");
             testIndividual(crossRefDoc,ONT_NS+"Project1",ONT_NS+"ExtProject","type-c");
+            ArrayList<Fact> personAFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonA");
+            assert(personAFacts.size() == 1);
+            testFact(personAFacts.get(0),"http://my-external-ont.com/ext/Annotation","type-ap",
+                                            "literal","\"external annotation\"@en");
             ArrayList<Fact> personBFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonB");
             assert(personBFacts.size() == 2);
             testFact(personBFacts.get(0),"http://xmlns.com/foaf/0.1/knows","type-op",
-                    "http://www.external-entity.com/testCase/PersonB","type-ni");
+                    "http://www.external-entity.com/testCase/PersonA","type-ni");
             testFact(personBFacts.get(1),"http://xmlns.com/foaf/0.1/age","type-dp",
                     "literal","\"30\"^^integer");
 
