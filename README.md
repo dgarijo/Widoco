@@ -125,8 +125,8 @@ with host directories. For instance:
 
 ```bash
 docker run -ti --rm \
-  -v `pwd`/test:/usr/local/widoco/in \
-  -v `pwd`/target/generated-doc:/usr/local/widoco/out \
+  -v `pwd`/test:/usr/local/widoco/in:Z \
+  -v `pwd`/target/generated-doc:/usr/local/widoco/out:Z \
   dgarijo/widoco -ontFile in/bne.ttl -outFolder out -rewriteAll
 ```
 

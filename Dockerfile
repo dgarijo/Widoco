@@ -14,6 +14,12 @@ FROM openjdk:17-slim
 RUN apt-get update
 RUN apt-get install -y libfreetype6 fontconfig
 
+RUN useradd widoco
+RUN mkdir -p /usr/local/widoco
+RUN chown -R widoco:widoco /usr/local/widoco
+
+USER widoco
+
 WORKDIR /usr/local/widoco
 
 COPY --from=BUILD_IMAGE /var/build/widoco/JAR/widoco.jar .
