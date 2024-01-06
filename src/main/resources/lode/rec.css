@@ -41,7 +41,7 @@ h3.list:before{counter-increment:subsection;content: counter(section) "." counte
 h3.list{margin-top: 20px;
 	border-bottom: 0px; }
 /* background should be transparent, but WebTV has a bug */
-h1, h2, h3 { color: #005A9C; background: var(--background-color) }
+h1, h2, h3 { color: var(--htag-text); background: var(--background-color) }
 h1 { font: 170% sans-serif }
 h2 { font: 140% sans-serif }
 h3 { font: 120% sans-serif }
