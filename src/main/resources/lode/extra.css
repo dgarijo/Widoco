@@ -104,6 +104,7 @@ dt {
     padding: 2px;
     border: 1px dotted navy;
     background-color: var(--bg-backlink);
+    color: var(--text-backlink);
 }
 
 .imageblock {
