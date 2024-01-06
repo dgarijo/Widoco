@@ -38,7 +38,7 @@ h1 {
 
 .type-dp {
     cursor:help;
-    color:green;    
+    color:var(--type-dp);    
 }
 
 .type-ep {
