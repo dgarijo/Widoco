@@ -2,6 +2,7 @@
   color-scheme: dark;
   --bg-status-box: rgb(0, 90, 156);
   --background-color: #3e3e42;
+  --border: white;
   --htag-text: #83E9F0;
   --bg-backlink: #6e6e67;
   --text-backlink: white;
@@ -19,5 +20,6 @@
   --type-ap: #EB4A4A;
   --type-op: #75E1FC;
   --type-dp: #75FA32;
+  --type-ni: #f3cdcd;
 }
 

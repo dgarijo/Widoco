@@ -7,7 +7,7 @@ h1 {
 }
 
 .hlist {
-    border: 1px solid navy;
+    border: 1px solid var(--border);
     padding:5px;
     background-color: var(--bg-hlist);
 }
@@ -21,7 +21,7 @@ h1 {
 }
 
 .entity {
-    border: 1px solid navy;
+    border: 1px solid var(--border);
     margin:5px 0px 5px 0px;
     padding: 5px;    
 }
@@ -53,7 +53,7 @@ h1 {
 
 .type-ni {
     cursor:help;
-    color:brown;    
+    color:var(--type-ni);
 }
 
 .logic {
@@ -64,7 +64,7 @@ h1 {
 h3 {
     margin-top: 3px;
     padding-bottom: 5px;
-	border-bottom: 1px solid navy;
+    border-bottom: 1px solid var(--border);
 }
 
 h2 {

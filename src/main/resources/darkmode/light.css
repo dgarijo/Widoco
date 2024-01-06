@@ -2,6 +2,7 @@
   color-scheme: light;
   --bg-status-box: rgb(0, 90, 156);
   --background-color: white;
+  --border: navy;
   --htag-text: #005A9C;
   --bg-backlink: #F4FFFF;
   --text-backlink: black;
@@ -19,4 +20,5 @@
   --type-ap: maroon;
   --type-op: navy;
   --type-dp: green;
+  --type-ni: brown;
 }
