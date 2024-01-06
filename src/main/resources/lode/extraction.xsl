@@ -1208,6 +1208,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                 <xsl:value-of select="f:getDescriptionLabel('individualassertions')"/>
             </dt>
             <xsl:for-each select="$assertions//element()[@*:about]">
+                <xsl:variable name="datatype_uri" select="'http://www.w3.org/2001/XMLSchema#anyURI'"/>
                 <dd>
                     <xsl:apply-templates select="@*:about">
                         <xsl:with-param name="type" select="'property'" tunnel="yes"/>
@@ -1216,6 +1217,12 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <xsl:choose>
                         <xsl:when test="@*:resource">
                             <xsl:apply-templates select="@*:resource"/>
+                        </xsl:when>
+                        <!-- if datatype is of xsd:anyURI create href-->
+                        <xsl:when test="@*:datatype and @*:datatype = $datatype_uri">
+                            <a href="{.}" target="_blank">
+                                <xsl:value-of select="."/>
+                            </a>
                         </xsl:when>
                         <xsl:otherwise>
                             <span class="literal">
