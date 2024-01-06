@@ -33,7 +33,7 @@ h1 {
 
 .type-op {
     cursor:help;
-    color:navy;    
+    color:var(--type-op);
 }
 
 .type-dp {
@@ -48,7 +48,7 @@ h1 {
 
 .type-ap {
     cursor:help;
-    color:maroon;    
+    color:var(--type-ap);
 }
 
 .type-ni {
