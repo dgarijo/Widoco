@@ -3,13 +3,13 @@ body {
 }
 
 h1 {
-    line-height: 110%;    
+    line-height: 110%;
 }
 
 .hlist {
     border: 1px solid navy;
     padding:5px;
-    background-color: #F4FFFF; 
+    background-color: var(--bg-hlist);
 }
 
 .hlist li {
@@ -39,6 +39,11 @@ h1 {
 .type-dp {
     cursor:help;
     color:green;    
+}
+
+.type-ep {
+    cursor:help;
+    color:mediumpurple;
 }
 
 .type-ap {
@@ -77,13 +82,13 @@ dt {
 .description {
     border-top: 1px dashed gray;
     border-bottom: 1px dashed gray;
-    background-color: rgb(242, 243, 244);
+    background-color: var(--bg-description);
     margin-top:5px;
     padding-bottom:5px;
 }
 
 .description dl {
-    background-color: rgb(242, 243, 244);
+    background-color: var(--bg-description);
 }
 
 .description ul {
@@ -98,7 +103,7 @@ dt {
     color:black;
     padding: 2px;
     border: 1px dotted navy;
-    background-color: #F4FFFF;
+    background-color: var(--bg-backlink);
 }
 
 .imageblock {
@@ -119,6 +124,6 @@ dt {
 }
 
 .literal {
-    color:green;
+    color:var(--literal);
     font-style:italic;
 }
