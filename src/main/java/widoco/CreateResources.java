@@ -70,7 +70,7 @@ public class CreateResources {
 		logger.info("- ontology IRI: " + c.getOntologyURI());
 		lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);
 		LODEParser lode = new LODEParser(lodeContent, c, languageFile);
-                
+
 		if (c.isCreateHTACCESS()) {
                         File fOut = new File(folderOut);
                         if (!fOut.exists()) {

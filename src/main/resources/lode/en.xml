@@ -90,4 +90,5 @@
     <editorialNote>editorial note</editorialNote>
     <usedByRuleInAntecedent>used by rule (in antecedent)</usedByRuleInAntecedent>
     <usedByRuleInConsequent>used by rule (in consequent)</usedByRuleInConsequent>
+    <externalproperty>external property</externalproperty>
 </labels>
