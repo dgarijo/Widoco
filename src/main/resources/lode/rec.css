@@ -11,16 +11,16 @@ body {
   padding: 2em 1em 2em 70px;
   margin: 0;
   font-family: sans-serif;
-  color: black;
-  background: white;
+  color: var(--text-color);
+  background: var(--background-color);
   background-position: top left;
   background-attachment: fixed;
   background-repeat: no-repeat;
   counter-reset:section;
 }
-:link { color: #00C; background: transparent }
-:visited { color: #609; background: transparent }
-a:active { color: #C00; background: transparent }
+:link { color: var(--link); background: transparent }
+:visited { color: var(--link-visited); background: transparent }
+a:active { color: var(--link-active); background: transparent }
 
 a:link img, a:visited img { border-style: none } /* no border on img links */
 
@@ -41,7 +41,7 @@ h3.list:before{counter-increment:subsection;content: counter(section) "." counte
 h3.list{margin-top: 20px;
 	border-bottom: 0px; }
 /* background should be transparent, but WebTV has a bug */
-h1, h2, h3 { color: #005A9C; background: white }
+h1, h2, h3 { color: var(--htag-text); background: var(--background-color) }
 h1 { font: 170% sans-serif }
 h2 { font: 140% sans-serif }
 h3 { font: 120% sans-serif }
@@ -59,7 +59,7 @@ p.copyright { font-size: small }
 p.copyright small { font-size: small }
 
 @media screen {  /* hide from IE3 */
-a[href]:hover { background: #ffa }
+a[href]:hover { background: var(--href-hover) }
 }
 
 pre { margin-left: 2em }

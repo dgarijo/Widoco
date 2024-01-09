@@ -732,16 +732,11 @@ public class Constants {
 		String document = OPENING;
 		/* Style selection */
 		if (c.isUseW3CStyle()) {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/primer.css\" media=\"screen\" />   \n" +
-					" <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/rec.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/extra.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/owl.css\" media=\"screen\" />   \n";
+			document += getW3CStyleDoc(resourcesFolderName);
 
 		} else {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   \n"
-					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />\n";
+			document += htmlStyleSheet(resourcesFolderName+"/yeti.css","screen")
+						+htmlStyleSheet(resourcesFolderName+"/site.css","screen");
 		}
 		// add a favicon (rdf logo)
 		document += "<link rel=\"icon\" type=\"image/png\" href=\"" + resourcesFolderName + "/rdf.icon\"/>";
@@ -862,7 +857,25 @@ public class Constants {
 
 		return document;
 	}
-        
+
+	private static String htmlStyleSheet(String resource,String media) {
+		return "<link rel=\"stylesheet\" href=\""+ resource+"\" media=\""+media+"\"/>\n";
+	}
+
+	private static String getW3CStyleDoc(String rsrcFolder){
+		return htmlStyleSheet(rsrcFolder+"/primer.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/rec.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/extra.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/owl.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/dark.css","(prefers-color-scheme: dark)")
+		+ htmlStyleSheet(rsrcFolder+"/light.css","(prefers-color-scheme: light)")
+		+ htmlStyleSheet(rsrcFolder+"/slider.css","screen")
+		+ "<meta name=\"color-scheme\" content=\"dark light\">\n"
+		+ "<script type=\"module\" src=\"resources/dark-mode-toggle.mjs\"></script>"
+		+"<div class=\"darkmode\">\n"
+		+"\t<dark-mode-toggle class=\"slider\"></dark-mode-toggle>\n"
+		+"</div>\n";
+	}
         /**
          * Function that includes all the sections as part of the index document.
          * This makes the documentation more difficult to edit, but simpler for production
@@ -884,14 +897,11 @@ public class Constants {
 		String document = OPENING;
 		/* Style selection */
 		if (c.isUseW3CStyle()) {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/primer.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/rec.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/extra.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/owl.css\" media=\"screen\" />   ";
+			document += getW3CStyleDoc(resourcesFolderName);
+
 		} else {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   "
-					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />";
+			document += htmlStyleSheet(resourcesFolderName+"/yeti.css","screen")
+						+htmlStyleSheet(resourcesFolderName+"/site.css","screen");
 		}
 		// add a title to the document
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))

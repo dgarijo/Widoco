@@ -211,7 +211,7 @@ table.canonicalparsing td.two {
 
 /* override mediawiki's beautiful DL styling... */
 dl {
-    background: white;
+    background: var(--background-color);
     width: 100%;
     border: none;
     margin-top: 0;
@@ -240,9 +240,9 @@ color: red
 /* just copying from wiki, so it stays through TR. Currently
   affects Primer, at least */
 pre {
-  background-color:#F9F9F9;
+  background-color: var(--owl-bg);
   border:1px dashed #2F6FAB;
-  color:black;
+  color:var(--text-color);
   line-height:1.1em;
   padding:1em;
 }

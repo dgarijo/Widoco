@@ -84,7 +84,7 @@ div.fssyntax pre, div.rdfxml pre, div.owlxml pre, div.turtle pre, div.manchester
 /* The actual status box */
  .status div {   
     display: block;
-    background: rgb(0, 90, 156);
+    background: var(--bg-status-box);
     color: white;
     width: 24em;
     padding-top: 0.3em;
