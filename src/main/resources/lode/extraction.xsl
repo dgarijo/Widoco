@@ -1322,7 +1322,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:template name="get.class.indomain">
         <xsl:variable name="about" select="@*:about|@*:ID" as="xs:string"/>
         <xsl:variable name="properties" as="attribute()*"
-                      select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
+        select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
         <xsl:if test="exists($properties)">
             <dt>
                 <xsl:value-of select="f:getDescriptionLabel('isindomainof')"/>
@@ -1345,7 +1345,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:template name="get.class.inrange">
         <xsl:variable name="about" select="(@*:about|@*:ID)" as="xs:string"/>
         <xsl:variable name="properties" as="attribute()*"
-                      select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
+        select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
         <xsl:if test="exists($properties)">
             <dt>
                 <xsl:value-of select="f:getDescriptionLabel('isinrangeof')"/>
@@ -2094,7 +2094,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:function name="f:isInDomain" as="xs:boolean">
         <xsl:param name="el" as="element()"/>
         <xsl:value-of
-                select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
+        select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
     </xsl:function>
 
     <xsl:function name="f:hasSubproperties" as="xs:boolean">
@@ -2102,7 +2102,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <xsl:variable name="type" select="if ($el/self::owl:AnnotationProperty) then 'annotation' else 'property'"
                       as="xs:string"/>
         <xsl:value-of
-                select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
+        select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
     </xsl:function>
 
     <xsl:function name="f:getType" as="xs:string?">
