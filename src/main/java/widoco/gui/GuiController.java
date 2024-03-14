@@ -21,7 +21,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -101,11 +103,12 @@ public final class GuiController {
 
 		// get the arguments
 		String outFolder = "myDocumentation" + (new Date().getTime()), ontology = "", rb = null, configOutFile = null;
+		List<String> imports = new ArrayList<>();
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
 				includeImportedOntologies = false, htAccess = false, webVowl = false, errors = false, licensius = false,
 				generateOnlyCrossRef = false, includeNamedIndividuals = true, includeAnnotationProperties = false,
 				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, uniteSections = false,
-				placeHolderText = true;
+				placeHolderText = true, localImports=false;
 		String confPath = "";
 		String code = null;// for tracking analytics.
 		String[] languages = null;
@@ -129,6 +132,11 @@ public final class GuiController {
 				break;
 			case "-ontURI":
 				ontology = args[i + 1];
+				i++;
+				break;
+			case "-import":
+				imports.add(args[i + 1]);
+				localImports = true;
 				i++;
 				break;
 			case "-oops":
@@ -267,6 +275,9 @@ public final class GuiController {
 		}
 		if (!isFromFile)
 			this.config.setOntologyURI(ontology);
+		if(localImports) {
+			this.config.setImports(imports);
+		}
 
 		logger.info("Processed configuration, loading ontology now. isFromFile=" + (isFromFile ? "true" : "false"));
 
