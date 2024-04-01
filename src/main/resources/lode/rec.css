@@ -18,6 +18,10 @@ body {
   background-repeat: no-repeat;
   counter-reset:section;
 }
+details:hover {
+    cursor: pointer;
+}
+
 :link { color: var(--link); background: transparent }
 :visited { color: var(--link-visited); background: transparent }
 a:active { color: var(--link-active); background: transparent }
