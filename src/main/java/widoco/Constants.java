@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
+import widoco.ExternalPropertyParser;
 
 /**
  *
@@ -337,6 +338,7 @@ public class Constants {
 	public static final String LANG_CLASSES = "classes";
 	public static final String LANG_OBJ_PROP = "objProp";
 	public static final String LANG_DATA_PROP = "dataProp";
+	public static final String LANG_EXT_PROP = "extProp";
 	public static final String LANG_ANN_PROP = "annProp";
 	public static final String LANG_NAMED_INDIV = "namedIndiv";
 	public static final String LANG_TABLE_OF_CONTENTS = "tableOfContents";
@@ -732,16 +734,11 @@ public class Constants {
 		String document = OPENING;
 		/* Style selection */
 		if (c.isUseW3CStyle()) {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/primer.css\" media=\"screen\" />   \n" +
-					" <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/rec.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/extra.css\" media=\"screen\" />   \n" + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/owl.css\" media=\"screen\" />   \n";
+			document += getW3CStyleDoc(resourcesFolderName);
 
 		} else {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   \n"
-					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />\n";
+			document += htmlStyleSheet(resourcesFolderName+"/yeti.css","screen")
+						+htmlStyleSheet(resourcesFolderName+"/site.css","screen");
 		}
 		// add a favicon (rdf logo)
 		document += "<link rel=\"icon\" type=\"image/png\" href=\"" + resourcesFolderName + "/rdf.icon\"/>";
@@ -862,7 +859,25 @@ public class Constants {
 
 		return document;
 	}
-        
+
+	private static String htmlStyleSheet(String resource,String media) {
+		return "<link rel=\"stylesheet\" href=\""+ resource+"\" media=\""+media+"\"/>\n";
+	}
+
+	private static String getW3CStyleDoc(String rsrcFolder){
+		return htmlStyleSheet(rsrcFolder+"/primer.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/rec.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/extra.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/owl.css","screen")
+		+ htmlStyleSheet(rsrcFolder+"/dark.css","(prefers-color-scheme: dark)")
+		+ htmlStyleSheet(rsrcFolder+"/light.css","(prefers-color-scheme: light)")
+		+ htmlStyleSheet(rsrcFolder+"/slider.css","screen")
+		+ "<meta name=\"color-scheme\" content=\"dark light\">\n"
+		+ "<script type=\"module\" src=\"resources/dark-mode-toggle.mjs\"></script>"
+		+"<div class=\"darkmode\">\n"
+		+"\t<dark-mode-toggle class=\"slider\"></dark-mode-toggle>\n"
+		+"</div>\n";
+	}
         /**
          * Function that includes all the sections as part of the index document.
          * This makes the documentation more difficult to edit, but simpler for production
@@ -884,14 +899,11 @@ public class Constants {
 		String document = OPENING;
 		/* Style selection */
 		if (c.isUseW3CStyle()) {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/primer.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/rec.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/extra.css\" media=\"screen\" />   " + " <link rel=\"stylesheet\" href=\"" + resourcesFolderName
-					+ "/owl.css\" media=\"screen\" />   ";
+			document += getW3CStyleDoc(resourcesFolderName);
+
 		} else {
-			document += " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/yeti.css\" media=\"screen\" />   "
-					+ " <link rel=\"stylesheet\" href=\"" + resourcesFolderName + "/site.css\" media=\"screen\" />";
+			document += htmlStyleSheet(resourcesFolderName+"/yeti.css","screen")
+						+htmlStyleSheet(resourcesFolderName+"/site.css","screen");
 		}
 		// add a title to the document
 		if (c.getMainOntology().getTitle() != null && !"".equals(c.getMainOntology().getTitle()))
@@ -1500,25 +1512,30 @@ public class Constants {
 				+ " <span class=\"backlink\"> " + lang.getProperty(Constants.LANG_BACK)
 				+ " <a href=\"#toc\">ToC</a></span></h2>\n"
 				+ "<div   class=\"entity\">\n"
-				+ (includesClass ?
+				+ (includesClass || ExternalPropertyParser.hasClasses()?
 				  "<sup class=\"type-c\" title=\""
 				  + lang.getProperty(Constants.LANG_CLASSES)
 				  + "\">c</sup>: " + lang.getProperty(Constants.LANG_CLASSES) + " <br/>\n"
 				  : "")
-				+ (includesProperty ?
+				+ (includesProperty || ExternalPropertyParser.hasObjProps()?
 				  "<sup class=\"type-op\" title=\""
 				  + lang.getProperty(Constants.LANG_OBJ_PROP) + "\">op</sup>: "
 				  + lang.getProperty(Constants.LANG_OBJ_PROP) + " <br/>\n"
 				  : "")
-				+ (includesDatatypeProperty ?
+				+ (includesDatatypeProperty  || ExternalPropertyParser.hasDataProps()?
 				  "<sup class=\"type-dp\" title=\""
 				  + lang.getProperty(Constants.LANG_DATA_PROP) + "\">dp</sup>: "
 				  + lang.getProperty(Constants.LANG_DATA_PROP) + " <br/>\n"
 				  : "")
-				+ (includesNamedIndividual ?
+				+ (includesNamedIndividual || ExternalPropertyParser.hasNamedIndiv() ?
 				  "<sup class=\"type-ni\" title=\""
 				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + "\">ni</sup>: "
-				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + "\n"
+				  + lang.getProperty(Constants.LANG_NAMED_INDIV) + " <br/>\n"
+				: "")
+				+ (ExternalPropertyParser.hasExternalProps() ?
+				"<sup class=\"type-ep\" title=\""
+						+ lang.getProperty(Constants.LANG_EXT_PROP) + "\">ep</sup>: "
+						+ lang.getProperty(Constants.LANG_EXT_PROP) + "\n"
 				: "")
 				+ "</div>\n" + "</div>"
 				+ "\n";

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-This file has been edited by Daniel Garijo and Varun Ratnakar
+This file has been edited by Daniel Garijo, Varun Ratnakar, and Victor Chavez
 
 Copyright (c) 2010-2014, Silvio Peroni <essepuntato@gmail.com>
 
@@ -1173,9 +1173,16 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:template name="get.individual.assertions">
         <xsl:variable name="assertions">
             <assertions>
+                <xsl:variable name="ns_rdfs" select="'http://www.w3.org/2000/01/rdf-schema#'"/>
+                <xsl:variable name="ns_dc" select="'http://purl.org/dc/elements/1.1/'"/>
                 <xsl:for-each select="element()">
-                    <xsl:variable name="currentURI" select="concat(namespace-uri(.),local-name(.))" as="xs:string"/>
-                    <xsl:if test="some $prop in (/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty)/(@*:about|@*:ID)) satisfies $prop = $currentURI">
+                    <!-- Get assertions for individuals if they are not rdf:type
+                        or do not belong to namespace rdfs and dc
+                    -->
+                    <xsl:if test="(name() != 'rdf:type')
+                                    and string(namespace-uri()) != $ns_rdfs
+                                    and string(namespace-uri()) != $ns_dc">
+                        <xsl:variable name="currentURI" select="concat(namespace-uri(.),local-name(.))" as="xs:string"/>
                         <assertion rdf:about="{$currentURI}">
                             <xsl:choose>
                                 <xsl:when test="@*:resource">
@@ -1201,6 +1208,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                 <xsl:value-of select="f:getDescriptionLabel('individualassertions')"/>
             </dt>
             <xsl:for-each select="$assertions//element()[@*:about]">
+                <xsl:variable name="datatype_uri" select="'http://www.w3.org/2001/XMLSchema#anyURI'"/>
                 <dd>
                     <xsl:apply-templates select="@*:about">
                         <xsl:with-param name="type" select="'property'" tunnel="yes"/>
@@ -1209,6 +1217,12 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <xsl:choose>
                         <xsl:when test="@*:resource">
                             <xsl:apply-templates select="@*:resource"/>
+                        </xsl:when>
+                        <!-- if datatype is of xsd:anyURI create href-->
+                        <xsl:when test="@*:datatype and @*:datatype = $datatype_uri">
+                            <a href="{.}" target="_blank">
+                                <xsl:value-of select="."/>
+                            </a>
                         </xsl:when>
                         <xsl:otherwise>
                             <span class="literal">
@@ -1308,7 +1322,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:template name="get.class.indomain">
         <xsl:variable name="about" select="@*:about|@*:ID" as="xs:string"/>
         <xsl:variable name="properties" as="attribute()*"
-                      select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
+        select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
         <xsl:if test="exists($properties)">
             <dt>
                 <xsl:value-of select="f:getDescriptionLabel('isindomainof')"/>
@@ -1331,7 +1345,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:template name="get.class.inrange">
         <xsl:variable name="about" select="(@*:about|@*:ID)" as="xs:string"/>
         <xsl:variable name="properties" as="attribute()*"
-                      select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
+        select="/rdf:RDF/(owl:ObjectProperty|rdf:Property|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:range|schema:rangeIncludes)/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $about]/(@*:about|@*:ID)"/>
         <xsl:if test="exists($properties)">
             <dt>
                 <xsl:value-of select="f:getDescriptionLabel('isinrangeof')"/>
@@ -1938,8 +1952,16 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <xsl:when test="($type = '' or $type = 'annotation') and $el[self::owl:AnnotationProperty]">
                 <sup title="{f:getDescriptionLabel('annotationproperty')}" class="type-ap">ap</sup>
             </xsl:when>
-            <xsl:when test="($type = '' or $type = 'individual') and $el[self::owl:NamedIndividual]">
+            <xsl:when test="($type = '' or $type = 'individual' or $type = 'namedindividual') and $el[self::owl:NamedIndividual]">
                 <sup title="{f:getDescriptionLabel('namedindividual')}" class="type-ni">ni</sup>
+            </xsl:when>
+            <!-- If the owl entity does not match any of the above and is not
+                part of the xs or rdfs namespace, then classify it as an external property
+            -->
+            <xsl:when test="not(contains($iri, 'http://www.w3.org/2001/XMLSchema'))
+							and not(contains($iri, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'))
+							and not(contains($iri, 'http://www.w3.org/2000/01/rdf-schema#'))">
+                <sup title="{f:getDescriptionLabel('externalproperty')}" class="type-ep">ep</sup>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -2050,6 +2072,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         </xsl:if>
     </xsl:function>
 
+
     <xsl:function name="f:hasSubclasses" as="xs:boolean">
         <xsl:param name="el" as="element()"/>
         <xsl:value-of
@@ -2071,7 +2094,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:function name="f:isInDomain" as="xs:boolean">
         <xsl:param name="el" as="element()"/>
         <xsl:value-of
-                select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
+        select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in (rdfs:domain|schema:domainIncludes)/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
     </xsl:function>
 
     <xsl:function name="f:hasSubproperties" as="xs:boolean">
@@ -2079,7 +2102,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <xsl:variable name="type" select="if ($el/self::owl:AnnotationProperty) then 'annotation' else 'property'"
                       as="xs:string"/>
         <xsl:value-of
-                select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
+        select="exists($rdf/(if ($type = 'property') then owl:DatatypeProperty | owl:ObjectProperty else owl:AnnotationProperty)[some $res in rdfs:subPropertyOf/(@*:resource|(owl:Class|rdfs:Class|owl:Class/owl:unionOf/rdf:Description)/@*:about) satisfies $res = $el/(@*:about|@*:ID)])"/>
     </xsl:function>
 
     <xsl:function name="f:getType" as="xs:string?">

@@ -280,11 +280,13 @@ public class OOPSevaluation {
                                                                             collect(Collectors.toList())).iterator();
                                                 if(elementos.hasNext()){
                                                     String first = ((OWLAnnotationAssertionAxiom)elementos.next()).getValue().asLiteral().get().getLiteral();
-                                                    String second = ((OWLAnnotationAssertionAxiom)elementos.next()).getValue().asLiteral().get().getLiteral();
-                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
-                                                            + "\" target=\"_blank\">" + first + "</a>" + " may not be inverse of "
-                                                            + "<a href=\"" + second + "\" target=\"_blank\">" + second + "</a>" + "</li>";
-                                                    evaluationOutput = evaluationOutput + "</ul>";
+                                                    if (elementos.hasNext()) {
+                                                        String second = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().getLiteral();
+                                                        evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
+                                                                + "\" target=\"_blank\">" + first + "</a>" + " may not be inverse of "
+                                                                + "<a href=\"" + second + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                        evaluationOutput = evaluationOutput + "</ul>";
+                                                    }
                                                 }
                                             }
                                             break;
@@ -324,10 +326,12 @@ public class OOPSevaluation {
                                                                             collect(Collectors.toList())).iterator();
                                                 while(elementos.hasNext()) {
                                                     String first = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
-                                                    String second = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
-                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
-                                                            + "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
-                                                            + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                    if(elementos.hasNext()) {
+                                                        String second = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                        evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
+                                                                + "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
+                                                                + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                    }
                                                 }       
                                                 evaluationOutput = evaluationOutput + "</ul>";
                                             }
@@ -347,10 +351,12 @@ public class OOPSevaluation {
                                                                             collect(Collectors.toList())).iterator();
                                                 while(elementos.hasNext()) {
                                                     String first = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
-                                                    String second = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
-                                                    evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
-                                                            + "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
-                                                            + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                    if(elementos.hasNext()) {
+                                                        String second = ((OWLAnnotationAssertionAxiom) elementos.next()).getValue().asLiteral().get().toString();
+                                                        evaluationOutput = evaluationOutput + "<li>" + "<a href=\"" + first
+                                                                + "\" target=\"_blank\">" + first + "</a>" + " , " + "<a href=\"" + second
+                                                                + "\" target=\"_blank\">" + second + "</a>" + "</li>";
+                                                    }
                                                 }       
                                                 evaluationOutput = evaluationOutput + "</ul>";
                                             }

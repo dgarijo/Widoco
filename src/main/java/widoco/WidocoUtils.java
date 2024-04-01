@@ -38,6 +38,7 @@ import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 /**
  * Some useful methods reused across different classes
@@ -69,6 +70,13 @@ public class WidocoUtils {
 		((CatalogIRIMapper) jenaCatalogMapper).printMap();
 		OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
 		loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
+		if (c.getImports()!=null){
+			for(File importDir:c.getImports()){
+				AutoIRIMapper mapper = new AutoIRIMapper(importDir, true);
+				manager.getIRIMappers().add(mapper);
+			}
+		}
+
 		OWLOntology ontology = manager
 				.loadOntologyFromOntologyDocument(new FileDocumentSource(new File(c.getOntologyPath())), loadingConfig);
 		c.getMainOntology().setMainOntology(ontology);

@@ -121,6 +121,7 @@ public class Configuration {
     private boolean includeAllSectionsInOneDocument; //boolean to indicate all sections should be included in a single big HTML
 	private HashMap<String, String> namespaceDeclarations; //Namespace declarations to be included in the documentation.
 	private String introText;// in case there is an explicit annotation in the ontology
+	private List<File> imports = new ArrayList<>();
 
 	/**
 	 * Variable to keep track of possible errors in the changelog. If there are
@@ -1050,6 +1051,12 @@ public class Configuration {
 		this.mainOntologyMetadata.setNamespaceURI(ontologyURI);
 	}
 
+	public void setImports(List<String> imports) {
+		for (String importStr:imports) {
+			this.imports.add(new File(importStr));
+		}
+	}
+
 	public void setPublishProvenance(boolean publishProvenance) {
 		this.publishProvenance = publishProvenance;
 	}
@@ -1072,6 +1079,10 @@ public class Configuration {
 
 	public String getReferencesPath() {
 		return referencesPath;
+	}
+
+	public List<File> getImports() {
+		return this.imports;
 	}
 
 	public boolean isIncludeAbstract() {

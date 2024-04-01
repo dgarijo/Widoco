@@ -1,0 +1,24 @@
+:root {
+  color-scheme: light;
+  --bg-status-box: rgb(0, 90, 156);
+  --background-color: white;
+  --border: navy;
+  --htag-text: #005A9C;
+  --bg-backlink: #F4FFFF;
+  --text-backlink: black;
+  --text-color: rgb(15 15 15);
+  --shadow-color: rgb(15 15 15 / 50%);
+  --accent-color: rgb(240 0 0 / 50%);
+  --owl-bg: #F9F9F9;
+  --link: #00c;
+  --link-visited: #609;
+  --link-active: #c00;
+  --href-hover: #ffa;
+  --bg-hlist: #F4FFFF;
+  --bg-description:rgb(242, 243, 244);
+  --literal:green;
+  --type-ap: maroon;
+  --type-op: navy;
+  --type-dp: green;
+  --type-ni: brown;
+}

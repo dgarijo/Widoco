@@ -70,7 +70,7 @@ public class CreateResources {
 		logger.info("- ontology IRI: " + c.getOntologyURI());
 		lodeContent = LODEGeneration.getLODEhtml(c, lodeResources);
 		LODEParser lode = new LODEParser(lodeContent, c, languageFile);
-                
+
 		if (c.isCreateHTACCESS()) {
                         File fOut = new File(folderOut);
                         if (!fOut.exists()) {
@@ -477,6 +477,18 @@ public class CreateResources {
 					new File(resources.getAbsolutePath() + File.separator + "extra.css"));
 			WidocoUtils.copyLocalResource("/lode/owl.css",
 					new File(resources.getAbsolutePath() + File.separator + "owl.css"));
+			WidocoUtils.copyLocalResource("/darkmode/dark.css",
+					new File(resources.getAbsolutePath() + File.separator + "dark.css"));
+			WidocoUtils.copyLocalResource("/darkmode/light.css",
+					new File(resources.getAbsolutePath() + File.separator + "light.css"));
+			WidocoUtils.copyLocalResource("/darkmode/slider.css",
+					new File(resources.getAbsolutePath() + File.separator + "slider.css"));
+			WidocoUtils.copyLocalResource("/darkmode/dark-mode-toggle.mjs",
+					new File(resources.getAbsolutePath() + File.separator + "dark-mode-toggle.mjs"));
+			WidocoUtils.copyLocalResource("/darkmode/sun.svg",
+					new File(resources.getAbsolutePath() + File.separator + "sun.svg"));
+			WidocoUtils.copyLocalResource("/darkmode/moon.svg",
+					new File(resources.getAbsolutePath() + File.separator + "moon.svg"));
 		} else {
 			WidocoUtils.copyLocalResource("/lode/bootstrap-yeti.css",
 					new File(resources.getAbsolutePath() + File.separator + "yeti.css"));

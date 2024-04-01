@@ -70,6 +70,7 @@
     <developedby>vyvinuto</developedby>
     <or>nebo</or>
     <classtoc>Obsah tříd</classtoc>
+    <swrltoc>Obsah SWRL</swrltoc>     
     <objectpropertytoc>Obsah objektových vlastností</objectpropertytoc>
     <datapropertytoc>Obsah datových vlastností</datapropertytoc>
     <annotationpropertytoc>Obsah anotačních vlastností</annotationpropertytoc>
@@ -87,4 +88,5 @@
     <rangeIncludes>range includes</rangeIncludes>
     <usesRule>uses rule</usesRule>
     <editorialNote>redakční poznámka</editorialNote>
+    <externalproperty>externí vlastnosti</externalproperty>
 </labels>

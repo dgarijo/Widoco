@@ -70,6 +70,7 @@
     <developedby>erzeugt, entwickelt durch</developedby>
     <or>oder</or>
     <classtoc>Klassenübersicht</classtoc>
+    <swrltoc>Übersicht der SWRL</swrltoc>
     <objectpropertytoc>Übersicht der Objekteigenschaften</objectpropertytoc>
     <datapropertytoc>Übersicht der Dateneigenschaften</datapropertytoc>
     <annotationpropertytoc>Übersicht der Anmerkungseigenschaften</annotationpropertytoc>
@@ -88,4 +89,5 @@
     <scenarios>Szenarien</scenarios>
     <usesRule>verwendet die Regel</usesRule>
     <editorialNote>redaktionelle Anmerkung</editorialNote>
+    <externalproperty>externe Eigenschaft</externalproperty>
 </labels>

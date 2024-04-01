@@ -3,13 +3,13 @@ body {
 }
 
 h1 {
-    line-height: 110%;    
+    line-height: 110%;
 }
 
 .hlist {
-    border: 1px solid navy;
+    border: 1px solid var(--border);
     padding:5px;
-    background-color: #F4FFFF; 
+    background-color: var(--bg-hlist);
 }
 
 .hlist li {
@@ -21,7 +21,7 @@ h1 {
 }
 
 .entity {
-    border: 1px solid navy;
+    border: 1px solid var(--border);
     margin:5px 0px 5px 0px;
     padding: 5px;    
 }
@@ -33,22 +33,32 @@ h1 {
 
 .type-op {
     cursor:help;
-    color:navy;    
+    color:var(--type-op);
 }
 
 .type-dp {
     cursor:help;
-    color:green;    
+    color:var(--type-dp);    
+}
+
+.type-ep {
+    cursor:help;
+    color:mediumpurple;
+}
+
+.type-ep {
+    cursor:help;
+    color:mediumpurple;
 }
 
 .type-ap {
     cursor:help;
-    color:maroon;    
+    color:var(--type-ap);
 }
 
 .type-ni {
     cursor:help;
-    color:brown;    
+    color:var(--type-ni);
 }
 
 .logic {
@@ -59,7 +69,7 @@ h1 {
 h3 {
     margin-top: 3px;
     padding-bottom: 5px;
-	border-bottom: 1px solid navy;
+    border-bottom: 1px solid var(--border);
 }
 
 h2 {
@@ -77,13 +87,13 @@ dt {
 .description {
     border-top: 1px dashed gray;
     border-bottom: 1px dashed gray;
-    background-color: rgb(242, 243, 244);
+    background-color: var(--bg-description);
     margin-top:5px;
     padding-bottom:5px;
 }
 
 .description dl {
-    background-color: rgb(242, 243, 244);
+    background-color: var(--bg-description);
 }
 
 .description ul {
@@ -98,7 +108,8 @@ dt {
     color:black;
     padding: 2px;
     border: 1px dotted navy;
-    background-color: #F4FFFF;
+    background-color: var(--bg-backlink);
+    color: var(--text-backlink);
 }
 
 .imageblock {
@@ -119,6 +130,6 @@ dt {
 }
 
 .literal {
-    color:green;
+    color:var(--literal);
     font-style:italic;
 }

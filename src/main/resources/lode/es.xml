@@ -70,6 +70,7 @@
     <developedby>desarrollado por</developedby>
     <or>o</or>
     <classtoc>Índice de clases</classtoc>
+    <swrltoc>Índice de SWRL</swrltoc>
     <objectpropertytoc>Índice de propiedades de objetos</objectpropertytoc>
     <datapropertytoc>Índice de propiedades de datos</datapropertytoc>
     <annotationpropertytoc>Índice de propiedades de anotación</annotationpropertytoc>
@@ -87,4 +88,5 @@
     <rangeIncludes>el rango incluye</rangeIncludes>
     <usesRule>utiliza regla</usesRule>
     <editorialNote>nota editorial</editorialNote>
+    <externalproperty>propiedad externa</externalproperty>
 </labels>

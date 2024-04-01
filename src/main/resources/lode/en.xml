@@ -71,6 +71,7 @@
     <developedby>developed by</developedby>
     <or>or</or>
     <classtoc>Class ToC</classtoc>
+    <swrltoc>SWRL ToC</swrltoc>
     <objectpropertytoc>Object Property ToC</objectpropertytoc>
     <datapropertytoc>Data Property ToC</datapropertytoc>
     <annotationpropertytoc>Annotation Property ToC</annotationpropertytoc>
@@ -89,4 +90,5 @@
     <editorialNote>editorial note</editorialNote>
     <usedByRuleInAntecedent>used by rule (in antecedent)</usedByRuleInAntecedent>
     <usedByRuleInConsequent>used by rule (in consequent)</usedByRuleInConsequent>
+    <externalproperty>external property</externalproperty>
 </labels>

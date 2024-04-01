@@ -41,6 +41,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import widoco.ExternalPropertyParser;
+
 /**
  * Class made for parsing and manipulating LODE's html. This class contains most
  * of the TemplateGeneratorOLD class
@@ -69,6 +71,7 @@ public class LODEParser {
 	private String swrlrules;
 	private String swrlruleslist;
 	Configuration c;
+	ExternalPropertyParser extParser;
 
 	/**
 	 * Constructor for the LODE parser. The reason for creating this class is to reuse certain parts of
@@ -84,6 +87,9 @@ public class LODEParser {
 	public LODEParser(String lodeContent, Configuration c, Properties langFile) {
 		replacements = new HashMap<String, String>();
 		this.c = c;
+		extParser = new ExternalPropertyParser();
+		extParser.setOntology(c.getMainOntology().getOWLAPIModel(),c.getMainOntology().getNamespaceURI());
+		extParser.setLang(c.getCurrentLanguage());
 		parse(lodeContent, langFile);
 		//System.out.println(lodeContent);
 	}
@@ -190,6 +196,7 @@ public class LODEParser {
 						classes = classes.replace("<h2>" + langFile.getProperty(Constants.LANG_CLASSES) + "</h2>",
 								"<h3 id=\"classes-headline\" class=\"list\">" + langFile.getProperty(Constants.LANG_CLASSES)
 										+ "</h3>");
+						classes = extParser.parse(classes);
 						break;
 					case "objectproperties":
 						propertyList = getTermList(html.item(i));
@@ -197,6 +204,7 @@ public class LODEParser {
 						properties = properties.replace("<h2>" + langFile.getProperty(Constants.LANG_OBJ_PROP) + "</h2>",
 								"<h3 id=\"properties\" class=\"list\">" + langFile.getProperty(Constants.LANG_OBJ_PROP)
 										+ "</h3>");
+						properties = extParser.parse(properties);
 						break;
 					case "dataproperties":
 						dataPropList = (getTermList(html.item(i)));
@@ -204,6 +212,7 @@ public class LODEParser {
 						dataProp = dataProp.replace("<h2>" + langFile.getProperty(Constants.LANG_DATA_PROP) + "</h2>",
 								"<h3 id=\"dataproperties-headline\" class=\"list\">"
 										+ langFile.getProperty(Constants.LANG_DATA_PROP) + "</h3>");
+						dataProp = extParser.parse(dataProp);
 						break;
 					case "annotationproperties":
 						annotationPropList = (getTermList(html.item(i)));
@@ -212,6 +221,7 @@ public class LODEParser {
 								"<h2>" + langFile.getProperty(Constants.LANG_ANN_PROP) + "</h2>",
 								"<h3 id=\"annotationproperties\" class=\"list\">"
 										+ langFile.getProperty(Constants.LANG_ANN_PROP) + "</h3>");
+						annotationProp = extParser.parse(annotationProp);
 						break;
 					case "namedindividuals":
 						namedIndividualList = (getTermList(html.item(i)));
@@ -220,6 +230,7 @@ public class LODEParser {
 								"<h2>" + langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h2>",
 								"<h3 id=\"namedindividuals\" class=\"list\">"
 										+ langFile.getProperty(Constants.LANG_NAMED_INDIV) + "</h3>");
+						namedIndividuals = extParser.parse(namedIndividuals);
 						break;
 					/*missing: rules!*/
 					case "rules":
@@ -245,6 +256,7 @@ public class LODEParser {
 						swrlrules = (nodeToString(html.item(i)));
 						swrlrules = swrlrules.replace("<h2>SWRL rules</h2>",
 								"<h3 id=\"swrlrules\" class=\"list\">SWRL rules</h3>");
+						swrlrules = extParser.parse(swrlrules);
 						break;
 				}
 			}
