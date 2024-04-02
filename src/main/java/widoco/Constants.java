@@ -273,6 +273,11 @@ public class Constants {
 	public static final String PF_SERIALIZATION_JSON = "JSONLDSerialization";
 	public static final String PF_SERIALIZATION_RDF = "RDFXMLSerialization";
 	public static final String PF_SERIALIZATION_TTL = "TurtleSerialization";
+	public static final String PF_ABSTRACT_PATH = "pathToAbstract";
+	public static final String PF_INTRO_PATH = "pathToIntro";
+	public static final String PF_DESCRIPTION_PATH = "pathToDescription";
+	public static final String PF_OVERVIEW_PATH = "pathToOverview";
+	public static final String PF_REFERENCES_PATH = "pathToReferences";
 
 	/*OWL_API RDF Serializations*/
 	public static final String RDF_XML = "RDF/XML";
@@ -568,7 +573,7 @@ public class Constants {
 		while (it.hasNext()) {
 			Ontology currentOnto = it.next();
 			String currentOntoName = currentOnto.getName();
-			if (currentOntoName == null || "".equals(currentOntoName)) {
+			if (currentOntoName == null || currentOntoName.isEmpty()) {
 				currentOntoName = "Onto" + i;
 				i++;
 			}

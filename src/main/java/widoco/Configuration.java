@@ -259,7 +259,7 @@ public class Configuration {
 			mainOntologyMetadata.setPublisher(publisher);
 			String aux = propertyFile.getProperty(Constants.PF_AUTHORS, "");
 			String[] names, urls, authorInst, authorInstURI;
-			if (!aux.equals("")) {
+			if (!aux.isEmpty()) {
 				names = aux.split(";");
 				aux = propertyFile.getProperty(Constants.PF_AUTHORS_URI, "");
 				urls = aux.split(";");
@@ -289,7 +289,7 @@ public class Configuration {
 				}
 			}
 			aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS, "");
-			if (!aux.equals("")) {
+			if (!aux.isEmpty()) {
 				names = aux.split(";");
 				aux = propertyFile.getProperty(Constants.PF_CONTRIBUTORS_URI, "");
 				urls = aux.split(";");
@@ -406,7 +406,11 @@ public class Configuration {
 			if (!"".equals(funding)){
 				mainOntologyMetadata.setFundingGrants(new ArrayList<String>(Arrays.asList(funding.split(";"))));
 			}
-
+			this.setAbstractPath(propertyFile.getProperty(Constants.PF_ABSTRACT_PATH, null));
+			this.setDescriptionPath(propertyFile.getProperty(Constants.PF_DESCRIPTION_PATH, null));
+			this.setIntroductionPath(propertyFile.getProperty(Constants.PF_INTRO_PATH, null));
+			this.setOverviewPath(propertyFile.getProperty(Constants.PF_OVERVIEW_PATH, null));
+			this.setReferencesPath(propertyFile.getProperty(Constants.PF_REFERENCES_PATH, null));
 		} catch (IOException ex) {
 			// Only a warning, as we can continue safely without a property file.
 			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
@@ -486,14 +490,14 @@ public class Configuration {
 				mainOntologyMetadata.getLicense().setName(licName);
 			}
 		}
-		if (this.mainOntologyMetadata.getName() == null || this.mainOntologyMetadata.getName().equals("")) {
+		if (this.mainOntologyMetadata.getName() == null || this.mainOntologyMetadata.getName().isEmpty()) {
 			this.mainOntologyMetadata.setName(mainOntologyMetadata.getTitle());
 		}
-		if (mainOntologyMetadata.getStatus() == null || mainOntologyMetadata.getStatus().equals("")) {
+		if (mainOntologyMetadata.getStatus() == null || mainOntologyMetadata.getStatus().isEmpty()) {
 			mainOntologyMetadata.setStatus("Ontology Specification Draft");
 		}
 		// default name if no annotations are found
-		if (mainOntologyMetadata.getName() == null || mainOntologyMetadata.getName().equals("")) {
+		if (mainOntologyMetadata.getName() == null || mainOntologyMetadata.getName().isEmpty()) {
 			this.mainOntologyMetadata.setName("[Ontology Name]");
 		}
 		// default citation if none is given
@@ -522,7 +526,7 @@ public class Configuration {
 		OWLOntologyXMLNamespaceManager nsManager = new OWLOntologyXMLNamespaceManager(o, o.getFormat());
 		for (String prefix : nsManager.getPrefixes()) {
 			String namespaceURI = nsManager.getNamespaceForPrefix(prefix);
-			if ("".equals(prefix) || namespaceURI.equals(mainOntologyMetadata.getNamespaceURI())){
+			if (prefix.isEmpty() || namespaceURI.equals(mainOntologyMetadata.getNamespaceURI())){
 				namespaceDeclarations.put(mainOntologyMetadata.getNamespacePrefix(),namespaceURI);
 			}else{
 				namespaceDeclarations.put(prefix,nsManager.getNamespaceForPrefix(prefix));
@@ -531,7 +535,7 @@ public class Configuration {
 	}
 
 	private String appendDetails(final String detail, final String prefix, final boolean useFullStop) {
-		if (detail == null || detail.equals("")) {
+		if (detail == null || detail.isEmpty()) {
 			return "";
 		}
 
@@ -581,7 +585,7 @@ public class Configuration {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
 				if (this.currentLanguage.equals(valueLanguage)
-						|| (abstractSection == null || "".equals(abstractSection))) {
+						|| (abstractSection == null || abstractSection.isEmpty())) {
 					abstractSection = value;
 					this.setIncludeAbstract(true); // in case users set no place holder text but added their own
 				}
@@ -689,11 +693,11 @@ public class Configuration {
 						o.getAnnotationAssertionAxioms(valueURI).stream().forEach(i -> {
 							completeAgentMetadata(i, ag, o);
 						});
-						if(ag.getName()==null || ag.getName().equals("")){
+						if(ag.getName()==null || ag.getName().isEmpty()){
 							//the value does not have annotations, so we keep it as it is.
 							ag.setName(valueURI.getIRIString());
 						}
-						if(ag.getURL()==null || ag.getURL().equals("")){
+						if(ag.getURL()==null || ag.getURL().isEmpty()){
 							ag.setURL(valueURI.getIRIString());
 						}
 					}
@@ -826,7 +830,7 @@ public class Configuration {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
 				if (this.currentLanguage.equals(valueLanguage)
-						|| (introText == null || "".equals(introText))) {
+						|| (introText == null || introText.isEmpty())) {
 					introText = value;
 					this.setIncludeIntroduction(true);
 				}
@@ -937,11 +941,11 @@ public class Configuration {
 						o.getAnnotationAssertionAxioms(valueURI).stream().forEach(i -> {
 							completeAgentMetadata(i,aux,o);
 						});
-						if(aux.getName()==null || aux.getName().equals("")){
+						if(aux.getName()==null || aux.getName().isEmpty()){
 							//the value does not have annotations, so we keep it as it is.
 							aux.setName(valueURI.getIRIString());
 						}
-						if(aux.getURL()==null || aux.getURL().equals("")){
+						if(aux.getURL()==null || aux.getURL().isEmpty()){
 							aux.setURL(valueURI.getIRIString());
 						}
 					}
@@ -1267,7 +1271,7 @@ public class Configuration {
 	public void addLanguageToGenerate(String lang) {
 		if (!this.languages.containsKey(lang)) {
 			this.languages.put(lang, false);
-			if (currentLanguage.equals("")) {
+			if (currentLanguage.isEmpty()) {
 				currentLanguage = lang;
 			}
 		}
