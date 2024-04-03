@@ -712,7 +712,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
                     <xsl:otherwise>
                         <xsl:variable name="camelCase" select="replace($localName,'([A-Z])',' $1')"/>
                         <xsl:variable name="underscoreOrDash" select="replace($camelCase,'(_|-)',' ')"/>
-                        <xsl:value-of select="normalize-space(lower-case($underscoreOrDash))"/>
+                        <xsl:value-of select="normalize-space($underscoreOrDash)"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
