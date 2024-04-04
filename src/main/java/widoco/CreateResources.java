@@ -291,7 +291,7 @@ public class CreateResources {
                 }
                 // add the webvowl diagram, if selected
                 if (c.isCreateWebVowlVisualization()) {
-                        textToWrite += "<iframe align=\"center\" width=\"100%\" height =\"500px\" src=\"webvowl/index.html\"></iframe> ";
+                        textToWrite += "<iframe src=\"webvowl/index.html\"></iframe> ";
                 }
                 textToWrite += "\n";
                 if(!c.isIncludeAllSectionsInOneDocument()){
