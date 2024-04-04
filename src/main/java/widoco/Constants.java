@@ -75,6 +75,7 @@ public class Constants {
 	public static final String NS_VOAF = "http://purl.org/vocommons/voaf#";
 	public static final String NS_WDRS = "http://www.w3.org/2007/05/powder-s#";
 	public static final String NS_WIDOCO = "https://w3id.org/widoco/vocab#";
+	public static final String NS_DOAP = "http://usefulinc.com/ns/doap#";
 
 	public static final String PROP_RDFS_LABEL = NS_RDFS + "label";
 	public static final String PROP_RDFS_COMMENT = NS_RDFS + "comment";
@@ -125,6 +126,8 @@ public class Constants {
 	public static final String PROP_SCHEMA_LOGO_HTTPS = NS_SCHEMA_HTTPS + "logo";
 	public static final String PROP_SCHEMA_STATUS_HTTP = NS_SCHEMA_HTTP + "creativeWorkStatus";
 	public static final String PROP_SCHEMA_STATUS_HTTPS = NS_SCHEMA_HTTPS + "creativeWorkStatus";
+	public static final String PROP_SCHEMA_CODE_REPO_HTTP = NS_SCHEMA_HTTP + "codeRepository";
+	public static final String PROP_SCHEMA_CODE_REPO_HTTPS = NS_SCHEMA_HTTPS + "codeRepository";
 
 	public static final String PROP_OWL_VERSION_INFO = NS_OWL + "versionInfo";
 	public static final String PROP_OWL_PRIOR_VERSION = NS_OWL + "priorVersion";
@@ -155,6 +158,8 @@ public class Constants {
 	public static final String PROP_DCTERMS_BIBLIOGRAPHIC_CIT = NS_DCTERMS + "bibliographicCitation";
 	public static final String PROP_DCTERMS_HAS_VERSION = NS_DCTERMS + "hasVersion";
 	public static final String PROP_DCTERMS_SOURCE = NS_DCTERMS + "source";
+
+	public static final String PROP_DOAP_REPO = NS_DOAP + "repository";
 
 	public static final String PROP_BIBO_DOI = NS_BIBO + "doi";
 	public static final String PROP_BIBO_STATUS = NS_BIBO + "status";
@@ -273,6 +278,12 @@ public class Constants {
 	public static final String PF_SERIALIZATION_JSON = "JSONLDSerialization";
 	public static final String PF_SERIALIZATION_RDF = "RDFXMLSerialization";
 	public static final String PF_SERIALIZATION_TTL = "TurtleSerialization";
+	public static final String PF_ABSTRACT_PATH = "pathToAbstract";
+	public static final String PF_INTRO_PATH = "pathToIntro";
+	public static final String PF_DESCRIPTION_PATH = "pathToDescription";
+	public static final String PF_OVERVIEW_PATH = "pathToOverview";
+	public static final String PF_REFERENCES_PATH = "pathToReferences";
+	public static final String PF_REFERENCES_CODE_REPO = "codeRepository";
 
 	/*OWL_API RDF Serializations*/
 	public static final String RDF_XML = "RDF/XML";
@@ -349,6 +360,7 @@ public class Constants {
 	public static final String LANG_SEE_ALSO = "seeAlso";
 	public static final String LANG_FUNDER = "funder";
 	public static final String LANG_FUNDING = "funding";
+	public static final String LANG_CODE_REPO = "codeRepository";
 
 	// labels for the changelog
 	public static final String LANG_CHANGELOG_HEAD = "changelogHead";
@@ -568,7 +580,7 @@ public class Constants {
 		while (it.hasNext()) {
 			Ontology currentOnto = it.next();
 			String currentOntoName = currentOnto.getName();
-			if (currentOntoName == null || "".equals(currentOntoName)) {
+			if (currentOntoName == null || currentOntoName.isEmpty()) {
 				currentOntoName = "Onto" + i;
 				i++;
 			}
@@ -674,6 +686,9 @@ public class Constants {
 		// license (optional)
 		if (o.getLicense() != null && o.getLicense().getUrl() != null && !"".equals(o.getLicense().getUrl())) {
 			metadata += ", \"license\":\"" + o.getLicense().getUrl() + "\"";
+		}
+		if(o.getCodeRepository()!=null && !o.getCodeRepository().isEmpty()){
+			metadata += ", \"codeRepository\":\"" + o.getCodeRepository() + "\"";
 		}
 		// authors (optional)
 		ArrayList<Agent> a = o.getCreators();
@@ -1083,12 +1098,19 @@ public class Constants {
 					+ "<a href=\""+c.getMainOntology().getBackwardsCompatibleWith()+"\">"
 					+ c.getMainOntology().getBackwardsCompatibleWith() +"</a>" + "</dd>\n";
 		}
-                if (!"".equals(c.getMainOntology().getIncompatibleWith())
+		if (!"".equals(c.getMainOntology().getIncompatibleWith())
 				&& c.getMainOntology().getIncompatibleWith() != null) {
 			// doi is common for all languages
 			head += "<dt>" + l.getProperty(LANG_INCOMPATIBLE) + ":</dt>\n<dd>"
 					+ "<a href=\""+c.getMainOntology().getIncompatibleWith()+"\">"
 					+ c.getMainOntology().getIncompatibleWith() +"</a>" + "</dd>\n";
+		}
+		if (!"".equals(c.getMainOntology().getCodeRepository())
+				&& c.getMainOntology().getCodeRepository() != null) {
+			// doi is common for all languages
+			head += "<dt>" + l.getProperty(LANG_CODE_REPO) + ":</dt>\n<dd>"
+					+ "<a href=\""+c.getMainOntology().getCodeRepository()+"\">"
+					+ c.getMainOntology().getCodeRepository() +"</a>" + "</dd>\n";
 		}
 
 		// end definition list

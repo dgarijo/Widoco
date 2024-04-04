@@ -82,6 +82,11 @@ public class GuiStep3 extends javax.swing.JFrame {
         checkBoxWebVowl.setSelected(true);
         checkBoxAutomatedChangeLog.setSelected(true);
         if(g.getConfig().getGoogleAnalyticsCode()!=null)analyticsField.setText(g.getConfig().getGoogleAnalyticsCode());
+        abstractPath = g.getConfig().getAbstractPath();
+        introductionPath = g.getConfig().getIntroductionPath();
+        descriptionPath = g.getConfig().getDescriptionPath();
+        overviewPath = g.getConfig().getOverviewPath();
+        referencesPath = g.getConfig().getReferencesPath();
     }
 
     /** This method is called from within the constructor to

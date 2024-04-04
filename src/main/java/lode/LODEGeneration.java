@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 import javax.xml.transform.Transformer;
@@ -61,7 +62,7 @@ public class LODEGeneration {
 
 			String content = "";
 			String lang = c.getCurrentLanguage();
-			if (lang == null || "".equals(lang)) {
+			if (lang == null || lang.isEmpty()) {
 				lang = "en";
 			}
 			// we have stored the ontology locally
@@ -318,7 +319,7 @@ public class LODEGeneration {
 
 		transformer.transform(inputSource, new StreamResult(output));
 
-		return output.toString("UTF-8").replace("any u r i", "anyURI");
+		return output.toString(StandardCharsets.UTF_8).replace("any u r i", "anyURI");
 	}
 
 }

@@ -45,9 +45,10 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 |Abstract         |[dc:abstract], [dcterms:abstract]|abstract              |[Sec 3.2.4] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Backwards compatible|[owl:backwardCompatibleWith]  |backwardCompatibleWith|[Sec 3.3.3] **[OPTIONAL]**|[URI] |[ontology](#onto), [config]|
 |Bibliographic citation|[dcterms:bibliographicCitation], [schema:citation]|citeAs|[Sec 3.6.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
+|Code repository|[schema:codeRepository], [doap:repository]|codeRepository|[Sec 3.10] **[OPTIONAL]**|[URI]|[ontology](#onto), [config]|
+|Contributors|[dcterms:contributor], [dc:contributor], [schema:contributor], [pav:contributedBy], [doap:documenter], [doap:maintainer], [doap:helper], [doap:translator]|contributors, contributorsURI, contributorsInstitution, contributorsInstitutionURI|[Sec 3.5.2] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |Creation date|[dcterms:created], [schema:dateCreated], [prov:generatedAtTime], [pav:createdOn], [doap:created]|dateCreated|[Sec 3.4.2] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Creators|[dcterms:creator], [dc:creator], [schema:creator], [pav:createdBy], [pav:authoredBy], [prov:wasAttributedTo], [doap:developer], [foaf:maker]|authors, authorsURI, authorsInstitution, authorsInstitutionURI|[Sec 3.5.1] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
-|Contributors|[dcterms:contributor], [dc:contributor], [schema:contributor], [pav:contributedBy], [doap:documenter], [doap:maintainer], [doap:helper], [doap:translator]|contributors, contributorsURI, contributorsInstitution, contributorsInstitutionURI|[Sec 3.5.2] **[RECOMMENDED]**|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |Description|[dc:description], [dcterms:description], [schema:description], [rdfs:comment], [skos:note], [doap:description], [doap:shortdesc]|description|[Sec 3.2.3] **[OPTIONAL]**|[Text]|[ontology](#onto), [config]|
 |Diagram|[foaf:image], [foaf:depiction], [schema:image]|diagram   |[Sec 3.8.2] **[OPTIONAL]**|[Text]         |[ontology](#onto), [config]|
 |DOI    |[bibo:doi]                                    |DOI       |[Sec 3.6.1] **[OPTIONAL]**|[Text]         |[ontology](#onto), [config]|
@@ -140,6 +141,7 @@ The following `Turtle` code block shows sample annotations for each of the metad
     bibo:status <http://purl.org/ontology/bibo/status/draft> ;
     foaf:fundedBy <https://example.org/fundingOrganization> ;
     schema:funding <https://example.org/fundingGrant> ;
+    schema:codeRepository "https://github.com/dgarijo/example"^^xsd:anyURI;
     widoco:introduction "A paragraph with the introduction section of the documentation about your resource"@en ;
     widoco:rdfxmlSerialization "https://example.org/serialization/ontology.xml"^^xsd:anyURI ; 
     owl:versionInfo "1.0.1" .
@@ -212,27 +214,28 @@ Create a `config.properties` file and use the `-confFile` option to invoke Widoc
 
 ```
 abstract=An example ontology
-backwardCompatibleWith=https://w3id.org/example/1.0.0
-citeAs="add some citattion text here."
 authors=First Author;Second Author
 authorsURI=http://example.org/author1;http://example.org/author2
 authorsInstitution=First author institution;Second author institution
 authorsInstitutionURI=https://www.isi.edu/;https://www.isi.edu/
+backwardCompatibleWith=https://w3id.org/example/1.0.0
+citeAs="add some citattion text here."
+codeRepository=https://github.com/dgarijo/example
 contributors=First contributor;Second contributor
 contributorsURI=http://example.org/contributor1;http://example.org/contributor2
 contributorsInstitution=First contributor institution;Second contributor institution
 contributorsInstitutionURI=https://isi.edu/;https://isi.edu/
-description=A description of what the ontology does goes here
 dateCreated="13 Nov, 2022"
 dateIssued="14 Nov, 2022"
 dateModified="15 April, 2023"
-diagram="https://example.org/diagram.svg"
+description=A description of what the ontology does goes here
 extendedOntologyNames=test1; test2
 extendedOntologyURIs=http://example.org/test1; http://example.org/test2
 DOI=https://dx.doi.org/SOME/DOI
 funder=https://example.org/institution
 funding=https://example.org/fundingGrant
 incompatibleWith=https://w3id.org/example/0.0.1
+images=image1.png;image2.png
 importedOntologyNames=Imported Ontology 1; Imported Ontology 2
 importedOntologyURIs=http://example.org/test11; http://example.org/test22
 introduction=A brief text for the introduction section may be written here.
@@ -241,21 +244,28 @@ licenseName=CC-BY
 licenseIconURL=https://i.creativecommons.org/l/by/2.0/88x31.png
 logo="https://example.org/logo.svg"
 ontologyName=The Cohort Ontology
-ontologyPrefix=exo
 ontologyNamespaceURI=https://w3id.org/example
-previousVersionURI=https://w3id.org/example/1.0.0
-publisher=
-publisherURI=
-publisherInstitution=
-publisherInstitutionURI=
 ontologyTitle=The Example Ontology
+ontologyPrefix=exo
+ontologyRevisionNumber=1.0.0
+pathToAbstract=abstract.html (superseedes abstract)
+pathToDescription=description.html (superseedes description)
+pathToIntro=intro.html (supersedes introduction)
+pathToOverview=overview.html
+pathToReferences=references.html
+previousVersionURI=https://w3id.org/example/1.0.0
+publisher=Ontology Engineering Group
+publisherURI=https://oeg-upm.es
+publisherInstitution=UPM
+publisherInstitutionURI=https://www.upm.es
 thisVersionURI=https://w3id.org/example/1.0.1
-ontologyRevisionNumber=v1.0.0
+source=http://source1;http://source2
+seeAlso=http://firstResource
 status=Ontology Specification Draft
+JSONLDSerialization=ontology.nt
+NTSerialization=ontology.nt
 RDFXMLSerialization=ontology.xml
 TurtleSerialization=ontology.ttl
-NTSerialization=ontology.nt
-JSONLDSerialization=ontology.nt
 ```
 
 ## Glossary (<a href="#table">Back to table</a>)
@@ -309,6 +319,7 @@ JSONLDSerialization=ontology.nt
 [Sec 3.8.1]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#logo
 [Sec 3.8.2]: https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#diagram
 [Sec 3.9]:   https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#similar
+[Sec 3.10]:  https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#code
 [Sec 4.1]:   https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#label
 [Sec 4.2]:   https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#def
 [Sec 4.3]:   https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html#osource
@@ -351,6 +362,7 @@ JSONLDSerialization=ontology.nt
 [doap:maintainer]:               http://usefulinc.com/ns/doap#maintainer
 [doap:shortdesc]:                http://usefulinc.com/ns/doap#shortdesc
 [doap:translator]:               http://usefulinc.com/ns/doap#translator
+[doap:repository]:               http://usefulinc.com/ns/doap#repository
 [foaf:depiction]:                http://xmlns.com/foaf/0.1/depiction
 [foaf:family_name]:              http://xmlns.com/foaf/0.1/family_name
 [foaf:fundedBy]:                 http://xmlns.com/foaf/0.1/fundedBy
@@ -391,6 +403,7 @@ JSONLDSerialization=ontology.nt
 [schema:affiliation]:            https://schema.org/affiliation
 [schema:citation]:               https://schema.org/citation
 [schema:contributor]:            https://schema.org/contributor
+[schema:codeRepository]:         https://schema.org/codeRepository
 [schema:creator]:                https://schema.org/creator
 [schema:creativeWorkStatus]:     https://schema.org/creativeWorkStatus
 [schema:dateCreated]:            https://schema.org/dateCreated
