@@ -228,6 +228,7 @@ public class Configuration {
 		mainOntologyMetadata.setSeeAlso(new ArrayList<>());
 		mainOntologyMetadata.setFunders(new ArrayList<>());
 		mainOntologyMetadata.setFundingGrants(new ArrayList<>());
+		mainOntologyMetadata.setCodeRepository("");
 		this.namespaceDeclarations = new HashMap<>();
 	}
 
@@ -411,6 +412,7 @@ public class Configuration {
 			this.setIntroductionPath(propertyFile.getProperty(Constants.PF_INTRO_PATH, null));
 			this.setOverviewPath(propertyFile.getProperty(Constants.PF_OVERVIEW_PATH, null));
 			this.setReferencesPath(propertyFile.getProperty(Constants.PF_REFERENCES_PATH, null));
+			mainOntologyMetadata.setCodeRepository(propertyFile.getProperty(Constants.PF_REFERENCES_CODE_REPO, ""));
 		} catch (IOException ex) {
 			// Only a warning, as we can continue safely without a property file.
 			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
@@ -854,6 +856,12 @@ public class Configuration {
 		case Constants.PROP_WIDOCO_TURTLE:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.getSerializations().replace(Constants.TTL, value);
+			break;
+		case Constants.PROP_DOAP_REPO:
+		case Constants.PROP_SCHEMA_CODE_REPO_HTTP:
+		case Constants.PROP_SCHEMA_CODE_REPO_HTTPS:
+			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
+			mainOntologyMetadata.setCodeRepository(value);
 			break;
 		}
 	}

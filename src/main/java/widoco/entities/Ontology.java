@@ -156,6 +156,8 @@ public class Ontology {
 
     private String logo;
 
+    private String codeRepository;
+
 
 
     public Ontology() {
@@ -457,5 +459,13 @@ public class Ontology {
 
     public void setSources(ArrayList<String> sources) {
         this.sources = sources;
+    }
+
+    public String getCodeRepository(){
+        return codeRepository;
+    }
+
+    public void setCodeRepository(String codeRepository) {
+        this.codeRepository = codeRepository;
     }
 }

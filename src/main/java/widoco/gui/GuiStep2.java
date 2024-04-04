@@ -210,35 +210,35 @@ public final class GuiStep2 extends javax.swing.JFrame {
 			}
 		}
 		for (Agent a : conf.getMainOntology().getContributors()) {
-			if (a.getName() == null || a.getName().equals("")) {
+			if (a.getName() == null || a.getName().isEmpty()) {
 				contributors.append("contributor; ");
 			} else {
 				contributors.append(a.getName()).append("; ");
 			}
 		}
 		for (Agent a : conf.getMainOntology().getFunders()) {
-			if (a.getName() == null || a.getName().equals("")) {
+			if (a.getName() == null || a.getName().isEmpty()) {
 				funders.append("funding; ");
 			} else {
 				funders.append(a.getName()).append("; ");
 			}
 		}
 		for (Ontology a : conf.getMainOntology().getImportedOntologies()) {
-			if (a.getName() == null || a.getName().equals("")) {
+			if (a.getName() == null || a.getName().isEmpty()) {
 				imported.append("importedOnto; ");
 			} else {
 				imported.append(a.getName()).append("; ");
 			}
 		}
 		for (Ontology a : conf.getMainOntology().getExtendedOntologies()) {
-			if (a.getName() == null || a.getName().equals("")) {
+			if (a.getName() == null || a.getName().isEmpty()) {
 				extended.append("extendedOnto; ");
 			} else {
 				extended.append(a.getName()).append("; ");
 			}
 		}
 		Agent p = conf.getMainOntology().getPublisher();
-		if (p.getName() == null || p.getName().equals("")) {
+		if (p.getName() == null || p.getName().isEmpty()) {
 			if (p.getURL() != null) {
 				publisher.append("publisherName ");
 			}
@@ -246,22 +246,22 @@ public final class GuiStep2 extends javax.swing.JFrame {
 			publisher.append(p.getName());
 		}
 		for (String img: conf.getMainOntology().getImages()){
-			if(!img.equals("")){
+			if(!img.isEmpty()){
 				images.append(img).append(";");
 			}
 		}
 		for (String source: conf.getMainOntology().getSources()){
-			if(!source.equals("")){
+			if(!source.isEmpty()){
 				sources.append(source).append(";");
 			}
 		}
 		for (String see: conf.getMainOntology().getSeeAlso()){
-			if(!see.equals("")){
+			if(!see.isEmpty()){
 				seeAlso.append(see).append(";");
 			}
 		}
 		for (String see: conf.getMainOntology().getFundingGrants()){
-			if(!see.equals("")){
+			if(!see.isEmpty()){
 				funding.append(see).append(";");
 			}
 		}
@@ -295,11 +295,12 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				{ "logo", conf.getMainOntology().getLogo() },
 				{ "sources", sources.toString() },
 				{ "funding", funding.toString() },
-				{ "see also", seeAlso.toString() }
+				{ "see also", seeAlso.toString() },
+				{ "code repository", conf.getMainOntology().getCodeRepository() }
 				},
 				new String[] { "Property", "Value" }) {
-			Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
-			boolean[] canEdit = new boolean[] { false, true };
+			final Class[] types = new Class[] { java.lang.String.class, java.lang.Object.class };
+			final boolean[] canEdit = new boolean[] { false, true };
 
 			@Override
 			public Class getColumnClass(int columnIndex) {
@@ -401,6 +402,9 @@ public final class GuiStep2 extends javax.swing.JFrame {
 					break;
 				case "logo":
 					conf.getMainOntology().setLogo(value);
+					break;
+				case "code repository":
+					conf.getMainOntology().setCodeRepository(value);
 					break;
 			}
 		}
@@ -913,47 +917,6 @@ public final class GuiStep2 extends javax.swing.JFrame {
 	 * @param args
 	 *            the command line arguments
 	 */
-	// public static void main(String args[]) {
-	// /* Set the Nimbus look and feel */
-	// //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-	// (optional) ">
-	// /* If Nimbus (introduced in Java SE 6) is not available, stay with the
-	// default look and feel.
-	// * For details see
-	// http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-	// */
-	// try {
-	// for (javax.swing.UIManager.LookAndFeelInfo info :
-	// javax.swing.UIManager.getInstalledLookAndFeels()) {
-	// if ("Nimbus".equals(info.getName())) {
-	// javax.swing.UIManager.setLookAndFeel(info.getClassName());
-	// break;
-	// }
-	// }
-	// } catch (ClassNotFoundException ex) {
-	// java.util.logging.Logger.getLogger(GuiStep2.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null, ex);
-	// } catch (InstantiationException ex) {
-	// java.util.logging.Logger.getLogger(GuiStep2.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null, ex);
-	// } catch (IllegalAccessException ex) {
-	// java.util.logging.Logger.getLogger(GuiStep2.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null, ex);
-	// } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	// java.util.logging.Logger.getLogger(GuiStep2.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null, ex);
-	// }
-	// //</editor-fold>
-	//
-	// /* Create and display the form */
-	// java.awt.EventQueue.invokeLater(new Runnable() {
-	//
-	// public void run() {
-	// new GuiStep2().setVisible(true);
-	// }
-	// });
-	// }
-	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton backButton;
 	private javax.swing.JProgressBar barStatus;
 	private javax.swing.JButton cancelButton;
@@ -980,5 +943,4 @@ public final class GuiStep2 extends javax.swing.JFrame {
 	private javax.swing.JTextPane textPaneSteps;
 	private javax.swing.JCheckBox useLicensiusWSCheckBox;
 	private javax.swing.JLabel widocoLogo;
-	// End of variables declaration//GEN-END:variables
 }

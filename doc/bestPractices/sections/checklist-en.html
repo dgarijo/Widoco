@@ -593,6 +593,24 @@ Property used to add pointers to similar resources. It may be helpful for the re
     rdfs:seeAlso &lt;http://www.wikipathways.org/&gt; .
 </pre>
 
+<h3 id="code" class="list">Code repository (vocabulary maintenance) [<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>]</h3>
+<p>
+Property used to indicate if there is a public code repository where the vocabulary is maintained. This information may be helpful to the adopter of your vocabulary, in order to raise issues and see current discussions.
+</p>
+
+<ul class="hlist"><strong>Properties you may use</strong>:
+	<li><a target="_blank" href="http://schema.org/codeRepository">schema:codeRepository</a> <strong>(PREFERRED)</strong></li>
+	<li><a target="_blank" href="http://usefulinc.com/ns/doap#repository">doap:repository</a></li>
+</ul>
+
+<h5>Example:</h5>
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+&lt;http://vocabularies.wikipathways.org/wpTypes#&gt; a owl:Ontology ;
+    schema:codeRepository "https://github.com/user/repo"^^xsd:anyURI; .
+</pre>
+
 
 <h2 id="desc-term" class="list">Term checklist of metadata properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 These metadata terms are targeted towards describing the classes, properties and data properties of the ontology. Adding them as part of the ontology is crucial for potential reusers:
