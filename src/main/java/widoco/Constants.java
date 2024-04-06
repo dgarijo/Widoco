@@ -421,7 +421,7 @@ public class Constants {
 "    -uniteSections: Write all HTML sections into a single HTML document. \n" +
 "    -noPlaceHolderText: Do not add any placeholder text (this will remove intro, abstract (if empty) and " +
 				"description sections)." +
-"    --help: Shows this message and exit.\n";  
+"    --help: Shows this message and exit.\n";
 
 	/**
 	 * Head section of the HTML document.
@@ -444,7 +444,7 @@ public class Constants {
 
 	/**
 	 * Text representing the div of the status.
-	 * 
+	 *
 	 * @param c
 	 * @return
 	 */
@@ -646,7 +646,7 @@ public class Constants {
 	 * Serialization of the JSON LD for the ontology specification. Given that I
 	 * have faced some serialization issues, I serialize it by hand, using basic
 	 * properties.
-	 * 
+	 *
 	 * @param c
 	 * @return
 	 */
@@ -903,7 +903,7 @@ public class Constants {
          * @param abs abstract section
          * @param intro introduction section
          * @param overview overview section
-         * @param des description section 
+         * @param des description section
          * @param references references section
          * @param changelog changelog section
          * @param crossRef cross reference section
@@ -935,7 +935,7 @@ public class Constants {
 		document += "<script src=\"" + resourcesFolderName + "/jquery.js\"></script> \n" + "<script src=\""
 				+ resourcesFolderName + "/marked.min.js\"></script> \n" + "    "
                         + "<script> \n" + "function loadHash() {\n"
-				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});\n"
+				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked.parse(jQuery(this).text())).remove()});\n"
 				+ "	var hash = location.hash;\n" + "	if($(hash).offset()!=null){\n"
 				+ "	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);\n" + "}\n" + "	loadTOC();\n"
 				+ "}\n" + "function loadTOC(){\n" + "	//process toc dynamically\n" + "	  var t='<h2>"
@@ -947,8 +947,8 @@ public class Constants {
 				+ "				t+='<ul>';\n" + "			}\n" + "			j++;\n"
 				+ "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore(\"span\").text()+'</a></li>';\n"
 				+ "		}\n" + "	  });\n" + "	  t+='</ul>';\n" + "	  $(\"#toc\").html(t); \n" + "}\n"
-                                + "$(function(){\n" 
-                                + "    loadHash();\n" 
+                                + "$(function(){\n"
+                                + "    loadHash();\n"
                                 + "});"
 				+ " $.fn.ignore = function(sel){\n" + "        return this.clone().find(sel||\">*\").remove().end();\n"
 				+ " };" + " \n";
@@ -1220,7 +1220,7 @@ public class Constants {
 			provURI = "..\\index-" + c.getCurrentLanguage() + ".html";
 		}
 		String provrdf = "@prefix prov: <http://www.w3.org/ns/prov#> .\n"
-				+ "@prefix dc: <http://purl.org/dc/terms/> .\n" 
+				+ "@prefix dc: <http://purl.org/dc/terms/> .\n"
                                 + "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n"
                                 + "@prefix : <> .\n";
 		provrdf += "<" + provURI + "> a prov:Entity;\n";
@@ -1323,8 +1323,8 @@ public class Constants {
 				+ "<dt><span class=\"label label-minor\">Minor</span></dt> <dd>It is not really a problem, but by correcting it we will make the ontology nicer.</dd>\n"
 				+ "</dl>" + evaluationContent +
 				// references
-				"<p>References:</p>\n" + 
-				"    <ul>\n" + 
+				"<p>References:</p>\n" +
+				"    <ul>\n" +
                 "<li>\n"+
 				"    [1] Aguado-De Cea, G., Montiel-Ponsoda, E., Poveda-Villalón, M., and Giraldo-Pasmin, O.X. (2015). Lexicalizing Ontologies: The issues behind the labels. In Multimodal communication in the 21st century: Professional and academic challenges. 33rd Conference of the Spanish Association of Applied Linguistics (AESLA), XXXIII AESLA." +
                 "</li>\n"+
@@ -1380,7 +1380,7 @@ public class Constants {
 	/**
 	 * Method that writes an htaccess file according to the W3C best practices. Note
 	 * that hash is different from slash
-	 * 
+	 *
 	 * @param c Configuration parameter with the language parameters
 	 * @return a String with the htaccess file
 	 */
@@ -1497,7 +1497,7 @@ public class Constants {
 
 	/**
 	 * Text for the 406 page
-	 * 
+	 *
 	 * @param c
 	 * @param lang
 	 * @return the content of the 406 page
