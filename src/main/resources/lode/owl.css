@@ -8,7 +8,7 @@
     font-size: 95%;
 }
 #abstract br {
-   /* doesn't work right SOMETIMES 
+   /* doesn't work right SOMETIMES
    margin-bottom: 1em;   */
 }
 .name {
@@ -21,7 +21,7 @@
     padding-right: 1ex;
     padding-top: 1ex;
     padding-bottom: 0.6ex;
-    border: 1px dotted black; 
+    border: 1px dotted black;
 }
 .grammar {
     margin-top: 1ex;
@@ -59,7 +59,7 @@
     background-color: #FFA;
 }
 .atrisknotehead {
-    font-style: italic;	
+    font-style: italic;
 }
 
 /* Stying the examples. */
@@ -87,15 +87,15 @@
 /* Styling the parts in the functional-style syntax. */
 
 div.fss {
-    margin-top: 10px; 
-    margin-bottom: 10px; 
-    margin-left: 20px; 
-    margin-right: 20px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-family: monospace;
 }
 table.fss {
-    margin: 0px 0px 0px 0px; 
-    padding: 0px 0px 0px 0px; 
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
     width: 100%;
 }
 table.fss caption.fss {
@@ -111,8 +111,8 @@ table.fss td:first-child {
     width: 60%;
 }
 table{
-    background-color: #f4ffff;
-    border: 1px solid navy;
+    background-color: var(--bg-hlist);
+    border: 1px solid var(--border);
     margin: 20px;
     vertical-align: middle;
 }
@@ -124,15 +124,15 @@ table td {
 /* Styling the parts in the RDF syntax. */
 
 div.rdf{
-    margin-top: 10px; 
-    margin-bottom: 10px; 
-    margin-left: 20px; 
-    margin-right: 20px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-family: monospace;
 }
 table.rdf {
-    margin: 0px 0px 0px 0px; 
-    padding: 0px 0px 0px 0px; 
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
     width: 100%;
 }
 table.rdf caption.rdf {
@@ -151,17 +151,17 @@ table.rdf td:first-child {
 /* Styling the XML syntax. */
 
 div.xmlsyn {
-    margin-top: 10px; 
-    margin-bottom: 10px; 
-    margin-left: 20px; 
-    margin-right: 20px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-family: monospace;
 }
 div.axioms {
-    margin-top: 10px; 
-    margin-bottom: 10px; 
-    margin-left: 20px; 
-    margin-right: 20px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 /* Other styles. */
@@ -225,7 +225,7 @@ div {
     margin-bottom: 0;
 }
 #fulltitle {
-  font-size: 140%; 
+  font-size: 140%;
   font-weight: bold;
 }
 
