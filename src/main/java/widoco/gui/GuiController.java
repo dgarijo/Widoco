@@ -65,7 +65,7 @@ public final class GuiController {
 		System.out.println("\nYou are launching WIDOCO GUI\n");
 		System.out.println("\nTo use WIDOCO through the command line please type:\n");
 		System.out.println(Constants.HELP_TEXT);
-                
+
                 // read logo
 		try {
 			gui = new GuiStep1(this);
@@ -78,7 +78,7 @@ public final class GuiController {
 
 	/**
 	 * Method for running the application via console.
-	 * 
+	 *
 	 * @param args
 	 */
 	public GuiController(String[] args) {
@@ -256,10 +256,19 @@ public final class GuiController {
 			this.config.setIncludeIntroduction(false);
 		}
 		if (!placeHolderText){
-			this.config.setIncludeIntroduction(false);
-			this.config.setIncludeDescription(false);
-			this.config.setIncludeReferences(false);
-			this.config.setIncludeAbstract(false);
+      // only disable those not explicitly set
+      if( this.config.getIntroductionPath() == null ) {
+        this.config.setIncludeIntroduction(false);
+      }
+      if( this.config.getDescriptionPath() == null ) {
+        this.config.setIncludeDescription(false);
+      }
+      if( this.config.getReferencesPath() == null ) {
+        this.config.setIncludeReferences(false);
+      }
+      if( this.config.getAbstractPath() == null ) {
+        this.config.setIncludeAbstract(false);
+      }
 		}
 		if (code != null) {
 			this.config.setGoogleAnalyticsCode(code);
