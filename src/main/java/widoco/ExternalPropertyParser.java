@@ -292,7 +292,7 @@ public class ExternalPropertyParser {
                 continue;
             }
             label = getLabel(entity, langPrefix, importedOntology);
-            if (label != null) return label;
+            if (!label.isEmpty()) return label;
         }
         return Optional.empty();
     }
