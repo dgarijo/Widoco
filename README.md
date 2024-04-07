@@ -7,7 +7,7 @@ WIDOCO helps you to publish and create an enriched and customized documentation 
 
 **Author**: Daniel Garijo Verdejo (@dgarijo)
 
-**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk, Pat Mc Bennett, Christophe Camel, Jacobus Geluk, Martin Scharm, @rpietzsch, Jonathan Leitschuh, Jodi Schneider, Giacomo Lanza, Alejandra Gonzalez-Beltran, Mario Scrocca, Miguel Angel García, Flores Bakker, @JohnnyMoonlight,  René Fritze, @telecsur, Jan Vlug, Han Kruiger, Johannes Theissen-Lipp, Roberto Polli and Victor Chavez.
+**Contributors**: María Poveda, Idafen Santana, Almudena Ruiz, Miguel Angel García, Oscar Corcho, Daniel Vila, Sergio Barrio, Martin Scharm, Maxime Lefrancois, Alfredo Serafini, @kartgk, Pat Mc Bennett, Christophe Camel, Jacobus Geluk, Martin Scharm, @rpietzsch, Jonathan Leitschuh, Jodi Schneider, Giacomo Lanza, Alejandra Gonzalez-Beltran, Mario Scrocca, Miguel Angel García, Flores Bakker, @JohnnyMoonlight,  René Fritze, @telecsur, Jan Vlug, Han Kruiger, Johannes Theissen-Lipp, Roberto Polli, Victor Chavez and Sirko Schindler.
 
 **Citing WIDOCO**: If you used WIDOCO in your work, please cite the ISWC 2017 paper: https://iswc2017.semanticweb.org/paper-138
 
@@ -38,7 +38,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
   <dependency>
       <groupId>com.github.dgarijo</groupId>
       <artifactId>Widoco</artifactId>
-      <version>v1.4.21</version>
+      <version>v1.4.23</version>
   </dependency>
 </dependencies>
 
@@ -57,7 +57,7 @@ WIDOCO helps you to publish and create an enriched and customized documentation 
 
 Features of WIDOCO:
 * Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](https://dgarijo.github.io/Widoco/doc/gallery/index.html))
-* Massive metadata extraction and support: WIDOCO will enhance your ontology documentation  based on your ontology annotations. Now you can add custom logos and images, edit the content of your sections, etc. by just editing metadata. See our [supported metadata](https://github.com/dgarijo/Widoco/blob/master/doc/metadataGuide/guide.md) and [recommendations](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) for more information.
+* Massive metadata extraction and support: WIDOCO will enhance your ontology documentation  based on your ontology annotations. Now you can add custom logos and images, edit the content of your sections, etc. by just editing metadata. See our [supported metadata](doc/metadataGuide/guide.md) and [recommendations](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) for more information.
 * Automatic annotation in JSON-LD snippets of the html produced.
 * Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).
 * Guidelines on the main sections that your document should have and how to complete them.
@@ -75,7 +75,7 @@ Examples of the features of WIDOCO can be seen on [the gallery](https://dgarijo.
 A tutorial explaining the main features of the GUI can be found [here](https://dgarijo.github.io/Widoco/doc/tutorial/)  
 
 ## Metadata usage
-To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the WIDOCO metadata documentation](https://dgarijo.github.io/Widoco/doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
+To see how WIDOCO recognizes metadata annotations in your ontology to create the documentation files, see [the WIDOCO metadata documentation](doc/metadataGuide/guide.md). To learn which metadata properties we recommend adding to your ontology for producing a nice-looking documentation, have a look at our [best practices guide](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
 
 For example, in order to show your logo in your documentation you just need to use `foaf:logo` as an annotation, as follows:
 ```
@@ -134,7 +134,7 @@ docker run -ti --rm \
 
 `-analytics CODE`: Add a code snippet for Google analytics to track your HTML documentation. You need to add your CODE next to the flag. For example: UA-1234
 
-`-confFile PATH`: Load your own configuration file for the ontology metadata. Incompatible with -getOntologyMetadata. See [the configuration documentation](doc/configuration/configuration_doc.md) for more information about the accepted fields.
+`-confFile PATH`: Load your own configuration file for the ontology metadata. Use this option if you want to load your own HTML sections as well. Incompatible with -getOntologyMetadata. See [the configuration documentation](doc/configuration/configuration_doc.md) for more information about the accepted fields.
 
 `-crossRef`: ONLY generate the overview and cross reference sections. The index document will NOT be generated. The htaccess, provenance page, etc., will not be generated unless requested by other flags. This flag is intended to be used only after a first version of the documentation exists.
 
