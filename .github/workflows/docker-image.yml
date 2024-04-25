@@ -6,7 +6,7 @@ on:
 
 jobs:
   push_to_registry:
-    name: Release docker image and jar files
+    name: Release docker image
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
