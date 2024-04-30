@@ -357,7 +357,23 @@ public class CreateDocInThreadTest {
             fail("Error while running test "+e.getMessage());
         }
     }*/
-    
+    /**
+     * Testing an ontology with SWRL rules (issue
+     */
+    @org.junit.Test
+    public void testOntologyWithSWRLRules() {
+        System.out.println("Testing Ontology: PAC2_EX2_RDF.rdf");
+        try{
+            String pathToOnto = "test" + File.separator + "PAC2_EX2_RDF.rdf";
+            c.setFromFile(true);
+            this.c.setOntologyPath(pathToOnto);
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+        }catch(Exception e){
+            fail("Error while running test "+e.getMessage());
+        }
+    }
     
     
 }

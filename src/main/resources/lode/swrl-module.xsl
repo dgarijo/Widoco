@@ -48,12 +48,16 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 <!-- SWRL TOC and SWRL Rule extraction
 Copyright (C) 2023, Victor Chavez <vchavezb@protonmail.com>
+Modified by Daniel Garijo
 -->
     <xsl:template name="get.swrl.toc">
         <ul class="hlist">
             <xsl:apply-templates select="/rdf:RDF/rdf:Description[rdf:type[@rdf:resource='http://www.w3.org/2003/11/swrl#Imp']]" mode="toc">
-                <xsl:sort select="lower-case(f:getLabel(rdfs:label))"
-                          order="ascending" data-type="text"/>
+
+                <xsl:sort
+                        select="if(rdfs:label) then lower-case(rdfs:label) else ''"
+                        order="ascending"
+                        data-type="text"/>
             </xsl:apply-templates>
         </ul>
     </xsl:template>
@@ -193,8 +197,10 @@ Copyright (C) 2023, Victor Chavez <vchavezb@protonmail.com>
                 <h2>SWRL rules</h2>
                 <xsl:call-template name="get.swrl.toc"/>
                 <xsl:apply-templates select="//(swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']])" >
-                    <xsl:sort select="lower-case(f:getLabel(rdfs:label))"
-                              order="ascending" data-type="text"/>
+                    <xsl:sort
+                            select="if(rdfs:label) then lower-case(rdfs:label) else ''"
+                            order="ascending"
+                            data-type="text"/>
                 </xsl:apply-templates>
             </div>
         </xsl:if>
