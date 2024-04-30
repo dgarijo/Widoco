@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1704460284350" name="http://geo.linkeddata.es/ontology/" uri="geolinkeddata.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1704460284350" name="http://vocab.linkeddata.es/datosabiertos/def/medio-ambiente/otalex" uri="otalex.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1704460284350" name="http://www.w3.org/2002/07/owl" uri="coil.owl"/>
-    </group>
-</catalog>
