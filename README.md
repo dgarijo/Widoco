@@ -38,7 +38,7 @@ Just add the dependency and repository to your `pom.xml` file as follows. See th
   <dependency>
       <groupId>com.github.dgarijo</groupId>
       <artifactId>Widoco</artifactId>
-      <version>v1.4.23</version>
+      <version>v1.4.24</version>
   </dependency>
 </dependencies>
 
