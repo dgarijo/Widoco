@@ -165,6 +165,8 @@ docker run -ti --rm \
 
 `-noPlaceHolderText`: Do not add any placeholder text (this will remove intro, abstract (if empty) and description sections).
 
+`-excludeProvenance`: Do not add the link "Provenance of this page" in the metadata header section
+
 `-ontFile PATH`  [required (unless -ontURI is used)]: Load a local ontology file (from PATH) to document. This option is incompatible with -ontURI
 
 `-outFolder folderName`: Specifies the name of the folder where to save the documentation. By default is 'myDocumentation'
