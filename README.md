@@ -107,18 +107,34 @@ java -jar widoco-VERSION-jar-with-dependencies.jar [OPTIONS]
 ```
 
 ### Docker execution
+If you don't want to use the JAR directly, you may run the project using a [Docker container](https://www.docker.com/). First you will need to download or build the image, and then run it.
 
-First build the image using the `Dockerfile` in project folder:
+#### Reusing a pre-existing image
+We build containers in the [GitHub image registry](https://github.com/dgarijo/Widoco/pkgs/container/widoco) for all latest releases. In order to import one, just run the following command, stating the version of Widoco you prefer (e.g., for v1.4.23):
+
+```
+docker pull ghcr.io/dgarijo/widoco:v1.4.23
+```
+
+To browse all available images, see the [GitHub image registry](https://github.com/dgarijo/Widoco/pkgs/container/widoco).
+
+#### Building the image yourself
+
+Build the image using the `Dockerfile` in project folder:
 
 ```bash
 docker build -t dgarijo/widoco .
 ```
+
+#### Running WIDOCO's image
 
 You can now execute WIDOCO through the command line. Usage:
 
 ```bash
 docker run -ti --rm dgarijo/widoco [OPTIONS]
 ```
+
+**Note:** If you downloaded the image from the GitHub registry, you will have to change `dgarijo/widoco` with the name of the image you downloaded. For example `ghcr.io/dgarijo/widoco:v1.4.23`.
 
 If you want to share data between the Docker Container and your Host, for instance to load a local ontology file (from PATH), you will need to mount the container
 with host directories. For instance:
@@ -130,7 +146,7 @@ docker run -ti --rm \
   dgarijo/widoco -ontFile in/bne.ttl -outFolder out -rewriteAll
 ```
 
-### Options
+### Execution options
 
 `-analytics CODE`: Add a code snippet for Google analytics to track your HTML documentation. You need to add your CODE next to the flag. For example: UA-1234
 
@@ -143,6 +159,8 @@ docker run -ti --rm \
 `-doNotDisplaySerializations`: The serializations of the ontology will not be displayed.
 
 `-excludeIntroduction`: Skip the introduction section in the documentation.
+
+`-excludeProvenance`: Do not add the link "Provenance of this page" in the metadata header section
 
 `-getOntologyMetadata`: Extract ontology metadata from the given ontology
 
@@ -165,8 +183,6 @@ docker run -ti --rm \
 
 `-noPlaceHolderText`: Do not add any placeholder text (this will remove intro, abstract (if empty) and description sections).
 
-`-excludeProvenance`: Do not add the link "Provenance of this page" in the metadata header section
-
 `-ontFile PATH`  [required (unless -ontURI is used)]: Load a local ontology file (from PATH) to document. This option is incompatible with -ontURI
 
 `-outFolder folderName`: Specifies the name of the folder where to save the documentation. By default is 'myDocumentation'
@@ -185,7 +201,7 @@ docker run -ti --rm \
 
 `-useCustomStyle`: Export the documentation using alternate css files (by Daniel Vila).
 
-`--version`: Shows the version of WIDOCO.
+`--version`: Shows the current version of WIDOCO.
 
 `-webVowl`: Create a visualization based on WebVowl (http://vowl.visualdataweb.org/webvowl/index.html#) in the documentation.
 
