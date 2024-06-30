@@ -6,7 +6,7 @@ WIDOCO has been used to document **more than a hundred ontologies from different
 * [Vocab](http://vocab.linkeddata.es): Project grouping many of the vocabularies developed or contributed to by the [Ontology Engineering Group](http://www.oeg-upm.net/). At the moment the site includes a total of 41 vocabularies, **30 of them directly documented with WIDOCO**. These vocabularies are associated to projects from different domains, such as: 
   * eScience ([Smart Protocols](http://purl.org/net/SMARTprotocol), [provenance in workflows](http://www.opmw.org/ontology/), etc.) 
   * [Licensing](http://purl.oclc.org/NET/ldr/ns) 
-  * [Libraries](http://datos.bne.es/def/)
+  * [Libraries](https://web.archive.org/web/20170701004216/https://datos.bne.es/def/ontology.html)
   * [Videogames](http://purl.org/net/vgo)
   * [Environment modeling](https://w3id.org/def/saref4envi#)
   * [Quality modeling](http://vocab.linkeddata.es/qmo/index.html)

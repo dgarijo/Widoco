@@ -107,8 +107,8 @@ public final class GuiController {
 		boolean isFromFile = false, oops = false, rewriteAll = false, getOntoMetadata = true, useW3Cstyle = true,
 				includeImportedOntologies = false, htAccess = false, webVowl = false, errors = false, licensius = false,
 				generateOnlyCrossRef = false, includeNamedIndividuals = true, includeAnnotationProperties = false,
-				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, uniteSections = false,
-				placeHolderText = true, localImports=false;
+				displaySerializations = true, displayDirectImportsOnly = false, excludeIntroduction = false, excludeProvenance = false,
+			    uniteSections = false, placeHolderText = true, localImports=false;
 		String confPath = "";
 		String code = null;// for tracking analytics.
 		String[] languages = null;
@@ -203,6 +203,9 @@ public final class GuiController {
 			case "-noPlaceHolderText":
 				placeHolderText = false;
 				break;
+			case "-excludeProvenance":
+				excludeProvenance = true;
+				break;
 			case "--help":
 				System.out.println(Constants.HELP_TEXT);
 				return;
@@ -269,6 +272,9 @@ public final class GuiController {
       if( this.config.getAbstractPath() == null ) {
         this.config.setIncludeAbstract(false);
       }
+		}
+		if (excludeProvenance) {
+			this.config.setPublishProvenance(false);
 		}
 		if (code != null) {
 			this.config.setGoogleAnalyticsCode(code);
