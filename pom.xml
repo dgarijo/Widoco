@@ -4,7 +4,7 @@
 	<groupId>es.oeg</groupId>
 	<artifactId>widoco</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4.25</version>
+	<version>1.4.26</version>
 	<name>Widoco</name>
 
 	<properties>
