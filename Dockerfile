@@ -1,5 +1,5 @@
 # ----
-FROM maven:3.8.3-openjdk-17-slim AS BUILD_IMAGE
+FROM maven:3.8.3-openjdk-17-slim AS build_image
 
 WORKDIR /var/build/widoco
 
@@ -22,6 +22,6 @@ USER widoco
 
 WORKDIR /usr/local/widoco
 
-COPY --from=BUILD_IMAGE /var/build/widoco/JAR/widoco.jar .
+COPY --from=build_image /var/build/widoco/JAR/widoco.jar .
 
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar widoco.jar ${0} ${@}"]
