@@ -80,7 +80,6 @@ The links in the first column redirect to the corresponding sections of the [goo
 **\*\*** Configuration properties do not support [URI](#uri)s or blank nodes. Hence, additional properties are needed (like authorsURI, contributorsURI) to annotate URIs in case they are needed.
 
 ### Custom annotations
-
 We prioritize reusing metadata properties already defined elsewhere. However, a small subset of `OPTIONAL` annotation properties (i.e., `introduction` and the URL to the different serializations) have been introduced by WIDOCO to customize parts of the documentation from the ontology itself:
 
 |Metadata category|Obligation|Ontology annotation property*|`config.properties` field(s)**|Accepted property value|Example|
