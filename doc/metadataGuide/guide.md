@@ -8,29 +8,29 @@ In this document we illustrate how Widoco uses metadata in the final documentati
 
 ## Namespaces used in this document
 
-|Namespace prefix|URI                                                                                           |
-|----------------|----------------------------------------------------------------------------------------------|
-|bibo            |[http://purl.org/ontology/bibo/](http://purl.org/ontology/bibo/)                              |
-|cc              |[http://creativecommons.org/ns#](http://creativecommons.org/ns#)                              |
-|dc              |[http://purl.org/dc/elements/1.1/](http://purl.org/dc/elements/1.1/)                          |
-|dcterms         |[http://purl.org/dc/terms/](http://purl.org/dc/terms/)                                        |
-|doap            |[http://usefulinc.com/ns/doap#](http://usefulinc.com/ns/doap#)                                |
-|foaf            |[http://xmlns.com/foaf/0.1/](http://xmlns.com/foaf/0.1/)                                      |
-|mod             |[https://w3id.org/mod#](https://w3id.org/mod#)                                                |
-|obo             |[http://purl.obolibrary.org/obo/](http://purl.obolibrary.org/obo/)                            |
-|org             |[http://www.w3.org/ns/org#](http://www.w3.org/ns/org#)                                        |
-|owl             |[http://www.w3.org/2002/07/owl#](http://www.w3.org/2002/07/owl#)                              |
-|pav             |[http://purl.org/pav/](http://purl.org/pav/)                                                  |
-|prov            |[http://www.w3.org/ns/prov#](http://www.w3.org/ns/prov#)                                      |
-|rdfs            |[http://www.w3.org/2000/01/rdf-schema#](http://www.w3.org/2000/01/rdf-schema#)                |
-|schema          |[https://schema.org/](https://schema.org/)                                                    |
-|sw              |[http://www.w3.org/2003/06/sw-vocab-status/ns#](http://www.w3.org/2003/06/sw-vocab-status/ns#)|
-|skos            |[http://www.w3.org/2004/02/skos/core#](http://www.w3.org/2004/02/skos/core#)                  |
-|vaem            |[http://www.linkedmodel.org/schema/vaem#](http://www.linkedmodel.org/schema/vaem#)            |
-|vann            |[http://purl.org/vocab/vann/](http://purl.org/vocab/vann/)                                    |
-|vcard           |[http://www.w3.org/2006/vcard/ns#](http://www.w3.org/2006/vcard/ns#)                          |
-|wdrs            |[http://www.w3.org/2007/05/powder-s#](http://www.w3.org/2007/05/powder-s#)                    |
-|widoco          |[https://w3id.org/widoco/vocab#](https://w3id.org/widoco/vocab#)                              |
+|Namespace prefix|URI                                            |
+|----------------|-----------------------------------------------|
+|bibo            |<http://purl.org/ontology/bibo/>               |
+|cc              |<http://creativecommons.org/ns#>               |
+|dc              |<http://purl.org/dc/elements/1.1/>             |
+|dcterms         |<http://purl.org/dc/terms/>                    |
+|doap            |<http://usefulinc.com/ns/doap#>                |
+|foaf            |<http://xmlns.com/foaf/0.1/>                   |
+|mod             |<https://w3id.org/mod#>                        |
+|obo             |<http://purl.obolibrary.org/obo/>              |
+|org             |<http://www.w3.org/ns/org#>                    |
+|owl             |<http://www.w3.org/2002/07/owl#>               |
+|pav             |<http://purl.org/pav/>                         |
+|prov            |<http://www.w3.org/ns/prov#>                   |
+|rdfs            |<http://www.w3.org/2000/01/rdf-schema#>        |
+|schema          |<https://schema.org/>                          |
+|sw              |<http://www.w3.org/2003/06/sw-vocab-status/ns#>|
+|skos            |<http://www.w3.org/2004/02/skos/core#>         |
+|vaem            |<http://www.linkedmodel.org/schema/vaem#>      |
+|vann            |<http://purl.org/vocab/vann/>                  |
+|vcard           |<http://www.w3.org/2006/vcard/ns#>             |
+|wdrs            |<http://www.w3.org/2007/05/powder-s#>          |
+|widoco          |<https://w3id.org/widoco/vocab#>               |
 
 ## Metadata usage in WIDOCO
 
@@ -81,8 +81,7 @@ The links in the first column redirect to the corresponding sections of the [goo
 
 ### Custom annotations
 
-We prioritize reusing metadata properties already defined elsewhere.
-However, a small subset of `OPTIONAL` annotation properties (i.e., `introduction` and the URL to the different serializations) have been introduced by WIDOCO to customize parts of the documentation from the ontology itself:
+We prioritize reusing metadata properties already defined elsewhere. However, a small subset of `OPTIONAL` annotation properties (i.e., `introduction` and the URL to the different serializations) have been introduced by WIDOCO to customize parts of the documentation from the ontology itself:
 
 |Metadata category|Obligation|Ontology annotation property*|`config.properties` field(s)**|Accepted property value|Example|
 |-----------------|----------|-----------------------------|------------------------------|-----------------------|-------|
