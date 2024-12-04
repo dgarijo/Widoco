@@ -38,9 +38,7 @@ This section explains the metadata recognized by WIDOCO for both ontology annota
 
 ### <span id="table">Vocabulary annotations</span>
 
-The table below shows which ontology metadata annotations are recognized in WIDOCO in alphabetical order.
-
-The links in the first column redirect to the corresponding sections of the [good practice document](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
+The table below shows which ontology metadata annotations are recognized in WIDOCO in alphabetical order. The links in the first column redirect to the corresponding sections of the [good practice document](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
 
 |Metadata category|Obligation|Ontology annotation property*|`config.properties` field(s)**|Accepted property value|Example|
 |-----------------|----------|-----------------------------|------------------------------|-----------------------|-------|
@@ -92,9 +90,7 @@ We prioritize reusing metadata properties already defined elsewhere. However, a 
 
 ### Term annotations (concerning classes, properties and data properties)
 
-The table below summarizes all the metadata annotations recognized for ontology terms, in alphabetical order. Note that there are no `config.properties` annotations here, as these annotations are only read from the ontology file.
-
-The links in the first column redirect to the corresponding sections of the [good practice document](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
+The table below summarizes all the metadata annotations recognized for ontology terms, in alphabetical order. Note that there are no `config.properties` annotations here, as these annotations are only read from the ontology file. The links in the first column redirect to the corresponding sections of the [good practice document](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
 
 |Metadata category       |Obligation |Ontology annotation property       |Accepted property value|Example          |
 |------------------------|-----------|-----------------------------------|-----------------------|-----------------|
