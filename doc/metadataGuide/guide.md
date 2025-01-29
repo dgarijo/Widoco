@@ -66,8 +66,8 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 |**[Modification date]**|OPTIONAL|[dcterms:modified], [schema:dateModified] [pav:lastUpdatedOn]|dateModified|[Text]  |[ontology](#onto), [config]|
 |**[Previous version]**|RECOMMENDED|[dc:replaces], [dcterms:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[URI]|[ontology](#onto), [config]|
 |**[Publisher]**|OPTIONAL|[dcterms:publisher], [dc:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
-|**[Similar resources]**|OPTIONAL|[rdfs:seeAlso]                 |                  |[Text]|[ontology](#onto), [config]|
-|**[Status][SO]**|OPTIONAL|[bibo:status] [mod:status] [schema:creativeWorkStatus]|status|[Text] or [Status](#status)|[ontology](#onto), [config]|
+|**[Similar resources]**|OPTIONAL|[rdfs:seeAlso]                    |seeAlso        |[Text]|[ontology](#onto), [config]|
+|**[Status][SO]**|OPTIONAL|[bibo:status], [mod:status], [schema:creativeWorkStatus]|status|[Text] or [Status](#status)|[ontology](#onto), [config]|
 |**[Source]**|OPTIONAL|[dc:source], [dcterms:source], [prov:hadPrimarySource], [wdrs:describedBy]|source|[URI]  |[ontology](#onto), [config]|
 |**[Title]** |RECOMMENDED|[dc:title], [dcterms:title], [schema:name]|ontologyTitle  |[Text]|[ontology](#onto), [config]|
 |**[Version IRI]**   |RECOMMENDED|[owl:versionIRI]                  |thisVersionURI |[URI] |[ontology](#onto), [config]|
@@ -75,7 +75,7 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 
 **\*** All listed properties are supported by WIDOCO.
 
-**\*\*** Configuration properties do not support [URI](#uri)s or blank nodes. Hence, additional properties are needed (like authorsURI, contributorsURI) to annotate URIs in case they are needed.
+**\*\*** Configuration properties do not support [URI]s or blank nodes. Hence, additional properties are needed (like authorsURI, contributorsURI) to annotate URIs in case they are needed.
 
 ### Custom annotations
 We prioritize reusing metadata properties already defined elsewhere. However, a small subset of `OPTIONAL` annotation properties (i.e., `introduction` and the URL to the different serializations) have been introduced by WIDOCO to customize parts of the documentation from the ontology itself:
@@ -83,10 +83,10 @@ We prioritize reusing metadata properties already defined elsewhere. However, a 
 |Metadata category|Obligation|Ontology annotation property*|`config.properties` field(s)**|Accepted property value|Example|
 |---------------------------|--------|--------------------------|------------------|------|---------------------------|
 |**Introduction**           |OPTIONAL|[widoco:introduction]     |introduction      |[Text]|[ontology](#onto), [config]|
-|**N-Triples serialization**|OPTIONAL|[widoco:ntSerialization]  |NTSerialization    |[URL]|[ontology](#onto), [config]|
-|**JSON-LD serialization**|OPTIONAL|[widoco:jsonldSerialization]|JSONLDSerialization|[URL]|[ontology](#onto), [config]|
-|**RDF-XML serialization**|OPTIONAL|[widoco:rdfxmlSerialization]|RDFXMLSerialization|[URL]|[ontology](#onto), [config]|
-|**Turtle serialization** |OPTIONAL|[widoco:turtleSerialization]|TurtleSerialization|[URL]|[ontology](#onto), [config]|
+|**N-Triples serialization**|OPTIONAL|[widoco:ntSerialization]  |NTSerialization    |[URI]|[ontology](#onto), [config]|
+|**JSON-LD serialization**|OPTIONAL|[widoco:jsonldSerialization]|JSONLDSerialization|[URI]|[ontology](#onto), [config]|
+|**RDF-XML serialization**|OPTIONAL|[widoco:rdfxmlSerialization]|RDFXMLSerialization|[URI]|[ontology](#onto), [config]|
+|**Turtle serialization** |OPTIONAL|[widoco:turtleSerialization]|TurtleSerialization|[URI]|[ontology](#onto), [config]|
 
 ### Term annotations (concerning classes, properties and data properties)
 
