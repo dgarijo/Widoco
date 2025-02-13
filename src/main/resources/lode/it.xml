@@ -87,4 +87,5 @@
     <rangeIncludes>codominio include</rangeIncludes>
     <usesRule>usa la regola</usesRule>
     <editorialNote>nota redazionale</editorialNote>
+    <scopeNote>nota di scopo</scopeNote>
 </labels>

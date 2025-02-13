@@ -89,5 +89,6 @@
     <scenarios>Szenarien</scenarios>
     <usesRule>verwendet die Regel</usesRule>
     <editorialNote>redaktionelle Anmerkung</editorialNote>
+    <scopeNote>umfang Anmerkung</scopeNote>
     <externalproperty>externe Eigenschaft</externalproperty>
 </labels>

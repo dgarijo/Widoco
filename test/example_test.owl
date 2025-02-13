@@ -108,6 +108,7 @@ xsd:date rdf:type rdfs:Datatype .
            rdfs:range :Researcher ;
            rdfs:comment "This example property indicates that an Organization has a Researcher as member"@en ;
            skos:editorialNote "banana in pajama"@en ;
+           skos:scopeNote "Use obj prop only for researchers in the specified organisation"@en ;
            rdfs:label "has member"@en .
 
 
@@ -144,6 +145,7 @@ xsd:date rdf:type rdfs:Datatype .
            rdfs:domain :Organization ;
            rdfs:range xsd:date ;
            skos:editorialNote "banana in pajama data prop"@en ;
+           skos:scopeNote "Use data prop only for researchers in the specified organisation"@en ;
            rdfs:comment "Date when an organization was founded"@en ;
            rdfs:label "founded in"@en .
 
@@ -163,6 +165,7 @@ xsd:date rdf:type rdfs:Datatype .
               <http://purl.org/vocab/vann/example> "University of Southern California"@en ;
               rdfs:comment "An organized body of people with a particular purpose, especially a business, society, association, etc."@en ;
               skos:editorialNote "SKOS note"@en ;
+              skos:scopeNote "Use this class for organisations"@en ;
               owl:equivalentClass <http://xmlns.com/foaf/0.1/Organization>;
               skos:prefLabel "organization";
               rdfs:isDefinedBy <https://w3id.org/example> ;
