@@ -1,0 +1,46 @@
+<http://w3id.org/def/och/http://www.w3.org/2006/time#TemporalEntity>
+        a       <http://w3id.org/def/och/AddedClass> .
+
+<http://w3id.org/def/och/http://xmlns.com/foaf/0.1/Organization>
+        a       <http://w3id.org/def/och/AddedClass> ;
+        <http://w3id.org/def/och/addedAxiom>
+                "EquivalentClasses(<http://xmlns.com/foaf/0.1/Organization> <https://w3id.org/example#Organization>)" .
+
+<http://w3id.org/def/och/https://w3id.org/example#Student>
+        a       <http://w3id.org/def/och/AddedClass> .
+
+<http://w3id.org/def/och/https://w3id.org/example#foundedIn>
+        a       <http://w3id.org/def/och/ModifiedDataProperty> ;
+        <http://w3id.org/def/och/addedAxiom>
+                "AnnotationAssertion(<http://www.w3.org/2004/02/skos/core#editorialNote> <https://w3id.org/example#foundedIn> \"banana in pajama data prop\"@en)" , "AnnotationAssertion(<http://www.w3.org/2004/02/skos/core#scopeNote> <https://w3id.org/example#foundedIn> \"Use data prop only for researchers in the specified organisation\"@en)" .
+
+<http://w3id.org/def/och/https://w3id.org/example#hasMentor>
+        a       <http://w3id.org/def/och/AddedProperty> ;
+        <http://w3id.org/def/och/addedAxiom>
+                "ObjectPropertyDomain(<https://w3id.org/example#hasMentor> <https://w3id.org/example#Student>)" , "ObjectPropertyRange(<https://w3id.org/example#hasMentor> <https://w3id.org/example#Researcher>)" .
+
+<http://w3id.org/def/och/OntologyChangeSummary>
+        <http://w3id.org/def/och/hasChange>
+                <http://w3id.org/def/och/https://w3id.org/example#Organization> , <http://w3id.org/def/och/http://www.w3.org/2006/time#hasBeginning> , <http://w3id.org/def/och/https://w3id.org/example#hasMentor> , <http://w3id.org/def/och/https://w3id.org/example#hasMember> , <http://w3id.org/def/och/http://xmlns.com/foaf/0.1/Organization> , <http://w3id.org/def/och/https://w3id.org/example#Student> , <http://w3id.org/def/och/https://w3id.org/example#foundedIn> , <http://w3id.org/def/och/http://www.w3.org/2006/time#TemporalEntity> , <http://w3id.org/def/och/http://www.w3.org/2006/time#Instant> ;
+        <http://w3id.org/def/och/newVersion>
+                "Optional[https://w3id.org/example]" ;
+        <http://w3id.org/def/och/oldVersion>
+                "Optional[https://w3id.org/example]" .
+
+<http://w3id.org/def/och/https://w3id.org/example#hasMember>
+        a       <http://w3id.org/def/och/ModifiedProperty> ;
+        <http://w3id.org/def/och/addedAxiom>
+                "AnnotationAssertion(<http://www.w3.org/2004/02/skos/core#editorialNote> <https://w3id.org/example#hasMember> \"banana in pajama\"@en)" , "AnnotationAssertion(<http://www.w3.org/2004/02/skos/core#scopeNote> <https://w3id.org/example#hasMember> \"Use obj prop only for researchers in the specified organisation\"@en)" .
+
+<http://w3id.org/def/och/https://w3id.org/example#Organization>
+        a       <http://w3id.org/def/och/ModifiedClass> ;
+        <http://w3id.org/def/och/addedAxiom>
+                "AnnotationAssertion(<http://www.w3.org/2004/02/skos/core#editorialNote> <https://w3id.org/example#Organization> \"SKOS note\"@en)" , "AnnotationAssertion(<http://www.w3.org/2004/02/skos/core#scopeNote> <https://w3id.org/example#Organization> \"Use this class for organisations\"@en)" , "AnnotationAssertion(rdfs:label <https://w3id.org/example#Organization> \"org\"@fr)" , "AnnotationAssertion(rdfs:isDefinedBy <https://w3id.org/example#Organization> <https://w3id.org/example>)" , "AnnotationAssertion(<http://www.w3.org/2004/02/skos/core#prefLabel> <https://w3id.org/example#Organization> \"organization\"^^xsd:string)" , "EquivalentClasses(<http://xmlns.com/foaf/0.1/Organization> <https://w3id.org/example#Organization>)" .
+
+<http://w3id.org/def/och/http://www.w3.org/2006/time#hasBeginning>
+        a       <http://w3id.org/def/och/AddedProperty> ;
+        <http://w3id.org/def/och/addedAxiom>
+                "ObjectPropertyRange(<http://www.w3.org/2006/time#hasBeginning> <http://www.w3.org/2006/time#Instant>)" , "ObjectPropertyDomain(<http://www.w3.org/2006/time#hasBeginning> <http://www.w3.org/2006/time#TemporalEntity>)" .
+
+<http://w3id.org/def/och/http://www.w3.org/2006/time#Instant>
+        a       <http://w3id.org/def/och/AddedClass> .

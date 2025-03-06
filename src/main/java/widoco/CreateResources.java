@@ -39,7 +39,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
-
+import diff.OntologyDifferencesRendererOCH;
+import diff.OntologyDifferencesRDFRenderer;
 /**
  * Class that given a path, it creates all the associated resources needed to
  * view the documentation. Also, it builds the structure of the folder
@@ -201,6 +202,8 @@ public class CreateResources {
                 String oldVersionPath = c.getTmpFile().getAbsolutePath() + File.separator + "OLDOntology";
                 WidocoUtils.downloadOntology(c.getMainOntology().getPreviousVersion(), oldVersionPath);
                 CompareOntologies comparison = new CompareOntologies(oldVersionPath, c);
+				OntologyDifferencesRendererOCH.differencesToRDF(comparison, path + File.separator + "ontologyDiff.ttl");
+				OntologyDifferencesRDFRenderer.differencesToRDF(comparison, "http://w3id.org/def/och/", lang);
                 textToWrite = Constants.getChangeLogSection(c, comparison, lang);
                 if(!c.isIncludeAllSectionsInOneDocument()){
                     saveDocument(path + File.separator + "changelog-" + c.getCurrentLanguage() + ".html",
