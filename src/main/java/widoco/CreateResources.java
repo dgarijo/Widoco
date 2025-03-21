@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import lode.LODEGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.jena.rdf.model.Model;
 import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -39,7 +40,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import widoco.entities.Agent;
 import widoco.entities.Ontology;
-import diff.OntologyDifferencesRendererOCH;
 import diff.OntologyDifferencesRDFRenderer;
 /**
  * Class that given a path, it creates all the associated resources needed to
@@ -112,8 +112,10 @@ public class CreateResources {
 		}
 		if (c.isIncludeChangeLog()) {
 			if (c.getMainOntology().getPreviousVersion() != null
-					&& !"".equals(c.getMainOntology().getPreviousVersion())) {
-				changeLog = createChangeLog(folderOut + File.separator + "sections", c, languageFile);
+				&& !"".equals(c.getMainOntology().getPreviousVersion())) {
+				String mainNamespace = c.getMainOntology().getNamespaceURI();
+				String mainPrefix = c.getMainOntology().getNamespacePrefix();
+				changeLog = createChangeLog(folderOut + File.separator + "sections", c, languageFile,mainNamespace,mainPrefix);
 			} else {
             	logger.info("No previous version provided. No changelog produced!");
 			}
@@ -194,7 +196,7 @@ public class CreateResources {
 	 * @param c
 	 * @param lang
 	 */
-	private static String createChangeLog(String path, Configuration c, Properties lang) {
+	private static String createChangeLog(String path, Configuration c, Properties lang, String namespace,String prefix) {
             String textToWrite = null;
             try {
                 logger.info("Attempting to generate an automated changelog\nDownloading old ontology "
@@ -202,8 +204,10 @@ public class CreateResources {
                 String oldVersionPath = c.getTmpFile().getAbsolutePath() + File.separator + "OLDOntology";
                 WidocoUtils.downloadOntology(c.getMainOntology().getPreviousVersion(), oldVersionPath);
                 CompareOntologies comparison = new CompareOntologies(oldVersionPath, c);
-				OntologyDifferencesRendererOCH.differencesToRDF(comparison, path + File.separator + "ontologyDiff.ttl");
-				OntologyDifferencesRDFRenderer.differencesToRDF(comparison, "http://w3id.org/def/och/", lang);
+				Model model = OntologyDifferencesRDFRenderer.differencesToRDF(comparison, namespace, lang, prefix);
+				try (FileOutputStream out = new FileOutputStream(path + File.separator + "changelog.ttl")) {
+					model.write(out, "TTL");
+				}
                 textToWrite = Constants.getChangeLogSection(c, comparison, lang);
                 if(!c.isIncludeAllSectionsInOneDocument()){
                     saveDocument(path + File.separator + "changelog-" + c.getCurrentLanguage() + ".html",
