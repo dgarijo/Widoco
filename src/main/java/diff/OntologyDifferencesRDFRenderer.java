@@ -117,7 +117,19 @@ public class OntologyDifferencesRDFRenderer {
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveRangeDataProperty"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedRangeFromProperty"),model.createResource(((OWLDataPropertyRangeAxiom) f).getProperty().asOWLDataProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedDataRange"),model.createResource(((OWLDataPropertyRangeAxiom) f).getRange().asOWLDatatype().getIRI().toString()));
-				} 
+				} else if (f instanceof OWLAnnotationAssertionAxiom && operation.equals("Add")) {
+                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddAnnotationToEntity"));
+                    model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetAddAnnotationToEntity"),((OWLAnnotationAssertionAxiom) f).getValue().toString());
+                    model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceAddAnnotationToEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getSubject().asIRI().toString()));
+                    model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedAnnotationToEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getProperty().asOWLAnnotationProperty().getIRI().toString()));
+				} else if (f instanceof OWLAnnotationAssertionAxiom && operation.equals("Remove")) {
+                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveAnnotationFromEntity"));
+                    model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetRemoveAnnotationFromEntity"),((OWLAnnotationAssertionAxiom) f).getValue().toString());
+                    model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceRemoveAnnotationFromEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getSubject().asIRI().toString()));
+                    model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedAnnotationFromEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getProperty().asOWLAnnotationProperty().getIRI().toString()));
+				}   
 			} catch (Exception e) {
 				logger.error("Error while transforming RDF " + f.toString() + " " + e.getMessage());
 			}
@@ -150,6 +162,7 @@ public class OntologyDifferencesRDFRenderer {
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
                         axiomSetToRDF(axiomSet.getDeletedAxioms(),model,language,ontologyNamespace,"Remove");
+                        axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Add");
                     }
                 }
                 if (!c.getNewClasses().isEmpty()) {
@@ -179,6 +192,7 @@ public class OntologyDifferencesRDFRenderer {
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
                         axiomSetToRDF(axiomSet.getDeletedAxioms(),model,language,ontologyNamespace,"Remove");
+                        axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Add");
                     }
                 }
                 if (!c.getNewProperties().isEmpty()) {
@@ -208,6 +222,7 @@ public class OntologyDifferencesRDFRenderer {
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
                         axiomSetToRDF(axiomSet.getDeletedAxioms(),model,language,ontologyNamespace,"Remove");
+                        axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Add");
                     }                    
                 }
                 if (!c.getNewDataProperties().isEmpty()) {
