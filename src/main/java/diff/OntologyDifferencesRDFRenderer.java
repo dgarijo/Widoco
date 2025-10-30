@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
@@ -48,17 +49,17 @@ public class OntologyDifferencesRDFRenderer {
 		for (Object f : set) {
 			try {
 				if (f instanceof OWLSubClassOfAxiom && operation.equals("Add")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddSubClass"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceAddSubClass"),model.createResource(((OWLSubClassOfAxiom)f).getSubClass().asOWLClass().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetAddSubClass"),model.createResource(((OWLSubClassOfAxiom) f).getSuperClass().asOWLClass().getIRI().toString()));
                 } else if (f instanceof OWLSubClassOfAxiom && operation.equals("Remove")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveSubClass"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceRemoveSubClass"),model.createResource(((OWLSubClassOfAxiom)f).getSubClass().asOWLClass().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetRemoveSubClass"),model.createResource(((OWLSubClassOfAxiom) f).getSuperClass().asOWLClass().getIRI().toString()));
                 } else if (f instanceof OWLSubPropertyAxiom && operation.equals("Add")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddSubProperty"));
                     if (((OWLSubPropertyAxiom)f).getSuperProperty() instanceof OWLDataPropertyImpl) {
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceAddSubProperty"),model.createResource(((OWLSubPropertyAxiom)f).getSubProperty().asOWLDataProperty().getIRI().toString()));
@@ -68,7 +69,7 @@ public class OntologyDifferencesRDFRenderer {
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetAddSubProperty"),model.createResource(((OWLSubPropertyAxiom) f).getSuperProperty().asOWLObjectProperty().getIRI().toString()));
                     }
                 } else if (f instanceof OWLSubPropertyAxiom && operation.equals("Remove")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveSubProperty"));
                     if (((OWLSubPropertyAxiom)f).getSuperProperty() instanceof OWLDataPropertyImpl) {
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceRemoveSubProperty"),model.createResource(((OWLSubPropertyAxiom)f).getSubProperty().asOWLDataProperty().getIRI().toString()));
@@ -78,58 +79,72 @@ public class OntologyDifferencesRDFRenderer {
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetRemoveSubProperty"),model.createResource(((OWLSubPropertyAxiom) f).getSuperProperty().asOWLObjectProperty().getIRI().toString()));
                     }
                 } else if (f instanceof OWLObjectPropertyDomainAxiom && operation.equals("Add")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddDomain"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedDomainToProperty"),model.createResource(((OWLObjectPropertyDomainAxiom) f).getProperty().asOWLObjectProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedDomain"),model.createResource(((OWLObjectPropertyDomainAxiom) f).getDomain().asOWLClass().getIRI().toString()));
                 } else if (f instanceof OWLObjectPropertyDomainAxiom && operation.equals("Remove")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveDomain"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removeDomainFromProperty"),model.createResource(((OWLObjectPropertyDomainAxiom) f).getProperty().asOWLObjectProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedDomain"),model.createResource(((OWLObjectPropertyDomainAxiom) f).getDomain().asOWLClass().getIRI().toString()));
                 } else if (f instanceof OWLDataPropertyDomainAxiom && operation.equals("Add")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddDomain"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedDomainToProperty"),model.createResource(((OWLDataPropertyDomainAxiom) f).getProperty().asOWLDataProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedDomain"),model.createResource(((OWLDataPropertyDomainAxiom) f).getDomain().asOWLClass().getIRI().toString()));
                 } else if (f instanceof OWLDataPropertyDomainAxiom && operation.equals("Remove")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveDomain"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removeDomainFromProperty"),model.createResource(((OWLDataPropertyDomainAxiom) f).getProperty().asOWLDataProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedDomain"),model.createResource(((OWLDataPropertyDomainAxiom) f).getDomain().asOWLClass().getIRI().toString()));
 				} else if (f instanceof OWLObjectPropertyRangeAxiom && operation.equals("Add")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddRangeObjectProperty"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedRangeToProperty"),model.createResource(((OWLObjectPropertyRangeAxiom) f).getProperty().asOWLObjectProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedObjectRange"),model.createResource(((OWLObjectPropertyRangeAxiom) f).getRange().asOWLClass().getIRI().toString()));
                 } else if (f instanceof OWLObjectPropertyRangeAxiom && operation.equals("Remove")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveRangeObjectProperty"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedRangeFromProperty"),model.createResource(((OWLObjectPropertyRangeAxiom) f).getProperty().asOWLObjectProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedObjectRange"),model.createResource(((OWLObjectPropertyRangeAxiom) f).getRange().asOWLClass().getIRI().toString()));
 				} else if (f instanceof OWLDataPropertyRangeAxiom && operation.equals("Add")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddRangeDataProperty"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedRangeToProperty"),model.createResource(((OWLDataPropertyRangeAxiom) f).getProperty().asOWLDataProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedDataRange"),model.createResource(((OWLDataPropertyRangeAxiom) f).getRange().asOWLDatatype().getIRI().toString()));
 				} else if (f instanceof OWLDataPropertyRangeAxiom && operation.equals("Remove")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveRangeDataProperty"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedRangeFromProperty"),model.createResource(((OWLDataPropertyRangeAxiom) f).getProperty().asOWLDataProperty().getIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedDataRange"),model.createResource(((OWLDataPropertyRangeAxiom) f).getRange().asOWLDatatype().getIRI().toString()));
 				} else if (f instanceof OWLAnnotationAssertionAxiom && operation.equals("Add")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddAnnotationToEntity"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetAddAnnotationToEntity"),((OWLAnnotationAssertionAxiom) f).getValue().toString());
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceAddAnnotationToEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getSubject().asIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedAnnotationToEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getProperty().asOWLAnnotationProperty().getIRI().toString()));
 				} else if (f instanceof OWLAnnotationAssertionAxiom && operation.equals("Remove")) {
-                    Resource changeResource = model.createResource(namespace+ "#Change_" + System.nanoTime());
+                    Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
                     model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveAnnotationFromEntity"));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetRemoveAnnotationFromEntity"),((OWLAnnotationAssertionAxiom) f).getValue().toString());
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceRemoveAnnotationFromEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getSubject().asIRI().toString()));
                     model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedAnnotationFromEntity"),model.createResource(((OWLAnnotationAssertionAxiom) f).getProperty().asOWLAnnotationProperty().getIRI().toString()));
-				}   
+				//Here we have the operations related to the: InverseObjectProperties, DisjointClasses, EquivalentClasses, EquivalentObjectProperties, EquivalentDataProperties, DisjointDataProperties, DisjointObjectProperties, and InverseFunctionalObjectProperty
+                // For the Equivalent Property the assuption made is that is used for the basic use and not for complex class construction, 
+                } else if (f instanceof OWLEquivalentClassesAxiom && operation.equals("Add")) {
+                    Set<OWLClass> class_set = ((OWLEquivalentClassesAxiom) f).getNamedClasses();
+                    for (OWLClass x : class_set) {
+                        for (OWLClass y : class_set) {
+                            if (!x.equals(y) && !model.query("ASK WHERE { ?s <https://w3id.org/def/och#targetAddEquivalentClass> <" + x.getIRI().toString() + "> . ?s <https://w3id.org/def/och#sourceAddEquivalentClass> <" + y.getIRI().toString() + "> }").execAsk()) {
+                                Resource changeResource = model.createResource(namespace+ "Change_" + System.nanoTime());
+                                model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddEquivalentClass"));
+                                model.add(changeResource, model.createProperty("https://w3id.org/def/och#targetAddEquivalentClass"), model.createResource(x.getIRI().toString()));
+                                model.add(changeResource, model.createProperty("https://w3id.org/def/och#sourceAddEquivalentClass"), model.createResource(y.getIRI().toString()));
+                            }
+                        }
+                    }
+				}
 			} catch (Exception e) {
 				logger.error("Error while transforming RDF " + f.toString() + " " + e.getMessage());
 			}
@@ -169,7 +184,7 @@ public class OntologyDifferencesRDFRenderer {
                     Iterator<OWLAxiomInfo> i = c.getNewClasses().iterator();
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
-                        Resource changeResource = model.createResource(ontologyNamespace + "#Change_" + System.nanoTime());
+                        Resource changeResource = model.createResource(ontologyNamespace + "Change_" + System.nanoTime());
                         model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddClass"));
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedClass"), model.createResource(axiomSet.getIRI().toString()));
                         axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Add");
@@ -179,7 +194,7 @@ public class OntologyDifferencesRDFRenderer {
                     Iterator<OWLAxiomInfo> i = c.getDeletedClasses().iterator();
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
-                        Resource changeResource = model.createResource(ontologyNamespace + "#Change_" + System.nanoTime());
+                        Resource changeResource = model.createResource(ontologyNamespace + "Change_" + System.nanoTime());
                         model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveClass"));
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedClass"),model.createResource(axiomSet.getIRI().toString()));
                         axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Remove");
@@ -199,7 +214,7 @@ public class OntologyDifferencesRDFRenderer {
                     Iterator<OWLAxiomInfo> i = c.getNewProperties().iterator();
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
-                        Resource changeResource = model.createResource(ontologyNamespace + "#Change_" + System.nanoTime());
+                        Resource changeResource = model.createResource(ontologyNamespace + "Change_" + System.nanoTime());
                         model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddObjectProperty"));
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedObjectProperty"), model.createResource(axiomSet.getIRI().toString()));
                         axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Add");
@@ -209,7 +224,7 @@ public class OntologyDifferencesRDFRenderer {
                     Iterator<OWLAxiomInfo> i = c.getDeletedProperties().iterator();
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
-                        Resource changeResource = model.createResource(ontologyNamespace + "#Change_" + System.nanoTime());
+                        Resource changeResource = model.createResource(ontologyNamespace + "Change_" + System.nanoTime());
                         model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveObjectProperty"));
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedObjectProperty"),model.createResource(axiomSet.getIRI().toString()));
                         axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Remove");
@@ -229,7 +244,7 @@ public class OntologyDifferencesRDFRenderer {
                     Iterator<OWLAxiomInfo> i = c.getNewDataProperties().iterator();
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
-                        Resource changeResource = model.createResource(ontologyNamespace + "#Change_" + System.nanoTime());
+                        Resource changeResource = model.createResource(ontologyNamespace + "Change_" + System.nanoTime());
                         model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#AddDataProperty"));
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#addedDataProperty"), model.createResource(axiomSet.getIRI().toString()));
                         axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Add");
@@ -239,7 +254,7 @@ public class OntologyDifferencesRDFRenderer {
                     Iterator<OWLAxiomInfo> i = c.getDeletedDataProperties().iterator();
                     while (i.hasNext()) {
                         OWLAxiomInfo axiomSet = i.next();
-                        Resource changeResource = model.createResource(ontologyNamespace + "#Change_" + System.nanoTime());
+                        Resource changeResource = model.createResource(ontologyNamespace + "Change_" + System.nanoTime());
                         model.add(changeResource, RDF.type, model.createResource("https://w3id.org/def/och#RemoveDataProperty"));
                         model.add(changeResource, model.createProperty("https://w3id.org/def/och#removedDataProperty"), model.createResource(axiomSet.getIRI().toString()));
                         axiomSetToRDF(axiomSet.getNewAxioms(),model,language,ontologyNamespace,"Remove");

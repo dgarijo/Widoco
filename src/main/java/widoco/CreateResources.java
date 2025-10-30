@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import lode.LODEGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.jena.atlas.logging.Log;
 import org.apache.jena.rdf.model.Model;
 import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
@@ -110,11 +111,15 @@ public class CreateResources {
 		if (c.isPublishProvenance()) {
 			createProvenancePage(folderOut + File.separator + "provenance", c, languageFile);
 		}
+		logger.info("Is changelog created? " + c.isIncludeChangeLog());
 		if (c.isIncludeChangeLog()) {
+			System.out.println(c.getMainOntology().getPreviousVersion());
 			if (c.getMainOntology().getPreviousVersion() != null
 				&& !"".equals(c.getMainOntology().getPreviousVersion())) {
 				String mainNamespace = c.getMainOntology().getNamespaceURI();
 				String mainPrefix = c.getMainOntology().getNamespacePrefix();
+				System.out.println(mainNamespace);
+				System.out.println(mainPrefix);
 				changeLog = createChangeLog(folderOut + File.separator + "sections", c, languageFile,mainNamespace,mainPrefix);
 			} else {
             	logger.info("No previous version provided. No changelog produced!");
@@ -199,10 +204,19 @@ public class CreateResources {
 	private static String createChangeLog(String path, Configuration c, Properties lang, String namespace,String prefix) {
             String textToWrite = null;
             try {
-                logger.info("Attempting to generate an automated changelog\nDownloading old ontology "
-                                + c.getMainOntology().getPreviousVersion());
-                String oldVersionPath = c.getTmpFile().getAbsolutePath() + File.separator + "OLDOntology";
-                WidocoUtils.downloadOntology(c.getMainOntology().getPreviousVersion(), oldVersionPath);
+				logger.info("Attempting to generate an automated changelog\nChecking old ontology location: "
+								+ c.getMainOntology().getPreviousVersion());
+				String oldVersionPath = c.getTmpFile().getAbsolutePath() + File.separator + "OLDOntology";
+				String previousVersion = c.getMainOntology().getPreviousVersion();
+				File oldOntologyFile = new File(previousVersion);
+
+				if (oldOntologyFile.exists() && oldOntologyFile.isFile()) {
+					logger.info("Old ontology is a local file. Using it directly.");
+					oldVersionPath = oldOntologyFile.getAbsolutePath();
+				} else {
+					logger.info("Old ontology is a URI. Downloading it.");
+					WidocoUtils.downloadOntology(previousVersion, oldVersionPath);
+				}
                 CompareOntologies comparison = new CompareOntologies(oldVersionPath, c);
 				Model model = OntologyDifferencesRDFRenderer.differencesToRDF(comparison, namespace, lang, prefix);
 				try (FileOutputStream out = new FileOutputStream(path + File.separator + "changelog.ttl")) {
