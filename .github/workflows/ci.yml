@@ -19,7 +19,7 @@ jobs:
       matrix:
         jdk: [11, 14, 17]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       # details https://github.com/actions/setup-java
       - name: Set up JDK  ${{ matrix.jdk }}
         uses: actions/setup-java@v5
