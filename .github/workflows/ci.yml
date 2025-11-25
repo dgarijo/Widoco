@@ -19,7 +19,7 @@ jobs:
       matrix:
         jdk: [11, 14, 17]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       # details https://github.com/actions/setup-java
       - name: Set up JDK  ${{ matrix.jdk }}
         uses: actions/setup-java@v5
@@ -54,7 +54,7 @@ jobs:
       # https://github.com/docker/metadata-action (lower cases image name, etc.)
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@v5.8.0
+        uses: docker/metadata-action@v5.9.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push

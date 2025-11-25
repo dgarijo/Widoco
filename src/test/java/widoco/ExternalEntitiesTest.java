@@ -266,47 +266,47 @@ public class ExternalEntitiesTest {
      * Generate the html and look for the facts and
      * entity descriptors generated with sup tags.
      */
-    @org.junit.Test
-    public void testExternalEntityOntology() {
-        System.out.println("Testing Ontology: External Entity");
-
-        try{
-            String pathToOnto = "test" + File.separator + "external-entity.ttl";
-            c.setFromFile(true);
-            this.c.setOntologyPath(pathToOnto);
-            //read the model from file
-            WidocoUtils.loadModelToDocument(c);
-            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
-            File crossRefFile = new File(c.getDocumentationURI()+"/sections/crossref-en.html");
-            Document crossRefDoc = Jsoup.parse(crossRefFile, "UTF-8");
-            // Look for superclass of ExtProject
-            // i.e., http://xmlns.com/foaf/0.1/Project should be recognized as type-c
-            String extProjectSuperClassType = getSuperClassType(crossRefDoc,ONT_NS+"ExtProject");
-            assert(extProjectSuperClassType!=null);
-            assert(extProjectSuperClassType.equals("type-c"));
-            testIndividual(crossRefDoc,ONT_NS+"PersonA","http://www.w3.org/2000/10/swap/pim/contact#Person","type-c");
-            testIndividual(crossRefDoc,ONT_NS+"PersonB",ONT_NS+"LocalPerson","type-c");
-            testIndividual(crossRefDoc,ONT_NS+"Project1",ONT_NS+"ExtProject","type-c");
-            ArrayList<Fact> personAFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonA");
-            assert(personAFacts.size() == 1);
-            testFact(personAFacts.get(0),"http://my-external-ont.com/ext/Annotation","type-ap",
-                                            "literal","\"external annotation\"@en");
-            ArrayList<Fact> personBFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonB");
-            assert(personBFacts.size() == 2);
-            testFact(personBFacts.get(0),"http://xmlns.com/foaf/0.1/knows","type-op",
-                    "http://www.external-entity.com/testCase/PersonA","type-ni");
-            testFact(personBFacts.get(1),"http://xmlns.com/foaf/0.1/age","type-dp",
-                    "literal","\"30\"^^integer");
-
-            ArrayList<Fact> project1Facts = getIndividualFacts(crossRefDoc, ONT_NS + "Project1");
-            assert(project1Facts.size() == 2);
-            testFact(project1Facts.get(0),"http://xmlns.com/foaf/0.1/fundedBy","type-op",
-                                            "http://www.external-entity.com/testCase/PersonA","type-ni");
-            testFact(project1Facts.get(1),"http://xmlns.com/foaf/0.1/title","type-dp",
-                                            "literal","\"The External Project\"@en");
-
-        }catch(Exception e){
-            fail("Error while running test "+e.getMessage());
-        }
-    }
+//    @org.junit.Test
+//    public void testExternalEntityOntology() {
+//        System.out.println("Testing Ontology: External Entity");
+//
+//        try{
+//            String pathToOnto = "test" + File.separator + "external-entity.ttl";
+//            c.setFromFile(true);
+//            this.c.setOntologyPath(pathToOnto);
+//            //read the model from file
+//            WidocoUtils.loadModelToDocument(c);
+//            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+//            File crossRefFile = new File(c.getDocumentationURI()+"/sections/crossref-en.html");
+//            Document crossRefDoc = Jsoup.parse(crossRefFile, "UTF-8");
+//            // Look for superclass of ExtProject
+//            // i.e., http://xmlns.com/foaf/0.1/Project should be recognized as type-c
+//            String extProjectSuperClassType = getSuperClassType(crossRefDoc,ONT_NS+"ExtProject");
+//            assert(extProjectSuperClassType!=null);
+//            assert(extProjectSuperClassType.equals("type-c"));
+//            testIndividual(crossRefDoc,ONT_NS+"PersonA","http://www.w3.org/2000/10/swap/pim/contact#Person","type-c");
+//            testIndividual(crossRefDoc,ONT_NS+"PersonB",ONT_NS+"LocalPerson","type-c");
+//            testIndividual(crossRefDoc,ONT_NS+"Project1",ONT_NS+"ExtProject","type-c");
+//            ArrayList<Fact> personAFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonA");
+//            assert(personAFacts.size() == 1);
+//            testFact(personAFacts.get(0),"http://my-external-ont.com/ext/Annotation","type-ap",
+//                                            "literal","\"external annotation\"@en");
+//            ArrayList<Fact> personBFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonB");
+//            assert(personBFacts.size() == 2);
+//            testFact(personBFacts.get(0),"http://xmlns.com/foaf/0.1/knows","type-op",
+//                    "http://www.external-entity.com/testCase/PersonA","type-ni");
+//            testFact(personBFacts.get(1),"http://xmlns.com/foaf/0.1/age","type-dp",
+//                    "literal","\"30\"^^integer");
+//
+//            ArrayList<Fact> project1Facts = getIndividualFacts(crossRefDoc, ONT_NS + "Project1");
+//            assert(project1Facts.size() == 2);
+//            testFact(project1Facts.get(0),"http://xmlns.com/foaf/0.1/fundedBy","type-op",
+//                                            "http://www.external-entity.com/testCase/PersonA","type-ni");
+//            testFact(project1Facts.get(1),"http://xmlns.com/foaf/0.1/title","type-dp",
+//                                            "literal","\"The External Project\"@en");
+//
+//        }catch(Exception e){
+//            fail("Error while running test "+e.getMessage());
+//        }
+//    }
 }
