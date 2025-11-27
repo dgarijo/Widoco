@@ -15,11 +15,16 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -34,7 +39,7 @@ public class ExternalEntitiesTest {
     /**
      * Class to store fact properties
      */
-    class Fact {
+    static class Fact {
         private String predicateIRI;
         private String predicateType;
         private String objectIRI;
@@ -63,14 +68,36 @@ public class ExternalEntitiesTest {
             return objectType;
         }
 
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Fact fact = (Fact) obj;
+            return predicateIRI.equals(fact.predicateIRI) &&
+                    predicateType.equals(fact.predicateType) &&
+                    objectIRI.equals(fact.objectIRI) &&
+                    objectType.equals(fact.objectType);
+        }
+
+        @Override
+        public String toString() {
+            return "Fact{predicateIRI='" + predicateIRI + "', predicateType='" + predicateType +
+                    "', objectIRI='" + objectIRI + "', objectType='" + objectType + "'}";
+        }
+
     }
-    static String docUri = "myDoc";
-    Configuration c;
-    static final private String ONT_NS = "http://www.external-entity.com/testCase/";
+
+    private static final String DOC_URI = "myDoc";
+    private static final String ONT_NS = "http://www.external-entity.com/testCase/";
+    private static final String IMPORT_NS = "http://example.com/imported/ont/";
+    private static final String CONTACT_NS = "http://www.w3.org/2000/10/swap/pim/contact#";
+    private static final String EXT_NS = "http://my-external-ont.com/ext/";
+
+    private Configuration c;
+
     public ExternalEntitiesTest() {
         c = new Configuration();
-        //set up where the files will be written. Otherwise, an error will be produced
-        c.setDocumentationURI(docUri);
+        c.setDocumentationURI(DOC_URI);
         c.setOverwriteAll(true);
     }
 
@@ -81,7 +108,7 @@ public class ExternalEntitiesTest {
 
     @AfterClass
     public static void tearDownClass() {
-        deleteFiles(new File (docUri));
+        deleteFiles(new File(DOC_URI));
     }
 
     @Before
@@ -94,17 +121,31 @@ public class ExternalEntitiesTest {
     }
 
     private static void deleteFiles(File folder){
-        String[]entries = folder.list();
-        for(String s: entries){
-            File currentFile = new File(folder.getPath(),s);
-            if(currentFile.isDirectory()){
-                deleteFiles(currentFile);
-            }
-            else{
-                currentFile.delete();
+        if (folder == null || !folder.exists()) {
+            return;
+        }
+        String[] entries = folder.list();
+        if (entries != null) {
+            for(String s: entries){
+                File currentFile = new File(folder.getPath(),s);
+                if(currentFile.isDirectory()){
+                    deleteFiles(currentFile);
+                }
+                else{
+                    currentFile.delete();
+                }
             }
         }
         folder.delete();
+    }
+
+    private static void copyResourceToFile(String resourcePath, File targetFile) throws Exception {
+        try (InputStream in = ExternalEntitiesTest.class.getClassLoader().getResourceAsStream(resourcePath)) {
+            if (in == null) {
+                throw new IllegalStateException("Resource not found: " + resourcePath);
+            }
+            Files.copy(in, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 
     /**
@@ -185,15 +226,11 @@ public class ExternalEntitiesTest {
 
     /**
      * Get a list of individual facts for a specific iri
-     * @param doc
-     * @param individual_iri
-     * @return
      */
-    private ArrayList<Fact> getIndividualFacts(Document doc, String individual_iri) {
+    private List<Fact> getIndividualFacts(Document doc, String individual_iri) {
         Element individualEntity = getDiv(doc, "entity", individual_iri);
         Element factsDtElement = individualEntity.select("dt:containsOwn(has facts)").first();
-        // Create a list to store Fact instances
-        ArrayList<Fact> factList = new ArrayList<>();
+        List<Fact> factList = new java.util.ArrayList<>();
         if (factsDtElement != null) {
             // Find following dd elements
             Elements factDDElements = factsDtElement.nextElementSiblings().select("dd");
@@ -233,80 +270,85 @@ public class ExternalEntitiesTest {
 
     /**
      * Test an individual and its expected class iri and descriptor type
-     * @param doc
-     * @param iri
-     * @param expectedClassIRI
-     * @param expectedType
      */
-    static void testIndividual(Document doc, String iri,String expectedClassIRI,String expectedType) {
-        String entityType = getIndividualClassType(doc,iri);
-        String classIRI = getIndividualClassIRI(doc,iri);
-        assert(entityType.equals(expectedType));
-        assert(classIRI.equals(expectedClassIRI));
-    }
-
-
-    /**
-     * Helper function to assert a fact
-     * @param fact
-     * @param expectedPredicateIRI
-     * @param expectedPredicateType
-     * @param expectedObjectIRI
-     * @param expectedObjType
-     */
-    static void testFact(Fact fact,String expectedPredicateIRI, String expectedPredicateType, String expectedObjectIRI, String expectedObjType) {
-        assert(fact.getPredicateIRI().equals(expectedPredicateIRI));
-        assert(fact.getPredicateType().equals(expectedPredicateType));
-        assert(fact.getObjectIRI().equals(expectedObjectIRI));
-        assert(fact.getObjectType().equals(expectedObjType));
+    private static void testIndividual(Document doc, String iri, String expectedClassIRI, String expectedType) {
+        String entityType = getIndividualClassType(doc, iri);
+        String classIRI = getIndividualClassIRI(doc, iri);
+        assertEquals("Entity type mismatch for " + iri, expectedType, entityType);
+        assertEquals("Class IRI mismatch for " + iri, expectedClassIRI, classIRI);
     }
 
     /**
-     * Test that parsing external entity works
-     * Generate the html and look for the facts and
-     * entity descriptors generated with sup tags.
+     * Helper function to assert that all expected facts are present in the actual facts list.
+     * Order-independent comparison.
      */
-//    @org.junit.Test
-//    public void testExternalEntityOntology() {
-//        System.out.println("Testing Ontology: External Entity");
-//
-//        try{
-//            String pathToOnto = "test" + File.separator + "external-entity.ttl";
-//            c.setFromFile(true);
-//            this.c.setOntologyPath(pathToOnto);
-//            //read the model from file
-//            WidocoUtils.loadModelToDocument(c);
-//            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
-//            File crossRefFile = new File(c.getDocumentationURI()+"/sections/crossref-en.html");
-//            Document crossRefDoc = Jsoup.parse(crossRefFile, "UTF-8");
-//            // Look for superclass of ExtProject
-//            // i.e., http://xmlns.com/foaf/0.1/Project should be recognized as type-c
-//            String extProjectSuperClassType = getSuperClassType(crossRefDoc,ONT_NS+"ExtProject");
-//            assert(extProjectSuperClassType!=null);
-//            assert(extProjectSuperClassType.equals("type-c"));
-//            testIndividual(crossRefDoc,ONT_NS+"PersonA","http://www.w3.org/2000/10/swap/pim/contact#Person","type-c");
-//            testIndividual(crossRefDoc,ONT_NS+"PersonB",ONT_NS+"LocalPerson","type-c");
-//            testIndividual(crossRefDoc,ONT_NS+"Project1",ONT_NS+"ExtProject","type-c");
-//            ArrayList<Fact> personAFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonA");
-//            assert(personAFacts.size() == 1);
-//            testFact(personAFacts.get(0),"http://my-external-ont.com/ext/Annotation","type-ap",
-//                                            "literal","\"external annotation\"@en");
-//            ArrayList<Fact> personBFacts = getIndividualFacts(crossRefDoc, ONT_NS + "PersonB");
-//            assert(personBFacts.size() == 2);
-//            testFact(personBFacts.get(0),"http://xmlns.com/foaf/0.1/knows","type-op",
-//                    "http://www.external-entity.com/testCase/PersonA","type-ni");
-//            testFact(personBFacts.get(1),"http://xmlns.com/foaf/0.1/age","type-dp",
-//                    "literal","\"30\"^^integer");
-//
-//            ArrayList<Fact> project1Facts = getIndividualFacts(crossRefDoc, ONT_NS + "Project1");
-//            assert(project1Facts.size() == 2);
-//            testFact(project1Facts.get(0),"http://xmlns.com/foaf/0.1/fundedBy","type-op",
-//                                            "http://www.external-entity.com/testCase/PersonA","type-ni");
-//            testFact(project1Facts.get(1),"http://xmlns.com/foaf/0.1/title","type-dp",
-//                                            "literal","\"The External Project\"@en");
-//
-//        }catch(Exception e){
-//            fail("Error while running test "+e.getMessage());
-//        }
-//    }
+    private void assertContainsFacts(List<Fact> actualFacts, List<Fact> expectedFacts) {
+        assertEquals("Facts count mismatch", expectedFacts.size(), actualFacts.size());
+        for (Fact expected : expectedFacts) {
+            assertTrue("Expected fact not found: " + expected, actualFacts.contains(expected));
+        }
+    }
+
+    @Test
+    public void testExternalEntityOntology() {
+        System.out.println("Testing Ontology: External Entity");
+
+        File tempDir = null;
+        try {
+            tempDir = Files.createTempDirectory("external-entity").toFile();
+            File externalEntity = new File(tempDir, "external-entity.ttl");
+            File importedOntology = new File(tempDir, "imported-ontology.ttl");
+            copyResourceToFile("externalEntity/external-entity.ttl", externalEntity);
+            copyResourceToFile("externalEntity/imported-ontology.ttl", importedOntology);
+
+            c.setFromFile(true);
+            c.setOntologyPath(externalEntity.getAbsolutePath());
+            c.setImports(Arrays.asList(tempDir.getAbsolutePath()));
+            WidocoUtils.loadModelToDocument(c);
+            // Ensure the local import ontology is available in the manager so property types are detected.
+            c.getMainOntology().getOWLAPIModel().getOWLOntologyManager()
+                    .loadOntologyFromOntologyDocument(importedOntology);
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+
+            File crossRefFile = new File(c.getDocumentationURI() + "/sections/crossref-en.html");
+            Document crossRefDoc = Jsoup.parse(crossRefFile, "UTF-8");
+
+            // Test superclass of ExtProject
+            String extProjectSuperClassType = getSuperClassType(crossRefDoc, ONT_NS + "ExtProject");
+            assertNotNull("SuperClass type should not be null", extProjectSuperClassType);
+            assertEquals("type-c", extProjectSuperClassType);
+
+            // Test individuals
+            testIndividual(crossRefDoc, ONT_NS + "PersonA", CONTACT_NS + "Person", "type-c");
+            testIndividual(crossRefDoc, ONT_NS + "PersonB", ONT_NS + "LocalPerson", "type-c");
+            testIndividual(crossRefDoc, ONT_NS + "Project1", ONT_NS + "ExtProject", "type-c");
+
+            // PersonA facts
+            List<Fact> expectedPersonAFacts = Arrays.asList(
+                    new Fact(EXT_NS + "Annotation", "type-ap", "literal", "\"external annotation\"@en")
+            );
+            assertContainsFacts(getIndividualFacts(crossRefDoc, ONT_NS + "PersonA"), expectedPersonAFacts);
+
+            // PersonB facts
+            List<Fact> expectedPersonBFacts = Arrays.asList(
+                    new Fact(IMPORT_NS + "knows", "type-op", ONT_NS + "PersonA", "type-ni"),
+                    new Fact(IMPORT_NS + "age", "type-dp", "literal", "\"30\"^^integer")
+            );
+            assertContainsFacts(getIndividualFacts(crossRefDoc, ONT_NS + "PersonB"), expectedPersonBFacts);
+
+            // Project1 facts
+            List<Fact> expectedProject1Facts = Arrays.asList(
+                    new Fact(IMPORT_NS + "fundedBy", "type-op", ONT_NS + "PersonA", "type-ni"),
+                    new Fact(IMPORT_NS + "title", "type-dp", "literal", "\"The External Project\"@en")
+            );
+            assertContainsFacts(getIndividualFacts(crossRefDoc, ONT_NS + "Project1"), expectedProject1Facts);
+
+        } catch (Exception e) {
+            fail("Error while running test: " + e.getMessage());
+        } finally {
+            if (tempDir != null && tempDir.exists()) {
+                deleteFiles(tempDir);
+            }
+        }
+    }
 }

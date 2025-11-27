@@ -1,0 +1,27 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://example.com/imported/ont/> .
+@base <http://example.com/imported/ont/> .
+
+<http://example.com/imported/ont/> rdf:type owl:Ontology .
+
+:Person rdf:type owl:Class .
+:Project rdf:type owl:Class .
+
+:knows rdf:type owl:ObjectProperty ;
+       rdfs:domain :Person ;
+       rdfs:range :Person .
+
+:fundedBy rdf:type owl:ObjectProperty ;
+          rdfs:domain :Project ;
+          rdfs:range :Person .
+
+:age rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Person ;
+     rdfs:range xsd:integer .
+
+:title rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Project ;
+       rdfs:range rdfs:Literal .
