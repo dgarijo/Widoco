@@ -83,10 +83,10 @@ We prioritize reusing metadata properties defined already. However, a small subs
 |Metadata category|Ontology annotation property*|`config.properties` field(s)**|Good practices document|Accepted property value|Example|
 |-----------------|-----------------------------|------------------------------|-----------------------|-----------------------|-------|
 |Introduction            |[widoco:introduction]        |introduction         |N/A **[OPTIONAL]**   |[Text] |[ontology](#onto), [config]|
-|N-Triples serialization |[widoco:ntSerialization]     |NTSerialization      |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
-|JSON-LD serialization   |[widoco:jsonldSerialization] |JSONLDSerialization  |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
-|RDF-XML serialization   |[widoco:rdfxmlSerialization] |RDFXMLSerialization  |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
-|Turtle serialization    |[widoco:turtleSerialization] |TurtleSerialization  |N/A **[OPTIONAL]**   |[URL]  |[ontology](#onto), [config]|
+|N-Triples serialization |[widoco:ntSerialization]     |NTSerialization      |N/A **[OPTIONAL]**   |[URI]  |[ontology](#onto), [config]|
+|JSON-LD serialization   |[widoco:jsonldSerialization] |JSONLDSerialization  |N/A **[OPTIONAL]**   |[URI]  |[ontology](#onto), [config]|
+|RDF-XML serialization   |[widoco:rdfxmlSerialization] |RDFXMLSerialization  |N/A **[OPTIONAL]**   |[URI]  |[ontology](#onto), [config]|
+|Turtle serialization    |[widoco:turtleSerialization] |TurtleSerialization  |N/A **[OPTIONAL]**   |[URI]  |[ontology](#onto), [config]|
 
 ### Term (classes, properties and data properties) annotations
 
