@@ -101,6 +101,7 @@ The table below summarizes all the metadata annotations recognized for ontology 
 |**[Label]**             |RECOMMENDED|[rdfs:label], [skos:prefLabel], [obo:IAO_0000118]|[Text]   |[ontology](#term)|
 |**[Original source]**   |OPTIONAL   |[rdfs:isDefinedBy], [dc:source]    |[URI]                  |[ontology](#term)|
 |**[Rationale]**         |OPTIONAL   |[vaem:rationale]                   |[Text]                 |[ontology](#term)|
+|**Scope note**          |OPTIONAL   |[skos:scopeNote]                   |[Text]                 |[ontology](#term)|
 |**[Status][ST]**        |OPTIONAL   |[sw:term_status], [obo:IAO_0000114]|[Text]                 |[ontology](#term)|
 
 
@@ -208,6 +209,7 @@ For status, the known values are: `unstable`, `testing`, `stable` and `archaic`
             sw:status "unstable";
             rdfs:isDefinedBy <https://w3id.org/example#> ;
             skos:editorialNote "Some editorial note by the creator of the term" ;
+            skos:scopeNote "A note that helps to clarify the meaning and/or the use of a concept" ;
             rdfs:label "Researcher"@en .
 ```
 
@@ -435,6 +437,7 @@ TurtleSerialization=ontology.ttl
 [skos:example]:                  http://www.w3.org/2004/02/skos/core#example
 [skos:note]:                     http://www.w3.org/2004/02/skos/core#note
 [skos:prefLabel]:                http://www.w3.org/2004/02/skos/core#prefLabel
+[skos:scopeNote]:                http://www.w3.org/2004/02/skos/core#scopeNote
 [sw:term_status]:                http://www.w3.org/2003/06/sw-vocab-status/ns#
 [vaem:rationale]:                http://www.linkedmodel.org/schema/vaem#rationale
 [vann:example]:                  http://purl.org/vocab/vann/example

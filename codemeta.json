@@ -1,0 +1,62 @@
+{
+    "@context": "https://w3id.org/codemeta/3.0",
+    "@type": "SoftwareSourceCode",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/dgarijo/Widoco/master/LICENSE",
+      "identifier": "https://spdx.org/licenses/Apache-2.0"
+    },
+    "codeRepository": "https://github.com/dgarijo/Widoco",
+    "issueTracker": "https://github.com/dgarijo/Widoco/issues",
+    "dateCreated": "2013-07-15",
+    "dateModified": "2025-01-31",
+    "downloadUrl": "https://github.com/dgarijo/Widoco/releases",
+    "name": "Widoco",
+    "logo": "https://raw.githubusercontent.com/dgarijo/Widoco/master/src/main/resources/logo/logo2.png",
+    "keywords": "documentation, metadata, ontology, ontology-diagram, ontology-evaluation, wizard",
+    "programmingLanguage": [
+      "JavaScript",
+      "Java",
+      "XSLT",
+      "CSS",
+      "HTML",
+      "Dockerfile"
+    ],
+    "softwareRequirements": [
+      "Just add the dependency and repository to your `pom.xml` file as follows. See the [WIDOCO JitPack](https://jitpack.io/#dgarijo/Widoco) page to find alternative means to incorporate WIDOCO to your project.\n\n```xml\n<dependencies>\n  <dependency>\n      <groupId>com.github.dgarijo</groupId>\n      <artifactId>Widoco</artifactId>\n      <version>v1.4.24</version>\n  </dependency>\n</dependencies>\n\n[ ... ]\n\n<repositories>\n\t<repository>\n\t    <id>jitpack.io</id>\n\t    <url>https://jitpack.io</url>\n\t</repository>\n</repositories>\n```\n",
+      "You will need Java 1.8 or higher (SDK 1.8 or JRE 8) for WIDOCO to work\nOtherwise, you will probably experience an \"Unsupported major.minor version 52.0\" exception when executing the JAR file.\n"
+    ],
+    "releaseNotes": "This version of WIDOCO fixes documentation broken links, clarifies how to download Docker images and includes a new option for excluding the provenance page from documentation (thanks to @MikiDi) \r\n\r\n## What's Changed\r\n* Bump docker/build-push-action from 5.3.0 to 5.4.0 by @dependabot in https://github.com/dgarijo/Widoco/pull/709\r\n* CLI option to exclude provenance link by @MikiDi in https://github.com/dgarijo/Widoco/pull/710\r\n* Improved documentation (broken links)\r\n\r\n\r\n**Full Changelog**: https://github.com/dgarijo/Widoco/compare/v1.4.24...v1.4.25",
+    "softwareVersion": "v1.4.25",
+    "buildInstructions": [
+      "https://raw.githubusercontent.com/dgarijo/Widoco/master/README.md"
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "@id": "http://orcid.org/0000-0003-0454-7145"
+      }
+    ],
+    "referencePublication": [
+      {
+        "@type": "ScholarlyArticle",
+        "identifier": "10.1007/978-3-319-68204-4_9",
+        "author": {
+            "@type": "Person",
+            "givenName": "Daniel",
+            "familyName": "Garijo",
+            "@id": "http://orcid.org/0000-0003-0454-7145"
+          },
+        "url": "http://dgarijo.com/papers/widoco-iswc2017.pdf",
+        "name": "WIDOCO: a wizard for documenting ontologies",
+        "datePublished": "2017",
+        "pagination": "94--102"
+      }
+    ],
+    "identifier": "https://doi.org/10.5281/zenodo.11093793",
+    "readme": "https://raw.githubusercontent.com/dgarijo/Widoco/master/README.md",
+    "description": [
+      "Wizard for documenting ontologies. WIDOCO is a step by step generator of HTML templates with the documentation of your ontology. It uses the LODE environment to create part of the template.",
+      "WIDOCO helps you to publish and create an enriched and customized documentation of your ontology, by following a series of steps in a wizard. We extend the LODE framework by Silvio Peroni to describe the classes, properties and data properties of the ontology, the OOPS! webservice by María Poveda to print an evaluation and the Licensius service by Victor Rodriguez Doncel to determine the license URI and title being used. In addition, we use WebVowl to visualize the ontology and have extended Bubastis to show a complete changelog between different versions of your ontology.\n\nFeatures of WIDOCO:\n* Automatic documentation of the terms in your ontology (based on [LODE](http://www.essepuntato.it/lode/)). Now **you can use Markdown on your class descriptions** (see [example](https://dgarijo.github.io/Widoco/doc/gallery/index.html))\n* Massive metadata extraction and support: WIDOCO will enhance your ontology documentation  based on your ontology annotations. Now you can add custom logos and images, edit the content of your sections, etc. by just editing metadata. See our [supported metadata](doc/metadataGuide/guide.md) and [recommendations](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html) for more information.\n* Automatic annotation in JSON-LD snippets of the html produced.\n* Association of a provenance page which includes the history of your vocabulary (W3C PROV-O compliant).\n* Guidelines on the main sections that your document should have and how to complete them.\n* Integration with diagram creators ([WebVOWL](http://vowl.visualdataweb.org/webvowl/)).\n* Automatic changelog of differences between the actual and the previous version of the ontology (based on [Bubastis](http://www.ebi.ac.uk/efo/bubastis/)).\n* Separation of the sections of your html page so you can write them independently and replace only those needed.\n* Content negotiation and serialization of your ontology according to [W3C best practices](https://www.w3.org/TR/swbp-vocab-pub/)\n* Evaluation reports of your ontology (using the [OOPS! web service](https://oops.linkeddata.es/))\n* Integration with license metadata services ([Licensius](http://licensius.com/)) to automatically describe the license used in your ontology.\n"
+    ]
+  }
