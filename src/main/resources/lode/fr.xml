@@ -88,5 +88,6 @@
     <rangeIncludes>cible comprend</rangeIncludes>
     <usesRule>utilise la règle</usesRule>
     <editorialNote>note éditoriale</editorialNote>
+    <altLabel>label alternatif</altLabel>
     <scopeNote>note de portée</scopeNote>
 </labels>
