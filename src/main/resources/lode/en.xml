@@ -88,6 +88,7 @@
     <domainIncludes>domain includes</domainIncludes>
     <rangeIncludes>range includes</rangeIncludes>
     <editorialNote>editorial note</editorialNote>
+    <altLabel>Alternative label</altLabel>
     <scopeNote>scope note</scopeNote>
     <usedByRuleInAntecedent>used by rule (in antecedent)</usedByRuleInAntecedent>
     <usedByRuleInConsequent>used by rule (in consequent)</usedByRuleInConsequent>

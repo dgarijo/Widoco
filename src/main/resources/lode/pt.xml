@@ -81,4 +81,5 @@
 	<category>Categoria</category>
 	<isrequired>É necessário</isrequired>
 	<source>Fonte</source>
+    <altLabel>rótulo alternativo</altLabel>
 </labels>

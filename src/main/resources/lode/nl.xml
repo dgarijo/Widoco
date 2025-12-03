@@ -87,5 +87,6 @@
     <rangeIncludes>bereik bevat</rangeIncludes>
     <usesRule>gebruikt regel</usesRule>
     <editorialNote>redactionele opmerking</editorialNote>
+    <altLabel>alternatief label</altLabel>
     <scopeNote>scoop opmerking</scopeNote>
 </labels>
