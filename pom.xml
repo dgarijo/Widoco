@@ -43,6 +43,13 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.30</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>apache-jena-libs</artifactId>
+			<version>4.3.2</version>
+			<type>pom</type>
+		</dependency>
 
 		<!-- We use "provided" scope because we are exporting the contents of these 
 			libraries, and we don't want our bundle consumers to see and be confused 
