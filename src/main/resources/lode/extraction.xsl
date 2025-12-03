@@ -1024,6 +1024,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     </xsl:template>
 
     <xsl:template name="get.entity.metadata">
+        <xsl:call-template name="get.skos.alt.label"/>
         <xsl:call-template name="get.skos.editorial.note"/>
         <xsl:call-template name="get.skos.scope.note"/>
         <xsl:call-template name="get.version"/>
@@ -1034,6 +1035,21 @@ http://www.oxygenxml.com/ns/doc/xsl ">
         <xsl:call-template name="get.deprecated"/>
         <xsl:call-template name="get.rule.antecedent"/>
         <xsl:call-template name="get.rule.consequent"/>
+    </xsl:template>
+
+    <xsl:template name="get.skos.alt.label">
+        <xsl:if test="exists(skos:altLabel)">
+            <dl>
+                <dt>
+                    <xsl:value-of select="f:getDescriptionLabel('altLabel')"/>
+                </dt>
+                <xsl:for-each select="skos:altLabel">
+                    <dd>
+                        <xsl:value-of select="text()"/>
+                    </dd>
+                </xsl:for-each>
+            </dl>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="get.original.source">
