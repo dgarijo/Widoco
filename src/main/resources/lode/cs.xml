@@ -88,6 +88,7 @@
     <rangeIncludes>range includes</rangeIncludes>
     <usesRule>uses rule</usesRule>
     <editorialNote>redakční poznámka</editorialNote>
+    <altLabel>Alternativní označení</altLabel>
     <scopeNote>poznámka k rozsahu</scopeNote>
     <externalproperty>externí vlastnosti</externalproperty>
 </labels>
