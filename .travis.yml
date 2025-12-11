@@ -1,0 +1,34 @@
+language: java
+jdk:
+  - openjdk11
+  - openjdk14
+  - openjdk17
+env:
+  global:
+    - REGISTRY=ghcr.io
+    - IMAGE_NAME=${TRAVIS_REPO_SLUG}
+before_install:
+  - pip install --user codecov
+install: skip
+before_script:
+  - export JAVA_HOME=$(jdk_switcher home ${TRAVIS_JDK_VERSION})
+  - java -version
+script:
+  - mvn -e --batch-mode package
+before_cache:
+  - rm -f  $HOME/.m2/repository/org/apache/maven/dpl/maven-dpl-plugin/3.0.1/maven-dpl-plugin-3.0.1.pom
+cache:
+  directories:
+    - $HOME/.m2/repository
+    - $HOME/.m2/wrapper
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+after_deploy:
+  - rm -f  $HOME/.m2/repository/org/apache/maven/dpl/maven-dpl-plugin/3.0.1/maven-dpl-plugin-3.0.1.pom
+deploy:
+  provider: script
+  script: bash .travis-deploy.sh
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
