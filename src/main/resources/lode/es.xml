@@ -88,6 +88,7 @@
     <rangeIncludes>el rango incluye</rangeIncludes>
     <usesRule>utiliza regla</usesRule>
     <editorialNote>nota editorial</editorialNote>
+    <altLabel>etiqueta alternativa</altLabel>
     <scopeNote>nota de alcance</scopeNote>
     <externalproperty>propiedad externa</externalproperty>
 </labels>
