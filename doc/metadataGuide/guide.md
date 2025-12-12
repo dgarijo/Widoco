@@ -80,7 +80,7 @@ The table below shows which ontology metadata annotations are recognized in WIDO
 ### Custom annotations
 We prioritize reusing metadata properties already defined elsewhere. However, a small subset of `OPTIONAL` annotation properties (i.e., `introduction` and the URL to the different serializations) have been introduced by WIDOCO to customize parts of the documentation from the ontology itself:
 
-|Obligation|Metadata category||Ontology annotation property*|`config.properties` field(s)**|Accepted property value|Example|
+|Obligation|Metadata category|Ontology annotation property*|`config.properties` field(s)**|Accepted property value|Example|
 |--------|---------------------------|--------------------------|------------------|------|---------------------------|
 |OPTIONAL|**Introduction**           |     [widoco:introduction]|introduction      |[Text]|[ontology](#onto), [config]|
 |OPTIONAL|**N-Triples serialization**|  [widoco:ntSerialization]|NTSerialization    |[URI]|[ontology](#onto), [config]|
