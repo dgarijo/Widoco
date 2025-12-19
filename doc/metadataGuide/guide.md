@@ -40,37 +40,37 @@ This section explains the metadata recognized by WIDOCO for both ontology annota
 
 The table below shows which ontology metadata annotations are recognized in WIDOCO in alphabetical order. The links in the second column redirect to the corresponding sections of the [good practice document](https://dgarijo.github.io/Widoco/doc/bestPractices/index-en.html).
 
-|Obligation |Metadata category|Ontology annotation property*|`config.properties` field(s)**|Accepted property value|Example|
-|-----------|-----------------|-----------------------------|------------------------------|-----------------------|-------|
-|OPTIONAL   |**[Abstract]**   |[dc:abstract], [dcterms:abstract]    |abstract        |[Text]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Backwards compatible with]**|[owl:backwardCompatibleWith]  |backwardCompatibleWith |[URI] |[ontology](#onto), [config]|
-|OPTIONAL   |**[Bibliographic citation]**|[dcterms:bibliographicCitation], [schema:citation]|citeAs|[Text]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Code repository]**|[schema:codeRepository], [doap:repository]|codeRepository|[URI]|[ontology](#onto), [config]|
+|Obligation |Metadata category      |Ontology annotation property*     |`config.properties` field(s)**|Accepted property value|Example            |
+|-----------|-----------------------|----------------------------------|------------------------------|-----------------------|-------------------|
+|OPTIONAL|**[Abstract]**            |[dc:abstract], [dcterms:abstract]      |abstract                 |         [Text]|[ontology](#onto), [config]|
+|OPTIONAL|**[Backwards compatible with]**|[owl:backwardCompatibleWith]      |backwardCompatibleWith   |          [URI]|[ontology](#onto), [config]|
+|OPTIONAL|**[Bibliographic citation]**|[dcterms:bibliographicCitation], [schema:citation]|citeAs      |         [Text]|[ontology](#onto), [config]|
+|OPTIONAL|**[Code repository]**|[schema:codeRepository], [doap:repository]  |codeRepository           |          [URI]|[ontology](#onto), [config]|
 |RECOMMENDED|**[Contributors]**|[dcterms:contributor], [dc:contributor], [schema:contributor], [pav:contributedBy], [doap:documenter], [doap:maintainer], [doap:helper], [doap:translator]|contributors, contributorsURI, contributorsInstitution, contributorsInstitutionURI|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |OPTIONAL   |**[Creation date]**|[dcterms:created], [schema:dateCreated], [prov:generatedAtTime], [pav:createdOn], [doap:created]|dateCreated|[Text]|[ontology](#onto), [config]|
 |RECOMMENDED|**[Creators]**|[dcterms:creator], [dc:creator], [schema:creator], [pav:createdBy], [pav:authoredBy], [prov:wasAttributedTo], [doap:developer], [foaf:maker]|authors, authorsURI, authorsInstitution, authorsInstitutionURI|[Text] or [Person] or [BNode]|[ontology](#onto), [config]|
 |OPTIONAL|**[Description]**|[dc:description], [dcterms:description], [schema:description], [rdfs:comment], [skos:note], [doap:description], [doap:shortdesc]|description|[Text]|[ontology](#onto), [config]|
-|OPTIONAL|**[Diagram]**|[foaf:image], [foaf:depiction], [schema:image]|diagram      |[Text]|[ontology](#onto), [config]|
-|OPTIONAL|**[DOI]**    |[bibo:doi]                                    |DOI          |[Text]|[ontology](#onto), [config]|
-|OPTIONAL|**[Extended ontologies]**|[voaf:extends] |extendedOntologyNames, extendedOntologyURIs |[URI] |[ontology](#onto), [config]|
-|OPTIONAL|**[Funders]** (org/person)|[foaf:fundedBy], [schema:funder]|funders|[Text] or [URI]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Funding grants]**   |[schema:funding]       |fundingGrant    |[Text] or [URI]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Incompatible with]**|[owl:incompatibleWith] |incompatibleWith|[URI]          |[ontology](#onto), [config]|
+|OPTIONAL|**[Diagram]**|[foaf:image], [foaf:depiction], [schema:image]      |diagram                  |         [Text]|[ontology](#onto), [config]|
+|OPTIONAL|**[DOI]**                 |[bibo:doi]                             |DOI                      |         [Text]|[ontology](#onto), [config]|
+|OPTIONAL|**[Extended ontologies]** |[voaf:extends]       |extendedOntologyNames, extendedOntologyURIs|          [URI]|[ontology](#onto), [config]|
+|OPTIONAL|**[Funders]** (org/person)|[foaf:fundedBy], [schema:funder]       |funders                  |[Text] or [URI]|[ontology](#onto), [config]|
+|OPTIONAL|**[Funding grants]**      |[schema:funding]                       |fundingGrant             |[Text] or [URI]|[ontology](#onto), [config]|
+|OPTIONAL|**[Incompatible with]**   |[owl:incompatibleWith]                 |incompatibleWith         |          [URI]|[ontology](#onto), [config]|
 |RECOMMENDED (good practice in ontology engineering)|**Imported ontologies**|[owl:imports]|importedOntologyNames, importedOntologyURIs|[URI]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Publication date]**|[dcterms:issued], [schema:dateIssued]|dateIssued|[Text]|[ontology](#onto), [config]|
-|OPTIONAL   |**[License]**         |[dc:rights], [dcterms:license], [schema:license], [cc:license], [doap:license]|licenseName, licenseURI, licenseIconURL|[Text] or [URI]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Logo]**            |[foaf:logo], [schema:logo]      |logo           |[URI] |[ontology](#onto), [config]|
-|RECOMMENDED|**[Name]**|[rdfs:label], [mod:acronym], [schema:alternateName], [skos:prefLabel]|ontologyName|[Text]|[ontology](#onto), [config]|
-|RECOMMENDED|**[Namespace prefix]**|[vann:preferredNamespacePrefix]|ontologyPrefix  |[Text]|[ontology](#onto), [config]|
-|RECOMMENDED|**[Namespace URI]**   |[vann:preferredNamespaceUri]|ontologyNamespaceURI|[URI]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Modification date]**|[dcterms:modified], [schema:dateModified] [pav:lastUpdatedOn]|dateModified|[Text]  |[ontology](#onto), [config]|
+|OPTIONAL|**[Publication date]**    |[dcterms:issued], [schema:dateIssued]  |dateIssued                     |   [Text]|[ontology](#onto), [config]|
+|OPTIONAL|**[License]**|[dc:rights], [dcterms:license], [schema:license], [cc:license], [doap:license]|licenseName, licenseURI, licenseIconURL|[Text] or [URI]|[ontology](#onto), [config]|
+|OPTIONAL|**[Logo]**   |[foaf:logo], [schema:logo]                          |logo                           |    [URI]|[ontology](#onto), [config]|
+|RECOMMENDED|**[Name]**|[rdfs:label], [mod:acronym], [schema:alternateName], [skos:prefLabel]|ontologyName  |   [Text]|[ontology](#onto), [config]|
+|RECOMMENDED|**[Namespace prefix]** |[vann:preferredNamespacePrefix]        |ontologyPrefix                 |   [Text]|[ontology](#onto), [config]|
+|RECOMMENDED|**[Namespace URI]**    |[vann:preferredNamespaceUri]           |ontologyNamespaceURI           |    [URI]|[ontology](#onto), [config]|
+|OPTIONAL|**[Modification date]**|[dcterms:modified], [schema:dateModified] [pav:lastUpdatedOn]|dateModified|   [Text]|[ontology](#onto), [config]|
 |RECOMMENDED|**[Previous version]**|[dc:replaces], [dcterms:replaces], [prov:wasRevisionOf], [pav:previousVersion], [owl:priorVersion]|previousVersionURI|[URI]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Publisher]**|[dcterms:publisher], [dc:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Similar resources]**|[rdfs:seeAlso]                 |seeAlso        |[Text]|[ontology](#onto), [config]|
-|OPTIONAL   |**[Status][SO]**|[bibo:status], [mod:status], [schema:creativeWorkStatus]|status|[Text] or [Status](#status)|[ontology](#onto), [config]|
-|OPTIONAL   |**[Source]**|[dc:source], [dcterms:source], [prov:hadPrimarySource], [wdrs:describedBy]|source|[URI]  |[ontology](#onto), [config]|
-|RECOMMENDED|**[Title]** |[dc:title], [dcterms:title], [schema:name]|ontologyTitle  |[Text]|[ontology](#onto), [config]|
-|RECOMMENDED|**[Version IRI]**   |[owl:versionIRI]                  |thisVersionURI |[URI] |[ontology](#onto), [config]|
+|OPTIONAL|**[Publisher]**|[dcterms:publisher], [dc:publisher], [schema:publisher]|publisher, publisherURI, publisherInstitution, publisherInstitutionURI|[Text] or [Organization] or [BNode]|[ontology](#onto), [config]|
+|OPTIONAL|**[Similar resources]**   |[rdfs:seeAlso]                         |seeAlso                        |   [Text]|[ontology](#onto), [config]|
+|OPTIONAL|**[Status][SO]**|[bibo:status], [mod:status], [schema:creativeWorkStatus]|status|[Text] or [Status](#status)|[ontology](#onto), [config]|
+|OPTIONAL|**[Source]**|[dc:source], [dcterms:source], [prov:hadPrimarySource], [wdrs:describedBy]|source    |    [URI]|[ontology](#onto), [config]|
+|RECOMMENDED|**[Title]**         |[dc:title], [dcterms:title], [schema:name]|ontologyTitle                  |   [Text]|[ontology](#onto), [config]|
+|RECOMMENDED|**[Version IRI]**   |[owl:versionIRI]                          |thisVersionURI                 |    [URI]|[ontology](#onto), [config]|
 |RECOMMENDED|**[Version number]**|[owl:versionInfo], [schema:schemaVersion], [pav:version], [dcterms:hasVersion]|ontologyRevisionNumber|[Text]|[ontology](#onto), [config]|
 
 **\*** All listed properties are supported by WIDOCO.
