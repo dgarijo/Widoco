@@ -3,7 +3,7 @@
 
 ![Logo](src/main/resources/logo/logo2.png)
 
-WIDOCO helps you to publish and create an enriched and customized documentation of your ontology automatically, by following a series of steps in a GUI.
+WIDOCO allows you to automatically generate and publish enriched, customized documentation for your ontology through a step-by-step GUI.
 
 **Author**: Daniel Garijo Verdejo (@dgarijo)
 
@@ -24,7 +24,8 @@ WIDOCO helps you to publish and create an enriched and customized documentation 
   url={http://dgarijo.com/papers/widoco-iswc2017.pdf}
 }
 ```
-If you want to cite the latest version of the software, you can do so by using: https://zenodo.org/badge/latestdoi/11427075.
+To cite the latest version of the software, please use the following:
+https://zenodo.org/badge/latestdoi/11427075.
 
 ## Downloading the executable
 
