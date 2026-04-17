@@ -1,5 +1,5 @@
 # ----
-FROM maven:3.8.3-openjdk-17-slim AS build_image
+FROM maven:3.9.12-eclipse-temurin-11-alpine AS build_image
 
 WORKDIR /var/build/widoco
 
@@ -9,7 +9,7 @@ RUN mvn package && \
     mv ./JAR/widoco*.jar ./JAR/widoco.jar
 
 # ----
-FROM openjdk:17-slim
+FROM eclipse-temurin:11-jdk-noble
 
 RUN apt-get update
 RUN apt-get install -y libfreetype6 fontconfig
@@ -17,6 +17,9 @@ RUN apt-get install -y libfreetype6 fontconfig
 RUN useradd widoco
 RUN mkdir -p /usr/local/widoco
 RUN chown -R widoco:widoco /usr/local/widoco
+
+# allow execution of widoco with another UID while using the container's GID for writing the tmp files
+RUN chmod -R 0775 /usr/local/widoco
 
 USER widoco
 
