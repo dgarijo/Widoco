@@ -19,7 +19,8 @@ RUN mkdir -p /usr/local/widoco
 RUN chown -R widoco:widoco /usr/local/widoco
 
 # allow execution of widoco with another UID while using the container's GID for writing the tmp files
-RUN chmod -R 0775 /usr/local/widoco
+# UPDATE: all users need to have write permissions to the widoco folder, otherwise issues with .devcontainers
+RUN chmod -R 0777 /usr/local/widoco
 
 USER widoco
 
