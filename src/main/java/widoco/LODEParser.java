@@ -349,7 +349,6 @@ public class LODEParser {
 					Node firstAnchor = currentNode.getFirstChild();
 					Node secondAnchor = firstAnchor.getNextSibling();
 					String newID = firstAnchor.getAttributes().getNamedItem("name").getNodeValue();
-					newID = newID.replace(c.getMainOntology().getNamespaceURI(), "");
 
 					try {
 						// if the URI contains special characters, we must decode them for referencing
@@ -358,6 +357,10 @@ public class LODEParser {
 					} catch (Exception e) {
 						logger.error("Error when encoding node.");
 					}
+
+					// remove ontology namespace
+					newID = newID.replace(c.getMainOntology().getNamespaceURI(), "");
+
 					if (newID.startsWith("#")) {
 						newID = newID.replace("#", "");
 					} // fix in case the author insert the NS URI without "#"
