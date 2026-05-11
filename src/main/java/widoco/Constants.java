@@ -790,60 +790,62 @@ public class Constants {
 				+ "			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore(\"span\").text()+'</a></li>';\n"
 				+ "		}\n" + "	  });\n" + "	  t+='</ul>';\n" + "	  $(\"#toc\").html(t); \n" + "}\n"
 				+ " $.fn.ignore = function(sel){\n" + "        return this.clone().find(sel||\">*\").remove().end();\n"
-				+ " };" + "    $(function(){\n";
-		// the script for loading the table is called after loading everything else,
-		// after the loadHash function
+				+ " };" + "    $(function(){\n"
+				+ "      var loads = [];\n"
+				+ "      function _ls(sel,url){var d=$.Deferred();$(sel).load(url,function(){d.resolve();});return d.promise();}\n";
+		// collect all section loads; call loadHash only after all complete
 		if (c.isIncludeAbstract()) {
 			if(c.getAbstractPath()!=null && !c.getAbstractPath().isEmpty()){
-				document += "      $(\"#abstract\").load(\""+c.getAbstractPath()+"\"); \n";
+				document += "      loads.push(_ls(\"#abstract\",\""+c.getAbstractPath()+"\")); \n";
 			}else {
-				document += "      $(\"#abstract\").load(\"sections/abstract-" + c.getCurrentLanguage() + ".html\"); \n";
+				document += "      loads.push(_ls(\"#abstract\",\"sections/abstract-" + c.getCurrentLanguage() + ".html\")); \n";
 			}
 		}
 		if (c.isIncludeIntroduction()){
 			if(c.getIntroductionPath()!=null && !c.getIntroductionPath().isEmpty()){
-				document += "      $(\"#introduction\").load(\""+c.getIntroductionPath()+"\"); \n";
+				document += "      loads.push(_ls(\"#introduction\",\""+c.getIntroductionPath()+"\")); \n";
 			}else {
-				document += "      $(\"#introduction\").load(\"sections/introduction-" + c.getCurrentLanguage()
-						+ ".html\"); \n";
+				document += "      loads.push(_ls(\"#introduction\",\"sections/introduction-" + c.getCurrentLanguage()
+						+ ".html\")); \n";
 			}
 			//namespace table is always a separated document
-			document += "      $(\"#nstable\").load(\"sections/ns-" + c.getCurrentLanguage()
-					+ ".html\"); \n";
+			document += "      loads.push(_ls(\"#nstable\",\"sections/ns-" + c.getCurrentLanguage()
+					+ ".html\")); \n";
 		}
 		if (c.isIncludeOverview()){
 			if(c.getOverviewPath()!=null && !c.getOverviewPath().isEmpty()){
-				document += "      $(\"#overview\").load(\""+c.getOverviewPath()+"\"); \n";
+				document += "      loads.push(_ls(\"#overview\",\""+c.getOverviewPath()+"\")); \n";
 			}else {
-				document += "      $(\"#overview\").load(\"sections/overview-" + c.getCurrentLanguage() + ".html\"); \n";
+				document += "      loads.push(_ls(\"#overview\",\"sections/overview-" + c.getCurrentLanguage() + ".html\")); \n";
 			}
 		}
 		if (c.isIncludeDescription()){
 			if(c.getDescriptionPath()!=null && !c.getDescriptionPath().isEmpty()){
-				document += "      $(\"#description\").load(\""+c.getDescriptionPath()+"\"); \n";
+				document += "      loads.push(_ls(\"#description\",\""+c.getDescriptionPath()+"\")); \n";
 			}else {
-				document += "      $(\"#description\").load(\"sections/description-" + c.getCurrentLanguage()
-						+ ".html\"); \n";
+				document += "      loads.push(_ls(\"#description\",\"sections/description-" + c.getCurrentLanguage()
+						+ ".html\")); \n";
 			}
 		}
 		if (c.isIncludeReferences()){
 			if(c.getReferencesPath()!=null && !c.getReferencesPath().isEmpty()){
-				document += "      $(\"#references\").load(\""+c.getReferencesPath()+"\"); \n";
+				document += "      loads.push(_ls(\"#references\",\""+c.getReferencesPath()+"\")); \n";
 			}else {
-				document += "      $(\"#references\").load(\"sections/references-" + c.getCurrentLanguage()
-						+ ".html\"); \n";
+				document += "      loads.push(_ls(\"#references\",\"sections/references-" + c.getCurrentLanguage()
+						+ ".html\")); \n";
 			}
 		}
 		if (c.isIncludeChangeLog()) {
 			if (c.getMainOntology().getPreviousVersion() != null && !"".equals(c.getMainOntology().getPreviousVersion())
 					&& c.isChangeLogSuccessfullyCreated()) {
-				document += "      $(\"#changelog\").load(\"sections/changelog-" + c.getCurrentLanguage()
-						+ ".html\"); \n";
+				document += "      loads.push(_ls(\"#changelog\",\"sections/changelog-" + c.getCurrentLanguage()
+						+ ".html\")); \n";
 			}
 		}
 		if (c.isIncludeCrossReferenceSection())
-			document += "      $(\"#crossref\").load(\"sections/crossref-" + c.getCurrentLanguage()
-					+ ".html\", null, loadHash); \n";
+			document += "      loads.push(_ls(\"#crossref\",\"sections/crossref-" + c.getCurrentLanguage()
+					+ ".html\")); \n";
+		document += "      $.when.apply($, loads).then(loadHash);\n";
 
 		document += "    });\n" + "    </script> \n" + "  </head> \n" + "\n" + "<body>\n";
 
