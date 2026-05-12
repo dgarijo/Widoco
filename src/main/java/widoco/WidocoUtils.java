@@ -299,9 +299,10 @@ public class WidocoUtils {
 	}
 
 	public static String getValueAsLiteralOrURI(OWLAnnotationValue v) {
-		try {
+		try {logger.info("Trying to get value as IRI: "+v.toString());
 			return v.asIRI().get().getIRIString();
 		} catch (Exception e) {
+			logger.info("Trying to get value as Literal: "+v.toString());
 			// instead of a resource, it was added as a String
 			return v.asLiteral().get().getLiteral();
 		}
