@@ -773,7 +773,7 @@ public class Constants {
 		// JSON-LD snippet
 		document += getJSONLDSnippet(c);
 		document += "<script src=\"" + resourcesFolderName + "/jquery.js\"></script> \n" + "<script src=\""
-				+ resourcesFolderName + "/marked.min.js\"></script> \n"
+				+ "https://cdn.jsdelivr.net/npm/marked@18.0.1/lib/marked.umd.min.js\"></script> \n"
 				+ "<script type=\"module\">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.14.0/+esm';mermaid.initialize({startOnLoad:false});window.mermaid=mermaid;</script> \n"
 				+ "    <script> \n" + "function loadHash() {\n"
 				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked.parse(jQuery(this).text())).remove()});\n"
@@ -938,7 +938,7 @@ public class Constants {
 		// JSON-LD snippet
 		document += getJSONLDSnippet(c);
 		document += "<script src=\"" + resourcesFolderName + "/jquery.js\"></script> \n" + "<script src=\""
-				+ resourcesFolderName + "/marked.min.js\"></script> \n"
+				+ "https://cdn.jsdelivr.net/npm/marked@18.0.1/lib/marked.umd.min.js\"></script> \n"
 				+ "<script type=\"module\">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.14.0/+esm';mermaid.initialize({startOnLoad:false});window.mermaid=mermaid;</script> \n"
 				+ "    " + "<script> \n" + "function loadHash() {\n"
 				+ "  jQuery(\".markdown\").each(function(el){jQuery(this).after(marked.parse(jQuery(this).text())).remove()});\n"
