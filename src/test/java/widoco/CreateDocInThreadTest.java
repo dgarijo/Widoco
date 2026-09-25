@@ -375,5 +375,44 @@ public class CreateDocInThreadTest {
         }
     }
     
+    /**
+     * Test to check that the namespace declarations table is generated
+     * even when -getOntologyMetadata is used.
+     * Reference: https://github.com/dgarijo/Widoco/issues/708
+     */
+    @org.junit.Test
+    public void testIssue708() {
+        try {
+            String pathToOnto = "test" + File.separator + "without_namespaces.ttl";
+            c.setFromFile(true);
+            c.setOntologyPath(pathToOnto);
+            c.setIncludeAllSectionsInOneDocument(true);
+
+            //read the model from file
+            WidocoUtils.loadModelToDocument(c);
+            //simulate -getOntologyMetadata
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            c.loadNamespaceDeclarations(c.getMainOntology().getOWLAPIModel());
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            String documentationFolder = c.getDocumentationURI();
+            if (!c.getMainOntology().isHashOntology()) {
+                documentationFolder += File.separator + "doc";
+            }
+
+            File index = new File(
+                    documentationFolder,
+                    "index-" + c.getCurrentLanguage() + ".html"
+            );
+            assertTrue("Documentation index was not generated: " + index, index.isFile());
+
+            String result = WidocoUtils.readExternalResource(index.getPath());
+            assertTrue(
+                    "Namespace declarations table is missing",
+                    result.contains("namespacedeclarations")
+        );
+        } catch (Exception e) {
+            fail("Error while running the test: " + e.getMessage());
+        }
+    }
     
 }
