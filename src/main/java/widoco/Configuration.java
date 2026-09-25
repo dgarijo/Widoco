@@ -599,14 +599,27 @@ public class Configuration {
 		case Constants.PROP_DC_DESCRIPTION:
 		case Constants.PROP_SCHEMA_DESCRIPTION_HTTP:
 		case Constants.PROP_SCHEMA_DESCRIPTION_HTTPS:
-		case Constants.PROP_RDFS_COMMENT:
-		case Constants.PROP_SKOS_NOTE:
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
 				if (this.currentLanguage.equals(valueLanguage)
 						|| (mainOntologyMetadata.getDescription() == null
 						||	mainOntologyMetadata.getDescription().isEmpty())) {
+					mainOntologyMetadata.setDescription(value);
+					this.setIncludeDescription(true);
+				}
+			} catch (Exception e) {
+				logger.error("Error while getting ontology description. No literal provided");
+			}
+			break;
+		case Constants.PROP_RDFS_COMMENT:
+		case Constants.PROP_SKOS_NOTE:
+			// lower priority than dce:description — only fill if no description set yet
+			try {
+				valueLanguage = a.getValue().asLiteral().get().getLang();
+				value = a.getValue().asLiteral().get().getLiteral();
+				if (mainOntologyMetadata.getDescription() == null
+						|| mainOntologyMetadata.getDescription().isEmpty()) {
 					mainOntologyMetadata.setDescription(value);
 					this.setIncludeDescription(true);
 				}
