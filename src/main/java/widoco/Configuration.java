@@ -25,6 +25,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 import javax.imageio.ImageIO;
+import java.util.IdentityHashMap;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
@@ -46,6 +47,7 @@ import licensius.GetLicense;
 public class Configuration {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Map<String,Integer> langRanks = new HashMap<>();
 
 	private Ontology mainOntologyMetadata;
 	/**
@@ -431,6 +433,7 @@ public class Configuration {
 			return;
 		}
 		initializeOntology();
+		langRanks.clear();
 		this.mainOntologyMetadata.setNamespacePrefix("[Ontology NS Prefix]");
 		String uri;
 		try {
@@ -558,10 +561,10 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (this.currentLanguage.equals(valueLanguage)
-						|| (mainOntologyMetadata.getName() == null || "".equals(mainOntologyMetadata.getName()))) {
-					this.mainOntologyMetadata.setName(value);
+				if (shouldSet("name", valueLanguage)) { 
+					mainOntologyMetadata.setName(value); 
 				}
+				
 			} catch (Exception e) {
 				logger.error("Error while getting ontology label. No literal provided");
 			}
@@ -573,9 +576,8 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (this.currentLanguage.equals(valueLanguage)
-						|| (mainOntologyMetadata.getTitle() == null || "".equals(mainOntologyMetadata.getTitle()))) {
-					this.mainOntologyMetadata.setTitle(value);
+				if (shouldSet("title", valueLanguage)) { 
+					mainOntologyMetadata.setTitle(value); 
 				}
 			} catch (Exception e) {
 				logger.error("Error while getting ontology title. No literal provided");
@@ -586,8 +588,7 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (this.currentLanguage.equals(valueLanguage)
-						|| (abstractSection == null || abstractSection.isEmpty())) {
+				if (shouldSet("abstract", valueLanguage)) {
 					abstractSection = value;
 					this.setIncludeAbstract(true); // in case users set no place holder text but added their own
 				}
@@ -602,9 +603,7 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (this.currentLanguage.equals(valueLanguage)
-						|| (mainOntologyMetadata.getDescription() == null
-						||	mainOntologyMetadata.getDescription().isEmpty())) {
+				if (shouldSet("description", valueLanguage)) {
 					mainOntologyMetadata.setDescription(value);
 					this.setIncludeDescription(true);
 				}
@@ -641,12 +640,16 @@ public class Configuration {
 		case Constants.PROP_PAV_VERSION:
 		case Constants.PROP_DCTERMS_HAS_VERSION:
 			try {
-				value = a.getValue().asLiteral().get().getLiteral();
-				mainOntologyMetadata.setRevision(value);
-			} catch (Exception e) {
-				logger.error("Error while getting ontology abstract. No literal provided");
-			}
-			break;
+					valueLanguage = a.getValue().asLiteral().get().getLang();
+					value = a.getValue().asLiteral().get().getLiteral();
+			
+					if (shouldSet("revision", valueLanguage)) { 
+						mainOntologyMetadata.setRevision(value); 
+					}
+				} catch (Exception e) {
+					logger.error("Error while getting ontology revision. No literal provided");
+				}
+				break;
 		case Constants.PROP_VANN_PREFIX:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setNamespacePrefix(value);
@@ -844,8 +847,8 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (this.currentLanguage.equals(valueLanguage)
-						|| (introText == null || introText.isEmpty())) {
+
+				if (shouldSet("intro", valueLanguage)) {
 					introText = value;
 					this.setIncludeIntroduction(true);
 				}
@@ -890,6 +893,13 @@ public class Configuration {
 		String propertyName = ann.getProperty().getIRI().getIRIString();
 		String nameFragment;
 //		System.out.println(propertyName);
+	
+		// String value = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
+		String valueLanguage = "";
+		String k = System.identityHashCode(ag) + ":";
+		if (ann.getValue().isLiteral() && ann.getValue().asLiteral().get().hasLang()) {
+			valueLanguage = ann.getValue().asLiteral().get().getLang();
+		}
 		switch (propertyName) {
 			case Constants.PROP_RDFS_LABEL:
 			case Constants.PROP_SCHEMA_NAME_HTTP:
@@ -897,21 +907,23 @@ public class Configuration {
 			case Constants.PROP_VCARD_FN:
 			case Constants.PROP_FOAF_NAME:
 			case Constants.PROP_VCARD_FN_OLD:
-				ag.setName(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
-				break;
+				if (shouldSet(k + "name", valueLanguage)) {
+					ag.setName(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
+				}
+                break;
 			case Constants.PROP_SCHEMA_GIVEN_NAME_HTTP:
 			case Constants.PROP_SCHEMA_GIVEN_NAME_HTTPS:
 			case Constants.PROP_VCARD_GIVEN_NAME:
 			case Constants.PROP_VCARD_GIVEN_OLD:
 			case Constants.PROP_FOAF_GIVEN_NAME:
 				nameFragment = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
-				if (ag.getName() == null){
-					ag.setName(nameFragment);
-				}else{
-					if(!ag.getName().contains(nameFragment)){
-					ag.setName(nameFragment + " " +ag.getName());
-					}
-				}
+				if (this.currentLanguage.equalsIgnoreCase(valueLanguage) || ag.getName() == null || ag.getName().isEmpty()) {
+                    if (ag.getName() == null || ag.getName().isEmpty()) {
+                        ag.setName(nameFragment);
+                    } else if (!ag.getName().contains(nameFragment)) {
+                        ag.setName(nameFragment + " " + ag.getName());
+                    }
+                }
 				break;
 			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTP:
 			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTPS:
@@ -919,13 +931,13 @@ public class Configuration {
 			case Constants.PROP_VCARD_FAMILY_OLD:
 			case Constants.PROP_FOAF_FAMILY_NAME:
 				nameFragment = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
-				if (ag.getName() == null){
-					ag.setName(nameFragment);
-				}else {
-					if(!ag.getName().contains(nameFragment)){
-						ag.setName(ag.getName() + " " + nameFragment);
-					}
-				}
+				if (this.currentLanguage.equalsIgnoreCase(valueLanguage) || ag.getName() == null || ag.getName().isEmpty()) {
+                    if (ag.getName() == null || ag.getName().isEmpty()) {
+                        ag.setName(nameFragment);
+                    } else if (!ag.getName().contains(nameFragment)) {
+                        ag.setName(ag.getName() + " " + nameFragment);
+                    }
+                }
 				break;
 			case Constants.PROP_SCHEMA_URL_HTTP:
 			case Constants.PROP_SCHEMA_URL_HTTPS:
@@ -949,6 +961,10 @@ public class Configuration {
 					if (literalValue.contains("http")){
 						ag.setInstitutionURL(literalValue);
 						ag.setInstitutionName(literalValue);
+					} else {
+						if (shouldSet(k + "inst", valueLanguage)) {
+							ag.setInstitutionName(literalValue);
+						}
 					}
 				}else{
 					Agent aux = new Agent(); // store the information about the organization as an aux agent
@@ -1473,5 +1489,15 @@ public class Configuration {
 
 	public void setIntroText(String introText) {
 		this.introText = introText;
+	}
+
+	private boolean shouldSet(String key, String lang) {
+		int r = currentLanguage.equalsIgnoreCase(lang) ? 3
+			: "en".equalsIgnoreCase(lang) ? 2 : 1;
+		if (r > langRanks.getOrDefault(key, 0)) {
+			langRanks.put(key, r);
+			return true;
+		}
+		return false;
 	}
 }
