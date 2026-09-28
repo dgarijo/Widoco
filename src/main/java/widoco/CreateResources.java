@@ -124,10 +124,15 @@ public class CreateResources {
 		// serialize the model in different serializations.
 		OWLOntologyManager om = c.getMainOntology().getOWLAPIOntologyManager();
 		OWLOntology o = c.getMainOntology().getOWLAPIModel();
-		WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(), folderOut + File.separator + "ontology.owl");
-		WidocoUtils.writeModel(om, o, new TurtleDocumentFormat(), folderOut + File.separator + "ontology.ttl");
-		WidocoUtils.writeModel(om, o, new NTriplesDocumentFormat(), folderOut + File.separator + "ontology.nt");
-		WidocoUtils.writeModel(om, o, new RDFJsonLDDocumentFormat(), folderOut + File.separator + "ontology.jsonld");
+		HashMap<String, String> serializations = c.getMainOntology().getSerializations();
+		WidocoUtils.writeModel(om, o, new RDFXMLDocumentFormat(),
+				folderOut + File.separator + getSerializationFileName(serializations, Constants.RDF_XML, "ontology.owl"));
+		WidocoUtils.writeModel(om, o, new TurtleDocumentFormat(),
+				folderOut + File.separator + getSerializationFileName(serializations, Constants.TTL, "ontology.ttl"));
+		WidocoUtils.writeModel(om, o, new NTriplesDocumentFormat(),
+				folderOut + File.separator + getSerializationFileName(serializations, Constants.NT, "ontology.nt"));
+		WidocoUtils.writeModel(om, o, new RDFJsonLDDocumentFormat(),
+				folderOut + File.separator + getSerializationFileName(serializations, Constants.JSON_LD, "ontology.jsonld"));
 		if (c.isIncludeIndex()) {
                     if(c.isIncludeAllSectionsInOneDocument()){
                         createUnifiedIndexDocument(abs,intro,overview,description,crossref,ref,changeLog, folderOut, c, lode, languageFile);
@@ -135,6 +140,26 @@ public class CreateResources {
                         createIndexDocument(folderOut, c, lode, languageFile);
                     }
 		}
+	}
+
+	/**
+	 * Resolve the local file name to write a serialization to. The serialization
+	 * value may be a bare file name or an absolute URL; in the latter case only
+	 * the last path segment is used as the file name.
+	 */
+	private static String getSerializationFileName(HashMap<String, String> serializations, String key,
+			String defaultName) {
+		String value = serializations.get(key);
+		if (value == null || value.isEmpty()) {
+			return defaultName;
+		}
+		// strip query/fragment, then take the last path segment
+		String name = value.split("[?#]", 2)[0];
+		int lastSlash = name.lastIndexOf('/');
+		if (lastSlash >= 0) {
+			name = name.substring(lastSlash + 1);
+		}
+		return name.isEmpty() ? defaultName : name;
 	}
 
 	public static void generateSkeleton(String folderOut, Configuration c, Properties l) throws IOException {

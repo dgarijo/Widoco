@@ -326,6 +326,7 @@ public final class GuiController {
 							config.setIncludeAbstract(true);
 						}
 					}
+					config.loadNamespaceDeclarations(config.getMainOntology().getOWLAPIModel());
 					CreateResources.generateDocumentation(outFolder, config, config.getTmpFile());
 					config.vocabularySuccessfullyGenerated();
 				}
