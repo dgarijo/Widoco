@@ -47,7 +47,20 @@ import licensius.GetLicense;
 public class Configuration {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private final Map<String,Integer> langRanks = new HashMap<>();
+
+	/**
+	 * How well the language of a literal matches the documentation being generated.
+	 * Ordered from worst to best: a better priority replaces a worse one.
+	 */
+	private enum LanguagePriority {
+	 	OTHER,      // any other language, or a literal without language tag
+		ENGLISH,
+		REQUESTED
+	}
+
+	/** Best language found so far for each multilingual field (title, revision...). */
+	private final Map<String, LanguagePriority> selectedLanguage = new HashMap<>();
+	private final Map<Agent, LanguagePriority> agentNameLanguage = new IdentityHashMap<>();
 
 	private Ontology mainOntologyMetadata;
 	/**
@@ -433,7 +446,8 @@ public class Configuration {
 			return;
 		}
 		initializeOntology();
-		langRanks.clear();
+		selectedLanguage.clear();
+		agentNameLanguage.clear();
 		this.mainOntologyMetadata.setNamespacePrefix("[Ontology NS Prefix]");
 		String uri;
 		try {
@@ -561,7 +575,7 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (shouldSet("name", valueLanguage)) { 
+				if (shouldUseLanguage("name", valueLanguage)) { 
 					mainOntologyMetadata.setName(value); 
 				}
 				
@@ -576,7 +590,7 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (shouldSet("title", valueLanguage)) { 
+				if (shouldUseLanguage("title", valueLanguage)) { 
 					mainOntologyMetadata.setTitle(value); 
 				}
 			} catch (Exception e) {
@@ -588,7 +602,7 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (shouldSet("abstract", valueLanguage)) {
+				if (shouldUseLanguage("abstract", valueLanguage)) {
 					abstractSection = value;
 					this.setIncludeAbstract(true); // in case users set no place holder text but added their own
 				}
@@ -603,7 +617,7 @@ public class Configuration {
 			try {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
-				if (shouldSet("description", valueLanguage)) {
+				if (shouldUseLanguage("description", valueLanguage)) {
 					mainOntologyMetadata.setDescription(value);
 					this.setIncludeDescription(true);
 				}
@@ -643,7 +657,7 @@ public class Configuration {
 					valueLanguage = a.getValue().asLiteral().get().getLang();
 					value = a.getValue().asLiteral().get().getLiteral();
 			
-					if (shouldSet("revision", valueLanguage)) { 
+					if (shouldUseLanguage("revision", valueLanguage)) { 
 						mainOntologyMetadata.setRevision(value); 
 					}
 				} catch (Exception e) {
@@ -848,7 +862,7 @@ public class Configuration {
 				valueLanguage = a.getValue().asLiteral().get().getLang();
 				value = a.getValue().asLiteral().get().getLiteral();
 
-				if (shouldSet("intro", valueLanguage)) {
+				if (shouldUseLanguage("intro", valueLanguage)) {
 					introText = value;
 					this.setIncludeIntroduction(true);
 				}
@@ -896,7 +910,6 @@ public class Configuration {
 	
 		// String value = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
 		String valueLanguage = "";
-		String k = System.identityHashCode(ag) + ":";
 		if (ann.getValue().isLiteral() && ann.getValue().asLiteral().get().hasLang()) {
 			valueLanguage = ann.getValue().asLiteral().get().getLang();
 		}
@@ -907,7 +920,12 @@ public class Configuration {
 			case Constants.PROP_VCARD_FN:
 			case Constants.PROP_FOAF_NAME:
 			case Constants.PROP_VCARD_FN_OLD:
-				if (shouldSet(k + "name", valueLanguage)) {
+				// Organizations (e.g. a contributor) can have one label per language:
+				// keep the one in the requested language, else English, else any other.
+				LanguagePriority priority = getLanguagePriority(valueLanguage);
+				LanguagePriority stored = agentNameLanguage.get(ag);
+				if (stored == null || priority.compareTo(stored) > 0) {
+					agentNameLanguage.put(ag, priority);
 					ag.setName(WidocoUtils.getValueAsLiteralOrURI(ann.getValue()));
 				}
                 break;
@@ -917,13 +935,11 @@ public class Configuration {
 			case Constants.PROP_VCARD_GIVEN_OLD:
 			case Constants.PROP_FOAF_GIVEN_NAME:
 				nameFragment = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
-				if (this.currentLanguage.equalsIgnoreCase(valueLanguage) || ag.getName() == null || ag.getName().isEmpty()) {
-                    if (ag.getName() == null || ag.getName().isEmpty()) {
-                        ag.setName(nameFragment);
-                    } else if (!ag.getName().contains(nameFragment)) {
-                        ag.setName(nameFragment + " " + ag.getName());
-                    }
-                }
+				if (ag.getName() == null || ag.getName().isEmpty()) {
+					ag.setName(nameFragment);
+				} else if (!ag.getName().contains(nameFragment)) {
+					ag.setName(nameFragment + " " + ag.getName());   // family: ag.getName() + " " + nameFragment
+				}
 				break;
 			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTP:
 			case Constants.PROP_SCHEMA_FAMILY_NAME_HTTPS:
@@ -931,13 +947,11 @@ public class Configuration {
 			case Constants.PROP_VCARD_FAMILY_OLD:
 			case Constants.PROP_FOAF_FAMILY_NAME:
 				nameFragment = WidocoUtils.getValueAsLiteralOrURI(ann.getValue());
-				if (this.currentLanguage.equalsIgnoreCase(valueLanguage) || ag.getName() == null || ag.getName().isEmpty()) {
-                    if (ag.getName() == null || ag.getName().isEmpty()) {
-                        ag.setName(nameFragment);
-                    } else if (!ag.getName().contains(nameFragment)) {
-                        ag.setName(ag.getName() + " " + nameFragment);
-                    }
-                }
+				if (ag.getName() == null) {
+					ag.setName(nameFragment);
+				} else if (!ag.getName().contains(nameFragment)) {
+					ag.setName(ag.getName() + " " + nameFragment);
+				}
 				break;
 			case Constants.PROP_SCHEMA_URL_HTTP:
 			case Constants.PROP_SCHEMA_URL_HTTPS:
@@ -958,14 +972,10 @@ public class Configuration {
 			case Constants.PROP_ORG_MEMBER_OF:
 				if (ann.getValue().isLiteral()) {
 					String literalValue = ann.getValue().asLiteral().get().getLiteral();
-					if (literalValue.contains("http")){
+					if (literalValue.contains("http")) {
 						ag.setInstitutionURL(literalValue);
-						ag.setInstitutionName(literalValue);
-					} else {
-						if (shouldSet(k + "inst", valueLanguage)) {
-							ag.setInstitutionName(literalValue);
-						}
 					}
+					ag.setInstitutionName(literalValue);
 				}else{
 					Agent aux = new Agent(); // store the information about the organization as an aux agent
 					if (!ann.getValue().asAnonymousIndividual().isEmpty()){
@@ -1491,13 +1501,25 @@ public class Configuration {
 		this.introText = introText;
 	}
 
-	private boolean shouldSet(String key, String lang) {
-		int r = currentLanguage.equalsIgnoreCase(lang) ? 3
-			: "en".equalsIgnoreCase(lang) ? 2 : 1;
-		if (r > langRanks.getOrDefault(key, 0)) {
-			langRanks.put(key, r);
+	/**
+	 * Multilingual fields (title, description, revision...) can have one literal per
+	 * language. This decides if the literal in "lang" should replace the one already
+	 * stored for "field": requested language > English > any other. Literals arrive
+	 * in no particular order, so a worse one never replaces a better one.
+	 */
+	private boolean shouldUseLanguage(String field, String lang) {
+		LanguagePriority priority = getLanguagePriority(lang);
+		LanguagePriority stored = selectedLanguage.get(field); // null: nothing chosen yet
+		if (stored == null || priority.compareTo(stored) > 0) {
+			selectedLanguage.put(field, priority);
 			return true;
 		}
 		return false;
+	}
+
+	private LanguagePriority getLanguagePriority(String lang) {
+		if (currentLanguage.equalsIgnoreCase(lang)) return LanguagePriority.REQUESTED;
+		if ("en".equalsIgnoreCase(lang)) return LanguagePriority.ENGLISH;
+		return LanguagePriority.OTHER;
 	}
 }
