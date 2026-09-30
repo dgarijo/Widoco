@@ -670,7 +670,7 @@ public class Constants {
 			metadata += "\"Document describing the ontology " + o.getNamespaceURI() + "\"";
 		}
 		// release date (mandatory)
-		metadata += ", \"dateReleased\":";
+		metadata += ", \"datePublished\":";
 		if (o.getCreationDate() != null && !"".equals(o.getCreationDate())) {
 			metadata += "\"" + o.getCreationDate() + "\"";
 		} else {
