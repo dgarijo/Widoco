@@ -17,9 +17,7 @@
    "logo":"https://raw.githubusercontent.com/dgarijo/Widoco/master/src/main/resources/logo/logo2.png",
    "keywords":"documentation, metadata, ontology, ontology-diagram, ontology-evaluation, wizard",
    "programmingLanguage":[
-      "JavaScript",
-      "Java",
-      "XSLT"
+      "Java11"
    ],
    "softwareRequirements":[
       {
