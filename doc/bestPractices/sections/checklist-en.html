@@ -10,7 +10,9 @@ Properties designed to tell anyone how to access your vocabulary. It is true tha
 
 <h4 class="list" id="namespaceURI">Vocabulary namespace URI [<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>]</h4>
 <p>
-Property defining the main URI of your vocabulary. This becomes important in cases when you use permanent URLs: the vocabulary local URI hosting the file may not be the main URI you want people to access when resolving it. The vann vocabulary has a very nice property for describing this, and it is encouraged by the LOV best practices [<a href="#LOV">Vandenbussche and Batant 2012</a>]. Please note that <strong>the value must be a literal, not a resource (URL)</strong>.
+Property defining the main URI of your vocabulary. This becomes important in cases when you use permanent URLs: the vocabulary local URI hosting the file may not be the main URI you want people to access when resolving it. The VANN vocabulary provides a property for describing this, which is encouraged by LOV best practices [<a href="#LOV">Vandenbussche and Batant 2012</a>].
+<br><br>
+<strong>Note:</strong> The value of <code>vann:preferredNamespaceUri</code> <strong>should be a literal (string)</strong> containing the URI (e.g., <code>"https://w3id.org/example#"</code>), and <strong>not an RDF resource/IRI</strong> (e.g., <code>&lt;https://w3id.org/example#&gt;</code>).
 </p>
 
 <ul class="hlist"><strong>Properties you may use</strong>:
