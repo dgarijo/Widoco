@@ -414,5 +414,26 @@ public class CreateDocInThreadTest {
             fail("Error while running the test: " + e.getMessage());
         }
     }
+
+    /**
+     * Test to check that an agent declared with several properties (here dct:creator and
+     * s:creator pointing to the same IRI) is only listed once.
+     * Reference: https://github.com/dgarijo/Widoco/issues/727
+     */
+    @org.junit.Test
+    public void testIssue727Simple() {
+        try {
+            c.setFromFile(true);
+            this.c.setOntologyPath("test" + File.separator + "wfrun.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            assertEquals("The same creator was listed more than once",
+                    1, c.getMainOntology().getCreators().size());
+            assertEquals("Workflow Run Crate task force",
+                    c.getMainOntology().getCreators().get(0).getName());
+        } catch (Exception e) {
+            fail("Error while running the test: " + e.getMessage());
+        }
+    }
     
 }

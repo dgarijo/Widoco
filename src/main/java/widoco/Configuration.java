@@ -144,6 +144,10 @@ public class Configuration {
 	 */
 	private boolean changeLogSuccessfullyCreated = true;
 
+	private Set<String> creatorKeys = new HashSet<>();
+	private Set<String> contributorKeys = new HashSet<>();
+	private Set<String> funderKeys = new HashSet<>();
+
 	public Configuration() {
 		initializeConfig();
 		try {
@@ -230,7 +234,9 @@ public class Configuration {
 		mainOntologyMetadata.addSerialization(Constants.NT, "ontology.nt");
 		mainOntologyMetadata.addSerialization(Constants.JSON_LD, "ontology.jsonld");
 		mainOntologyMetadata.setCreators(new ArrayList<>());
+		this.creatorKeys = new HashSet<>();
 		mainOntologyMetadata.setContributors(new ArrayList<>());
+		this.contributorKeys = new HashSet<>();
 		mainOntologyMetadata.setCiteAs("");
 		mainOntologyMetadata.setDoi("");
 		mainOntologyMetadata.setStatus("");
@@ -242,6 +248,7 @@ public class Configuration {
 		mainOntologyMetadata.setSources(new ArrayList<>());
 		mainOntologyMetadata.setSeeAlso(new ArrayList<>());
 		mainOntologyMetadata.setFunders(new ArrayList<>());
+		this.funderKeys = new HashSet<>();
 		mainOntologyMetadata.setFundingGrants(new ArrayList<>());
 		mainOntologyMetadata.setCodeRepository("");
 		this.namespaceDeclarations = new HashMap<>();
@@ -710,18 +717,22 @@ public class Configuration {
 		case Constants.PROP_SCHEMA_FUNDER_HTTPS:
 		case Constants.PROP_FOAF_FUNDED_BY:
 			try {
+				String keyAgent = null;
 				Agent ag = new Agent();
 				if (a.getValue().isLiteral()) {
+					keyAgent = a.getValue().asLiteral().get().getLiteral();
 					ag.setURL("");
 					ag.setName(a.getValue().asLiteral().get().getLiteral());
 				}else{
 					if (!a.getValue().asAnonymousIndividual().isEmpty()){
+						keyAgent = "bnode:" + a.getValue().asAnonymousIndividual().get().getID().getID();
 						// dealing with a blank node, extract metadata from URL, name and organization (if available)
 						o.getAnnotationAssertionAxioms(a.getValue().asAnonymousIndividual().get()).stream().forEach(i -> {
 							completeAgentMetadata(i, ag, o);
 						});
 					}else{
 						IRI valueURI = a.getValue().asIRI().get();
+						keyAgent = valueURI.getIRIString();
 						o.getAnnotationAssertionAxioms(valueURI).stream().forEach(i -> {
 							completeAgentMetadata(i, ag, o);
 						});
@@ -740,7 +751,7 @@ public class Configuration {
 				case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTP:
 				case Constants.PROP_SCHEMA_CONTRIBUTOR_HTTPS:
 				case Constants.PROP_PAV_CONTRIBUTED_BY:
-					mainOntologyMetadata.getContributors().add(ag);
+					addAgentIfNew(mainOntologyMetadata.getContributors(), contributorKeys, ag, keyAgent);
 					break;
 				case Constants.PROP_DC_CREATOR:
 				case Constants.PROP_DCTERMS_CREATOR:
@@ -748,14 +759,14 @@ public class Configuration {
 				case Constants.PROP_PROV_ATTRIBUTED_TO:
 				case Constants.PROP_SCHEMA_CREATOR_HTTP:
 				case Constants.PROP_SCHEMA_CREATOR_HTTPS:
-					mainOntologyMetadata.getCreators().add(ag);
+					addAgentIfNew(mainOntologyMetadata.getCreators(), creatorKeys, ag, keyAgent);
 					break;
 				case Constants.PROP_SCHEMA_FUNDER_HTTP:
 				case Constants.PROP_SCHEMA_FUNDER_HTTPS:
 				case Constants.PROP_FOAF_FUNDED_BY:
 					if(ag.getURL() == null || ag.getURL().isEmpty())
 						ag.setURL(ag.getName());
-					mainOntologyMetadata.getFunders().add(ag);
+					addAgentIfNew(mainOntologyMetadata.getFunders(), funderKeys, ag, keyAgent);
 					break;
 				default:
 					mainOntologyMetadata.setPublisher(ag);
@@ -893,6 +904,22 @@ public class Configuration {
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setCodeRepository(value);
 			break;
+		}
+	}
+
+	/**
+	 * Adds an agent (creator, contributor or funder) to a list only if it has not been added before.
+	 * The same agent can be declared with several properties (e.g., dct:creator and schema:creator
+	 * pointing to the same IRI) and should only appear once.
+	 * @param agents list where the agent will be added
+	 * @param keys identifiers of the agents already added to that list
+	 * @param ag agent to add
+	 * @param key identifier of the RDF value the agent was created from (IRI, literal or blank node id).
+	 * If null, the agent is always added.
+	 */
+	private void addAgentIfNew(List<Agent> agents, Set<String> keys, Agent ag, String key) {
+		if (key == null || keys.add(key)) {
+			agents.add(ag);
 		}
 	}
 

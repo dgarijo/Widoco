@@ -1,0 +1,180 @@
+@prefix bioschemas: <https://bioschemas.org/> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix s:          <http://schema.org/> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix wfrun:      <https://w3id.org/ro/terms/workflow-run#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+
+wfrun:targetParameter
+        rdf:type          rdf:Property , owl:ObjectProperty;
+        rdfs:comment      "The target (downstream) parameter"@en-GB;
+        rdfs:domain       wfrun:ParameterConnection;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "targetParameter"@en-GB;
+        rdfs:range        bioschemas:FormalParameter;
+        s:domainIncludes  wfrun:ParameterConnection;
+        s:rangeIncludes   bioschemas:FormalParameter .
+
+wfrun:tag  rdf:type       rdf:Property , owl:DatatypeProperty;
+        rdfs:comment      "A tag assigned to a software product, such as a container image"@en-GB;
+        rdfs:domain       [ rdf:type     owl:Class;
+                            owl:unionOf  ( s:MediaObject wfrun:ContainerImage )
+                          ];
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "tag"@en-GB;
+        rdfs:range        xsd:string;
+        s:domainIncludes  s:MediaObject , wfrun:ContainerImage;
+        s:rangeIncludes   s:Text .
+
+wfrun:sourceParameter
+        rdf:type          rdf:Property , owl:ObjectProperty;
+        rdfs:comment      "The source (upstream) parameter"@en-GB;
+        rdfs:domain       wfrun:ParameterConnection;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "sourceParameter"@en-GB;
+        rdfs:range        bioschemas:FormalParameter;
+        s:domainIncludes  wfrun:ParameterConnection;
+        s:rangeIncludes   bioschemas:FormalParameter .
+
+wfrun:sha512  rdf:type    rdf:Property , owl:DatatypeProperty;
+        rdfs:comment      "sha512 checksum as a hexadecimal string"@en-GB;
+        rdfs:domain       [ rdf:type     owl:Class;
+                            owl:unionOf  ( s:MediaObject wfrun:ContainerImage )
+                          ];
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "sha512"@en-GB;
+        rdfs:range        xsd:string;
+        s:domainIncludes  s:MediaObject , wfrun:ContainerImage;
+        s:rangeIncludes   s:Text .
+
+wfrun:sha256  rdf:type    rdf:Property , owl:DatatypeProperty;
+        rdfs:comment      "sha256 checksum as a hexadecimal string"@en-GB;
+        rdfs:domain       [ rdf:type     owl:Class;
+                            owl:unionOf  ( s:MediaObject wfrun:ContainerImage )
+                          ];
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "sha256"@en-GB;
+        rdfs:range        xsd:string;
+        s:domainIncludes  s:MediaObject , wfrun:ContainerImage;
+        s:rangeIncludes   s:Text .
+
+wfrun:sha1  rdf:type      rdf:Property , owl:DatatypeProperty;
+        rdfs:comment      "sha1 checksum as a hexadecimal string"@en-GB;
+        rdfs:domain       s:MediaObject , wfrun:ContainerImage;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "sha1"@en-GB;
+        rdfs:range        xsd:string;
+        s:domainIncludes  s:MediaObject , wfrun:ContainerImage;
+        s:rangeIncludes   s:Text .
+
+wfrun:resourceUsage  rdf:type  rdf:Property , owl:ObjectProperty;
+        rdfs:comment      "A resource usage item, such as peak memory"@en-GB;
+        rdfs:domain       s:CreateAction;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "resourceUsage"@en-GB;
+        rdfs:range        s:PropertyValue;
+        s:domainIncludes  s:CreateAction;
+        s:rangeIncludes   s:PropertyValue .
+
+wfrun:registry  rdf:type  rdf:Property , owl:DatatypeProperty;
+        rdfs:comment      "A service to register software products, such as container images"@en-GB;
+        rdfs:domain       wfrun:ContainerImage;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "registry"@en-GB;
+        rdfs:range        xsd:string;
+        s:domainIncludes  wfrun:ContainerImage;
+        s:rangeIncludes   s:Text .
+
+wfrun:md5  rdf:type       rdf:Property , owl:DatatypeProperty;
+        rdfs:comment      "md5 checksum as a hexadecimal string"@en-GB;
+        rdfs:domain       [ rdf:type     owl:Class;
+                            owl:unionOf  ( s:MediaObject wfrun:ContainerImage )
+                          ];
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "md5"@en-GB;
+        rdfs:range        xsd:string;
+        s:domainIncludes  s:MediaObject , wfrun:ContainerImage;
+        s:rangeIncludes   s:Text .
+
+wfrun:environment  rdf:type  rdf:Property , owl:ObjectProperty;
+        rdfs:comment      "Environment variables used by the application"@en-GB;
+        rdfs:domain       [ rdf:type     owl:Class;
+                            owl:unionOf  ( s:CreateAction s:SoftwareApplication s:SoftwareSourceCode bioschemas:ComputationalWorkflow )
+                          ];
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "environment"@en-GB;
+        rdfs:range        [ rdf:type     owl:Class;
+                            owl:unionOf  ( s:PropertyValue bioschemas:FormalParameter )
+                          ];
+        s:domainIncludes  s:CreateAction , s:SoftwareApplication , s:SoftwareSourceCode , bioschemas:ComputationalWorkflow;
+        s:rangeIncludes   s:PropertyValue , bioschemas:FormalParameter .
+
+wfrun:containerImage  rdf:type  rdf:Property , owl:ObjectProperty;
+        rdfs:comment      "A container image associated with this entity"@en-GB;
+        rdfs:domain       s:CreateAction;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "containerImage"@en-GB;
+        rdfs:range        [ rdf:type     owl:Class;
+                            owl:unionOf  ( wfrun:ContainerImage s:URL )
+                          ];
+        s:domainIncludes  s:CreateAction;
+        s:rangeIncludes   wfrun:ContainerImage , s:URL .
+
+wfrun:connection  rdf:type  rdf:Property , owl:ObjectProperty;
+        rdfs:comment      "A parameter connection created by this workflow"@en-GB;
+        rdfs:domain       [ rdf:type     owl:Class;
+                            owl:unionOf  ( s:HowToStep bioschemas:ComputationalWorkflow )
+                          ];
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "connection"@en-GB;
+        rdfs:range        wfrun:ParameterConnection;
+        s:domainIncludes  s:HowToStep , bioschemas:ComputationalWorkflow;
+        s:rangeIncludes   wfrun:ParameterConnection .
+
+wfrun:SIFImage  rdf:type  rdfs:Class , owl:Class;
+        rdfs:comment      "A Singularity Image Format container image"@en-GB;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "SIFImage"@en-GB;
+        rdfs:subClassOf   wfrun:ContainerImage .
+
+wfrun:ParameterConnection
+        rdf:type          rdfs:Class , owl:Class;
+        rdfs:comment      "A connection between parameters of different applications"@en-GB;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "ParameterConnection"@en-GB;
+        rdfs:subClassOf   s:Intangible .
+
+wfrun:DockerImage  rdf:type  rdfs:Class , owl:Class;
+        rdfs:comment      "A Docker container image"@en-GB;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "DockerImage"@en-GB;
+        rdfs:subClassOf   wfrun:ContainerImage .
+
+wfrun:ContainerImage  rdf:type  rdfs:Class , owl:Class;
+        rdfs:comment      "A containerisation software container image"@en-GB;
+        rdfs:isDefinedBy  wfrun:;
+        rdfs:label        "ContainerImage"@en-GB;
+        rdfs:subClassOf   s:CreativeWork .
+
+wfrun:  rdf:type                       s:DefinedTermSet , owl:Ontology;
+        dct:creator                    <https://researchobject.org/workflow-run-crate/>;
+        dct:description                "A Schema.org style Schema definition of WRROC terms. Minimal OWL typing for compatiblity with optional owl:imports https://schema.org/docs/schemaorg.owl";
+        dct:license                    <http://spdx.org/licenses/Apache-2.0>;
+        dct:title                      "Workflow Run Crate namespace";
+        vann:preferredNamespacePrefix  "wfrun";
+        vann:preferredNamespaceUri     "https://w3id.org/ro/terms/workflow-run#";
+        s:creator                      <https://researchobject.org/workflow-run-crate/>;
+        s:description                  "A Schema.org style Schema definition of WRROC terms. Minimal OWL typing for compatiblity with optional owl:imports https://schema.org/docs/schemaorg.owl";
+        s:hasDefinedTerm               wfrun:sha1 , wfrun:registry , wfrun:md5 , wfrun:environment , wfrun:connection , wfrun:containerImage , wfrun:sha256 , wfrun:sha512 , wfrun:sourceParameter , wfrun:tag , wfrun:targetParameter , wfrun:ContainerImage , wfrun:DockerImage , wfrun:ParameterConnection , wfrun:SIFImage;
+        s:license                      <http://spdx.org/licenses/Apache-2.0>;
+        s:name                         "Workflow Run Crate namespace";
+        s:url                          "https://www.researchobject.org/ro-terms/workflow-run/";
+        s:version                      "0.6.0" .
+
+<https://researchobject.org/workflow-run-crate/>
+        rdf:type    s:Project , dct:Agent;
+        rdfs:label  "Workflow Run Crate task force"@en-GB;
+        s:name      "Workflow Run Crate task force"@en-GB .
