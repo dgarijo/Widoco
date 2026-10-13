@@ -436,6 +436,7 @@ public class CreateDocInThreadTest {
         }
     }
   
+    /**
      * Test to check that the JSON-LD metadata uses schema:datePublished (and not the
      * non-existing dateReleased).
      * Reference: https://github.com/dgarijo/Widoco/issues/732
