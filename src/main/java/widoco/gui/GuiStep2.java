@@ -276,7 +276,7 @@ public final class GuiStep2 extends javax.swing.JFrame {
 				{ "creation date", conf.getMainOntology().getCreationDate() },
 				{ "modified date", conf.getMainOntology().getModifiedDate() },
 				{ "this version URI", conf.getMainOntology().getThisVersion() },
-				{ "latest version URI", conf.getMainOntology().getNamespaceURI() },
+				{ "latest version URI", conf.getMainOntology().getLatestVersion() },
 				{ "previous version URI", conf.getMainOntology().getPreviousVersion() },
 				{ "ontology revision", conf.getMainOntology().getRevision() },
 				{ "authors", authors.toString()},
