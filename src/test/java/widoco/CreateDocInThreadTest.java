@@ -414,5 +414,25 @@ public class CreateDocInThreadTest {
             fail("Error while running the test: " + e.getMessage());
         }
     }
+
+    /**
+     * Test to check that the JSON-LD metadata uses schema:datePublished (and not the
+     * non-existing dateReleased).
+     * Reference: https://github.com/dgarijo/Widoco/issues/732
+     */
+    @org.junit.Test
+    public void testIssue732() {
+        try {
+            c.setFromFile(true);
+            this.c.setOntologyPath("test" + File.separator + "bne.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            String jsonld = Constants.getJSONLDSnippet(c);
+            assertTrue("datePublished not found in the JSON-LD", jsonld.contains("\"datePublished\""));
+            assertFalse("dateReleased should not be used", jsonld.contains("dateReleased"));
+        } catch (Exception e) {
+            fail("Error while running the test: " + e.getMessage());
+        }
+}
     
 }
