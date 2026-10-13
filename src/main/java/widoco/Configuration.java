@@ -463,6 +463,7 @@ public class Configuration {
 			uri = "[Ontology URI]";
 		}
 		this.mainOntologyMetadata.setNamespaceURI(uri);
+		this.mainOntologyMetadata.setLatestVersion(uri);
 		String versionUri = null;
 		try {
 			versionUri = o.getOntologyID().getVersionIRI().get().toString();
@@ -678,6 +679,7 @@ public class Configuration {
 		case Constants.PROP_VANN_URI:
 			value = WidocoUtils.getValueAsLiteralOrURI(a.getValue());
 			mainOntologyMetadata.setNamespaceURI(value);
+			mainOntologyMetadata.setLatestVersion(value);
 			break;
 		case Constants.PROP_DCTERMS_LICENSE:
 		case Constants.PROP_DC_RIGHTS:
