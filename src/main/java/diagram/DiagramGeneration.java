@@ -1,7 +1,9 @@
 package diagram;
 
-import de.uni_stuttgart.vis.vowl.owl2vowl.Owl2Vowl;
-import java.io.File;
+import it.gov.innovazione.owl2vowl.Owl2Vowl;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +20,12 @@ public class DiagramGeneration {
 
 	public static void generateOntologyDiagram(String outFolder, Configuration c) {
 		try {
-			// extract resource to target folder
 			Owl2Vowl o = new Owl2Vowl(c.getMainOntology().getOWLAPIModel());
-			o.writeToFile(new File(outFolder + File.separator + "webvowl" + File.separator + "data" + File.separator
-					+ "ontology.json"));
+			Path output = Path.of(outFolder, "webvowl", "data", "ontology.json");
+			Files.createDirectories(output.getParent());
+			Files.writeString(output, o.getJsonAsString(), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			logger.error("FAILED TO LOAD " + e.getMessage());
+			logger.error("Failed to generate the ontology diagram", e);
 		}
 	}
 }
