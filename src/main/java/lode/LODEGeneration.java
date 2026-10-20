@@ -30,6 +30,8 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Set;
 import javax.xml.transform.Transformer;
@@ -55,11 +57,31 @@ import widoco.Configuration;
  * @author Silvio Peroni, adpated for WIDOCO (and modified) by Daniel Garijo
  */
 public class LODEGeneration {
-        private static final Logger logger = LoggerFactory.getLogger(LODEGeneration.class);
+    	private static final Logger logger = LoggerFactory.getLogger(LODEGeneration.class);
+
+	/**
+	 * Issue 812: if the user provided a custom XSLT module (-customXSLT), it
+	 * replaces the default empty custom-module.xsl in the LODE resources folder.
+	 * Saxon resolves the xsl:include of extraction.xsl against that folder.
+	 */
+	private static void applyCustomXsltModule(Configuration c, File lodeResources) throws Exception {
+		String customXslt = c.getCustomXslt();
+		if (customXslt == null || customXslt.isEmpty()) {
+			return; // no flag: default empty module, output unchanged
+		}
+		File userModule = new File(customXslt);
+		if (!userModule.isFile()) {
+			throw new java.io.IOException("Custom XSLT module not found: " + userModule.getAbsolutePath());
+		}
+		Files.copy(userModule.toPath(),
+				new File(lodeResources, "custom-module.xsl").toPath(),
+				StandardCopyOption.REPLACE_EXISTING);
+		logger.info("Using custom XSLT module: " + userModule.getAbsolutePath());
+	}
 
 	public static String getLODEhtml(Configuration c, File lodeResources) throws Exception {
 		try {
-
+			applyCustomXsltModule(c, lodeResources);
 			String content = "";
 			String lang = c.getCurrentLanguage();
 			if (lang == null || lang.isEmpty()) {

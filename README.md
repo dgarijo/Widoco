@@ -154,6 +154,8 @@ docker run -ti --rm \
 
 `-crossRef`: ONLY generate the overview and cross reference sections. The index document will NOT be generated. The htaccess, provenance page, etc., will not be generated unless requested by other flags. This flag is intended to be used only after a first version of the documentation exists.
 
+`-customXSLT PATH`: Add extra content to the description of each class using your own XSLT module. PATH must point to a file defining the template `get.custom.class.content`.
+
 `-displayDirectImportsOnly`: Only those imported ontologies that are directly imported in the ontology being documented.
 
 `-doNotDisplaySerializations`: The serializations of the ontology will not be displayed.
