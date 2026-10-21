@@ -33,6 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
+import java.util.regex.Pattern;
 import java.util.Set;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -73,6 +74,15 @@ public class LODEGeneration {
 		if (!userModule.isFile()) {
 			throw new java.io.IOException("Custom XSLT module not found: " + userModule.getAbsolutePath());
 		}
+
+		String content = new String(Files.readAllBytes(userModule.toPath()), StandardCharsets.UTF_8);
+		if (!Pattern.compile("name\\s*=\\s*[\"']get\\.custom\\.class\\.content[\"']")
+				.matcher(content).find()) {
+			throw new java.io.IOException(
+					"Custom XSLT module must define the template \"get.custom.class.content\": "
+					+ userModule.getAbsolutePath());
+		}
+		
 		Files.copy(userModule.toPath(),
 				new File(lodeResources, "custom-module.xsl").toPath(),
 				StandardCopyOption.REPLACE_EXISTING);

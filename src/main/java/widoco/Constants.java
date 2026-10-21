@@ -401,7 +401,7 @@ public class Constants {
 "    -saveConfig PATH: Save a configuration file on PATH with the properties of a given ontology\n" +
 "    -useCustomStyle: Export the documentation using alternate css files (by Daniel Vila).\n" +
 "    -customXSLT PATH: Add extra content to class descriptions using your own XSLT module.\n"
-                + "        PATH must point to a file defining the template get.custom.class.content.\n"
+                + "        PATH must point to a file defining the template get.custom.class.content.\n" +
 "    -lang LANG1-LANG2: Generate documentation in multiple languages (separated by \"-\").\n"
                 + "        Note that if the language is not supported, the system will load the labels in english.\n"
                 + "        Usage example: en-pt-es\n" +

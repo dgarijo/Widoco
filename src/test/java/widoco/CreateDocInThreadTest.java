@@ -65,6 +65,9 @@ public class CreateDocInThreadTest {
     
     private static void deleteFiles(File folder){
         String[]entries = folder.list();
+        if (entries == null) {
+            return; // folder does not exist (or is not a directory): nothing to delete
+        }
         for(String s: entries){
             File currentFile = new File(folder.getPath(),s);
             if(currentFile.isDirectory()){
@@ -527,6 +530,27 @@ public class CreateDocInThreadTest {
         } catch (Exception e) {
             assertTrue("Unexpected error message: " + e.getMessage(),
                     String.valueOf(e.getMessage()).contains("Custom XSLT module not found"));
+        }
+    }
+
+    /**
+     * Test that a custom XSLT module that does not define the required
+     * get.custom.class.content template fails with a clear error message
+     * instead of a runtime Saxon error.
+     * Reference: https://github.com/dgarijo/Widoco/issues/812
+     */
+    @org.junit.Test
+    public void testIssue812NoTemplate() {
+        try {
+            c.setFromFile(true);
+            c.setCustomXslt("test" + File.separator + "custom_module_no_template.xsl");
+            this.c.setOntologyPath("test" + File.separator + "bne.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            fail("An exception was expected when the module lacks the get.custom.class.content template");
+        } catch (Exception e) {
+            assertTrue("Unexpected error message: " + e.getMessage(),
+                    String.valueOf(e.getMessage()).contains("must define the template"));
         }
     }
     
