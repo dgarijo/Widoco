@@ -4,7 +4,7 @@
 	<groupId>es.oeg</groupId>
 	<artifactId>widoco</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4.26</version>
+	<version>1.4.26-SNAPSHOT</version>
 	<name>Widoco</name>
 
 	<properties>
@@ -24,12 +24,12 @@
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.23.1</version>
+			<version>1.23.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.silverspy</groupId>
 			<artifactId>owl2vowl-core</artifactId>
-			<version>1.0.1</version>
+			<version>1.1.0</version>
 		</dependency>
 
 		<dependency>
