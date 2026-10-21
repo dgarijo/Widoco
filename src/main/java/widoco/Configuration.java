@@ -148,6 +148,12 @@ public class Configuration {
 	private Set<String> contributorKeys = new HashSet<>();
 	private Set<String> funderKeys = new HashSet<>();
 
+	/**
+	 * Path to a user-provided XSLT module that extends class descriptions
+	 * (issue 812). If null, the default empty module is used.
+	 */
+	private String customXslt;
+
 	public Configuration() {
 		initializeConfig();
 		try {
@@ -1076,6 +1082,14 @@ public class Configuration {
 			// Only a warning, as we can continue safely without a property file.
 			logger.warn("Error while reading configuration properties from [" + path + "]: " + ex.getMessage());
 		}
+	}
+
+	public String getCustomXslt() {
+		return customXslt;
+	}
+
+	public void setCustomXslt(String customXslt) {
+		this.customXslt = customXslt;
 	}
 
 	/**

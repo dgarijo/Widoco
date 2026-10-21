@@ -65,6 +65,9 @@ public class CreateDocInThreadTest {
     
     private static void deleteFiles(File folder){
         String[]entries = folder.list();
+        if (entries == null) {
+            return; // folder does not exist (or is not a directory): nothing to delete
+        }
         for(String s: entries){
             File currentFile = new File(folder.getPath(),s);
             if(currentFile.isDirectory()){
@@ -453,6 +456,101 @@ public class CreateDocInThreadTest {
             assertFalse("dateReleased should not be used", jsonld.contains("dateReleased"));
         } catch (Exception e) {
             fail("Error while running the test: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Test that a user-provided XSLT module (-customXSLT) injects extra content
+     * in the class descriptions, with the IRI of each class substituted.
+     * Reference: https://github.com/dgarijo/Widoco/issues/812
+     */
+    @org.junit.Test
+    public void testIssue812CustomModule() {
+        try {
+            c.setFromFile(true);
+            c.setCustomXslt("test" + File.separator + "custom_module_test.xsl");
+            this.c.setOntologyPath("test" + File.separator + "bne.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            String crossref = WidocoUtils.readExternalResource("myDoc" + File.separator + "doc"
+                    + File.separator + "sections" + File.separator
+                    + "crossref-" + c.getCurrentLanguage() + ".html");
+            assertFalse("crossref section could not be read (empty)", crossref.isEmpty());
+            assertTrue("Custom module content was not injected in the class descriptions",
+                    crossref.contains("custom812"));
+            assertTrue("The class IRI was not substituted in the custom content",
+                    crossref.contains("IRI=http://datos.bne.es/def/C1001"));
+        } catch (Exception e) {
+            fail("Error while running the test: " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Test that when the -customXSLT flag is NOT provided, the default empty
+     * module does not alter the class descriptions: the output must keep the
+     * previous behavior (issue 812).
+     * Reference: https://github.com/dgarijo/Widoco/issues/812
+     */
+    @org.junit.Test
+    public void testIssue812DefaultOutput() {
+        try {
+            c.setFromFile(true);
+            this.c.setOntologyPath("test" + File.separator + "bne.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            String crossref = WidocoUtils.readExternalResource("myDoc" + File.separator + "doc"
+                    + File.separator + "sections" + File.separator
+                    + "crossref-" + c.getCurrentLanguage() + ".html");
+            assertFalse("crossref section could not be read (empty)", crossref.isEmpty());
+            assertFalse("The default empty module should not inject any content",
+                    crossref.contains("IRI="));
+        } catch (Exception e) {
+            fail("Error while running the test: " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Test that providing a non-existent path with -customXSLT fails with a
+     * clear error message instead of silently ignoring the flag.
+     * Reference: https://github.com/dgarijo/Widoco/issues/812
+     */
+    @org.junit.Test
+    public void testIssue812MissingFile() {
+        try {
+            c.setFromFile(true);
+            c.setCustomXslt("test" + File.separator + "this_module_does_not_exist.xsl");
+            this.c.setOntologyPath("test" + File.separator + "bne.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            fail("An exception was expected when the custom XSLT module does not exist");
+        } catch (Exception e) {
+            assertTrue("Unexpected error message: " + e.getMessage(),
+                    String.valueOf(e.getMessage()).contains("Custom XSLT module not found"));
+        }
+    }
+
+    /**
+     * Test that a custom XSLT module that does not define the required
+     * get.custom.class.content template fails with a clear error message
+     * instead of a runtime Saxon error.
+     * Reference: https://github.com/dgarijo/Widoco/issues/812
+     */
+    @org.junit.Test
+    public void testIssue812NoTemplate() {
+        try {
+            c.setFromFile(true);
+            c.setCustomXslt("test" + File.separator + "custom_module_no_template.xsl");
+            this.c.setOntologyPath("test" + File.separator + "bne.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            CreateResources.generateDocumentation(c.getDocumentationURI(), c, c.getTmpFile());
+            fail("An exception was expected when the module lacks the get.custom.class.content template");
+        } catch (Exception e) {
+            assertTrue("Unexpected error message: " + e.getMessage(),
+                    String.valueOf(e.getMessage()).contains("must define the template"));
         }
     }
     

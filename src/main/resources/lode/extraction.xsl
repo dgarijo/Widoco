@@ -46,6 +46,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
     <xsl:include href="swrl-module.xsl"/>
     <xsl:include href="common-functions.xsl"/>
     <xsl:include href="structural-reasoner.xsl"/>
+    <xsl:include href="custom-module.xsl"/>
 
     <xsl:output encoding="UTF-8" indent="no" method="xhtml"/>
 
@@ -416,6 +417,7 @@ http://www.oxygenxml.com/ns/doc/xsl ">
             <xsl:call-template name="get.entity.metadata"/>
             <xsl:call-template name="get.rationale"/>
             <xsl:call-template name="get.example"/>
+            <xsl:call-template name="get.custom.class.content"/>
             <xsl:call-template name="get.class.description"/>
         </div>
     </xsl:template>
