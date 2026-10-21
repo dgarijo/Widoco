@@ -111,6 +111,7 @@ public final class GuiController {
 			    uniteSections = false, placeHolderText = true, localImports=false;
 		String confPath = "";
 		String code = null;// for tracking analytics.
+		String customXsltPath = null; //user-provided XSLT module
 		String[] languages = null;
 		int i = 0;
 		while (i < args.length) {
@@ -170,6 +171,10 @@ public final class GuiController {
 				break;
 			case "-analytics":
 				code = args[i + 1];
+				i++;
+				break;
+			case "-customXSLT":
+				customXsltPath = args[i + 1];
 				i++;
 				break;
 			case "-webVowl":
@@ -281,6 +286,9 @@ public final class GuiController {
 		}
 		if (rb != null) {
 			this.config.setRewriteBase(rb);
+		}
+		if (customXsltPath != null) {
+			this.config.setCustomXslt(customXsltPath);
 		}
 		if (languages != null) {
 			config.removeLanguageToGenerate("en");// default
