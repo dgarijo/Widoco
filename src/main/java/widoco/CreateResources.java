@@ -543,6 +543,7 @@ public class CreateResources {
 		textProperties += Constants.PF_LATEST_VERSION_URI + "=" + conf.getMainOntology().getLatestVersion() + "\n";
 		textProperties += Constants.PF_PREVIOUS_VERSION + "=" + conf.getMainOntology().getPreviousVersion() + "\n";
 		textProperties += Constants.PF_DATE_CREATED + "=" + conf.getMainOntology().getCreationDate() + "\n";
+		textProperties += Constants.PF_DATE_ISSUED + "=" + conf.getMainOntology().getIssuedDate() + "\n";
 		textProperties += Constants.PF_DATE_MODIFIED + "=" + conf.getMainOntology().getModifiedDate() + "\n";
 		textProperties += Constants.PF_ONT_REVISION_NUMBER + "=" + conf.getMainOntology().getRevision() + "\n";
 		textProperties += Constants.PF_LICENSE_URI + "=" + conf.getMainOntology().getLicense().getUrl() + "\n";
