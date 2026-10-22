@@ -65,6 +65,9 @@ public class CreateDocInThreadTest {
     }
     
     private static void deleteFiles(File folder){
+        if (folder == null || !folder.exists()) {
+            return;
+        }
         String[]entries = folder.list();
         for(String s: entries){
             File currentFile = new File(folder.getPath(),s);
@@ -488,9 +491,10 @@ public class CreateDocInThreadTest {
             assertTrue(provhtml.contains("The documentation was generated at 2025-03-10</li>"));
             assertFalse(provhtml.contains("2022-02-22"));
 
-            // TODO(#757): pending dgarijo's decision. Proposed: issued (2024-06-15), fallback modified.
-            // String jsonld = Constants.getJSONLDSnippet(c);
-            // assertTrue(jsonld.contains("\"datePublished\":\"2024-06-15\""));
+            // datePublished uses issued (schema.org: publication date), fallback created
+            // TODO(#757): if dani prefers modified here, change is one line.
+            String jsonld = Constants.getJSONLDSnippet(c);
+            assertTrue(jsonld.contains("\"datePublished\":\"2024-06-15\""));
         } catch (Exception e) {
             fail("Error while running the test: " + e.getMessage());
         }

@@ -669,10 +669,14 @@ public class Constants {
 		} else {
 			metadata += "\"Document describing the ontology " + o.getNamespaceURI() + "\"";
 		}
-		// release date (mandatory)
+		// release date (mandatory): issued (publication date), falling back to created
 		metadata += ", \"datePublished\":";
-		if (o.getCreationDate() != null && !"".equals(o.getCreationDate())) {
-			metadata += "\"" + o.getCreationDate() + "\"";
+		String publishedDate = o.getIssuedDate();
+		if (publishedDate == null || "".equals(publishedDate)) {
+			publishedDate = o.getCreationDate();
+		}
+		if (publishedDate != null && !"".equals(publishedDate)) {
+			metadata += "\"" + publishedDate + "\"";
 		} else {
 			metadata += "\"" + (new Date()).toString() + "\"";
 		}
