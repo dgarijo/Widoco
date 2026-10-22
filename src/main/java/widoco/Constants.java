@@ -1003,9 +1003,15 @@ public class Constants {
 		if (c.getMainOntology().getLogo() != null && !"".equals(c.getMainOntology().getLogo()))
 			head += "<img src=\""+c.getMainOntology().getLogo()+"\" width=\"50/\">\n";
 
-		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate()))
-			head += "<h2>" + l.getProperty(LANG_DATE) + " " + c.getMainOntology().getCreationDate() + "</h2>\n";
-
+		// if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate()))
+		// 	head += "<h2>" + l.getProperty(LANG_DATE) + " " + c.getMainOntology().getCreationDate() + "</h2>\n";
+		String releaseDate = c.getMainOntology().getModifiedDate();
+		if (releaseDate == null || "".equals(releaseDate)) {
+			releaseDate = c.getMainOntology().getCreationDate();
+		}
+		if (releaseDate != null && !"".equals(releaseDate)) {
+			head += "<h2>" + l.getProperty(LANG_DATE) + " " + releaseDate + "</h2>\n";
+		}
 		// start definition list
 		head += "\n\n<dl>\n";
 		if (c.getMainOntology().getModifiedDate() != null && !"".equals(c.getMainOntology().getModifiedDate()))
@@ -1196,8 +1202,15 @@ public class Constants {
 					+ c.getMainOntology().getPreviousVersion() + "</li>\n";
 		}
 		provhtml += "<li>" + lang.getProperty(LANG_RESULT);
-		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
-			provhtml += "<li>" + lang.getProperty(LANG_GENERATED) + " " + c.getMainOntology().getCreationDate() + "</li>\n";
+		// if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
+		// 	provhtml += "<li>" + lang.getProperty(LANG_GENERATED) + " " + c.getMainOntology().getCreationDate() + "</li>\n";
+		// }
+		String generatedDate = c.getMainOntology().getModifiedDate();
+		if (generatedDate == null || "".equals(generatedDate)) {
+			generatedDate = c.getMainOntology().getCreationDate();
+		}
+		if (generatedDate != null && !"".equals(generatedDate)) {
+			provhtml += "<li>" + lang.getProperty(LANG_GENERATED) + " " + generatedDate + "</li>\n";
 		}
 		provhtml += "</ul>\n" + "</div>\n<p>" + lang.getProperty(LANG_BACK) + " <a href=\"..\\index-"
 				+ c.getCurrentLanguage() + ".html\">" + lang.getProperty(LANG_BACK1) + "</a>. <a href=\"provenance-"
@@ -1275,8 +1288,15 @@ public class Constants {
 		if (c.getMainOntology().getPreviousVersion() != null && !"".equals(c.getMainOntology().getPreviousVersion())) {
 			provrdf += "\t prov:wasRevisionOf <" + c.getMainOntology().getPreviousVersion() + ">;\n";
 		}
-		if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
-			provrdf += "\t prov:wasGeneratedAt \"" + c.getMainOntology().getCreationDate() + "\";\n";
+		// if (c.getMainOntology().getCreationDate() != null && !"".equals(c.getMainOntology().getCreationDate())) {
+		// 	provrdf += "\t prov:wasGeneratedAt \"" + c.getMainOntology().getCreationDate() + "\";\n";
+		// }
+		String generatedDate = c.getMainOntology().getModifiedDate();
+		if (generatedDate == null || "".equals(generatedDate)) {
+			generatedDate = c.getMainOntology().getCreationDate();
+		}
+		if (generatedDate != null && !"".equals(generatedDate)) {
+			provrdf += "\t prov:wasGeneratedAt \"" + generatedDate + "\";\n";
 		}
 		provrdf += ".\n";
 		provrdf += agents;

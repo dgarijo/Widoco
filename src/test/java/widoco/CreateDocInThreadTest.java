@@ -23,6 +23,7 @@
 package widoco;
 
 import java.io.File;
+import java.util.Properties;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -456,4 +457,42 @@ public class CreateDocInThreadTest {
         }
     }
     
+    /**
+     * Dates must be mapped 1:1 (created / modified / issued).
+     * Reference: https://github.com/dgarijo/Widoco/issues/757
+     */
+    @org.junit.Test
+    public void testIssue757() {
+        try {
+            c.setFromFile(true);
+            this.c.setOntologyPath("test" + File.separator + "test_dates_757.ttl");
+            WidocoUtils.loadModelToDocument(c);
+            c.loadPropertiesFromOntology(c.getMainOntology().getOWLAPIModel());
+            // fixture: created=2022-02-22, modified=2025-03-10, issued=2024-06-15
+
+            Properties l = new Properties();
+            l.load(getClass().getResourceAsStream("/widoco/en.properties"));
+
+            // "Release:" use modified (fallback created)
+            String head = Constants.getHeadSection(c, l);
+            assertTrue(head.contains("<h2>Release: 2025-03-10</h2>"));
+            assertFalse(head.contains("2022-02-22"));
+
+            // prov:wasGeneratedAt use modified
+            String provrdf = Constants.getProvenanceRDF(c);
+            assertTrue(provrdf.contains("prov:wasGeneratedAt \"2025-03-10\";"));
+            assertFalse(provrdf.contains("2022-02-22"));
+
+            // "generated at" use modified y el </li> is closed
+            String provhtml = Constants.getProvenanceHtml(c, l);
+            assertTrue(provhtml.contains("The documentation was generated at 2025-03-10</li>"));
+            assertFalse(provhtml.contains("2022-02-22"));
+
+            // TODO(#757): pending dgarijo's decision. Proposed: issued (2024-06-15), fallback modified.
+            // String jsonld = Constants.getJSONLDSnippet(c);
+            // assertTrue(jsonld.contains("\"datePublished\":\"2024-06-15\""));
+        } catch (Exception e) {
+            fail("Error while running the test: " + e.getMessage());
+        }
+    }
 }
