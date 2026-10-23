@@ -1,0 +1,9 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/dates757> a owl:Ontology ;
+    dcterms:title    "Dates test"@en ;
+    dcterms:created  "2022-02-22"^^xsd:date ;
+    dcterms:modified "2025-03-10"^^xsd:date ;
+    dcterms:issued   "2024-06-15"^^xsd:date .
