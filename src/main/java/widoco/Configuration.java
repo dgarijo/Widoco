@@ -222,6 +222,7 @@ public class Configuration {
 		mainOntologyMetadata.setTitle("");
 		mainOntologyMetadata.setCreationDate("");
 		mainOntologyMetadata.setModifiedDate("");
+		mainOntologyMetadata.setIssuedDate("");
 		mainOntologyMetadata.setPreviousVersion("");
 		mainOntologyMetadata.setThisVersion("");
 		mainOntologyMetadata.setLatestVersion("");
