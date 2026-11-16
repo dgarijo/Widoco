@@ -72,8 +72,7 @@
       }
    ],
    "continuousIntegration":"https://raw.githubusercontent.com/dgarijo/Widoco/master/.github/workflows/ci.yml",
-   "releaseNotes":"This version of WIDOCO fixes documentation broken links, clarifies how to download Docker images and includes a new option for excluding the provenance page from documentation (thanks to @MikiDi) \r\n\r\n## What's Changed\r\n* Bump docker/build-push-action from 5.3.0 to 5.4.0 by @dependabot in https://github.com/dgarijo/Widoco/pull/709\r\n* CLI option to exclude provenance link by @MikiDi in https://github.com/dgarijo/Widoco/pull/710\r\n* Improved documentation (broken links)\r\n\r\n\r\n**Full Changelog**: https://github.com/dgarijo/Widoco/compare/v1.4.24...v1.4.25",
-   "softwareVersion":"v1.4.25",
+   "softwareVersion":"v1.4.26",
    "buildInstructions":[
       "https://raw.githubusercontent.com/dgarijo/Widoco/master/README.md"
    ],
